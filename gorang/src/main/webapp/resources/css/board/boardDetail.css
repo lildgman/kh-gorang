@@ -1,0 +1,118 @@
+body {
+    padding-top: 188px;
+}
+#board-detail{
+    width: 1920px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#boardDetailContents{
+    width: 1240px;
+    height: 895px;
+    background-color: yellow;
+    margin: 69px 340px 0 340px;
+    padding: 34px 39px 34px 39px;
+    border-style: solid;
+    border-color: #E9E9E9;
+    border-radius: 10px;
+
+
+}
+#writerProfile{
+    width: 1162px;
+    height: 112px;
+    background-color: red;
+    display: flex;
+    align-items: center;
+}
+#profileImg{
+    width: 112px;
+    height: 112px;
+}
+#profileInfo{
+    padding: 30px 0 20px 0;
+    width: 316px;
+    height: 110px;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+#profileInfo div{
+
+    margin-bottom: 8px; 
+    text-align: left;
+    width: 50%;
+}
+#profileId span{
+    font-size: 20px;
+    color: #000000;
+    font-weight: 600;
+}
+#boardCount{
+    display: flex;
+    margin-top: 3px;
+}
+#viewCount span{
+    margin-left: 10px;
+    font-size: 15px;
+}
+#likeCount span{
+    margin-left: 10px;
+    font-size: 15px;
+}
+#uploadDate span{
+    font-size: 20px;
+}
+#contentTitle{
+    width: 1162px;
+    height: 89px;
+    background-color: aquamarine;
+    padding: 15px 0 15px 0;
+
+}
+#contentTitle span{
+    font-size: 40px;
+    font-weight: 600;
+}
+#contentDetail{
+    width: 1162px;
+    height: 181px;
+    padding: 5px;
+    background-color: burlywood;
+}
+#contentService{
+    width: 1162px;
+    height: 72px;
+    display: flex;
+    background-color: red;
+}
+#tagWrapper{
+    width: 508px;
+    height: 72px;
+    background-color: green;
+    display: flex;
+    padding: 5px;
+    align-items: center;
+}
+#contentTag{
+    width: 70px;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 20px;
+    margin-right: 20px;
+}
+#contentTag span{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+#contentBtnWrapper{
+    width: 640px;
+    height: 72px;
+    background-color: aqua;
+    margin-left:14px;
+}
