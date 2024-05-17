@@ -11,6 +11,7 @@
 
 
 	<c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
+	<link rel="stylesheet" href="${contextPath }/resources/css/default.css">
 	<link rel="stylesheet" href="${contextPath }/resources/css/shopping/storeMain.css">
 </head>
 

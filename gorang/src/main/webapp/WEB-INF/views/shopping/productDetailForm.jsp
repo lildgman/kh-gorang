@@ -7,7 +7,20 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
     <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
+	<link rel="stylesheet" href="${contextPath }/resources/css/default.css">
     <link rel="stylesheet" href="${contextPath }/resources/css/shopping/productDetail.css">
 	
 </head>
@@ -77,14 +90,51 @@
                     </table>
                 </div>
                 <div id="product_buy_info_area">
-
+                    <div id="product_buy_info">
+                        <div id="product_name_amount">
+                            <div id="pname">
+                                성주 참외 꿀참외 1.5kg
+                            </div>
+                            <div id="product_amount_price">
+                                <div id="pamount_btn">
+                                    <div class="pbtn" id="minus_amount">-</div>
+                                    <div class="pbtn" id="amount">1</div>
+                                    <div class="pbtn" id="plus_amount">+</div>
+                                </div>
+                                <div id="price">
+                                    25,000원
+                                </div>
+                            </div>
+                        </div>
+                        <div id="product_buy_btn_container">
+                            <button class="btn" id="btn_cart">장바구니 담기</button>
+                            <button class="btn btn-primary" id="btn_buy">구매하기</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- 상품 상세 정보-->
-        <div id="productContent-area">
+        <div id="productContent_area">
+            <div id="area_left">
+                <nav id="product_info_nav">
+                    <div id="product_description" class="nav_div">상품설명</div>
+                    <div id="detail_description" class="nav_div">상세설명</div>
+                    <div id="product_review" class="nav_div">후기</div>
+                    <div id="product_qna" class="nav_div">문의</div>
+                </nav>
 
+                <div id="product_description_area">
+                    
+
+                </div>
+
+            </div>
+
+            <div id="area_right">
+
+            </div>
         </div>
     </div>
 	
