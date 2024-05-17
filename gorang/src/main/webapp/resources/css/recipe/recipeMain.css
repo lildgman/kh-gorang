@@ -6,7 +6,7 @@ body{
     width: 1920;
     height: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
 }
 
@@ -20,103 +20,306 @@ body{
     margin: 0 340px;
 }
 
-#recommend-box{
-    width: 100%;
-    height: 641px;
+    /* 추천 레시피 */
+    #recommend-box{
+        width: 100%;
+        height: 641px;
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+    }
+
+    .recipe-main-box-title{
+        width: 100%;
+        height: 36px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .recipe-main-box-title span:nth-child(1){
+        font-size: 28px;
+        font-weight: 900;
+    }
+
+    .recipe-main-box-title span:nth-child(2){
+        font-size: 16px;
+        font-weight: 500;
+        color: #1E90FF;
+    }
+
+    #recommend-box-recipe{
+        width: 1240px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    #recommend-box-recipe-thumbnail{
+        width: 1240px;
+        height: 500px;
+        background-color: #f8f8f8;
+    }
+
+    #recommend-box-textbox{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+    }
+
+    #recommend-box-textbox span:nth-child(1){
+        font-weight: 900;
+        font-size: 22px;
+    }
+
+    #recommend-box-textbox span:nth-child(2){
+        font-size: 16px;
+        color: #6D6D6D;
+    }
+
+    /*새로운 레시피*/
+    #recipe-main-new{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+    }
+
+    .recipe-main-listBox{
+        width: 1240px;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        gap: 24px;
+    }
+
+    .recipe-main-listBox-grid{
+        width: 292px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .recipe-main-listBox-grid-textBox{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .recipe-main-listBox-grid-textBox span:nth-child(1){
+        font-weight: 400;
+        font-size: 18px;
+        color: #6D6D6D;
+    }
+
+    .recipe-main-listBox-grid-textBox span:nth-child(2){
+        font-weight: 700;
+        font-size: 20px;
+        color: #000000;
+    }
+
+    /*추천 상품*/
+    #recipe-main-shopping{
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+    }
+
+    #recipe-main-shopping-list{
+        width: 1240px;
+        height: fit-content;
+        display: flex;
+        flex-direction: row;
+        gap: 24px;
+    }
+
+    .recipe-main-shopping-list-product{
+        width: 292px;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .recipe-main-shopping-list-product-textBox{
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding-right: 20px;
+    }
+
+    .recipe-main-shopping-list-product-textBox-title{
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        padding-right: 44px;
+    }
+
+    .recipe-main-shopping-list-product-textBox-title span:nth-child(1){
+        font-size: 14px;
+        letter-spacing: -2.5%;
+        line-height: 150%;
+        vertical-align: top;
+        text-align: left;
+        color: #999999;
+    }
+
+    .recipe-main-shopping-list-product-textBox-title span:nth-child(2){
+        height: fit-content;
+        font-weight: 500;
+        font-size: 18px;
+        letter-spacing: -2.5%;
+        line-height: 150%;
+        vertical-align: top;
+        text-align: left;
+    }
+
+    .recipe-main-shopping-list-product-textBox-price{
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        gap: 4px;
+    }
+
+    .recipe-main-shopping-list-product-textBox-price > span{
+        font-size: 16px;
+        letter-spacing: -2.5%;
+        color: #cccccc;
+    }
+
+    .recipe-main-shopping-list-product-textBox-price-box{
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+    }
+
+    .recipe-main-shopping-list-product-textBox-price-box-discount{
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        flex-direction: row;
+        gap: 7px;
+    }
+
+    .recipe-main-shopping-list-product-textBox-price-box-discount span{
+        font-size: 22px;
+        font-weight: 900;
+        line-height: 130%;
+        letter-spacing: -2.5%;
+    }
+
+    .recipe-main-discount{
+        color: #1E90FF;
+    }
+
+/*사이드바*/
+#sidebar{
     display: flex;
     flex-direction: column;
-    gap: 28px;
-}
-
-.recipe-main-box-title{
-    width: 100%;
-    height: 36px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-}
-
-
-.recipe-main-box-title span:nth-child(1){
-    font-size: 28px;
-    font-weight: 900;
-}
-
-.recipe-main-box-title span:nth-child(2){
-    font-size: 16px;
-    font-weight: 500;
-    color: #1E90FF;
-}
-
-#recommend-box-recipe{
-    width: 1240px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    gap: 20px;
+    align-items: center;
+    width: 86px;
+    height: 307px;
+    overflow: hidden;
+    position: fixed;
+    top: 40%;
+    right: 0.5%;
+    z-index: 10;
+    transition: all 1000ms ease-in;
 }
 
-#recommend-box-recipe-thumbnail{
-    width: 1240px;
-    height: 500px;
-    background-color: #f8f8f8;
-}
-
-#recommend-box-textbox{
-    width: 100%;
-    height: 100%;
+#recently-seen-div{
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border: 1px solid #e6e6e6;
+    background-color: #ffffff;
+}
+
+.button-arrow{
+    display: flex;
     justify-content: center;
-    gap: 4px;
+    align-items: center;
+    border-radius: 50%;
+    width: fit-content;
+    height: fit-content;
+    overflow: hidden;
+    position: absolute;
+    border: none;
+    outline: none;
+    z-index: 3;
+    cursor: pointer;
 }
 
-#recommend-box-textbox span:nth-child(1){
-    font-weight: 900;
-    font-size: 22px;
+#button-arrow-top{
+    top: 1%;
 }
 
-#recommend-box-textbox span:nth-child(2){
-    font-size: 16px;
+#button-arrow-bottom{
+    bottom: 1%;
+}
+
+#recently-seen-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: 80%;
+    height: fit-content;
+    overflow: hidden;
+    position: absolute;
+    top: 30px;
+}
+
+#recently-seen-container > span{
+    font-size: 14px;
+    line-height: 150%;
+    letter-spacing: -0.025rem;
     color: #6D6D6D;
 }
 
-.recipe-main-listBox{
-    width: 1240px;
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    gap: 24px;
-}
-
-.recipe-main-listBox-grid{
-    width: 292px;
-    height: 100%;
+#recently-seen-container > ul{
     display: flex;
     flex-direction: column;
-    gap: 16px;
-}
-
-.recipe-main-listBox-grid-textBox{
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    height: 100%;
+ }
+
+ #recently-seen-container > ul li{
     display: flex;
     flex-direction: column;
-    gap: 2px;
-}
+    align-items: center;
+    width: 100%;
+    height: 76px;
+    margin: 2px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+ }
 
-.recipe-main-listBox-grid-textBox span:nth-child(1){
-    font-weight: 400;
-    font-size: 18px;
-    color: #6D6D6D;
-}
-
-.recipe-main-listBox-grid-textBox span:nth-child(2){
-    font-weight: 700;
-    font-size: 20px;
-    color: #000000;
-}

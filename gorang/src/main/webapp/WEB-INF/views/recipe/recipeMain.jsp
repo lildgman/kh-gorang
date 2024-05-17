@@ -10,9 +10,38 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recipe/recipeMain.css">
 </head>
 <body>
+	<jsp:include page="../common/header.jsp" />
 	<main id="recipe-main">
-		<jsp:include page="../common/header.jsp" />
-
+		<div id="sidebar">
+			<div id="recently-seen-div">
+				<button class="button-arrow" id="button-arrow-top">
+					<svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<rect x="2.31445" y="7.46094" width="7.72042" height="1.54408" transform="rotate(-45 2.31445 7.46094)" fill="#D9D9D9"/>
+						<rect width="7.72042" height="1.54408" transform="matrix(-0.707107 -0.707107 -0.707107 0.707107 13.416 7.46094)" fill="#D9D9D9"/>
+					</svg>
+				</button>
+				<div id="recently-seen-container">
+					<span>최근 본 상품</span>
+					<ul>
+						<li>
+							<img src="${pageContext.request.contextPath}/resources/dummyImg/recipe/recipeMain/sidebarThumbnail1.png" alt="">
+						</li>
+						<li>
+							<img src="${pageContext.request.contextPath}/resources/dummyImg/recipe/recipeMain/sidebarThumbnail2.png" alt="">
+						</li>
+						<li>
+							<img src="${pageContext.request.contextPath}/resources/dummyImg/recipe/recipeMain/sidebarThumbnail3.png" alt="">
+						</li>
+					</ul>
+				</div>
+				<button class="button-arrow" id="button-arrow-bottom">
+					<svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<rect width="7.72042" height="1.54408" transform="matrix(0.707107 0.707107 0.707107 -0.707107 2.31445 2.53906)" fill="#D9D9D9"/>
+						<rect x="13.6855" y="2.53906" width="7.72042" height="1.54408" transform="rotate(135 13.6855 2.53906)" fill="#D9D9D9"/>
+					</svg>
+				</button>
+			</div>
+		</div>
 		<div id="recipe-main-contents">
 			<div id="recommend-box">
 				<div class="recipe-main-box-title">
@@ -73,8 +102,85 @@
 				</div>
 
 			</div>
+			<div id="recipe-main-shopping">
+				<div class="recipe-main-box-title">
+					<span>재료가 모자라지 않으신가요?</span>
+					<span>더보기</span>
+				</div>
+				<div id="recipe-main-shopping-list">
+					<div class="recipe-main-shopping-list-product">
+						<div style="height: 292px;"><img src="${pageContext.request.contextPath}/resources/dummyImg/recipe/recipeMain/productThumbnail1.png" alt=""></div>
+						<div class="recipe-main-shopping-list-product-textBox">
+							<div class="recipe-main-shopping-list-product-textBox-title">
+								<span>성주</span>
+								<span>당도선별 성주 꿀참외 1.5kg (4~7입)</span>
+							</div>
+							<div class="recipe-main-shopping-list-product-textBox-price">
+								<span> <del>2,620,000</del> </span>
+								<div class="recipe-main-shopping-list-product-textBox-price-box">
+									<div class="recipe-main-shopping-list-product-textBox-price-box-discount">
+										<span class="recipe-main-discount">20%</span>
+										<span>16,900</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="recipe-main-shopping-list-product">
+						<div style="height: 292px;"><img src="${pageContext.request.contextPath}/resources/dummyImg/recipe/recipeMain/productThumbnail2.png" alt=""></div>
+						<div class="recipe-main-shopping-list-product-textBox">
+							<div class="recipe-main-shopping-list-product-textBox-title">
+								<span>성수동 분식</span>
+								<span>콘치즈 김치볶음밥 (2개입)</span>
+							</div>
+							<div class="recipe-main-shopping-list-product-textBox-price">
+								<span> <del>9,900</del> </span>
+								<div class="recipe-main-shopping-list-product-textBox-price-box">
+									<div class="recipe-main-shopping-list-product-textBox-price-box-discount">
+										<span class="recipe-main-discount">12%</span>
+										<span>8,712</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="recipe-main-shopping-list-product">
+						<div style="height: 292px;"><img src="${pageContext.request.contextPath}/resources/dummyImg/recipe/recipeMain/productThumbnail3.png" alt=""></div>
+						<div class="recipe-main-shopping-list-product-textBox">
+							<div class="recipe-main-shopping-list-product-textBox-title">
+								<span>양양</span>
+								<span>친환경 브로콜리 1개</span>
+							</div>
+							<div class="recipe-main-shopping-list-product-textBox-price">
+								<div class="recipe-main-shopping-list-product-textBox-price-box">
+									<div class="recipe-main-shopping-list-product-textBox-price-box-discount">
+										<span>4,990</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="recipe-main-shopping-list-product">
+						<div style="height: 292px;"><img src="${pageContext.request.contextPath}/resources/dummyImg/recipe/recipeMain/productThumbnail4.png" alt=""></div>
+						<div class="recipe-main-shopping-list-product-textBox">
+							<div class="recipe-main-shopping-list-product-textBox-title">
+								<span>제주도니</span>
+								<span>제주 1등급 암퇘지 삼겹살 300g(냉장)</span>
+							</div>
+							<div class="recipe-main-shopping-list-product-textBox-price">
+								<span> <del>15,800</del> </span>
+								<div class="recipe-main-shopping-list-product-textBox-price-box">
+									<div class="recipe-main-shopping-list-product-textBox-price-box-discount">
+										<span class="recipe-main-discount">20%</span>
+										<span>12,640</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-
-		<jsp:include page="../common/footer.jsp" />
 	</main>
+	<jsp:include page="../common/footer.jsp" />
 </html>
