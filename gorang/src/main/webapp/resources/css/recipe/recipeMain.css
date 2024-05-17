@@ -1,5 +1,5 @@
 body{
-    padding-top: 188px;
+    padding-top: 170px;
 }
 
 #recipe-main{
@@ -40,7 +40,7 @@ body{
 
     .recipe-main-box-title span:nth-child(1){
         font-size: 28px;
-        font-weight: 900;
+        font-weight: 700;
     }
 
     .recipe-main-box-title span:nth-child(2){
@@ -76,13 +76,17 @@ body{
     }
 
     #recommend-box-textbox span:nth-child(1){
-        font-weight: 900;
+        font-weight: 700;
         font-size: 22px;
+        line-height: 130%;
+        letter-spacing: -0.025rem;
     }
 
     #recommend-box-textbox span:nth-child(2){
         font-size: 16px;
         color: #6D6D6D;
+        line-height: 150%;
+        letter-spacing: -0.025rem;
     }
 
     /*새로운 레시피*/
@@ -122,12 +126,16 @@ body{
         font-weight: 400;
         font-size: 18px;
         color: #6D6D6D;
+        line-height: 150%;
+        letter-spacing: -0.025rem;
     }
 
     .recipe-main-listBox-grid-textBox span:nth-child(2){
         font-weight: 700;
         font-size: 20px;
         color: #000000;
+        line-height: 150%;
+        letter-spacing: -0.025rem;
     }
 
     /*추천 상품*/
@@ -224,7 +232,7 @@ body{
 
     .recipe-main-shopping-list-product-textBox-price-box-discount span{
         font-size: 22px;
-        font-weight: 900;
+        font-weight: 700;
         line-height: 130%;
         letter-spacing: -2.5%;
     }
