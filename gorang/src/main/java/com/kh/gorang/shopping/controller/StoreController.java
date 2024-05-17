@@ -10,4 +10,14 @@ public class StoreController {
 	public String storeMainForm() {
 		return "shopping/shoppingMain";
 	}
+	
+	@RequestMapping("store/list")
+	public String storeList() {
+		return "shopping/productList";
+	}
+	
+	@RequestMapping("store/product")
+	public String productDetailForm() {
+		return "shopping/productDetailForm";
+	}
 }
