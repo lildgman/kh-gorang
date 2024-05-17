@@ -5,6 +5,7 @@
     font-weight: 600;
     position: fixed;
     top: 0;
+    z-index: 100;
 }
 
 /* header top */
