@@ -1,0 +1,134 @@
+
+#header{
+    width: 100%;
+    height: 188px;
+    font-weight: 600;
+}
+
+/* header top */
+#header-top{
+    width: 100%;
+    height: 52px;
+    background-color: #1E90FF;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+    #header-top > span{
+        font-size: 20;
+        font-weight: 500;
+        color: #ffffff;
+    }
+
+/* header bottom */
+
+#header-bottom{
+    width: 100%;
+    height: calc(100% - 52px);
+    padding: 20px 340px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 119px;
+}
+
+/* 헤더 왼편*/
+    #header-bottom-left{
+        width: 351px;
+        height: 80px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 56px;
+    }
+
+        #header-bottom-left-logo{
+            width: 78px;
+            height: 100%;
+        }
+
+        #header-bottom-left-category{
+            width: 217px;
+            height: 30px;
+            display: flex;
+            flex-direction: row;
+            gap: 40px;
+        }
+    
+    #header-bottom-right{
+        width: 770px;
+        height: 96px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 250px;
+    }
+
+        #header-bottom-right-searchbar{
+            width: 300px;
+            height: 24px;
+            border-bottom: solid 1px;
+            display: flex;
+            flex-direction: row;
+        }
+
+            #header-bottom-right-searchbar > input{
+                width: calc(100% - 24px);
+                height: 100%;
+                border: none;
+            }
+
+            #header-bottom-right-searchbar-logo{
+                width: 24px;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        
+        #header-bottom-right-login{
+            width: 220px;
+            height: 96px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+            #header-bottom-right-login span{
+                font-size: 12px;
+            }
+
+            #header-bottom-right-login-top{
+                width: 100%;
+                height: 18px;
+                display: flex;
+                flex-direction: row;
+                justify-content: end;
+                gap: 16px;
+            }
+
+            #header-bottom-right-login-bottom{
+                width: 100%;
+                height: 58px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                gap: 32px;
+                font-size: 12px;
+            }
+
+                .header-bottom-right-login-bottom-logo{
+                    width: 52px;
+                    height: 58px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                }
