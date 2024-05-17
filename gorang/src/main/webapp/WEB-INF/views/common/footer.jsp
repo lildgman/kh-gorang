@@ -7,10 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<link rel="stylesheet" href="${contextPath}/resources/css/default.css">
-<link rel="stylesheet" href="${contextPath}/resources/css/common/footer.css">
+<!--css-->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common/footer.css">
 </head>
 
 <body>
@@ -33,6 +31,7 @@
                             <span>형상관리</span>
                             <span>이슈 및 일정관리</span>
                             <span>DB관리</span>
+                            <span>조원</span>
                         </div>
                         <div class="footer-wrapper-wrap-container-box-contents">
                             <strong>프로젝트 정보</strong>
@@ -47,10 +46,18 @@
                                     <span>고객센터</span>
                                     <span>1111-1111</span>
                                 </div>
-                                <div></div>
-                                <div></div>
+                                <div id="footer-wrapper-wrap-container-box-info-customerCenter-hour">
+                                    <span>운영시간 평일 10:00 - 18:00 (토∙일, 공휴일 휴무)</span>
+                                    <span>점심시간 평일 13:00 - 14:00</span>
+                                </div>
+                                <div id="footer-wrapper-wrap-container-box-info-customerCenter-question">
+                                    <span>자주 묻는 질문</span>
+                                </div>
                             </div>
-                            <div></div>
+                            <div id="footer-wrapper-wrap-container-box-info-location">
+                                <span>고랭 주식회사: 대표 김동현 사업자등록번호: 111-11-11111</span>
+                                <span>사업장 소재지: 서울시 강남구 테헤란로 14길 6 3층 I 강의실</span>
+                            </div>
                         </div>
                     </div>
                 </div>
