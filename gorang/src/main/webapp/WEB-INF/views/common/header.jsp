@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,9 +12,7 @@
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
     
     <!-- css -->
-    <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-    <link rel="stylesheet" href="${contextPath}/resources/css/default.css">
-    <link rel="stylesheet" href="${contextPath}/resources/css/common/header.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common/header.css">
 </head>
 <body>
     <div id="header">

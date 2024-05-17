@@ -1,0 +1,122 @@
+body{
+    padding-top: 188px;
+}
+
+#recipe-main{
+    width: 1920;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#recipe-main-contents{
+    width: 1240px;
+    height: 1943px;
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+    padding: 100px 0;
+    margin: 0 340px;
+}
+
+#recommend-box{
+    width: 100%;
+    height: 641px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.recipe-main-box-title{
+    width: 100%;
+    height: 36px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.recipe-main-box-title span:nth-child(1){
+    font-size: 28px;
+    font-weight: 900;
+}
+
+.recipe-main-box-title span:nth-child(2){
+    font-size: 16px;
+    font-weight: 500;
+    color: #1E90FF;
+}
+
+#recommend-box-recipe{
+    width: 1240px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+#recommend-box-recipe-thumbnail{
+    width: 1240px;
+    height: 500px;
+    background-color: #f8f8f8;
+}
+
+#recommend-box-textbox{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+#recommend-box-textbox span:nth-child(1){
+    font-weight: 900;
+    font-size: 22px;
+}
+
+#recommend-box-textbox span:nth-child(2){
+    font-size: 16px;
+    color: #6D6D6D;
+}
+
+.recipe-main-listBox{
+    width: 1240px;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+}
+
+.recipe-main-listBox-grid{
+    width: 292px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.recipe-main-listBox-grid-textBox{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.recipe-main-listBox-grid-textBox span:nth-child(1){
+    font-weight: 400;
+    font-size: 18px;
+    color: #6D6D6D;
+}
+
+.recipe-main-listBox-grid-textBox span:nth-child(2){
+    font-weight: 700;
+    font-size: 20px;
+    color: #000000;
+}
