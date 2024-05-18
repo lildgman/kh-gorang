@@ -1,0 +1,217 @@
+body {
+    padding-top: 188px;
+}
+#board-main{
+    width: 1920;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#CommonBoardContents{
+    width: 1240px;
+    height: auto;
+    margin-right: 340px;
+    margin-left: 340px;
+}
+#BoardTagBox{
+    height: 158px;
+}
+#BoardTagBoxTop{
+    margin-left:520px;
+    margin-right:520px;
+}
+#SpanBox{
+    height: 79px;
+}
+#SpanBox span {
+    font-size: 50px;
+    font-weight: 700;
+}
+#BoardTagBoxBottom{
+    width: 1240px;
+    height: 79px;
+    position: absolute;
+    padding: 18px;
+}
+#PapularTagBox{
+    display: flex;
+    justify-content: center;
+    
+}
+#PapularTags{
+    width: 92px;
+    height: 37px;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    margin: 0 15px 0px 15px; 
+}
+#PapularTags span {
+    font-size: 16px;
+    margin-top: 8px;
+}
+#BoardContents{
+    margin: 80px 0 0 0;
+    width: 1240px;
+    height: 1917px;
+}
+#BoardSortings{
+    width: 1240px;
+    height: 21px;
+}
+#BoardSortingsBox{
+    width: 203px;
+    height: 21px;
+    float: right;
+    display: flex;
+}
+#SortingsLatest{
+    margin: 0 4px 0px 4px;
+    color: #6D6D6D;
+    border-right: 2px solid #E6E6E6;
+    padding-right: 10px;
+}
+#SortingsNums{
+    margin: 0 4px 0px 4px;
+    color: #6D6D6D;
+    border-right: 2px solid #E6E6E6;
+    padding-right: 10px;
+}
+#SortingsScrap{
+    margin: 0 4px 0px 4px;
+    color: #6D6D6D;
+}
+#BoardContentsBox {
+    width: 1240px;
+    height: auto;
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+.content-box {
+    display: contents; /* 기존 스타일을 유지하기 위해 사용 */
+}
+
+.content-item {
+    width: 292px;
+    height: auto;
+}
+
+#ContentImg {
+    width: 292px;
+    height: 292px;
+}
+
+#ContentImg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#ContentInfoBox {
+    width: 292px;
+    height: auto;
+    margin-top: 16px;
+}
+
+#ContentTitle {
+    height: 30px;
+}
+
+#ContentTitle span {
+    font-size: 20px;
+    font-weight: 800;
+}
+
+#ContentWriter {
+    width: 292px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+}
+
+#ContentWriterImg {
+    width: 18px;
+    height: 18px;
+    border-radius: 70%;
+}
+
+#ContentWriterImg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#ContentWriter span {
+    margin: 5px 0 0 5px;
+    color: #6D6D6D;
+    font-size: 16px;
+}
+
+#ContentBoardInfo {
+    margin-top: 4px;
+    display: flex;
+    font-size: 14px;
+    color: #6D6D6D;
+    padding: 5px 5px 5px 0px;
+}
+#BoardInfoScrap {
+    
+}
+#BoardInfoView {
+    margin-left: 9px;
+}
+
+#BoardInfoRec {
+    margin-left: 9px;
+}
+
+#ContentUploadDate {
+    width: 292px;
+    height: 21px;
+}
+
+#ContentUploadDate span {
+    color: #6D6D6D;
+}
+#BoardPageBarBox{
+    width: 1240px;
+    height: 164px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#pagination{
+    border-style: none;
+    background-color: #fff;
+}
+.page-item {
+    margin: 6px;
+}
+.page-item a {
+    border: none;
+    font-size: 14px;
+    color: #6D6D6D;
+    text-decoration: none;
+}
+
+
+.page-item a:hover {
+    color: #1E90FF;
+}
+
+
+.page-item a:focus {
+    color: #1E90FF;
+}
+
+.page-item a:active {
+    color: #1E90FF;
+}
+
