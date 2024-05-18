@@ -36,7 +36,7 @@
         <div id="category-area">
             <div class="store-category">
                 <div class="category-image-area">
-                    <img class="category-image" src="${contextPath }/resources/dummyImg/vaget.png" alt="야채">
+                    <img class="category-image" src="${contextPath }/resources/dummyImg/shopping//vaget.png" alt="야채">
                 </div>
                 <div class="category-name">
                     야채
@@ -45,7 +45,7 @@
 
             <div class="store-category">
                 <div class="category-image-area">
-                    <img class="category-image" src="${contextPath }/resources/dummyImg/fruit.png" alt="과일">
+                    <img class="category-image" src="${contextPath }/resources/dummyImg/shopping//fruit.png" alt="과일">
                 </div>
                 <div class="category-name">
                     과일
@@ -54,7 +54,7 @@
 
             <div class="store-category">
                 <div class="category-image-area">
-                    <img class="category-image" src="${contextPath }/resources/dummyImg/fish.png" alt="육류">
+                    <img class="category-image" src="${contextPath }/resources/dummyImg/shopping//fish.png" alt="육류">
                 </div>
                 <div class="category-name">
                     육류
@@ -63,7 +63,7 @@
 
             <div class="store-category">
                 <div class="category-image-area">
-                    <img class="category-image" src="${contextPath }/resources/dummyImg/meat.png" alt="어류">
+                    <img class="category-image" src="${contextPath }/resources/dummyImg/shopping//meat.png" alt="어류">
                 </div>
                 <div class="category-name">
                     어류
@@ -72,7 +72,7 @@
 
             <div class="store-category">
                 <div class="category-image-area">
-                    <img class="category-image" src="${contextPath }/resources/dummyImg/bread.png" alt="빵">
+                    <img class="category-image" src="${contextPath }/resources/dummyImg/shopping//bread.png" alt="빵">
                 </div>
                 <div class="category-name">
                     빵
@@ -81,7 +81,7 @@
 
             <div class="store-category">
                 <div class="category-image-area">
-                    <img class="category-image" src="${contextPath }/resources/dummyImg/noodle.png" alt="면">
+                    <img class="category-image" src="${contextPath }/resources/dummyImg/shopping//noodle.png" alt="면">
                 </div>
                 <div class="category-name">
                     면
@@ -90,7 +90,7 @@
 
             <div class="store-category">
                 <div class="category-image-area">
-                    <img class="category-image" src="${contextPath }/resources/dummyImg/dairy.png" alt="유제품">
+                    <img class="category-image" src="${contextPath }/resources/dummyImg/shopping//dairy.png" alt="유제품">
                 </div>
                 <div class="category-name">
                     유제품
@@ -116,7 +116,7 @@
                 <!-- 상품 -->
                 <div class="item">
                     <div class="item-thumbnail-area">
-                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/item1.png" alt="상품1">
+                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping//item1.png" alt="상품1">
                     </div>
                     <div class="item-text-area">
                         <div class="item-title">
@@ -135,7 +135,7 @@
 
                 <div class="item">
                     <div class="item-thumbnail-area">
-                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/item2.png" alt="상품1">
+                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping//item2.png" alt="상품1">
                     </div>
                     <div class="item-text-area">
                         <div class="item-title">
@@ -154,7 +154,7 @@
 
                 <div class="item">
                     <div class="item-thumbnail-area">
-                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/item3.png" alt="상품1">
+                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping//item3.png" alt="상품1">
                     </div>
                     <div class="item-text-area">
                         <div class="item-title">
@@ -173,7 +173,7 @@
 
                 <div class="item">
                     <div class="item-thumbnail-area">
-                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/item4.png" alt="상품1">
+                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping//item4.png" alt="상품1">
                     </div>
                     <div class="item-text-area">
                         <div class="item-title">
@@ -192,7 +192,7 @@
 
                 <div class="item">
                     <div class="item-thumbnail-area">
-                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/item1.png" alt="상품1">
+                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping/item1.png" alt="상품1">
                     </div>
                     <div class="item-text-area">
                         <div class="item-title">
@@ -211,7 +211,7 @@
 
                 <div class="item">
                     <div class="item-thumbnail-area">
-                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/item2.png" alt="상품1">
+                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping/item2.png" alt="상품1">
                     </div>
                     <div class="item-text-area">
                         <div class="item-title">
@@ -230,7 +230,7 @@
 
                 <div class="item">
                     <div class="item-thumbnail-area">
-                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/item3.png" alt="상품1">
+                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping/item3.png" alt="상품1">
                     </div>
                     <div class="item-text-area">
                         <div class="item-title">
@@ -249,7 +249,7 @@
 
                 <div class="item">
                     <div class="item-thumbnail-area">
-                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/item4.png" alt="상품1">
+                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping/item4.png" alt="상품1">
                     </div>
                     <div class="item-text-area">
                         <div class="item-title">
@@ -268,7 +268,7 @@
 
                 <div class="item">
                     <div class="item-thumbnail-area">
-                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/item1.png" alt="상품1">
+                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping/item1.png" alt="상품1">
                     </div>
                     <div class="item-text-area">
                         <div class="item-title">
@@ -287,7 +287,7 @@
 
                 <div class="item">
                     <div class="item-thumbnail-area">
-                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/item2.png" alt="상품1">
+                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping/item2.png" alt="상품1">
                     </div>
                     <div class="item-text-area">
                         <div class="item-title">
@@ -306,7 +306,7 @@
 
                 <div class="item">
                     <div class="item-thumbnail-area">
-                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/item3.png" alt="상품1">
+                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping/item3.png" alt="상품1">
                     </div>
                     <div class="item-text-area">
                         <div class="item-title">
@@ -325,7 +325,7 @@
 
                 <div class="item">
                     <div class="item-thumbnail-area">
-                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/item4.png" alt="상품1">
+                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping/item4.png" alt="상품1">
                     </div>
                     <div class="item-text-area">
                         <div class="item-title">
@@ -344,7 +344,7 @@
 
                 <div class="item">
                     <div class="item-thumbnail-area">
-                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/item1.png" alt="상품1">
+                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping/item1.png" alt="상품1">
                     </div>
                     <div class="item-text-area">
                         <div class="item-title">
@@ -363,7 +363,7 @@
 
                 <div class="item">
                     <div class="item-thumbnail-area">
-                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/item2.png" alt="상품1">
+                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping/item2.png" alt="상품1">
                     </div>
                     <div class="item-text-area">
                         <div class="item-title">
@@ -382,7 +382,7 @@
 
                 <div class="item">
                     <div class="item-thumbnail-area">
-                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/item3.png" alt="상품1">
+                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping/item3.png" alt="상품1">
                     </div>
                     <div class="item-text-area">
                         <div class="item-title">
@@ -401,7 +401,7 @@
 
                 <div class="item">
                     <div class="item-thumbnail-area">
-                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/item4.png" alt="상품1">
+                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping/item4.png" alt="상품1">
                     </div>
                     <div class="item-text-area">
                         <div class="item-title">
