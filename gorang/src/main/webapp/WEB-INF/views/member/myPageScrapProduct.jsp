@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -6,13 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     
+    <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
+    <link rel="stylesheet" href="${contextPath }/resources/css/member/myPageScrapBoard.css">
 </head>
 <body>
     
     <%@ include file="../common/header.jsp"%>
-    <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
-    <link rel="stylesheet" href="${contextPath }/resources/css/member/myPageScrapBoard.css">
+    
      
     <div id="body-area">
         <!-- 왼쪽 프로필 메뉴바영역 -->
@@ -88,7 +91,7 @@
                 </div>
 
                 <div id="scrap-area-content">
-
+                    
                     <c:forEach begin="1" end="7" step="1">
 						<div class="scrap-content">
                             <div class="scrap-img">

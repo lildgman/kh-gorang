@@ -1,0 +1,56 @@
+@charset "UTF-8";
+    /* a태그 부모상속 */
+a{
+    color: inherit; 
+}
+
+body{
+    padding-top: 170px;
+}
+
+#check_pwd_container{
+    width: 1170px;
+    height: 504px;
+    margin: 80px auto;
+    display: flex;
+    flex-direction: column;
+
+}
+
+#check_pwd_container_top {
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+#check_pwd_container_title {
+    font-size: 25px;
+    font-weight: bold; 
+    margin-bottom: 30px;
+}
+
+#check_pwd_container_infoTitle {
+    font-size: 24px; 
+    font-weight: bold; 
+    color: #626262; 
+    padding-bottom: 20px; 
+    border-bottom: 4px solid black;
+    margin-bottom: 50px;
+}
+
+#check_pwd_container_notice {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 18px;
+    color: #626262;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+
+
+
+

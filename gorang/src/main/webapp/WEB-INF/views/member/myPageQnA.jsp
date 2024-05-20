@@ -1,18 +1,22 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
+    <link rel="stylesheet" href="${contextPath }/resources/css/member/myPageQnA.css">
     
 </head>
 <body>
     
     <%@ include file="../common/header.jsp"%>
-    <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
-    <link rel="stylesheet" href="${contextPath }/resources/css/member/myPageQnA.css">
+    
      
     <div id="body-area">
         <!-- 왼쪽 프로필 메뉴바영역 -->
@@ -156,7 +160,7 @@
                 
                 <div id="recipe-area" class="content-area">
                     <div id="recipe-area-top">
-                        <div class="content-area-title cl-6d">게시글</div>
+                        <div class="content-area-title cl-6d">레시피</div>
                         <div class="content-area-comment cl-6d">내용</div>
                         <div class="content-area-date cl-6d">작성일</div>
                         <div class="content-area-answer cl-6d">상태</div>
