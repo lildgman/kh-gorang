@@ -18,6 +18,11 @@ public class MemberController {
 	public String myRecipeBoard(){
 		return "member/myRecipeBoard";
 	}
+	
+	@RequestMapping("myRefrigerator.me")
+	public String myRefrigerator(){
+		return "member/myRefrigerator";
+	}
 
 }
 
