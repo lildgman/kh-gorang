@@ -1,16 +1,20 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
+    <link rel="stylesheet" href="${contextPath }/resources/css/member/MyPage-View.css">
     
 </head>
 <body>
     
-    <%@ include file="../common/header.jsp"%>
-    <link rel="stylesheet" href="${contextPath}/resources/css/member/MyPage-View.css">
+    <jsp:include page="../common/header.jsp" />
+    
      
     <div id="body-area">
         <!-- 왼쪽 프로필 메뉴바영역 -->
@@ -158,6 +162,6 @@
             </div>
         </div>
     </div>
-    <%@ include file="../common/footer.jsp"%>
+    <jsp:include page="../common/footer.jsp" />
 </body>
 </html>
