@@ -7,7 +7,6 @@
             <meta charset="UTF-8">
             <title>Insert title here</title>
 
-
             <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
             <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
             <link rel="stylesheet" href="${contextPath }/resources/css/board/boardMain.css">
