@@ -18,7 +18,11 @@ public class MemberController {
 	public String myRecipeBoard(){
 		return "member/myRecipeBoard";
 	}
-
+	
+	@RequestMapping("myPageInfoEdit.me")
+	public String myPageInfoEdit(){
+		return "member/myPageInfoEdit";
+	}
 }
 
 
