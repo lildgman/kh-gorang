@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>     
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
@@ -23,13 +25,14 @@
     <script src="https://kit.fontawesome.com/68309de260.js" crossorigin="anonymous"></script>
 
     <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
-	<link rel="stylesheet" href="${contextPath }/resources/css/default.css">
+    <link rel="stylesheet" href="${contextPath }/resources/css/default.css">
     <link rel="stylesheet" href="${contextPath }/resources/css/shopping/productDetail.css">
-	
+
 </head>
+
 <body>
-	<!-- 헤더 시작-->
-    <jsp:include page="../common/header.jsp" /> 
+    <!-- 헤더 시작-->
+    <jsp:include page="../common/header.jsp" />
     <!-- 헤더 끝-->
 
     <!-- 상품 상세페이지 -->
@@ -48,15 +51,19 @@
                 <div id="product_name_area">
                     <span id="product_name">성주 참외 꿀참외 1.5kg</span>
                     <span id="zzim">
-                        <svg width="22" height="21" viewBox="0 0 22 21" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                            <rect width="22" height="21" fill="url(#pattern0_760_50865)"/>
+                        <svg width="22" height="21" viewBox="0 0 22 21" fill="none" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <rect width="22" height="21" fill="url(#pattern0_760_50865)" />
                             <defs>
-                            <pattern id="pattern0_760_50865" patternContentUnits="objectBoundingBox" width="1" height="1">
-                            <use xlink:href="#image0_760_50865" transform="matrix(0.0149148 0 0 0.015625 0.0227273 0)"/>
-                            </pattern>
-                            <image id="image0_760_50865" width="64" height="64" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAABJFJREFUeF7tm03IVFUYx3+CgQvRdkqSrlwIkRsVF+HCxE2i4KJNIaWigqmLQMrwK43ADzATLPEjRA0CBUMSzFa5EGrjB0S4EjFslYqLxEDvf3ruy/HMnXfunTnn3Jn7vhde3vm4c8/5/87/Oec8z52ZwBg/Joxx/YwDGHdANQKTgFnA64AeT3U+/i/wN/AY+Ae4V+3SXc+O0naZEMgbnm3CFwLzgSnADKfbj4A/gL9M/M/AzT5BRG97NAB54/OApcDbnmBp16g/9ZyQM5EDLgC9gEjWdicA6sCCbPTWOMIlVqP8ELhjj2X3J8BrpvpVYCag/woTHQJxDjgD3O5q9P9DK1nbRQDU+beAtcAK67BEXwOum6BfgPsFYiRandf/JZkD3rTHAncF+Bb43eAVsUjetg9AHXgnm8S2WJxr1P8ELpudfysxgvkpgvCe/b1hL8oB+4AfCyDU0rYLQNbTqO0w8fmoHwcuVhDunqpVQvPHekBziZ4XQfDFx2pb7vvM3NjqpwtgbvZ8t9leHfgpi+VDmSOqjHonTnLAVmB5AQT1wXVdzLbVP7lPLmzNRzkAjcAG4Eub2a8CnwcSn0MpgnAM+A/40HFdSPB523LfF+ZGzUenge0KwxzAIuCAdeIGsLMP248WLT4EdUariPYToUfeD8V3TbTmppFQEAB39NWJb7K1/dMeY77Mx3wI+kxM8e6kvNGcrtdaLhAA7epkfW10fgU+Dmz9IiguhOeB55vRBsENhZYLBGCZjbpseBZ4v8wwBjhHENYBE7P84lQC6OryNGCTrQTKW74WgE/MASns73PTsji5w6YqAOO2S6i9VcAee+eYAJzPkpaVwK3sxV224YnR+KBcU3udw8AcaXcBaL3flm2DtQQ2+dA2fz+grPaqC0DCN1tK22QAyk+0zMv14wDGogPcZb/lgJO2FW1LFBoaB+6yf0kA9rrrou2ZG6q9JUspuoozSvVPCYA2Bvm6OJIkNJSAu+2/CxwUgLbtoZsvNwyEm/S1ln0B0O5IW1LlyC+lig0T7yd93yvc83RYBYmjVr9r4mToV7u061Xxp7UT1KEcWVmgaoFywQ82L4S+uVGXqTpWu9yS2GLgK0BZmoRreTzR542NugS77U63Ha5qHJr5X6p2uQA0F7hVkyZAkPgPgI+s6tRW7fLL4goF3QxZbWExzBB88Q8sC1TxZ+QoujHSBAhF4r8Djvi1h063xoYZQmnxssFoN0eHEUIl8d0A5MvjsMwJlcWXATAsEHoSXxbAoEPoWXwVAIMKoS/xVQEMGoS+xfcCYFAgBBHfK4C6IQQT3w+AuiAEFd8vgNQQgosPASAVhCjiQwGIDSGa+JAAYkGIKj40gNAQoouPASAUhCTiYwHoF0Iy8TEB9AohqfjYAKpCSC4+BYCyEGoRnwpANwjPvNK1qreFBUxdKPRR5hcjodosqjHqdwT6dlpet08qPqUDcog+BPerssnF1wGgKBz0Wi3i6wLgQ3glZcz78ZxyDvDbzn9RonuSbXdsQk083a5TJwD1LfVXZdt41A2g2wBFf38cQHTEA97AC4Fl2VcaoFLrAAAAAElFTkSuQmCC"/>
+                                <pattern id="pattern0_760_50865" patternContentUnits="objectBoundingBox" width="1"
+                                    height="1">
+                                    <use xlink:href="#image0_760_50865"
+                                        transform="matrix(0.0149148 0 0 0.015625 0.0227273 0)" />
+                                </pattern>
+                                <image id="image0_760_50865" width="64" height="64"
+                                    xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAABJFJREFUeF7tm03IVFUYx3+CgQvRdkqSrlwIkRsVF+HCxE2i4KJNIaWigqmLQMrwK43ADzATLPEjRA0CBUMSzFa5EGrjB0S4EjFslYqLxEDvf3ruy/HMnXfunTnn3Jn7vhde3vm4c8/5/87/Oec8z52ZwBg/Joxx/YwDGHdANQKTgFnA64AeT3U+/i/wN/AY+Ae4V+3SXc+O0naZEMgbnm3CFwLzgSnADKfbj4A/gL9M/M/AzT5BRG97NAB54/OApcDbnmBp16g/9ZyQM5EDLgC9gEjWdicA6sCCbPTWOMIlVqP8ELhjj2X3J8BrpvpVYCag/woTHQJxDjgD3O5q9P9DK1nbRQDU+beAtcAK67BEXwOum6BfgPsFYiRandf/JZkD3rTHAncF+Bb43eAVsUjetg9AHXgnm8S2WJxr1P8ELpudfysxgvkpgvCe/b1hL8oB+4AfCyDU0rYLQNbTqO0w8fmoHwcuVhDunqpVQvPHekBziZ4XQfDFx2pb7vvM3NjqpwtgbvZ8t9leHfgpi+VDmSOqjHonTnLAVmB5AQT1wXVdzLbVP7lPLmzNRzkAjcAG4Eub2a8CnwcSn0MpgnAM+A/40HFdSPB523LfF+ZGzUenge0KwxzAIuCAdeIGsLMP248WLT4EdUariPYToUfeD8V3TbTmppFQEAB39NWJb7K1/dMeY77Mx3wI+kxM8e6kvNGcrtdaLhAA7epkfW10fgU+Dmz9IiguhOeB55vRBsENhZYLBGCZjbpseBZ4v8wwBjhHENYBE7P84lQC6OryNGCTrQTKW74WgE/MASns73PTsji5w6YqAOO2S6i9VcAee+eYAJzPkpaVwK3sxV224YnR+KBcU3udw8AcaXcBaL3flm2DtQQ2+dA2fz+grPaqC0DCN1tK22QAyk+0zMv14wDGogPcZb/lgJO2FW1LFBoaB+6yf0kA9rrrou2ZG6q9JUspuoozSvVPCYA2Bvm6OJIkNJSAu+2/CxwUgLbtoZsvNwyEm/S1ln0B0O5IW1LlyC+lig0T7yd93yvc83RYBYmjVr9r4mToV7u061Xxp7UT1KEcWVmgaoFywQ82L4S+uVGXqTpWu9yS2GLgK0BZmoRreTzR542NugS77U63Ha5qHJr5X6p2uQA0F7hVkyZAkPgPgI+s6tRW7fLL4goF3QxZbWExzBB88Q8sC1TxZ+QoujHSBAhF4r8Djvi1h063xoYZQmnxssFoN0eHEUIl8d0A5MvjsMwJlcWXATAsEHoSXxbAoEPoWXwVAIMKoS/xVQEMGoS+xfcCYFAgBBHfK4C6IQQT3w+AuiAEFd8vgNQQgosPASAVhCjiQwGIDSGa+JAAYkGIKj40gNAQoouPASAUhCTiYwHoF0Iy8TEB9AohqfjYAKpCSC4+BYCyEGoRnwpANwjPvNK1qreFBUxdKPRR5hcjodosqjHqdwT6dlpet08qPqUDcog+BPerssnF1wGgKBz0Wi3i6wLgQ3glZcz78ZxyDvDbzn9RonuSbXdsQk083a5TJwD1LfVXZdt41A2g2wBFf38cQHTEA97AC4Fl2VcaoFLrAAAAAElFTkSuQmCC" />
                             </defs>
-                        </svg>                            
+                        </svg>
                     </span>
                 </div>
                 <div id="product_grade_area">
@@ -133,18 +140,21 @@
                 <!-- 상품 설명 -->
                 <div id="product_description_area">
                     <div id="product_description_picture">
-                        <img id="product_description_img" src="${contextPath }/resources/dummyImg/shopping/product_description.png" alt="상품사진">
+                        <img id="product_description_img"
+                            src="${contextPath }/resources/dummyImg/shopping/product_description.png" alt="상품사진">
                     </div>
 
                     <div id="product_description_p">
-                        <p>경북 성주는 풍부한 일조량, 물 빠짐이 좋은 미사질 토양을 지녀 참외를 재배하기에 최적의 조건을 갖춘 곳인데요. 참외가 참 신선하고 맛이 좋다 싶으면 역시나 성주에서 온 참외이곤 하지요. 
-                            컬리는 과실이 통통하게 잘 여문 향긋한 성주 참외를 온 가족이 함께 즐길 수 있는 양으로 담아 준비했어요. 
-                            시원한 냉장고 혹은 찬물에 잠시 두었다가 꺼내 먹으면, 참외의 달콤한 향이 더욱 선명하게 느껴질 거예요. 
+                        <p>경북 성주는 풍부한 일조량, 물 빠짐이 좋은 미사질 토양을 지녀 참외를 재배하기에 최적의 조건을 갖춘 곳인데요. 참외가 참 신선하고 맛이 좋다 싶으면 역시나 성주에서
+                            온 참외이곤 하지요.
+                            컬리는 과실이 통통하게 잘 여문 향긋한 성주 참외를 온 가족이 함께 즐길 수 있는 양으로 담아 준비했어요.
+                            시원한 냉장고 혹은 찬물에 잠시 두었다가 꺼내 먹으면, 참외의 달콤한 향이 더욱 선명하게 느껴질 거예요.
                             아삭아삭한 식감, 함뿍 배어 나오는 달큰한 과즙을 그대로 음미해 보세요.</p>
                     </div>
 
                     <div id="product_detail_description">
-                        <img id="product_detail_img" src="${contextPath }/resources/dummyImg/shopping/product_detail.png" alt="">
+                        <img id="product_detail_img"
+                            src="${contextPath }/resources/dummyImg/shopping/product_detail.png" alt="">
                     </div>
                 </div>
 
@@ -154,7 +164,8 @@
                     <div id="product_review">
                         <div id="review_writer_area">
                             <div id="review_writer_pic_container">
-                                <img id="review_writer_pic" src="${contextPath }/resources/dummyImg/shopping/dog.jpeg" alt="">
+                                <img id="review_writer_pic" src="${contextPath }/resources/dummyImg/shopping/dog.jpeg"
+                                    alt="">
                             </div>
                             <div id="review_writer_id_rate">
                                 <div id="review_writer_id">user01</div>
@@ -179,7 +190,7 @@
                                 ㅎㅎㅎ<br>
                             </p>
                         </div>
-                        
+
                     </div>
                     <!-- 상품리뷰 페이지네이션 -->
                     <div id="review_pagination_area">
@@ -196,7 +207,8 @@
                 <div id="product_qna_area">
                     <div id="qna_top">
                         <div class="description_title">상품 문의</div>
-                        <button class="btn btn-primary" style="background-color: #1E90FF; width: 123px; height: 53px; font-size: 20px;">문의하기</button>
+                        <button id="btn_qna" class="btn btn-primary"
+                            style="background-color: #1E90FF; width: 123px; height: 53px; font-size: 20px;" data-toggle="modal" data-target="#qna_Modal">문의하기</button>
                     </div>
 
                     <table id="qna_content">
@@ -221,7 +233,8 @@
                                         <span class="span_q_a">Q</span><span>유통기한은 어느정도 인가요?</span>
                                     </div>
                                     <div id="qna_a">
-                                        <span class="span_q_a">A</span><span>정해진 소비기한은 없지만 2~3일 내로 섭취하는 것을 권장드립니다.</span>
+                                        <span class="span_q_a">A</span><span>정해진 소비기한은 없지만 2~3일 내로 섭취하는 것을
+                                            권장드립니다.</span>
                                     </div>
                                     <div id="qna_a_date">2024-04-22</div>
                                 </td>
@@ -249,8 +262,69 @@
 
             </div>
         </div>
+
+        <!-- 문의하기 modal -->
+        <div class="modal fade" id="qna_Modal">
+            <div class="modal-dialog">
+                <div class="modal-content" style="height: 510px;">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 style="font-size: 16px; margin-bottom: 0px;">상품 문의하기</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body" style="height: 100%;">
+                        <div id="modal-qna-content">
+                            <div id="product_name_container">
+                                <div id="qna_product_name_header">
+                                    상품명
+                                </div>
+                                <div id="qna_product_name">
+                                    상품이름
+                                </div>
+                            </div>
+
+                            <div id="product_pic_container">
+                                <div style="font-size: 14px; font-weight: bold;">
+                                    사진 첨부(선택)
+                                </div>
+                                <div style="font-size: 12px;">
+                                    사진을 첨부해주세요.(최대 1장)
+                                </div>
+                                <div id="qna_product_pic">
+                                    <div id="pic_svg_container">
+                                        <svg width="21" height="16" viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M19.6059 0C20.1059 0 20.5059 0.4 20.5059 0.9V15.1C20.5059 15.6 20.1059 16 19.6059 16H1.40586C1.16716 16 0.938246 15.9052 0.769463 15.7364C0.600681 15.5676 0.505859 15.3387 0.505859 15.1V0.9C0.505859 0.4 0.905859 0 1.40586 0H19.6059ZM18.6959 1.8H2.30586V12.65L7.84586 6.38C7.96586 6.21 8.22586 6.21 8.36586 6.38L11.4659 9.92C11.5259 9.98 11.5459 10.06 11.5259 10.12L11.1259 11.96C11.1059 12.1 11.2759 12.19 11.3559 12.08L14.5159 8.65C14.5664 8.59992 14.6347 8.57183 14.7059 8.57183C14.777 8.57183 14.8453 8.59992 14.8959 8.65L18.6859 12.77V1.8H18.6959ZM15.3259 6.6C14.9394 6.60004 14.5685 6.44791 14.2934 6.17654C14.0183 5.90517 13.8611 5.53639 13.8559 5.15C13.8559 4.34 14.5159 3.69 15.3259 3.69C16.1359 3.69 16.8059 4.34 16.8059 5.15C16.8059 5.95 16.1459 6.6 15.3259 6.6Z" fill="#1E90FF"/>
+                                            </svg>
+                                    </div>
+                                    <span style="color:#1E90FF; font-size: 14px;">사진 첨부하기</span>
+                                </div>
+                            </div>
+
+                            <div id="product_qna_content_container">
+                                <div style="font-size: 14px; font-weight: bold;">
+                                    문의내용
+                                </div>
+                                <div id="product_qna_content_textarea">
+                                    <textarea name="" id="product_qna_content" placeholder="문의 내용을 입력하세요."></textarea>
+                                </div>
+                            </div>
+
+                            <div id="produt_qna_enroll_btn_container">
+                                <button id="produt_qna_enroll_btn">완료</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
     </div>
-	
+
 
 </body>
+
 </html>
