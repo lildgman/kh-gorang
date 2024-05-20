@@ -88,7 +88,7 @@
                 </div>
 
                 <div id="scrap-area-content">
-
+                    
                     <c:forEach begin="1" end="7" step="1">
 						<div class="scrap-content">
                             <div class="scrap-img">

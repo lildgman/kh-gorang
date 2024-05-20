@@ -156,7 +156,7 @@
                 
                 <div id="recipe-area" class="content-area">
                     <div id="recipe-area-top">
-                        <div class="content-area-title cl-6d">게시글</div>
+                        <div class="content-area-title cl-6d">레시피</div>
                         <div class="content-area-comment cl-6d">내용</div>
                         <div class="content-area-date cl-6d">작성일</div>
                         <div class="content-area-answer cl-6d">상태</div>
