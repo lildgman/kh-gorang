@@ -10,8 +10,7 @@ body {
 }
 #boardDetailContents{
     width: 1240px;
-    height: 895px;
-    background-color: yellow;
+    height: fit-content;
     margin: 69px 340px 0 340px;
     padding: 34px 39px 34px 39px;
     border-style: solid;
@@ -23,7 +22,6 @@ body {
 #writerProfile{
     width: 1162px;
     height: 112px;
-    background-color: red;
     display: flex;
     align-items: center;
 }
@@ -42,7 +40,6 @@ body {
     align-items: flex-start;
 }
 #profileInfo div{
-
     margin-bottom: 8px; 
     text-align: left;
     width: 50%;
@@ -70,7 +67,7 @@ body {
 #contentTitle{
     width: 1162px;
     height: 89px;
-    background-color: aquamarine;
+
     padding: 15px 0 15px 0;
 
 }
@@ -82,18 +79,18 @@ body {
     width: 1162px;
     height: 181px;
     padding: 5px;
-    background-color: burlywood;
+
 }
 #contentService{
     width: 1162px;
     height: 72px;
     display: flex;
-    background-color: red;
+
 }
 #tagWrapper{
     width: 508px;
     height: 72px;
-    background-color: green;
+
     display: flex;
     padding: 5px;
     align-items: center;
@@ -113,6 +110,166 @@ body {
 #contentBtnWrapper{
     width: 640px;
     height: 72px;
-    background-color: aqua;
+
     margin-left:14px;
+    display: flex;
+    padding: 7px;
+}
+#contentLike{
+    padding: 17px;
+    margin-left: 360px;
+    width: 110px;
+    height: 60px;
+
+    text-align: center;
+}
+#contentLike span{
+    margin-left: 10px;
+}
+#contentReport{
+    padding: 14px;
+    width: 145px;
+    height: 60px;
+
+    text-align: center;
+}
+#replyCountWrap{
+    width: 1162px;
+    height: 63px;
+
+    font-size: 20px;
+}
+#replyCount{
+    width: fit-content;
+    height: 63px;
+
+    padding: 15px;
+}
+#replyWriteWrap{
+    width: 1162px;
+    height: 100px;
+    border-style: solid;
+    border-color: #838383;
+    border-width: 1px;
+    border-radius: 10px;
+    display: flex;
+    padding: 2px;
+}
+#replyWriterInfo{
+    width: 106px;
+    height: 90px;
+    align-items: center;
+    justify-content: center;
+    padding: 25px 25px 25px 15px;
+}
+#replyWriterInfo img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+#replyWriteWrap textarea{
+    margin: 30px 0 25px 0;
+    width: 880px;
+    height: 40px;
+    border: none;
+    resize: none;
+    outline: none;   
+    text-align: left;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+.replyWriteWrap textarea ::placeholder{
+    text-align: left;
+    display: flex;
+    align-items: center;
+    height: 100%; 
+    line-height: 100px; 
+}
+.reply-button{
+    width: 120px;
+    height: 80px;
+    border: none;
+    background-color: #1E90FF;
+    font-size: 20;
+    color: #ffff;
+    border-radius: 10px;
+    margin-left: 35px;
+    margin-top: 5px;
+}
+#ReplyArea{
+    width: 1162px;
+    height: fit-content;
+}
+#userReplyWrap{
+    padding: 2px;
+    width: 1162px;
+    height: 100px;
+}
+#userReplyWriterInfo{
+    width: 1020px;
+    height: 90px;
+    padding: 10px;
+    display: flex;
+    float: left;
+    padding-left: 20px;
+}
+#userReplyWriterImgWrap{
+    width: 85px;
+}
+#userReplyWriterInfo img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-top: 10px;
+}
+#userReplyContentWrap{
+    width: 100%;
+    height: 80px;
+    padding: 3px;
+}
+#userReplyWriterDetail{
+    display: flex;
+}
+#userReplyWriterDetailId{
+    margin-right: 20px;
+    font-size: 15px;
+    font-weight: 800;
+}
+#userReplyWriterDetailDate{
+    font-size: 14px;
+    font-weight: 500;
+}
+#userReplyContent{
+    padding: 5px 0 5px 0; 
+    font-weight: 500;
+}
+#ReplyService{
+    height: 100px;
+    padding: 5px;
+    margin-top: 40px;
+}
+#ReplyReport{
+
+}
+#ReplyReport span{
+    font-size: 13px;
+}
+#boardMainReturnWrap{
+    width: 1240px;
+    height: 200px;
+    margin-left: 340px;
+    margin-right: 340px;
+    padding: 70px 533px 70px 533px;
+}
+#ReturnBtnWrap{
+    width: 175px;
+    height: 57px;
+}
+#ReturnBtnWrap button{
+    width: 175px;
+    height: 57px;
+    background-color:#1E90FF;
+    color: #ffff;
+    border-radius: 10px;
 }
