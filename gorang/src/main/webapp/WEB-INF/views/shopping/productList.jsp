@@ -442,5 +442,6 @@
 
 
     <!-- 컨텐츠 끝 -->
+    <jsp:include page="../common/footer.jsp" />
 </body>
 </html>
