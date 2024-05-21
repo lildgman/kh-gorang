@@ -20,4 +20,14 @@ public class StoreController {
 	public String productDetailForm() {
 		return "shopping/productDetailForm";
 	}
+	
+	@RequestMapping("cart")
+	public String productCartForm() {
+		return "shopping/shoppingCartForm";
+	}
+	
+	@RequestMapping("order")
+	public String productOrderForm() {
+		return "shopping/shoppingOrderForm";
+	}
 }

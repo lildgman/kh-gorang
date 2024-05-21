@@ -1,0 +1,96 @@
+@charset "UTF-8";
+    /* a태그 부모상속 */
+a{
+    color: inherit; 
+}
+
+body{
+    padding-top: 170px;
+    width: 1920px;
+}
+
+#with_Draw_container{
+    width: 1170px;
+    height: 504px;
+    margin: 80px auto;
+    display: flex;
+    flex-direction: column;
+
+}
+
+#with_Draw_container_title {
+    font-size: 25px;
+    font-weight: bold; 
+    margin-bottom: 30px;
+}
+
+#with_Draw_container_infoTitle {
+    font-size: 24px; 
+    font-weight: bold; 
+    color: #626262; 
+    padding-bottom: 20px; 
+    border-bottom: 4px solid black;
+    margin-bottom: 50px;
+}
+
+#with_Draw_container_notice {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 18px;
+    color: #626262;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+#with_Draw_container_enroll_area {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+}
+
+#input_pwd_area {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 600px;
+    height: 45px;
+    border: 1px solid black;
+    border-radius: 4px;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+#lock_svg_area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#input_pwd {
+    border: none;
+}
+
+#input_pwd:focus {
+    outline: none;
+    border: none;
+}
+
+#check_pwd_btn_area{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#check_pwd_btn{
+    background-color: #1E90FF;
+    width: 162px;
+    height: 41px;
+    color: white;
+}
+
+
+
+

@@ -1,0 +1,60 @@
+#main-container {
+  padding-top: 170px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
+}
+
+#main-banner-area {
+  width: 1920px;
+  height: 760px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-banner {
+  width: 640px;
+  height: 100%;
+  position: relative;
+}
+
+#main-content-area {
+  width: 1240px;
+  height: 1000px;
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  border: 1px solid red;
+}
+
+.main-banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.main-banner-comment {
+  position: absolute;
+  z-index: 10;
+  bottom: 90px;
+  left: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.main-comment {
+  font-size: 42px;
+  font-weight: bold;
+  color: white;
+}
+
+.sub-comment {
+  font-size: 28px;
+  color: white;
+}
