@@ -19,10 +19,17 @@ public class MemberController {
 		return "member/myRecipeBoard";
 	}
 	
+
+	@RequestMapping("myRefrigerator.me")
+	public String myRefrigerator(){
+		return "member/myRefrigerator";
+	}
+
 	@RequestMapping("myPageInfoEdit.me")
 	public String myPageInfoEdit(){
 		return "member/myPageInfoEdit";
 	}
+
 }
 
 
