@@ -21,7 +21,6 @@ body{
 #check_pwd_container_top {
     display: flex;
     flex-direction: row;
-    padding: 5px;
     gap: 5px;
     margin-bottom: 10px;
 }
