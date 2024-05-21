@@ -9,4 +9,13 @@ public class RecipeController {
 	public String recipeMainPage(){
 		return "recipe/recipeMain";
 	}
+	
+	
+	@RequestMapping("recipeDetail.re")
+	public String recipDetailPage(){
+		return "recipe/recipeDetail";
+	}
 }
+
+
+
