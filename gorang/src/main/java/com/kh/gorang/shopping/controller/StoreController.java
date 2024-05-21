@@ -22,7 +22,12 @@ public class StoreController {
 	}
 	
 	@RequestMapping("cart")
-	public String storeCartForm() {
+	public String productCartForm() {
 		return "shopping/shoppingCartForm";
+	}
+	
+	@RequestMapping("order")
+	public String productOrderForm() {
+		return "shopping/shoppingOrderForm";
 	}
 }

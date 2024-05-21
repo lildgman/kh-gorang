@@ -38,6 +38,7 @@
             <!-- 장바구니 내용물들 -->
             <div id="product-content-area">
     			
+                <!-- 장바구니 내용물 -->
     			<c:forEach begin="1" end="3" step="1">
 	    			<div class="product-in-cart">
 	                    <div class="select-checkbox-container">
@@ -69,7 +70,6 @@
 	                </div>
     			
     			</c:forEach>
-                <!-- 장바구니 내용물 -->
                 
 
                 
