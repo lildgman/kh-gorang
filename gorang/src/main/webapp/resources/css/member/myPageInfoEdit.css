@@ -1,0 +1,364 @@
+body {
+    padding-top: 188px;
+}
+#InfoEditContent{
+    width: 1920;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#InfoEditWrap{
+    width: 1240px;
+    height: 1440px;
+    margin: 80px 340px 80px 340px;
+}
+#InfoEditHead{
+    width: 1240px;
+    height: 126px;
+    border-bottom: 3px black solid;
+}
+#editSpan{
+    font-size: 25px;
+    font-weight: 800;
+
+}
+#myinfoSpan{
+    margin-top: 35px;
+    font-size: 25px;
+    font-weight: 800;
+    color: #626262;
+}
+#userInfo{
+    width: 210px;
+    height: 320px;
+    margin: 43px 524px 0 524px; 
+}
+
+/* 유저 프로필 영역 */
+#userProfileArea{ 
+    height: 120px;
+    padding: 0px 45px;
+    margin-bottom: 24px;
+}
+#userProfile{
+    /* border: 1px solid; */
+    height: 120px;
+    border-radius: 50%;
+}
+/* 유저 프로필 사진 */
+#userProfile > img{
+    height: 120px;
+    width: 100%;
+    border-radius: 50%;
+}
+
+/* 유저 프로필 사진 연필 */
+#userProfile-pencil{
+    height: 50px;
+    position: relative;
+    top: -45px;
+    left: 90px;
+}
+
+/* 유저 닉네임 팔로워 팔로잉 등급 영역 */
+#userNickName-area{
+    height: 96px;
+    font-size: 20px;
+    font-weight: bolder;
+    text-align: center;
+    width: 142px;
+    margin: 0px 32px;
+}
+#userNickName-area a{
+    text-decoration-line:none ;
+    color: #000;
+}
+
+/* 닉네임 옆 '>' 방향 */
+#Bector{
+    margin-bottom: 3px;
+    width: calc(4% + 1px); /* 이미지의 너비를 1px 키웁니다. */
+    height: calc(15% + 1px); /* 이미지의 높이를 1px 키웁니다. */
+}
+
+/* 유저 팔로워, 팔로잉 */
+#userFollow{
+    margin-top: 6px;
+    color: #6D6D6D;
+    width: 100%;
+    font-size: 16px;
+    display: flex;       
+}
+
+/* 팔로워 0 */
+#userFollower{
+    margin-right: 10px;
+}
+
+/* 팔로잉 0 */
+#userFollowing{
+    margin-left: 10px;
+}
+
+/* 유저 등급 */
+#userGrade{
+    display: inline-block;
+    padding: 4px 8px;
+    margin-top: 12px;
+    color: #1E90FF;
+    font-size: 16px;
+    height: 30px;
+    background-color:#EAF0F6 ;
+}
+#userIdWrap{
+    height: 60px;
+    width: 700px;
+    margin: 0px 231px ;
+    display: flex;
+}
+#IdWrap{
+    height: 50px;
+    width: 100px;
+}
+#IdWrap span{
+    font-weight: 600;
+}
+#CurrentuserId{
+    margin-left: 30px;
+    height: 50px;
+    width: 300px;
+    color: #9E9E9E;
+}
+#IdChangeBtn{
+    margin-left: 60px;
+    width: 57px;
+    height: 30px;
+    border:#1E90FF solid;
+    text-align: center;
+    border-width: 2px;
+
+}
+#IdChangeBtn span{
+    color: #1E90FF;
+    font-weight: 500;
+}
+#userNpwWrap{
+    height: 60px;
+    width: 700px;
+    margin: 30px 231px;
+    display: flex;
+}
+#NpwWrap{
+    height: 50px;
+    width: 130px;
+    margin-top: 10px;
+}
+#NpwWrap span{
+    font-weight: 600; 
+}
+#NpwInput{
+    height: 41px;
+    width: 580px;
+    background-color: white;
+    border-style: solid;
+    border-color: #000;
+    border-width: 1px;
+    border-radius: 10px;
+    padding: 2px;
+}
+#NpwInput input{
+    margin-left: 10px;
+    width: 520px;
+    height: 35px;
+    border-style: none;
+    float: left;
+    resize: none;
+    outline: none;
+}
+#NpwInput button{
+    margin-top: 5px;
+    margin-left: 5px;
+}
+#userNpwCheckWrap{
+    height: 60px;
+    width: 700px;
+    margin: 30px 231px;
+    display: flex;
+}
+#userNickNameWrap{
+    height: 60px;
+    width: 700px;
+    margin: 0px 231px ;
+    display: flex;
+}
+#NickNameWrap{
+    height: 50px;
+    width: 100px;
+}
+#NickNameWrap span{
+    font-weight: 600;
+}
+#CurrentuserNickName{
+    margin-left: 30px;
+    height: 50px;
+    width: 300px;
+    color: #9E9E9E;
+}
+#NickNameChangeBtn{
+    margin-left: 200px;
+    width: 85px;
+    height: 30px;
+    border:#1E90FF solid;
+    text-align: center;
+    border-width: 2px;
+
+}
+#NickNameChangeBtn span{
+    color: #1E90FF;
+    font-weight: 500;
+}
+#userNameWrap{
+    height: 60px;
+    width: 700px;
+    margin: 30px 231px ;
+    display: flex;
+}
+#NameWrap{
+    height: 50px;
+    width: 100px;
+}
+#NameWrap span{
+    font-weight: 600;
+}
+#CurrentuserName{
+    margin-left: 28px;
+    height: 50px;
+    width: 300px;
+    color: #9E9E9E;
+}
+#NameChangeBtn{
+    margin-left: 220px;
+    width: 56px;
+    height: 30px;
+    border:#1E90FF solid;
+    text-align: center;
+    border-width: 2px;
+
+}
+#NameChangeBtn span{
+    color: #1E90FF;
+    font-weight: 500;
+}
+
+#userBirthSexWrap{
+    height: 60px;
+    width: 700px;
+    margin: 30px 231px ;
+    display: flex;
+}
+#BirthSexWrap{
+    height: 50px;
+    width: 100px;
+}
+#BirthSexWrap span{
+    font-weight: 600;
+}
+#CurrentuserBirthSex{
+    margin-left: 28px;
+    height: 50px;
+    width: 300px;
+    color: #9E9E9E;
+}
+#userPnumWrap{
+    height: 60px;
+    width: 700px;
+    margin: 30px 231px ;
+    display: flex;
+}
+#PnumWrap{
+    height: 50px;
+    width: 100px;
+}
+#PnumWrap span{
+    font-weight: 600;
+}
+#CurrentuserPnum{
+    margin-left: 28px;
+    height: 50px;
+    width: 300px;
+    color: #9E9E9E;
+}
+#ChangePnumBtn{
+    margin-left: 220px;
+    width: 56px;
+    height: 30px;
+    border:#1E90FF solid;
+    text-align: center;
+    border-width: 2px;
+
+}
+#ChangePnumBtn span{
+    color: #1E90FF;
+    font-weight: 500;
+}
+#userWithdraw{
+    width: 500px;
+    height: 30px;
+    margin-left: 240px;
+    font-size: 13px;
+    display: flex;
+}
+#withdrawBtn{
+    margin-left: 10px;
+    font-size: 13px;
+    border-style: solid;
+    border-color: #000;
+}
+#withdrawBtn{
+    height: 25px;
+    width: 60px;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: #A7A7A7;
+    border-width: 2px;
+    align-items: center;
+    text-align: center;
+}
+#btnArea{
+    width: 465px;
+    height: 53px;
+    margin-top: 68px;
+    margin-left:384px;
+    display: flex;
+    padding: 1px;
+}
+#commitBtn{
+    width: 230px;
+    height: 50px;
+    margin: 1px;
+}
+#commitBtn button{
+    background-color: #1E90FF;
+    width: 228px;
+    height: 48px;
+    margin: 1px;
+    border-radius: 15px;
+    font-size: 22px;
+    color: #fff;
+}
+#cancelBtn{
+    width: 230px;
+    height: 50px;
+    margin: 1px;
+}
+#cancelBtn button{
+    background-color: #7C7C7C;
+    width: 228px;
+    height: 48px;
+    margin: 1px;
+    border-radius: 15px;
+    font-size: 22px;
+    color: #fff;
+}
+
