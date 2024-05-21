@@ -1,0 +1,27 @@
+body {
+    padding-top: 188px;
+}
+#withDrawContent{
+    width: 1920;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#withDrawWrap{
+    width: 1166px;
+    height: 584px;
+    margin: 80px 376px 80px 376px;
+    background-color: yellow;
+    border-style: solid;
+    border-color: black;
+    padding: 5px 5px 0px 5px;
+}
+#withDrawSpan{
+    width: 258px;
+    height: 50px;
+}
+#withDrawSpan span{
+    font-size: 25px;
+    font-weight: 800;
+}

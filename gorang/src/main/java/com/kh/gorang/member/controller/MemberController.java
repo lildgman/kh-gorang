@@ -23,6 +23,10 @@ public class MemberController {
 	public String myPageInfoEdit(){
 		return "member/myPageInfoEdit";
 	}
+	@RequestMapping("myPageWithDraw.me")
+	public String myPageWithDraw(){
+		return "member/myPageWithDraw";
+	}
 }
 
 
