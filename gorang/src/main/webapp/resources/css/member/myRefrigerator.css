@@ -257,20 +257,20 @@ tbody td {
 }
 
 /* 테이블 내부 글씨 위치설정 */
-tbody td:not(:first-child) {
+tbody td:not(:first-child ) {
     text-align: center;
     justify-content: center;
     align-items: center;
 }
 
 /* 마지막 td의 글씨 색을 회색으로 지정 */
-tbody td:last-child {
+.myRefrigerator-last-td {
     color: #999999;
     font-weight: 300;
 }
 
 /* 삭제 호버시 글자색 변경 */
-tbody td:last-child:hover {
+.myRefrigerator-last-td:hover {
     color: red;
     font-weight: 300;
 }
@@ -298,7 +298,7 @@ td img {
 }
 
 /* 상품 열의 너비를 설정 */
-table tbody tr td:first-child {
+.myRefrigerator-tr {
     width: 300px; 
 }
 
@@ -312,9 +312,10 @@ td:nth-child(4) {
 }
 
 /* "삭제" 너비 크기설정 */
-tbody td:last-child  {
+.myRefrigerator-last-td {
     width: 80px; 
     text-align: right;
+    padding-left: 35px;
 }
 
 /* 직접레시피 찾기 모달창--------------------------------- */
@@ -635,16 +636,16 @@ tbody td:last-child  {
 
 /* 번호 위치 */
 #add-list-title1{
-    margin-left:70px;
+    margin-left:72px;
 }
 
 /* 식품명 */
 #add-list-title2{
-    margin-left:65px ;
+    margin-left:72px ;
 }
 /* 100g당 칼로리 */
 #add-list-title3{
-    margin-left:75px ;
+    margin-left:65px ;
 }
 /* 소비기한 */
 #add-list-title4{
@@ -710,5 +711,53 @@ tbody td:last-child  {
     font-weight: 400;
 }
 
+#overflow-table{
+    width: 530px;
+}
+
+#overflow-table td{
+    padding: 16px 0px;
+}
+
+#overflow-table td:first-child {
+    padding: 10px; /* 첫 번째 td에 대한 패딩 제거 */
+    padding-left: 16px;
+    padding-top: 16px;
+}
+
+
+
+/* 체크박스 너비 */
+.td-checkbox{
+    width: 8%;
+}
+.td-checkbox > input{
+    width: 20px;
+    height: 20px;
+    padding-left: 5px;
+}
+
+/* 번호너비 */
+.fixed-width1{
+    width: 15%;
+}
+
+/* 식품너비 */
+.fixed-width2{
+    width: 25%;
+}
+
+/* 100g당 칼로리 너비 */
+.fixed-width3{
+    width: 20%;
+}
+
+/* 소비기한 */
+.fixed-width4{
+    color:#B7B7B7;
+    width: 100%;
+    display: flex;
+    font-weight: 400;
+}
 
 

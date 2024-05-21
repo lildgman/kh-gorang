@@ -201,23 +201,45 @@
                                         <span id="add-list-title4" >소비기한</span>
                                     </div>
                                     <div id="overflow-recipe-area2">
-                                        <table>
-                                           
-                                                <c:forEach begin="1" end="30" varStatus="loop">
-                                                    <tr>
-                                                        <td><input type="checkbox" name="" id=""></td>
-                                                        <td class="fixed-width1">1</td>
-                                                        <td class="fixed-width2">닭가슴살 후추페퍼</td>
-                                                        <td class="fixed-width3">100kcal</td>
-                                                        <td class="fixed-width4">
-                                                            <span>직접입력 : </span>
-                                                            <input type="text">
-                                                        </td>
-                                                    </tr>
-                                                </c:forEach>
-                                         
+                                        <table id ="overflow-table">                                           
+                                            <c:forEach begin="1" end="30" varStatus="loop">
+                                                <tr class="overflow-tr">
+                                                    <td class="td-checkbox"><input type="checkbox" name="" id="" class="row-checkbox"></td>
+                                                    <td class="fixed-width1">1</td>
+                                                    <td class="fixed-width2">닭가슴살 후추페퍼</td>
+                                                    <td class="fixed-width3">100kcal</td>
+                                                    <td class="fixed-width4">
+                                                        <span class="direct-input-label" style="display: none;">직접입력 : </span>
+                                                        <input type="text" class="direct-input" style="display: none;">
+                                                    </td>
+                                                </tr>
+                                            </c:forEach>
+
                                         </table>
                                     </div>
+
+                                    <script>
+                                        // DOMContentLoaded 이벤트를 사용하여 DOM이 완전히 로드된 후에 스크립트를 실행
+                                        document.addEventListener('DOMContentLoaded', function() {
+                                            const checkboxes = document.querySelectorAll('.row-checkbox');
+                                    
+                                            checkboxes.forEach(function(checkbox) {
+                                                checkbox.addEventListener('change', function() {
+                                                    const row = checkbox.closest('tr');
+                                                    const label = row.querySelector('.direct-input-label');
+                                                    const input = row.querySelector('.direct-input');
+                                    
+                                                    if (checkbox.checked) {
+                                                        label.style.display = 'inline';
+                                                        input.style.display = 'inline';
+                                                    } else {
+                                                        label.style.display = 'none';
+                                                        input.style.display = 'none';
+                                                    }
+                                                });
+                                            });
+                                        });
+                                    </script>
 
 
                                     <div id="modal-search-recipe-bottom2">
@@ -250,7 +272,7 @@
                         <div id="myRefrigerator-igre-table-area">
                             <table>
                             <thead id ="myRefrigerator-tb">
-                                    <tr>
+                                    <tr class="myRefrigerator-tr">
                                         <td>상품</td>
                                         <td>신선도</td>
                                         <td>소비기한</td>
@@ -259,55 +281,55 @@
                                     </tr>
                             </thead>
                             <tbody>
-                                    <tr>
-                                        <td>
+                                    <tr >
+                                        <td class="myRefrigerator-tr">
                                             <img src="${contextPath}/resources/images/member-img/Rectangle 18311 (2).png" alt=""> 참외
                                         </td>
                                         <td class="flesh-area"><div class="flesh-status" style="background-color:#7ADC66 ;"></div> 신선</td>  <!--나중에 class id로 변경-->
                                         <td>2024.08.05</td>
                                         <td>2024.02.12</td>
                                         <td>5</td>
-                                        <td>삭제</td>
+                                        <td class="myRefrigerator-last-td">삭제</td>
                                     </tr>
                                     <tr>
-                                        <td>
+                                        <td class="myRefrigerator-tr">
                                             <img src="${contextPath}/resources/images/member-img/Rectangle 18311 (3).png" alt=""> 브로콜리
                                         </td>
                                         <td  class="flesh-area"><div class="flesh-status " style="background-color:#EE6677 ;"> </div>위험</td>
                                         <td>2024.05.10</td>
                                         <td>2024.03.12</td>
                                         <td>5</td>
-                                        <td>삭제</td>
+                                        <td class="myRefrigerator-last-td">삭제</td>
                                     </tr>
                                     <tr>
-                                        <td>
+                                        <td class="myRefrigerator-tr">
                                             <img src="${contextPath}/resources/images/member-img/Rectangle 18311 (4).png" alt=""> 제주 흑돼지 삼겹살
                                         </td>
                                         <td  class="flesh-area"><div class="flesh-status" style="background-color:#FFE188 ;"> </div>보통</td>
                                         <td>2024.05.31</td>
                                         <td>2024.04.10</td>
                                         <td>3</td>
-                                        <td>삭제</td>
+                                        <td class="myRefrigerator-last-td">삭제</td>
                                     </tr>
                                     <tr>
-                                        <td>
+                                        <td class="myRefrigerator-tr">
                                             <img src="${contextPath}/resources/images/member-img/Rectangle 18311 (5).png" alt=""> 당근
                                         </td>
                                         <td  class="flesh-area"><div class="flesh-status" style="background-color:#7ADC66 ;"> </div>신선</td>
                                         <td>2024.06.20</td>
                                         <td>2024.04.30</td>
                                         <td>2</td>
-                                        <td>삭제</td>
+                                        <td class="myRefrigerator-last-td">삭제</td>
                                     </tr>
                                     <tr>
-                                        <td>
+                                        <td class="myRefrigerator-tr">
                                             <img src="${contextPath}/resources/images/member-img/Rectangle 18311 (6).png" alt=""> 바나나
                                         </td>
                                         <td  class="flesh-area"><div class="flesh-status" style="background-color:#7ADC66 ;"> </div>신선</td>
                                         <td>2024.06.02</td>
                                         <td>2024.05.01</td>
                                         <td>1</td>
-                                        <td>삭제</td>
+                                        <td class="myRefrigerator-last-td">삭제</td>
                                     </tr>
                             </tbody>
                             </table>
