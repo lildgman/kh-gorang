@@ -1,0 +1,167 @@
+body {
+    padding-top: 188px;
+}
+#recipe-list{
+    width: 1920;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#recipeListContents{
+    width: 1240px;
+    height: auto;
+    margin-top: 100px;
+    margin-right: 340px;
+    margin-left: 340px;
+}
+#recipeCountSpan span{
+  font-size: 20px;
+  font-weight: 800;  
+}
+#recipeContents{
+    width: 1240px;
+    height: 1917px;
+}
+#recipeSortings{
+    width: 1240px;
+    height: 21px;
+}
+#recipeSortingsBox{
+    width: 203px;
+    height: 21px;
+    float: right;
+    display: flex;
+}
+#recipeSortingsLatest{
+    margin: 0 4px 0px 4px;
+    color: #6D6D6D;
+    border-right: 2px solid #E6E6E6;
+    padding-right: 10px;
+}
+#recipeSortingsNums{
+    margin: 0 4px 0px 4px;
+    color: #6D6D6D;
+    border-right: 2px solid #E6E6E6;
+    padding-right: 10px;
+}
+#recupeSortingsScrap{
+    margin: 0 4px 0px 4px;
+    color: #6D6D6D;
+}
+#recipeContentsBox {
+    width: 1240px;
+    height: auto;
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+.recipe-content-box {
+    display: contents; /* 기존 스타일을 유지하기 위해 사용 */
+}
+
+.recipe-content-item{
+    width: 292px;
+    height: auto;
+}
+
+#recipeContentImg {
+    width: 292px;
+    height: 292px;
+}
+
+#recipeContentImg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#recipeContentInfoBox {
+    width: 292px;
+    height: auto;
+    margin-top: 16px;
+}
+
+#recipeContentTitle {
+    height: 30px;
+}
+
+#recipeContentTitle span {
+    font-size: 20px;
+    font-weight: 800;
+}
+
+#recipeContentWriter {
+    width: 292px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+}
+
+#recipeContentWriterImg {
+    width: 18px;
+    height: 18px;
+}
+
+#recipeContentWriterImg img {
+    width: 18px;
+    height: 18px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+#recipeContentWriter span {
+    margin: 5px 0 0 5px;
+    color: #6D6D6D;
+    font-size: 16px;
+}
+
+#recipeContentBoardInfo {
+    margin-top: 4px;
+    display: flex;
+    font-size: 14px;
+    color: #6D6D6D;
+    padding: 5px 5px 5px 0px;
+}
+#recipeBoardInfoScrap {
+    
+}
+
+#recipeBoardPageBarBox{
+    width: 1240px;
+    height: 164px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#pagination{
+    border-style: none;
+    background-color: #fff;
+}
+.page-item {
+    margin: 6px;
+}
+.page-item a {
+    border: none;
+    font-size: 14px;
+    color: #6D6D6D;
+    text-decoration: none;
+}
+
+
+.page-item a:hover {
+    color: #1E90FF;
+}
+
+
+.page-item a:focus {
+    color: #1E90FF;
+}
+
+.page-item a:active {
+    color: #1E90FF;
+}
+
