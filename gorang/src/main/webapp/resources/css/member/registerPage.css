@@ -1,0 +1,428 @@
+.container {
+    position: absolute;
+    width: 540px;
+    height: auto;
+    text-align: center;
+    margin: 50px 690px 188px 690px;
+  }
+  
+  #register-form {
+    display: inline-block;
+    text-align: left;
+  }
+  h2 {
+    font-size: 34px;
+    margin-bottom: 48px;
+    margin-top: 50px;
+  }
+  #registEmailSection{
+    width: 540px;
+    height: 53px;
+    display: flex;
+    margin-bottom: 16px;
+  }
+  #emailSpan{
+    width: 80px;
+    height: 53px;
+    padding-top: 15px;
+    margin-right: 52px;
+  }
+  #emailSpan span{
+    text-align: center;
+    font-size: 14px;
+    color: #222222;
+    font-weight: 500;
+  }
+  #emailInput{
+    width: 320px;
+    height: 53px;
+  }
+  #emailInput input{
+    width: 320px;
+    height: 53px;
+    border-color: #E6E6E6;
+    border-style: solid;
+    border-width: 2px;
+    padding: 16px;
+  }
+  #emailInput input ::placeholder{
+    color: #999999;
+    font-size: 14px;
+  }
+  #emailCheck{
+    width: 100px;
+    height: 53px;
+    margin-left: 12px;
+  }
+  #emailCheck input{
+    width: 100px;
+    height: 53px;
+    border-style: solid;
+    border-color: #1E90FF;
+    border-width: 2px;
+    background-color: #fff;
+    color: #1E90FF;
+    cursor: pointer;
+  }
+  #registPwdSection{
+    width: 540px;
+    height: 53px;
+    display: flex;
+    margin-bottom: 16px;
+  }
+  #pwdSpan{
+    width: 80px;
+    height: 53px;
+    padding-top: 15px;
+    margin-right: 28px;
+  }
+  #pwdSpan span{
+    text-align: center;
+    font-size: 14px;
+    color: #222222;
+    font-weight: 500;
+  }
+  #pwdInput{
+    width: 320px;
+    height: 53px;
+  }
+  #pwdInput input{
+    width: 320px;
+    height: 53px;
+    border-color: #E6E6E6;
+    border-style: solid;
+    border-width: 2px;
+    padding: 16px;
+  }
+  #pwdInput input ::placeholder{
+    color: #999999;
+    font-size: 14px;
+  }
+  #registPwdCheckSection{
+    width: 540px;
+    height: 53px;
+    display: flex;
+    margin-bottom: 16px;
+  }
+  #pwdCheckSpan{
+    width: 80px;
+    height: 53px;
+    padding-top: 15px;
+    margin-right: 28px;
+  }
+  #pwdCheckSpan span{
+    text-align: center;
+    font-size: 14px;
+    color: #222222;
+    font-weight: 500;
+  }
+  #pwdCheckInput{
+    width: 320px;
+    height: 53px;
+  }
+  #pwdCheckInput input{
+    width: 320px;
+    height: 53px;
+    border-color: #E6E6E6;
+    border-style: solid;
+    border-width: 2px;
+    padding: 16px;
+  }
+  #registNickNameSection{
+    width: 540px;
+    height: 53px;
+    display: flex;
+    margin-bottom: 16px;
+  }
+  #nickNameSpan{
+    width: 80px;
+    height: 53px;
+    padding-top: 15px;
+    margin-right: 28px;
+  }
+  #nickNameSpan span{
+    text-align: center;
+    font-size: 14px;
+    color: #222222;
+    font-weight: 500;
+  }
+  #nickNameInput{
+    width: 320px;
+    height: 53px;
+  }
+  #nickNameInput input{
+    width: 320px;
+    height: 53px;
+    border-color: #E6E6E6;
+    border-style: solid;
+    border-width: 2px;
+    padding: 16px;
+  }
+  #nickNameCheck{
+    width: 100px;
+    height: 53px;
+    margin-left: 12px;
+  }
+  #nickNameCheck input{
+    width: 100px;
+    height: 53px;
+    border-style: solid;
+    border-color: #1E90FF;
+    border-width: 2px;
+    background-color: #fff;
+    color: #1E90FF;
+    cursor: pointer;
+  }
+  #registPnumSection{
+    width: 540px;
+    height: 53px;
+    display: flex;
+    margin-bottom: 16px;
+  }
+  #pnumSpan{
+    width: 80px;
+    height: 53px;
+    padding-top: 15px;
+    margin-right: 28px;
+  }
+  #pnumSpan span{
+    text-align: center;
+    font-size: 14px;
+    color: #222222;
+    font-weight: 500;
+  }
+  #pnumInput{
+    width: 320px;
+    height: 53px;
+  }
+  #pnumInput input{
+    width: 320px;
+    height: 53px;
+    border-color: #E6E6E6;
+    border-style: solid;
+    border-width: 2px;
+    padding: 16px;
+  }
+  #pnumCheck{
+    width: 100px;
+    height: 53px;
+    margin-left: 12px;
+  }
+  #pnumCheck input{
+    width: 100px;
+    height: 53px;
+    border-style: solid;
+    border-color: #1E90FF;
+    border-width: 2px;
+    background-color: #fff;
+    color: #1E90FF;
+    cursor: pointer;
+  }
+  #registAddressSection{
+    width: 540px;
+    height: 53px;
+    display: flex;
+    margin-bottom: 16px;
+  }
+  #addressSpan{
+    width: 80px;
+    height: 53px;
+    padding-top: 15px;
+    margin-right: 28px;
+  }
+  #addressSpan span{
+    text-align: center;
+    font-size: 14px;
+    color: #222222;
+    font-weight: 500;
+  }
+  #addressSearch{
+    width: 540px;
+    height: 53px;
+    display: flex;
+  }
+  #addressSearch input{
+    margin-left: 15px;
+    width: 150px;
+    height: 53px;
+    border-color: #E6E6E6;
+    border-style: solid;
+    border-width: 2px;
+    padding: 16px;
+  }
+  #addressSearch button{
+    margin-left: 12px;
+    width: 320px;
+    height: 53px;
+    border-style: solid;
+    border-color: #1E90FF;
+    border-width: 2px;
+    background-color: #fff;
+    color: #1E90FF;
+    cursor: pointer;
+  }
+  #registGenderSection{
+    width: 540px;
+    height: 53px;
+    display: flex;
+    margin-bottom: 16px;
+  }
+  #genderSpan{
+    width: 80px;
+    height: 53px;
+    padding-top: 15px;
+    margin-right: 28px;
+  }
+  #genderSpan span{
+    text-align: center;
+    font-size: 14px;
+    color: #222222;
+    font-weight: 500;
+  }
+  #genderSelect{
+    width: 320px;
+    height: 53px;
+    align-items: center;
+    display: flex;
+  }
+  #genderSelect input{
+    width: 20px;
+    height: 20px;
+    border-color: #E6E6E6;
+    border-style: solid;
+    border-width: 4px;
+  }
+  #genderSelect span{
+    margin-right: 50px;
+    margin-left: 10px;
+    font-size: 14px;
+  }
+  #registBirthSection{
+    width: 540px;
+    height: 53px;
+    display: flex;
+    margin-bottom: 16px;
+  }
+  #birthSpan{
+    width: 80px;
+    height: 53px;
+    padding-top: 15px;
+    margin-right: 28px;
+  }
+  #birthSpan span{
+    text-align: center;
+    font-size: 14px;
+    color: #222222;
+    font-weight: 500;
+  }
+  #birthInput{
+    width: 100px;
+    height: 53px;
+  }
+  #birthInput input{
+    width: 320px;
+    height: 53px;
+    border-color: #E6E6E6;
+    border-style: solid;
+    border-width: 2px;
+    padding: 16px;
+  }
+
+  hr{
+    margin-top: 42px;
+  }
+  #gorangTermSection{
+    margin-top: 32px;
+    width: 540px;
+    height: 212px;
+    display: flex;
+    margin-bottom: 16px;
+    padding-bottom: 30px;
+  }
+  #termSpan{
+    width: 80px;
+    height: 53px;
+    padding-top: 15px;
+    margin-right: 28px;
+  }
+  #termSpan span{
+    text-align: center;
+    font-size: 14px;
+    color: #222222;
+    font-weight: 500;
+  }
+  #termCheck{
+    width: 320px;
+    height: 165px;
+    margin-top: 15px;
+  }
+  .all-check{
+    width: 320px;
+    height: 25px;
+    padding: 2px;
+    margin-right: 20px;
+  }
+  .checkbox{
+    width: 320px;
+    height: 25px;
+    text-align: center;
+    display: flex;
+  }
+  .select-all{
+    width: 20px;
+    height: 20px;
+  }
+  .checkbox span{
+    margin-left: 10px;
+    font-size: 14px;
+  }
+  .list{
+    width: 320px;
+    height: 128px;
+  }
+  .list li{
+    font-size: 12px;
+    display: flex;
+    text-align: center;
+    padding-top: 5px;
+  }
+  .list li label{
+    width: 320px;
+    height: 20px;
+    margin-bottom: 5px;
+  }
+  .list li label input{
+    margin-top: 5px;
+    margin-left: 2px;
+    width: 20px;
+    height: 20px;
+  }
+  .list li label span{
+    padding-top: 8px;
+   font-size: 12px;
+   margin-left: 10px;
+  }
+  .item button{
+    width: 60px;
+    align-items: center;
+    text-align: center;
+    margin-left: 50px;
+  }
+  #registerSubmitBtn{
+    margin-top: 32px;
+    width: 540px;
+    height: 53px;
+    display: flex;
+    margin-bottom: 16px;
+    align-items: center;
+    justify-content: center;
+  }
+  #registerSubmitBtn input{
+    width: 320px;
+    height: 58px;
+    color: #fff;
+    background-color: #1E90FF;
+    border-color: #1E90FF;
+    border-style: solid;
+    cursor: pointer;
+  }
