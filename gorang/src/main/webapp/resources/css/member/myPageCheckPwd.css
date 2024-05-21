@@ -6,6 +6,7 @@ a{
 
 body{
     padding-top: 170px;
+    width: 1920px;
 }
 
 #check_pwd_container{
@@ -50,6 +51,53 @@ body{
     font-weight: bold;
 }
 
+#check_pwd_container_enroll_area {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+}
+
+#input_pwd_area {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 600px;
+    height: 45px;
+    border: 1px solid black;
+    border-radius: 4px;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+#lock_svg_area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#input_pwd {
+    border: none;
+}
+
+#input_pwd:focus {
+    outline: none;
+    border: none;
+}
+
+#check_pwd_btn_area{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#check_pwd_btn{
+    background-color: #1E90FF;
+    width: 162px;
+    height: 41px;
+    color: white;
+}
 
 
 
