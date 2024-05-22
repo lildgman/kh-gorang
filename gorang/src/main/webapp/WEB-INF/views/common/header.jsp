@@ -13,6 +13,10 @@
     
     <!-- css -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common/header.css">
+
+    <!--js-->
+    <script src="${pageContext.request.contextPath}/resources/js/common/header.js"></script>
+
 </head>
 <body>
     <div id="header">
@@ -21,7 +25,7 @@
         </div>
         <div id="header-bottom">
             <div id="header-bottom-left">
-                <div id="header-bottom-left-logo">
+                <div id="header-bottom-left-logo" onclick="logo()">
                     <svg width="78" height="80" viewBox="0 0 78 80" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M54.5 52.7079V58.92H3V52.7079H14.3332V42.3865H21.2565V52.7079H54.5ZM33.8694 46.9809H26.852V31.2121H6.84149V25H33.8702L33.8694 46.9809Z" fill="black"/>
                         <path d="M58.4208 40.2H38.6406V24.5252H49.6094V21.0956H39.9259V15H56.0806V30.6247H45.1119V34.1012H58.4208V40.2ZM70.8553 31.4082H67.1381V40.2H60.7586V15H67.1381V25.4494H70.8553V15H77.2806V40.2H70.8553V31.4082Z" fill="black"/>
@@ -32,15 +36,15 @@
                         </svg>                        
                 </div>
                 <div id="header-bottom-left-category">
-                    <span>레시피</span>
-                    <span>게시판</span>
-                    <span>쇼핑</span>
+                    <span onclick="recipeMain()">레시피</span>
+                    <span onclick="boardMain()">게시판</span>
+                    <span onclick="shoppingMain()">쇼핑</span>
                 </div>
             </div>
             <div id="header-bottom-right">
                 <div id="header-bottom-right-searchbar">
                     <input type="text">
-                    <div id="header-bottom-right-searchbar-logo">
+                    <div id="header-bottom-right-searchbar-logo" onclick="searchResult()">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M9.99951 2.9C13.9211 2.9 17.1 6.07945 17.1 10.001C17.1 13.9204 13.9212 17.1 9.99951 17.1C6.07887 17.1 2.9 13.9205 2.9 10.001C2.9 6.07938 6.07901 2.9 9.99951 2.9Z" stroke="black" stroke-width="1.8"/>
                             <path d="M15.5 15.5L20.5 20.5" stroke="black" stroke-width="1.8" stroke-linecap="round"/>
