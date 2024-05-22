@@ -1,0 +1,323 @@
+body{
+    padding-top: 188px;
+}
+#search-result{
+    width: 1920;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#searchResultContents{
+    width: 1240px;
+    height: 2476px;
+    margin-right: 340px;
+    margin-left: 340px;
+}
+#search-item-result{
+    height: 28px;
+    display: flex;
+    text-align: center;
+}
+#search-item span{
+    font-size: 20px;
+    color: #1E90FF;
+    font-weight: 600;
+}
+#search-item-result span{
+    font-size: 20px;
+    font-weight: 600;
+}
+#search-item-shopping {
+    width: 1240px;
+    height: 477px;
+    padding: 30px 0 60px 0;
+    border-bottom: solid #D9D9D9 1px;
+}
+#search-item-top{
+    width: 1240px;
+    height: 30px;
+    display: flex;
+}
+#search-item-shopping-span{
+    width: 100px;
+    display: flex;
+    height: 30px;
+    font-size: 18px;
+    font-weight: 600;
+}
+#shoppingCount{
+    margin-left: 10px;
+    color: #1E90FF;
+}
+#see-more-btn{
+    margin-left: 1100px;
+    width: 46px;
+    display: flex;
+    height: 30px;
+}
+#see-more-btn input{
+    border-style: none;
+    background-color: #fff;
+    color: #6D6D6D;
+    font-weight: 600;
+}
+.container {
+    margin-top: 10px;
+    display: flex; 
+    flex-direction: row; 
+    gap: 15px;
+  }
+  .item {
+    height: 350px;
+    flex: 1; 
+  }
+  .item-thumbnail-area{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width: 200px;
+    height: 200px;
+  }
+  .item-thumbnail-area img{
+    margin: 0 5px 0 5px;
+    object-fit: cover;
+    width: 200px;
+    height: 200px;
+  }
+  .item-text-area{
+    height: 115px;
+  }
+  .item-title{
+    height: 50px;
+  }
+  .item-brand{
+    font-size: 14px;
+    color: #999999;
+  }
+  .item-name{
+    font-size: 14px;
+    color: #000000;
+  }
+  .item-price{
+    height: 70px;
+  }
+  .item-origin-price{
+    height: 25px;
+    font-weight: 800;
+    text-decoration: line-through;
+  }
+  .discount-percent{
+    font-weight: 1000;
+    font-size: 20px;
+    color: #1E90FF;
+  }
+  .discounted-price{
+    font-weight: 1000;
+    font-size: 20px;
+  }
+  .item-price div span{
+    font-weight: 800;
+  }
+  
+
+  #search-item-recipe {
+    width: 1240px;
+    height: 960px;
+    padding: 30px 0 60px 0;
+    border-bottom: solid #D9D9D9 1px;
+}
+#search-item-top{
+    width: 1240px;
+    height: 30px;
+    display: flex;
+}
+#search-item-recipe-span{
+    width: 100px;
+    display: flex;
+    height: 30px;
+    font-size: 18px;
+    font-weight: 600;
+}
+#recipeCount{
+    margin-left: 10px;
+    color: #1E90FF;
+}
+.recipeContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.recipe-item {
+    width: calc(25% - 10px); 
+    border: 1px solid #eee;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.recipe-content-item {
+    display: flex;
+    flex-direction: column;
+}
+
+#recipeContentImg img {
+    width: 100%;
+    height: auto;
+}
+
+#recipeContentInfoBox {
+    padding: 10px;
+}
+
+#recipeContentTitle span {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+}
+
+#recipeContentWriter {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#recipeContentWriterImg img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+#recipeContentWriter span {
+    font-size: 14px;
+    color: #666;
+}
+
+#recipeContentBoardInfo {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+#recipeContentBoardInfo div {
+    font-size: 12px;
+    color: #999;
+}
+
+#recipeContentUploadDate {
+    font-size: 12px;
+    color: #999;
+    text-align: right;
+}
+
+/*ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ*/
+
+#search-item-common {
+    width: 100%;
+    margin: 20px 0;
+}
+
+#search-item-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+#search-item-common-span {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+#commonCount {
+    margin-left: 10px;
+    color: #1E90FF;
+}
+.commonContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.common-item {
+    width: calc(25% - 10px); 
+    border: 1px solid #eee;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.common-content-item {
+    display: flex;
+    flex-direction: column;
+}
+
+#commonBContentImg img {
+    width: 100%;
+    height: auto;
+}
+
+#commonContentInfoBox {
+    padding: 10px;
+}
+
+#commonContentTitle span {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+}
+
+#commonContentWriter {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#commonContentWriterImg img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+#commonContentWriter span {
+    font-size: 14px;
+    color: #666;
+}
+
+#commonContentBoardInfo {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+#commonContentBoardInfo div {
+    font-size: 12px;
+    color: #999;
+}
+
+#commonContentUploadDate {
+    font-size: 12px;
+    color: #999;
+    text-align: right;
+}
+
+
+/**/
+
+
+
+
+
+
+
+
+
