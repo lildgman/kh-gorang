@@ -25,11 +25,10 @@
 
 #main-content-area {
   width: 1240px;
-  height: 1000px;
   display: flex;
   flex-direction: column;
   gap: 80px;
-  border: 1px solid red;
+  margin-bottom: 100px;
 }
 
 .main-banner-img {
@@ -57,4 +56,144 @@
 .sub-comment {
   font-size: 28px;
   color: white;
+}
+
+.weekly-best-list-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.list-top {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-title {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.show-more-span > a {
+  color: #1e90ff;
+}
+
+.weekly-best-list {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+
+.weekly-recipe {
+  width: 292px;
+  height: 367px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.weekly-product {
+  width: 292px;
+  height: 447px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.weekly-item-img-container {
+  width: 100%;
+  height: 292px;
+}
+
+.weekly-item-info-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info_1 {
+  font-size: 18px;
+  color: #6d6d6d;
+}
+
+.info_2 {
+  font-size: 20px;
+}
+
+.info_title {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.product-brand {
+  font-size: 14px;
+  color: #999999;
+}
+
+.product-name {
+  font-size: 18px;
+}
+
+.info_price {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.product-origin-price {
+  font-size: 16px;
+  text-decoration: line-through;
+  color: #cccccc;
+}
+
+.product-sale-info {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.product-discount-percent {
+  font-size: 22px;
+  font-weight: bold;
+  color: #1e90ff;
+}
+
+.product-saled-price {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.flex-gap-20 {
+  gap:20px
+}
+
+.weekly-board {
+  width: 232px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.board-img-container {
+  width: 100%;
+  height: 292px;
+}
+
+.flex-gap-16px {
+  gap: 16px;
+}
+
+.board-title-container {
+  font-size: 20px;
 }
