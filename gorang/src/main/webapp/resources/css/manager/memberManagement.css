@@ -103,32 +103,14 @@
 
 }
 
-.show-product-status-area {
+.show-member-status-area {
   width: 950px;
   display: flex;
   flex-direction: row;
   gap: 10px;
 }
 
-.product-status {
-  width: 200px;
-  height: 104px;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 10px;
-  background-color: #F3F9FF;
-  color: #1e90ff;
-  border: 1px solid #1e90ff;
-}
-
-.quantity-div {
-  font-size: 32px;
-  font-weight: bold;
-}
-
-.search-product-result-table{
+.search-member-result-table{
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -140,16 +122,20 @@
   font-weight: bold;
 }
 
-.product-table {
-  width: 1000px;
+.member-table-container {
+  margin-bottom: 50px;
+}
+
+.member-table {
+  width: 480px;
   border-collapse: collapse;
 }
 
-.product-table tr td {
+.member-table tr td {
   border: 1px solid #cececd;
 }
 
-.product-table td {
+.member-table td {
   padding: 5px;
 }
 
@@ -157,59 +143,25 @@
   width: 50px;
 }
 
-.product-id {
+.user-id-td {
   width: 140px;
 }
 
-.product-name-td {
+.member-nickname-td {
   width: 180px;
 }
 
-.product-status-td {
+.member-createdate-td {
   width: 140px;
 }
 
-.product-saled-price {
-  width: 150px;
-}
-
-.product-origin-price {
-  width: 150px;
-}
-
-.product-category {
-  width: 230px;
-}
-
-.product-table input {
+.member-table input {
   width: 100%;
   border: 1px solid #cececd;
   padding: 5px;
 }
 
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.txt-align-right {
-  text-align: right;
-}
-
-.option-name-td{
-  width: 360px;
-}
-
-.product-quantity-td {
-  width: 100px;
-}
-
-.product-origin-price-td, .product-saled-price-td  {
-  width: 220px;
-}
-
-.detail-search-btn-container, #update-btn-container {
+.delete-member-btn-container {
   display: flex;
   justify-content: center;
   align-items: center;
