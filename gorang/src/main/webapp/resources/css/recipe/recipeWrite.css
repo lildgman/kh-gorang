@@ -1,7 +1,14 @@
 @charset "UTF-8";
 body {
-    padding-top: 170px;
+    padding-top: 225px;
 }
+input:focus{
+    outline: none;
+}
+input::placeholder{
+    color: #CECECD;
+}
+
 
 textarea {
     resize: none; /* 크기 조절 핸들을 숨깁니다. */
@@ -13,7 +20,7 @@ textarea {
     margin-top:54px;
 }
 
-/*-------썸네일 업로드 영역-------- */
+/*---------------------------------썸네일 업로드 영역------------------------------ */
 
 #recipe-write-imgupload-area{
     height: 700px;
@@ -52,7 +59,7 @@ textarea {
 }
 
 
-/*-------레시피 제목입력 영역-------- */
+/*------------------------------------------레시피 제목입력 영역---------------------------------------- */
 #recipe-write-title-area{
     /* border: 1px solid; */
     height: 60px;
@@ -78,7 +85,7 @@ textarea {
     color: #CECECD; /* placeholder 텍스트의 폰트 색상 */
 }
 
-/*-------요리소개 입력 영역-------- */
+/*-----------------------------------------요리소개 입력 영역------------------------------------- */
 
 #recipe-introduce-area{
     height:200px ;
@@ -105,7 +112,7 @@ textarea {
     outline: none;
 }
 
-/*-------동영상소개 입력 영역-------- */
+/*---------------------------------------동영상소개 입력 영역------------------------------- */
 
 #recipe-yotube-area{
     height: 75px;
@@ -131,7 +138,7 @@ textarea {
     outline: none;
 }
 
-/*------- 태그 입력 영역-------- */
+/*-------------------------------------- 태그 입력 영역------------------------------------- */
 #recipe-tage-area{
     background-color: #F8F6F2;
     height: 50px;
@@ -155,7 +162,8 @@ textarea {
     outline: none;
 }
 
-/*------- 카테고리 입력 영역-------- */
+
+/*----------------------------------- 카테고리 입력 영역---------------------------- */
 #recipe-category-area{
     height: 50px;
     display: flex;
@@ -200,18 +208,331 @@ option:hover{
 }
 
 
-/* -----------재료정보-------------- */
+/* ------------------------재료정보------------------------ */
 
 #recipe-ingredient-info-area{
-    border: 1px solid;
-    height: 381px;
     padding-top: 15px;
-    padding-left: 2px;
+    padding-left: 10px;
+    width: 700px;
+    margin-bottom: 54px;
 }
 
 #ingredient-info-span-top{
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 10px;
+    color: #606060;
+}
 
+#ingredient-info-span-bottom{
+    font-size: 10px;
+    color: #606060;
+}
+
+.recipe-ingredient-info-top{
+    margin-top: 20px;
+    display: flex;
+    height: 40px;
+    margin-bottom: 20px;
+}
+
+.ingre-div-block{
+    padding: 10px;
+    height: 100%;
+    background-color:#F8F6F2; 
+    margin-right: 10px;
+}
+
+.ingre-div-block input{
+    height: 100%;
+    background-color:#F8F6F2; 
+    border: none;
+}
+
+.ingre-div-block input:focus{
+    outline: none;
+}
+.ingre-div-block input::placeholder{
+    color: #CECECD;
+}
+
+.location-btn {
+    padding-top: 8px;
+}
+.location-btn img{
+    width: 25px;
+    height: 25px;
+}
+.location-btn:hover{
+    cursor: pointer;
+}
+
+.delete-btn{
+    padding-top: 8px;
+}
+.delete-btn:hover{
+    cursor: pointer;
+}
+.delete-btn img{
+    width: 15px;
+    height: 15px;
+}
+
+.recipe-ingredient-info-bottom{
+    border-bottom: 2px solid #CECECD;
+    padding: 0px 40px;
+    margin-bottom: 15px;
+}
+.recipe-smaill-block{
+    padding: 5px 0px;
+    height:50px ;
+    display: flex;
+    gap: 10px;
+}
+
+.igre-name-block{
+    width: 200px;
+    background-color: #F8F6F2;
+    padding: 10px;
+}
+.igre-name-block input{
+    border: none;
+    height: 100%;
+    width: 100%;
+    background-color: #F8F6F2;
+}
+
+.igre-amount-block{
+    width: 100px;
+    background-color: #F8F6F2;
+    padding: 10px;
+}
+.igre-amount-block input{
+    border: none;
+    width: 100%;
+    height: 100%;
+    background-color: #F8F6F2;
+}
+
+.igre-unit-block{
+    width: 100px;
+    background-color: #F8F6F2;
+    padding: 10px;
+}
+.igre-unit-block input{
+    border: none;
+    width: 100%;
+    height: 100%;
+    background-color: #F8F6F2;
+}
+
+.recipe-smaill-block button{
+    height: 40px;
+    width: 64px;
+    align-items: center;
+    border: 1px solid #1E90FF;
+    color : #1E90FF ;
+    border-radius: 5px;
+}
+
+.add-igre-btn{
+    margin-top: 10px;
+    height: 40px;
+    width: 130px;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    margin-left: 226px;
+}
+
+.add-igre-btn:hover{
+    cursor: pointer;
+}
+
+.add-igre-btn img{
+    width: 30px;
+    height: 30px;
+}
+
+#add-div-btn{
+    height: 24px;
+    padding-left: 300px;
+}
+
+#add-div-btn button{
+    color: #1E90FF;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* -------------------조리 순서영역------------------ */
+#cooking-order-area{
+    border-bottom: 2px solid #CECECD;
+    width: 700px;
+    margin-bottom: 15px;
+}
+
+#cooking-order-area-title{
+    font-size: 24px;
+    color: #606060;
+    font-weight: bold;
+    margin-bottom: 50px;
+}
+
+
+.cooking-order-block{
+    margin-bottom: 25px;
+}
+.cooking-order-block-top{
+    display: flex;
+    height: 46px;
+    gap: 8px;
+}
+
+
+.cook-order-number-img{
+    width: 25px;
+    height: 25px;
+    background-color: #606060;
+    color: white;
+    font-size: 15px;
+    border-radius: 50%;
+    text-align: center;
+    align-content: center;
+    margin-right: 8px;
+    margin-top: 12px;
+
+}
+
+.cook-order-write-content{
+    height: 46px;
+    background-color: #F8F6F2;
+    width: 584px;
+}
+
+.cook-order-write-content input{
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: #F8F6F2;
+}
+
+.cook-order-hambugerbar img{
+    width: 30px;
+    height: 30px;
+    margin-top: 10px;
+}
+
+.cooking-order-block-bottom{
+    height: 128px;
+    margin-top: 15px;
+    padding-left: 32px;
+    display: flex;
+}
+
+.cooking-order-block-bottom-img{
+    width: 160px;
+    background-color: #F8F6F2;
+    text-align: center;  
+    align-content: center; 
+    margin-right: 10px;
+}
+
+
+.cooking-order-block-bottom-img:hover{
+    cursor: pointer;
+}
+.cooking-order-block-bottom-img input[type="file"] {
+    display: none;
+}
+
+.cooking-order-block-bottom-tip{
+    height: 27px;
+    display: flex;
+    padding: 0px 3px;
+    margin-bottom: 5px;
+}
+.cooking-order-block-bottom-tip input{
+    width: 420px;
+    height: 100%;
+    border: none;
+    background-color: #F8F6F2;
+}
+.cooking-order-block-bottom-tip input::placeholder{
+    font-size: 12px;
+}
+
+.add-tip img{
+    margin-right: 5px;
+    margin-left: 10px;
+}
+
+#add-order-btn{
+    height: 24px;
+    padding-left: 300px;  
+    margin-bottom: 54px;
+}
+#add-order-btn button{
+      color: #1E90FF;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+
+/* -------------------완성 사진------------------ */
+#complete-food-img-area{
+    height: 210px;
+    margin-bottom: 150px;
+}
+
+#complete-food-img-title{
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 50px;
+    color: #606060;
+}
+
+#complete-food-img-blocks{
+    margin-left: 32px;
+    display: flex;
+    gap:10px
+}
+.complete-food-img-block{
+    width: 160px;
+    height: 128px;
+    background-color: #F8F6F2;
+    text-align: center;
+    align-content: center;
+}
+
+.complete-food-img-block img{
+    width: 20px;
+    height: 20px;
+}
+
+/* -----------------------저장 및 등록 버튼 --------------------------*/
+#head-btn-area{
+    position: fixed;
+    background-color: white;
+    border-bottom: 1px solid #1E90FF;
+    width: 3000px;
+    height: 85px;
+    margin-top: -115px;
+    display: flex;
+    align-items: center;
+}
+
+#save-recipe{
+    margin-left: 1300px;
+    width: 132px;
+    height: 45px;
+    border: 1px solid #1E90FF;
+    color: #1E90FF;
+    margin-right: 10px;
+}
+#register-rcipe{
+    width: 132px;
+    height: 45px;
+    background-color: #1E90FF;
+    color: white;
 }
