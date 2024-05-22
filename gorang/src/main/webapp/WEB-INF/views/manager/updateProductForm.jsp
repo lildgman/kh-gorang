@@ -8,15 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <!-- summernote -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/summernote/customsummernote.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/summernote/lang/summernote-ko-KR.js"></script>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/customsummernote.css">
-
-
     <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
     <link rel="stylesheet" href="${contextPath }/resources/css/manager/updateProduct.css">
@@ -76,6 +67,7 @@
                 </div>
             </div>
 
+            <!-- 상품 상태 -->
             <div class="show-product-status-area">
                 <div class="product-status">
                     <div>전체</div>
@@ -95,18 +87,20 @@
                 </div>
             </div>
 
-            <div id="search-product-result-table">
-                <div>총 <span>2</span>개 상품</div>
-                <div class="option-table-container">
-                    <table class="option-table">
+            <!-- 상품 검색결과 -->
+            <div class="search-product-result-table">
+                <div class="result-title">총 <span>2</span>개 상품</div>
+                <div class="product-table-container">
+                    <table class="product-table">
                         <thead>
                             <tr>
-                                <td align="center" class="checkbox-td">삭제</td>
-                                <td align="center" class="checkbox-td">대표옵션</td>
-                                <td align="center" class="option-name-td">옵션명1</td>
-                                <td align="center" class="option-quantitiy">재고</td>
-                                <td align="center" class="option-price">정상가</td>
-                                <td align="center">판매가</td>
+                                <td align="center" class="checkbox-td">선택</td>
+                                <td align="center" class="product-id">상품 ID</td>
+                                <td align="center" class="product-name-td">상품명</td>
+                                <td align="center" class="product-status-td">판매상태</td>
+                                <td align="center" class="product-saled-price">판매가</td>
+                                <td align="center" class="product-origin-price">정상가</td>
+                                <td align="center" class="product-category">카테고리</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -115,26 +109,72 @@
                                     <input type="checkbox" name="" id="">
                                 </td>
                                 <td align="center">
-                                    <input type="checkbox" name="" id="">
+                                    1821515
                                 </td>
                                 <td align="center">
-                                    <input type="text" id="">
+                                    상품명1
                                 </td>
                                 <td align="center">
-                                    <input type="number" class="txt-align-right">
+                                    <select name="" id="">
+                                        <option value="">판매중</option>
+                                        <option value="">일시품절</option>
+                                    </select>
                                 </td>
                                 <td align="center">
-                                    <input type="number" class="txt-align-right">
+                                    9,000
                                 </td>
                                 <td align="center">
-                                    <input type="number" class="txt-align-right">
+                                    10,000
+                                </td>
+                                <td align="center">
+                                    조미료 > 간장
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table> 
+                </div>
+                <div class="detail-search-btn-container">
+                    <button id="detail-search-btn" class="myBtn">상세조회</button>
+                </div>
+
+            </div>
+
+            <!-- 상품 옵션 -->
+            <div class="search-product-result-table">
+                <div class="result-title">상품 옵션</div>
+                <div class="product-table-container">
+                    <table class="product-table">
+                        <thead>
+                            <tr>
+                                <td align="center" class="option-name-td">옵션명</td>
+                                <td align="center" class="product-quantity-td">재고</td>
+                                <td align="center" class="product-origin-price-td">정상가</td>
+                                <td align="center" class="product-saled-price-td">판매가</td>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="option-tr">
+                                <td align="center">
+                                    <input type="text" >
+                                </td>
+                                <td align="center">
+                                    <input type="number" class="txt-align-right" placeholder="개">
+                                </td>
+                                <td align="center">
+                                    <input type="number" class="txt-align-right" placeholder="원">
+                                </td>
+                                <td align="center">
+                                    <input type="number" class="txt-align-right" placeholder="원">
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    
                 </div>
+            </div>
 
+            <div id="update-btn-container">
+                <button class="myBtn">수정하기</button>
             </div>
         </div>
     </div>

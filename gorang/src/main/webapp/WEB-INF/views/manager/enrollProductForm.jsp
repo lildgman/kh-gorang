@@ -190,13 +190,13 @@
                                     <input type="text" id="">
                                 </td>
                                 <td align="center">
-                                    <input type="number" class="txt-align-right">
+                                    <input type="number" class="txt-align-right" placeholder="개">
                                 </td>
                                 <td align="center">
-                                    <input type="number" class="txt-align-right">
+                                    <input type="number" class="txt-align-right" placeholder="원">
                                 </td>
                                 <td align="center">
-                                    <input type="number" class="txt-align-right">
+                                    <input type="number" class="txt-align-right" placeholder="원">
                                 </td>
                             </tr>
                         </tbody>

@@ -14,3 +14,11 @@ function boardMain(){
 function shoppingMain(){
     window.location.href =('store')
 }
+//회원가입 클릭시 회원가입 페이지 이동
+function register(){
+    window.location.href=('Register.me')
+}
+//로그인 클릭시 로그인 페이지 이동
+function login  (){
+    window.location.href=('Login.me')
+}

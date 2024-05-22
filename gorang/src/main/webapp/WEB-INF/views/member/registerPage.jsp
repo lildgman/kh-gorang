@@ -9,11 +9,14 @@
             <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
             <link rel="stylesheet" href="${contextPath }/resources/css/member/registerPage.css">
             <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
+
+            <!--js-->
+            <script src="${pageContext.request.contextPath}/resources/js/member/registerPage.js"></script>
         </head>
 
         <body>
             <div class="container">
-                <div id="gorang-logo">
+                <div id="gorang-logo" onclick="logo">
                     <svg width="120" height="120" viewBox="0 0 78 80" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M54.5 52.7079V58.92H3V52.7079H14.3332V42.3865H21.2565V52.7079H54.5ZM33.8694 46.9809H26.852V31.2121H6.84149V25H33.8702L33.8694 46.9809Z"
@@ -137,7 +140,7 @@
                         </div>
                     </div>
                     <div id="registerSubmitBtn">
-                        <input type="button" value="회원가입하기">
+                        <input type="submit" value="회원가입하기"onclick="validateForm()">
                     </div>
                 </form>
             </div>
@@ -167,8 +170,9 @@
                         }
                     }).open();
                 }
-                
+
             </script>
+            <script src="${contextPath}/resources/js/member/registerPage.js"></script>
         </body>
 
         </html>
