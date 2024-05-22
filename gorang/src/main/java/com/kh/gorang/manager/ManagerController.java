@@ -15,4 +15,9 @@ public class ManagerController {
 	public String managerProductUpdateForm() {
 		return "manager/updateProductForm";
 	}
+	
+	@RequestMapping("manager/members")
+	public String managerMemberForm() {
+		return "manager/memberManagementForm";
+	}
 }

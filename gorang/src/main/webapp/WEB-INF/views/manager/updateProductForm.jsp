@@ -8,15 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <!-- summernote -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/summernote/customsummernote.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/summernote/lang/summernote-ko-KR.js"></script>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/customsummernote.css">
-
-
     <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
     <link rel="stylesheet" href="${contextPath }/resources/css/manager/updateProduct.css">
@@ -142,7 +133,7 @@
                         </tbody>
                     </table> 
                 </div>
-                <div class="detail-search-btn">
+                <div class="detail-search-btn-container">
                     <button id="detail-search-btn" class="myBtn">상세조회</button>
                 </div>
 
