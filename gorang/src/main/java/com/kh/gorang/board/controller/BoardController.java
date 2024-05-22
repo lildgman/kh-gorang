@@ -10,4 +10,9 @@ public class BoardController {
 		return "board/boardMain";
 		
 	}
+	@RequestMapping("commonWrite.bo")
+	public String commonWrite() {
+		return "board/commonWrite";
+		
+	}
 }
