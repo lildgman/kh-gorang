@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class MemberScrapProductController {
 	
-	@RequestMapping("mypage/scrap/product")
+	@RequestMapping("myPageScrapProduct.me")
 	public String myPageScrapProduct(){
 		return "member/myPageScrapProduct";
 	}
