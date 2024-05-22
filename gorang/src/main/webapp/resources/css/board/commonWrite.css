@@ -1,0 +1,129 @@
+body{
+    padding-top: 188px;
+}
+#common-write{
+    width: 1920;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#write-top{
+    width: 1920px;
+    height: 85px;
+    border-bottom: 1px solid #1E90FF;
+    padding: 20px;
+}
+#writeBtnSection{
+    display: flex;
+    float: right;
+}
+#tempStorageBtn{
+    margin-right: 5px;
+}
+#tempStorageBtn input{
+    width: 132px;
+    height: 45px;
+    color: #1E90FF;
+    background-color: #fff;
+    border-color: #1E90FF;
+    border-style: solid;
+    border-radius: 4px;
+}
+#writeSubmitBtn{
+    margin-left: 5px;
+}
+#writeSubmitBtn input{
+    width: 132px;
+    height: 45px;
+    color: #fff;
+    background-color: #1E90FF;
+    border-color: #1E90FF;
+    border-style: solid;
+    border-radius: 4px;
+}
+#write-container{
+    width: 700px;
+    height: 880px;
+    margin: 110px 610px 80px 610px;
+}
+#writeTitleSection{
+    border-bottom: #EAEBEF solid 1px;
+    height: 70px;
+    display: flex;
+}
+#selectCategory{
+    margin: 6px 0 6px 0;
+}
+#selectCategory select{
+    width: 100px;
+    height: 58px;
+    border-radius: 4px;
+    background-color: #E9F4FF;
+    border: none;
+}
+#writeTitle{
+    width: 600px;
+    height: 70px;
+    margin: 15px;
+}
+#writeTitle input{
+    width: 567px;
+    height: 40px;
+    border: none;
+    outline: none;
+    font-size: 32px;
+    padding-left: 10px;
+}
+#writeUploadThumbnail{
+    margin-top: 5px;
+    width: 700px;
+    height: 405px;
+    background-color: #E9F4FF;
+    padding: 113px 205px 113px 205px;
+}
+#uploadThumbnailSection{
+    width: 288px;
+    height: 179px;
+    padding: 10px;
+}
+#uploadThumbnailSpan{
+    width: 268px;
+    height: 40px;
+    text-align: center;
+    padding: 7px;
+}
+#uploadThumbnailSpan span{
+    font-size: 15px;
+    font-weight: 600;
+}
+#uploadThumbSizeSpan{
+    margin-top: 1px;
+    width: 268px;
+    height: 70px;
+    text-align: center;
+}
+#uploadThumbSizeSpan span{
+    font-size: 13px;
+    color: #828C94;
+}
+#uploadThumbBtn{
+    margin-top: 1px;
+    width: 268px;
+    height: 40px;
+    text-align: center;
+}
+#uploadThumbBtn label{
+    margin-top: 10px;
+    width: 135px;
+    height: 40px;
+    background-color: #494F54;
+    padding-top: 10px;
+    cursor: pointer;
+    color: #E9F4FF;
+    font-size: 14px;
+    border-radius: 4px;
+}
+#uploadThumbBtn input{
+    display: none;
+}
