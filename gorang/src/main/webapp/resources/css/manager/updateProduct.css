@@ -1,0 +1,136 @@
+#main-container {
+  width: 1240px;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  gap: 60px;
+  margin: 270px auto 100px auto;
+}
+
+/* 왼쪽 리스트 */
+#left-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 40px;
+}
+
+.management-list, .list{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#right-container {
+  width: 1073px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+#right-title {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.searchbar {
+  width: 680px;
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+
+}
+
+.search-input-container {
+  width: 600px;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  padding-left: 10px;
+  gap: 10px;
+}
+
+.search-input-container {
+  width: 600px;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  padding-left: 10px;
+  gap: 10px;
+}
+
+.searchbar-container {
+  width: 682px;
+  border: 1px solid #cececd;
+  border-radius: 4px;
+
+}
+
+.i-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-input {
+  border: none;
+}
+
+.search-input:focus {
+  outline: none;
+  border: none;
+}
+
+.search-btn-container {
+  width: 80px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-btn {
+  width: 100%;
+  height: 100%;
+  background-color: #E9F4FF;
+  color: #1e90ff;
+  border-radius: 0 4px 4px 0;
+
+}
+
+.show-product-status-area {
+  width: 950px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.product-status {
+  width: 200px;
+  height: 104px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  background-color: #F3F9FF;
+  color: #1e90ff;
+  border: 1px solid #1e90ff;
+}
+
+.quantity-div {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+#search-product-result-table {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+}
