@@ -43,9 +43,9 @@ body{
     border-radius: 4px;
 }
 #write-container{
-    width: 900px;
+    width: 700px;
     height: 880px;
-    margin: 110px 510px 80px 510px;
+    margin: 110px 610px 80px 610px;
 }
 #writeTitleSection{
     border-bottom: #EAEBEF solid 1px;
@@ -63,7 +63,7 @@ body{
     border: none;
 }
 #writeTitle{
-    width: 800px;
+    width: 700px;
     height: 70px;
     padding: 15px;
 }
@@ -77,18 +77,18 @@ body{
 }
 #writeUploadThumbnail{
     margin-top: 5px;
-    width: 900px;
+    width: 700px;
     height: 405px;
     background-color: #E9F4FF;
     padding: 113px 205px 113px 205px;
 }
 #uploadThumbnailSection{
-    width: 488px;
+    width: 290px;
     height: 179px;
     padding: 10px;
 }
 #uploadThumbnailSpan{
-    width: 468px;
+    width: 268px;
     height: 40px;
     text-align: center;
     padding: 7px;
@@ -99,23 +99,23 @@ body{
 }
 #uploadThumbSizeSpan{
     margin-top: 1px;
-    width: 468px;
+    width: 268px;
     height: 100px;
     text-align: center;
 }
 #uploadThumbSizeSpan span{
-    font-size: 15px;
+    font-size: 13px;
     color: #828C94;
 }
 #uploadThumbBtn{
     margin-top: 1px;
-    width: 468px;
+    width: 268px;
     height: 40px;
     text-align: center;
 }
 #uploadThumbBtn label{
     margin-top: 10px;
-    width: 335px;
+    width: 235px;
     height: 40px;
     background-color: #494F54;
     padding-top: 10px;

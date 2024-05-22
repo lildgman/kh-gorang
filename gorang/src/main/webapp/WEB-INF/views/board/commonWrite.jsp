@@ -11,10 +11,10 @@
             <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
             <link rel="stylesheet" href="${contextPath }/resources/css/board/commonWrite.css">
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+            <!-- 서머노트를 위해 추가해야할 부분 -->
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-            <!-- 서머노트를 위해 추가해야할 부분 -->
             <script src="${pageContext.request.contextPath}/resources/summernote/customsummernote.js"></script>
             <script src="${pageContext.request.contextPath}/resources/summernote/lang/summernote-ko-KR.js"></script>
             <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/customsummernote.css">
@@ -74,7 +74,18 @@
                 $('.summernote').summernote({
                     height: 329,
                     lang: "ko-KR",
+                    toolbar: [
+                        ['insert', ['link', 'picture']],
+                        ['style', ['bold', 'italic', 'underline', 'clear']],
+                        ['font', ['strikethrough']],
+                        ['fontsize', ['fontsize']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['height', ['height']],
+
+                    ]
                 });
+
             </script>
         </body>
 
