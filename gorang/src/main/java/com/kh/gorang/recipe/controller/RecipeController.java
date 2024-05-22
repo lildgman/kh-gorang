@@ -15,6 +15,11 @@ public class RecipeController {
 	public String recipDetailPage(){
 		return "recipe/recipeDetail";
 	}
+	
+	@RequestMapping("recipeWrite.re")
+	public String recipWritePage(){
+		return "recipe/recipeWrite";
+	}
 }
 
 
