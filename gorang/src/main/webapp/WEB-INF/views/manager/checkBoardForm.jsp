@@ -99,8 +99,12 @@
                         </tbody>
                     </table>
                 </div>
-
-
+            </div>
+            <!-- 페이징 바 영역(미정) -->
+            <!-- <div></div> -->
+            <!-- 숨기기 버튼 -->
+            <div id="hidden-board-btn">
+                <button>숨기기</button>
             </div>
         </div>
     </div>
