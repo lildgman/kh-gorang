@@ -55,7 +55,7 @@
             </div>
             <div id="user-menu">
                 <ul id="left-user-menu-list">
-                    <li><a  href="" style="color: #1e90ff;">모두 보기</a></li>
+                    <li><a  href="" >모두 보기</a></li>
                     <li style="font-size: 18px;  font-weight: bold;" id="myboard">나의 게시글
                        <ul id="myboard-list">
                             <li><a  href="" class="myboard-list-in">나의 레시피 게시글</a></li>
@@ -65,7 +65,7 @@
                     <li><a  href="">댓글 & 후기</a></li>
                     <li><a  href="">문의</a></li>
                     <li><a  href="">나의 냉장고</a></li>
-                    <li><a  href="">구매내역</a></li>
+                    <li><a  href="" style="color: #1e90ff;">구매내역</a></li>
                     <li><a  href="">스크랩</a></li>
                     <li><a  href="">좋아요</a></li>
                     <li><a  href="">정보 수정</a></li>
