@@ -1,0 +1,287 @@
+#main-container {
+  width: 1240px;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  gap: 60px;
+  margin: 270px auto 100px auto;
+}
+
+/* 왼쪽 리스트 */
+#left-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 40px;
+}
+
+.management-list, .list{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#right-container {
+  width: 1073px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+#right-title {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.container-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.searchbar {
+  width: 680px;
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+
+}
+
+.enroll-div-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.search-input-container {
+  width: 600px;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  padding-left: 10px;
+  gap: 10px;
+}
+
+.searchbar-container {
+  width: 682px;
+  border: 1px solid #cececd;
+  border-radius: 4px;
+
+}
+
+.i-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-input {
+  border: none;
+}
+
+.search-input:focus {
+  outline: none;
+  border: none;
+}
+
+.search-btn-container {
+  width: 80px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-btn {
+  width: 100%;
+  height: 100%;
+  background-color: #E9F4FF;
+  color: #1e90ff;
+  border-radius: 0 4px 4px 0;
+
+}
+
+.second-area {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.add-brand-btn-container {
+  width: 108px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-brand-btn {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #8FC8FF;
+  color: #8FC8FF;
+}
+
+#insert-product-price-area {
+  display: flex;
+  flex-direction: row;
+  gap: 35px;
+}
+
+.insert-product-price {
+  width: 234px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.price-input-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+
+#discount-percent{
+  width: 70px;
+}
+
+.btn-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+
+.option-btn{
+  width: 80px;
+  height: 30px;
+}
+
+#add-option-btn {
+  border: 1px solid #1e90ff;
+  color: #1e90ff;
+}
+
+#delete-selected-btn {
+  border: 1px solid #cececd;
+}
+
+.option-table {
+  width: 1000px;
+  border-collapse: collapse;
+}
+
+.option-table tr td {
+  border: 1px solid #cececd;
+}
+
+.option-table td {
+  padding: 5px;
+}
+
+.checkbox-td {
+  width: 48px;
+}
+
+.option-name-td {
+  width: 360px;
+}
+
+.option-quantitiy {
+  width: 100px;
+}
+
+.option-price {
+  width: 220px;
+}
+
+.option-table input {
+  width: 100%;
+  border: 1px solid #cececd;
+  padding: 5px;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.txt-align-right {
+  text-align: right;
+}
+
+#main-img-area {
+  width: 1000px;
+  height: 250px;
+  border: 1px solid #cececd;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 30px;
+}
+
+#main-img-container {
+  width: 220px;
+  height: 100%;
+  background-color: #E9F4FF;
+}
+
+#input-img-container {
+  width: 154px;
+  height: 146px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #e93434;
+}
+
+#input-img-container:hover {
+  cursor: pointer;
+}
+
+#file-input {
+  display: none;
+}
+
+#main-img {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.shipping-method-area {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-area {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+}
+
+.shipping-method-title {
+  width: 70px;
+}
+
+#shipping-fee {
+  width: 100px;
+  text-align: right;
+}
+
+#enroll-product-btn {
+  width: 160px;
+  height: 40px;
+  background-color: #1e90ff;
+  color: white;
+}
