@@ -1,0 +1,185 @@
+@charset "UTF-8";
+
+#main-container {
+    width: 1240px;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    gap: 60px;
+    margin: 270px auto 100px auto;
+  }
+  
+  /* 왼쪽 리스트 */
+  #left-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 40px;
+  }
+  
+  .management-list, .list{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .title {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  #right-container {
+    width: 1073px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+  }
+
+
+/* --------오른쪽 div--------- */
+ #right-title {
+     font-size: 32px;
+     font-weight: bold;
+ }
+.searchbar {
+    width: 680px;
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+  
+  }
+  
+  .search-input-container {
+    width: 600px;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    padding-left: 10px;
+    gap: 10px;
+  }
+  
+  .search-input-container {
+    width: 600px;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    padding-left: 10px;
+    gap: 10px;
+  }
+  
+  .searchbar-container {
+    width: 682px;
+    border: 1px solid #cececd;
+    border-radius: 4px;
+  
+  }
+  
+  .i-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .search-input {
+    border: none;
+  }
+  
+  .search-input:focus {
+    outline: none;
+    border: none;
+  }
+  
+  .search-btn-container {
+    width: 80px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .search-btn {
+    width: 100%;
+    height: 100%;
+    background-color: #E9F4FF;
+    color: #1e90ff;
+    border-radius: 0 4px 4px 0;
+  
+  }
+
+  /*----------- 게시글 목록 영역------------*/
+  #admin-board-list-area{
+    width: 1073PX;
+  }
+
+  #admin-board-title{
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  #admin-board-list-blocks{
+      padding: 20px 0px;
+    }
+  #admin-board-list-blocks table{ 
+    border-collapse: collapse; /* 셀 간의 간격을 없앰 */
+    width: calc(100% - 20px);
+  }
+  table tr td{
+    border: 1px solid #cecdcd;
+  }
+  #admin-thead-tr{
+    height: 40px;
+    background-color: rgba(30, 144, 255, 0.1);
+    font-weight: bold;
+    text-align: center;
+  }
+
+  #admin-thead-tr td{
+    font-size: 16px;
+  }
+
+  .admin-tbody-tr{
+    height: 50px;
+    text-align: center;
+    font-size:14px;
+    font-weight: 500;
+  }
+
+  .thead-td1{
+    width: 50px;
+  }
+  .thead-td2{
+    width: 104px;
+  }
+  .thead-td3{
+    width: 58px;
+  }
+  .thead-td4{
+    width: 400px;
+  }
+  .thead-td5{
+    width: 140px;
+  }
+  .thead-td6{
+    width: 111px;
+  }
+  .thead-td7{
+    width: 113px;
+  }
+
+  .tbody-checkbox input{
+    height: 20px;
+    width: 20px; 
+  }
+
+  #hidden-board-btn{
+    height: 35px;
+    text-align: center;
+  }
+
+  #hidden-board-btn button{
+    width: 85px;
+    height: 100%;
+    color: white;
+    background-color: #1e90ff;
+  }
+  
