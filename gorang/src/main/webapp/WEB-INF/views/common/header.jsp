@@ -53,11 +53,11 @@
                 </div>
                 <div id="header-bottom-right-login">
                     <div id="header-bottom-right-login-top">
-                        <span>회원가입</span>
+                        <span onclick="register()">회원가입</span>
                         <svg width="1" height="12" viewBox="0 0 1 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect width="1" height="12" fill="#E6E6E6"/>
                         </svg>
-                        <span>로그인</span>
+                        <span onclick="login()">로그인</span>
                         <svg width="1" height="12" viewBox="0 0 1 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect width="1" height="12" fill="#E6E6E6"/>
                         </svg>
