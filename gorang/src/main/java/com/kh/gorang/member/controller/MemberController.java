@@ -24,10 +24,16 @@ public class MemberController {
 	public String myRefrigerator(){
 		return "member/myRefrigerator";
 	}
-
+	
 	@RequestMapping("myPageInfoEdit.me")
 	public String myPageInfoEdit(){
 		return "member/myPageInfoEdit";
+	}
+	
+	//구매내역
+	@RequestMapping("myPageBuyList.me")
+	public String myPageBuyList(){
+		return "member/myPageBuyList";
 	}
 
 }
