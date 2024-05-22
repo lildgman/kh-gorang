@@ -1062,7 +1062,7 @@ a.note-dropdown-item:hover {
 
 .note-editor.note-frame,
 .note-editor.note-airframe {
-    width: 900px;
+    width: 700px;
     height: 390px;
 }
 
@@ -1079,7 +1079,7 @@ a.note-dropdown-item:hover {
 .note-editor.note-frame .note-editing-area,
 .note-editor.note-airframe .note-editing-area {
     overflow: hidden;
-    width: 900px;
+    width: 700px;
     height: 329px;
 }
 
@@ -1257,7 +1257,7 @@ a.note-dropdown-item:hover {
 
 .note-popover .popover-content,
 .note-editor .note-toolbar {
-    width: 900px;
+    width: 700px;
     height: 60px;
     margin: 0;
     padding: 10px 29px 10px 29px;
