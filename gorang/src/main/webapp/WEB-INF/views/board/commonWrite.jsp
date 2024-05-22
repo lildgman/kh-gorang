@@ -15,13 +15,13 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
             <!-- 서머노트를 위해 추가해야할 부분 -->
-            <script src="${pageContext.request.contextPath}/resources/summernote/summernote-lite.js"></script>
+            <script src="${pageContext.request.contextPath}/resources/summernote/customsummernote.js"></script>
             <script src="${pageContext.request.contextPath}/resources/summernote/lang/summernote-ko-KR.js"></script>
-            <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/summernote-lite.css">
+            <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/customsummernote.css">
+
         </head>
 
         <body>
-            <jsp:include page="../common/header.jsp" />
             <main id="common-write">
                 <div id="write-top">
                     <div id="writeBtnSection">
@@ -54,7 +54,8 @@
                             </div>
                             <div id="uploadThumbSizeSpan">
                                 <span>*권장 사이즈</span><br>
-                                <span>모바일: 1920 x 1920, 최소 1400 x 1400(1:1 비율) PC: 1920 x 1080, 최소 1400 x 787(16:9
+                                <span>모바일: 1920 x 1920, 최소 1400 x 1400(1:1 비율)</span><br>
+                                <span>PC: 1920 x 1080, 최소 1400 x 787(16:9
                                     비율)</span>
                             </div>
                             <div id="uploadThumbBtn">
@@ -71,7 +72,7 @@
             <jsp:include page="../common/footer.jsp" />
             <script>
                 $('.summernote').summernote({
-                    height: 394,
+                    height: 329,
                     lang: "ko-KR",
                 });
             </script>
