@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class MemberScrapBoardController {
 	
-	@RequestMapping("mypage/scrap/board")
+	@RequestMapping("myPageScrapBoard.me")
 	public String myPageScrapBoard(){
 		return "member/myPageScrapBoard";
 	}
