@@ -10,7 +10,6 @@
 
    /* body전체 영역 */
     #body-area{
-        height: 1150px;
         margin: 80px 340px;
         display: flex;
     }
@@ -20,161 +19,13 @@
         width: 210px;
         margin-right: 105px;
     }
-
-    /* 유저 프로필 정보 영역 */
-    #user-info{
-        height: 326px;
-        margin-bottom: 60px;
-    }
-
-    /* 유저 좌측 메뉴바 영역 */
-    #user-menu{
-        height: 613px;
-    }
     
     /* 오른쪽 body영역 */
     #right-body-area{
         width: 925px;
-        height: 1150px;
     }
 
-    /* 유저 프로필 영역 */
-    #user-profile-area{ 
-        height: 120px;
-        padding: 0px 45px;
-        margin-bottom: 24px;
-    }
-    #user-profile{
-        /* border: 1px solid; */
-        height: 120px;
-        border-radius: 50%;
-    }
-    /* 유저 프로필 사진 */
-    #user-profile > img{
-        height: 120px;
-        width: 100%;
-        border-radius: 50%;
-    }
-    
-    /* 유저 프로필 사진 연필 */
-    #user-profile-pencil{
-        height: 50px;
-        position: relative;
-        top: -45px;
-        left: 90px;
-    }
-
-    /* 유저 닉네임 팔로워 팔로잉 등급 영역 */
-    #user-nickgrade-area{
-        height: 96px;
-        font-size: 20px;
-        font-weight: bolder;
-        text-align: center;
-        width: 142px;
-        margin: 0px 32px;
-    }
-
-    /* 닉네임 옆 '>' 방향 */
-    #bector{
-        margin-bottom: 3px;
-        width: calc(4% + 1px); /* 이미지의 너비를 1px 키웁니다. */
-        height: calc(15% + 1px); /* 이미지의 높이를 1px 키웁니다. */
-    }
-
-    /* 유저 팔로워, 팔로잉 */
-    #user-follow{
-        margin-top: 6px;
-        color: #6D6D6D;
-        width: 100%;
-        font-size: 16px;
-        display: flex;       
-    }
-
-    /* 팔로워 0 */
-    #user-follower{
-        margin-right: 10px;
-    }
-
-    /* 팔로잉 0 */
-    #user-following{
-        margin-left: 10px;
-    }
-
-    /* 유저 등급 */
-    #user-grade{
-        display: inline-block;
-        padding: 4px 8px;
-        margin-top: 12px;
-        color: #1E90FF;
-        font-size: 16px;
-        height: 30px;
-        background-color:#EAF0F6 ;
-    }
-
-    /* 중간 회색 선 */
-    #user-profile-area-line{
-        margin: 20px 0px;
-        border: #E6E6E6;
-    }
-
-    /* 스크랩, 좋아요, 알림 */
-    #user-profile-area-bottom{  
-        display: flex;
-        font-size: 16px;
-        color:#6D6D6D;
-        text-align: center;
-        font-weight: bold;
-    }
-
-    #user-profile-area-bottom div{
-        width: 70px;
-    }
-
-    /* 좋아요, 알림, 스크랩 '0'부분 */
-    .zero{
-        margin-top: 4px;
-    }
-
-    /* 유저 왼쪽 메뉴바 */
-    #left-user-menu-list{
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        gap:40px;
-        
-    }
-
-    /* 나의 게시글 내부의 li 영향 x */
-    #left-user-menu-list li:not(.myboard-in) {
-        margin-bottom: 0; 
-    }
-    
-    /* 메뉴바 글씨 설정 */
-    #left-user-menu-list > li  >a{
-        font-size: 16px;
-        font-weight: bold;
-    }
-
-    /* 나의 게시글 간격 설정 */
-    #myboard-list{
-        margin-top: 16px;
-        display: flex;
-        flex-direction: column;
-        gap:12px;     
-    }
-
-    /* 나의 게시글 내부 li태그 글씨 설정*/
-    .myboard-list-in{
-        font-size: 16px;
-        color: #6D6D6D;
-    }
     /* ------------------------------------- */
-
-    /* 오른쪽 body영역 */
-    #right-body-area{
-        width: 1000px;
-        height: 934px;
-    }
 
     /* 레시피게시글 크기 설정 */
     #myPage-title{
@@ -271,3 +122,26 @@
     .myPage-board-edit{
         padding-top: 3px;
     }
+
+
+    /* 페이징 바 */
+
+  #pagination-area{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 48px;
+    margin-left: 15px;
+  }
+  
+  #pagination{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 392px;
+  }
+  
+  #pagination > a {
+    font-size: 14px;
+    color : #6D6D6D;
+  }
