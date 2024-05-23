@@ -27,6 +27,10 @@
   object-fit:cover;
 }
 
+.store-category:hover {
+  cursor: pointer;
+}
+
 #store-category-area{
   display: flex;
   justify-content:space-evenly;
@@ -64,11 +68,19 @@
   font-size:18px;
 }
 
+.more:hover {
+  cursor: pointer;
+}
+
 .items-container{
   margin-top:28px;
   display: flex;
   justify-content: space-between;
 
+}
+
+.item:hover {
+  cursor: pointer;
 }
 
 .item-brand {

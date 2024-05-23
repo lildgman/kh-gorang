@@ -25,7 +25,7 @@
         </div>
         <div id="header-bottom">
             <div id="header-bottom-left">
-                <div id="header-bottom-left-logo" onclick="logo()">
+                <div id="header-bottom-left-logo" onclick="moveLocation('${pageContext.request.contextPath}')">
                     <svg width="78" height="80" viewBox="0 0 78 80" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M54.5 52.7079V58.92H3V52.7079H14.3332V42.3865H21.2565V52.7079H54.5ZM33.8694 46.9809H26.852V31.2121H6.84149V25H33.8702L33.8694 46.9809Z" fill="black"/>
                         <path d="M58.4208 40.2H38.6406V24.5252H49.6094V21.0956H39.9259V15H56.0806V30.6247H45.1119V34.1012H58.4208V40.2ZM70.8553 31.4082H67.1381V40.2H60.7586V15H67.1381V25.4494H70.8553V15H77.2806V40.2H70.8553V31.4082Z" fill="black"/>
@@ -36,9 +36,9 @@
                         </svg>                        
                 </div>
                 <div id="header-bottom-left-category">
-                    <span onclick="recipeMain()">레시피</span>
-                    <span onclick="boardMain()">게시판</span>
-                    <span onclick="shoppingMain()">쇼핑</span>
+                    <span onclick="moveLocation('${pageContext.request.contextPath}/main.re')">레시피</span>
+                    <span onclick="moveLocation('${pageContext.request.contextPath}/main.bo')">게시판</span>
+                    <span onclick="moveLocation('${pageContext.request.contextPath}/store')">쇼핑</span>
                 </div>
             </div>
             <div id="header-bottom-right">
@@ -53,11 +53,11 @@
                 </div>
                 <div id="header-bottom-right-login">
                     <div id="header-bottom-right-login-top">
-                        <span onclick="register()">회원가입</span>
+                        <span onclick="moveLocation('${pageContext.request.contextPath}/Register.me')">회원가입</span>
                         <svg width="1" height="12" viewBox="0 0 1 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect width="1" height="12" fill="#E6E6E6"/>
                         </svg>
-                        <span onclick="login()">로그인</span>
+                        <span onclick="moveLocation('${pageContext.request.contextPath}/Login.me')">로그인</span>
                         <svg width="1" height="12" viewBox="0 0 1 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect width="1" height="12" fill="#E6E6E6"/>
                         </svg>
@@ -94,7 +94,13 @@
                                     </svg>
                                     
                             </div>
-                            <span>글쓰기</span>
+                            <div class="writeDropdown">
+                                <span>글쓰기</span> 
+                                <div class="writeDropdown-content">
+                                    <span>일반</span>
+                                    <span>레시피</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
