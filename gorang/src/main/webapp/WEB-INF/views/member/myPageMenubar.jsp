@@ -55,7 +55,7 @@
                 <li style="font-size: 18px;  font-weight: bold;" id="myboard">나의 게시글
                    <ul id="myboard-list">
                         <li><a  href="${contextPath}/myRecipeBoard.me" class="myboard-list-in">나의 레시피 게시글</a></li>
-                        <li><a  href="${contextPath}/myRecipeBoard.me" class="myboard-list-in">나의 자유 게시글</a></li>
+                        <li><a  href="${contextPath}/myBoard.me" class="myboard-list-in">나의 자유 게시글</a></li>
                     </ul>
                 </li>
                 <li><a  href="${contextPath}/myPageReplyReview.me">댓글 & 후기</a></li>

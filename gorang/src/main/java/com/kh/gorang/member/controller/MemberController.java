@@ -20,6 +20,12 @@ public class MemberController {
 		return "member/myRecipeBoard";
 	}
 	
+	//마이페이지 자유게시판
+	@RequestMapping("myBoard.me")
+	public String myBoard(){
+		return "member/myPageBoard";
+	}
+
 	//마이페이지 나의냉장고
 	@RequestMapping("myRefrigerator.me")
 	public String myRefrigerator(){

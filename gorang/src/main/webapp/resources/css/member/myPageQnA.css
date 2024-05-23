@@ -10,7 +10,6 @@ body {
 
 /* body전체 영역 */
 #body-area {
-    height: 1150px;
     margin: 80px 340px;
     display: flex;
 }
@@ -23,7 +22,6 @@ body {
 /* 오른쪽 body영역 */
 #right-body-area {
     width: 925px;
-    height: 1150px;
 }
 
     #product-qna-container,#recipe-qna-container {
@@ -108,5 +106,26 @@ body {
         flex-direction: column;
         gap: 16px;
     }
+    /* 페이징 바 */
 
+  .pagination-area{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    margin-left: 15px;
+    margin-bottom: 10px;
+  }
+  
+  .pagination{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 392px;
+  }
+  
+  .pagination > a {
+    font-size: 14px;
+    color : #6D6D6D;
+  }
 

@@ -8,7 +8,7 @@
    }
    /* body전체 영역 */
     #body-area{
-        height: 1150px;
+        /* height: 1150px; */
         margin: 80px 340px;
         display: flex;
     }

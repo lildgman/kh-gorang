@@ -94,6 +94,23 @@
                         </div>
                     </div>
                 </div>
+                 <!-- 페이징 바 -->
+                 <div class="pagination-area">
+                    <div class="pagination">
+                        <a href="#">&lt;</a>
+                        <a href="#">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#">4</a>
+                        <a href="#">5</a>
+                        <a href="#">6</a>
+                        <a href="#">7</a>
+                        <a href="#">8</a>
+                        <a href="#">9</a>
+                        <a href="#">10</a>
+                        <a href="#">&gt;</a>
+                    </div>
+                </div>
             </div>
 
             <!-- 레시피 문의 영역 -->
@@ -173,6 +190,23 @@
                         </div>
                     </div>
                 </div>
+                <!-- 페이징 바 -->
+                <div class="pagination-area">
+                   <div class="pagination">
+                       <a href="#">&lt;</a>
+                       <a href="#">1</a>
+                       <a href="#">2</a>
+                       <a href="#">3</a>
+                       <a href="#">4</a>
+                       <a href="#">5</a>
+                       <a href="#">6</a>
+                       <a href="#">7</a>
+                       <a href="#">8</a>
+                       <a href="#">9</a>
+                       <a href="#">10</a>
+                       <a href="#">&gt;</a>
+                   </div>
+               </div>
             </div>
         </div>
     </div>

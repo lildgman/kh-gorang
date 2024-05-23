@@ -78,8 +78,24 @@
                         </div>
                     </div>
                 </div>
+                <!-- 페이징 바 -->
+                <div class="pagination-area">
+                    <div class="pagination">
+                        <a href="#">&lt;</a>
+                        <a href="#">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#">4</a>
+                        <a href="#">5</a>
+                        <a href="#">6</a>
+                        <a href="#">7</a>
+                        <a href="#">8</a>
+                        <a href="#">9</a>
+                        <a href="#">10</a>
+                        <a href="#">&gt;</a>
+                    </div>
+                </div>
             </div>
-
             <!-- 나의 후기 영역 -->
             <div id="review-container">
                 <div class="container-top">
@@ -134,10 +150,24 @@
                             <div class="content-area-comment">맛있겠네요!</div>
                             <div class="content-area-date">2024.02.12</div>
                         </div>
+                    </div>                 
+                </div>
+                <!-- 페이징 바 -->
+                <div class="pagination-area">
+                    <div class="pagination">
+                        <a href="#">&lt;</a>
+                        <a href="#">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#">4</a>
+                        <a href="#">5</a>
+                        <a href="#">6</a>
+                        <a href="#">7</a>
+                        <a href="#">8</a>
+                        <a href="#">9</a>
+                        <a href="#">10</a>
+                        <a href="#">&gt;</a>
                     </div>
-                    
-                    
-
                 </div>
             </div>
         </div>

@@ -13,6 +13,7 @@ body {
     height: 1150px;
     margin: 80px 340px;
     display: flex;
+    margin-bottom: 200px;
 }
 
 /* 왼쪽 body영역 */
@@ -23,7 +24,7 @@ body {
 /* 오른쪽 body영역 */
 #right-body-area {
     width: 925px;
-    height: 1150px;
+    /* margin-bottom: 50px; */
 }
 
     #reply-container,#review-container {
@@ -100,4 +101,25 @@ body {
         gap: 16px;
     }
 
+    /* 페이징 바 */
 
+  .pagination-area{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    margin-left: 15px;
+    margin-bottom: 10px;
+  }
+  
+  .pagination{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 392px;
+  }
+  
+  .pagination > a {
+    font-size: 14px;
+    color : #6D6D6D;
+  }

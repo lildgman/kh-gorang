@@ -10,7 +10,6 @@ body {
 
 /* body전체 영역 */
 #body-area {
-    height: 1150px;
     margin: 80px 340px;
     display: flex;
 }
@@ -23,7 +22,6 @@ body {
 /* 오른쪽 body영역 */
 #right-body-area {
     width: 925px;
-    height: 1150px;
 }
 
 /* ------------------------------------- */

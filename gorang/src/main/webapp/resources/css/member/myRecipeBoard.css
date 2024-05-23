@@ -10,7 +10,6 @@
 
    /* body전체 영역 */
     #body-area{
-        height: 1150px;
         margin: 80px 340px;
         display: flex;
     }
@@ -24,16 +23,9 @@
     /* 오른쪽 body영역 */
     #right-body-area{
         width: 925px;
-        height: 1150px;
     }
 
     /* ------------------------------------- */
-
-    /* 오른쪽 body영역 */
-    #right-body-area{
-        width: 1000px;
-        height: 934px;
-    }
 
     /* 레시피게시글 크기 설정 */
     #myPage-title{
@@ -130,3 +122,26 @@
     .myPage-board-edit{
         padding-top: 3px;
     }
+
+
+    /* 페이징 바 */
+
+  #pagination-area{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 48px;
+    margin-left: 15px;
+  }
+  
+  #pagination{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 392px;
+  }
+  
+  #pagination > a {
+    font-size: 14px;
+    color : #6D6D6D;
+  }
