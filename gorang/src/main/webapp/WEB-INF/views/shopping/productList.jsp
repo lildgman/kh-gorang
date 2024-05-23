@@ -23,6 +23,7 @@
     <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
 	<link rel="stylesheet" href="${contextPath }/resources/css/default.css">
     <link rel="stylesheet" href="${contextPath }/resources/css/shopping/storeList.css">
+    <script src="${contextPath }/resources/js/shopping/productList.js"></script>
 </head>
 
 <body>
@@ -34,43 +35,43 @@
     <div id="productList-container">
         <!-- 카테고리 시작 -->
         <div id="category-area">
-            <div class="store-category">
+            <div class="store-category" id="category-veget">
                 <div class="category-image-area">
-                    <img class="category-image" src="${contextPath }/resources/dummyImg/shopping//vaget.png" alt="야채">
+                    <img class="category-image" src="${contextPath }/resources/dummyImg/shopping/vaget.png" alt="야채">
                 </div>
                 <div class="category-name">
                     야채
                 </div>
             </div>
 
-            <div class="store-category">
-                <div class="category-image-area">
-                    <img class="category-image" src="${contextPath }/resources/dummyImg/shopping//fruit.png" alt="과일">
+            <div class="store-category" id="category-fruit">
+                <div class="category-image-area" id="category-fruit">
+                    <img class="category-image" src="${contextPath }/resources/dummyImg/shopping/fruit.png" alt="과일">
                 </div>
                 <div class="category-name">
                     과일
                 </div>
             </div>
 
-            <div class="store-category">
+            <div class="store-category" id="category-fish">
                 <div class="category-image-area">
-                    <img class="category-image" src="${contextPath }/resources/dummyImg/shopping//fish.png" alt="육류">
+                    <img class="category-image" src="${contextPath }/resources/dummyImg/shopping/fish.png" alt="어류">
                 </div>
                 <div class="category-name">
                     육류
                 </div>
             </div>
 
-            <div class="store-category">
+            <div class="store-category" id="category-meat">
                 <div class="category-image-area">
-                    <img class="category-image" src="${contextPath }/resources/dummyImg/shopping//meat.png" alt="어류">
+                    <img class="category-image" src="${contextPath }/resources/dummyImg/shopping/meat.png" alt="육류">
                 </div>
                 <div class="category-name">
                     어류
                 </div>
             </div>
 
-            <div class="store-category">
+            <div class="store-category" id="category-bread">
                 <div class="category-image-area">
                     <img class="category-image" src="${contextPath }/resources/dummyImg/shopping//bread.png" alt="빵">
                 </div>
@@ -79,7 +80,7 @@
                 </div>
             </div>
 
-            <div class="store-category">
+            <div class="store-category" id="category-noodle">
                 <div class="category-image-area">
                     <img class="category-image" src="${contextPath }/resources/dummyImg/shopping//noodle.png" alt="면">
                 </div>
@@ -88,7 +89,7 @@
                 </div>
             </div>
 
-            <div class="store-category">
+            <div class="store-category" id="category-dairy">
                 <div class="category-image-area">
                     <img class="category-image" src="${contextPath }/resources/dummyImg/shopping//dairy.png" alt="유제품">
                 </div>
@@ -104,9 +105,9 @@
             <!-- 정렬 방식 -->
             <div id="product-order-area">
                 <div id="product-order">
-                    <span class="order">최신순</span> |
-                    <span class="order">조회수순</span> |
-                    <span class="order">스크랩순</span>
+                    <span class="sort" onclick="orderProductList('${contextPath }/store/list?sort=latest')">최신순</span> |
+                    <span class="sort" onclick="orderProductList('${contextPath }/store/list?sort=view')">조회수순</span> |
+                    <span class="sort" onclick="orderProductList('${contextPath }/store/list?sort=scrap')">스크랩순</span>
                 </div>
             </div>
 
@@ -114,309 +115,26 @@
             <div id="product-list">
 
                 <!-- 상품 -->
-                <div class="item">
-                    <div class="item-thumbnail-area">
-                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping//item1.png" alt="상품1">
-                    </div>
-                    <div class="item-text-area">
-                        <div class="item-title">
-                            <div class="item-brand">성주</div>
-                            <div class="item-name">당도선별 성주 꿀참외 1.5kg(4~7개입)</div>
-                        </div>
-                        <div class="item-price">
-                            <div class="item-origin-price">50,000</div>
-                            <div>
-                                <span class="discount-percent">20%</span>
-                                <span class="discounted-price">16,900</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="item-thumbnail-area">
-                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping//item2.png" alt="상품1">
-                    </div>
-                    <div class="item-text-area">
-                        <div class="item-title">
-                            <div class="item-brand">성주</div>
-                            <div class="item-name">당도선별 성주 꿀참외 1.5kg(4~7개입)</div>
-                        </div>
-                        <div class="item-price">
-                            <div class="item-origin-price">50,000</div>
-                            <div>
-                                <span class="discount-percent">20%</span>
-                                <span class="discounted-price">16,900</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="item-thumbnail-area">
-                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping//item3.png" alt="상품1">
-                    </div>
-                    <div class="item-text-area">
-                        <div class="item-title">
-                            <div class="item-brand">성주</div>
-                            <div class="item-name">당도선별 성주 꿀참외 1.5kg(4~7개입)</div>
-                        </div>
-                        <div class="item-price">
-                            <div class="item-origin-price">50,000</div>
-                            <div>
-                                <span class="discount-percent">20%</span>
-                                <span class="discounted-price">16,900</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="item-thumbnail-area">
-                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping//item4.png" alt="상품1">
-                    </div>
-                    <div class="item-text-area">
-                        <div class="item-title">
-                            <div class="item-brand">성주</div>
-                            <div class="item-name">당도선별 성주 꿀참외 1.5kg(4~7개입)</div>
-                        </div>
-                        <div class="item-price">
-                            <div class="item-origin-price">50,000</div>
-                            <div>
-                                <span class="discount-percent">20%</span>
-                                <span class="discounted-price">16,900</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="item-thumbnail-area">
-                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping/item1.png" alt="상품1">
-                    </div>
-                    <div class="item-text-area">
-                        <div class="item-title">
-                            <div class="item-brand">성주</div>
-                            <div class="item-name">당도선별 성주 꿀참외 1.5kg(4~7개입)</div>
-                        </div>
-                        <div class="item-price">
-                            <div class="item-origin-price">50,000</div>
-                            <div>
-                                <span class="discount-percent">20%</span>
-                                <span class="discounted-price">16,900</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="item-thumbnail-area">
-                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping/item2.png" alt="상품1">
-                    </div>
-                    <div class="item-text-area">
-                        <div class="item-title">
-                            <div class="item-brand">성주</div>
-                            <div class="item-name">당도선별 성주 꿀참외 1.5kg(4~7개입)</div>
-                        </div>
-                        <div class="item-price">
-                            <div class="item-origin-price">50,000</div>
-                            <div>
-                                <span class="discount-percent">20%</span>
-                                <span class="discounted-price">16,900</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="item-thumbnail-area">
-                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping/item3.png" alt="상품1">
-                    </div>
-                    <div class="item-text-area">
-                        <div class="item-title">
-                            <div class="item-brand">성주</div>
-                            <div class="item-name">당도선별 성주 꿀참외 1.5kg(4~7개입)</div>
-                        </div>
-                        <div class="item-price">
-                            <div class="item-origin-price">50,000</div>
-                            <div>
-                                <span class="discount-percent">20%</span>
-                                <span class="discounted-price">16,900</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="item-thumbnail-area">
-                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping/item4.png" alt="상품1">
-                    </div>
-                    <div class="item-text-area">
-                        <div class="item-title">
-                            <div class="item-brand">성주</div>
-                            <div class="item-name">당도선별 성주 꿀참외 1.5kg(4~7개입)</div>
-                        </div>
-                        <div class="item-price">
-                            <div class="item-origin-price">50,000</div>
-                            <div>
-                                <span class="discount-percent">20%</span>
-                                <span class="discounted-price">16,900</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="item-thumbnail-area">
-                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping/item1.png" alt="상품1">
-                    </div>
-                    <div class="item-text-area">
-                        <div class="item-title">
-                            <div class="item-brand">성주</div>
-                            <div class="item-name">당도선별 성주 꿀참외 1.5kg(4~7개입)</div>
-                        </div>
-                        <div class="item-price">
-                            <div class="item-origin-price">50,000</div>
-                            <div>
-                                <span class="discount-percent">20%</span>
-                                <span class="discounted-price">16,900</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="item-thumbnail-area">
-                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping/item2.png" alt="상품1">
-                    </div>
-                    <div class="item-text-area">
-                        <div class="item-title">
-                            <div class="item-brand">성주</div>
-                            <div class="item-name">당도선별 성주 꿀참외 1.5kg(4~7개입)</div>
-                        </div>
-                        <div class="item-price">
-                            <div class="item-origin-price">50,000</div>
-                            <div>
-                                <span class="discount-percent">20%</span>
-                                <span class="discounted-price">16,900</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="item-thumbnail-area">
-                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping/item3.png" alt="상품1">
-                    </div>
-                    <div class="item-text-area">
-                        <div class="item-title">
-                            <div class="item-brand">성주</div>
-                            <div class="item-name">당도선별 성주 꿀참외 1.5kg(4~7개입)</div>
-                        </div>
-                        <div class="item-price">
-                            <div class="item-origin-price">50,000</div>
-                            <div>
-                                <span class="discount-percent">20%</span>
-                                <span class="discounted-price">16,900</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="item-thumbnail-area">
-                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping/item4.png" alt="상품1">
-                    </div>
-                    <div class="item-text-area">
-                        <div class="item-title">
-                            <div class="item-brand">성주</div>
-                            <div class="item-name">당도선별 성주 꿀참외 1.5kg(4~7개입)</div>
-                        </div>
-                        <div class="item-price">
-                            <div class="item-origin-price">50,000</div>
-                            <div>
-                                <span class="discount-percent">20%</span>
-                                <span class="discounted-price">16,900</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="item-thumbnail-area">
-                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping/item1.png" alt="상품1">
-                    </div>
-                    <div class="item-text-area">
-                        <div class="item-title">
-                            <div class="item-brand">성주</div>
-                            <div class="item-name">당도선별 성주 꿀참외 1.5kg(4~7개입)</div>
-                        </div>
-                        <div class="item-price">
-                            <div class="item-origin-price">50,000</div>
-                            <div>
-                                <span class="discount-percent">20%</span>
-                                <span class="discounted-price">16,900</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="item-thumbnail-area">
-                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping/item2.png" alt="상품1">
-                    </div>
-                    <div class="item-text-area">
-                        <div class="item-title">
-                            <div class="item-brand">성주</div>
-                            <div class="item-name">당도선별 성주 꿀참외 1.5kg(4~7개입)</div>
-                        </div>
-                        <div class="item-price">
-                            <div class="item-origin-price">50,000</div>
-                            <div>
-                                <span class="discount-percent">20%</span>
-                                <span class="discounted-price">16,900</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="item-thumbnail-area">
-                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping/item3.png" alt="상품1">
-                    </div>
-                    <div class="item-text-area">
-                        <div class="item-title">
-                            <div class="item-brand">성주</div>
-                            <div class="item-name">당도선별 성주 꿀참외 1.5kg(4~7개입)</div>
-                        </div>
-                        <div class="item-price">
-                            <div class="item-origin-price">50,000</div>
-                            <div>
-                                <span class="discount-percent">20%</span>
-                                <span class="discounted-price">16,900</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="item-thumbnail-area">
-                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping/item4.png" alt="상품1">
-                    </div>
-                    <div class="item-text-area">
-                        <div class="item-title">
-                            <div class="item-brand">성주</div>
-                            <div class="item-name">당도선별 성주 꿀참외 1.5kg(4~7개입)</div>
-                        </div>
-                        <div class="item-price">
-                            <div class="item-origin-price">50,000</div>
-                            <div>
-                                <span class="discount-percent">20%</span>
-                                <span class="discounted-price">16,900</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <c:forEach var="a" begin="1" end="16">
+                	<div class="item" onclick="location.href='product?pno=${a}'">
+	                    <div class="item-thumbnail-area">
+	                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping/item1.png" alt="상품1">
+	                    </div>
+	                    <div class="item-text-area">
+	                        <div class="item-title">
+	                            <div class="item-brand">성주</div>
+	                            <div class="item-name">당도선별 성주 꿀참외 1.5kg(4~7개입)</div>
+	                        </div>
+	                        <div class="item-price">
+	                            <div class="item-origin-price">50,000</div>
+	                            <div>
+	                                <span class="discount-percent">20%</span>
+	                                <span class="discounted-price">16,900</span>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+                </c:forEach>
 
             </div>
         </div>
