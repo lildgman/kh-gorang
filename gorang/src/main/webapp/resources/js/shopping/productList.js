@@ -16,12 +16,16 @@ window.onload = function() {
     storeCategories.forEach(function(category) {
       category.addEventListener("click", function() {
         let categoryId = category.id;
-        let url = categoryList[categoryId];
+        let categoryName = categoryList[categoryId];
         
-        window.location.href = "store/list?category=" + url;
+        window.location.href = "list?category=" + categoryName;
       })
     })
   }
 
   moveClickedCategoryList();
+}
+
+function orderProductList(method) {
+  window.location.href = method;
 }

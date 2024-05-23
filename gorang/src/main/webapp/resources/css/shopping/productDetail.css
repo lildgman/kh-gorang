@@ -111,35 +111,40 @@
 
 #product_buy_info_area{
   display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
+  justify-content: flex-start;
+  align-items: flex-start;
   height: 200px;
 }
 
 #product_buy_info{
-  border: 1px solid #EDEDED;
-  padding: 20px;
   border-radius: 6px;
   display: flex;
   flex-direction: column;
-  width: 452px;
+  gap: 10px;
+  width: 100%;
 }
 
-#product_name_amount {
-  border: 1px solid #EDEDED;
-  border-radius: 8px;
-  padding: 10px;
+#product_quantity_area {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 50px;
+  
 }
 
-#product_amount_price{
+.product_quantity_price{
   display: flex;
   justify-content: space-between;
   
 }
 
-#pname {
-  font-size: 20px;
-  margin-bottom: 6px;
+.minus_quantity, .plus_quantity {
+  cursor: pointer;
+}
+
+.pname {
+  font-size: 16px;
 }
 
 #pamount_btn {
@@ -154,16 +159,43 @@
   padding: 6px;
 }
 
+#price-area {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 67px;
+}
+
 #price{
   font-size: 20px;
   font-weight: bold;
 }
 
-#btn_cart {
+.btn_cart {
   border: 1px solid #EDEDED;
+  border-radius: 4px;
 }
 
-#product_buy_btn_container{
+.btn_buy {
+  background-color: #1E90FF;
+  color: white;
+  border-radius: 4px;
+
+}
+
+.myBtn {
+  width: 40%;
+  height: 60px;
+  font-size: 18px;
+}
+
+.mini_btn {
+  width: 142px;
+  height: 45px;
+}
+
+.product_buy_btn_container{
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
@@ -189,18 +221,25 @@
 }
 
 #product_info_nav {
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
+  position: sticky;
+  top: 168px;
 }
 
 .nav_div{
-  width: 181px;
+  width: 186px;
   font-size: 22px;
   padding: 10px 0px;
   border: 1px solid #EDEDED;
   text-align: center;
   background-color: #fafafa;
+}
+
+.nav_div:hover {
+  cursor: pointer;
 }
 
 #product_description_area{
@@ -434,6 +473,18 @@
   background-color: #1E90FF;
   color: white;
   border-radius: 4px;
+}
+
+#product-buy-container {
+  position: sticky;
+  top: 190px;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  padding: 8px;
+}
+
+#zzim:hover{
+  cursor: pointer;
 }
 
 
