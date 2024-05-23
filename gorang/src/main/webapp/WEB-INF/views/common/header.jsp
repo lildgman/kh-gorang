@@ -94,7 +94,13 @@
                                     </svg>
                                     
                             </div>
-                            <span>글쓰기</span>
+                            <div class="writeDropdown">
+                                <span>글쓰기</span> 
+                                <div class="writeDropdown-content">
+                                    <span>일반</span>
+                                    <span>레시피</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
