@@ -150,3 +150,44 @@
                     justify-content: center;
                     cursor: pointer;
                 }
+
+                    .writeDropdown {
+                        position: relative;
+                        display: inline-block;
+                    }
+
+
+                    .writeDropdown > span {
+                        cursor: pointer;
+                        border: none;
+                        border-radius: 4px;
+                    }
+
+
+                    .writeDropdown-content {
+                        display: none;
+                        position: absolute;
+                        background-color: #fff;
+                        min-width: 160px;
+                        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                        z-index: 1;
+                    }
+
+
+                    .writeDropdown-content span {
+                        color: black;
+                        padding: 12px 16px;
+                        text-decoration: none;
+                        display: block;
+                    }
+
+
+                    .writeDropdown-content span:hover {
+                        color: #1E90FF;
+                        background-color: #f1f1f1;
+                    }
+
+
+                    .writeDropdown:hover .writeDropdown-content {
+                        display: block;
+                    }
