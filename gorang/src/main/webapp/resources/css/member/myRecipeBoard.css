@@ -31,7 +31,7 @@
     #myPage-title{
         font-size: 24px;
         font-weight: bold;
-        margin-bottom: 50.64px;  
+        margin-bottom: 30px;  
     }
 
     /* 순서나열 */
@@ -41,13 +41,16 @@
         width: 140px;
         display: flex;
         justify-content: space-between;
-        margin-left: 797px;
-        margin-bottom: 24px;                           
+        margin-left: 775px;
+        margin-bottom: 10px;                           
     }
 
     /* board리스트 구역 */
     #myPage-board-list-area{
+        display: flex;
+        flex-wrap: wrap;
         height: 791px;
+        gap: 5px;
     }
 
     /* 리스트 한 줄 */
@@ -130,7 +133,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 48px;
+    margin-top: 25px;
     margin-left: 15px;
   }
   
@@ -144,4 +147,12 @@
   #pagination > a {
     font-size: 14px;
     color : #6D6D6D;
+  }
+
+#deleteBtn{
+    color: #1e90ff;
+}
+  #deleteBtn:hover{
+    cursor: pointer;
+    color:#F20606;
   }

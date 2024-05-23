@@ -11,6 +11,8 @@
     <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
     <link rel="stylesheet" href="${contextPath }/resources/css/member/myPageScrapBoard.css">
+    <!--js-->
+<script src="${pageContext.request.contextPath}/resources/js/member/myPageLike/myPageLikeRecipe.js"></script>
 </head>
 <body>
     
@@ -27,20 +29,22 @@
                     <span>스크랩 > 상품</span>
                     <span>(9)</span>
                 </div>
-
+                <div id="delete-edit" onclick="editBtn()">편집</div>           
+                    <div id="delete-like" onclick="deleteBtn()">삭제</div>
+            
                 <div id="scrap-area-content">
-                    
-                    <c:forEach begin="1" end="7" step="1">
-						<div class="scrap-content">
-                            <div class="scrap-img">
-                                <img src="${contextPath}/resources/dummyImg/shopping/newitem1.png" alt="">
-                            </div>
-                            <div class="scrap-checkbox">
-                                <input type="checkbox" name="" id="">
-                            </div>
-                        </div>
-					</c:forEach>
 
+					<c:forEach begin="1" end="9" step="1">
+						<div class="scrap-content">
+                        <div class="scrap-img">
+                            <img src="${contextPath}/resources/dummyImg/shopping/dog.jpeg" alt="">
+                        </div>
+                        <div class="scrap-checkbox">
+                            <input type="checkbox" name="" id="delete-check" class="delete-check">
+                        </div>
+                    </div>
+					</c:forEach>                    
+                    
                 </div>
             </div>
         </div>

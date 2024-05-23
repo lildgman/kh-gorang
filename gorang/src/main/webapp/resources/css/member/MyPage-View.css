@@ -26,6 +26,7 @@
 
     /* 버튼 크기 */
     #banner-btn-area{
+        position: relative;
         width: 123px;
         height: 36px;
         line-height: 36px;
@@ -44,26 +45,36 @@
 
     /* 좌측 레시피버튼 */
     #recipe-btn{
+        position: relative;
+        z-index: 1;
         width: 65px;
-        background-color:#e6e6e6;
+        background-color:#1E90FF;
     }
 
     /* 우측 게시판버튼 */
     #board-btn{
         position: relative;
+        z-index: 0;
         width: 65px;
-        background-color: #1E90FF;
+        background-color:#e6e6e6;
         left: 57px;
         bottom: 36px;
     }
-
-    /* 배너 이미지 영역 */
-    #banner-imgs{
+    #banner-imgs-recipe{
         height: 240px;
         display: flex;
         gap: 20px;
         margin-bottom: 60px;
     }
+
+    /* 배너 이미지 영역 */
+    #banner-imgs{
+        height: 240px;
+        display: none;
+        gap: 20px;
+        margin-bottom: 60px;
+    }
+
 
     /* 인기 게시글 4개 크기 */
     .best-board-four{

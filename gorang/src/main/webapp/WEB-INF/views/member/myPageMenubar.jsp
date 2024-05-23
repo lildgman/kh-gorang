@@ -71,8 +71,8 @@
                 </li>
                 <li style="font-size: 18px;  font-weight: bold;" id="user-like">좋아요
                     <ul id="mylike-list">
-                        <li><a  href="${contextPath}/myPageScrapRecipe.me" class="myboard-list-in">레시피</a></li>
-                        <li><a  href="${contextPath}/myPageScrapBoard.me" class="myboard-list-in">게시글</a></li>
+                        <li><a  href="${contextPath}/myPageLikeRecipe.me" class="myboard-list-in">레시피</a></li>
+                        <li><a  href="${contextPath}/myPageLikeBoard.me" class="myboard-list-in">게시글</a></li>
                     </ul>
                 </li>
                 <li><a  href="${contextPath}/myPageInfoEdit.me">정보 수정</a></li>

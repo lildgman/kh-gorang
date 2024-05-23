@@ -9,6 +9,8 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member/myPageBoard.css">
+ <!-- js -->
+ <script src="${pageContext.request.contextPath}/resources/js/member/myPageBoard/myRecipeBoard.js"></script>
 </head>
 <body>
     <jsp:include page="../common/header.jsp" />
@@ -29,7 +31,7 @@
             </div>
 
             <div id="myPage-board-list-area">
-                <div class="myPage-board-list-line">
+                <!-- <div class="myPage-board-list-line"> -->
 
                     <div class="myPage-board-list-block">
                         <div class="myPage-board-img">
@@ -85,9 +87,9 @@
                         </div>
                     </div>
 
-                </div>
+                <!-- </div> -->
 
-                <div class="myPage-board-list-line">
+                <!-- <div class="myPage-board-list-line"> -->
                     <div class="myPage-board-list-block">
                         <div class="myPage-board-img">
                             <img src="${pageContext.request.contextPath}/resources/images/member-img/Rectangle 59.png" alt="">
@@ -141,7 +143,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                <!-- </div> -->
             </div>
             <!-- 페이징 바 -->
             <div id="pagination-area">

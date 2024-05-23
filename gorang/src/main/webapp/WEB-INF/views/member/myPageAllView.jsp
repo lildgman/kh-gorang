@@ -9,7 +9,7 @@
     <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
     <link rel="stylesheet" href="${contextPath }/resources/css/member/MyPage-View.css">
-    
+    <script src="${contextPath}/resources/js/member/myPageAllView.js"></script>
 </head>
 <body>
     
@@ -25,8 +25,8 @@
 
                 <!-- 버튼 영역(레시피/게시판) -->
                 <div id="banner-btn-area">
-                   <button id="recipe-btn" class="cl-btn">레시피</button>
-                    <button id="board-btn" class="cl-btn">게시판</button>
+                    <button id="recipe-btn" class="cl-btn" onclick="recipeImg()">레시피</button>
+                    <button id="board-btn" class="cl-btn" onclick="BoardImg()">게시판</button>
                 </div>
 
                 <!-- 배너 게시판 인기 이미지영역 -->
@@ -41,18 +41,18 @@
                         <img src="${contextPath}/resources/images/member-img/Rectangle 18311.png">
                     </div>
                 </div>
-                 <!-- 배너 레시피 인기 이미지영역 -->
-                 <!-- <div id="banner-imgs">
+                 <!-- 배너 레시피 인기 이미지영역 --> 
+                <div id="banner-imgs-recipe">
                     <div class="banner-best-img">
-                        <img src="${contextPath}/resources/images/member-img/Img (1).png">
+                        <img src="${contextPath}/resources/images/member-img/Img.png">
                     </div>
                     <div class="banner-best-img">
                         <img src="${contextPath}/resources/images/member-img/Img.png">
                     </div>
                     <div class="banner-best-img">
-                        <img src="${contextPath}/resources/images/member-img/Rectangle 18311.png">
+                        <img src="${contextPath}/resources/images/member-img/Img.png">
                     </div>
-                </div> -->
+                </div>
 
                 <script>
 

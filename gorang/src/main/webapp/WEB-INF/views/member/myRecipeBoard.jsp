@@ -7,6 +7,8 @@
         <title>Insert title here</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member/myRecipeBoard.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
+        <!-- js -->
+        <script src="${pageContext.request.contextPath}/resources/js/member/myPageBoard/myRecipeBoard.js"></script>
     </head>
     <body>
 
@@ -27,7 +29,7 @@
                     </div>
 
                     <div id="myPage-board-list-area">
-                        <div class="myPage-board-list-line">
+                     
 
                             <div class="myPage-board-list-block">
                                 <div class="myPage-board-img">
@@ -41,105 +43,111 @@
                                             <img src="${pageContext.request.contextPath}/resources/images/member-img/Facebook_Thumb_icon.svg.png" alt="">추천 15
                                         </div>
                                         <div class="myPage-board-edit">
-                                            2024.01.01 수정 / <span style="color: #1e90ff;">삭제</span>
+                                            2024.01.01 수정 / <span id="deleteBtn" onclick="deleteRecipeBoard(this)">삭제</span>
                                         </div>
+                                        
                                     </div>
                                 </div>
                             </div>
 
                             <div class="myPage-board-list-block">
                                 <div class="myPage-board-img">
-                                    <img src="${pageContext.request.contextPath}/resources/images/member-img/Rectangle 59.png" alt="">
+                                    <img src="${pageContext.request.contextPath}/resources/images/member-img/Rectangle 59.png" alt="사진">
                                 </div>
                                 <div class="myPage-board-content">
-                                    주부의 국보급 샌드위치
+                                    레시피 게시글 제목 입력합니다. ^0^
                                     <br> <span>조회수 : 12 </span> <span>댓글 : 3</span>
                                     <div class="myPage-board-content-bottom">
                                         <div class="myPage-board-chuchun">
                                             <img src="${pageContext.request.contextPath}/resources/images/member-img/Facebook_Thumb_icon.svg.png" alt="">추천 15
                                         </div>
                                         <div class="myPage-board-edit">
-                                            2024.01.01 수정 / <span style="color: #1e90ff;">삭제</span>
+                                            2024.01.01 수정 / <span id="deleteBtn" onclick="deleteRecipeBoard(this)">삭제</span>
                                         </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="myPage-board-list-block">
+                                <div class="myPage-board-img">
+                                    <img src="${pageContext.request.contextPath}/resources/images/member-img/Rectangle 59.png" alt="사진">
+                                </div>
+                                <div class="myPage-board-content">
+                                    레시피 게시글 제목 입력합니다. ^0^
+                                    <br> <span>조회수 : 12 </span> <span>댓글 : 3</span>
+                                    <div class="myPage-board-content-bottom">
+                                        <div class="myPage-board-chuchun">
+                                            <img src="${pageContext.request.contextPath}/resources/images/member-img/Facebook_Thumb_icon.svg.png" alt="">추천 15
+                                        </div>
+                                        <div class="myPage-board-edit">
+                                            2024.01.01 수정 / <span id="deleteBtn" onclick="deleteRecipeBoard(this)">삭제</span>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+
+                     
+                            <div class="myPage-board-list-block">
+                                <div class="myPage-board-img">
+                                    <img src="${pageContext.request.contextPath}/resources/images/member-img/Rectangle 59.png" alt="사진">
+                                </div>
+                                <div class="myPage-board-content">
+                                    레시피 게시글 제목 입력합니다. ^0^
+                                    <br> <span>조회수 : 12 </span> <span>댓글 : 3</span>
+                                    <div class="myPage-board-content-bottom">
+                                        <div class="myPage-board-chuchun">
+                                            <img src="${pageContext.request.contextPath}/resources/images/member-img/Facebook_Thumb_icon.svg.png" alt="">추천 15
+                                        </div>
+                                        <div class="myPage-board-edit">
+                                            2024.01.01 수정 / <span id="deleteBtn" onclick="deleteRecipeBoard(this)">삭제</span>
+                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
 
                             <div class="myPage-board-list-block">
                                 <div class="myPage-board-img">
-                                    <img src="${pageContext.request.contextPath}/resources/images/member-img/Rectangle 59.png" alt="">
+                                    <img src="${pageContext.request.contextPath}/resources/images/member-img/Rectangle 59.png" alt="사진">
                                 </div>
                                 <div class="myPage-board-content">
-                                    집가는데 강도한테 뜯긴 베이글
+                                    레시피 게시글 제목 입력합니다. ^0^
                                     <br> <span>조회수 : 12 </span> <span>댓글 : 3</span>
                                     <div class="myPage-board-content-bottom">
                                         <div class="myPage-board-chuchun">
                                             <img src="${pageContext.request.contextPath}/resources/images/member-img/Facebook_Thumb_icon.svg.png" alt="">추천 15
                                         </div>
                                         <div class="myPage-board-edit">
-                                            2024.01.01 수정 / <span style="color: #1e90ff;">삭제</span>
+                                            2024.01.01 수정 / <span id="deleteBtn" onclick="deleteRecipeBoard(this)">삭제</span>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="myPage-board-list-line">
-                            <div class="myPage-board-list-block">
-                                <div class="myPage-board-img">
-                                    <img src="${pageContext.request.contextPath}/resources/images/member-img/Rectangle 59.png" alt="">
-                                </div>
-                                <div class="myPage-board-content">
-                                    젠장 또 베이글이야 난 오늘도 숭배를 해..
-                                    <br> <span>조회수 : 12 </span> <span>댓글 : 3</span>
-                                    <div class="myPage-board-content-bottom">
-                                        <div class="myPage-board-chuchun">
-                                            <img src="${pageContext.request.contextPath}/resources/images/member-img/Facebook_Thumb_icon.svg.png" alt="">추천 15
-                                        </div>
-                                        <div class="myPage-board-edit">
-                                            2024.01.01 수정 / <span style="color: #1e90ff;">삭제</span>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
 
                             <div class="myPage-board-list-block">
                                 <div class="myPage-board-img">
-                                    <img src="${pageContext.request.contextPath}/resources/images/member-img/Rectangle 59.png" alt="">
+                                    <img src="${pageContext.request.contextPath}/resources/images/member-img/Rectangle 59.png" alt="사진">
                                 </div>
                                 <div class="myPage-board-content">
-                                    브에이그으을
+                                    레시피 게시글 제목 입력합니다. ^0^
                                     <br> <span>조회수 : 12 </span> <span>댓글 : 3</span>
                                     <div class="myPage-board-content-bottom">
                                         <div class="myPage-board-chuchun">
                                             <img src="${pageContext.request.contextPath}/resources/images/member-img/Facebook_Thumb_icon.svg.png" alt="">추천 15
                                         </div>
                                         <div class="myPage-board-edit">
-                                            2024.01.01 수정 / <span style="color: #1e90ff;">삭제</span>
+                                            2024.01.01 수정 / <span id="deleteBtn" onclick="deleteRecipeBoard(this)">삭제</span>
                                         </div>
+                                        
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="myPage-board-list-block">
-                                <div class="myPage-board-img">
-                                    <img src="${pageContext.request.contextPath}/resources/images/member-img/Rectangle 59.png" alt="">
-                                </div>
-                                <div class="myPage-board-content">
-                                    베이글은 김치에 싸서 드세요
-                                    <br> <span>조회수 : 12 </span> <span>댓글 : 3</span>
-                                    <div class="myPage-board-content-bottom">
-                                        <div class="myPage-board-chuchun">
-                                            <img src="${pageContext.request.contextPath}/resources/images/member-img/Facebook_Thumb_icon.svg.png" alt="">추천 15
-                                        </div>
-                                        <div class="myPage-board-edit">
-                                            2024.01.01 수정 / <span style="color: #1e90ff;">삭제</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        
                     </div>
                      <!-- 상품 리스트 끝 -->
 
