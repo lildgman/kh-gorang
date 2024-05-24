@@ -11,10 +11,50 @@ body {
 #recipeListContents{
     width: 1240px;
     height: auto;
-    margin-top: 100px;
     margin-right: 340px;
     margin-left: 340px;
 }
+/*인기 태그*/
+#BoardTagBox{
+    height: 158px;
+}
+#BoardTagBoxTop{
+    margin-left:520px;
+    margin-right:520px;
+}
+#SpanBox{
+    height: 79px;
+}
+#SpanBox span {
+    font-size: 50px;
+    font-weight: 700;
+}
+#BoardTagBoxBottom{
+    width: 1240px;
+    height: 79px;
+    position: absolute;
+    padding: 18px;
+}
+#PapularTagBox{
+    display: flex;
+    justify-content: center;
+    
+}
+#PapularTags{
+    width: 92px;
+    height: 37px;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    margin: 0 15px 0px 15px; 
+}
+#PapularTags span {
+    font-size: 16px;
+    margin-top: 8px;
+}
+
 #recipeCountSpan span{
   font-size: 20px;
   font-weight: 800;  

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-    <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<!DOCTYPE html>
     <html>
 
     <head>
@@ -16,6 +17,35 @@
         <jsp:include page="../common/header.jsp" />
         <main id="recipe-list">
             <div id="recipeListContents">
+                <div id="BoardTagBox">
+                    <div id="BoardTagBoxTop">
+                        <div id="SpanBox">
+                            <span>인기 태그</span>
+                        </div>
+                    </div>
+                    <div id="BoardTagBoxBottom">
+                        <div id="PapularTagBox">
+                            <div id="PapularTags">
+                                <span>#한식</span>
+                            </div>
+                            <div id="PapularTags">
+                                <span>#중식</span>
+                            </div>
+                            <div id="PapularTags">
+                                <span>#일식</span>
+                            </div>
+                            <div id="PapularTags">
+                                <span>#양식</span>
+                            </div>
+                            <div id="PapularTags">
+                                <span>#디저트</span>
+                            </div>
+                            <div id="PapularTags">
+                                <span>#기타</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div id="recipeCountSpan">
                     <span>총 10,000개의 레시피</span>
                 </div>
@@ -28,311 +58,27 @@
                         </div>
                     </div>
                     <div id="recipeContentsBox">
-                        <div class="recipe-content-box">
-                            <div class="recipe-content-item">
-                                <div id="recipeContentImg">
-                                    <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
-                                </div>
-                                <div id="recipeContentInfoBox">
-                                    <div id="recipeContentTitle"><span>녹즙 그만먹을래요</span></div>
-                                    <div id="recipeContentWriter">
-                                        <div id="recipeContentWriterImg"><img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
-                                        <span>abcdefg</span>
+                        <c:forEach var="a" begin="1" end="16">
+                            <div class="recipe-content-box" onclick="location.href='recipe?rno=${a}'">
+                                <div class="recipe-content-item">
+                                    <div id="recipeContentImg">
+                                        <img src="${pageContext.request.contextPath}/resources/uploadfile/boardMainContentFile/boardImg1.png">
                                     </div>
-                                    <div id="recipeContentBoardInfo">
-                                        <div id="recipeBoardInfoScrap">스크랩
-                                            <span>18</span>
+                                    <div id="recipeContentInfoBox">
+                                        <div id="recipeContentTitle"><span>녹즙 그만먹을래요</span></div>
+                                        <div id="recipeContentWriter">
+                                            <div id="recipeContentWriterImg"><img src="${pageContext.request.contextPath}/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
+                                            <span>abcdefg</span>
+                                        </div>
+                                        <div id="recipeContentBoardInfo">
+                                            <div id="recipeBoardInfoScrap">스크랩
+                                                <span>18</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="recipe-content-box">
-                            <div class="recipe-content-item">
-                                <div id="recipeContentImg">
-                                    <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
-                                </div>
-                                <div id="recipeContentInfoBox">
-                                    <div id="recipeContentTitle"><span>녹즙 그만먹을래요</span></div>
-                                    <div id="recipeContentWriter">
-                                        <div id="recipeContentWriterImg"><img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
-                                        <span>abcdefg</span>
-                                    </div>
-                                    <div id="recipeContentBoardInfo">
-                                        <div id="recipeBoardInfoScrap">스크랩
-                                            <span>18</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="recipe-content-box">
-                            <div class="recipe-content-item">
-                                <div id="recipeContentImg">
-                                    <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
-                                </div>
-                                <div id="recipeContentInfoBox">
-                                    <div id="recipeContentTitle"><span>녹즙 그만먹을래요</span></div>
-                                    <div id="recipeContentWriter">
-                                        <div id="recipeContentWriterImg"><img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
-                                        <span>abcdefg</span>
-                                    </div>
-                                    <div id="recipeContentBoardInfo">
-                                        <div id="recipeBoardInfoScrap">스크랩
-                                            <span>18</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="recipe-content-box">
-                            <div class="recipe-content-item">
-                                <div id="recipeContentImg">
-                                    <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
-                                </div>
-                                <div id="recipeContentInfoBox">
-                                    <div id="recipeContentTitle"><span>녹즙 그만먹을래요</span></div>
-                                    <div id="recipeContentWriter">
-                                        <div id="recipeContentWriterImg"><img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
-                                        <span>abcdefg</span>
-                                    </div>
-                                    <div id="recipeContentBoardInfo">
-                                        <div id="recipeBoardInfoScrap">스크랩
-                                            <span>18</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="recipe-content-box">
-                            <div class="recipe-content-item">
-                                <div id="recipeContentImg">
-                                    <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
-                                </div>
-                                <div id="recipeContentInfoBox">
-                                    <div id="recipeContentTitle"><span>녹즙 그만먹을래요</span></div>
-                                    <div id="recipeContentWriter">
-                                        <div id="recipeContentWriterImg"><img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
-                                        <span>abcdefg</span>
-                                    </div>
-                                    <div id="recipeContentBoardInfo">
-                                        <div id="recipeBoardInfoScrap">스크랩
-                                            <span>18</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="recipe-content-box">
-                            <div class="recipe-content-item">
-                                <div id="recipeContentImg">
-                                    <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
-                                </div>
-                                <div id="recipeContentInfoBox">
-                                    <div id="recipeContentTitle"><span>녹즙 그만먹을래요</span></div>
-                                    <div id="recipeContentWriter">
-                                        <div id="recipeContentWriterImg"><img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
-                                        <span>abcdefg</span>
-                                    </div>
-                                    <div id="recipeContentBoardInfo">
-                                        <div id="recipeBoardInfoScrap">스크랩
-                                            <span>18</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="recipe-content-box">
-                            <div class="recipe-content-item">
-                                <div id="recipeContentImg">
-                                    <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
-                                </div>
-                                <div id="recipeContentInfoBox">
-                                    <div id="recipeContentTitle"><span>녹즙 그만먹을래요</span></div>
-                                    <div id="recipeContentWriter">
-                                        <div id="recipeContentWriterImg"><img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
-                                        <span>abcdefg</span>
-                                    </div>
-                                    <div id="recipeContentBoardInfo">
-                                        <div id="recipeBoardInfoScrap">스크랩
-                                            <span>18</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="recipe-content-box">
-                            <div class="recipe-content-item">
-                                <div id="recipeContentImg">
-                                    <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
-                                </div>
-                                <div id="recipeContentInfoBox">
-                                    <div id="recipeContentTitle"><span>녹즙 그만먹을래요</span></div>
-                                    <div id="recipeContentWriter">
-                                        <div id="recipeContentWriterImg"><img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
-                                        <span>abcdefg</span>
-                                    </div>
-                                    <div id="recipeContentBoardInfo">
-                                        <div id="recipeBoardInfoScrap">스크랩
-                                            <span>18</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="recipe-content-box">
-                            <div class="recipe-content-item">
-                                <div id="recipeContentImg">
-                                    <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
-                                </div>
-                                <div id="recipeContentInfoBox">
-                                    <div id="recipeContentTitle"><span>녹즙 그만먹을래요</span></div>
-                                    <div id="recipeContentWriter">
-                                        <div id="recipeContentWriterImg"><img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
-                                        <span>abcdefg</span>
-                                    </div>
-                                    <div id="recipeContentBoardInfo">
-                                        <div id="recipeBoardInfoScrap">스크랩
-                                            <span>18</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="recipe-content-box">
-                            <div class="recipe-content-item">
-                                <div id="recipeContentImg">
-                                    <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
-                                </div>
-                                <div id="recipeContentInfoBox">
-                                    <div id="recipeContentTitle"><span>녹즙 그만먹을래요</span></div>
-                                    <div id="recipeContentWriter">
-                                        <div id="recipeContentWriterImg"><img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
-                                        <span>abcdefg</span>
-                                    </div>
-                                    <div id="recipeContentBoardInfo">
-                                        <div id="recipeBoardInfoScrap">스크랩
-                                            <span>18</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="recipe-content-box">
-                            <div class="recipe-content-item">
-                                <div id="recipeContentImg">
-                                    <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
-                                </div>
-                                <div id="recipeContentInfoBox">
-                                    <div id="recipeContentTitle"><span>녹즙 그만먹을래요</span></div>
-                                    <div id="recipeContentWriter">
-                                        <div id="recipeContentWriterImg"><img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
-                                        <span>abcdefg</span>
-                                    </div>
-                                    <div id="recipeContentBoardInfo">
-                                        <div id="recipeBoardInfoScrap">스크랩
-                                            <span>18</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="recipe-content-box">
-                            <div class="recipe-content-item">
-                                <div id="recipeContentImg">
-                                    <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
-                                </div>
-                                <div id="recipeContentInfoBox">
-                                    <div id="recipeContentTitle"><span>녹즙 그만먹을래요</span></div>
-                                    <div id="recipeContentWriter">
-                                        <div id="recipeContentWriterImg"><img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
-                                        <span>abcdefg</span>
-                                    </div>
-                                    <div id="recipeContentBoardInfo">
-                                        <div id="recipeBoardInfoScrap">스크랩
-                                            <span>18</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="recipe-content-box">
-                            <div class="recipe-content-item">
-                                <div id="recipeContentImg">
-                                    <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
-                                </div>
-                                <div id="recipeContentInfoBox">
-                                    <div id="recipeContentTitle"><span>녹즙 그만먹을래요</span></div>
-                                    <div id="recipeContentWriter">
-                                        <div id="recipeContentWriterImg"><img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
-                                        <span>abcdefg</span>
-                                    </div>
-                                    <div id="recipeContentBoardInfo">
-                                        <div id="recipeBoardInfoScrap">스크랩
-                                            <span>18</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="recipe-content-box">
-                            <div class="recipe-content-item">
-                                <div id="recipeContentImg">
-                                    <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
-                                </div>
-                                <div id="recipeContentInfoBox">
-                                    <div id="recipeContentTitle"><span>녹즙 그만먹을래요</span></div>
-                                    <div id="recipeContentWriter">
-                                        <div id="recipeContentWriterImg"><img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
-                                        <span>abcdefg</span>
-                                    </div>
-                                    <div id="recipeContentBoardInfo">
-                                        <div id="recipeBoardInfoScrap">스크랩
-                                            <span>18</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="recipe-content-box">
-                            <div class="recipe-content-item">
-                                <div id="recipeContentImg">
-                                    <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
-                                </div>
-                                <div id="recipeContentInfoBox">
-                                    <div id="recipeContentTitle"><span>녹즙 그만먹을래요</span></div>
-                                    <div id="recipeContentWriter">
-                                        <div id="recipeContentWriterImg"><img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
-                                        <span>abcdefg</span>
-                                    </div>
-                                    <div id="recipeContentBoardInfo">
-                                        <div id="recipeBoardInfoScrap">스크랩
-                                            <span>18</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="recipe-content-box">
-                            <div class="recipe-content-item">
-                                <div id="recipeContentImg">
-                                    <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
-                                </div>
-                                <div id="recipeContentInfoBox">
-                                    <div id="recipeContentTitle"><span>녹즙 그만먹을래요</span></div>
-                                    <div id="recipeContentWriter">
-                                        <div id="recipeContentWriterImg"><img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
-                                        <span>abcdefg</span>
-                                    </div>
-                                    <div id="recipeContentBoardInfo">
-                                        <div id="recipeBoardInfoScrap">스크랩
-                                            <span>18</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
+                        </c:forEach>
                     </div>
                     <div id="recipeBoardPageBarBox">
                         <div id="pagingArea">

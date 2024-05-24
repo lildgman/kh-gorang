@@ -8,6 +8,9 @@
 <!-- css -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recipe/recipeMain.css">
+<!--js-->
+<script src="${pageContext.request.contextPath}/resources/js/recipe/recipeMain.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/common/sidebar.js"></script>
 </head>
 <body>
 	<jsp:include page="../common/header.jsp" />
@@ -22,16 +25,8 @@
 				</button>
 				<div id="recently-seen-container">
 					<span>최근 본 상품</span>
-					<ul>
-						<li>
-							<img src="${pageContext.request.contextPath}/resources/dummyImg/recipe/recipeMain/sidebarThumbnail1.png" alt="">
-						</li>
-						<li>
-							<img src="${pageContext.request.contextPath}/resources/dummyImg/recipe/recipeMain/sidebarThumbnail2.png" alt="">
-						</li>
-						<li>
-							<img src="${pageContext.request.contextPath}/resources/dummyImg/recipe/recipeMain/sidebarThumbnail3.png" alt="">
-						</li>
+					<ul id="recently-seen-list">
+						<!-- 최근 본 아이템 목록 추가-->
 					</ul>
 				</div>
 				<button class="button-arrow" id="button-arrow-bottom">
@@ -60,7 +55,7 @@
 			<div id="recipe-main-new">
 				<div class="recipe-main-box-title">
 					<span>새로운 레시피들이에요</span>
-					<span>더보기</span>
+					<span onclick="goRecipeList()">더보기</span>
 				</div>
 				<div class="recipe-main-listBox">
 					<div class="recipe-main-listBox-grid">
@@ -105,7 +100,7 @@
 			<div id="recipe-main-shopping">
 				<div class="recipe-main-box-title">
 					<span>재료가 모자라지 않으신가요?</span>
-					<span>더보기</span>
+					<span onclick="goShoppingList()">더보기</span>
 				</div>
 				<div id="recipe-main-shopping-list">
 					<div class="recipe-main-shopping-list-product">
