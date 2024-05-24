@@ -35,14 +35,20 @@ textarea {
     display: none;
 }
 
-#recipe-write-imgupload-area img{
+
+#thumnailImg{
     margin-top: 230px;
     margin-left: 315px;
     height: 54px;
     width: 64px;
     margin-bottom: 54px;
 }
-
+/* 변경이미지 */
+#thumnailImg-real{
+    display: none;
+    width: 700px;
+    height: 700px;
+  }
 
 #recipe-write-imgupload-area div{
     text-align: center;
@@ -536,3 +542,4 @@ option:hover{
     background-color: #1E90FF;
     color: white;
 }
+

@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member/myPageBoard.css">
  <!-- js -->
- <script src="${pageContext.request.contextPath}/resources/js/member/myPageBoard/myRecipeBoard.js"></script>
+ <script src="${pageContext.request.contextPath}/resources/js/member/myPageBoard.js"></script>
 </head>
 <body>
     <jsp:include page="../common/header.jsp" />
@@ -45,7 +45,7 @@
                                     <img src="${pageContext.request.contextPath}/resources/images/member-img/Facebook_Thumb_icon.svg.png" alt="">추천 15
                                 </div>
                                 <div class="myPage-board-edit">
-                                    2024.01.01 수정 / <span style="color: #1e90ff;">삭제</span>
+                                    2024.01.01 수정 /<span id="deleteBtn" onclick="deleteRecipeBoard(this)">삭제</span>
                                 </div>
                             </div>
                         </div>
@@ -63,7 +63,7 @@
                                     <img src="${pageContext.request.contextPath}/resources/images/member-img/Facebook_Thumb_icon.svg.png" alt="">추천 15
                                 </div>
                                 <div class="myPage-board-edit">
-                                    2024.01.01 수정 / <span style="color: #1e90ff;">삭제</span>
+                                    2024.01.01 수정 / <span id="deleteBtn" onclick="deleteRecipeBoard(this)">삭제</span>
                                 </div>
                             </div>
                         </div>
@@ -81,7 +81,7 @@
                                     <img src="${pageContext.request.contextPath}/resources/images/member-img/Facebook_Thumb_icon.svg.png" alt="">추천 15
                                 </div>
                                 <div class="myPage-board-edit">
-                                    2024.01.01 수정 / <span style="color: #1e90ff;">삭제</span>
+                                    2024.01.01 수정 / <span id="deleteBtn" onclick="deleteRecipeBoard(this)">삭제</span>
                                 </div>
                             </div>
                         </div>
@@ -102,7 +102,7 @@
                                     <img src="${pageContext.request.contextPath}/resources/images/member-img/Facebook_Thumb_icon.svg.png" alt="">추천 15
                                 </div>
                                 <div class="myPage-board-edit">
-                                    2024.01.01 수정 / <span style="color: #1e90ff;">삭제</span>
+                                    2024.01.01 수정 /<span id="deleteBtn" onclick="deleteRecipeBoard(this)">삭제</span>
                                 </div>
                             </div>
                         </div>
@@ -120,7 +120,7 @@
                                     <img src="${pageContext.request.contextPath}/resources/images/member-img/Facebook_Thumb_icon.svg.png" alt="">추천 15
                                 </div>
                                 <div class="myPage-board-edit">
-                                    2024.01.01 수정 / <span style="color: #1e90ff;">삭제</span>
+                                    2024.01.01 수정 / <span id="deleteBtn" onclick="deleteRecipeBoard(this)">삭제</span>
                                 </div>
                             </div>
                         </div>
@@ -138,7 +138,7 @@
                                     <img src="${pageContext.request.contextPath}/resources/images/member-img/Facebook_Thumb_icon.svg.png" alt="">추천 15
                                 </div>
                                 <div class="myPage-board-edit">
-                                    2024.01.01 수정 / <span style="color: #1e90ff;">삭제</span>
+                                    2024.01.01 수정 / <span id="deleteBtn" onclick="deleteRecipeBoard(this)">삭제</span>
                                 </div>
                             </div>
                         </div>
