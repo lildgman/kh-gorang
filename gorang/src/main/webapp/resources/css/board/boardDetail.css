@@ -1,14 +1,16 @@
 body {
     padding-top: 188px;
 }
-#board-detail{
+
+#board-detail {
     width: 1920px;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
-#boardDetailContents{
+
+#boardDetailContents {
     width: 1240px;
     height: fit-content;
     margin: 69px 340px 0 340px;
@@ -19,17 +21,20 @@ body {
 
 
 }
-#writerProfile{
+
+#writerProfile {
     width: 1162px;
     height: 112px;
     display: flex;
     align-items: center;
 }
-#profileImg{
+
+#profileImg {
     width: 112px;
     height: 112px;
 }
-#profileInfo{
+
+#profileInfo {
     padding: 30px 0 20px 0;
     width: 316px;
     height: 110px;
@@ -39,55 +44,66 @@ body {
     justify-content: center;
     align-items: flex-start;
 }
-#profileInfo div{
-    margin-bottom: 8px; 
+
+#profileInfo div {
+    margin-bottom: 8px;
     text-align: left;
     width: 50%;
 }
-#profileId span{
+
+#profileId span {
     font-size: 20px;
     color: #000000;
     font-weight: 600;
 }
-#boardCount{
+
+#boardCount {
     display: flex;
     margin-top: 3px;
 }
-#viewCount span{
+
+#viewCount span {
     margin-left: 10px;
     font-size: 15px;
 }
-#likeCount span{
+
+#likeCount span {
     margin-left: 10px;
     font-size: 15px;
 }
-#uploadDate span{
+
+#uploadDate span {
     font-size: 20px;
 }
-#contentTitle{
+
+#contentTitle {
     width: 1162px;
     height: 89px;
 
     padding: 15px 0 15px 0;
 
 }
-#contentTitle span{
+
+#contentTitle span {
     font-size: 40px;
     font-weight: 600;
 }
-#contentDetail{
+
+#contentDetail {
     width: 1162px;
     height: 181px;
     padding: 5px;
 
 }
-#contentService{
+
+#contentService {
     width: 1162px;
     height: 72px;
     display: flex;
 
 }
-#tagWrapper{
+
+#tagWrapper {
     width: 508px;
     height: 72px;
 
@@ -95,27 +111,31 @@ body {
     padding: 5px;
     align-items: center;
 }
-#contentTag{
+
+#contentTag {
     width: 70px;
     border-style: solid;
     border-width: 2px;
     border-radius: 20px;
     margin-right: 20px;
 }
-#contentTag span{
+
+#contentTag span {
     justify-content: center;
     align-items: center;
     display: flex;
 }
-#contentBtnWrapper{
+
+#contentBtnWrapper {
     width: 640px;
     height: 72px;
 
-    margin-left:14px;
+    margin-left: 14px;
     display: flex;
     padding: 7px;
 }
-#contentLike{
+
+#contentLike {
     padding: 17px;
     margin-left: 360px;
     width: 110px;
@@ -123,10 +143,12 @@ body {
     cursor: pointer;
     text-align: center;
 }
-#contentLike span{
+
+#contentLike span {
     margin-left: 10px;
 }
-#contentReport{
+
+#contentReport {
     padding: 14px;
     width: 145px;
     height: 60px;
@@ -134,44 +156,143 @@ body {
     text-align: center;
 }
 
-/* Modal container */
 .modal {
-    display: none; 
-    position: fixed; 
-    z-index: 1000; 
+    display: none;
+    position: fixed;
+    z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto; 
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
     background-color: rgba(0, 0, 0, 0.4);
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
-/* Modal content */
+/* Modal Content */
 .modal-content {
-    position: relative; /* Relative positioning for absolute positioning of close button */
     background-color: #fefefe;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     padding: 20px;
     border: 1px solid #888;
-    width: 558px; /* Width of the modal */
-    height: 715px; /* Height of the modal */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Optional: Add a shadow for better visibility */
-    margin: auto;
-    margin-top: 93px;
+    width: 588px;
+    height: 715px;
+    overflow: hidden;
 }
 
-/* Close button */
-.close {
+.modal-content p {
+    font-size: 16px;
+    font-weight: 800;
+    text-align: center;
+}
+
+.modal-content-top {
+    width: 544px;
+    height: 70px;
+    margin-top: 20px;
+}
+
+.modal-content-top span {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.contentTitleInput {
+    margin-top: 16px;
+    width: 544px;
+    height: 40px;
+    outline: none;
+    border-radius: 4px;
+    border: solid 1px #DBDBDB;
+    padding: 6px;
+}
+
+.modal-content-body {
+    margin-top: 20px;
+}
+
+.modal-content-body span {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.reportReasonSelectBox {
+    margin-top: 20px;
+    width: 544px;
+    height: 160px;
+    border: solid 1px #DBDBDB;
+    padding: 3px 16px 0 16px;
+}
+
+.reportReasonSelectBox div {
+    display: flex;
+    margin-top: 5px;
+    padding: 1px;
+}
+
+.reportReasonSelectBox div label {
+    margin-left: 10px;
+    margin-top: 3px;
+}
+
+#reason {
+    width: 18px;
+    height: 18px;
+    background-color: #D9D9D9;
+    border: none;
+    margin-top: 4px;
+}
+
+.modal-content-bottom {
+    margin-top: 20px;
+    width: 544px;
+    height: 210px;
+}
+
+.modal-content-bottom span {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.contentReasonDetail {
+    margin-top: 20px;
+    width: 544px;
+    height: 170px;
+    border: solid 1px #DBDBDB;
+    outline: none;
+    padding: 3px;
+}
+
+.contentReasonDetail ::placeholder {
     position: absolute;
-    top: 5px;
-    right: 5px;
+    top: 0;
+    left: 0;
+}
+.modal-content-reportBtn{
+    width: 544px;
+    height: 50px;
+    margin-top: 30px;
+}
+.modal-content-reportBtn input{
+    width: 544px;
+    height: 50px;
+    background-color: #1E90FF;
+    border: #1E90FF;
+    border-radius: 4px;
+    color: #fff;
+}
+
+/* The Close Button */
+.close {
     color: #aaa;
+    float: right;
     font-size: 28px;
     font-weight: bold;
 }
+
 
 .close:hover,
 .close:focus {
@@ -185,18 +306,19 @@ body {
 
 
 
-
-#replyCountWrap{
+#replyCountWrap {
     width: 1162px;
     height: 63px;
     font-size: 20px;
 }
-#replyCount{
+
+#replyCount {
     width: fit-content;
     height: 63px;
     padding: 15px;
 }
-#replyWriteWrap{
+
+#replyWriteWrap {
     width: 1162px;
     height: 100px;
     border-style: solid;
@@ -206,38 +328,43 @@ body {
     display: flex;
     padding: 2px;
 }
-#replyWriterInfo{
+
+#replyWriterInfo {
     width: 106px;
     height: 90px;
     align-items: center;
     justify-content: center;
     padding: 25px 25px 25px 15px;
 }
-#replyWriterInfo img{
+
+#replyWriterInfo img {
     width: 50px;
     height: 50px;
     border-radius: 50%;
 }
-#replyWriteWrap textarea{
+
+#replyWriteWrap textarea {
     margin: 30px 0 25px 0;
     width: 880px;
     height: 40px;
     border: none;
     resize: none;
-    outline: none;   
+    outline: none;
     text-align: left;
     display: flex;
     align-items: center;
     padding-left: 10px;
 }
-.replyWriteWrap textarea ::placeholder{
+
+.replyWriteWrap textarea ::placeholder {
     text-align: left;
     display: flex;
     align-items: center;
-    height: 100%; 
-    line-height: 100px; 
+    height: 100%;
+    line-height: 100px;
 }
-.reply-button{
+
+.reply-button {
     width: 120px;
     height: 80px;
     border: none;
@@ -248,16 +375,19 @@ body {
     margin-left: 35px;
     margin-top: 5px;
 }
-#ReplyArea{
+
+#ReplyArea {
     width: 1162px;
     height: fit-content;
 }
-#userReplyWrap{
+
+#userReplyWrap {
     padding: 2px;
     width: 1162px;
     height: 100px;
 }
-#userReplyWriterInfo{
+
+#userReplyWriterInfo {
     width: 1020px;
     height: 90px;
     padding: 10px;
@@ -265,62 +395,75 @@ body {
     float: left;
     padding-left: 20px;
 }
-#userReplyWriterImgWrap{
+
+#userReplyWriterImgWrap {
     width: 85px;
 }
-#userReplyWriterInfo img{
+
+#userReplyWriterInfo img {
     width: 50px;
     height: 50px;
     border-radius: 50%;
     margin-top: 10px;
 }
-#userReplyContentWrap{
+
+#userReplyContentWrap {
     width: 100%;
     height: 80px;
     padding: 3px;
 }
-#userReplyWriterDetail{
+
+#userReplyWriterDetail {
     display: flex;
 }
-#userReplyWriterDetailId{
+
+#userReplyWriterDetailId {
     margin-right: 20px;
     font-size: 15px;
     font-weight: 800;
 }
-#userReplyWriterDetailDate{
+
+#userReplyWriterDetailDate {
     font-size: 14px;
     font-weight: 500;
 }
-#userReplyContent{
-    padding: 5px 0 5px 0; 
+
+#userReplyContent {
+    padding: 5px 0 5px 0;
     font-weight: 500;
 }
-#ReplyService{
+
+#ReplyService {
     height: 100px;
     padding: 5px;
     margin-top: 40px;
 }
-#ReplyReport{
+
+#ReplyReport {
     cursor: pointer;
 }
-#ReplyReport span{
+
+#ReplyReport span {
     font-size: 13px;
 }
-#boardMainReturnWrap{
+
+#boardMainReturnWrap {
     width: 1240px;
     height: 200px;
     margin-left: 340px;
     margin-right: 340px;
     padding: 70px 533px 70px 533px;
 }
-#ReturnBtnWrap{
+
+#ReturnBtnWrap {
     width: 175px;
     height: 57px;
 }
-#ReturnBtnWrap button{
+
+#ReturnBtnWrap button {
     width: 175px;
     height: 57px;
-    background-color:#1E90FF;
+    background-color: #1E90FF;
     color: #ffff;
     border-radius: 10px;
 }
