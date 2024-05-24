@@ -42,20 +42,23 @@
                     <div class="find-IdPw-Regist">
                         <input type="button" name="findId" value="아이디 찾기">
                         <input type="button" name="findPw" value="비밀번호 찾기">
-                        <input type="button" name="register" value="회원가입">
+                        <input type="button" name="register" value="회원가입" onclick="moveLocation('${pageContext.request.contextPath}/Register.me')">
                     </div>
                     <hr>
                     <div class="apiLogin">
                         <div class="snsSpan"><span>SNS 계정으로 간편 로그인</span></div>
                         <div class="apiLogos">
                             <div class="googleLogin">
-                                <img src="<%= request.getContextPath() %>/resources/images/google.png" alt="">
+                                <button><img src="<%= request.getContextPath() %>/resources/images/google.png"
+                                        alt=""></button>
                             </div>
                             <div class="naverLogin">
-                                <img src="<%= request.getContextPath() %>/resources/images/naver.png" alt="">
+                                <button><img src="<%= request.getContextPath() %>/resources/images/naver.png"
+                                        alt=""></button>
                             </div>
                             <div class="kakaoLogin">
-                                <img src="<%= request.getContextPath() %>/resources/images/kakao.png" alt="">
+                                <button><img src="<%= request.getContextPath() %>/resources/images/kakao.png"
+                                        alt=""></button>
                             </div>
                         </div>
                     </div>

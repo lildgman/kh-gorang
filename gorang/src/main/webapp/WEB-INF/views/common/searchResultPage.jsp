@@ -32,101 +32,27 @@
                             </div>
                         </div>
                         <div class="container">
-                            <div class="item">
-                                <div class="item-thumbnail-area">
-                                    <img class="item-thumbnail"
-                                        src="${contextPath }/resources/dummyImg/shopping//item1.png" alt="상품1">
-                                </div>
-                                <div class="item-text-area">
-                                    <div class="item-title">
-                                        <div class="item-brand">성주</div>
-                                        <div class="item-name">당도선별 성주 꿀참외 1.5kg(4~7개입)</div>
+                            <c:forEach begin="1" end="4">
+                                <div class="item">
+                                    <div class="item-thumbnail-area">
+                                        <img class="item-thumbnail"
+                                            src="${contextPath }/resources/dummyImg/shopping//item1.png" alt="상품1">
                                     </div>
-                                    <div class="item-price">
-                                        <div class="item-origin-price">50,000 <span>원</span></div>
-                                        <div>
-                                            <span class="discount-percent">20%</span>
-                                            <span class="discounted-price">16,900</span><span>원</span>
+                                    <div class="item-text-area">
+                                        <div class="item-title">
+                                            <div class="item-brand">성주</div>
+                                            <div class="item-name">당도선별 성주 꿀참외 1.5kg(4~7개입)</div>
+                                        </div>
+                                        <div class="item-price">
+                                            <div class="item-origin-price">50,000 <span>원</span></div>
+                                            <div>
+                                                <span class="discount-percent">20%</span>
+                                                <span class="discounted-price">16,900</span><span>원</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="item">
-                                <div class="item-thumbnail-area">
-                                    <img class="item-thumbnail"
-                                        src="${contextPath }/resources/dummyImg/shopping//item1.png" alt="상품1">
-                                </div>
-                                <div class="item-text-area">
-                                    <div class="item-title">
-                                        <div class="item-brand">성주</div>
-                                        <div class="item-name">당도선별 성주 꿀참외 1.5kg(4~7개입)</div>
-                                    </div>
-                                    <div class="item-price">
-                                        <div class="item-origin-price">50,000 <span>원</span></div>
-                                        <div>
-                                            <span class="discount-percent">20%</span>
-                                            <span class="discounted-price">16,900</span><span>원</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="item-thumbnail-area">
-                                    <img class="item-thumbnail"
-                                        src="${contextPath }/resources/dummyImg/shopping//item1.png" alt="상품1">
-                                </div>
-                                <div class="item-text-area">
-                                    <div class="item-title">
-                                        <div class="item-brand">성주</div>
-                                        <div class="item-name">당도선별 성주 꿀참외 1.5kg(4~7개입)</div>
-                                    </div>
-                                    <div class="item-price">
-                                        <div class="item-origin-price">50,000 <span>원</span></div>
-                                        <div>
-                                            <span class="discount-percent">20%</span>
-                                            <span class="discounted-price">16,900</span><span>원</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="item-thumbnail-area">
-                                    <img class="item-thumbnail"
-                                        src="${contextPath }/resources/dummyImg/shopping//item1.png" alt="상품1">
-                                </div>
-                                <div class="item-text-area">
-                                    <div class="item-title">
-                                        <div class="item-brand">성주</div>
-                                        <div class="item-name">당도선별 성주 꿀참외 1.5kg(4~7개입)</div>
-                                    </div>
-                                    <div class="item-price">
-                                        <div class="item-origin-price">50,000 <span>원</span></div>
-                                        <div>
-                                            <span class="discount-percent">20%</span>
-                                            <span class="discounted-price">16,900</span><span>원</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="item-thumbnail-area">
-                                    <img class="item-thumbnail"
-                                        src="${contextPath }/resources/dummyImg/shopping//item1.png" alt="상품1">
-                                </div>
-                                <div class="item-text-area">
-                                    <div class="item-title">
-                                        <div class="item-brand">성주</div>
-                                        <div class="item-name">당도선별 성주 꿀참외 1.5kg(4~7개입)</div>
-                                    </div>
-                                    <div class="item-price">
-                                        <div class="item-origin-price">50,000 <span>원</span></div>
-                                        <div>
-                                            <span class="discount-percent">20%</span>
-                                            <span class="discounted-price">16,900</span><span>원</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            </c:forEach>
                         </div>
                     </div>
                     <div id="search-item-recipe">
@@ -139,142 +65,28 @@
                             </div>
                         </div>
                         <div class="recipeContainer">
-                            <div class="recipe-item">
-                                <div class="recipe-content-item">
-                                    <div id="recipeContentImg">
-                                        <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
-                                    </div>
-                                    <div id="recipeContentInfoBox">
-                                        <div id="recipeContentTitle"><span>녹즙 그만먹을래요</span></div>
-                                        <div id="recipeContentWriter">
-                                            <div id="recipeContentWriterImg"><img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
-                                            <span>abcdefg</span>
+                            <c:forEach begin="1" end="8">
+                                <div class="recipe-item">
+                                    <div class="recipe-content-item">
+                                        <div id="recipeContentImg">
+                                            <img
+                                                src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
                                         </div>
-                                        <div id="recipeContentBoardInfo">
-                                            <div id="recipeBoardInfoScrap">스크랩 <span>18</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="recipe-item">
-                                <div class="recipe-content-item">
-                                    <div id="recipeContentImg">
-                                        <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
-                                    </div>
-                                    <div id="recipeContentInfoBox">
-                                        <div id="recipeContentTitle"><span>녹즙 그만먹을래요</span></div>
-                                        <div id="recipeContentWriter">
-                                            <div id="recipeContentWriterImg"><img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
-                                            <span>abcdefg</span>
-                                        </div>
-                                        <div id="recipeContentBoardInfo">
-                                            <div id="recipeBoardInfoScrap">스크랩 <span>18</span></div>
+                                        <div id="recipeContentInfoBox">
+                                            <div id="recipeContentTitle"><span>녹즙 그만먹을래요</span></div>
+                                            <div id="recipeContentWriter">
+                                                <div id="recipeContentWriterImg"><img
+                                                        src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png">
+                                                </div>
+                                                <span>abcdefg</span>
+                                            </div>
+                                            <div id="recipeContentBoardInfo">
+                                                <div id="recipeBoardInfoScrap">스크랩 <span>18</span></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="recipe-item">
-                                <div class="recipe-content-item">
-                                    <div id="recipeContentImg">
-                                        <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
-                                    </div>
-                                    <div id="recipeContentInfoBox">
-                                        <div id="recipeContentTitle"><span>녹즙 그만먹을래요</span></div>
-                                        <div id="recipeContentWriter">
-                                            <div id="recipeContentWriterImg"><img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
-                                            <span>abcdefg</span>
-                                        </div>
-                                        <div id="recipeContentBoardInfo">
-                                            <div id="recipeBoardInfoScrap">스크랩 <span>18</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="recipe-item">
-                                <div class="recipe-content-item">
-                                    <div id="recipeContentImg">
-                                        <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
-                                    </div>
-                                    <div id="recipeContentInfoBox">
-                                        <div id="recipeContentTitle"><span>녹즙 그만먹을래요</span></div>
-                                        <div id="recipeContentWriter">
-                                            <div id="recipeContentWriterImg"><img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
-                                            <span>abcdefg</span>
-                                        </div>
-                                        <div id="recipeContentBoardInfo">
-                                            <div id="recipeBoardInfoScrap">스크랩 <span>18</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="recipe-item">
-                                <div class="recipe-content-item">
-                                    <div id="recipeContentImg">
-                                        <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
-                                    </div>
-                                    <div id="recipeContentInfoBox">
-                                        <div id="recipeContentTitle"><span>녹즙 그만먹을래요</span></div>
-                                        <div id="recipeContentWriter">
-                                            <div id="recipeContentWriterImg"><img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
-                                            <span>abcdefg</span>
-                                        </div>
-                                        <div id="recipeContentBoardInfo">
-                                            <div id="recipeBoardInfoScrap">스크랩 <span>18</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="recipe-item">
-                                <div class="recipe-content-item">
-                                    <div id="recipeContentImg">
-                                        <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
-                                    </div>
-                                    <div id="recipeContentInfoBox">
-                                        <div id="recipeContentTitle"><span>녹즙 그만먹을래요</span></div>
-                                        <div id="recipeContentWriter">
-                                            <div id="recipeContentWriterImg"><img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
-                                            <span>abcdefg</span>
-                                        </div>
-                                        <div id="recipeContentBoardInfo">
-                                            <div id="recipeBoardInfoScrap">스크랩 <span>18</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="recipe-item">
-                                <div class="recipe-content-item">
-                                    <div id="recipeContentImg">
-                                        <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
-                                    </div>
-                                    <div id="recipeContentInfoBox">
-                                        <div id="recipeContentTitle"><span>녹즙 그만먹을래요</span></div>
-                                        <div id="recipeContentWriter">
-                                            <div id="recipeContentWriterImg"><img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
-                                            <span>abcdefg</span>
-                                        </div>
-                                        <div id="recipeContentBoardInfo">
-                                            <div id="recipeBoardInfoScrap">스크랩 <span>18</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="recipe-item">
-                                <div class="recipe-content-item">
-                                    <div id="recipeContentImg">
-                                        <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
-                                    </div>
-                                    <div id="recipeContentInfoBox">
-                                        <div id="recipeContentTitle"><span>녹즙 그만먹을래요</span></div>
-                                        <div id="recipeContentWriter">
-                                            <div id="recipeContentWriterImg"><img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
-                                            <span>abcdefg</span>
-                                        </div>
-                                        <div id="recipeContentBoardInfo">
-                                            <div id="recipeBoardInfoScrap">스크랩 <span>18</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            </c:forEach>
                         </div>
                     </div>
                     <div id="search-item-common">
@@ -287,198 +99,34 @@
                             </div>
                         </div>
                         <div class="commonContainer">
-                            <div class="common-item">
-                                <div class="common-content-item">
-                                    <div id="commonBContentImg">
-                                        <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
-                                    </div>
-                                    <div id="commonContentInfoBox">
-                                        <div id="commonContentTitle"><span>녹즙 그만먹을래요</span></div>
-                                        <div id="commonContentWriter">
-                                            <div id="commonContentWriterImg"><img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
-                                            <span>abcdefg</span>
+                            <c:forEach begin="1" end="8">
+                                <div class="common-item">
+                                    <div class="common-content-item">
+                                        <div id="commonContentImg">
+                                            <img
+                                                src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
                                         </div>
-                                        <div id="commonContentBoardInfo">
-                                            <div id="commonBoardInfoScrap">스크랩 <span>18</span></div>
-                                            <div id="commonBoardInfoView">조회수
-                                                <span>32</span>
+                                        <div id="commonContentInfoBox">
+                                            <div id="commonContentTitle"><span>CSS 텍스트 양이 어느정도가 적당할지를 고민중</span></div>
+                                            <div id="commonContentWriter">
+                                                <div id="commonContentWriterImg"><img
+                                                        src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png">
+                                                </div>
+                                                <span>abcdefg</span>
                                             </div>
-                                            <div id="commonBoardInfoRec">추천수
-                                                <span>12</span>
-                                            </div>
-                                        </div>
-                                        <div id="commonContentUploadDate"><span>2024-05-17</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="common-item">
-                                <div class="common-content-item">
-                                    <div id="commonBContentImg">
-                                        <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
-                                    </div>
-                                    <div id="commonContentInfoBox">
-                                        <div id="commonContentTitle"><span>녹즙 그만먹을래요</span></div>
-                                        <div id="commonContentWriter">
-                                            <div id="commonContentWriterImg"><img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
-                                            <span>abcdefg</span>
-                                        </div>
-                                        <div id="commonContentBoardInfo">
-                                            <div id="commonBoardInfoScrap">스크랩 <span>18</span></div>
-                                            <div id="commonBoardInfoView">조회수
-                                                <span>32</span>
-                                            </div>
-                                            <div id="commonBoardInfoRec">추천수
-                                                <span>12</span>
+                                            <div id="commonContentBoardInfo">
+                                                <div id="commonBoardInfoScrap">스크랩 <span>18</span></div>
+                                                <div id="commonBoardInfoView">조회수
+                                                    <span>32</span>
+                                                </div>
+                                                <div id="commonBoardInfoRec">추천수
+                                                    <span>12</span>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div id="commonContentUploadDate"><span>2024-05-17</span></div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="common-item">
-                                <div class="common-content-item">
-                                    <div id="commonBContentImg">
-                                        <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
-                                    </div>
-                                    <div id="commonContentInfoBox">
-                                        <div id="commonContentTitle"><span>녹즙 그만먹을래요</span></div>
-                                        <div id="commonContentWriter">
-                                            <div id="commonContentWriterImg"><img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
-                                            <span>abcdefg</span>
-                                        </div>
-                                        <div id="commonContentBoardInfo">
-                                            <div id="commonBoardInfoScrap">스크랩 <span>18</span></div>
-                                            <div id="commonBoardInfoView">조회수
-                                                <span>32</span>
-                                            </div>
-                                            <div id="commonBoardInfoRec">추천수
-                                                <span>12</span>
-                                            </div>
-                                        </div>
-                                        <div id="commonContentUploadDate"><span>2024-05-17</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="common-item">
-                                <div class="common-content-item">
-                                    <div id="commonBContentImg">
-                                        <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
-                                    </div>
-                                    <div id="commonContentInfoBox">
-                                        <div id="commonContentTitle"><span>녹즙 그만먹을래요</span></div>
-                                        <div id="commonContentWriter">
-                                            <div id="commonContentWriterImg"><img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
-                                            <span>abcdefg</span>
-                                        </div>
-                                        <div id="commonContentBoardInfo">
-                                            <div id="commonBoardInfoScrap">스크랩 <span>18</span></div>
-                                            <div id="commonBoardInfoView">조회수
-                                                <span>32</span>
-                                            </div>
-                                            <div id="commonBoardInfoRec">추천수
-                                                <span>12</span>
-                                            </div>
-                                        </div>
-                                        <div id="commonContentUploadDate"><span>2024-05-17</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="common-item">
-                                <div class="common-content-item">
-                                    <div id="commonBContentImg">
-                                        <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
-                                    </div>
-                                    <div id="commonContentInfoBox">
-                                        <div id="commonContentTitle"><span>녹즙 그만먹을래요</span></div>
-                                        <div id="commonContentWriter">
-                                            <div id="commonContentWriterImg"><img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
-                                            <span>abcdefg</span>
-                                        </div>
-                                        <div id="commonContentBoardInfo">
-                                            <div id="commonBoardInfoScrap">스크랩 <span>18</span></div>
-                                            <div id="commonBoardInfoView">조회수
-                                                <span>32</span>
-                                            </div>
-                                            <div id="commonBoardInfoRec">추천수
-                                                <span>12</span>
-                                            </div>
-                                        </div>
-                                        <div id="commonContentUploadDate"><span>2024-05-17</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="common-item">
-                                <div class="common-content-item">
-                                    <div id="commonBContentImg">
-                                        <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
-                                    </div>
-                                    <div id="commonContentInfoBox">
-                                        <div id="commonContentTitle"><span>녹즙 그만먹을래요</span></div>
-                                        <div id="commonContentWriter">
-                                            <div id="commonContentWriterImg"><img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
-                                            <span>abcdefg</span>
-                                        </div>
-                                        <div id="commonContentBoardInfo">
-                                            <div id="commonBoardInfoScrap">스크랩 <span>18</span></div>
-                                            <div id="commonBoardInfoView">조회수
-                                                <span>32</span>
-                                            </div>
-                                            <div id="commonBoardInfoRec">추천수
-                                                <span>12</span>
-                                            </div>
-                                        </div>
-                                        <div id="commonContentUploadDate"><span>2024-05-17</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="common-item">
-                                <div class="common-content-item">
-                                    <div id="commonBContentImg">
-                                        <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
-                                    </div>
-                                    <div id="commonContentInfoBox">
-                                        <div id="commonContentTitle"><span>녹즙 그만먹을래요</span></div>
-                                        <div id="commonContentWriter">
-                                            <div id="commonContentWriterImg"><img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
-                                            <span>abcdefg</span>
-                                        </div>
-                                        <div id="commonContentBoardInfo">
-                                            <div id="commonBoardInfoScrap">스크랩 <span>18</span></div>
-                                            <div id="commonBoardInfoView">조회수
-                                                <span>32</span>
-                                            </div>
-                                            <div id="commonBoardInfoRec">추천수
-                                                <span>12</span>
-                                            </div>
-                                        </div>
-                                        <div id="commonContentUploadDate"><span>2024-05-17</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="common-item">
-                                <div class="common-content-item">
-                                    <div id="commonBContentImg">
-                                        <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">
-                                    </div>
-                                    <div id="commonContentInfoBox">
-                                        <div id="commonContentTitle"><span>녹즙 그만먹을래요</span></div>
-                                        <div id="commonContentWriter">
-                                            <div id="commonContentWriterImg"><img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png"></div>
-                                            <span>abcdefg</span>
-                                        </div>
-                                        <div id="commonContentBoardInfo">
-                                            <div id="commonBoardInfoScrap">스크랩 <span>18</span></div>
-                                            <div id="commonBoardInfoView">조회수
-                                                <span>32</span>
-                                            </div>
-                                            <div id="commonBoardInfoRec">추천수
-                                                <span>12</span>
-                                            </div>
-                                        </div>
-                                        <div id="commonContentUploadDate"><span>2024-05-17</span></div>
-                                    </div>
-                                </div>
-                            </div>
+                            </c:forEach>
                         </div>
                     </div>
                 </div>
