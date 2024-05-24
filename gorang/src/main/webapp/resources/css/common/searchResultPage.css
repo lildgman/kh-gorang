@@ -10,7 +10,7 @@ body{
 }
 #searchResultContents{
     width: 1240px;
-    height: 2476px;
+    height: 2376px;
     margin-right: 340px;
     margin-left: 340px;
 }
@@ -122,7 +122,7 @@ body{
 
   #search-item-recipe {
     width: 1240px;
-    height: 960px;
+    height: 935px;
     padding: 30px 0 60px 0;
     border-bottom: solid #D9D9D9 1px;
 }
@@ -170,36 +170,41 @@ body{
     padding: 10px;
 }
 
+#recipeContentTitle{
+    text-align: center;
+}
 #recipeContentTitle span {
     font-size: 16px;
     font-weight: bold;
     color: #333;
     display: block;
-    margin-bottom: 5px;
+    white-space: nowrap; /* 텍스트가 한 줄에 표시되도록 설정합니다. */
+    overflow: hidden; /* 넘치는 텍스트를 숨깁니다. */
+    text-overflow: ellipsis; /* 텍스트가 넘칠 때 "..."으로 대체합니다. */
 }
 
 #recipeContentWriter {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    margin: 5px 0 5px 0 ;
+    justify-content: center;
 }
 
 #recipeContentWriterImg img {
-    width: 24px;
-    height: 24px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
-    margin-right: 5px;
 }
 
 #recipeContentWriter span {
+    margin-left: 5px;
     font-size: 14px;
     color: #666;
 }
 
 #recipeContentBoardInfo {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
+    justify-content: center;
 }
 
 #recipeContentBoardInfo div {
@@ -247,6 +252,7 @@ body{
 
 .common-item {
     width: calc(25% - 10px); 
+    height: 400px;
     border: 1px solid #eee;
     border-radius: 5px;
     overflow: hidden;
@@ -258,7 +264,7 @@ body{
     flex-direction: column;
 }
 
-#commonBContentImg img {
+#commonContentImg img {
     width: 100%;
     height: auto;
 }
@@ -266,37 +272,41 @@ body{
 #commonContentInfoBox {
     padding: 10px;
 }
-
+#commonContentTitle{
+    text-align: center;
+}
 #commonContentTitle span {
     font-size: 16px;
     font-weight: bold;
     color: #333;
     display: block;
-    margin-bottom: 5px;
+    white-space: nowrap; /* 텍스트가 한 줄에 표시되도록 설정합니다. */
+    overflow: hidden; /* 넘치는 텍스트를 숨깁니다. */
+    text-overflow: ellipsis; /* 텍스트가 넘칠 때 "..."으로 대체합니다. */
 }
 
 #commonContentWriter {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    margin: 5px 0 5px 0 ;
+    justify-content: center;
 }
 
 #commonContentWriterImg img {
-    width: 24px;
-    height: 24px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
-    margin-right: 5px;
 }
 
 #commonContentWriter span {
+    margin-left: 5px;
     font-size: 14px;
     color: #666;
 }
 
 #commonContentBoardInfo {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
+    justify-content: space-evenly;
 }
 
 #commonContentBoardInfo div {
