@@ -31,6 +31,10 @@
   flex-direction: column;
 }
 
+.store-category:hover{
+  cursor: pointer;
+}
+
 .category-name {
   text-align: center;
   font-size: 20px;
@@ -48,10 +52,14 @@
   color: #e6e6e6;
 }
 
-.order{
+.sort{
   font-size: 16px;
   text-align: center;
   color: #6d6d6d;
+}
+
+.sort:hover{
+  cursor: pointer;
 }
 
 #product-list {
@@ -61,6 +69,10 @@
   row-gap: 40px;
   margin-top: 28px;
 
+}
+
+.item:hover{
+  cursor: pointer;
 }
 
 .item-brand {
