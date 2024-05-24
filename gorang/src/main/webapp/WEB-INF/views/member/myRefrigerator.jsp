@@ -10,6 +10,8 @@
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
     <link rel="stylesheet" href="${contextPath}/resources/css/member/myRefrigerator.css">
+    <!-- js -->
+    <script src="${contextPath}/resources/js/member/myPageRefrigerator.js"></script>
    
 </head>
 <body>
@@ -41,14 +43,14 @@
                                 </div>
 
                                 <div id="modal-search-igre">
-                                    <input id="input-igretext" placeholder=" 식품명 입력"></input> 
-                                    <button>
+                                    <input id="input-igretext" placeholder=" 식품명 입력"  onkeypress="handleKeyPress(event)"></input> 
+                                    <button onclick="findSearch()">
                                     <img src="${pageContext.request.contextPath}/resources/images/member-img/search 3.png" alt="">
                                     </button>
                                 </div>
                                 
                                 <div id="list-igre-area">
-                                    <button id="selectAll-btn">모두선택</button>
+                                    <button id="selectAll-btn" onclick="findSelectAll()">모두선택</button>
                                 </div>
                                 
                                 <div id="list-title">
@@ -56,13 +58,27 @@
                                     <span id="second-list-title" >소비기한</span>
                                 </div>
                                 <div id="overflow-recipe-area">
-                                    <c:forEach begin="1" end="30" varStatus="loop">
+                                    <c:forEach begin="1" end="10" varStatus="loop">
                                         <div class="row-igre-area">
                                             <input type="checkbox" name="" id="">
                                             <span>닭가슴살 블랙페퍼</span>
                                             <span>2024.08.05</span>
                                         </div>
-                                    </c:forEach>      
+                                    </c:forEach>     
+                                    <c:forEach begin="1" end="10" varStatus="loop">
+                                        <div class="row-igre-area">
+                                            <input type="checkbox" name="" id="">
+                                            <span>돼지가슴살 블랙페퍼</span>
+                                            <span>2024.08.05</span>
+                                        </div>
+                                    </c:forEach> 
+                                    <c:forEach begin="1" end="10" varStatus="loop">
+                                        <div class="row-igre-area">
+                                            <input type="checkbox" name="" id="">
+                                            <span>소가슴살 블랙페퍼</span>
+                                            <span>2024.08.05</span>
+                                        </div>
+                                    </c:forEach>  
                                 </div>
 
                                 <div id="modal-search-recipe-bottom">
@@ -74,20 +90,7 @@
                     </div>
                 </div>
 
-                <script>
-
-                    function viewModal(){
-                        document.getElementById("myModal").style.display = "block";
-                        // let h= document.querySelector(".header jsp");
-                        // console.log(h);
-                    }
-                    // 모달 닫기 버튼을 클릭하면 모달 창을 숨김
-                    document.getElementById("closeModalBtn").addEventListener("click", function() {
-                    document.getElementById("myModal").style.display = "none";
-                    });
-
-                
-                </script>
+      
 
 
                 <!-- 추천레시피 이미지영역 -->
@@ -124,14 +127,14 @@
                                 </div>
 
                                 <div id="modal-search-igre2">
-                                    <input id="input-igretext2" placeholder=" 식품명 입력"></input> 
-                                    <button>
+                                    <input id="input-igretext2" placeholder=" 식품명 입력" onkeypress="handleKeyPress2(event)"></input> 
+                                    <button onclick="findSearch2()">
                                     <img src="${pageContext.request.contextPath}/resources/images/member-img/search 3.png" alt="">
                                     </button>
                                 </div>
                                 
                                 <div id="list-igre-area2">
-                                    <button id="selectAll-btn2">모두선택</button>
+                                    <button id="selectAll-btn2" onclick="addSelectAll()">모두선택</button>
                                     <button id="addAll-btn2">추 가</button>
                                 </div>
                                 
@@ -143,9 +146,9 @@
                                 </div>
                                 <div id="overflow-recipe-area2">
                                     <table id ="overflow-table">                                           
-                                        <c:forEach begin="1" end="30" varStatus="loop">
+                                        <c:forEach begin="1" end="10" varStatus="loop">
                                             <tr class="overflow-tr">
-                                                <td class="td-checkbox"><input type="checkbox" name="" id="" class="row-checkbox"></td>
+                                                <td class="td-checkbox"><input type="checkbox" name="" id="" class="row-checkbox"  onclick="checkBoxStatus(this)"></td>
                                                 <td class="fixed-width1">1</td>
                                                 <td class="fixed-width2">닭가슴살 후추페퍼</td>
                                                 <td class="fixed-width3">100kcal</td>
@@ -155,32 +158,34 @@
                                                 </td>
                                             </tr>
                                         </c:forEach>
-
+                                        <c:forEach begin="1" end="10" varStatus="loop">
+                                            <tr class="overflow-tr">
+                                                <td class="td-checkbox"><input type="checkbox" name="" id="" class="row-checkbox"  onclick="checkBoxStatus(this)"></td>
+                                                <td class="fixed-width1">1</td>
+                                                <td class="fixed-width2">오리가슴살 고추페퍼</td>
+                                                <td class="fixed-width3">100kcal</td>
+                                                <td class="fixed-width4">
+                                                    <span class="direct-input-label" style="display: none;">직접입력 : </span>
+                                                    <input type="text" class="direct-input" style="display: none;">
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                        <c:forEach begin="1" end="10" varStatus="loop">
+                                            <tr class="overflow-tr">
+                                                <td class="td-checkbox"><input type="checkbox" name="" id="" class="row-checkbox"  onclick="checkBoxStatus(this)"></td>
+                                                <td class="fixed-width1">1</td>
+                                                <td class="fixed-width2">양가슴살 양파페퍼</td>
+                                                <td class="fixed-width3">100kcal</td>
+                                                <td class="fixed-width4">
+                                                    <span class="direct-input-label" style="display: none;">직접입력 : </span>
+                                                    <input type="text" class="direct-input" style="display: none;">
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
                                     </table>
                                 </div>
 
-                                <script>
-                                    // DOMContentLoaded 이벤트를 사용하여 DOM이 완전히 로드된 후에 스크립트를 실행
-                                    document.addEventListener('DOMContentLoaded', function() {
-                                        const checkboxes = document.querySelectorAll('.row-checkbox');
-                                
-                                        checkboxes.forEach(function(checkbox) {
-                                            checkbox.addEventListener('change', function() {
-                                                const row = checkbox.closest('tr');
-                                                const label = row.querySelector('.direct-input-label');
-                                                const input = row.querySelector('.direct-input');
-                                
-                                                if (checkbox.checked) {
-                                                    label.style.display = 'inline';
-                                                    input.style.display = 'inline';
-                                                } else {
-                                                    label.style.display = 'none';
-                                                    input.style.display = 'none';
-                                                }
-                                            });
-                                        });
-                                    });
-                                </script>
+  
 
 
                                 <div id="modal-search-recipe-bottom2">
@@ -190,19 +195,7 @@
                         </div>
 
                         
-                        <script>
-
-                            function viewModal2(){
-                                document.getElementById("myModal-two").style.display = "block";
-                                // let h= document.querySelector(".header jsp");
-                                // console.log(h);
-                            }
-                            // 모달 닫기 버튼을 클릭하면 모달 창을 숨김
-                            document.getElementById("closeModalBtn2").addEventListener("click", function() {
-                            document.getElementById("myModal-two").style.display = "none";
-                            });
-        
-                        </script>
+  
 
 
                     </div>
@@ -222,7 +215,7 @@
                                 </tr>
                         </thead>
                         <tbody>
-                                <tr >
+                                <tr class=".tr-block">
                                     <td class="myRefrigerator-tr">
                                         <img src="${contextPath}/resources/images/member-img/Rectangle 18311 (2).png" alt=""> 참외
                                     </td>
@@ -230,9 +223,9 @@
                                     <td>2024.08.05</td>
                                     <td>2024.02.12</td>
                                     <td>5</td>
-                                    <td class="myRefrigerator-last-td">삭제</td>
+                                    <td class="myRefrigerator-last-td" onclick="delteIngre(this)">삭제</td>
                                 </tr>
-                                <tr>
+                                <tr class=".tr-block">
                                     <td class="myRefrigerator-tr">
                                         <img src="${contextPath}/resources/images/member-img/Rectangle 18311 (3).png" alt=""> 브로콜리
                                     </td>
@@ -240,9 +233,9 @@
                                     <td>2024.05.10</td>
                                     <td>2024.03.12</td>
                                     <td>5</td>
-                                    <td class="myRefrigerator-last-td">삭제</td>
+                                   <td class="myRefrigerator-last-td " onclick="delteIngre(this)">삭제</td>
                                 </tr>
-                                <tr>
+                                <tr class=".tr-block">
                                     <td class="myRefrigerator-tr">
                                         <img src="${contextPath}/resources/images/member-img/Rectangle 18311 (4).png" alt=""> 제주 흑돼지 삼겹살
                                     </td>
@@ -250,9 +243,9 @@
                                     <td>2024.05.31</td>
                                     <td>2024.04.10</td>
                                     <td>3</td>
-                                    <td class="myRefrigerator-last-td">삭제</td>
+                                    <td class="myRefrigerator-last-td" onclick="delteIngre(this)">삭제</td>
                                 </tr>
-                                <tr>
+                                <tr class=".tr-block">
                                     <td class="myRefrigerator-tr">
                                         <img src="${contextPath}/resources/images/member-img/Rectangle 18311 (5).png" alt=""> 당근
                                     </td>
@@ -260,9 +253,9 @@
                                     <td>2024.06.20</td>
                                     <td>2024.04.30</td>
                                     <td>2</td>
-                                    <td class="myRefrigerator-last-td">삭제</td>
+                                    <td class="myRefrigerator-last-td" onclick="delteIngre(this)">삭제</td>
                                 </tr>
-                                <tr>
+                                <tr class=".tr-block">
                                     <td class="myRefrigerator-tr">
                                         <img src="${contextPath}/resources/images/member-img/Rectangle 18311 (6).png" alt=""> 바나나
                                     </td>
@@ -270,13 +263,30 @@
                                     <td>2024.06.02</td>
                                     <td>2024.05.01</td>
                                     <td>1</td>
-                                    <td class="myRefrigerator-last-td">삭제</td>
+                                    <td class="myRefrigerator-last-td" onclick="delteIngre(this)">삭제</td>
                                 </tr>
                         </tbody>
                         </table>
                     </div>
                 </div>
             </div>
+            <!-- 페이징 바 -->
+            <div id="pagination-area">
+               <div id="pagination">
+                   <a href="#">&lt;</a>
+                   <a href="#">1</a>
+                   <a href="#">2</a>
+                   <a href="#">3</a>
+                   <a href="#">4</a>
+                   <a href="#">5</a>
+                   <a href="#">6</a>
+                   <a href="#">7</a>
+                   <a href="#">8</a>
+                   <a href="#">9</a>
+                   <a href="#">10</a>
+                   <a href="#">&gt;</a>
+               </div>
+           </div>
         </div>
     </div>
     <jsp:include page="../common/footer.jsp" />
