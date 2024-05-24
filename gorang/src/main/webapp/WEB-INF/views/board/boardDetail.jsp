@@ -59,7 +59,45 @@
                             <div id="myModal" class="modal">
                                 <div class="modal-content">
                                     <span class="close">&times;</span>
-                                    <p>This is a modal window!</p>
+                                    <br>
+                                    <p>게시글 신고하기</p>
+                                    <div class="modal-content-top">
+                                        <span>신고 게시글</span>
+                                        <br>
+                                        <input type="text" class="contentTitleInput" placeholder="게시글 제목">
+                                    </div>
+                                    <div class="modal-content-body">
+                                        <span>신고 사유</span>
+                                        <br>
+                                        <div class="reportReasonSelectBox">
+                                            <div>
+                                                <input type="checkbox" id="reason">
+                                                <label for="reason">스팸/홍보 도배 게시글입니다.</label><br>
+                                            </div>
+                                            <div><input type="checkbox" id="reason">
+                                                <label for="reason">음란물입니다.</label><br>
+                                            </div>
+                                            <div>
+                                                <input type="checkbox" id="reason">
+                                                <label for="reason">불법 정보를 포함하고 있습니다.</label><br>
+                                            </div>
+
+                                            <div><input type="checkbox" id="reason">
+                                                <label for="reason">청소년에 유해한 내용을 포함하고 있습니다.</label><br>
+                                            </div>
+                                            <div><input type="checkbox" id="reason">
+                                                <label for="reason">욕설/혐오/차별적 표현을 포함하고 있습니다.</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-content-bottom">
+                                        <span>상세 내용</span>
+                                        <br>
+                                        <input type="text" class="contentReasonDetail" placeholder="상세 내용을 입력해주세요">
+                                    </div>
+                                    <div class="modal-content-reportBtn">
+                                        <input type="button" value="신고하기">
+                                    </div>
                                 </div>
                             </div>
 
