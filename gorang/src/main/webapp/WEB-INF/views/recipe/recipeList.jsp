@@ -59,7 +59,7 @@
                     </div>
                     <div id="recipeContentsBox">
                         <c:forEach var="a" begin="1" end="16">
-                            <div class="recipe-content-box" onclick="location.href='recipe?rno=${a}'">
+                            <div class="recipe-content-box" onclick="location.href='detail.re?rno=${a}'">
                                 <div class="recipe-content-item">
                                     <div id="recipeContentImg">
                                         <img src="${pageContext.request.contextPath}/resources/uploadfile/boardMainContentFile/boardImg1.png">
