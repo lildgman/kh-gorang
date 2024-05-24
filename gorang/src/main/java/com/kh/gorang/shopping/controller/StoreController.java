@@ -6,17 +6,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class StoreController {
 
-	@RequestMapping("store")
+	@RequestMapping("main.st")
 	public String storeMainForm() {
 		return "shopping/shoppingMain";
 	}
 	
-	@RequestMapping("store/list")
+	@RequestMapping("list.st")
 	public String storeList() {
 		return "shopping/productList";
 	}
 	
-	@RequestMapping("store/product")
+	@RequestMapping("detail.po")
 	public String productDetailForm() {
 		return "shopping/productDetailForm";
 	}

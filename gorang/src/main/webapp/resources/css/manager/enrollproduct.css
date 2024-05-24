@@ -147,6 +147,10 @@
   gap: 6px;
 }
 
+.price-input {
+  text-align: right;
+}
+
 #discount-percent{
   width: 70px;
 }
@@ -169,20 +173,20 @@
   color: #1e90ff;
 }
 
-#delete-selected-btn {
+#delete-selected-option-btn {
   border: 1px solid #cececd;
 }
 
-.option-table {
+#option-table {
   width: 1000px;
   border-collapse: collapse;
 }
 
-.option-table tr td {
+#option-table tr td {
   border: 1px solid #cececd;
 }
 
-.option-table td {
+#option-table td {
   padding: 5px;
 }
 
@@ -202,7 +206,7 @@
   width: 220px;
 }
 
-.option-table input {
+#option-table input {
   width: 100%;
   border: 1px solid #cececd;
   padding: 5px;

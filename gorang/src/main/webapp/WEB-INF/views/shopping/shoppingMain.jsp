@@ -102,7 +102,7 @@
 				<!--제목부분-->
 				<div id="best-item-top" class="title-top">
 					<span class="items-title">가장 많이 판매되었어요</span>
-					<span class="more" onclick="location.href='store/list?sort=popular'">더보기</span>
+					<span class="more" onclick="location.href='list.st?sort=popular'">더보기</span>
 				</div>
 
 				<!--가장 많이 판매된 상품 리스트-->
@@ -110,7 +110,7 @@
 					<!--상품 시작-->
 					
 					<c:forEach var="a" begin="1" end="4">
-						<div class="item" onclick="location.href='store/product?pno=${a}'">
+						<div class="item" onclick="location.href='detail.po?pno=${a}'">
 							<div class="item-thumbnail-area">
 								<img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping/item1.png" alt="상품1">
 							</div>
@@ -140,14 +140,14 @@
 				<!--제목부분-->
 				<div id="new-item-title" class="title-top">
 					<span class="items-title">새로 입고된 상품들이에요</span>
-					<span class="more" onclick="location.href='store/list?sort=new'">더보기</span>
+					<span class="more" onclick="location.href='list.st?sort=new'">더보기</span>
 				</div>
 
 				<!--입고된 상품 리스트 시작-->
 				<div id="new-items" class="items-container">
 					<!--상품 시작-->
 					<c:forEach var="b" begin="1" end="4">
-						<div class="item" onclick="location.href='store/product?pno=${b}'">
+						<div class="item" onclick="location.href='detail.po?pno=${b}'">
 							<div class="item-thumbnail-area">
 								<img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping/newitem1.png" alt="상품1">
 							</div>
