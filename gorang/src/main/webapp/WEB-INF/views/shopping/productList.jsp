@@ -105,9 +105,9 @@
             <!-- 정렬 방식 -->
             <div id="product-order-area">
                 <div id="product-order">
-                    <span class="sort" onclick="orderProductList('${contextPath }/store/list?sort=latest')">최신순</span> |
-                    <span class="sort" onclick="orderProductList('${contextPath }/store/list?sort=view')">조회수순</span> |
-                    <span class="sort" onclick="orderProductList('${contextPath }/store/list?sort=scrap')">스크랩순</span>
+                    <span class="sort" onclick="orderProductList('${contextPath }/list.st?sort=latest')">최신순</span> |
+                    <span class="sort" onclick="orderProductList('${contextPath }/list.st?sort=view')">조회수순</span> |
+                    <span class="sort" onclick="orderProductList('${contextPath }/list.st?sort=scrap')">스크랩순</span>
                 </div>
             </div>
 
@@ -116,7 +116,7 @@
 
                 <!-- 상품 -->
                 <c:forEach var="a" begin="1" end="16">
-                	<div class="item" onclick="location.href='product?pno=${a}'">
+                	<div class="item" onclick="location.href='product.st?pno=${a}'">
 	                    <div class="item-thumbnail-area">
 	                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping/item1.png" alt="상품1">
 	                    </div>

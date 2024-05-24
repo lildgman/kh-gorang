@@ -18,7 +18,7 @@ window.onload = function() {
         let categoryId = category.id;
         let categoryName = categoryList[categoryId];
         
-        window.location.href = "list?category=" + categoryName;
+        window.location.href = "list.st?category=" + categoryName;
       })
     })
   }

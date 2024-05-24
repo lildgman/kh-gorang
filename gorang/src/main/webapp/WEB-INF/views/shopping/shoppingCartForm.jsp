@@ -15,6 +15,9 @@
     <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
     <link rel="stylesheet" href="${contextPath }/resources/css/default.css">
     <link rel="stylesheet" href="${contextPath }/resources/css/shopping/shoppingCart.css">
+    <script src="${contextPath }/resources/js/shopping/shoppingCart.js"></script>
+    <!-- font awesome kit -->
+    <script src="https://kit.fontawesome.com/68309de260.js" crossorigin="anonymous"></script>
 
 </head>
 
@@ -29,50 +32,55 @@
             <!-- 장바구니 top -->
             <div id="product-area-top">
                 <div id="selectall-checkbox-container">
-                    <input type="checkbox" id="all" value="">
-                    <label for="all">모두 선택</label>
+                    <input type="checkbox" id="all-select-checkbox" value="">
+                    <label for="all-select-checkbox" id="all-check-label">모두 선택</label>
                 </div>
-                <div id="selected-delete">선택삭제</div>
+                <div id="selected-delete" onclick="reallyDelete()">선택삭제</div>
             </div>
 
             <!-- 장바구니 내용물들 -->
             <div id="product-content-area">
-    			
-                <!-- 장바구니 내용물 -->
-    			<c:forEach begin="1" end="3" step="1">
-	    			<div class="product-in-cart">
-	                    <div class="select-checkbox-container">
-	                        <input type="checkbox">
-	                    </div>
-	
-	                    <div class="product-img-container">
-	                        <img class="product-img" src="${contextPath }/resources/dummyImg/shopping/item1.png" alt="">
-	                    </div>
-	
-	                    <div class="cart-product-info-container">
-	                        <div class="cart-product-name-container">
-	                            <span class="cart-product-name">성주 참외 꿀참외 1.5kg</span>
-	                            <span class="cart-product-delete">X</span>
-	                        </div>
-	                        <div class="product-delivery-method">무료배송</div>
-	                        <div class="product-quantity-price-container">
-	                            <div class="product-quantity">
-	                                <div class="pbtn" id="minus_quantity">-</div>
-	                                <div class="pbtn" id="quantity">1</div>
-	                                <div class="pbtn" id="plus_quantity">+</div>
-	                            </div>
-	                            <div class="product-price">
-	                                <span class="product-origin-price">30,000원</span>
-	                                <span class="product-saled-price">24,000원</span>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-    			
-    			</c:forEach>
-                
 
-                
+                <!-- 장바구니 내용물 -->
+                <c:forEach begin="1" end="3" step="1">
+                    <div class="product-in-cart">
+                        <div class="select-checkbox-container">
+                            <input type="checkbox" class="select-checkbox" onclick="changeAllCheckBox()">
+                        </div>
+
+                        <div class="product-img-container">
+                            <img class="product-img" src="${contextPath }/resources/dummyImg/shopping/item1.png" alt="">
+                        </div>
+
+                        <div class="cart-product-info-container">
+                            <div class="cart-product-name-container">
+                                <span class="cart-product-name">성주 참외 꿀참외 1.5kg</span>
+                                <span class="cart-product-delete"><i class="fa-solid fa-x"></i></span>
+                            </div>
+                            <div class="product-delivery-method">무료배송</div>
+                            <div class="product-quantity-price-container">
+                                <div class="product-quantity">
+                                    <div class="pbtn" id="minus_quantity">-</div>
+                                    <div class="pbtn" id="quantity">1</div>
+                                    <div class="pbtn" id="plus_quantity">+</div>
+                                </div>
+                                <div class="product-price">
+                                    <div>
+                                        <span class="product-origin-price">30,000</span><span
+                                            class="origin-won">원</span>
+                                    </div>
+                                    <div>
+                                        <span class="product-saled-price">24,000</span><span class="saled-won">원</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </c:forEach>
+
+
+
             </div>
         </div>
 
@@ -109,4 +117,5 @@
     <!-- 푸터 -->
     <jsp:include page="../common/footer.jsp" />
 </body>
+
 </html>

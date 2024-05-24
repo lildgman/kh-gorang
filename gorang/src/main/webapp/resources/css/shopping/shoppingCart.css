@@ -17,8 +17,6 @@ input[type="checkbox"] {
   flex-direction: column;
   gap: 20px;
   width: 807px;
-
-
 }
 
 #selectall-checkbox-container {
@@ -40,6 +38,10 @@ input[type="checkbox"] {
 
 #selected-delete {
   font-size: 15px;
+}
+
+#selected-delete:hover {
+  cursor: pointer;
 }
 
 #product-content-area {
@@ -116,13 +118,14 @@ input[type="checkbox"] {
   gap: 13px;
 }
 
-.product-origin-price {
+.product-origin-price, .origin-won {
   text-decoration: line-through;
   font-size: 21px;
   color: #a2a2a2;
 }
 
-.product-saled-price {
+
+.product-saled-price, .saled-won {
   font-size: 21px;
   font-weight: bold;
 }
@@ -176,3 +179,6 @@ input[type="checkbox"] {
   background-color: #1e90ff;
 }
 
+.cart-product-delete:hover {
+  cursor: pointer;
+}

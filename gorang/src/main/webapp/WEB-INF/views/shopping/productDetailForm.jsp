@@ -56,14 +56,18 @@
                 </div>
                 <div id="product_grade_area">
                     <span id="product_grade">4.5</span>
-                    <span id="product_review_amount">30개 상품평</span>
+                    <div>
+                        <span id="product_review_quantity">30</span><span class="review_quantity">개 상품평</span>
+                    </div>
                 </div>
-                <div id="product_origin_price">
-                    30,000원
+                <div >
+                    <span id="product_origin_price">30,000</span><span class="won">원</span>
                 </div>
                 <div id="product_discount_price">
                     <span id="product_discount_percent">20%</span>
-                    <span id="product_discounted_price">24,000원</span>
+                    <div>
+                        <span id="product_discounted_price">24,000</span><span style="font-size: 30px; font-weight: bold;">원</span>   
+                    </div>
                 </div>
                 <div id="product_etc">
                     <table>
@@ -111,7 +115,7 @@
                         </div>
                         <div class="product_buy_btn_container">
                             <button class="myBtn btn_cart" >장바구니 담기</button>
-                            <button class="myBtn btn_buy" >구매하기</button>
+                            <button class="myBtn btn_buy" onclick="moveToPage('${contextPath }/order')">구매하기</button>
                         </div>
                     </div>
                 </div>
@@ -124,10 +128,10 @@
 
                 <!-- 상품네비 -->
                 <nav id="product_info_nav">
-                    <div id="product_description_div" class="nav_div" onclick="scrollToDiv('#product_description_picture')">상품설명</div>
-                    <div id="detail_description_div" class="nav_div" >상세설명</div>
-                    <div id="product_review_div" class="nav_div" >후기</div>
-                    <div id="product_qna_div" class="nav_div" >문의</div>
+                    <div id="product_description_div" class="nav_div" onclick="scrollToDiv('#product_description_area')">상품설명</div>
+                    <div id="detail_description_div" class="nav_div" onclick="scrollToDiv('#product_detail_description')">상세설명</div>
+                    <div id="product_review_div" class="nav_div" onclick="scrollToDiv('#product_review_area')">후기</div>
+                    <div id="product_qna_div" class="nav_div" onclick="scrollToDiv('#product_qna_area')">문의</div>
                 </nav>
 
                 <!-- 상품 설명 -->
@@ -263,12 +267,12 @@
                             <div class="pbtn plus_quantity">+</div>
                         </div>
                         <div id="price">
-                            25,000원
+                            <span class="product-price">24,000</span>원
                         </div>
                     </div>
                     <div class="product_buy_btn_container">
                         <button class="btn_cart mini_btn " >장바구니</button>
-                        <button class="btn_buy mini_btn" >구매하기</button>
+                        <button class="btn_buy mini_btn" onclick="moveToPage('${contextPath }/order')" >구매하기</button>
                     </div>
                 </div>
                 
@@ -278,7 +282,7 @@
         <!-- 문의하기 modal -->
         <div class="modal fade" id="qna_Modal">
             <div class="modal-dialog">
-                <div class="modal-content" style="height: 510px;">
+                <div class="modal-content" style="height: 600px;">
 
                     <!-- Modal Header -->
                     <div class="modal-header">
@@ -305,13 +309,18 @@
                                 <div style="font-size: 12px;">
                                     사진을 첨부해주세요.(최대 1장)
                                 </div>
-                                <div id="qna_product_pic">
+                                <div id="qna_pic_container">
+
+                                </div>
+                                <div id="add_qna_product_pic">
                                     <div id="pic_svg_container">
                                         <svg width="21" height="16" viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M19.6059 0C20.1059 0 20.5059 0.4 20.5059 0.9V15.1C20.5059 15.6 20.1059 16 19.6059 16H1.40586C1.16716 16 0.938246 15.9052 0.769463 15.7364C0.600681 15.5676 0.505859 15.3387 0.505859 15.1V0.9C0.505859 0.4 0.905859 0 1.40586 0H19.6059ZM18.6959 1.8H2.30586V12.65L7.84586 6.38C7.96586 6.21 8.22586 6.21 8.36586 6.38L11.4659 9.92C11.5259 9.98 11.5459 10.06 11.5259 10.12L11.1259 11.96C11.1059 12.1 11.2759 12.19 11.3559 12.08L14.5159 8.65C14.5664 8.59992 14.6347 8.57183 14.7059 8.57183C14.777 8.57183 14.8453 8.59992 14.8959 8.65L18.6859 12.77V1.8H18.6959ZM15.3259 6.6C14.9394 6.60004 14.5685 6.44791 14.2934 6.17654C14.0183 5.90517 13.8611 5.53639 13.8559 5.15C13.8559 4.34 14.5159 3.69 15.3259 3.69C16.1359 3.69 16.8059 4.34 16.8059 5.15C16.8059 5.95 16.1459 6.6 15.3259 6.6Z" fill="#1E90FF"/>
                                             </svg>
                                     </div>
                                     <span style="color:#1E90FF; font-size: 14px;">사진 첨부하기</span>
+                                    <input type="file" id="file-input" accept="image/*">
+
                                 </div>
                             </div>
 
@@ -324,8 +333,8 @@
                                 </div>
                             </div>
 
-                            <div id="produt_qna_enroll_btn_container">
-                                <button id="produt_qna_enroll_btn">완료</button>
+                            <div id="product_qna_enroll_btn_container">
+                                <button id="product_qna_enroll_btn" onclick="enrollQna()">완료</button>
                             </div>
                         </div>
                     </div>
