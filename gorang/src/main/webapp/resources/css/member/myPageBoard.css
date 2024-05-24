@@ -1,134 +1,139 @@
 @charset "UTF-8";
- /* a태그 부모상속 */
-a {
-    color: inherit;
-}
+    /* a태그 부모상속 */
+   a{
+    color: inherit; 
+   }
 
-body {
+   body{
     padding-top: 170px;
-}
+   }
 
-/* body전체 영역 */
-#body-area {
-    margin: 80px 340px;
-    display: flex;
-}
+   /* body전체 영역 */
+    #body-area{
+        margin: 80px 340px;
+        display: flex;
+    }
 
-/* 왼쪽 body영역 */
-#left-body-area {
-    width: 210px;
-    margin-right: 105px;
-}
-/* 오른쪽 body영역 */
-#right-body-area {
-    width: 925px;
-}
+    /* 왼쪽 body영역 */
+    #left-body-area{
+        width: 210px;
+        margin-right: 105px;
+    }
+    
+    /* 오른쪽 body영역 */
+    #right-body-area{
+        width: 925px;
+    }
 
-/* ------------------------------------- */
+    /* ------------------------------------- */
 
-/* 자우게시글 크기 설정 */
-#myPage-title{
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 50.64px;  
-}
+    /* 레시피게시글 크기 설정 */
+    #myPage-title{
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 30px;  
+    }
 
-/* 순서나열 */
-#myPage-sort{
-    font-size: 13px;
-    font-weight: bold;
-    width: 140px;
-    display: flex;
-    justify-content: space-between;
-    margin-left: 797px;
-    margin-bottom: 24px;                           
-}
+    /* 순서나열 */
+    #myPage-sort{
+        font-size: 13px;
+        font-weight: bold;
+        width: 140px;
+        display: flex;
+        justify-content: space-between;
+        margin-left: 775px;
+        margin-bottom: 10px;                           
+    }
 
-/* board리스트 구역 */
-#myPage-board-list-area{
-    height: 791px;
-}
+    /* board리스트 구역 */
+    #myPage-board-list-area{
+        display: flex;
+        flex-wrap: wrap;
+        height: 791px;
+        gap: 5px;
+    }
 
-/* 리스트 한 줄 */
-.myPage-board-list-line{
-    gap:15px;
-    display: flex;
-    justify-content: space-between;
-    height: 368px;
-    margin-bottom: 55px;
-}
+    /* 리스트 한 줄 */
+    .myPage-board-list-line{
+        gap:15px;
+        display: flex;
+        justify-content: space-between;
+        height: 368px;
+        margin-bottom: 55px;
+    }
 
-/* 게시글 하나 */
-.myPage-board-list-block{
-    height: 368px;
-    border: 1px solid #efefef;
-}
+    /* 게시글 하나 */
+    .myPage-board-list-block{
+        height: 368px;
+        border: 1px solid #efefef;
+    }
 
-/* 썸네일 영역 크기 */
-.myPage-board-img{
-    height: 260px;
-    width: 300px;
-    margin-bottom: 10px;
-}
+    /* 썸네일 영역 크기 */
+    .myPage-board-img{
+        height: 260px;
+        width: 300px;
+        margin-bottom: 10px;
+    }
 
-/* 썸네일 크기 */
-.myPage-board-img >img{
-    height: 260px;
-    width: 300px;
-}
+    /* 썸네일 크기 */
+    .myPage-board-img >img{
+        height: 260px;
+        width: 300px;
+    }
 
-/* 게시판 내용 크기*/
-.myPage-board-content{
-    height: 108px;
-    width: 300px;
-    padding: 5px 5px;
-}
+    /* 게시판 내용 크기*/
+    .myPage-board-content{
+        height: 108px;
+        width: 300px;
+        padding: 5px 5px;
+    }
 
-/* 게시판 내용 글씨설정 */
-.myPage-board-content{
-    font-size: 18px;
-    font-weight: bold;
+    /* 게시판 내용 글씨설정 */
+    .myPage-board-content{
+        font-size: 18px;
+        font-weight: bold;
 
-}
+    }
 
-/* 조회수 댓글 크기 설정 */
-.myPage-board-content span{
-    font-size: 14px;
-}
+    /* 조회수 댓글 크기 설정 */
+    .myPage-board-content span{
+        font-size: 14px;
+    }
 
-/* 내용 아래영역 설정 */
-.myPage-board-content-bottom{
-    margin-top: 25px;
-    display: flex;
-    justify-content: space-between;
-    font-size: 13px;
-}
+    /* 내용 아래영역 설정 */
+    .myPage-board-content-bottom{
+        margin-top: 25px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 13px;
+    }
 
-/* 내용 아래영역 크기설정 */
-.myPage-board-content-bottom img{
-    height: 25px;
-    width: 25px;
-    padding-bottom: 4px;
-}
+    /* 내용 아래영역 크기설정 */
+    .myPage-board-content-bottom img{
+        height: 25px;
+        width: 25px;
+        padding-bottom: 4px;
+    }
 
-/* 따봉이미지 위치 설정 */
-.myPage-board-chuchun{
-   position: relative;
-   right: 3px;
-}
+    /* 따봉이미지 위치 설정 */
+    .myPage-board-chuchun{
+       position: relative;
+       right: 3px;
+    }
 
-/* 수정/삭제 위치설정 */
-.myPage-board-edit{
-    padding-top: 3px;
-}
+    /* 수정/삭제 위치설정 */
+    .myPage-board-edit{
+        padding-top: 3px;
+    }
 
-/* 페이징 바 */
 
-#pagination-area{
+    /* 페이징 바 */
+
+  #pagination-area{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 48px;
+    margin-top: 25px;
     margin-left: 15px;
   }
   
@@ -143,4 +148,11 @@ body {
     font-size: 14px;
     color : #6D6D6D;
   }
-  
+
+#deleteBtn{
+    color: #1e90ff;
+}
+  #deleteBtn:hover{
+    cursor: pointer;
+    color:#F20606;
+  }

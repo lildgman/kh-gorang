@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member/myRecipeBoard.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
         <!-- js -->
-        <script src="${pageContext.request.contextPath}/resources/js/member/myPageBoard/myRecipeBoard.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/member/myPageBoard.js"></script>
     </head>
     <body>
 
