@@ -9,19 +9,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MemberController {
 	
 	//마이페이지 메인
-	@RequestMapping("myPageAllView.me")
+	@RequestMapping("main.me")
 	public String myPageViewAll(){
 		return "member/myPageAllView";
 	}
 	
 	//마이페이지 레시피게시판
-	@RequestMapping("myRecipeBoard.me")
+	@RequestMapping("recipe.me")
 	public String myRecipeBoard(){
 		return "member/myRecipeBoard";
 	}
 	
 	//마이페이지 자유게시판
-	@RequestMapping("myBoard.me")
+	@RequestMapping("board.me")
 	public String myBoard(){
 		return "member/myPageBoard";
 	}
@@ -33,28 +33,70 @@ public class MemberController {
 	}
 	
 	//내 정보 수정
-	@RequestMapping("myPageInfoEdit.me")
+	@RequestMapping("edit.me")
 	public String myPageInfoEdit(){
 		return "member/myPageInfoEdit";
 	}
 	
 	//구매내역
-	@RequestMapping("myPageBuyList.me")
+	@RequestMapping("buyList.me")
 	public String myPageBuyList(){
 		return "member/myPageBuyList";
 	}
 	
 	//마이 페이지 질의응답
-	@RequestMapping("myPageQnA.me")
+	@RequestMapping("qna.me")
 	public String myPageQnAView(){
 		return "member/myPageQnA";
 	}
 	
 	//마이 페이지 리뷰
-	@RequestMapping("myPageReplyReview.me")
+	@RequestMapping("review.me")
 	public String myPageReplyReviewView(){
 		return "member/myPageReplyReview";
 	}
+	
+	//비밀번호 체크
+	@RequestMapping("checkPwd.me")
+	public String myPageCheckPwd(){
+		return "member/myPageCheckPwd";
+	}
+	
+	//좋아요
+	@RequestMapping("likeRecipe.me")
+	public String myPageLikeRecipe(){
+		return "member/myPageLikeRecipe";
+	}
+	@RequestMapping("likeBoard.me")
+	public String myPageLikeBoard(){
+		return "member/myPageLikeBoard";
+	}
+	
+	@RequestMapping("login.me")
+	public String login(){
+		return "member/loginPage";
+	}
+	
+	@RequestMapping("register.me")
+	public String storeMainForm() {
+		return "member/registerPage";
+	}
+	
+	@RequestMapping("scrapBoard.me")
+	public String myPageScrapBoard(){
+		return "member/myPageScrapBoard";
+	}
+	
+	@RequestMapping("scrapProduct.me")
+	public String myPageScrapProduct(){
+		return "member/myPageScrapProduct";
+	}
+	
+	@RequestMapping("scrapRecipe.me")
+	public String myPageScrapRecipe(){
+		return "member/myPageScrapRecipe";
+	}
+	
 	
 }
 

@@ -10,15 +10,19 @@ public class RecipeController {
 		return "recipe/recipeMain";
 	}
 	
-	
-	@RequestMapping("recipeDetail.re")
+	@RequestMapping("detail.re")
 	public String recipDetailPage(){
 		return "recipe/recipeDetail";
 	}
 	
-	@RequestMapping("recipeWrite.re")
+	@RequestMapping("write.re")
 	public String recipWritePage(){
 		return "recipe/recipeWrite";
+	}
+	
+	@RequestMapping("list.re")
+	public String recipeListPage(){
+		return "recipe/recipeList";
 	}
 }
 
