@@ -264,6 +264,9 @@ option:hover{
 
 .location-btn {
     padding-top: 8px;
+  
+        cursor: move;
+    
 }
 .location-btn img{
     width: 25px;
@@ -373,7 +376,7 @@ option:hover{
 
 /* -------------------조리 순서영역------------------ */
 #cooking-order-area{
-    border-bottom: 2px solid #CECECD;
+    /* border-bottom: 2px solid #CECECD; */
     width: 700px;
     margin-bottom: 15px;
 }
@@ -387,7 +390,7 @@ option:hover{
 
 
 .cooking-order-block{
-    margin-bottom: 25px;
+    margin-bottom: 10px;
 }
 .cooking-order-block-top{
     display: flex;
@@ -421,6 +424,7 @@ option:hover{
     height: 100%;
     border: none;
     background-color: #F8F6F2;
+    padding: 0px 10px;
 }
 
 .cook-order-hambugerbar img{
@@ -443,7 +447,9 @@ option:hover{
     align-content: center; 
     margin-right: 10px;
 }
-
+.complete-food-img-block:hover{
+    cursor: pointer;
+}
 
 .cooking-order-block-bottom-img:hover{
     cursor: pointer;
@@ -452,6 +458,20 @@ option:hover{
     display: none;
 }
 
+.complete-food-img-block input[type="file"]{
+    display: none;
+}
+
+.cookingImg-real{
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+.completeImg-real{
+    width: 100%;
+    height: 100%;
+    display: none;
+}
 .cooking-order-block-bottom-tip{
     height: 27px;
     display: flex;
@@ -475,8 +495,8 @@ option:hover{
 
 #add-order-btn{
     height: 24px;
-    padding-left: 300px;  
-    margin-bottom: 54px;
+    padding-left: 313px;  
+    margin: 20px 0px;
 }
 #add-order-btn button{
       color: #1E90FF;
@@ -484,7 +504,25 @@ option:hover{
     font-weight: bold;
 }
 
+#recipe-order-delete-btn-area{
+    border-bottom: 2px solid #CECECD;
 
+    text-align: center;
+    padding: 20px auto;
+
+}
+
+#order-delete-btn{
+    /* border: 1px solid; */
+    font-size: 17px;
+    font-weight: 500;
+    /* width: 100%; */
+    height: 40px;
+    color: #a1a1a1;
+}
+#order-delete-btn:hover{
+    color: #F20606;
+}
 /* -------------------완성 사진------------------ */
 #complete-food-img-area{
     height: 210px;
@@ -511,7 +549,7 @@ option:hover{
     align-content: center;
 }
 
-.complete-food-img-block img{
+.completeImg{
     width: 20px;
     height: 20px;
 }
