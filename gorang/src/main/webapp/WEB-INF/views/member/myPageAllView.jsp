@@ -62,7 +62,7 @@
                 <!-- 게시글 사진 더보기 영역(4개) -->
                 <div  class="best-board-four">
                     <div class="best-board-text">
-                      <span class="best-title"><b>게시글</b></span> <span class="more-vw"><a href="${contextPath}/myRecipeBoard.me">더보기</a></span>
+                      <span class="best-title"><b>게시글</b></span> <span class="more-vw"><a href="${contextPath}/recipe.me">더보기</a></span>
                     </div>
                     <div class="best-board-img">
                         <div class="best-img">
@@ -82,7 +82,7 @@
 
                 <div  class="best-board-four">
                     <div  class="best-board-text">
-                      <span class="best-title"><b>스크랩</b></span> <span class="more-vw"><a href="${contextPath}/myPageScrapRecipe.me">더보기</a></span>
+                      <span class="best-title"><b>스크랩</b></span> <span class="more-vw"><a href="${contextPath}/scrapBoard.me">더보기</a></span>
                     </div>
                     <div class="best-board-img">
                         <div class="best-img">
@@ -103,7 +103,7 @@
 
                 <div  class="best-board-four">
                     <div  class="best-board-text">
-                      <span class="best-title"><b>좋아요</b></span> <span class="more-vw"><a href="${contextPath}/myPageScrapRecipe.me">더보기</a></span>
+                      <span class="best-title"><b>좋아요</b></span> <span class="more-vw"><a href="${contextPath}/likeRecipe.me">더보기</a></span>
                     </div>
                     <div class="best-board-img">
                         <div class="best-img">

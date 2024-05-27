@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="recipeMapper">
+  	<resultMap type="Recipe" id="recipeResult">
+  		<result column="RCP_NO" property="recipeNo"/>
+  		<result column="RCP_TITLE" property="recipeTitle"/>
+  		<result column="RCP_CONTENT" property="recipeContent"/>
+  		<result column="RCP_VIDEO" property="recipeVideo"/>
+  		<result column="RCP_MAIN_PHOTO" property="recipeMainPhoto"/>
+  		<result column="RCP_TAG" property="recipeTag"/>
+  		<result column="RCP_WRITE_DATE" property="recipeWriteDate"/>
+  		<result column="COOK_AMOUNT" property="cookAmount"/>
+  		<result column="COOK_TIME" property="cookTime"/>
+  		<result column="COOK_KIND" property="cookKind"/>
+  		<result column="COOK_LEVEL" property="cookLevel"/>
+  		<result column="STATUS" property="status"/>
+  	</resultMap>
+  	
+  	<!-- 레시피 게시글 추가 -->
+  	 <insert id="insertRecipe" parameterType="Recipe">
+        INSERT INTO RECIPE (
+            RCP_TITLE,
+            RCP_CONTENT,
+            RCP_VIDEO,
+            RCP_MAIN_PHOTO,
+            RCP_TAG,
+            COOK_AMOUNT,
+            COOK_TIME,
+            COOK_KIND,
+            COOK_LEVEL
+        ) VALUES (
+            #{recipeTitle},
+            #{recipeContent},
+            #{recipeVideo},
+            #{recipeMainPhoto},
+            #{recipeTag},
+            #{cookAmount},
+            #{cookTime},
+            #{cookKind},
+            #{cookLevel}
+        )
+    </insert>
+  	
+  	
+  </mapper>
