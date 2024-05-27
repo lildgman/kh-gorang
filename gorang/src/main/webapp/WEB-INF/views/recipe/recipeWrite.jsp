@@ -123,16 +123,16 @@
                     <div class="recipe-ingredient-info-top">
                         <div class="location-btn"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Link.png" alt=""></div>
                         <div class="ingre-div-block" >
-                            <input type="text" placeholder="분류 예)식재료">
+                            <input name="divName" type="text" placeholder="분류 예)식재료">
                         </div>
                         <div class="delete-btn"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" onclick="deleteIngreBlock(this)"></div>
                     </div>
                     <div class="recipe-ingredient-info-bottom">
                         <div class="recipe-smaill-block">
                             <div class="location-btn"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Link.png" alt=""></div>
-                            <div class="igre-name-block"><input type="text" placeholder="재료명 예)돼지고기"></div>
-                            <div class="igre-amount-block"><input type="text" placeholder="수량"></div>
-                            <div class="igre-unit-block"><input type="text" placeholder="단위"></div>
+                            <div class="igre-name-block"><input name ="ingreName" type="text" placeholder="재료명 예)돼지고기"></div>
+                            <div class="igre-amount-block"><input name ="ingreAmount" type="text" placeholder="수량"></div>
+                            <div class="igre-unit-block"><input  name ="ingreUnit" type="text" placeholder="단위"></div>
                             <div class="delete-btn"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" onclick="deleteSmaillBlock(this)"></div>
                             <button type="button">태그 +</button>
                         </div>
@@ -156,18 +156,18 @@
                     <div class="cooking-order-block">
                         <div class="cooking-order-block-top">
                             <div class="cook-order-number-img">1</div>
-                            <div class="cook-order-write-content"><input type="text" placeholder="예) 소고기는 기름을 떼어내고 적당한 크기로 썰어주세요"></div>
+                            <div class="cook-order-write-content"><input name ="cookOrdContent" type="text" placeholder="예) 소고기는 기름을 떼어내고 적당한 크기로 썰어주세요"></div>
                             <div class="cook-order-hambugerbar"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/SVG.png" alt=""></div>
                         </div>
                         <div class="cooking-order-block-bottom">
                             <div class="cooking-order-block-bottom-img" onclick="cookIngOrderImg(this)">
                                 <img class ="cookingImg" src="${contextPath}/resources/dummyImg/recipe/recipeWrite/camera.png" alt="">
                                 <img class="cookingImg-real" src="" alt="" >
-                                <input type="file"  id="fileInput"  onchange="changeCookIngOrderImg(this)">
+                                <input name ="cookOrdPhoto" type="file"  id="fileInput"  onchange="changeCookIngOrderImg(this)">
                             </div>
                             <div class="cooking-order-block-bottom-tips">
                                 <div class="cooking-order-block-bottom-tip">
-                                    <input type="text" placeholder="팁 예) 볶는 시간은 최소로 합니다">
+                                    <input  name ="CookTip" type="text" placeholder="팁 예) 볶는 시간은 최소로 합니다">
                                     <button type="button" class="add-tip"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/plus (2).png" alt="" onclick="addTip(this)"></button>
                                     <button type="button" class="delte-tip"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt=""  onclick="deleteTip(this)"></button>
                                 </div>

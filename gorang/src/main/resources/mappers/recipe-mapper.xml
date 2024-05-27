@@ -4,6 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="recipeMapper">
+  	<!-- 레시피 -->
   	<resultMap type="Recipe" id="recipeResult">
   		<result column="RCP_NO" property="recipeNo"/>
   		<result column="RCP_TITLE" property="recipeTitle"/>
@@ -17,7 +18,46 @@
   		<result column="COOK_KIND" property="cookKind"/>
   		<result column="COOK_LEVEL" property="cookLevel"/>
   		<result column="STATUS" property="status"/>
+  		<result column="MEMBER_NO" property="memberNo"/>
   	</resultMap>
+  	
+  	<!-- 재료 분류 -->
+  	<resultMap type="RecipeDivision" id="recipeDivisionResult">
+  		<result column="DIV_NO" property="divNo"/>
+  		<result column="DIV_NAME" property="divName"/>
+  		<result column="STATUS" property="status"/>
+  		<result column="RCP_NO" property="recipeNo"/>
+  	</resultMap>
+  	
+  	<!-- 재료 정보 -->
+  	 <resultMap type="IngredientsInfo" id="ingredientsInfoResult">
+  		<result column="INGRE_NO" property="ingreNo"/>
+  		<result column="INGRE_NAME" property="ingreName"/>
+  		<result column="INGRE_AMOUNT" property="ingreAmount"/>
+  		<result column="INGRE_UNIT" property="ingreUnit"/>
+  		<result column="STATUS" property="status"/>
+  		<result column="DIV_NO" property="divNo"/>
+  	</resultMap>
+  	
+  	<!-- 조리 순서 -->
+  	 <resultMap type="CookOrder" id="CookOrderResult">
+  		<result column="COOK_ORD_NO" property="cookOrdNo"/>
+  		<result column="COOK_ORD_CONTENT" property="cookOrdContent"/>
+  		<result column="COOK_ORD_PHOTO" property="cookOrdPhoto"/>
+  		<result column="STATUS" property="status"/>
+  		<result column="RCP_NO" property="recipeNo"/>
+  	</resultMap>
+  	
+  	<!-- 요리추가 팁 -->
+  	 <resultMap type="CookTip" id="CookTipResult">
+  		<result column="COOK_TIP_NO" property="cookTipNo"/>
+  		<result column="COOK_TIP_CONTENT" property="cookTipContent"/>
+  		<result column="STATUS" property="status"/>
+  		<result column="COOK_ORD_NO" property="cookOrdNo"/>
+  	</resultMap>
+  	
+  	
+  	
   	
   	<!-- 레시피 게시글 추가 -->
   	 <insert id="insertRecipe" parameterType="Recipe">
@@ -44,5 +84,7 @@
         )
     </insert>
   	
+  	<!-- 레시피 게시글 추가 -->
+	
   	
   </mapper>
