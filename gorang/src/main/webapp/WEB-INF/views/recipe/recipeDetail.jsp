@@ -9,10 +9,7 @@
             <!-- Latest compiled and minified CSS -->
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
             <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
-            <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common/sidebar.css">
             <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recipe/recipeDetail.css">
-            <!-- slick-->
-            <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
         <!--js-->
             <!-- jQuery library -->
             <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
@@ -29,43 +26,15 @@
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
-
-            <!--slick-->
-            <script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> 
-
-            <!--sidebar-->
-            <script src="${pageContext.request.contextPath}/resources/js/common/sidebar.js"></script>
-    
     </head>
 
     <body>
         <!-- 헤더 -->
         <jsp:include page="../common/header.jsp" />
-
-        <!-- 사이드 최근본 내역 -->
-        <div id="sidebar">
-			<div id="recently-seen-div">
-                <div class="recently-seen-div-button-box slick-prev">
-                    <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<rect x="2.31445" y="7.46094" width="7.72042" height="1.54408" transform="rotate(-45 2.31445 7.46094)" fill="#D9D9D9"/>
-						<rect width="7.72042" height="1.54408" transform="matrix(-0.707107 -0.707107 -0.707107 0.707107 13.416 7.46094)" fill="#D9D9D9"/>
-					</svg>
-                </div>
-				<div id="recently-seen-container">
-					<span>최근 본 레시피</span>
-					<div id="recently-seen-list">
-						<!-- 최근 본 아이템 목록 추가-->
-					</div>
-				</div>
-                <div class="recently-seen-div-button-box slick-next">
-                <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="7.72042" height="1.54408" transform="matrix(0.707107 0.707107 0.707107 -0.707107 2.31445 2.53906)" fill="#D9D9D9"/>
-                    <rect x="13.6855" y="2.53906" width="7.72042" height="1.54408" transform="rotate(135 13.6855 2.53906)" fill="#D9D9D9"/>
-                </svg>
-                </div>
-			</div>
-		</div>
-
+        
+		<!-- 사이드바 -->
+		<jsp:include page="../common/sidebar.jsp" />
+		
         <!--레시피 글 썸네일영역 -->
         <div id="recipe-thumnail-area">
             <div id="recipe-thumnail-food-img">

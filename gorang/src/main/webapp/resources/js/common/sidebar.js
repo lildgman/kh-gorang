@@ -20,11 +20,25 @@ window.onload = function() {
     }
     // URL에서 pno 파라미터 값을 가져옴
     let itemId = getParameterRno();
-    if (itemId) {
+
+    // detail 페이지 이외의 페이지일 경우 itemId가 없기 때문에 이를 위한 예외처리 실시
+    if (itemId === null){
+        // localStorage에서 최근 본 상품 목록을 가져옴
+        let watched = localStorage.getItem("recentlyWatched");
+
+        // 최근 본 상품이 없는 경우, 빈 배열로 초기화
+        watched = watched ? JSON.parse(watched) : [];
+
+        // 디버깅을 위해 콘솔에 최근 본 상품 목록 출력
+        console.log("최근 본 상품 목록:", watched);
+
+        // 최근 본 상품 목록을 화면에 표시
+        displayRecentlyWatchedItems(watched, ctx);
+    } else {
         // 최근 본 상품 목록 초기화
         initRecentlyWatchedList(itemId, ctx);
     }
-
+        
     $(function(){
         $('#recently-seen-list').slick({
             vertical : true, // 세로 방향 슬라이드 옵션
