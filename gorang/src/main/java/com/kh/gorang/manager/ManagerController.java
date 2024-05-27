@@ -6,23 +6,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ManagerController {
 	
-	@RequestMapping("manager/product/enroll")
+	@RequestMapping("productenroll.ma")
 	public String managerProductEnrollForm() {
 		return "manager/enrollProductForm";
 	}
 	
-	@RequestMapping("manager/product/update")
+	@RequestMapping("productupdate.ma")
 	public String managerProductUpdateForm() {
 		return "manager/updateProductForm";
 	}
 	
 
-	@RequestMapping("manager/board/check")
+	@RequestMapping("boards.ma")
 	public String managerBoardCheckForm() {
 		return "manager/checkBoardForm";
 	}
 	
-	@RequestMapping("manager/members")
+	@RequestMapping("members.ma")
 	public String managerMemberForm() {
 		return "manager/memberManagementForm";
 
