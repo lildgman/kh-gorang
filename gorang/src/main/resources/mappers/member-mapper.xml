@@ -2,9 +2,74 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-<!-- namespace: 해당 mapper 파일의 고유한 별칭 -->
+
 <mapper namespace="memberMapper">
-	
-	
+  
+  <resultMap type="Member" id="memberResult">
+    <result column="MEMBER_NO" property="memberNo"/>
+    <result column="MEMBER_EMAIL" property="memberEmail"/>
+    <result column="MEMBER_PWD" property="memberPwd"/>
+    <result column="MEMBER_NICKNAME" property="nickname"/>
+    <result column="MEMBER_PHONE" property="memberPhone"/>
+    <result column="MEMBER_GENDER" property="gender"/>
+    <result column="MEMBER_ADDRESS" property="memberAddress"/>
+    <result column="MEMBER_BIRTH" property="birth"/>
+    <result column="MEMBER_PROFILE" property="profile"/>
+    <result column="MEMBER_GRADE" property="grade"/>
+    <result column="MEMBER_ENROLL_DATE" property="memberEnrollDate"/>
+    <result column="MEMBER_MODIFY_DATE" property="memberModifyDate"/>
+    <result column="MEMBER_STATUS" property="memberStatus"/>
+    <result column="ALARM_STATUS" property="alarm"/>
+    <result column="LOGIN_SIGN_PATH" property="loginPath"/>
+  </resultMap>
+  
+  <!-- 로그인 쿼리문 -->
+  <select id="loginMember" resultMap="memberResult">
+    SELECT MEMBER_EMAIL,
+           MEMBER_PWD,
+           MEMBER_NICKNAME,
+           MEMBER_PHONE,
+           MEMBER_GENDER,
+           MEMBER_ADDRESS,
+           MEMBER_BIRTH,
+           MEMBER_PROFILE,
+           MEMBER_GRADE,
+           MEMBER_ENROLL_DATE,
+           MEMBER_MODIFY_DATE,
+           MEMBER_STATUS,
+           ALARM_STATUS,
+           LOGIN_SIGN_PATH
+      FROM MEMBER
+     WHERE MEMBER_EMAIL = #{memberEmail}
+       AND MEMBER_STATUS = 'Y'
+  </select>
+  
+  <!-- 아이디 중복 체크 -->
+  <select id="idCheck" resultType="int">
+    SELECT COUNT(*)
+      FROM MEMBER
+     WHERE MEMBER_EMAIL = #{checkId}
+  </select>
+  
+  <!-- 회원가입 -->
+  <insert id="insertMember">
+    INSERT INTO MEMBER (
+       MEMBER_EMAIL,
+       MEMBER_PWD,
+       MEMBER_NICKNAME,
+       MEMBER_PHONE,
+       MEMBER_GENDER,
+       MEMBER_ADDRESS,
+       MEMBER_BIRTH
+    )
+    VALUES (
+       #{memberEmail},
+       #{memberPwd},
+       #{nickname},
+       #{memberPhone},
+       #{gender},
+       #{memberAddress},
+       #{birth}
+    )
+  </insert>
 </mapper>

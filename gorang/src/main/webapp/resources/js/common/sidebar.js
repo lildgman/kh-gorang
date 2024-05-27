@@ -1,12 +1,12 @@
 
 // 현재 페이지의 URL에서 쿼리 파라미터 'pno' 값을 추출하는 함수
-function getParameterPno(){
+function getParameterRno(){
     let query = window.location.search;
     let param = new URLSearchParams(query);
-    let pno = param.get('pno');
+    let rno = param.get('rno');
 
-    console.log(pno);
-    return pno;
+    console.log(rno);
+    return rno;
 }
 
 // 페이지 로드 시 실행되는 함수
@@ -19,15 +19,40 @@ window.onload = function() {
     return sessionStorage.getItem("contextpath");
     }
     // URL에서 pno 파라미터 값을 가져옴
-    let itemId = getParameterPno();
-    if (itemId) {
+    let itemId = getParameterRno();
+
+    // detail 페이지 이외의 페이지일 경우 itemId가 없기 때문에 이를 위한 예외처리 실시
+    if (itemId === null){
+        // localStorage에서 최근 본 상품 목록을 가져옴
+        let watched = localStorage.getItem("recentlyWatched");
+
+        // 최근 본 상품이 없는 경우, 빈 배열로 초기화
+        watched = watched ? JSON.parse(watched) : [];
+
+        // 디버깅을 위해 콘솔에 최근 본 상품 목록 출력
+        console.log("최근 본 상품 목록:", watched);
+
+        // 최근 본 상품 목록을 화면에 표시
+        displayRecentlyWatchedItems(watched, ctx);
+    } else {
         // 최근 본 상품 목록 초기화
-        initRecentlyWatchedList(itemId);
+        initRecentlyWatchedList(itemId, ctx);
     }
+        
+    $(function(){
+        $('#recently-seen-list').slick({
+            vertical : true, // 세로 방향 슬라이드 옵션
+            slidesToShow : 3,		// 한 화면에 보여질 컨텐츠 개수
+            slidesToScroll : 1,		//스크롤 한번에 움직일 컨텐츠 개수
+            verticalSwiping : true,
+            prevArrow: $('.slick-prev'),
+            nextArrow: $('.slick-next'),
+        });
+      })
 };
 
 // 최근 본 상품 목록을 초기화하는 함수
-function initRecentlyWatchedList(itemId) {
+function initRecentlyWatchedList(itemId, ctx) {
     let maxCount = 5;
     // localStorage에서 최근 본 상품 목록을 가져옴
     let watched = localStorage.getItem("recentlyWatched");
@@ -56,27 +81,37 @@ function initRecentlyWatchedList(itemId) {
     console.log("최근 본 상품 목록:", watched);
 
     // 최근 본 상품 목록을 화면에 표시
-    displayRecentlyWatchedItems(watched);
+    displayRecentlyWatchedItems(watched, ctx);
 }
 
 // 최근 본 상품 목록을 화면에 표시하는 함수
-function displayRecentlyWatchedItems(items) {
+function displayRecentlyWatchedItems(items, ctx) {
+    console.log(items);
+
     let recentlySeenList = document.getElementById('recently-seen-list');
     recentlySeenList.innerHTML = ''; // 기존 내용을 비움
 
+     // 최근 본 상품 목록이 비어 있는 경우
+     if (items.length === 0) {
+        let sidebar = document.getElementById('sidebar');
+        sidebar.innerHTML = ''; // sidebar의 내용을 비움
+        return; // 함수 종료
+    }
+
     items.forEach(item => {
+        console.log(item)
         // 실제 상품 이미지와 링크를 가져오는 로직으로 대체해야 합니다
         // 예: item을 기반으로 AJAX 요청을 통해 상품 정보를 가져옴
-        let listItem = document.createElement('li');
+        let listItem = document.createElement('div');
         let itemImg = document.createElement('img');
-        itemImg.src = ctx + "/resources/dummyImg/shopping" + item.id + ".png"; // 실제 이미지 경로로 대체
+        itemImg.src = ctx + "/resources/dummyImg/recipe/recipeMain/newRecipeThumbnail" + item + ".png"; // 실제 이미지 경로로 대체
         // 이미지 어떻게 저장?
-        itemImg.alt = "최근 본 상품 이미지"; // 실제 alt 텍스트로 대체
+        console.log(itemImg.src);
 
-        itemImg.style = "cursor:pointer;"
+        itemImg.style.cursor = "pointer;"
 
         itemImg.onclick = function(){
-            location.href = ctx + "store/product?pno=" + item.id;
+            location.href = ctx + "/detail.re?rno=" + item;
         }
 
         listItem.appendChild(itemImg);

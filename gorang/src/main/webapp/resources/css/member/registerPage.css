@@ -13,243 +13,77 @@
   #gorang-logo{
     cursor: pointer;
   }
+
   h2 {
     font-size: 34px;
     margin-bottom: 48px;
     margin-top: 50px;
   }
-  #registEmailSection{
-    width: 540px;
-    height: 53px;
-    display: flex;
-    margin-bottom: 16px;
-  }
-  #emailSpan{
-    width: 80px;
-    height: 53px;
-    padding-top: 15px;
-    margin-right: 52px;
-  }
-  #emailSpan span{
-    text-align: center;
-    font-size: 14px;
-    color: #222222;
-    font-weight: 500;
-  }
-  #emailInput{
-    width: 320px;
-    height: 53px;
-  }
-  #emailInput input{
-    width: 320px;
-    height: 53px;
-    border-color: #E6E6E6;
-    border-style: solid;
-    border-width: 2px;
-    padding: 16px;
-    outline: none;
-  }
-  #emailInput input ::placeholder{
-    color: #999999;
-    font-size: 14px;
-  }
-  #emailCheck{
-    width: 100px;
-    height: 53px;
-    margin-left: 12px;
-  }
-  #emailCheck input{
-    width: 100px;
-    height: 53px;
-    border-style: solid;
-    border-color: #1E90FF;
-    border-width: 2px;
-    background-color: #fff;
-    color: #1E90FF;
-    cursor: pointer;
-  }
-  #registPwdSection{
-    width: 540px;
-    height: 53px;
-    display: flex;
-    margin-bottom: 16px;
-  }
-  #pwdSpan{
-    width: 80px;
-    height: 53px;
-    padding-top: 15px;
-    margin-right: 28px;
-  }
-  #pwdSpan span{
-    text-align: center;
-    font-size: 14px;
-    color: #222222;
-    font-weight: 500;
-  }
-  #pwdInput{
-    width: 320px;
-    height: 53px;
-  }
-  #pwdInput input{
-    width: 320px;
-    height: 53px;
-    border-color: #E6E6E6;
-    border-style: solid;
-    border-width: 2px;
-    padding: 16px;
-    outline: none;
-  }
-  #pwdInput input ::placeholder{
-    color: #999999;
-    font-size: 14px;
-  }
-  #registPwdCheckSection{
-    width: 540px;
-    height: 53px;
-    display: flex;
-    margin-bottom: 16px;
-  }
-  #pwdCheckSpan{
-    width: 80px;
-    height: 53px;
-    padding-top: 15px;
-    margin-right: 28px;
-  }
-  #pwdCheckSpan span{
-    text-align: center;
-    font-size: 14px;
-    color: #222222;
-    font-weight: 500;
-  }
-  #pwdCheckInput{
-    width: 320px;
-    height: 53px;
-  }
-  #pwdCheckInput input{
-    width: 320px;
-    height: 53px;
-    border-color: #E6E6E6;
-    border-style: solid;
-    border-width: 2px;
-    padding: 16px;
-    outline: none;
-  }
-  #registNickNameSection{
-    width: 540px;
-    height: 53px;
-    display: flex;
-    margin-bottom: 16px;
-  }
-  #nickNameSpan{
-    width: 80px;
-    height: 53px;
-    padding-top: 15px;
-    margin-right: 28px;
-  }
-  #nickNameSpan span{
-    text-align: center;
-    font-size: 14px;
-    color: #222222;
-    font-weight: 500;
-  }
-  #nickNameInput{
-    width: 320px;
-    height: 53px;
-  }
-  #nickNameInput input{
-    width: 320px;
-    height: 53px;
-    border-color: #E6E6E6;
-    border-style: solid;
-    border-width: 2px;
-    padding: 16px;
-    outline: none;
-  }
-  #nickNameCheck{
-    width: 100px;
-    height: 53px;
-    margin-left: 12px;
-  }
-  #nickNameCheck input{
-    width: 100px;
-    height: 53px;
-    border-style: solid;
-    border-color: #1E90FF;
-    border-width: 2px;
-    background-color: #fff;
-    color: #1E90FF;
-    cursor: pointer;
-  }
-  #registPnumSection{
-    width: 540px;
-    height: 53px;
-    display: flex;
-    margin-bottom: 16px;
-  }
-  #pnumSpan{
-    width: 80px;
-    height: 53px;
-    padding-top: 15px;
-    margin-right: 28px;
-  }
-  #pnumSpan span{
-    text-align: center;
-    font-size: 14px;
-    color: #222222;
-    font-weight: 500;
-  }
-  #pnumInput{
-    width: 320px;
-    height: 53px;
-  }
-  #pnumInput input{
-    width: 320px;
-    height: 53px;
-    border-color: #E6E6E6;
-    border-style: solid;
-    border-width: 2px;
-    padding: 16px;
-    outline: none;
-  }
-  #pnumCheck{
-    width: 100px;
-    height: 53px;
-    margin-left: 12px;
-  }
-  #pnumCheck input{
-    width: 100px;
-    height: 53px;
-    border-style: solid;
-    border-color: #1E90FF;
-    border-width: 2px;
-    background-color: #fff;
-    color: #1E90FF;
-    cursor: pointer;
 
-  }
-  #registAddressSection{
+  .registerSection{
     width: 540px;
     height: 53px;
     display: flex;
+    flex-direction: row;
+    gap: 12px;
     margin-bottom: 16px;
   }
-  #addressSpan{
-    width: 80px;
+
+  .registerSpan{
+    width: 96px;
     height: 53px;
-    padding-top: 15px;
-    margin-right: 28px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
   }
-  #addressSpan span{
+
+  .registerSpan span{
     text-align: center;
     font-size: 14px;
     color: #222222;
     font-weight: 500;
   }
-  #addressSearch{
-    width: 540px;
-    height: 53px;
-    display: flex;
+
+  .register-inputForm{
+      width: 320px;
+      height: 53px;
   }
+
+  .register-input{
+    width: 320px;
+    height: 53px;
+    border-color: #E6E6E6;
+    border-style: solid;
+    border-width: 2px;
+    padding: 16px;
+    outline: none;
+  }
+
+  .register-input input ::placeholder{
+    color: #999999;
+    font-size: 14px;
+  }
+
+  .registerCheck{
+    width: 100px;
+    height: 53px;
+  }
+
+  .registerCheck input{
+    width: 100px;
+    height: 53px;
+    border-style: solid;
+    border-color: #1E90FF;
+    border-width: 2px;
+    background-color: #fff;
+    color: #1E90FF;
+    cursor: pointer;
+  }
+
+  #registAddressSection{
+    height: fit-content;
+  }
+  
   #addressSearch input{
     margin-left: 15px;
     width: 150px;
@@ -259,8 +93,8 @@
     border-width: 2px;
     padding: 16px;
   }
+
   #addressSearch button{
-    margin-left: 12px;
     width: 320px;
     height: 53px;
     border-style: solid;
@@ -270,30 +104,23 @@
     color: #1E90FF;
     cursor: pointer;
   }
-  #registGenderSection{
-    width: 540px;
-    height: 53px;
+
+  #address-search-result{
+    width: 432px;
+    height: 179px;
     display: flex;
-    margin-bottom: 16px;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center; 
   }
-  #genderSpan{
-    width: 80px;
-    height: 53px;
-    padding-top: 15px;
-    margin-right: 28px;
-  }
-  #genderSpan span{
-    text-align: center;
-    font-size: 14px;
-    color: #222222;
-    font-weight: 500;
-  }
+
   #genderSelect{
     width: 320px;
     height: 53px;
     align-items: center;
     display: flex;
   }
+
   #genderSelect input{
     width: 20px;
     height: 20px;
@@ -306,41 +133,11 @@
     margin-left: 10px;
     font-size: 14px;
   }
-  #registBirthSection{
-    width: 540px;
-    height: 53px;
-    display: flex;
-    margin-bottom: 16px;
-  }
-  #birthSpan{
-    width: 80px;
-    height: 53px;
-    padding-top: 15px;
-    margin-right: 28px;
-  }
-  #birthSpan span{
-    text-align: center;
-    font-size: 14px;
-    color: #222222;
-    font-weight: 500;
-  }
-  #birthInput{
-    width: 100px;
-    height: 53px;
-  }
-  #birthInput input{
-    width: 320px;
-    height: 53px;
-    border-color: #E6E6E6;
-    border-style: solid;
-    border-width: 2px;
-    padding: 16px;
-    outline: none;
-  }
 
   hr{
     margin-top: 42px;
   }
+
   #gorangTermSection{
     margin-top: 32px;
     width: 540px;
