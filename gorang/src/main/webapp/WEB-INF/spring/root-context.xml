@@ -10,7 +10,7 @@
   <!-- 커넥션풀을 쓸수있는 클래스 psql사용시 변경필요-->
   <bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource" destroy-method="close">
  	 <property name="driverClassName" value="org.postgresql.Driver"/>
- 	 <property name="url" value="jdbc:postgresql://localhost:5432/gorangdb"/>
+ 	 <property name="url" value="jdbc:postgresql://192.168.30.13:5432/gorangdb"/>
  	 <property name="username" value="gorang"/>
  	 <property name="password" value="gorang"/>
   </bean>

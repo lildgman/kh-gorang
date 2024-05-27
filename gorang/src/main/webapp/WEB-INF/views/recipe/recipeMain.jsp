@@ -5,38 +5,42 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <!-- css -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recipe/recipeMain.css">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recipe/recipeMain.css">
+
 <!--js-->
-<script src="${pageContext.request.contextPath}/resources/js/recipe/recipeMain.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/common/sidebar.js"></script>
+	<!-- jQuery library -->
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+
+	<!-- Popper JS -->
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+	<!-- font awesome kit -->
+	<script src="https://kit.fontawesome.com/68309de260.js" crossorigin="anonymous"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+	crossorigin="anonymous"></script>
+	
+	<!--recipeMain-->
+	<script src="${pageContext.request.contextPath}/resources/js/recipe/recipeMain.js"></script>
+
+
 </head>
 <body>
 	<jsp:include page="../common/header.jsp" />
+	
 	<main id="recipe-main">
-		<div id="sidebar">
-			<div id="recently-seen-div">
-				<button class="button-arrow" id="button-arrow-top">
-					<svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<rect x="2.31445" y="7.46094" width="7.72042" height="1.54408" transform="rotate(-45 2.31445 7.46094)" fill="#D9D9D9"/>
-						<rect width="7.72042" height="1.54408" transform="matrix(-0.707107 -0.707107 -0.707107 0.707107 13.416 7.46094)" fill="#D9D9D9"/>
-					</svg>
-				</button>
-				<div id="recently-seen-container">
-					<span>최근 본 상품</span>
-					<ul id="recently-seen-list">
-						<!-- 최근 본 아이템 목록 추가-->
-					</ul>
-				</div>
-				<button class="button-arrow" id="button-arrow-bottom">
-					<svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<rect width="7.72042" height="1.54408" transform="matrix(0.707107 0.707107 0.707107 -0.707107 2.31445 2.53906)" fill="#D9D9D9"/>
-						<rect x="13.6855" y="2.53906" width="7.72042" height="1.54408" transform="rotate(135 13.6855 2.53906)" fill="#D9D9D9"/>
-					</svg>
-				</button>
-			</div>
-		</div>
+		<!-- 사이드바 -->
+		<jsp:include page="../common/sidebar.jsp" />
+		
 		<div id="recipe-main-contents">
 			<div id="recommend-box">
 				<div class="recipe-main-box-title">
