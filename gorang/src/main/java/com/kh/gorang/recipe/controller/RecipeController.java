@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.gorang.recipe.model.vo.Recipe;
+import com.kh.gorang.recipe.model.vo.RecipeDivision;
 import com.kh.gorang.recipe.service.RecipeService;
 
 @Controller
@@ -37,8 +38,10 @@ public class RecipeController {
 	}
 	
 	@RequestMapping("insert.bo")
-	public String insertRecipe(Recipe rcp, MultipartFile upfile, HttpSession session, Model model){
+	public String insertRecipe(Recipe rcp,RecipeDivision rcpDv ,MultipartFile upfile, HttpSession session, Model model){
 		int result = recipeService.insertRecipe(rcp);
+//		int result2 = recipeService
+//		int result3 = 
 		if(result>0) {			
 			return "recipe/recipeList";
 		}

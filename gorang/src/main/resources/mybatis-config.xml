@@ -13,6 +13,10 @@
 	<typeAliases>
 		<typeAlias type="com.kh.gorang.member.model.vo.Member" alias="Member" />
  		<typeAlias type="com.kh.gorang.recipe.model.vo.Recipe" alias="Recipe" />
+ 		<typeAlias type="com.kh.gorang.recipe.model.vo.RecipeDivision" alias="RecipeDivision" />
+ 		<typeAlias type="com.kh.gorang.recipe.model.vo.IngredientsInfo" alias="IngredientsInfo" />
+ 		<typeAlias type="com.kh.gorang.recipe.model.vo.CookOrder" alias="CookOrder" />
+ 		<typeAlias type="com.kh.gorang.recipe.model.vo.CookTip" alias="CookTip" />
 	</typeAliases>
 	
 	<!-- 
