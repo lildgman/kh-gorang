@@ -1,0 +1,3 @@
+#enroll-product:hover, #find-update-product:hover, #board-management-list:hover, #user-management-list:hover {
+  cursor: pointer;
+}

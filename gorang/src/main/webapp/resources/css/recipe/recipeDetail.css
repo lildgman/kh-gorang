@@ -266,6 +266,8 @@ body {
 .igre-type-area {
     display: flex;
     font-size: 20px;
+    padding-left: 175px;
+    padding-top: 10px;
 }
 
 
@@ -306,7 +308,7 @@ tbody tr>td {
 /*---------------------조리 순서 영역------------------------ */
 
 #cooking-order-total-area {
-    padding-top: 20px;
+    padding-top: 30px;
     margin-bottom: 30px;
 }
 
@@ -623,7 +625,7 @@ tbody tr>td {
     padding-top: -10px;
 }
 #relation-product-total-area{
-    margin: 0px 340px;
+    width: 100%;
     border-top: 2px solid;
     height:475px ;
     margin-bottom: 26px;
@@ -633,7 +635,8 @@ tbody tr>td {
 #relation-product-head{
     height: 87px;
     margin: 10px 0px;
-    font-size: 22px;
+    font-size: 22px;    width: 100%;
+    /* height: 100%; */
     font-weight: bold;
     display: flex;
     align-items: center;
@@ -658,7 +661,7 @@ tbody tr>td {
     margin-bottom: 16px;
 }
 .relation-product-image img{
-    width: 100%;
+    /* width: 100%; */
 }
 
 .relation-product-brand{
@@ -697,6 +700,8 @@ tbody tr>td {
     font-size: 20px;
     font-weight: 500;
     color: white;
+    height: 100%;
+    width: 100%;
 }
 
 
@@ -743,3 +748,32 @@ tbody tr>td {
 #close-div:hover{
     cursor: pointer;
 }
+
+/* <페이징바> */
+#pagination-area{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    margin-left: 15px;
+  }
+  
+  #pagination{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 392px;
+  }
+  
+  #pagination > a {
+    font-size: 14px;
+    color : #6D6D6D;
+  }
+
+#deleteBtn{
+    color: #1e90ff;
+}
+  #deleteBtn:hover{
+    cursor: pointer;
+    color:#F20606;
+  }

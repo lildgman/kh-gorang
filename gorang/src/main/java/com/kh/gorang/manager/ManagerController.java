@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ManagerController {
 	
-	@RequestMapping("productenroll.ma")
+	@RequestMapping("enrollproduct.ma")
 	public String managerProductEnrollForm() {
 		return "manager/enrollProductForm";
 	}
 	
-	@RequestMapping("productupdate.ma")
+	@RequestMapping("updateproduct.ma")
 	public String managerProductUpdateForm() {
 		return "manager/updateProductForm";
 	}

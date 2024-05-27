@@ -56,11 +56,11 @@
                 </div>
                 <div id="header-bottom-right-login">
                     <div id="header-bottom-right-login-top">
-                        <span onclick="moveLocation('${pageContext.request.contextPath}/Register.me')">회원가입</span>
+                        <span onclick="moveLocation('${pageContext.request.contextPath}/register.me')">회원가입</span>
                         <svg width="1" height="12" viewBox="0 0 1 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect width="1" height="12" fill="#E6E6E6"/>
                         </svg>
-                        <span onclick="moveLocation('${pageContext.request.contextPath}/Login.me')">로그인</span>
+                        <span onclick="moveLocation('${pageContext.request.contextPath}/loginForm.me')">로그인</span>
                         <svg width="1" height="12" viewBox="0 0 1 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect width="1" height="12" fill="#E6E6E6"/>
                         </svg>

@@ -148,8 +148,13 @@
                                     성주 참외 꿀참외 1.5kg
                                 </div>
                                 <div class="order-product-quantity-area">
-                                    <div class="order-product-saled-price">24,000원</div>
-                                    <div class="order-product-quantity">1개</div>
+                                    <div>
+                                        <span class="order-product-saled-price">24,000</span><span class="won">원</span>
+                                    </div>
+                                    <div>
+                                        <span class="order-product-quantity">1</span><span>개</span>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -240,23 +245,30 @@
                 <div id="cart-detail-price">
                     <div id="total-product-price-area">
                         <span>총 상품금액</span>
-                        <span id="total-product-price">30,000원</span>
+                        <div>
+                            <span id="total-product-price">30,000</span><span>원</span>
+                        </div>
                     </div>
                     <div id="total-delivery-charge-area">
                         <span>배송비</span>
-                        <span id="total-delivery-charge">0원</span>
+                        <div>
+                            <span id="total-delivery-charge">0</span><span>원</span>
+                        </div>
                     </div>
                 </div>
 
                 <div id="cart-price-sum-area">
-                    <span style="font-size: 17px; font-weight: bold;">결재금액</span>
-                    <span id="cart-price-sum">24,000원</span>
+                    <span style="font-size: 17px; font-weight: bold;">결제금액</span>
+                    <div>
+                        <span class="cart-price-sum totalPrice">24,000</span><span class="total-price-sum">원</span>
+
+                    </div>
                 </div>
 
             </div>
 
             <div id="buy_btn_container">
-                <button id="buy_btn">24,000원 결제하기</button>
+                <button id="buy_btn"><span class="totalPrice">24,000</span>원 결제하기</button>
             </div>
         </div>
     </div>

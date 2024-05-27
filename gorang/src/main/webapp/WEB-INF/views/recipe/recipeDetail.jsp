@@ -355,7 +355,7 @@
                         </div>
 
                     </div>
-                    <!-- 상품리뷰 페이지네이션 -->
+                    <!-- 상품리뷰 페이지네이션
                     <div id="review_pagination_area">
                         <div id="review_pagination">
                             <a href="#">&lt;</a>
@@ -363,7 +363,24 @@
                             <a href="#">2</a>
                             <a href="#">&gt;</a>
                         </div>
-                    </div>
+                    </div> -->
+                              <!-- 페이징 바 -->
+            <div id="pagination-area">
+                <div id="pagination">
+                    <a href="#">&lt;</a>
+                    <a href="#">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">4</a>
+                    <a href="#">5</a>
+                    <a href="#">6</a>
+                    <a href="#">7</a>
+                    <a href="#">8</a>
+                    <a href="#">9</a>
+                    <a href="#">10</a>
+                    <a href="#">&gt;</a>
+                </div>
+            </div>
                 </div>
 
                 <!-- 상품 문의 -->
@@ -410,20 +427,93 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div id="qna_pagination_area" style="margin-top: 10px;">
+                    <!-- <div id="qna_pagination_area" style="margin-top: 10px;">
                         <div id="qna_pagination">
                             <a href="#">&lt;</a>
                             <a href="#">1</a>
                             <a href="#">2</a>
                             <a href="#">&gt;</a>
                         </div>
+                    </div> -->
+                    <!-- 페이징 바 -->
+            <div id="pagination-area">
+                <div id="pagination">
+                    <a href="#">&lt;</a>
+                    <a href="#">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">4</a>
+                    <a href="#">5</a>
+                    <a href="#">6</a>
+                    <a href="#">7</a>
+                    <a href="#">8</a>
+                    <a href="#">9</a>
+                    <a href="#">10</a>
+                    <a href="#">&gt;</a>
+                </div>
+            </div>
+                </div>
+
+
+                 <!-- 연관 상품 영역  -->
+        <div id="relation-product-total-area">
+            <div id="relation-product-head">
+                연관 상품
+            </div>
+            <div id="relation-product-list">
+                <div class="relation-product-list-block">
+                    <div class="relation-product-image">
+                        <img src="${pageContext.request.contextPath}/resources/dummyImg/recipe/recipeDetail/pig(2).png" alt="">
                     </div>
+                    <div class="relation-product-brand">성주</div>
+                    <div class="relation-product-title">당도선별 성주 꿀참외 1.5kg(4~7입)</div>
+                    <div class="relation-product-ps-size"><span class="relation-product-sale">20%</span> <span class="relation-product-price">16,900</span></div>
+                </div>
+
+                <div class="relation-product-list-block">
+                    <div class="relation-product-image">
+                        <img src="${pageContext.request.contextPath}/resources/dummyImg/recipe/recipeDetail/pig(2).png" alt="">
+                    </div>
+                    <div class="relation-product-brand">성주</div>
+                    <div class="relation-product-title">당도선별 성주 꿀참외1.5kg(4~7입)</div>
+                    <div class="relation-product-ps-size"><span class="relation-product-sale">20%</span> <span class="relation-product-price">16,900</span></div>
+                </div>
+
+                <div class="relation-product-list-block">
+                    <div class="relation-product-image">
+                        <img src="${pageContext.request.contextPath}/resources/dummyImg/recipe/recipeDetail/pig(2).png" alt="">
+                    </div>
+                    <div class="relation-product-brand">성주</div>
+                    <div class="relation-product-title">당도선별 성주 꿀참외 1.5kg(4~7입)</div>
+                    <div class="relation-product-ps-size"><span class="relation-product-sale">20%</span> <span class="relation-product-price">16,900</span></div>
+                </div>
+
+                <div class="relation-product-list-block">
+                    <div class="relation-product-image">
+                        <img src="${pageContext.request.contextPath}/resources/dummyImg/recipe/recipeDetail/pig(2).png" alt="">
+                    </div>
+                    <div class="relation-product-brand">성주</div>
+                    <div class="relation-product-title">당도선별 성주 꿀참외 1.5kg(4~7입)</div>
+                    <div class="relation-product-ps-size"><span class="relation-product-sale">20%</span> <span class="relation-product-price">16,900</span></div>
+                </div>
+
+                <div class="relation-product-list-block">
+                    <div class="relation-product-image">
+                        <img src="${pageContext.request.contextPath}/resources/dummyImg/recipe/recipeDetail/pig(2).png" alt="">
+                    </div>
+                    <div class="relation-product-brand">성주</div>
+                    <div class="relation-product-title">당도선별 성주 꿀참외 1.5kg(4~7입)</div>
+                    <div class="relation-product-ps-size"><span class="relation-product-sale">20%</span> <span class="relation-product-price">16,900</span></div>
                 </div>
             </div>
 
-            <div id="area_right">
-
+            <div id="goto-list-area">
+                <button id="goto-list-btn">목록으로</button>
             </div>
+        </div>
+            </div>
+
+            
         </div>
 
         <!-- 문의하기 modal -->
@@ -485,62 +575,9 @@
                 </div>
             </div>
         </div>
-        <!-- 연관 상품 영역  -->
-        <div id="relation-product-total-area">
-            <div id="relation-product-head">
-                연관 상품
-            </div>
-            <div id="relation-product-list">
-                <div class="relation-product-list-block">
-                    <div class="relation-product-image">
-                        <img src="${pageContext.request.contextPath}/resources/dummyImg/recipe/recipeDetail/pig(2).png" alt="">
-                    </div>
-                    <div class="relation-product-brand">성주</div>
-                    <div class="relation-product-title">당도선별 성주 꿀참외 1.5kg(4~7입)</div>
-                    <div class="relation-product-ps-size"><span class="relation-product-sale">20%</span> <span class="relation-product-price">16,900</span></div>
-                </div>
+        
+     
 
-                <div class="relation-product-list-block">
-                    <div class="relation-product-image">
-                        <img src="${pageContext.request.contextPath}/resources/dummyImg/recipe/recipeDetail/pig(2).png" alt="">
-                    </div>
-                    <div class="relation-product-brand">성주</div>
-                    <div class="relation-product-title">당도선별 성주 꿀참외1.5kg(4~7입)</div>
-                    <div class="relation-product-ps-size"><span class="relation-product-sale">20%</span> <span class="relation-product-price">16,900</span></div>
-                </div>
-
-                <div class="relation-product-list-block">
-                    <div class="relation-product-image">
-                        <img src="${pageContext.request.contextPath}/resources/dummyImg/recipe/recipeDetail/pig(2).png" alt="">
-                    </div>
-                    <div class="relation-product-brand">성주</div>
-                    <div class="relation-product-title">당도선별 성주 꿀참외 1.5kg(4~7입)</div>
-                    <div class="relation-product-ps-size"><span class="relation-product-sale">20%</span> <span class="relation-product-price">16,900</span></div>
-                </div>
-
-                <div class="relation-product-list-block">
-                    <div class="relation-product-image">
-                        <img src="${pageContext.request.contextPath}/resources/dummyImg/recipe/recipeDetail/pig(2).png" alt="">
-                    </div>
-                    <div class="relation-product-brand">성주</div>
-                    <div class="relation-product-title">당도선별 성주 꿀참외 1.5kg(4~7입)</div>
-                    <div class="relation-product-ps-size"><span class="relation-product-sale">20%</span> <span class="relation-product-price">16,900</span></div>
-                </div>
-
-                <div class="relation-product-list-block">
-                    <div class="relation-product-image">
-                        <img src="${pageContext.request.contextPath}/resources/dummyImg/recipe/recipeDetail/pig(2).png" alt="">
-                    </div>
-                    <div class="relation-product-brand">성주</div>
-                    <div class="relation-product-title">당도선별 성주 꿀참외 1.5kg(4~7입)</div>
-                    <div class="relation-product-ps-size"><span class="relation-product-sale">20%</span> <span class="relation-product-price">16,900</span></div>
-                </div>
-            </div>
-
-            <div id="goto-list-area">
-                <button id="goto-list-btn">목록으로</button>
-            </div>
-        </div>
         </div>
         <jsp:include page="../common/footer.jsp" />
     </body>

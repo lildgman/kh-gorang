@@ -17,11 +17,11 @@
        <!-- 헤더 -->
        <jsp:include page="../common/header.jsp" />
 
-       <form method="">
+       <form  action="${contextPath}/insert.bo" method="post">
            
         <div id="head-btn-area">
             <button id="save-recipe">임시 저장</button>
-            <button id="register-rcipe" onclick="enrollRecipeBtn()">등록 하기</button>
+            <button type="submit"  id="register-rcipe" onclick="enrollRecipeBtn()">등록 하기</button>
         </div>
             
         <!-- 레시피 작성 전체영역 -->
@@ -30,7 +30,7 @@
             <div id="recipe-write-imgupload-area" onclick="choiceThumnailImg()">
                 <img id="thumnailImg" src="${contextPath}/resources/dummyImg/recipe/recipeWrite/camerg.png" alt="" >
                 <img id="thumnailImg-real" src="" alt="" >
-                <input type="file" name="" id="" onchange="changeThumnailImg(this)">
+                <input type="file" name="recipeMainPhoto" id="" onchange="changeThumnailImg(this)">
                 <div id="recipe-write-img-middle-text">Upload recipe photo</div>
                 <div id="recipe-write-img-bottom-text">Show others your finished dish</div>
             </div>
@@ -39,25 +39,25 @@
 
             <!-- 제목,소개,동영상, 태그, 카테고리 -->
             <div id="recipe-write-title-area">
-                <input type="text" placeholder="레시피 제목을 입력해주세요.">
+                <input type="text" placeholder="레시피 제목을 입력해주세요." name="recipeTitle">
             </div>
 
             <div id="recipe-introduce-area">
-                <textarea name="" id="" maxlength="500" placeholder="여러분의 요리를 소개시켜주세요"></textarea>
+                <textarea name="recipeContent" id="" maxlength="500" placeholder="여러분의 요리를 소개시켜주세요" ></textarea>
             </div>
 
             <div id="recipe-yotube-area">
-                <textarea name="" id="" maxlength="500" placeholder="동영상이 있다면 주소를 작성해주세요(Youtube 만 가능)"></textarea>
+                <textarea name="recipeVideo" id="" maxlength="500" placeholder="동영상이 있다면 주소를 작성해주세요(Youtube 만 가능)" ></textarea>
             </div>
 
             <div id="recipe-tage-area">
-                <input type="text" placeholder="태그를 넣어주세요 예)#얼큰 #찌개 #건강식">
+                <input type="text" placeholder="태그를 넣어주세요 예)#얼큰 #찌개 #건강식"  name="recipeTag">
             </div>
 
             <div id="recipe-category-area">
                 <div id="ctg-div">카테고리</div>
                 <div class="selectbox-areas" > 
-                    <select name="종류" id="" class="mySelect"> 
+                    <select name="cookKind" id="" class="mySelect" > 
                         <option value="" disabled selected hidden>종류</option>
                         <option value="한식">한식</option>
                         <option value="중식">중식</option>
@@ -68,7 +68,7 @@
                     </select>
                 </div>
                 <div class="selectbox-areas"> 
-                    <select name="난이도" id="" class="mySelect"> 
+                    <select name="cookLevel" id="" class="mySelect" > 
                         <option value="" disabled selected hidden>난이도</option>
                         <option value="한식">상</option>
                         <option value="중식">중</option>
@@ -77,7 +77,7 @@
                     </select>
                 </div>
                 <div class="selectbox-areas"> 
-                    <select name="시간" id="" class="mySelect"> 
+                    <select name="cookTime" id="" class="mySelect"> 
                         <option value="" disabled selected hidden>시간</option>
                         <option value="5분 이내">5분 이내</option>
                         <option value="10분 이내">10분 이내</option>
@@ -89,7 +89,7 @@
                     </select>
                 </div>
                 <div class="selectbox-areas"> 
-                    <select name="인원" id="" class="mySelect"> 
+                    <select name="cookAmount" id="" class="mySelect"> 
                         <option value="" disabled selected hidden>인원</option>
                         <option value="1인분">1인분</option>
                         <option value="2인분">2인분</option>
