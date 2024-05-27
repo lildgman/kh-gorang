@@ -1,28 +1,28 @@
 // 외부 함수(alert)
 function showSweetConfirm() {
-    Swal.fire({
-        title: '정말 탈퇴하시겠습니까?',
-        text: "이 작업은 되돌릴 수 없습니다!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: '확인',
-        cancelButtonText: '취소'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            Swal.fire(
-                '탈퇴 완료!',
-                '탈퇴가 완료되었습니다.',
-                'success'
-            );
-            // 탈퇴 처리 코드 여기에 추가
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-            Swal.fire(
-                '취소됨',
-                '탈퇴가 취소되었습니다.',
-                'error'
-            );
-        }
-    });
+    // Swal.fire({
+    //     title: '정말 탈퇴하시겠습니까?',
+    //     text: "이 작업은 되돌릴 수 없습니다!",
+    //     icon: 'warning',
+    //     showCancelButton: true,
+    //     confirmButtonText: '확인',
+    //     cancelButtonText: '취소'
+    // }).then((result) => {
+    //     if (result.isConfirmed) {
+    //         Swal.fire(
+    //             '탈퇴 완료!',
+    //             '탈퇴가 완료되었습니다.',
+    //             'success'
+    //         );
+    //         // 탈퇴 처리 코드 여기에 추가
+    //     } else if (result.dismiss === Swal.DismissReason.cancel) {
+    //         Swal.fire(
+    //             '취소됨',
+    //             '탈퇴가 취소되었습니다.',
+    //             'error'
+    //         );
+    //     }
+    // });
 }
 
 // -----------------------------사진 넣기 영역---------------------------
