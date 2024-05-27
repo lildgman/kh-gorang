@@ -80,8 +80,6 @@ function deleteSelectedOption() {
   let checkedCheckBoxes = document.querySelectorAll('.deleteTrCheckBox:checked');
   let optionTrs = document.querySelectorAll(".option-tr");
 
-  console.log(optionTrs.length);
-
   if (optionTrs.length <= 1) {
     alert("옵션은 1개 이상이어야 합니다.");
   } else {
@@ -89,9 +87,7 @@ function deleteSelectedOption() {
       checkCheckBox.closest('tr').remove();
     })
   }
-
-  
-
 }
+
 
 

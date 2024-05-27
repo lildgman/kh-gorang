@@ -116,7 +116,7 @@
 
                 <!-- 상품 -->
                 <c:forEach var="a" begin="1" end="16">
-                	<div class="item" onclick="location.href='product.st?pno=${a}'">
+                	<div class="item" onclick="location.href='detail.po?pno=${a}'">
 	                    <div class="item-thumbnail-area">
 	                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping/item1.png" alt="상품1">
 	                    </div>

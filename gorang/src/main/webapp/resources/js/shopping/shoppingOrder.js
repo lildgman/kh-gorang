@@ -1,11 +1,34 @@
 window.onload = function () {
 
+  calculateTotalProductPrice();
+  calculateTotalPrice();
+}
+
+function calculateTotalProductPrice() {
+  const orderContainerElements = document.querySelectorAll('.order-product-container');
+  const totalProductPriceEl = document.querySelector('#total-product-price');
+  let totalPrice = 0;
+  orderContainerElements.forEach(function(orderContainerElement) {
+    const productPrice = parseInt(orderContainerElement.querySelector('.order-product-saled-price').innerText.replace(/,/g, ''));
+    totalPrice += productPrice;
+  })
+  totalProductPriceEl.innerText = totalPrice.toLocaleString();
+}
+
+function calculateTotalPrice() {
+  const totalProductPrice = parseInt(document.querySelector('#total-product-price').innerText.replace(/,/g, ''));
+  const totalDeliveryCharge = parseInt(document.querySelector('#total-delivery-charge').innerText.replace(/,/g, ''));
+  const totalPriceElements = document.querySelectorAll('.totalPrice');
+  const totalPrice = totalProductPrice - totalDeliveryCharge;
+
+  totalPriceElements.forEach(function(totalPriceElement) {
+    totalPriceElement.innerText = totalPrice.toLocaleString();
+  })
 
 }
 
-
 function clickPayment(element, type) {
- 
+
   const payments = document.querySelectorAll(".payment");
 
   payments.forEach(function(payment) {

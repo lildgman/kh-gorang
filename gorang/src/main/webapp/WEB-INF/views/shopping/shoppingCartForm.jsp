@@ -55,19 +55,18 @@
                         <div class="cart-product-info-container">
                             <div class="cart-product-name-container">
                                 <span class="cart-product-name">성주 참외 꿀참외 1.5kg</span>
-                                <span class="cart-product-delete"><i class="fa-solid fa-x"></i></span>
+                                <span class="cart-product-delete" onclick="deleteProduct(this)"><i class="fa-solid fa-x"></i></span>
                             </div>
                             <div class="product-delivery-method">무료배송</div>
                             <div class="product-quantity-price-container">
                                 <div class="product-quantity">
-                                    <div class="pbtn" id="minus_quantity">-</div>
-                                    <div class="pbtn" id="quantity">1</div>
-                                    <div class="pbtn" id="plus_quantity">+</div>
+                                    <div class="pbtn minus_quantity" id="minus_quantity">-</div>
+                                    <div class="pbtn quantity" id="quantity">1</div>
+                                    <div class="pbtn plus_quantity" id="plus_quantity" >+</div>
                                 </div>
                                 <div class="product-price">
                                     <div>
-                                        <span class="product-origin-price">30,000</span><span
-                                            class="origin-won">원</span>
+                                        <span class="product-origin-price">30,000</span><span class="origin-won">원</span>
                                     </div>
                                     <div>
                                         <span class="product-saled-price">24,000</span><span class="saled-won">원</span>
@@ -89,26 +88,34 @@
                 <div id="cart-detail-price">
                     <div id="total-product-price-area">
                         <span>총 상품금액</span>
-                        <span id="total-product-price">30,000원</span>
+                        <div>
+                            <span id="total-origin-price">30,000</span><span>원</span>
+                        </div>
                     </div>
                     <div id="total-delivery-charge-area">
                         <span>총 배송비</span>
-                        <span id="total-delivery-charge">0원</span>
+                        <div>
+                            <span id="total-delivery-charge">0</span><span>원</span>
+                        </div>
                     </div>
                     <div id="total-discount-quantity-area">
                         <span>총 할인금액</span>
-                        <span id="total-discount-quantity">6,000원</span>
+                        <div>
+                            <span id="total-discount-price">6,000</span><span>원</span>
+                        </div>
                     </div>
                 </div>
                 <div id="cart-price-sum-area">
-                    <span style="font-size: 17px; font-weight: bold;">결재금액</span>
-                    <span id="cart-price-sum">24,000원</span>
+                    <span style="font-size: 17px; font-weight: bold;">결제금액</span>
+                    <div>
+                        <span id="cart-price-sum">24,000</span><span style="font-size: 25px; font-weight: bold;">원</span>
+                    </div>
                 </div>
 
             </div>
 
             <div id="buy_btn_container">
-                <button id="buy_btn">구매하기</button>
+                <button id="buy_btn" onclick="location.href='${contextPath}/order'">구매하기</button>
             </div>
         </div>
     </div>

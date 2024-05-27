@@ -132,7 +132,16 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
 
+.ds-none {
+  display: none;
+}
+
+.displayFlex {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .result-title {
@@ -213,6 +222,7 @@ input[type="number"]::-webkit-inner-spin-button {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 50px;
 }
 
 .myBtn {
@@ -221,4 +231,17 @@ input[type="number"]::-webkit-inner-spin-button {
   background-color: #1e90ff;
   color: white;
 }
+
+.delete-btn {
+  width: 100px;
+  height: 40px;
+  background-color: rgb(233, 12, 12);
+  color: white;
+}
+
+#search-category-input {
+  width: 270px;
+}
+
+
 
