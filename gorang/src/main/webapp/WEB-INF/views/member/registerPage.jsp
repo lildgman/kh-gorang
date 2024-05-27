@@ -43,64 +43,64 @@
                     </svg>
                 </div>
                 <h2>회원가입</h2>
-                <form method="post" id="register-form">
-                    <div id="registEmailSection">
-                        <div id="emailSpan"><span>이메일</span></div>
-                        <div id="emailInput">
-                            <input type="email" placeholder="이메일을 입력해주세요." required>
+                <form method="post" id="register-form" action="${contextPath}/insert.me">
+                    <div class="registerSection">
+                        <div class="registerSpan"><span>이메일</span></div>
+                        <div class="register-inputForm">
+                            <input type="email" class="register-input" name="memberEmail" placeholder="이메일을 입력해주세요." required>
                         </div>
-                        <div id="emailCheck">
+                        <div class="registerCheck">
                             <input type="button" value="중복확인">
                         </div>
                     </div>
-                    <div id="registPwdSection">
-                        <div id="pwdSpan"><span>비밀번호</span></div>
-                        <div id="pwdInput">
-                            <input type="text" placeholder="비밀번호를 입력해주세요." required>
+                    <div class="registerSection">
+                        <div class="registerSpan"><span>비밀번호</span></div>
+                        <div class="register-inputForm">
+                            <input type="password" class="register-input" name="memberPwd" placeholder="비밀번호를 입력해주세요." required>
                         </div>
                     </div>
-                    <div id="registPwdCheckSection">
-                        <div id="pwdCheckSpan"><span>비밀번호 확인</span></div>
-                        <div id="pwdCheckInput">
-                            <input type="text" placeholder="비밀번호를 한번 더 입력해주세요." required>
+                    <div class="registerSection">
+                        <div class="registerSpan"><span>비밀번호 확인</span></div>
+                        <div class="register-inputForm">
+                            <input type="password" class="register-input" placeholder="비밀번호를 한번 더 입력해주세요." required>
                         </div>
                     </div>
-                    <div id="registNickNameSection">
-                        <div id="nickNameSpan"><span>닉네임</span></div>
-                        <div id="nickNameInput">
-                            <input type="text" placeholder="닉네임을 입력해주세요." required>
+                    <div class="registerSection">
+                        <div class="registerSpan"><span>닉네임</span></div>
+                        <div class="register-inputForm">
+                            <input type="text" class="register-input" name="nickname" placeholder="닉네임을 입력해주세요." required>
                         </div>
-                        <div id="nickNameCheck">
+                        <div class="registerCheck">
                             <input type="button" value="중복확인">
                         </div>
                     </div>
-                    <div id="registPnumSection">
-                        <div id="pnumSpan"><span>전화번호</span></div>
-                        <div id="pnumInput">
-                            <input type="number" placeholder="전화번호를 입력해주세요." required>
+                    <div class="registerSection">
+                        <div class="registerSpan"><span>전화번호</span></div>
+                        <div class="register-inputForm">
+                            <input type="tel" class="register-input" name="memberPhone" placeholder="전화번호를 입력해주세요." required>
                         </div>
-                        <div id="pnumCheck">
+                        <div class="registerCheck">
                             <input type="button" value="본인인증">
                         </div>
                     </div>
-                    <div id="registAddressSection">
-                        <div id="addressSpan"><span>주소</span></div>
-                        <div id="addressSearch">
+                    <div id="registAddressSection" class="registerSection">
+                        <div class="registerSpan"><span>주소</span></div>
+                        <div id="addressSearch" class="register-inputForm">
                             <button type="button">주소 검색</button>
                         </div>
                     </div>
-                    <div id="registGenderSection">
-                        <div id="genderSpan"><span>성별</span></div>
+                    <div class="registerSection">
+                        <div class="registerSpan"><span>성별</span></div>
                         <div id="genderSelect">
-                            <input type="radio" name="gender" value="man"><span>남</span>
-                            <input type="radio" name="gender" value="woman"><span>여</span>
+                            <input type="radio" name="gender" value="M"><span>남</span>
+                            <input type="radio" name="gender" value="F"><span>여</span>
                             <input type="radio" name="gender" value="unselect"><span>선택안함</span>
                         </div>
                     </div>
-                    <div id="registBirthSection">
-                        <div id="birthSpan"><span>생년월일</span></div>
-                        <div id="birthInput">
-                            <input type="number" placeholder="YYYYMMDD" required>
+                    <div id="registBirthSection" class="registerSection">
+                        <div class="registerSpan"><span>생년월일</span></div>
+                        <div id="birthInput" class="register-inputForm">
+                            <input type="date"  class="register-input" name="birth" placeholder="YYYYMMDD" required>
                         </div>
                     </div>
                     <hr>
