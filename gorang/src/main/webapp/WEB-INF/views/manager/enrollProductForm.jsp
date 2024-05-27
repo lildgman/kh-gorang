@@ -112,7 +112,7 @@
                                     <div class="i-container">
                                         <i class="fa-solid fa-magnifying-glass"></i>
                                     </div>
-                                    <input id="search-brand-input" class="search-input" type="text" placeholder="카테고리명 입력">
+                                    <input id="search-brand-input" class="search-input" type="text" placeholder="브랜드명 입력">
                                 </div>
                                 <div class="search-btn-container">
                                     <button id="search-brand-btn" class="search-btn" >검색</button>
@@ -162,12 +162,12 @@
                     <span>필수 구매옵션</span><span style="color: #d72020;">*</span>
                 </div>
                 <div class="btn-container">
-                    <button id="add-option-btn" class="option-btn">옵션 추가</button>
-                    <button id="delete-selected-btn" class="option-btn">선택 삭제</button>
+                    <button id="add-option-btn" class="option-btn" onclick="addOption()">옵션 추가</button>
+                    <button id="delete-selected-option-btn" class="option-btn" onclick="deleteSelectedOption()">선택 삭제</button>
                 </div>
                 
                 <div class="option-table-container">
-                    <table class="option-table">
+                    <table id="option-table">
                         <thead>
                             <tr>
                                 <td align="center" class="checkbox-td">삭제</td>
@@ -178,10 +178,10 @@
                                 <td align="center">판매가</td>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="option-table-tbody">
                             <tr class="option-tr">
                                 <td align="center">
-                                    <input type="checkbox" name="" id="">
+                                    <input type="checkbox" name="" id="" class="deleteTrCheckBox">
                                 </td>
                                 <td align="center">
                                     <input type="checkbox" name="" id="">

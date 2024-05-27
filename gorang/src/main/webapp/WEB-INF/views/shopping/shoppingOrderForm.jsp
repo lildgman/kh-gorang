@@ -15,7 +15,10 @@
     <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
     <link rel="stylesheet" href="${contextPath }/resources/css/default.css">
     <link rel="stylesheet" href="${contextPath }/resources/css/shopping/productOrder.css">
+    <script src="${contextPath }/resources/js/shopping/shoppingOrder.js"></script>
 
+    <!-- 카카오 주소검색 api -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 
 <body>
@@ -93,14 +96,14 @@
                         <div class="address-input-container">
                             <div class="find_address_area">
                                 <div>
-                                    <button id="find-address-btn">주소찾기</button>
+                                    <button id="find-address-btn" onclick="searchAddress()">주소찾기</button>
                                 </div>
-                                <div class="input-container">
-                                    <input type="text">
+                                <div class="input-container" id="zonecode">
+                                    <!-- <input type="text"> -->
                                 </div>
                             </div>
-                            <div class="input-container">
-                                <input type="text">
+                            <div class="input-container" id="address">
+                                <!-- <input type="text"> -->
                             </div>
                             <div class="input-container">
                                 <input type="text" placeholder="상세주소 입력" style="padding-left: 10px;">
@@ -163,31 +166,31 @@
                 <div class="information-area">
 
                     <div class="payment-list">
-                        <div class="payment" id="payment-card">
+                        <div class="payment" id="payment-card" onclick="clickPayment(this,'card')">
                             <div>카드</div>
                             <div>
                                 <img src="${contextPath }/resources/dummyImg/shopping/payment/card.png" alt="">
                             </div>
                         </div>
-                        <div class="payment" id="payment-bank-transfer">
+                        <div class="payment" id="payment-bank-transfer" onclick="clickPayment(this,'transfer')">
                             <div>무통장입급</div>
                             <div>
                                 <img src="${contextPath }/resources/dummyImg/shopping/payment/bank_transfer.png" alt="">
                             </div>
                         </div>
-                        <div class="payment" id="payment-kakaopay">
+                        <div class="payment" id="payment-kakaopay" onclick="clickPayment(this,'kakaopay')">
                             <div>카카오페이</div>
                             <div>
                                 <img src="${contextPath }/resources/dummyImg/shopping/payment/img_kakaopay.png" alt="">
                             </div>
                         </div>
-                        <div class="payment" id="payment-naverpay">
+                        <div class="payment" id="payment-naverpay" onclick="clickPayment(this,'naverpay')">
                             <div>네이버페이</div>
                             <div>
                                 <img src="${contextPath }/resources/dummyImg/shopping/payment/img_naver.png" alt="">
                             </div>
                         </div>
-                        <div class="payment" id="payment-phone">
+                        <div class="payment" id="payment-phone" onclick="clickPayment(this,'phone')">
                             <div>핸드폰</div>
                             <div>
                                 <img src="${contextPath }/resources/dummyImg/shopping/payment/phone.png" alt="">
@@ -196,7 +199,7 @@
                     </div>
 
                     <!-- 카드를 선택했을 때 나올 div -->
-                    <div id="select-card-area">
+                    <div id="select-card-area" >
                         <div class="select-list">
                             <select name="" id="">
                                 <option value="">농협</option>

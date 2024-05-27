@@ -191,7 +191,17 @@ input[type="checkbox"] {
   padding-top: 10px;
 }
 
+.payment:hover {
+  cursor: pointer;
+}
+
 #select-card-area {
+  display: none;
+
+  
+}
+
+.displayFlex {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -221,13 +231,6 @@ input[type="checkbox"] {
   outline: none;
   border: none;
 }
-
-
-
-
-
-
-
 
 #cart-price-area {
   display: flex;
@@ -282,3 +285,10 @@ input[type="checkbox"] {
   background-color: #1e90ff;
 }
 
+#zonecode, #address {
+  padding-left: 10px;
+}
+
+.selected {
+  border: 2px solid #1e90ff;
+}

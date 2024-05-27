@@ -29,20 +29,69 @@ window.onload = function () {
   displaySelectedImage();
 
   $('.summernote').summernote({
-    width:1000,
+    width: 1000,
     height: 329,
     lang: "ko-KR",
     toolbar: [
-        ['insert', ['link', 'picture']],
-        ['style', ['bold', 'italic', 'underline', 'clear']],
-        ['font', ['strikethrough']],
-        ['fontsize', ['fontsize']],
-        ['color', ['color']],
-        ['para', ['ul', 'ol', 'paragraph']],
-        ['height', ['height']],
+      ['insert', ['link', 'picture']],
+      ['style', ['bold', 'italic', 'underline', 'clear']],
+      ['font', ['strikethrough']],
+      ['fontsize', ['fontsize']],
+      ['color', ['color']],
+      ['para', ['ul', 'ol', 'paragraph']],
+      ['height', ['height']],
 
     ]
-});
+  });
+
+
+}
+
+function addOption() {
+  const optionTableTbody = document.querySelector('#option-table-tbody');
+
+  let newRow = document.createElement('tr');
+  newRow.className = 'option-tr';
+  newRow.innerHTML = `<tr class="option-tr">
+                        <td align="center">
+                            <input type="checkbox" name="" id="" class="deleteTrCheckBox">
+                        </td>
+                        <td align="center">
+                            <input type="checkbox" name="" id="">
+                        </td>
+                        <td align="center">
+                            <input type="text" id="">
+                        </td>
+                        <td align="center">
+                            <input type="number" class="txt-align-right" placeholder="개">
+                        </td>
+                        <td align="center">
+                            <input type="number" class="txt-align-right" placeholder="원">
+                        </td>
+                        <td align="center">
+                            <input type="number" class="txt-align-right" placeholder="원">
+                        </td>
+                      </tr>`;
+  optionTableTbody.appendChild(newRow);
+
+}
+
+function deleteSelectedOption() {
+  let checkedCheckBoxes = document.querySelectorAll('.deleteTrCheckBox:checked');
+  let optionTrs = document.querySelectorAll(".option-tr");
+
+  console.log(optionTrs.length);
+
+  if (optionTrs.length <= 1) {
+    alert("옵션은 1개 이상이어야 합니다.");
+  } else {
+    checkedCheckBoxes.forEach(function (checkCheckBox) {
+      checkCheckBox.closest('tr').remove();
+    })
+  }
+
+  
+
 }
 
 

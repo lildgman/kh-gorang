@@ -41,7 +41,7 @@
                 <div id="header-bottom-left-category">
                     <span onclick="moveLocation('${pageContext.request.contextPath}/main.re')">레시피</span>
                     <span onclick="moveLocation('${pageContext.request.contextPath}/main.bo')">게시판</span>
-                    <span onclick="moveLocation('${pageContext.request.contextPath}/store')">쇼핑</span>
+                    <span onclick="moveLocation('${pageContext.request.contextPath}/main.st')">쇼핑</span>
                 </div>
             </div>
             <div id="header-bottom-right">
