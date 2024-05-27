@@ -159,10 +159,14 @@ input[type="checkbox"] {
   gap: 10px;
 }
 
-.order-product-saled-price {
+.won {
   font-weight: bold;
   border-right: 2px solid #ededed;
   padding-right: 25px;
+}
+
+.order-product-saled-price {
+  font-weight: bold;
 }
 
 .order-product-quantity-area {
@@ -196,9 +200,7 @@ input[type="checkbox"] {
 }
 
 #select-card-area {
-  display: none;
-
-  
+  display: none;  
 }
 
 .displayFlex {
@@ -270,7 +272,7 @@ input[type="checkbox"] {
   margin-bottom: 10px;
 }
 
-#cart-price-sum {
+.cart-price-sum, .total-price-sum {
   font-size: 25px;
   font-weight: bold;
   color: #1e90ff;

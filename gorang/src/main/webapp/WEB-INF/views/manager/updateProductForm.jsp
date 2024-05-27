@@ -11,6 +11,8 @@
     <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
     <link rel="stylesheet" href="${contextPath }/resources/css/manager/updateProduct.css">
+    <link rel="stylesheet" href="${contextPath }/resources/css/manager/commonManager.css">
+
     <script src="${contextPath }/resources/js/manager/updateProductForm.js"></script>
     
      <!-- font awesome kit -->
@@ -29,18 +31,18 @@
                     상품 관리
                 </div>
                 <div class="list">
-                    <div id="enroll-product">상품 등록</div>
-                    <div id="find-update-product" style="color: #1e90ff;">상품 조회/수정</div>
+                    <div id="enroll-product" onclick="location.href='${contextPath }/enrollproduct.ma'">상품 등록</div>
+                    <div id="find-update-product" style="color: #1e90ff;" onclick="location.href='${contextPath }/updateproduct.ma'">상품 조회/수정</div>
                 </div>
             </div>
 
-            <div id="board-management-list" class="management-list">
+            <div id="board-management-list" class="management-list" onclick="location.href='${contextPath }/boards.ma'">
                 <div class="title">
                     게시판 관리
                 </div>
             </div>
 
-            <div id="user-management-list" class="management-list">
+            <div id="user-management-list" class="management-list" onclick="location.href='${contextPath }/members.ma'">
                 <div class="title">
                     회원 관리
                 </div>
@@ -134,13 +136,13 @@
                     </table> 
                 </div>
                 <div class="detail-search-btn-container">
-                    <button id="detail-search-btn" class="myBtn">상세조회</button>
+                    <button id="detail-search-btn" class="delete-btn">삭제하기</button>
+                    <button id="detail-search-btn" class="myBtn" onclick="searchProductOption()">상세조회</button>
                 </div>
-
             </div>
 
             <!-- 상품 옵션 -->
-            <div class="search-product-result-table">
+            <div class="ds-none">
                 <div class="result-title">상품 옵션</div>
                 <div class="product-table-container">
                     <table class="product-table">
@@ -150,7 +152,6 @@
                                 <td align="center" class="product-quantity-td">재고</td>
                                 <td align="center" class="product-origin-price-td">정상가</td>
                                 <td align="center" class="product-saled-price-td">판매가</td>
-
                             </tr>
                         </thead>
                         <tbody>
@@ -171,11 +172,12 @@
                         </tbody>
                     </table>
                 </div>
+                <div id="update-btn-container">
+                    <button class="myBtn">수정하기</button>
+                </div>
             </div>
 
-            <div id="update-btn-container">
-                <button class="myBtn">수정하기</button>
-            </div>
+           
         </div>
     </div>
 
