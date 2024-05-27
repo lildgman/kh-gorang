@@ -11,6 +11,8 @@
     <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
     <link rel="stylesheet" href="${contextPath }/resources/css/manager/memberManagement.css">
+    <link rel="stylesheet" href="${contextPath }/resources/css/manager/commonManager.css">
+
     <script src="${contextPath }/resources/js/manager/memberManagement.js"></script>
     
      <!-- font awesome kit -->
@@ -29,12 +31,12 @@
                     상품 관리
                 </div>
                 <div class="list">
-                    <div id="enroll-product">상품 등록</div>
-                    <div id="find-update-product">상품 조회/수정</div>
+                    <div id="enroll-product" onclick="location.href='${contextPath }/enrollproduct.ma'">상품 등록</div>
+                    <div id="find-update-product" onclick="location.href='${contextPath }/updateproduct.ma'">상품 조회/수정</div>
                 </div>
             </div>
 
-            <div id="board-management-list" class="management-list">
+            <div id="board-management-list" class="management-list" onclick="location.href='${contextPath }/boards.ma'">
                 <div class="title">
                     게시판 관리
                 </div>
