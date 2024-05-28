@@ -1,9 +1,10 @@
+
 document.write('<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>')
+
 
 document.addEventListener("DOMContentLoaded", function() {
 
     const form = document.getElementById("register-form");
-
     form.addEventListener("submit", function(event) {
         // Prevent the form from submitting until validation is done
         event.preventDefault();
@@ -15,52 +16,46 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     const addressSearchPostcode = document.querySelector("#addressSearch > button");
+    addressSearchPostcode.addEventListener("click", function(){
+        inputAddress();
+    });
 
-    addressSearchPostcode.addEventListener("click", function(event){
-        // 버튼 없애고 새로운 input 창들 생성 후 위 메소드의 결과값 띄우기
-        let addressSection = document.querySelector("#registAddressSection");
-        addressSection.removeChild(document.getElementById("addressSearch"));
-
-        let searchResult = document.createElement('div');
-        addressSection.appendChild(searchResult);
-        searchResult.setAttribute("id", "address-search-result");
-
-        // 우편번호
-        let searchResultPostcode = document.createElement('input');
-        searchResult.appendChild(searchResultPostcode);
-        searchResultPostcode.setAttribute("class", "register-input");
-        searchResultPostcode.setAttribute("id", "sample6_postcode");
-        searchResultPostcode.setAttribute("style", "width: 160px");
-
-        // 주소
-        let searchResultAddress = document.createElement('input');
-        searchResult.appendChild(searchResultAddress);
-        searchResultAddress.setAttribute("class", "register-input");
-        searchResultAddress.setAttribute("id", "sample6_address");
-    
-        // 상세 주소
-        let searchResultAddressDetail = document.createElement('input');
-        searchResult.appendChild(searchResultAddressDetail);
-        searchResultAddressDetail.setAttribute("class", "register-input");
-        searchResultAddressDetail.setAttribute("id", "sample6_detailAddress");
-        searchResultAddressDetail.setAttribute("type", "text");
-        searchResultAddressDetail.setAttribute("placeholder", "상세 주소를 입력해주세요");
-
-        let totalAddress = document.createElement('input');
-        searchResult.appendChild(totalAddress);
-        totalAddress.setAttribute("type", "hidden");
-        totalAddress.setAttribute("name", "memberAddress");
-        totalAddress.setAttribute("id", "totalAddress");
-
-        sample6_execDaumPostcode();
-
-        //주소와 상세주소 합침
-        searchResultAddressDetail.addEventListener("input", function() {
-            totalAddress.value = searchResultAddress.value + " " + searchResultAddressDetail.value;
+    //전체 동의
+    const selectAllCheckbox = document.getElementById("select-all");
+    selectAllCheckbox.addEventListener("change", function() {
+        const checkboxes = document.querySelectorAll("input[type='checkbox']:not(#select-all)");
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = selectAllCheckbox.checked;
         });
     });
 
-});
+    const idCheckBtn = document.querySelector("#idCheck");
+    idCheckBtn.onclick = function(ev){
+        checkEmail(ev);
+    }
+
+    const emailInput = document.querySelector("input[type='email']");
+    emailInput.addEventListener("input", function() {
+        idCheckBtn.value = "중복확인";
+        idCheckBtn.style.pointerEvents = "auto";
+        idCheckBtn.style.border = "solid 2px #1E90FF";
+        idCheckBtn.style.background = "#ffffff";
+        idCheckBtn.style.color = "#1E90FF";
+    });
+
+    const nameCheckBtn = document.querySelector("#nameCheck");
+    nameCheckBtn.onclick = function(ev){
+        checkNickname(ev);
+    }
+
+    document.querySelector("input[name='nickname']").addEventListener("input", function(){
+        nameCheckBtn.value = "중복확인";
+        nameCheckBtn.style.pointerEvents = "auto";
+        nameCheckBtn.style.border = "solid 2px #1E90FF";
+        nameCheckBtn.style.background = "#ffffff";
+        nameCheckBtn.style.color = "#1E90FF";
+    })
+})
 
 function validateForm() {
     const email = document.querySelector("input[type='email']");
@@ -69,7 +64,7 @@ function validateForm() {
     const nickname = document.querySelector("input[type='text'][placeholder='닉네임을 입력해주세요.']");
     const phoneNumber = document.querySelector("input[type='tel'][placeholder='전화번호를 입력해주세요.']");
     const birthdate = document.querySelector("input[type='date'][placeholder='YYYYMMDD']");
-    const terms = document.querySelector("input[type='checkbox']:not(.select-all)");
+    const terms = document.querySelector("input[type='checkbox']:not(#select-all)");
 
     // Validate email
     if (!validateEmail(email.value)) {
@@ -153,6 +148,51 @@ function validateBirthdate(birthdate) {
     );
 }
 
+function inputAddress(){
+    // 버튼 없애고 새로운 input 창들 생성 후 위 메소드의 결과값 띄우기
+    let addressSection = document.querySelector("#registAddressSection");
+    addressSection.removeChild(document.getElementById("addressSearch"));
+
+    let searchResult = document.createElement('div');
+    addressSection.appendChild(searchResult);
+    searchResult.setAttribute("id", "address-search-result");
+
+    // 우편번호
+    let searchResultPostcode = document.createElement('input');
+    searchResult.appendChild(searchResultPostcode);
+    searchResultPostcode.setAttribute("class", "register-input");
+    searchResultPostcode.setAttribute("id", "sample6_postcode");
+    searchResultPostcode.setAttribute("style", "width: 160px");
+
+    // 주소
+    let searchResultAddress = document.createElement('input');
+    searchResult.appendChild(searchResultAddress);
+    searchResultAddress.setAttribute("class", "register-input");
+    searchResultAddress.setAttribute("id", "sample6_address");
+
+    // 상세 주소
+    let searchResultAddressDetail = document.createElement('input');
+    searchResult.appendChild(searchResultAddressDetail);
+    searchResultAddressDetail.setAttribute("class", "register-input");
+    searchResultAddressDetail.setAttribute("id", "sample6_detailAddress");
+    searchResultAddressDetail.setAttribute("type", "text");
+    searchResultAddressDetail.setAttribute("placeholder", "상세 주소를 입력해주세요");
+
+    let totalAddress = document.createElement('input');
+    searchResult.appendChild(totalAddress);
+    totalAddress.setAttribute("type", "hidden");
+    totalAddress.setAttribute("name", "memberAddress");
+    totalAddress.setAttribute("id", "totalAddress");
+
+    sample6_execDaumPostcode();
+
+    //주소와 상세주소 합침
+    searchResultAddressDetail.addEventListener("input", function() {
+        totalAddress.value = searchResultAddress.value + " " + searchResultAddressDetail.value;
+    }); 
+}
+
+
 function sample6_execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function (data) {
@@ -179,4 +219,51 @@ function sample6_execDaumPostcode() {
             document.getElementById("totalAddress").value = addr + " " + document.getElementById("sample6_detailAddress").value;
         }
     }).open();
+}
+
+// 중복확인 버튼 클릭 시 메소드 실행
+function checkEmail(ev){
+    const idEmail = document.querySelector("input[name='memberEmail']").value;
+    if(ev.target.value !== "사용 가능"){
+        $.ajax({
+            url: "idCheck.me",
+            data: {checkId : idEmail},
+            success: function(result){
+                if(result === "NNNNN"){ // 중복 시
+                    alert("이미 사용중인 아이디입니다.");   
+                }else{ //사용 가능 시
+                    ev.target.value = "사용 가능";
+                    ev.target.style.pointerEvents = "none";
+                    ev.target.style.background = "#1e90ff";
+                    ev.target.style.color = "#ffffff";
+                }
+            },
+            error: function(){
+                console.log("아이디 중복체크 실패");
+            }
+        });
+    }
+}
+
+function checkNickname(ev){
+    const nickname = document.querySelector("input[name='nickname']").value;
+    if(ev.target.value !== "사용 가능"){
+        $.ajax({
+            url: "nameCheck.me",
+            data: {checkName : nickname},
+            success: function(result){
+                if(result === "NNNNN"){ // 중복 시
+                    alert("이미 사용중인 닉네임입니다.");   
+                }else{ //사용 가능 시
+                    ev.target.value = "사용 가능";
+                    ev.target.style.pointerEvents = "none";
+                    ev.target.style.background = "#1e90ff";
+                    ev.target.style.color = "#ffffff";
+                }
+            },
+            error: function(){
+                console.log("닉네임 중복체크 실패");
+            }
+        });
+    }
 }

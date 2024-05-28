@@ -83,16 +83,20 @@
             #{cookLevel}
         )
     </insert>
+    
+  	<!-- 레시피 마지막번호 추가 -->
+  	<insert id="getLastInsertedRecipeId" parameterType="Recipe">
+  		SELECT MAX(RCP_NO)
+  		FROM RECIPE
+  	</insert>
   	
   	<!-- 레시피 재료분류 추가 -->
 	<insert id="insertRcpDiv" parameterType="Division">
-		INSERT INTO Division (
-		DIV_NO
-		) VALUES
-		<foreach collection="list" item="item" separator=",">
-			(#{item.DIV_NAME})
-		</foreach>
-		WHERE RCP_NO = #{rcpNo}			
+		INSERT INTO DIVISION (
+			DIV_NAME
+		) VALUES(
+			#{divName}
+		) 			
 	</insert>
   	
   </mapper>

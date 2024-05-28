@@ -12,6 +12,7 @@
             <link rel="stylesheet" href="${contextPath }/resources/css/member/loginPage.css">
             <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
             
+            <script src="${contextPath}/resources/js/member/loginPage.js"></script>
         </head>
 
         <body>
@@ -29,8 +30,8 @@
                 <h2>로그인</h2>
                 <form method="post" id="login-form" action="login.me">
                     <div class="login_input">
-                        <input type="text" name="id" placeholder="아이디" />
-                        <input type="password" name="passwd" placeholder="비밀번호" />
+                        <input type="email" name="memberEmail" id="memberEmail" placeholder="아이디" />
+                        <input type="password" name="memberPwd" id="memberPwd" placeholder="비밀번호" />
                     </div>
                     <div class="checkbox-container">
                         <input type="checkbox" id="rememberMe" name="rememberMe">
@@ -42,7 +43,7 @@
                     <div class="find-IdPw-Regist">
                         <input type="button" name="findId" value="아이디 찾기">
                         <input type="button" name="findPw" value="비밀번호 찾기">
-                        <input type="button" name="register" value="회원가입" onclick="moveLocation('${pageContext.request.contextPath}/Register.me')">
+                        <input type="button" name="register" value="회원가입" onclick="moveLocation('${pageContext.request.contextPath}/register.me')">
                     </div>
                     <hr>
                     <div class="apiLogin">

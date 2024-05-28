@@ -30,3 +30,4 @@ public class Member {
 	private String alarm;
 	private String loginPath;
 }
+

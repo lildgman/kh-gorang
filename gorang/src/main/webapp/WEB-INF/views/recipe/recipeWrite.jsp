@@ -84,7 +84,7 @@
                         <option value="15분 이내">15분 이내</option>
                         <option value="30분 이내">30분 이내</option>
                         <option value="1시간 이내">1시간 이내</option>
-                        <option value="2시간 이내타">2시간 이내</option>
+                        <option value="2시간 이내">2시간 이내</option>
                         <option value="2시간 이상">2시간 이상</option>
                     </select>
                 </div>
@@ -122,17 +122,17 @@
                 <div id="recipe-ingredient-info-blocks">
                     <div class="recipe-ingredient-info-top">
                         <div class="location-btn"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Link.png" alt=""></div>
-                        <div class="ingre-div-block" >
-                            <input name="divName" type="text" placeholder="분류 예)식재료">
-                        </div>
+                        <div class="ingre-div-block" > 
+                            <input name="rcpDivList[0].divName" type="text" placeholder="분류 예)식재료">
+                        </div> 
                         <div class="delete-btn"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" onclick="deleteIngreBlock(this)"></div>
                     </div>
                     <div class="recipe-ingredient-info-bottom">
                         <div class="recipe-smaill-block">
                             <div class="location-btn"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Link.png" alt=""></div>
-                            <div class="igre-name-block"><input name ="ingreName" type="text" placeholder="재료명 예)돼지고기"></div>
-                            <div class="igre-amount-block"><input name ="ingreAmount" type="text" placeholder="수량"></div>
-                            <div class="igre-unit-block"><input  name ="ingreUnit" type="text" placeholder="단위"></div>
+                            <div class="igre-name-block"><input name ="igreInfoList[0].ingreName" type="text" placeholder="재료명 예)돼지고기"></div>
+                            <div class="igre-amount-block"><input name ="igreInfoList[0].ingreAmount" type="text" placeholder="수량"></div>
+                            <div class="igre-unit-block"><input  name ="igreInfoList[0].ingreUnit" type="text" placeholder="단위"></div>
                             <div class="delete-btn"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" onclick="deleteSmaillBlock(this)"></div>
                             <button type="button">태그 +</button>
                         </div>

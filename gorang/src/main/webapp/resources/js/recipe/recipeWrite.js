@@ -115,16 +115,19 @@ function deleteIngreBlock(element){
    
 }
 
+
+let igreInfoListIndex = 1; 
 function Inputs() {
     const newBlock = document.createElement('div');
     newBlock.className = 'recipe-smaill-block';
     newBlock.innerHTML = `
     <div class="location-btn"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Link.png" alt=""></div>
-    <div class="igre-name-block"><input name ="ingreName" type="text" placeholder="재료명 예)돼지고기"></div>
-    <div class="igre-amount-block"><input name ="ingreAmount" type="text" placeholder="수량"></div>
-    <div class="igre-unit-block"><input  name ="ingreUnit" type="text" placeholder="단위"></div>
+    <div class="igre-name-block"><input name ="igreInfoList[${igreInfoListIndex}].ingreName" type="text" placeholder="재료명 예)돼지고기"></div>
+    <div class="igre-amount-block"><input name ="igreInfoList[${igreInfoListIndex}].ingreAmount" type="text" placeholder="수량"></div>
+    <div class="igre-unit-block"><input  name ="igreInfoList[${igreInfoListIndex}].ingreUnit" type="text" placeholder="단위"></div>
     <div class="delete-btn"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" onclick="deleteSmaillBlock(this)"></div>
     <button type="button">태그 +</button>`;
+    igreInfoListIndex++;
     return newBlock;
 }
 
@@ -137,25 +140,23 @@ function addBundle(element) {
 
 
 // 기존 분류 추가
+let rcpDivListIndex=1;
 function addUnit(element) {
     let parentBlock = element.closest('#recipe-ingredient-info-area');
-    console.log(parentBlock);
     let cloneBlock = parentBlock.querySelector("#recipe-ingredient-info-blocks").cloneNode(true);
-    console.log(cloneBlock);
     cloneBlock.querySelector('.recipe-ingredient-info-top').innerHTML = '';
 
     cloneBlock.querySelectorAll('.recipe-ingredient-info-bottom .recipe-smaill-block').forEach(child => {
         child.remove();
     });
     cloneBlock.querySelector('.add-igre-btn').insertAdjacentElement('beforebegin', Inputs());
-    console.log(cloneBlock);
     cloneBlock.querySelector('.recipe-ingredient-info-top').innerHTML = `
     <div class="location-btn"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Link.png" alt=""></div>
     <div class="ingre-div-block" >
-        <input name="divName" type="text" placeholder="분류 예)식재료">
+        <input name="rcpDivList[${rcpDivListIndex}].divName" type="text" placeholder="분류 예)식재료">
     </div>
     <div class="delete-btn"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" onclick="deleteIngreBlock(this)"></div>`;
-
+    rcpDivListIndex++;
     parentBlock.querySelector('#add-div-btn').insertAdjacentElement('beforebegin', cloneBlock);
 
 }

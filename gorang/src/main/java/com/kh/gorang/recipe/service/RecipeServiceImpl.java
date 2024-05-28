@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.gorang.recipe.model.dao.RecipeDao;
 import com.kh.gorang.recipe.model.vo.Recipe;
+import com.kh.gorang.recipe.model.vo.RecipeInsertDTO;
 import com.kh.gorang.recipe.model.vo.CookOrder;
 import com.kh.gorang.recipe.model.vo.CookTip;
 import com.kh.gorang.recipe.model.vo.Division;
@@ -27,26 +28,22 @@ public class RecipeServiceImpl implements RecipeService{
 		return recipeDao.insertRecipe(sqlSession,rcp);
 	}
 
-	@Override
-	public int insertRcpDiv(ArrayList<Division> rcpDivList) {
-		return recipeDao.insertRcpDiv(sqlSession, rcpDivList);
-	}
 
 	@Override
-	public int insertIngreInfo(ArrayList<IngredientsInfo> igreInfoList) {
-		return recipeDao.insertIngreInfo(sqlSession, igreInfoList);
+	public int insertRecipeInsertDTO(Recipe rcp, RecipeInsertDTO recipeInsertDTO) {
+		int result1 = recipeDao.insertRecipe(sqlSession,rcp);
+		if(result1>0) {		
+			//바로 해당 레시피 번호를 가져옴
+			 int recipeNo = recipeDao.selectLastRecipeNo(sqlSession);
+			int result2 =recipeDao.insertRecipeInsertDTODivList(sqlSession,recipeInsertDTO.getRcpDivList());	
+			if(result2>1) {
+				int result3 =recipeDao.insertRecipeInsertDTOIgreList(sqlSession,recipeInsertDTO.getIgreInfoList());				
+			}
+		}
+		
+		return result1;
 	}
 
-	@Override
-	public int insertckOrderList(ArrayList<CookOrder> ckOrderList) {
 
-		return recipeDao.insertckOrderList(sqlSession, ckOrderList);
-	}
-
-	@Override
-	public int insertckTipList(ArrayList<CookTip> ckTipList) {
-
-		return recipeDao.insertckTipList(sqlSession, ckTipList);
-	}
 	
 }

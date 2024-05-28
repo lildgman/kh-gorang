@@ -29,7 +29,8 @@
 		<!-- 베너 끝-->
 
 		<div id="items">
-
+		<!-- 사이드바 -->
+		<jsp:include page="../common/sidebar.jsp" />
 		<!--카테고리 시작-->
 			<div id="store-category-area">
 				<div class="store-category" id="category-veget">
@@ -102,7 +103,7 @@
 				<!--제목부분-->
 				<div id="best-item-top" class="title-top">
 					<span class="items-title">가장 많이 판매되었어요</span>
-					<span class="more" onclick="location.href='list.st?sort=popular'">더보기</span>
+					<span class="more" onclick="location.href='list.po?sort=popular'">더보기</span>
 				</div>
 
 				<!--가장 많이 판매된 상품 리스트-->
