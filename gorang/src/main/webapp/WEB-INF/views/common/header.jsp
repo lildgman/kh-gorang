@@ -68,59 +68,110 @@
                         </svg>
                     </div>
                 </div>
-                <div id="header-bottom-right-login">
-                    <div id="header-bottom-right-login-top">
-                        <span onclick="moveLocation('${pageContext.request.contextPath}/register.me')">회원가입</span>
-                        <svg width="1" height="12" viewBox="0 0 1 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="1" height="12" fill="#E6E6E6"/>
-                        </svg>
-                        <span onclick="moveLocation('${pageContext.request.contextPath}/loginForm.me')">로그인</span>
-                        <svg width="1" height="12" viewBox="0 0 1 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="1" height="12" fill="#E6E6E6"/>
-                        </svg>
-                        <span>고객센터</span>
-                    </div>
-                    <div id="header-bottom-right-login-bottom">
-                        <div class="header-bottom-right-login-bottom-logo">
-                            <div>
-                                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="20.0007" cy="13.3327" r="5.66667" stroke="#222222" stroke-width="2" stroke-linecap="round"/>
-                                    <path d="M8.93264 25.8303C9.89941 23.6006 12.2481 22.5 14.6783 22.5H25.3217C27.7519 22.5 30.1006 23.6006 31.0674 25.8303C31.7198 27.335 32.3234 29.2762 32.4675 31.5001C32.5032 32.0512 32.0523 32.5 31.5 32.5H8.5C7.94772 32.5 7.49676 32.0512 7.53248 31.5001C7.67664 29.2762 8.28023 27.335 8.93264 25.8303Z" stroke="#222222" stroke-width="2" stroke-linecap="round"/>
-                                    </svg>
-                                    
+                <c:choose>
+	            	<c:when test="${empty loginUser}">
+		                <!-- 로그인 전 -->
+		                <div id="header-bottom-right-login">
+                            <div id="header-bottom-right-login-top">
+                                <span onclick="moveLocation('${pageContext.request.contextPath}/register.me')">회원가입</span>
+                                <svg width="1" height="12" viewBox="0 0 1 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="1" height="12" fill="#E6E6E6"/>
+                                </svg>
+                                <span onclick="moveLocation('${pageContext.request.contextPath}/loginForm.me')">로그인</span>
+                                <svg width="1" height="12" viewBox="0 0 1 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="1" height="12" fill="#E6E6E6"/>
+                                </svg>
+                                <span>고객센터</span>
                             </div>
-                            <span>마이페이지</span>
-                        </div>
-                        <div class="header-bottom-right-login-bottom-logo">
-                            <div>
-                                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M4.88086 7.5H8.43934C9.13506 7.5 9.48292 7.5 9.74481 7.68876C10.0067 7.87752 10.1167 8.20753 10.3367 8.86754L11.5475 12.5" stroke="#222222" stroke-width="2" stroke-linecap="round"/>
-                                    <path d="M26.2841 25.0758H15.3715C13.8628 25.0758 13.1084 25.0758 12.5645 24.6484C12.0206 24.2211 11.8421 23.4881 11.4851 22.0223L10.0695 16.2099C9.65335 14.501 9.44526 13.6466 9.89568 13.0733C10.3461 12.5 11.2255 12.5 12.9843 12.5H28.5315C30.2538 12.5 31.1149 12.5 31.5652 13.0599C32.0155 13.6197 31.8309 14.4608 31.4618 16.1431L30.1911 21.9332L30.1911 21.9332C29.8606 23.4395 29.6953 24.1926 29.1463 24.6342C28.5973 25.0758 27.8262 25.0758 26.2841 25.0758Z" stroke="#222222" stroke-width="2" stroke-linecap="round"/>
-                                    <circle cx="26.116" cy="30.2293" r="2.04762" stroke="#222222" stroke-width="2" stroke-linecap="round"/>
-                                    <circle cx="15.6414" cy="30.2293" r="2.04762" stroke="#222222" stroke-width="2" stroke-linecap="round"/>
-                                    </svg>
-                                    
-                            </div>
-                            <span>장바구니</span>
-                        </div>
-                        <div  class="header-bottom-right-login-bottom-logo">
-                            <div>
-                                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M10.0884 23.0038L10.0884 23.0038L24.766 8.32625C24.7788 8.31341 24.7916 8.30058 24.8044 8.28777C25.1042 7.98785 25.3956 7.69637 25.6683 7.48833C25.9757 7.2538 26.3736 7.03335 26.8873 7.03335C27.4009 7.03335 27.7989 7.2538 28.1063 7.48833C28.379 7.69637 28.6703 7.98784 28.9701 8.28775C28.9782 8.29586 28.9863 8.30397 28.9944 8.31209C28.9992 8.3168 29.0039 8.32153 29.0086 8.32625L31.6747 10.9923L31.7132 11.0308C32.0131 11.3306 32.3046 11.622 32.5126 11.8946C32.7471 12.202 32.9676 12.6 32.9676 13.1136C32.9676 13.6273 32.7471 14.0253 32.5126 14.3327C32.3046 14.6053 32.0131 14.8967 31.7132 15.1965L31.6747 15.235L16.9971 29.9126L16.9971 29.9126C16.9969 29.9128 16.9967 29.913 16.9965 29.9132C16.9836 29.9261 16.9704 29.9393 16.9569 29.9529C16.8056 30.1051 16.6142 30.2977 16.3724 30.4346L10.0884 23.0038ZM10.0884 23.0038C10.0878 23.0044 10.0872 23.0051 10.0866 23.0057M10.0884 23.0038L10.0866 23.0057M10.0866 23.0057C10.074 23.0182 10.0612 23.031 10.048 23.0441C9.89583 23.1953 9.70321 23.3867 9.56633 23.6285C9.42945 23.8703 9.36438 24.1339 9.31297 24.3422C9.30831 24.3612 9.30375 24.3796 9.29927 24.3976L7.80424 30.3777L8.77438 30.6202L7.80424 30.3777C7.80143 30.3889 7.79851 30.4005 7.79549 30.4125C7.75867 30.559 7.70767 30.7619 7.6901 30.9415C7.66988 31.1482 7.6632 31.6002 8.03198 31.969C8.40075 32.3377 8.85271 32.331 9.05941 32.3108C9.23901 32.2933 9.44192 32.2423 9.5884 32.2054C9.60041 32.2024 9.61204 32.1995 9.62325 32.1967L15.6034 30.7017C15.6213 30.6972 15.6398 30.6926 15.6587 30.688C15.867 30.6366 16.1306 30.5715 16.3724 30.4346L10.0866 23.0057Z" stroke="#222222" stroke-width="2"/>
-                                    <path d="M21.9043 10.4766L29.5233 18.0956" stroke="#222222" stroke-width="2"/>
-                                    </svg>
-                                    
-                            </div>
-                            <div class="writeDropdown">
-                                <span>글쓰기</span> 
-                                <div class="writeDropdown-content">
-                                    <span>일반</span>
-                                    <span>레시피</span>
+                            <div id="header-bottom-right-login-bottom">
+                                <div class="header-bottom-right-login-bottom-logo" onclick="requireLogin()">
+                                    <div>
+                                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="20.0007" cy="13.3327" r="5.66667" stroke="#222222" stroke-width="2" stroke-linecap="round"/>
+                                            <path d="M8.93264 25.8303C9.89941 23.6006 12.2481 22.5 14.6783 22.5H25.3217C27.7519 22.5 30.1006 23.6006 31.0674 25.8303C31.7198 27.335 32.3234 29.2762 32.4675 31.5001C32.5032 32.0512 32.0523 32.5 31.5 32.5H8.5C7.94772 32.5 7.49676 32.0512 7.53248 31.5001C7.67664 29.2762 8.28023 27.335 8.93264 25.8303Z" stroke="#222222" stroke-width="2" stroke-linecap="round"/>
+                                            </svg>
+                                            
+                                    </div>
+                                    <span>마이페이지</span>
+                                </div>
+                                <div class="header-bottom-right-login-bottom-logo" onclick="requireLogin()">
+                                    <div>
+                                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M4.88086 7.5H8.43934C9.13506 7.5 9.48292 7.5 9.74481 7.68876C10.0067 7.87752 10.1167 8.20753 10.3367 8.86754L11.5475 12.5" stroke="#222222" stroke-width="2" stroke-linecap="round"/>
+                                            <path d="M26.2841 25.0758H15.3715C13.8628 25.0758 13.1084 25.0758 12.5645 24.6484C12.0206 24.2211 11.8421 23.4881 11.4851 22.0223L10.0695 16.2099C9.65335 14.501 9.44526 13.6466 9.89568 13.0733C10.3461 12.5 11.2255 12.5 12.9843 12.5H28.5315C30.2538 12.5 31.1149 12.5 31.5652 13.0599C32.0155 13.6197 31.8309 14.4608 31.4618 16.1431L30.1911 21.9332L30.1911 21.9332C29.8606 23.4395 29.6953 24.1926 29.1463 24.6342C28.5973 25.0758 27.8262 25.0758 26.2841 25.0758Z" stroke="#222222" stroke-width="2" stroke-linecap="round"/>
+                                            <circle cx="26.116" cy="30.2293" r="2.04762" stroke="#222222" stroke-width="2" stroke-linecap="round"/>
+                                            <circle cx="15.6414" cy="30.2293" r="2.04762" stroke="#222222" stroke-width="2" stroke-linecap="round"/>
+                                            </svg>
+                                            
+                                    </div>
+                                    <span>장바구니</span>
+                                </div>
+                                <div  class="header-bottom-right-login-bottom-logo" onclick="requireLogin()">
+                                    <div>
+                                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M10.0884 23.0038L10.0884 23.0038L24.766 8.32625C24.7788 8.31341 24.7916 8.30058 24.8044 8.28777C25.1042 7.98785 25.3956 7.69637 25.6683 7.48833C25.9757 7.2538 26.3736 7.03335 26.8873 7.03335C27.4009 7.03335 27.7989 7.2538 28.1063 7.48833C28.379 7.69637 28.6703 7.98784 28.9701 8.28775C28.9782 8.29586 28.9863 8.30397 28.9944 8.31209C28.9992 8.3168 29.0039 8.32153 29.0086 8.32625L31.6747 10.9923L31.7132 11.0308C32.0131 11.3306 32.3046 11.622 32.5126 11.8946C32.7471 12.202 32.9676 12.6 32.9676 13.1136C32.9676 13.6273 32.7471 14.0253 32.5126 14.3327C32.3046 14.6053 32.0131 14.8967 31.7132 15.1965L31.6747 15.235L16.9971 29.9126L16.9971 29.9126C16.9969 29.9128 16.9967 29.913 16.9965 29.9132C16.9836 29.9261 16.9704 29.9393 16.9569 29.9529C16.8056 30.1051 16.6142 30.2977 16.3724 30.4346L10.0884 23.0038ZM10.0884 23.0038C10.0878 23.0044 10.0872 23.0051 10.0866 23.0057M10.0884 23.0038L10.0866 23.0057M10.0866 23.0057C10.074 23.0182 10.0612 23.031 10.048 23.0441C9.89583 23.1953 9.70321 23.3867 9.56633 23.6285C9.42945 23.8703 9.36438 24.1339 9.31297 24.3422C9.30831 24.3612 9.30375 24.3796 9.29927 24.3976L7.80424 30.3777L8.77438 30.6202L7.80424 30.3777C7.80143 30.3889 7.79851 30.4005 7.79549 30.4125C7.75867 30.559 7.70767 30.7619 7.6901 30.9415C7.66988 31.1482 7.6632 31.6002 8.03198 31.969C8.40075 32.3377 8.85271 32.331 9.05941 32.3108C9.23901 32.2933 9.44192 32.2423 9.5884 32.2054C9.60041 32.2024 9.61204 32.1995 9.62325 32.1967L15.6034 30.7017C15.6213 30.6972 15.6398 30.6926 15.6587 30.688C15.867 30.6366 16.1306 30.5715 16.3724 30.4346L10.0866 23.0057Z" stroke="#222222" stroke-width="2"/>
+                                            <path d="M21.9043 10.4766L29.5233 18.0956" stroke="#222222" stroke-width="2"/>
+                                            </svg>
+                                            
+                                    </div>
+                                    <div class="writeDropdown">
+                                        <span>글쓰기</span> 
+                                        <div class="writeDropdown-content">
+                                            <span>일반</span>
+                                            <span>레시피</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+	            	</c:when>
+	                <c:otherwise>
+		                <!-- 로그인 후 -->
+		                <div id="header-bottom-right-login">
+                            <div id="header-bottom-right-login-top">
+                                <span onclick="moveLocation('${pageContext.request.contextPath}/logout.me')">로그아웃</span>
+                                <svg width="1" height="12" viewBox="0 0 1 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="1" height="12" fill="#E6E6E6"/>
+                                </svg>
+                                <span>고객센터</span>
+                            </div>
+                            <div id="header-bottom-right-login-bottom">
+                                <div class="header-bottom-right-login-bottom-logo" onclick="moveLocation('${pageContext.request.contextPath}/main.me')">
+                                    <div>
+                                        <img class="headerProfileImg" src="/gorang/resources/images/member-img/defaultUserImg.png" alt="회원프로필">
+                                    </div>
+                                    <span>마이페이지</span>
+                                </div>
+                                <div class="header-bottom-right-login-bottom-logo"  onclick="moveLocation('${pageContext.request.contextPath}/cart')">
+                                    <div>
+                                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M4.88086 7.5H8.43934C9.13506 7.5 9.48292 7.5 9.74481 7.68876C10.0067 7.87752 10.1167 8.20753 10.3367 8.86754L11.5475 12.5" stroke="#222222" stroke-width="2" stroke-linecap="round"/>
+                                            <path d="M26.2841 25.0758H15.3715C13.8628 25.0758 13.1084 25.0758 12.5645 24.6484C12.0206 24.2211 11.8421 23.4881 11.4851 22.0223L10.0695 16.2099C9.65335 14.501 9.44526 13.6466 9.89568 13.0733C10.3461 12.5 11.2255 12.5 12.9843 12.5H28.5315C30.2538 12.5 31.1149 12.5 31.5652 13.0599C32.0155 13.6197 31.8309 14.4608 31.4618 16.1431L30.1911 21.9332L30.1911 21.9332C29.8606 23.4395 29.6953 24.1926 29.1463 24.6342C28.5973 25.0758 27.8262 25.0758 26.2841 25.0758Z" stroke="#222222" stroke-width="2" stroke-linecap="round"/>
+                                            <circle cx="26.116" cy="30.2293" r="2.04762" stroke="#222222" stroke-width="2" stroke-linecap="round"/>
+                                            <circle cx="15.6414" cy="30.2293" r="2.04762" stroke="#222222" stroke-width="2" stroke-linecap="round"/>
+                                            </svg>
+                                    </div>
+                                    <span>장바구니</span>
+                                </div>
+                                <div  class="header-bottom-right-login-bottom-logo">
+                                    <div>
+                                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M10.0884 23.0038L10.0884 23.0038L24.766 8.32625C24.7788 8.31341 24.7916 8.30058 24.8044 8.28777C25.1042 7.98785 25.3956 7.69637 25.6683 7.48833C25.9757 7.2538 26.3736 7.03335 26.8873 7.03335C27.4009 7.03335 27.7989 7.2538 28.1063 7.48833C28.379 7.69637 28.6703 7.98784 28.9701 8.28775C28.9782 8.29586 28.9863 8.30397 28.9944 8.31209C28.9992 8.3168 29.0039 8.32153 29.0086 8.32625L31.6747 10.9923L31.7132 11.0308C32.0131 11.3306 32.3046 11.622 32.5126 11.8946C32.7471 12.202 32.9676 12.6 32.9676 13.1136C32.9676 13.6273 32.7471 14.0253 32.5126 14.3327C32.3046 14.6053 32.0131 14.8967 31.7132 15.1965L31.6747 15.235L16.9971 29.9126L16.9971 29.9126C16.9969 29.9128 16.9967 29.913 16.9965 29.9132C16.9836 29.9261 16.9704 29.9393 16.9569 29.9529C16.8056 30.1051 16.6142 30.2977 16.3724 30.4346L10.0884 23.0038ZM10.0884 23.0038C10.0878 23.0044 10.0872 23.0051 10.0866 23.0057M10.0884 23.0038L10.0866 23.0057M10.0866 23.0057C10.074 23.0182 10.0612 23.031 10.048 23.0441C9.89583 23.1953 9.70321 23.3867 9.56633 23.6285C9.42945 23.8703 9.36438 24.1339 9.31297 24.3422C9.30831 24.3612 9.30375 24.3796 9.29927 24.3976L7.80424 30.3777L8.77438 30.6202L7.80424 30.3777C7.80143 30.3889 7.79851 30.4005 7.79549 30.4125C7.75867 30.559 7.70767 30.7619 7.6901 30.9415C7.66988 31.1482 7.6632 31.6002 8.03198 31.969C8.40075 32.3377 8.85271 32.331 9.05941 32.3108C9.23901 32.2933 9.44192 32.2423 9.5884 32.2054C9.60041 32.2024 9.61204 32.1995 9.62325 32.1967L15.6034 30.7017C15.6213 30.6972 15.6398 30.6926 15.6587 30.688C15.867 30.6366 16.1306 30.5715 16.3724 30.4346L10.0866 23.0057Z" stroke="#222222" stroke-width="2"/>
+                                            <path d="M21.9043 10.4766L29.5233 18.0956" stroke="#222222" stroke-width="2"/>
+                                            </svg>
+                                    </div>
+                                    <div class="writeDropdown">
+                                        <span>글쓰기</span> 
+                                        <div class="writeDropdown-content">
+                                            <span onclick="moveLocation('${pageContext.request.contextPath}/write.bo')">일반</span>
+                                            <span onclick="moveLocation('${pageContext.request.contextPath}/write.re')">레시피</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+	                </c:otherwise>
+	            </c:choose>         
             </div>
         </div>
     </div>
