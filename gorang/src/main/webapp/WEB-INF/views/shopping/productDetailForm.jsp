@@ -37,7 +37,8 @@
 
     <!-- 상품 상세페이지 -->
     <div id="product-detail-container">
-
+    <!-- 사이드바 -->
+	<jsp:include page="../common/sidebar.jsp" />
         <!-- 상품 간략 정보-->
         <div id="productInfo-area">
             <div id="product-img-container">
