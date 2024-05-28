@@ -28,7 +28,7 @@ window.onload = function () {
   fileInputClick();
   displaySelectedImage();
 
-  $('.summernote').summernote({
+  $('#summernote').summernote({
     width: 1000,
     height: 329,
     lang: "ko-KR",
@@ -40,11 +40,11 @@ window.onload = function () {
       ['color', ['color']],
       ['para', ['ul', 'ol', 'paragraph']],
       ['height', ['height']],
-
-    ]
+    ],
+    callbacks: {
+      onImageUpload: uploadFiles
+    }
   });
-
-
 }
 
 function addOption() {
@@ -73,7 +73,6 @@ function addOption() {
                         </td>
                       </tr>`;
   optionTableTbody.appendChild(newRow);
-
 }
 
 function deleteSelectedOption() {
@@ -89,5 +88,44 @@ function deleteSelectedOption() {
   }
 }
 
+function calculateDiscountPercent() {
+  const originPrice = parseInt(document.querySelector('#origin-price').value);
+  const saledPrice = parseInt(document.querySelector('#saled-price').value);
+  let discountPercentEl = document.querySelector('#discount-percent');
+  if (!isNaN(originPrice) && !isNaN(saledPrice)) {
+    const discountPercent = parseInt((originPrice - saledPrice) / originPrice * 100);
+    discountPercentEl.value = discountPercent;
+  }
+}
 
+function uploadFiles(fileList) {
+  const formData = new FormData();
+
+  for (let file of fileList) {
+    formData.append("fileList", file);
+  }
+
+  insertFileApi(formData, function (nameList) {
+    for (let name of nameList) {
+      $("#summernote").summernote('insertImage', "/gorang/resources/uploadfile" + name);
+    }
+  });
+}
+
+function insertFileApi(data, callback) {
+  $.ajax({
+    url: "detaildesc",
+    type: "POST",
+    data: data,
+    processData: false,
+    contentType: false,
+    dataType: "json",
+    success: function (changeNameList) {
+      callback(changeNameList);
+    },
+    error: function () {
+      console.log("파일업로드 api 요청 실패");
+    }
+  })
+}
 
