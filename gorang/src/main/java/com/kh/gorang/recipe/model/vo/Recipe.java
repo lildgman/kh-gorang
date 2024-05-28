@@ -14,7 +14,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Recipe {
-	private String recipeNo;
+	private int recipeNo;
 	private String recipeTitle;
 	private String recipeContent;
 	private String recipeVideo;
@@ -26,4 +26,5 @@ public class Recipe {
 	private String cookKind;
 	private String cookLevel;
 	private char status;
+	private int memberNo;
 }
