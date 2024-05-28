@@ -8,6 +8,21 @@
             <title>Insert title here</title>
             <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
 
+             <!-- Latest compiled and minified CSS -->
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+            <!-- jQuery library -->
+            <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+
+            <!-- Popper JS -->
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+            <!-- Latest compiled JavaScript -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+            <!-- font awesome kit -->
+            <script src="https://kit.fontawesome.com/68309de260.js" crossorigin="anonymous"></script>
+
             <!-- css -->
             <link rel="stylesheet" href="${contextPath}/resources/css/default.css">
             <link rel="stylesheet" href="${contextPath}/resources/css/member/registerPage.css">
@@ -50,7 +65,7 @@
                             <input type="email" class="register-input" name="memberEmail" placeholder="이메일을 입력해주세요." required>
                         </div>
                         <div class="registerCheck">
-                            <input type="button" value="중복확인">
+                            <input type="button" value="중복확인" id="idCheck">
                         </div>
                     </div>
                     <div class="registerSection">
@@ -71,7 +86,7 @@
                             <input type="text" class="register-input" name="nickname" placeholder="닉네임을 입력해주세요." required>
                         </div>
                         <div class="registerCheck">
-                            <input type="button" value="중복확인">
+                            <input type="button" value="중복확인" id="nameCheck">
                         </div>
                     </div>
                     <div class="registerSection">
@@ -109,7 +124,7 @@
                         <div id="termCheck">
                             <div class="all-check">
                                 <label class="checkbox">
-                                    <input type="checkbox" class="select-all">
+                                    <input type="checkbox" id="select-all">
                                     <span class="txt">[전체 동의] 선택항목에 대한 동의 포함</span>
                                 </label>
                             </div>
@@ -130,13 +145,13 @@
                                 </li>
                                 <li class="item">
                                     <label class="checkbox">
-                                        <input type="checkbox" class="select-all-mkt">
+                                        <input type="checkbox" class="select-all-mkt" name="marketing" value="Y">
                                         <span class="txt">[선택] 개인정보 마케팅 활용 동의</span>
                                     </label>
                                 </li>
                                 <li class="item">
                                     <label class="checkbox">
-                                        <input type="checkbox" class="select-all-mkt">
+                                        <input type="checkbox" class="select-all-mkt" name="alarm" value="Y">
                                         <span class="txt">[선택] 나의 냉장고 알림/이벤트/할인 등 혜택/정보 수신 동의</span>
                                     </label>
                                 </li>
