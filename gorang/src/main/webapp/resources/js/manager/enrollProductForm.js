@@ -28,7 +28,7 @@ window.onload = function () {
   fileInputClick();
   displaySelectedImage();
 
-  $('.summernote').summernote({
+  $('#summernote').summernote({
     width: 1000,
     height: 329,
     lang: "ko-KR",
@@ -40,11 +40,11 @@ window.onload = function () {
       ['color', ['color']],
       ['para', ['ul', 'ol', 'paragraph']],
       ['height', ['height']],
-
-    ]
+    ],
+    callbacks: {
+      onImageUpload: uploadFiles
+    }
   });
-
-  
 }
 
 function addOption() {
@@ -92,37 +92,40 @@ function calculateDiscountPercent() {
   const originPrice = parseInt(document.querySelector('#origin-price').value);
   const saledPrice = parseInt(document.querySelector('#saled-price').value);
   let discountPercentEl = document.querySelector('#discount-percent');
-  if(!isNaN(originPrice) && !isNaN(saledPrice)) {
-    const discountPercent = (originPrice - saledPrice)/originPrice * 100;
+  if (!isNaN(originPrice) && !isNaN(saledPrice)) {
+    const discountPercent = parseInt((originPrice - saledPrice) / originPrice * 100);
     discountPercentEl.value = discountPercent;
   }
 }
 
-function enrollProduct() {
-  const category = document.querySelector("#search-category-input").value;
-  const productName = document.querySelector("#search-product-name-input").value;
-  const productBrand = document.querySelector("#search-brand-input").value;
-  const normalPrice = document.querySelector("#origin-price").value;
-  const salePrice = document.querySelector("#saled-price").value;
-  const discountPercent = document.querySelector("#discount-percent").value;
-  const detailOptionName = document.querySelector("#detailOptionName").value;
-  const detailOptionQuantity = document.querySelector("#detailOptionQuantity").value;
-  const detailOptionOriginPrice = document.querySelector("#detailOptionOriginPrice").value;
-  const detailOptionSaledPrice = document.querySelector("#detailOptionSaledPrice").value;
+function uploadFiles(fileList) {
+  const formData = new FormData();
 
+  for (let file of fileList) {
+    formData.append("fileList", file);
+  }
 
+  insertFileApi(formData, function (nameList) {
+    for (let name of nameList) {
+      $("#summernote").summernote('insertImage', "/gorang/resources/uploadfile" + name);
+    }
+  });
+}
 
-
-
-  console.log("category = "+category);
-  console.log("productName = "+productName);
-  console.log("productBrand = "+productBrand);
-  console.log("normalPrice = "+normalPrice);
-  console.log("salePrice = "+salePrice);
-  console.log("discountPercent = "+discountPercent);
-  console.log("detailOptionName = "+detailOptionName);
-  console.log("detailOptionQuantity = "+detailOptionQuantity);
-  console.log("detailOptionOriginPrice = "+detailOptionOriginPrice);
-  console.log("detailOptionSaledPrice = "+detailOptionSaledPrice);
+function insertFileApi(data, callback) {
+  $.ajax({
+    url: "detaildesc",
+    type: "POST",
+    data: data,
+    processData: false,
+    contentType: false,
+    dataType: "json",
+    success: function (changeNameList) {
+      callback(changeNameList);
+    },
+    error: function () {
+      console.log("파일업로드 api 요청 실패");
+    }
+  })
 }
 

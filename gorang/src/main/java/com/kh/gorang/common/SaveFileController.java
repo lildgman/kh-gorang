@@ -22,7 +22,7 @@ public class SaveFileController {
 		
 		String changeName = currentTime + ranNum + ext;
 		
-		String savePath = session.getServletContext().getRealPath("/resources/uploadFiles/" + path);
+		String savePath = session.getServletContext().getRealPath("/resources/uploadfile" + path);
 
 		try {
 			upfile.transferTo(new File(savePath + changeName));

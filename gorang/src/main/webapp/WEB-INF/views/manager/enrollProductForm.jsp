@@ -9,28 +9,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <!-- summernote -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/summernote/customsummernote.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/summernote/lang/summernote-ko-KR.js"></script>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/customsummernote.css">
+    
 
 
     <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
     <link rel="stylesheet" href="${contextPath }/resources/css/manager/enrollproduct.css">
     <link rel="stylesheet" href="${contextPath }/resources/css/manager/commonManager.css">
-    <script src="${contextPath }/resources/js/manager/enrollProductForm.js"></script>
 
-    <!-- font awesome kit -->
-    <script src="https://kit.fontawesome.com/68309de260.js" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
     <!-- 헤더 -->
     <jsp:include page="../common/header.jsp" />
+
+    <c:if test="${not empty alertMsg }">
+		<script>
+			alert("${alertMsg }");
+		</script>
+		<c:remove var="alertMsg" scope="session"/>
+	</c:if>
+
 
     <div id="main-container">
 
@@ -62,7 +62,7 @@
         </div>
 
         <!-- 오른쪽 div -->
-        <form action="insert.po" method="POST">
+        <form action="insert.po" method="POST" enctype="multipart/form-data">
 
             <div id="right-container">
                 <div id="right-title">상품 등록</div>
@@ -121,7 +121,7 @@
                                             <i class="fa-solid fa-magnifying-glass"></i>
                                         </div>
                                         <input id="search-brand-input" class="search-input" type="text"
-                                            placeholder="브랜드명 입력" required>
+                                            placeholder="브랜드명 입력" name="productBrand" required>
                                     </div>
                                     <div class="search-btn-container">
                                         <button id="search-brand-btn" class="search-btn">검색</button>
@@ -147,7 +147,7 @@
                             <div>정상가</div>
                             <div class="price-input-container">
                                 <input id="origin-price" class="price-input" type="text"
-                                    oninput="calculateDiscountPercent()" required>원
+                                    oninput="calculateDiscountPercent()" name="normalPrice" required>원
                             </div>
                         </div>
 
@@ -155,13 +155,13 @@
                             <div>판매가</div>
                             <div class="price-input-container">
                                 <input id="saled-price" class="price-input" type="text"
-                                    oninput="calculateDiscountPercent()" required>원
+                                    oninput="calculateDiscountPercent()" name="salePrice" required>원
                             </div>
                         </div>
                         <div class="insert-product-price">
                             <div>할인율</div>
                             <div class="price-input-container">
-                                <input id="discount-percent" class="price-input" type="text" required disabled>%
+                                <input id="discount-percent" class="price-input" type="text" name="discountPercent" >%
                             </div>
                         </div>
                     </div>
@@ -199,11 +199,11 @@
                                         <input type="checkbox" name="" id="">
                                     </td>
                                     <td align="center">
-                                        <input type="text" id="detailOptionName">
+                                        <input type="text" id="detailOptionName" name="detailOptionName">
                                     </td>
                                     <td align="center">
                                         <input type="number" class="txt-align-right" placeholder="개"
-                                            id="detailOptionQuantity">
+                                            id="detailOptionQuantity" name="detailOptionQuantity">
                                     </td>
                                     <td align="center">
                                         <input type="number" class="txt-align-right" placeholder="원"
@@ -211,7 +211,7 @@
                                     </td>
                                     <td align="center">
                                         <input type="number" class="txt-align-right" placeholder="원"
-                                            id="detailOptionSaledPrice">
+                                            id="detailOptionSaledPrice" name="detailOptionPrice">
                                     </td>
                                 </tr>
                             </tbody>
@@ -230,10 +230,10 @@
                             대표이미지
                         </div>
                         <div id="input-img-container">
-                            <img src="${contextPath }/resources/dummyImg/manage/camera.png" alt="">
+                            <img src="${contextPath }/resources/dummyImg/manage/camera.png"  alt="">
                         </div>
                     </div>
-                    <input type="file" id="file-input" accept="image/*">
+                    <input type="file" id="file-input" accept="image/*" name="upfile">
                 </div>
 
                 <div class="enroll-div-container">
@@ -242,7 +242,7 @@
                     </div>
 
                     <div id="summernote-container">
-                        <textarea class="summernote" name="editordata"></textarea>
+                        <textarea id="summernote" name="description"></textarea>
                     </div>
                 </div>
 
@@ -255,27 +255,27 @@
                         <div class="input-area">
                             <div class="shipping-method-title">배송방법</div>
                             <div>
-                                <select name="shipping-method" id="shipping-method">
-                                    <option value="">일반택배배송</option>
-                                    <option value="">특급택배배송</option>
+                                <select name="shipmentType" id="shipping-method" required>
+                                    <option value="일반">일반택배배송</option>
+                                    <option value="특급">특급택배배송</option>
                                 </select>
                             </div>
                         </div>
                         <div class="input-area">
                             <div class="shipping-method-title">배송비</div>
                             <div>
-                                <input type="number" id="shipping-fee">원
+                                <input type="number" id="shippingPrice" name="shippingPrice">원
                             </div>
                         </div>
                         <div class="input-area">
                             <div class="shipping-method-title">배송기간</div>
                             <div>
-                                <select name="" id="">
-                                    <option value="">1</option>
-                                    <option value="">2</option>
-                                    <option value="">3</option>
-                                    <option value="">4</option>
-                                    <option value="">5</option>
+                                <select name="shipmentTime" id="shipmentTime" required>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
                                 </select>일
                             </div>
                         </div>
@@ -295,7 +295,12 @@
     </div>
 
     <jsp:include page="../common/footer.jsp" />
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/summernote/customsummernote.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/summernote/lang/summernote-ko-KR.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/customsummernote.css">
     <script src="${contextPath }/resources/js/manager/enrollProductForm.js"></script>
 </body>
 
