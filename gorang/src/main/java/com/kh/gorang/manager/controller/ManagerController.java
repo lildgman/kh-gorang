@@ -62,19 +62,7 @@ public class ManagerController {
 		
 	}
 	
-	@PostMapping("detaildesc")
-	@ResponseBody
-	public String upload(List<MultipartFile> fileList, HttpSession session) {
-		log.info("fileList = {}", fileList);
-		
-		List<String> changeNameList = new ArrayList<String>();
-		for(MultipartFile mf : fileList) {
-			String changeName = saveFile(mf,session,"/productdescimg/");
-			changeNameList.add("/productdescimg/"+changeName);
-		}
-		log.info("changeNameList = {}", changeNameList);
-		return new Gson().toJson(changeNameList);
-	}
+	
 	
 	@RequestMapping("updateproduct.ma")
 	public String managerProductUpdateForm() {
