@@ -9,7 +9,11 @@ public interface MemberService {
 	//id check를 위한 서비스
 	int idCheck(String checkId);
 	
+	// nickname check
+	int nameCheck(String checkName);
+	
 	//회원가입
 	int insertMember(Member m);
-
+	
+	
 }
