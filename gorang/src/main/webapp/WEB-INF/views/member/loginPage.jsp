@@ -27,7 +27,7 @@
                         </svg>                        
                 </div>
                 <h2>로그인</h2>
-                <form method="post" id="login-form" action="login.me">
+                <form method="post" id="login-form" action="loginForm.me">
                     <div class="login_input">
                         <input type="text" name="id" placeholder="아이디" />
                         <input type="password" name="passwd" placeholder="비밀번호" />
@@ -42,7 +42,7 @@
                     <div class="find-IdPw-Regist">
                         <input type="button" name="findId" value="아이디 찾기">
                         <input type="button" name="findPw" value="비밀번호 찾기">
-                        <input type="button" name="register" value="회원가입" onclick="moveLocation('${pageContext.request.contextPath}/Register.me')">
+                        <input type="button" name="register" value="회원가입" onclick="moveLocation('${pageContext.request.contextPath}/register.me')">
                     </div>
                     <hr>
                     <div class="apiLogin">
