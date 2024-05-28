@@ -5,7 +5,7 @@
     justify-content: center;
     align-items: center;
     width: 86px;
-    height: 307px;
+    height: 295px;
     overflow: hidden;
     position: fixed;
     top: 40%;
@@ -24,8 +24,7 @@
     border: 1px solid #e6e6e6;
     background-color: #ffffff;
 }
-
-.button-arrow{
+.recently-seen-div-button-box{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -33,18 +32,19 @@
     width: fit-content;
     height: fit-content;
     overflow: hidden;
-    position: absolute;
     border: none;
     outline: none;
     z-index: 3;
     cursor: pointer;
 }
 
-#button-arrow-top{
-    top: 1%;
+.slick-prev{
+    left: 35px; 
+    top: 1%
 }
 
-#button-arrow-bottom{
+.slick-next{
+    right: 35px;
     bottom: 1%;
 }
 
@@ -52,19 +52,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
     width: 80%;
     height: fit-content;
-    overflow: hidden;
-    position: absolute;
-    top: 30px;
+    position: relative;
 }
 
 #recently-seen-container > span{
     font-size: 14px;
     line-height: 150%;
-    letter-spacing: -0.025rem;
+    letter-spacing: -0.1rem;
     color: #6D6D6D;
+    text-align: center;
 }
 
 #recently-seen-container > ul{
@@ -73,17 +71,20 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    
  }
 
- #recently-seen-container > ul li{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+ #recently-seen-list div{
     height: 76px;
     margin: 2px 0;
-    text-align: center;
     position: relative;
     overflow: hidden;
     cursor: pointer;
+ }
+
+ #recently-seen-list div > img{
+    border-style: none;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
  }

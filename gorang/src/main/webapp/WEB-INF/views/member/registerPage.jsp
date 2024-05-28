@@ -7,11 +7,15 @@
             <meta charset="UTF-8">
             <title>Insert title here</title>
             <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
-            <link rel="stylesheet" href="${contextPath }/resources/css/member/registerPage.css">
-            <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
+
+            <!-- css -->
+            <link rel="stylesheet" href="${contextPath}/resources/css/default.css">
+            <link rel="stylesheet" href="${contextPath}/resources/css/member/registerPage.css">
+            
 
             <!--js-->
-            <script src="${pageContext.request.contextPath}/resources/js/member/registerPage.js"></script>
+            <script src="${contextPath}/resources/js/member/registerPage.js"></script>
+            
         </head>
 
         <body>
@@ -39,64 +43,64 @@
                     </svg>
                 </div>
                 <h2>회원가입</h2>
-                <form method="post" id="register-form">
-                    <div id="registEmailSection">
-                        <div id="emailSpan"><span>이메일</span></div>
-                        <div id="emailInput">
-                            <input type="email" placeholder="이메일을 입력해주세요." required>
+                <form method="post" id="register-form" action="${contextPath}/insert.me">
+                    <div class="registerSection">
+                        <div class="registerSpan"><span>이메일</span></div>
+                        <div class="register-inputForm">
+                            <input type="email" class="register-input" name="memberEmail" placeholder="이메일을 입력해주세요." required>
                         </div>
-                        <div id="emailCheck">
+                        <div class="registerCheck">
                             <input type="button" value="중복확인">
                         </div>
                     </div>
-                    <div id="registPwdSection">
-                        <div id="pwdSpan"><span>비밀번호</span></div>
-                        <div id="pwdInput">
-                            <input type="text" placeholder="비밀번호를 입력해주세요." required>
+                    <div class="registerSection">
+                        <div class="registerSpan"><span>비밀번호</span></div>
+                        <div class="register-inputForm">
+                            <input type="password" class="register-input" name="memberPwd" placeholder="비밀번호를 입력해주세요." required>
                         </div>
                     </div>
-                    <div id="registPwdCheckSection">
-                        <div id="pwdCheckSpan"><span>비밀번호 확인</span></div>
-                        <div id="pwdCheckInput">
-                            <input type="text" placeholder="비밀번호를 한번 더 입력해주세요." required>
+                    <div class="registerSection">
+                        <div class="registerSpan"><span>비밀번호 확인</span></div>
+                        <div class="register-inputForm">
+                            <input type="password" class="register-input" placeholder="비밀번호를 한번 더 입력해주세요." required>
                         </div>
                     </div>
-                    <div id="registNickNameSection">
-                        <div id="nickNameSpan"><span>닉네임</span></div>
-                        <div id="nickNameInput">
-                            <input type="text" placeholder="닉네임을 입력해주세요." required>
+                    <div class="registerSection">
+                        <div class="registerSpan"><span>닉네임</span></div>
+                        <div class="register-inputForm">
+                            <input type="text" class="register-input" name="nickname" placeholder="닉네임을 입력해주세요." required>
                         </div>
-                        <div id="nickNameCheck">
+                        <div class="registerCheck">
                             <input type="button" value="중복확인">
                         </div>
                     </div>
-                    <div id="registPnumSection">
-                        <div id="pnumSpan"><span>전화번호</span></div>
-                        <div id="pnumInput">
-                            <input type="number" placeholder="전화번호를 입력해주세요." required>
+                    <div class="registerSection">
+                        <div class="registerSpan"><span>전화번호</span></div>
+                        <div class="register-inputForm">
+                            <input type="tel" class="register-input" name="memberPhone" placeholder="전화번호를 입력해주세요." required>
                         </div>
-                        <div id="pnumCheck">
+                        <div class="registerCheck">
                             <input type="button" value="본인인증">
                         </div>
                     </div>
-                    <div id="registAddressSection">
-                        <div id="addressSpan"><span>주소</span></div>
-                        <div id="addressSearch">
-                            <button type="button" onclick="sample6_execDaumPostcode()">주소 검색</button>
+                    <div id="registAddressSection" class="registerSection">
+                        <div class="registerSpan"><span>주소</span></div>
+                        <div id="addressSearch" class="register-inputForm">
+                            <button type="button">주소 검색</button>
                         </div>
                     </div>
-                    <div id="registGenderSection">
-                        <div id="genderSpan"><span>성별</span></div>
+                    <div class="registerSection">
+                        <div class="registerSpan"><span>성별</span></div>
                         <div id="genderSelect">
-                            <input type="radio" name="gender" value="man"><span>남</span>
-                            <input type="radio" name="gender" value="woman"><span>여</span>
+                            <input type="radio" name="gender" value="M"><span>남</span>
+                            <input type="radio" name="gender" value="F"><span>여</span>
                             <input type="radio" name="gender" value="unselect"><span>선택안함</span>
                         </div>
                     </div>
-                    <div id="registBirthSection">
-                        <div id="birthSpan"><span>생년월일</span></div>
-                        <div id="birthInput">
-                            <input type="number" placeholder="YYYYMMDD" required>
+                    <div id="registBirthSection" class="registerSection">
+                        <div class="registerSpan"><span>생년월일</span></div>
+                        <div id="birthInput" class="register-inputForm">
+                            <input type="date"  class="register-input" name="birth" placeholder="YYYYMMDD" required>
                         </div>
                     </div>
                     <hr>
@@ -144,35 +148,6 @@
                     </div>
                 </form>
             </div>
-            <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-            <script>
-                function sample6_execDaumPostcode() {
-                    new daum.Postcode({
-                        oncomplete: function (data) {
-                            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-                            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                            var addr = ''; // 주소 변수
-
-                            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                                addr = data.roadAddress;
-                            } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                                addr = data.jibunAddress;
-                            }
-
-                            // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                            document.getElementById('sample6_postcode').value = data.zonecode;
-                            document.getElementById("sample6_address").value = addr;
-                            // 커서를 상세주소 필드로 이동한다.
-                            document.getElementById("sample6_detailAddress").focus();
-                        }
-                    }).open();
-                }
-
-            </script>
-            <script src="${contextPath}/resources/js/member/registerPage.js"></script>
         </body>
 
         </html>

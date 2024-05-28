@@ -120,9 +120,9 @@ function Inputs() {
     newBlock.className = 'recipe-smaill-block';
     newBlock.innerHTML = `
     <div class="location-btn"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Link.png" alt=""></div>
-    <div class="igre-name-block"><input type="text" placeholder="재료명 예)돼지고기"></div>
-    <div class="igre-amount-block"><input type="text" placeholder="수량"></div>
-    <div class="igre-unit-block"><input type="text" placeholder="단위"></div>
+    <div class="igre-name-block"><input name ="ingreName" type="text" placeholder="재료명 예)돼지고기"></div>
+    <div class="igre-amount-block"><input name ="ingreAmount" type="text" placeholder="수량"></div>
+    <div class="igre-unit-block"><input  name ="ingreUnit" type="text" placeholder="단위"></div>
     <div class="delete-btn"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" onclick="deleteSmaillBlock(this)"></div>
     <button type="button">태그 +</button>`;
     return newBlock;
