@@ -42,7 +42,7 @@
                     <div class="find-IdPw-Regist">
                         <input type="button" name="findId" value="아이디 찾기">
                         <input type="button" name="findPw" value="비밀번호 찾기">
-                        <input type="button" name="register" value="회원가입" onclick="moveLocation('${pageContext.request.contextPath}/Register.me')">
+                        <input type="button" name="register" value="회원가입" onclick="moveLocation('${pageContext.request.contextPath}/register.me')">
                     </div>
                     <hr>
                     <div class="apiLogin">
