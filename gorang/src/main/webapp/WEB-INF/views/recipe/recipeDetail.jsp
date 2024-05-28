@@ -10,22 +10,6 @@
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
             <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
             <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recipe/recipeDetail.css">
-        <!--js-->
-            <!-- jQuery library -->
-            <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
-
-            <!-- Popper JS -->
-            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-
-            <!-- Latest compiled JavaScript -->
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-
-            <!-- font awesome kit -->
-            <script src="https://kit.fontawesome.com/68309de260.js" crossorigin="anonymous"></script>
-
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"></script>
     </head>
 
     <body>

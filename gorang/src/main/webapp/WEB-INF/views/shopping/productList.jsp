@@ -30,9 +30,10 @@
     <!-- 헤더 시작-->
     <jsp:include page="../common/header.jsp" />
     <!-- 헤더 끝-->
-
     <!-- 컨텐츠 시작 -->
     <div id="productList-container">
+        <!-- 사이드바 -->
+		<jsp:include page="../common/sidebar.jsp" />
         <!-- 카테고리 시작 -->
         <div id="category-area">
             <div class="store-category" id="category-veget">

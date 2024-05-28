@@ -12,21 +12,8 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common/sidebar.css">
          <!-- slick-->
          <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
-	<!-- js -->
-		 <!-- jQuery library -->
-         <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
-
-         <!-- Popper JS -->
-         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-
-         <!-- Latest compiled JavaScript -->
-         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-         
 		<!--slick-->
         <script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> 
-
-        <!--sidebar-->
-        <script src="${pageContext.request.contextPath}/resources/js/common/sidebar.js"></script>
 </head>
 <body>
 	<!-- 사이드 최근본 내역 -->
@@ -39,7 +26,7 @@
 					</svg>
                 </div>
 				<div id="recently-seen-container">
-					<span>최근 본 레시피</span>
+					<span></span>
 					<div id="recently-seen-list">
 						<!-- 최근 본 아이템 목록 추가-->
 					</div>
@@ -52,5 +39,7 @@
                 </div>
 			</div>
 		</div>
+    <!--sidebar-->
+    <script src="${pageContext.request.contextPath}/resources/js/common/sidebar.js"></script>
 </body>
 </html>
