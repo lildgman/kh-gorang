@@ -152,7 +152,7 @@ function addUnit(element) {
     cloneBlock.querySelector('.recipe-ingredient-info-top').innerHTML = `
     <div class="location-btn"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Link.png" alt=""></div>
     <div class="ingre-div-block" >
-        <input type="text" placeholder="분류 예)식재료">
+        <input name="divName" type="text" placeholder="분류 예)식재료">
     </div>
     <div class="delete-btn"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" onclick="deleteIngreBlock(this)"></div>`;
 
@@ -166,7 +166,7 @@ function tipInputs() {
     const newBlock = document.createElement('div');
     newBlock.className = 'cooking-order-block-bottom-tip';
     newBlock.innerHTML = `
-    <input type="text" placeholder="팁 예) 볶는 시간은 최소로 합니다">
+    <input  name ="CookTip" type="text" placeholder="팁 예) 볶는 시간은 최소로 합니다">
     <button type="button" class="add-tip"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/plus (2).png" alt="" onclick="addTip(this)"></button>
     <button type="button" class="delte-tip"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Icon.png" alt=""  onclick="deleteTip(this)"></button>
     `;
@@ -179,18 +179,18 @@ function orderInputs(){
     <div class="cooking-order-block">
     <div class="cooking-order-block-top">
         <div class="cook-order-number-img">1</div>
-        <div class="cook-order-write-content"><input type="text" placeholder="예) 소고기는 기름을 떼어내고 적당한 크기로 썰어주세요"></div>
+        <div class="cook-order-write-content"><input name ="cookOrdContent" type="text" placeholder="예) 소고기는 기름을 떼어내고 적당한 크기로 썰어주세요"></div>
         <div class="cook-order-hambugerbar"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/SVG.png" alt=""></div>
     </div>
     <div class="cooking-order-block-bottom">
         <div class="cooking-order-block-bottom-img" onclick="cookIngOrderImg(this)">
             <img class ="cookingImg" src="/gorang/resources/dummyImg/recipe/recipeWrite/camera.png" alt="">
             <img class="cookingImg-real" src="" alt="" >
-            <input type="file"  id="fileInput"  onchange="changeCookIngOrderImg(this)">
+            <input name ="cookOrdPhoto" type="file"  id="fileInput"  onchange="changeCookIngOrderImg(this)">
         </div>
         <div class="cooking-order-block-bottom-tips">
             <div class="cooking-order-block-bottom-tip">
-                <input type="text" placeholder="팁 예) 볶는 시간은 최소로 합니다">
+                <input  name ="CookTip" type="text" placeholder="팁 예) 볶는 시간은 최소로 합니다">
                 <button type="button" class="add-tip"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/plus (2).png" alt="" onclick="addTip(this)"></button>
                 <button type="button" class="delte-tip"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Icon.png" alt=""  onclick="deleteTip(this)"></button>
             </div>
@@ -199,7 +199,7 @@ function orderInputs(){
     <div id="recipe-order-delete-btn-area">
         <button type="button" id="order-delete-btn" onclick="deleteCookingOrder(this)">삭제</button>
     </div>
-    </div>
+</div>
     `;
     return newBlock;
 }

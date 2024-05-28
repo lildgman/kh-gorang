@@ -13,7 +13,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class RecipeDivision {
+public class Division {
 	private int divNo;
 	private String divName;
 	private char status;

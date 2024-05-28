@@ -22,7 +22,7 @@
   	</resultMap>
   	
   	<!-- 재료 분류 -->
-  	<resultMap type="RecipeDivision" id="recipeDivisionResult">
+  	<resultMap type="Division" id="DivisionResult">
   		<result column="DIV_NO" property="divNo"/>
   		<result column="DIV_NAME" property="divName"/>
   		<result column="STATUS" property="status"/>
@@ -84,7 +84,15 @@
         )
     </insert>
   	
-  	<!-- 레시피 게시글 추가 -->
-	
+  	<!-- 레시피 재료분류 추가 -->
+	<insert id="insertRcpDiv" parameterType="Division">
+		INSERT INTO Division (
+		DIV_NO
+		) VALUES
+		<foreach collection="list" item="item" separator=",">
+			(#{item.DIV_NAME})
+		</foreach>
+		WHERE RCP_NO = #{rcpNo}			
+	</insert>
   	
   </mapper>
