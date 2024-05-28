@@ -27,7 +27,7 @@
                         </svg>                        
                 </div>
                 <h2>로그인</h2>
-                <form method="post" id="login-form" action="login.me">
+                <form method="post" id="login-form" action="loginForm.me">
                     <div class="login_input">
                         <input type="text" name="id" placeholder="아이디" />
                         <input type="password" name="passwd" placeholder="비밀번호" />
