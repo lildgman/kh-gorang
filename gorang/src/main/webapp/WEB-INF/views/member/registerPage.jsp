@@ -28,11 +28,15 @@
             <link rel="stylesheet" href="${contextPath}/resources/css/member/registerPage.css">
             <!--js-->
             <script src="${contextPath}/resources/js/member/registerPage.js"></script>
+
+            <script type="text/javascript" charset="utf-8">
+                sessionStorage.setItem("contextpath", "${pageContext.request.contextPath}");
+            </script>
         </head>
 
         <body>
             <div class="container">
-                <div id="gorang-logo" onclick="logo">
+                <div id="gorang-logo">
                     <svg width="120" height="120" viewBox="0 0 78 80" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M54.5 52.7079V58.92H3V52.7079H14.3332V42.3865H21.2565V52.7079H54.5ZM33.8694 46.9809H26.852V31.2121H6.84149V25H33.8702L33.8694 46.9809Z"

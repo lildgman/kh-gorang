@@ -4,6 +4,16 @@ document.write('<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/post
 
 document.addEventListener("DOMContentLoaded", function() {
 
+    const ctx = getContextPath();
+
+    function getContextPath() {
+        return sessionStorage.getItem("contextpath");
+    }
+
+    document.querySelector("#gorang-logo").addEventListener("click", function(){
+        location.href = (ctx);
+    })
+
     const form = document.getElementById("register-form");
     form.addEventListener("submit", function(event) {
         // Prevent the form from submitting until validation is done
