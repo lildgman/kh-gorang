@@ -19,7 +19,7 @@
                 <div id="CommonBoardContents">
                     <div id="BoardTagBox">
                         <div id="BoardTagBoxTop">
-                            <div id="SpanBox">
+                            <div class="SpanBox">
                                 <span>인기 태그</span>
                             </div>
                         </div>
@@ -53,7 +53,7 @@
                         </div>
                         <div class="commonContainer">
                             <c:forEach begin="1" end="16">
-                                <div class="common-item">
+                                <div class="common-item" onclick="location.href='detail.bo?rno=${a}'">
                                     <div class="common-content-item">
                                         <div id="commonContentImg">
                                             <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentFile/boardImg1.png">

@@ -21,10 +21,10 @@ body {
     margin-left:520px;
     margin-right:520px;
 }
-#SpanBox{
+.SpanBox{
     height: 79px;
 }
-#SpanBox span {
+.SpanBox span {
     font-size: 50px;
     font-weight: 700;
 }
