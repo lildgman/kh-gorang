@@ -32,7 +32,12 @@
                     <div id="contentTitle">
                         <span>게시글 제목</span>
                     </div>
-                    <div id="contentDetail"><span>오늘 밥 머에영?</span></div>
+                    <div id="contentDetail">
+                        <div id="contentDetailWrite"><span>오늘 밥 머에영?</span></div>
+                        <div id="contentDetailImg">
+                            <img src="${pageContext.request.contextPath}/resources/dummyImg/recipe/recipeDetail/cookorder1.jpg"
+                            alt=""></div>
+                    </div>
                     <div id="contentService">
                         <div id="tagWrapper">
                             <div id="contentTag"><span>#일상</span></div>
@@ -204,7 +209,7 @@
                 </div>
                 <div id="boardMainReturnWrap">
                     <div id="ReturnBtnWrap">
-                        <button type="button">목록으로</button>
+                        <button type="button" onclick="moveLocation('${pageContext.request.contextPath}/main.bo')">목록으로</button>
                     </div>
                 </div>
             </main>

@@ -10,25 +10,11 @@
     <title>Document</title>
     <!-- pretendard 폰트 -->
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    
     <!-- css -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common/header.css">
+
     <!--js-->
-	<!-- jQuery library -->
-	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-
-	<!-- Popper JS -->
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-
-	<!-- Latest compiled JavaScript -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-
-	<!-- font awesome kit -->
-	<script src="https://kit.fontawesome.com/68309de260.js" crossorigin="anonymous"></script>
-
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-	crossorigin="anonymous"></script>
-
     <script src="${pageContext.request.contextPath}/resources/js/common/header.js"></script>
 
     <script type="text/javascript" charset="utf-8">
@@ -55,7 +41,7 @@
                 <div id="header-bottom-left-category">
                     <span onclick="moveLocation('${pageContext.request.contextPath}/main.re')">레시피</span>
                     <span onclick="moveLocation('${pageContext.request.contextPath}/main.bo')">게시판</span>
-                    <span onclick="moveLocation('${pageContext.request.contextPath}/main.st')">쇼핑</span>
+                    <span onclick="moveLocation('${pageContext.request.contextPath}/main.po')">쇼핑</span>
                 </div>
             </div>
             <div id="header-bottom-right">

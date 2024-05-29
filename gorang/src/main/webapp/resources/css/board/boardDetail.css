@@ -79,7 +79,6 @@ body {
 #contentTitle {
     width: 1162px;
     height: 89px;
-
     padding: 15px 0 15px 0;
 
 }
@@ -91,10 +90,25 @@ body {
 
 #contentDetail {
     width: 1162px;
-    height: 181px;
+    height: 1000px;
     padding: 5px;
 
 }
+    #contentDetailWrite{
+        width:1152px;
+        height: 100px;
+    }
+       
+    #contentDetailImg{
+        width: 1152px;
+        height:860px;
+    }
+    #contentDetailImg img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    }
+   
 
 #contentService {
     width: 1162px;
@@ -115,7 +129,7 @@ body {
 #contentTag {
     width: 70px;
     border-style: solid;
-    border-width: 2px;
+    border-width: 1px;
     border-radius: 20px;
     margin-right: 20px;
 }
@@ -373,10 +387,11 @@ body {
     color: #ffff;
     border-radius: 10px;
     margin-left: 35px;
-    margin-top: 5px;
+    margin-top: 7px;
 }
 
 #ReplyArea {
+    margin-top:10px;
     width: 1162px;
     height: fit-content;
 }
@@ -385,6 +400,7 @@ body {
     padding: 2px;
     width: 1162px;
     height: 100px;
+    display:flex;   
 }
 
 #userReplyWriterInfo {
@@ -410,7 +426,11 @@ body {
 #userReplyContentWrap {
     width: 100%;
     height: 80px;
-    padding: 3px;
+    padding: 10px;
+    border-style: solid;
+    border-color:#838383;
+    border-radius:10px;
+    border-width:1px;
 }
 
 #userReplyWriterDetail {
@@ -431,12 +451,14 @@ body {
 #userReplyContent {
     padding: 5px 0 5px 0;
     font-weight: 500;
+    height: 50px;
 }
 
 #ReplyService {
-    height: 100px;
-    padding: 5px;
-    margin-top: 40px;
+    margin-left:20px;
+    height:20px;
+    margin-top:35px;
+
 }
 
 #ReplyReport {
