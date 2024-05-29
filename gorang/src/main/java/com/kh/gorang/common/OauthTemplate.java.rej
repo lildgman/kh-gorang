@@ -1,9 +1,0 @@
-diff a/gorang/src/main/java/com/kh/gorang/common/OauthTemplate.java b/gorang/src/main/java/com/kh/gorang/common/OauthTemplate.java	(rejected hunks)
-@@ -35,6 +35,7 @@
- 		}
- 	}
- 	
-+	
- 	//API에 연결하기위한 HttpURLConnection객체를 생성하고 반환하는 메서드
- 		public static HttpURLConnection connect(String apiUrl) {
- 			try {
