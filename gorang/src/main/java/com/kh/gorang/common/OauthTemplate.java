@@ -35,6 +35,7 @@ public class OauthTemplate {
 		}
 	}
 	
+	
 	//API에 연결하기위한 HttpURLConnection객체를 생성하고 반환하는 메서드
 		public static HttpURLConnection connect(String apiUrl) {
 			try {

@@ -2,7 +2,6 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <!DOCTYPE html>
         <html>
-
         <head>
             <meta charset="UTF-8">
             <title>Insert title here</title>
@@ -26,12 +25,6 @@
             <!-- css -->
             <link rel="stylesheet" href="${contextPath}/resources/css/default.css">
             <link rel="stylesheet" href="${contextPath}/resources/css/member/registerPage.css">
-            <!--js-->
-            <script src="${contextPath}/resources/js/member/registerPage.js"></script>
-
-            <script type="text/javascript" charset="utf-8">
-                sessionStorage.setItem("contextpath", "${pageContext.request.contextPath}");
-            </script>
         </head>
 
         <body>
@@ -119,6 +112,7 @@
                             <input type="date"  class="register-input" name="birth" placeholder="YYYYMMDD" required>
                         </div>
                     </div>
+                    <input type="hidden" name="profile" id="profileImage">
                     <hr>
                     <div id="gorangTermSection">
                         <div id="termSpan"><span>이용약관동의</span></div>
@@ -164,6 +158,26 @@
                     </div>
                 </form>
             </div>
+            <script type="text/javascript" charset="utf-8">
+                 sessionStorage.setItem("contextpath", "${pageContext.request.contextPath}");
+             </script>
+
+            <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+            <script>
+            const naverUserInfo = {
+                email: "${email}",
+                mobile: "${mobile}",
+                birthyear: "${birthyear}",
+                birthday: "${birthday}",
+                gender: "${gender}",
+                profile_image: "${profile_image}"
+            };
+            </script>
+
+            <script src="${contextPath}/resources/js/member/registerPage.js"></script>
+
+             
         </body>
 
         </html>

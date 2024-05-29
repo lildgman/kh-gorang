@@ -31,12 +31,12 @@ public class MemberController {
 		// 아이디가 없는 경우
 		if (loginUser == null) { 
 			session.setAttribute("alertMsg", "아이디가 일치하지 않습니다.");
-			mv.setViewName("member/loginForm.me");
+			mv.setViewName("member/loginPage");
 			
 			//비밀번호가 다른경우
 		} else if (!bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd())){ 
 			session.setAttribute("alertMsg", "비밀번호가 일치하지 않습니다.");
-			mv.setViewName("member/loginForm.me");
+			mv.setViewName("member/loginPage");
 			
 		} else { // 성공
 			session.setAttribute("loginUser", loginUser);
