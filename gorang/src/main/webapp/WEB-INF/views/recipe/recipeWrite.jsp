@@ -21,7 +21,7 @@
            
         <div id="head-btn-area">
             <button id="save-recipe">임시 저장</button>
-            <button type="submit"  id="register-rcipe" onclick="enrollRecipeBtn()">등록 하기</button>
+            <button type="submit"  id="register-rcipe" onclick="return enrollRecipeBtn()">등록 하기</button>
         </div>
             
         <!-- 레시피 작성 전체영역 -->

@@ -261,5 +261,105 @@ function deleteCookingOrder(element){
 
 // 등록하기 버튼
 function enrollRecipeBtn(){
-    showSweetConfirm();
+    let thumbnailImg = document.getElementById('thumnailImg-real');
+    let recipeTitle = document.querySelector('#recipe-write-title-area input[name="recipeTitle"]').value.trim();
+    let recipeContent = document.querySelector('#recipe-introduce-area textarea[name="recipeContent"]').value.trim();
+    let recipeTag = document.querySelector('#recipe-tage-area input[name="recipeTag"]').value.trim();
+    let cookKind = document.querySelector('#recipe-category-area select[name="cookKind"]').value;
+    let cookLevel = document.querySelector('#recipe-category-area select[name="cookLevel"]').value;
+    let cookTime = document.querySelector('#recipe-category-area select[name="cookTime"]').value;
+    let cookAmount = document.querySelector('#recipe-category-area select[name="cookAmount"]').value;
+    let cookingImgReal =document.querySelectorAll('.cookingImg-real');
+    let ingredientArea = document.getElementById("recipe-ingredient-info-area");
+    let inputFields = ingredientArea.querySelectorAll("input");
+    let orderArea = document.getElementById("cooking-order-area");
+    let inputFields2 = orderArea.querySelectorAll("input");
+    
+    let isEmptyIngre = false;
+    let isEmptyIngre2 = false;
+
+    // 재료 미입력 확인
+    inputFields.forEach(function(input) {
+        if (input.value.trim() === "") {
+            isEmptyIngre = true;
+            return;
+        }
+    });
+    console.log("재료"+isEmptyIngre);
+    // 조리순서 미입력 확인
+    inputFields2.forEach(function(input) {
+        if (input.value.trim() === "") {
+            isEmptyIngre2 = true;
+            return;
+        }
+    });
+    cookingImgReal.forEach(function(img){
+        if(!img.src || img.src === '' ||img.style.display !== 'block'){
+            isEmptyIngre2=true;
+            return;
+        }
+    })
+    console.log("순서:"+isEmptyIngre2);
+    
+    if (!thumbnailImg.src || thumbnailImg.src === '' || thumbnailImg.style.display !== 'block') {
+        alert('대표 이미지를 입력해주세요.');
+        thumbnailImg.focus;
+        return false;
+    }
+    if(!recipeTitle){
+        alert('레시피 제목을 입력해주세요.');
+        recipeTitle.focus;
+        return false;
+    }
+
+    if(!recipeContent){
+        alert('요리를 소개를 입력해주세요.');
+        recipeContent.focus;
+        return false;
+    }
+
+    if(!recipeTag){
+        alert('태그를 입력해주세요.');
+        recipeTag.focus;
+        return false;
+    }
+
+    if(!cookKind){
+        alert('카테고리를 선택해주세요.');
+        cookKind.focus;
+        return false;
+    }
+
+    if(!cookLevel){
+        alert('난이도를 선택해주세요.');
+        cookLevel.focus;
+        return false;
+    }
+
+    if(!cookTime){
+        alert('시간을 선택해주세요.');
+        cookTime.focus;
+        return false;
+    }
+
+    if(!cookAmount){
+        alert('인원을 선택해주세요.');
+        cookAmount.focus;
+        return false;
+    }
+    if (isEmptyIngre2) {
+        alert("조리순서를 마저 입력해주세요");
+        orderArea.focus;
+        return false;
+    }
+
+    if (isEmptyIngre) {
+        alert("재료정보를 마저 입력해주세요");
+        ingredientArea.focus;
+        return false;
+    }
+    
+    // showSweetConfirm();
 }
+
+//--------------------------------- 예외처리 ------------------------------------------
