@@ -10,9 +10,12 @@
     <title>Document</title>
     <!-- pretendard 폰트 -->
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    
     <!-- css -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common/header.css">
+
     <!--js-->
+<<<<<<< HEAD
 	<!-- jQuery library -->
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 	<!-- Popper JS -->
@@ -28,6 +31,8 @@
 	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 	crossorigin="anonymous"></script>
 
+=======
+>>>>>>> 0676e682b32ace8ff1b3ecf1015f51481e1b527f
     <script src="${pageContext.request.contextPath}/resources/js/common/header.js"></script>
 
     <script type="text/javascript" charset="utf-8">
@@ -54,7 +59,7 @@
                 <div id="header-bottom-left-category">
                     <span onclick="moveLocation('${pageContext.request.contextPath}/main.re')">레시피</span>
                     <span onclick="moveLocation('${pageContext.request.contextPath}/main.bo')">게시판</span>
-                    <span onclick="moveLocation('${pageContext.request.contextPath}/main.st')">쇼핑</span>
+                    <span onclick="moveLocation('${pageContext.request.contextPath}/main.po')">쇼핑</span>
                 </div>
             </div>
             <div id="header-bottom-right">

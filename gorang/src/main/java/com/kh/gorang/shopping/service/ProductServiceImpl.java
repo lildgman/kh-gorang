@@ -1,5 +1,7 @@
 package com.kh.gorang.shopping.service;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,20 @@ public class ProductServiceImpl implements ProductService{
 			result2 = productDao.insertProductDetailOption(sqlSession, productOption);			
 		}
 		return result*result2;
+	}
+
+	@Override
+	public ArrayList<Product> selectBestSellerList() {
+//		ArrayList<Product> list = productDao.selectBestSellerList(sqlSession);
+//		log.info("list={}" ,list);
+		return productDao.selectBestSellerList(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Product> selectRecentProductList() {
+//		ArrayList<Product> list = productDao.selectRecentProductList(sqlSession);
+//		log.info("list={}" ,list);
+		return productDao.selectRecentProductList(sqlSession);
 	}
 
 }

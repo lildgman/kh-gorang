@@ -51,31 +51,31 @@
         </div>
         <div id="user-menu">
             <ul id="left-user-menu-list">
-                <li><a  href="${contextPath}/myPageAllView.me">모두 보기</a></li>
+                <li><a  href="${contextPath}/main.me">모두 보기</a></li>
                 <li style="font-size: 18px;  font-weight: bold;" id="myboard">나의 게시글
                    <ul id="myboard-list">
-                        <li><a  href="${contextPath}/myRecipeBoard.me" class="myboard-list-in">나의 레시피 게시글</a></li>
-                        <li><a  href="${contextPath}/myBoard.me" class="myboard-list-in">나의 자유 게시글</a></li>
+                        <li><a  href="${contextPath}/recipe.me" class="myboard-list-in">나의 레시피 게시글</a></li>
+                        <li><a  href="${contextPath}/board.me" class="myboard-list-in">나의 자유 게시글</a></li>
                     </ul>
                 </li>
-                <li><a  href="${contextPath}/myPageReplyReview.me">댓글 & 후기</a></li>
-                <li><a  href="${contextPath}/myPageQnA.me">문의</a></li>
+                <li><a  href="${contextPath}/review.me">댓글 & 후기</a></li>
+                <li><a  href="${contextPath}/qna.me">문의</a></li>
                 <li><a  href="${contextPath}/myRefrigerator.me">나의 냉장고</a></li>
-                <li><a  href="${contextPath}/myPageBuyList.me">구매내역</a></li>
+                <li><a  href="${contextPath}/buyList.me">구매내역</a></li>
                 <li style="font-size: 18px;  font-weight: bold;" id="user-scrap">스크랩
                     <ul id="myscrap-list">
-                        <li><a  href="${contextPath}/myPageScrapRecipe.me" class="myboard-list-in">레시피</a></li>
-                        <li><a  href="${contextPath}/myPageScrapBoard.me" class="myboard-list-in">게시글</a></li>
-                        <li><a  href="${contextPath}/myPageScrapProduct.me" class="myboard-list-in">상품</a></li>
+                        <li><a  href="${contextPath}/scrapRecipe.me" class="myboard-list-in">레시피</a></li>
+                        <li><a  href="${contextPath}/scrapBoard.me" class="myboard-list-in">게시글</a></li>
+                        <li><a  href="${contextPath}/scrapProduct.me" class="myboard-list-in">상품</a></li>
                     </ul>
                 </li>
                 <li style="font-size: 18px;  font-weight: bold;" id="user-like">좋아요
                     <ul id="mylike-list">
-                        <li><a  href="${contextPath}/myPageLikeRecipe.me" class="myboard-list-in">레시피</a></li>
-                        <li><a  href="${contextPath}/myPageLikeBoard.me" class="myboard-list-in">게시글</a></li>
+                        <li><a  href="${contextPath}/likeRecipe.me" class="myboard-list-in">레시피</a></li>
+                        <li><a  href="${contextPath}/likeBoard.me" class="myboard-list-in">게시글</a></li>
                     </ul>
                 </li>
-                <li><a  href="${contextPath}/myPageInfoEdit.me">정보 수정</a></li>
+                <li><a  href="${contextPath}/edit.me">정보 수정</a></li>
             </ul>
         </div>
     </div>

@@ -29,6 +29,5 @@ public class Member {
 	private String memberStatus;
 	private String alarm;
 	private String loginPath;
-
 }
 

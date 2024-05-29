@@ -95,6 +95,7 @@
                 width: calc(100% - 24px);
                 height: 100%;
                 border: none;
+                outline: none;
             }
 
             #header-bottom-right-searchbar-logo{
