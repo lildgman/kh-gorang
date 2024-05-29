@@ -39,6 +39,7 @@
   	
 
   	<!-- 상품 추가 -->
+  	<!-- 
   	 <insert id="insertProduct" parameterType="Product">
         INSERT INTO PRODUCT (
             CATEGORY,
@@ -66,6 +67,25 @@
             #{shippingPrice}
         )
     </insert>
+     -->
+     
+    <select id="insertProduct" resultType="_int">
+		SELECT insert_product(
+			'${product.category}',
+			'${product.productName}',
+			'${product.productBrand}',
+			${product.normalPrice},
+			${product.salePrice},
+			${product.discountPercent},
+			'${product.mainImg}',
+			'${product.description}',
+			'${product.shipmentType}',
+			${product.shipmentTime},
+			${product.shippingPrice},
+			'${productOption.detailOptionName}',
+			${productOption.detailOptionPrice},
+			${productOption.detailOptionQuantity})
+	</select>
     
     <!-- 상품 세부 옵션 등록 -->
     <insert id="insertProductDetailOption" parameterType="ProductDetailOption">
@@ -92,6 +112,8 @@
     		DISCOUNT,
     		MAIN_IMG
     	FROM PRODUCT
+    	WHERE STATUS = 'Y'
+    	ORDER BY SCRAP_COUNT DESC
     	LIMIT 4
     </select>
     
@@ -106,8 +128,101 @@
     		DISCOUNT,
     		MAIN_IMG
     	FROM PRODUCT
+    	WHERE STATUS = 'Y'
+    	ORDER BY PRODUCT_DATE DESC
     	LIMIT 4
     </select>
+    
+    <!-- 
+    <select id="selectProductCount" resultType="_int">
+    	SELECT COUNT(*)
+    	FROM PRODUCT
+    	WHERE STATUS = 'Y'
+    </select>
+     -->
+     
+     <select id="selectProductCount" resultType="_int">	
+     	SELECT COUNT(*)
+     	FROM (
+     		SELECT *
+	    	FROM PRODUCT
+	    	WHERE STATUS = 'Y'
+	    		<if test='category == "야채"'>
+	    			AND CATEGORY LIKE '야채'
+	    		</if>
+	    		<if test='category == "과일"'>
+	    			AND CATEGORY LIKE '과일'
+	    		</if>
+	    		<if test='category == "어류"'>
+	    			AND CATEGORY LIKE '어류'
+	    		</if>
+	    		<if test='category == "육류"'>
+	    			AND CATEGORY LIKE '육류'
+	    		</if>
+	    		<if test='category == "빵"'>
+	    			AND CATEGORY LIKE '빵'
+	    		</if>
+	    		<if test='category == "면"'>
+	    			AND CATEGORY LIKE '면'
+	    		</if>
+	    		<if test='category == "유제품"'>
+	    			AND CATEGORY LIKE '유제품'
+	    		</if>
+	    	<if test='sort == "new"'>
+	    		ORDER BY PRODUCT_DATE
+	    	</if>
+	    	<if test='sort == "view"'>
+	    		ORDER BY PRODUCT_VIEW
+	    	</if>
+	    	<if test='sort == "scrap"'>
+	    		ORDER BY SCRAP_COUNT
+	    	</if>
+     	)
+     </select>
+     
+     <select id="selectResultProductList" resultMap="productResult">
+     	SELECT 
+     		PRODUCT_NO,
+     		PRODUCT_NAME,
+     		PRODUCT_BRAND,
+     		NORMAL_PRICE,
+     		SALE_PRICE,
+     		DISCOUNT,
+     		MAIN_IMG
+     	FROM PRODUCT
+     	WHERE STATUS = 'Y' 
+	     	<if test='category == "야채"'>
+	   			AND CATEGORY LIKE '야채'
+	   		</if>
+	   		<if test='category == "과일"'>
+	   			AND CATEGORY LIKE '과일'
+	   		</if>
+	   		<if test='category == "어류"'>
+	   			AND CATEGORY LIKE '어류'
+	   		</if>
+	   		<if test='category == "육류"'>
+	   			AND CATEGORY LIKE '육류'
+	   		</if>
+	   		<if test='category == "빵"'>
+	   			AND CATEGORY LIKE '빵'
+	   		</if>
+	   		<if test='category == "면"'>
+	   			AND CATEGORY LIKE '면'
+	   		</if>
+	   		<if test='category == "유제품"'>
+	   			AND CATEGORY LIKE '유제품'
+	   		</if>
+	   	<if test='sort == "new"'>
+	   		ORDER BY PRODUCT_DATE
+	   	</if>
+	   	<if test='sort == "view"'>
+	   		ORDER BY PRODUCT_VIEW
+	   	</if>
+	   	<if test='sort == "scrap"'>
+	   		ORDER BY SCRAP_COUNT
+	   	</if>
+     </select>
+    
   	
 	
   	
