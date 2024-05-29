@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="boardMapper">
+  <!-- 게시판 -->
+  <resultMap type ="Board" id="boardResult">
+  	<result column="BOARD_NO" property="boardNo"></result>
+  	<result column="BOARD_TITLE" property="boardTitle"></result>
+  	<result column="BOARD_CONTENT" property="boardContent"></result>
+  	<result column="BOARD_THUMBNAIL" property="boardThunbnail"></result>
+  	<result column="BOARD_CREATE_DATE" property="boardCreateDate"></result>
+  	<result column="BOARD_VIEWS" property="boardViews"></result>
+  	<result column="BOARD_TAG" property="boardTag"></result>
+  	<result column="BOARD_VOTE" property="boardVote"></result>
+  	<result column="STATUS" property="status"></result>
+  	<result column="MEMBER_NO" property="memberNo"></result>
+  	
+  </resultMap>
+  
+  <!-- 게시판 게시글 추가  -->
+  <insert id = "insertBoard" parameterType="Board">
+  	INSERT INTO BOARD(
+  		BOARD_NO,
+  		BOARD_TITLE,
+  		BOARD_CONTENT,
+  		BOARD_THUMBNAIL,
+  		BOARD_CREATE_DATE,
+  		BOARD_VIEWS,
+  		BOARD_TAG,
+  		BOARD_VOTE,
+  		STATUS,
+  		MEMBER_NO
+  	) VALUES (
+  		#{boardNo},
+  		#{boardTitle},
+  		#{boardContent},
+  		#{boardThumbnail},
+  		#{boardCreateDate},
+  		#{boardViews},
+  		#{boardTag},
+  		#{boardVote},
+  		#{status},
+  		#{memberNo}
+  	)
+  </insert>
+  </mapper>
