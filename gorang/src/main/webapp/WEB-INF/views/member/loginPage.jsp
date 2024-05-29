@@ -27,6 +27,13 @@
         </head>
 
         <body>
+            <c:if test="${not empty alertMsg}">
+                <script>
+                    alert("${alertMsg}");
+                </script>
+                <c:remove var="alertMsg" />
+            </c:if>
+
             <div class="container">
                 <div id="gorang-logo">
                     <svg width="120" height="120" viewBox="0 0 78 80" fill="none" xmlns="http://www.w3.org/2000/svg">
