@@ -67,6 +67,7 @@
         )
     </insert>
     
+    <!-- 상품 세부 옵션 등록 -->
     <insert id="insertProductDetailOption" parameterType="ProductDetailOption">
     	INSERT INTO OPTION_NAME(
     		OPTIONS_NAME,
@@ -79,6 +80,34 @@
     	)
     	
     </insert>
+    
+    <!-- 가장 많이 팔린 상품 조회 -->
+    <select id="selectBestSellerList" resultMap="productResult">
+    	SELECT
+    		PRODUCT_NO,
+    		PRODUCT_NAME,
+    		PRODUCT_BRAND,
+    		NORMAL_PRICE,
+    		SALE_PRICE,
+    		DISCOUNT,
+    		MAIN_IMG
+    	FROM PRODUCT
+    	LIMIT 4
+    </select>
+    
+    <!-- 최근 입고된 상품 조회 -->
+    <select id="selectRecentProductList" resultMap="productResult">
+    	SELECT
+    		PRODUCT_NO,
+    		PRODUCT_NAME,
+    		PRODUCT_BRAND,
+    		NORMAL_PRICE,
+    		SALE_PRICE,
+    		DISCOUNT,
+    		MAIN_IMG
+    	FROM PRODUCT
+    	LIMIT 4
+    </select>
   	
 	
   	
