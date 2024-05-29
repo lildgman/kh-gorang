@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,14 +17,14 @@
 <body>
        <!-- 헤더 -->
        <jsp:include page="../common/header.jsp" />
-
-       <form  action="${contextPath}/insert.bo" method="post">
-           
+       
+       <form  action="${contextPath}/insert.re" method="post">  
         <div id="head-btn-area">
             <button id="save-recipe">임시 저장</button>
             <button type="submit"  id="register-rcipe" onclick="return enrollRecipeBtn()">등록 하기</button>
         </div>
-            
+        <input type="hidden" name="memberNo" value="${loginUser.memberNo}">
+        <span>${loginUser.memberNo}</span>
         <!-- 레시피 작성 전체영역 -->
        <div id="recipe-write-all-area">
         <!-- 썸네일 추가영역 -->

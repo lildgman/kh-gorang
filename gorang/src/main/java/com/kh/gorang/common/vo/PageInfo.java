@@ -1,5 +1,16 @@
 package com.kh.gorang.common.vo;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
 public class PageInfo {
 	private int listCount;  // 현재 총 게시글 수
 	private int currentPage;  //현재 페이지(사용자가 요청한 페이지)

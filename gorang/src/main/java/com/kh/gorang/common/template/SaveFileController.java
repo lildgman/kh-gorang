@@ -1,4 +1,4 @@
-package com.kh.gorang.common;
+package com.kh.gorang.common.template;
 
 import java.io.File;
 import java.io.IOException;

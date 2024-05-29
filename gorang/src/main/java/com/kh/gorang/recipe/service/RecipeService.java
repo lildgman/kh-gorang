@@ -10,7 +10,7 @@ import com.kh.gorang.recipe.model.vo.Division;
 import com.kh.gorang.recipe.model.vo.IngredientsInfo;
 
 public interface RecipeService {
-	int insertRecipe(Recipe rcp);
+	Recipe insertRecipe(Recipe rcp);
 
 	int insertRecipeInsertDTO(Recipe rcp, RecipeInsertDTO recipeInsertDTO);
 
