@@ -46,27 +46,27 @@
 
             <div id="product-Information">
                 <div id="product_brand">
-                    <span>성주</span>
+                    <span>브랜드명</span>
                 </div>
                 <div id="product_name_area">
-                    <span id="product_name">성주 참외 꿀참외 1.5kg</span>
+                    <span id="product_name">상품명</span>
                     <span id="zzim">
                         <i class="fa-regular fa-heart fa-xl"></i>
                     </span>
                 </div>
                 <div id="product_grade_area">
-                    <span id="product_grade">4.5</span>
+                    <span id="product_grade">평점</span>
                     <div>
-                        <span id="product_review_quantity">30</span><span class="review_quantity">개 상품평</span>
+                        <span id="product_review_quantity">리뷰수</span><span class="review_quantity">개 상품평</span>
                     </div>
                 </div>
                 <div >
-                    <span id="product_origin_price">30,000</span><span class="won">원</span>
+                    <span id="product_origin_price">가격</span><span class="won">원</span>
                 </div>
                 <div id="product_discount_price">
-                    <span id="product_discount_percent">20%</span>
+                    <span id="product_discount_percent">할인율</span>
                     <div>
-                        <span id="product_discounted_price">24,000</span><span style="font-size: 30px; font-weight: bold;">원</span>   
+                        <span id="product_discounted_price">할인된 가격</span><span style="font-size: 30px; font-weight: bold;">원</span>   
                     </div>
                 </div>
                 <div id="product_etc">
