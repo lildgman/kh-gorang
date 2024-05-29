@@ -8,6 +8,7 @@
   	<result column="BOARD_NO" property="boardNo"></result>
   	<result column="BOARD_TITLE" property="boardTitle"></result>
   	<result column="BOARD_CONTENT" property="boardContent"></result>
+  	<result column="BOARD_THUMBNAIL" property="boardThunbnail"></result>
   	<result column="BOARD_CREATE_DATE" property="boardCreateDate"></result>
   	<result column="BOARD_VIEWS" property="boardViews"></result>
   	<result column="BOARD_TAG" property="boardTag"></result>
@@ -23,6 +24,7 @@
   		BOARD_NO,
   		BOARD_TITLE,
   		BOARD_CONTENT,
+  		BOARD_THUMBNAIL,
   		BOARD_CREATE_DATE,
   		BOARD_VIEWS,
   		BOARD_TAG,
@@ -33,6 +35,7 @@
   		#{boardNo},
   		#{boardTitle},
   		#{boardContent},
+  		#{boardThumbnail},
   		#{boardCreateDate},
   		#{boardViews},
   		#{boardTag},

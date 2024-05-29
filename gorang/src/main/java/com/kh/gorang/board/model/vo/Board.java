@@ -17,6 +17,7 @@ public class Board {
 	private int boardNo;
 	private String boardTitle;
 	private String boardContent;
+	private String boardThumbnail;
 	private Date boardCreateDate;
 	private int boardViews;
 	private String boardTag;
