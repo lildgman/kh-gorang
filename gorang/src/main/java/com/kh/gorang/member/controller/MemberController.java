@@ -27,7 +27,6 @@ public class MemberController {
 		
 		Member loginUser = memberService.loginMember(m);
 	
-		bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd());
 		// 아이디가 없는 경우
 		if (loginUser == null) { 
 			session.setAttribute("alertMsg", "아이디가 일치하지 않습니다.");
