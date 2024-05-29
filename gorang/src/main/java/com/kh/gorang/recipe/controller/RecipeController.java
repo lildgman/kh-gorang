@@ -46,7 +46,7 @@ public class RecipeController {
 		return "recipe/recipeList";
 	}
 	
-	@RequestMapping("insert.bo")
+	@RequestMapping("insert.re")
 	public String insertRecipe(
 			Recipe rcp,
 			RecipeInsertDTO recipeInsertDTO,

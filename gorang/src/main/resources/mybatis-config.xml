@@ -21,6 +21,7 @@
  		<typeAlias type="com.kh.gorang.shopping.model.vo.Product" alias="Product" />
  		<typeAlias type="com.kh.gorang.shopping.model.vo.ProductDetailOption" alias="ProductDetailOption" />
  		<typeAlias type="com.kh.gorang.shopping.model.vo.ProductOption" alias="ProductOption" />
+ 		<typeAlias type="com.kh.gorang.board.model.vo.Board" alias="Board"/>
 
 	</typeAliases>
 	
@@ -36,6 +37,7 @@
 		<mapper resource="/mappers/recipe-mapper.xml" />
 
 		<mapper resource="/mappers/product-mapper.xml" />
-
+		
+		<mapper resource="/mappers/board-mapper.xml" />
 	</mappers>
 </configuration>  
