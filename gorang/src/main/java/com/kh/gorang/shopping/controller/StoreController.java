@@ -66,6 +66,17 @@ public class StoreController {
 		return "shopping/productDetailForm";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "detailInfo.po", produces = "application/String; charset=utf-8")
+	public String productDetail(String pno) {
+		
+		int productNo = Integer.parseInt(pno);
+		
+		Product p = productService.selectProductByProductNo(productNo);
+		
+		return "shopping/productDetailForm";
+	}
+	
 	@RequestMapping("cart")
 	public String productCartForm() {
 		return "shopping/shoppingCartForm";

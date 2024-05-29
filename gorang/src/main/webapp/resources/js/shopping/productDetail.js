@@ -1,5 +1,17 @@
 window.onload = function () {
 
+
+
+  //페이지의 URL 에서 쿼리 파라미터 값 추출
+
+  function getParameterPno() {
+    let query = window.location.search;
+    let param = new URLSearchParams(query);
+    let pno = param.get('pno');
+    console.log(pno);
+    return pno;
+  }
+
   //찜버튼 눌렀을 때 발생하는 이벤트
   function clickZzim() {
 
@@ -31,11 +43,11 @@ window.onload = function () {
         e.preventDefault();
         productQuantityDivs.forEach(function (productQuantityDiv) {
 
-          let intProductQuantity = parseInt(productQuantityDiv.innerText);
+          let intProductQuantity = parseInt(productQuantityDiv.value);
 
           if (intProductQuantity > 1) {
             quantity = intProductQuantity - 1;
-            productQuantityDiv.innerHTML = quantity;
+            productQuantityDiv.value = quantity;
           }
         })
         console.log("minus : " + quantity);
@@ -47,7 +59,7 @@ window.onload = function () {
   // 수량 + 해주는 버튼
   function plusProductQuantity() {
     let plusDivs = document.querySelectorAll(".plus_quantity");
-    let productQuantityDivs = document.querySelectorAll(".quantity");
+    let productQuantityDivs = document.querySelectorAll(".pbtn-quantity");
 
     plusDivs.forEach(function (plusDiv) {
       plusDiv.addEventListener("click", function (e) {
@@ -55,11 +67,11 @@ window.onload = function () {
 
         productQuantityDivs.forEach(function (productQuantityDiv) {
 
-          let productQuantity = parseInt(productQuantityDiv.innerText);
+          let intProductQuantity = parseInt(productQuantityDiv.value);
 
-          quantity = productQuantity + 1;
+          quantity = intProductQuantity + 1;
 
-          productQuantityDiv.innerHTML = quantity;
+          productQuantityDiv.value = quantity;
 
         })
         console.log("plus :" + quantity);
@@ -67,6 +79,8 @@ window.onload = function () {
       })
     })
   }
+
+
 
   function calculateTotalPrice(currentQuantity) {
     let productPrice = document.querySelector("#product_discounted_price").innerText.replace(/,/g, '');
@@ -158,4 +172,41 @@ function moveToPage(url) {
 function enrollQna() {
   alert("성공적으로 문의를 작성하였습니다.");
   location.reload();
+}
+
+
+$(function(){
+  options("order.po", {productNo: '${product.productNo}'}, function(result){
+    drawOpt(result);
+
+  })
+})
+
+
+function options(url, data, callback){
+  $.ajax({
+    url: url,
+    data: data,
+    success: function(result){
+      console.log(result);
+      callback(result);
+    },
+    error: function(){
+      console.log("옵션 불러오기 실패");
+    }
+  });
+}
+
+function drawOpt(result){
+  if(result.length === 0) return;
+  const pdOpt = document.querySelector("#product-opts");
+
+  for(let el of result){
+    const pdOptDetail =  document.createElement("select");
+    pdOptDetail.setAttribute("class", "#product-opts");
+
+    pdOptDetail.innerHTML += `<options>` + el.detailOptionName + `<options>`;
+  
+    pdOpt.appendChild(pdOptDetail);
+  }
 }

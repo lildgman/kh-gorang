@@ -27,7 +27,6 @@
     <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
     <link rel="stylesheet" href="${contextPath }/resources/css/default.css">
     <link rel="stylesheet" href="${contextPath }/resources/css/shopping/productDetail.css">
-    <script src="${contextPath }/resources/js/shopping/productDetail.js"></script>
 </head>
 
 <body>
@@ -92,32 +91,38 @@
                         </tbody>
                     </table>
                 </div>
-                
                 <div id="product_buy_info_area">
                     <div id="product_buy_info">
-                        <div id="product_quantity_area">
-                            <div>
-                                수량 선택
+                        <form action="order.po">
+                            <div class="product-opts">
+                                <span>상품 선택</span>
+                                <select name="" id="product-opts-select">
+                                    <option value="">상품을 선택해주세요</option>
+                                </select>
                             </div>
-                            <div class="product_amount_price">
-                                <div id="pamount_btn">
-                                    <div class="pbtn minus_quantity">-</div>
-                                    <div class="pbtn quantity">1</div>
-                                    <div class="pbtn plus_quantity">+</div>
+                            <div id="product_quantity_area">
+                                <div>
+                                    수량 선택
+                                </div>
+                                <div class="product_amount_price">
+                                    <div id="pamount_btn">
+                                        <div class="pbtn minus_quantity">-</div>
+                                        <input class="pbtn quantity pbtn-quantity" type="text" value="1"></input>
+                                        <div class="pbtn plus_quantity">+</div>
+                                    </div>
                                 </div>
                             </div>
-
-                        </div>
-                        <div id="price-area">
-                            <div style="font-weight: bold; font-size: 20px;">총금액</div>
-                            <div style="font-weight: bold; font-size: 25px; color: #1E90FF;">
-                                <span class="product-price">24,000</span>원
+                            <div id="price-area">
+                                <div style="font-weight: bold; font-size: 20px;">총금액</div>
+                                <div style="font-weight: bold; font-size: 25px; color: #1E90FF;">
+                                    <span class="product-price">24,000</span>원
+                                </div>
                             </div>
-                        </div>
-                        <div class="product_buy_btn_container">
-                            <button class="myBtn btn_cart" >장바구니 담기</button>
-                            <button class="myBtn btn_buy" onclick="moveToPage('${contextPath }/order')">구매하기</button>
-                        </div>
+                            <div class="product_buy_btn_container">
+                                <button class="myBtn btn_cart" >장바구니 담기</button>
+                                <button class="myBtn btn_buy" onclick="moveToPage('${contextPath }/order')">구매하기</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -264,7 +269,7 @@
                     <div class="product_quantity_price">
                         <div id="pamount_btn">
                             <div class="pbtn minus_quantity">-</div>
-                            <div class="pbtn quantity">1</div>
+                            <input class="pbtn quantity pbtn-quantity" value="1"></input>
                             <div class="pbtn plus_quantity">+</div>
                         </div>
                         <div id="price">
@@ -347,5 +352,6 @@
     </div>
 
     <jsp:include page="../common/footer.jsp" />
+    <script src="${contextPath }/resources/js/shopping/productDetail.js"></script>
 </body>
 </html>

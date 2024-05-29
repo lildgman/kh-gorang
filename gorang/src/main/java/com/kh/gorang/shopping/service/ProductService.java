@@ -18,5 +18,8 @@ public interface ProductService {
 
 	// 최근 입고된 상품 4가지 조회
 	ArrayList<Product> selectRecentProductList();
+
+
+	Product selectProductByProductNo(int productNo);
 	
 }

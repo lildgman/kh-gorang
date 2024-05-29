@@ -45,4 +45,9 @@ public class ProductServiceImpl implements ProductService{
 		return productDao.selectRecentProductList(sqlSession);
 	}
 
+	@Override
+	public Product selectProductByProductNo(int productNo) {
+		return productDao.selectProductByProductNo(sqlSession, productNo);
+	}
+
 }

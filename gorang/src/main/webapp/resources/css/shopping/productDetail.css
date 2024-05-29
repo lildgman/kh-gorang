@@ -125,6 +125,21 @@
   width: 100%;
 }
 
+.product-opts{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 50px;
+  height: 50px;
+}
+
+#product-opts-select{
+  border: 1px solid #EDEDED;
+  height: 30px;
+  width: 400px;
+}
+
 #product_quantity_area {
   display: flex;
   flex-direction: row;
@@ -158,6 +173,12 @@
 
 .pbtn{
   padding: 6px;
+}
+
+.quantity{
+  border: none;
+  text-align: center;
+  width: 100%;
 }
 
 #price-area {
