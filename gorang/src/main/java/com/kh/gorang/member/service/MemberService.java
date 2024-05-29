@@ -14,6 +14,8 @@ public interface MemberService {
 	
 	//회원가입
 	int insertMember(Member m);
+
+	Member selectMemberByEmail(String email);
 	
 	
 }

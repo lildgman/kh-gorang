@@ -23,5 +23,8 @@ public class MemberDao {
 		return sqlSession.insert("memberMapper.insertMember", m);
 	}
 
+	public Member selectMemberByEmail(SqlSessionTemplate sqlSession, String email) {
+		return sqlSession.selectOne("memberMapper.selectMemberByEmail", email);
+	}
 	
 }

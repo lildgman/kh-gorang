@@ -102,7 +102,19 @@
   text-decoration: line-through;
 }
 
+.origin-won {
+  font-size:16px;
+  color: #999999;
+  text-decoration: line-through;
+}
+
 .discount-percent {
+  font-size: 22px;
+  color: #1E90FF;
+  font-weight: bold;
+}
+
+.percent {
   font-size: 22px;
   color: #1E90FF;
   font-weight: bold;
@@ -114,6 +126,15 @@
   font-weight: bold;
 }
 
+.discounted-won {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+
+
 .item-thumbnail-area {
+  width: 292px;
+  height: 292px;
   margin-bottom: 16px;
 }

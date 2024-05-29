@@ -35,7 +35,7 @@
                         <img src="${contextPath}/resources/images/member-img/Img (1).png">
                     </div>
                     <div class="banner-best-img">
-                        <img src="${contextPath}/resources/images/member-img/Img.png">
+                        <img src="${contextPath}/resources/dummyImg/recipe/레시피3(창녕갈릭 삼치 조림)/recipeBoardImg(3).jpg">
                     </div>
                     <div class="banner-best-img">
                         <img src="${contextPath}/resources/images/member-img/Rectangle 18311.png">
@@ -45,6 +45,7 @@
                 <div id="banner-imgs-recipe">
                     <div class="banner-best-img">
                         <img src="${contextPath}/resources/images/member-img/Img.png">
+                        
                     </div>
                     <div class="banner-best-img">
                         <img src="${contextPath}/resources/images/member-img/Img.png">

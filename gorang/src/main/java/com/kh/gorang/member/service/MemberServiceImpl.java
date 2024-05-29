@@ -40,6 +40,13 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.insertMember(sqlSession, m);
 	}
 
+	@Override
+	public Member selectMemberByEmail(String email) {
+		return memberDao.selectMemberByEmail(sqlSession, email);
+	}
+
+	
+
 	
 
 }

@@ -27,4 +27,5 @@ public class Recipe {
 	private String cookLevel;
 	private char status;
 	private int memberNo;
+
 }

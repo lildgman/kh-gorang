@@ -22,7 +22,7 @@
   	</resultMap>
   	
   	<!-- 재료 분류 -->
-  	<resultMap type="RecipeDivision" id="recipeDivisionResult">
+  	<resultMap type="Division" id="DivisionResult">
   		<result column="DIV_NO" property="divNo"/>
   		<result column="DIV_NAME" property="divName"/>
   		<result column="STATUS" property="status"/>
@@ -60,31 +60,47 @@
   	
   	
   	<!-- 레시피 게시글 추가 -->
-  	 <insert id="insertRecipe" parameterType="Recipe">
-        INSERT INTO RECIPE (
-            RCP_TITLE,
-            RCP_CONTENT,
-            RCP_VIDEO,
-            RCP_MAIN_PHOTO,
-            RCP_TAG,
-            COOK_AMOUNT,
-            COOK_TIME,
-            COOK_KIND,
-            COOK_LEVEL
-        ) VALUES (
-            #{recipeTitle},
-            #{recipeContent},
-            #{recipeVideo},
-            #{recipeMainPhoto},
-            #{recipeTag},
-            #{cookAmount},
-            #{cookTime},
-            #{cookKind},
-            #{cookLevel}
-        )
-    </insert>
+  	 <insert id="insertRecipe" parameterType="Recipe" useGeneratedKeys="true" keyProperty="recipeNo" >
+	  	INSERT INTO RECIPE (
+		        rcp_title,
+				rcp_content, 
+				rcp_main_photo, 
+				rcp_tag,
+				cook_amount, 
+				cook_time, 
+				cook_kind, 
+				cook_level, 
+				member_no
+			) 
+			VALUES (
+		        #{recipeTitle},
+		        #{recipeContent},
+		        #{recipeMainPhoto},
+		        #{recipeTag},
+		        #{cookAmount},
+		        #{cookTime},
+		        #{cookKind},
+		        #{cookLevel},
+				#{memberNo}
+	    )
+	    RETURNING rcp_no
+	</insert>
+    
+  	<!-- 레시피 마지막번호 추가 -->
+  	<insert id="getLastInsertedRecipeId" parameterType="Recipe">
+  		SELECT MAX(RCP_NO)
+  		FROM RECIPE
+  	</insert>  
   	
-  	<!-- 레시피 게시글 추가 -->
-	
+  	<!-- 레시피 재료분류 추가 -->
+	<insert id="insertRcpDiv" parameterType="Division">
+		INSERT INTO DIVISION (
+			DIV_NAME,
+			RCP_NO
+		) VALUES(
+			#{division.divName},
+			#{rcpNo}
+		) 			
+	</insert>
   	
   </mapper>

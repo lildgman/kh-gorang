@@ -1,14 +1,12 @@
 
-document.write('<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>')
-
-
-document.addEventListener("DOMContentLoaded", function() {
+window.onload = function(){
+    console.log("test");
 
     const ctx = getContextPath();
 
     function getContextPath() {
         return sessionStorage.getItem("contextpath");
-    }
+    };
 
     document.querySelector("#gorang-logo").addEventListener("click", function(){
         location.href = (ctx);
@@ -42,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const idCheckBtn = document.querySelector("#idCheck");
     idCheckBtn.onclick = function(ev){
         checkEmail(ev);
-    }
+    };
 
     const emailInput = document.querySelector("input[type='email']");
     emailInput.addEventListener("input", function() {
@@ -56,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const nameCheckBtn = document.querySelector("#nameCheck");
     nameCheckBtn.onclick = function(ev){
         checkNickname(ev);
-    }
+    };
 
     document.querySelector("input[name='nickname']").addEventListener("input", function(){
         nameCheckBtn.value = "중복확인";
@@ -64,8 +62,32 @@ document.addEventListener("DOMContentLoaded", function() {
         nameCheckBtn.style.border = "solid 2px #1E90FF";
         nameCheckBtn.style.background = "#ffffff";
         nameCheckBtn.style.color = "#1E90FF";
-    })
-})
+    });
+
+
+    console.log("Naver User Info:", naverUserInfo);
+
+    if (typeof naverUserInfo !== 'undefined') {
+        console.log("Naver User Info:", naverUserInfo);
+
+        if (naverUserInfo.email) {
+            document.querySelector("input[name='memberEmail']").value = naverUserInfo.email;
+        }
+        if (naverUserInfo.mobile) {
+            document.querySelector("input[name='memberPhone']").value = naverUserInfo.mobile.replace(/-/g, '');
+        }
+        if (naverUserInfo.birthyear && naverUserInfo.birthday) {
+            const birthdate = `${naverUserInfo.birthyear}-${naverUserInfo.birthday}`;
+            document.querySelector("input[name='birth']").value = birthdate;
+        }
+        if (naverUserInfo.gender) {
+            document.querySelector(`input[name='gender'][value='${naverUserInfo.gender === 'M' ? 'M' : 'F'}']`).checked = true;
+        }
+        if (naverUserInfo.profile_image) {
+            document.querySelector("#profileImage").value = naverUserInfo.profile_image;
+        }
+    };
+}
 
 function validateForm() {
     const email = document.querySelector("input[type='email']");
