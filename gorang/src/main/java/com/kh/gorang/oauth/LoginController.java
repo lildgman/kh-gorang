@@ -28,7 +28,6 @@ public class LoginController {
 	
 	@RequestMapping("/naver-login")
 	public String naverLoginCallback(HttpServletRequest request) {
-		System.out.println("test");
 		String clientId = "6D1ucwJgv10DLouX8avE";
 		String clientSecret = "Bw7JtBzO4p";
 		String code = request.getParameter("code");
@@ -94,7 +93,9 @@ public class LoginController {
 				String email = resObj.get("email").getAsString();
 				
 				Member loginUser = memberService.selectMemberByEmail(email);
-				String str;
+				
+				System.out.println(loginUser.toString());
+				
 				if(loginUser == null) { // 기존 회원 아닐 시
 					// 네이버로부터 받아 온 정보를 회원가입 페이지에 넘김
 //					{"id":"clZCIAwJUXyNrAaoiCFdfR21zbADrawS_eXS8y_iIyY","nickname":"옐로우피자땡긴다","profile_image":"https://phinf.pstatic.net/contact/20220116_170/16423399742620U7zU_JPEG/c0d0d928380213c0f71cf7fa4d16b561.jpg","age":"20-29","gender":"M","email":"dkansk4801@naver.com","mobile":"010-5374-8549","mobile_e164":"+821053748549","name":"김동현","birthday":"02-07","birthyear":"1996"}
@@ -105,19 +106,17 @@ public class LoginController {
                     request.setAttribute("birthday", resObj.get("birthday").getAsString());
                     request.setAttribute("gender", resObj.get("gender").getAsString());
                     request.setAttribute("profile_image", resObj.get("profile_image").getAsString());
-                    str = "member/loginPage";
+                    return "member/loginPage";
+                    
 				} else {
 					// 로그인 실시
 					request.getSession().setAttribute("loginUser", loginUser);
-					str = "redirect:/";
+					return "redirect:/";
 				}
-				
-				
 		}
 		
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		return str;
+		} return "loginPage";
 	}
 }

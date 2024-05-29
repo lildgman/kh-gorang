@@ -81,7 +81,7 @@
   </insert>
   
   <!-- 이메일로 회원 정보 가져오기(oauth 용도) -->
-  <select id="selectMemberByEmail" resultType="memberResult">
+  <select id="selectMemberByEmail" resultMap="memberResult">
     SELECT MEMBER_EMAIL,
            MEMBER_PWD,
            MEMBER_NICKNAME,
