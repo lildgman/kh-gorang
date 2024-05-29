@@ -13,7 +13,6 @@
 	<link rel="stylesheet" href="${contextPath }/resources/css/default.css">
 	<link rel="stylesheet" href="${contextPath }/resources/css/shopping/storeMain.css">
 
-	<script src="${contextPath }/resources/js/shopping/shoppingMain.js"></script>
 </head>
 
 <body>
@@ -110,21 +109,23 @@
 				<div id="best-items" class="items-container">
 					<!--상품 시작-->
 					
-					<c:forEach var="a" begin="1" end="4">
-						<div class="item" onclick="location.href='detail.po?pno=${a}'">
+					<c:forEach var="product" items="${bestSellerList }">
+						<div class="item" onclick="location.href='detail.po?pno=${product.productNo}'">
 							<div class="item-thumbnail-area">
-								<img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping/item1.png" alt="상품1">
+								<img class="item-thumbnail" src="${contextPath }/resources/uploadfile/productimg/${product.mainImg}" alt="상품1">
 							</div>
 							<div class="item-text-area">
 								<div class="item-title">
-									<div class="item-brand">성주</div>
-									<div class="item-name">당도선별 성주 꿀참외 1.5kg(4~7개입)</div>
+									<div class="item-brand">${product.productBrand}</div>
+									<div class="item-name">${product.productName }</div>
 								</div>
 								<div class="item-price">
-									<div class="item-origin-price">50,000</div>
 									<div>
-										<span class="discount-percent">20%</span>
-										<span class="discounted-price">16,900</span>
+										<span class="item-origin-price">${product.normalPrice }</span><span class="origin-won">원</span>
+									</div>
+									<div>
+										<span class="discount-percent">${product.discountPercent}</span><span class="percent">%</span>
+										<span class="discounted-price">${product.salePrice}</span><span class="discounted-won">원</span>
 									</div>
 								</div>
 							</div>
@@ -141,27 +142,29 @@
 				<!--제목부분-->
 				<div id="new-item-title" class="title-top">
 					<span class="items-title">새로 입고된 상품들이에요</span>
-					<span class="more" onclick="location.href='list.st?sort=new'">더보기</span>
+					<span class="more" onclick="location.href='list.po?sort=new'">더보기</span>
 				</div>
 
 				<!--입고된 상품 리스트 시작-->
 				<div id="new-items" class="items-container">
 					<!--상품 시작-->
-					<c:forEach var="b" begin="1" end="4">
-						<div class="item" onclick="location.href='detail.po?pno=${b}'">
+					<c:forEach var="product" items="${recentProductList }">
+						<div class="item" onclick="location.href='detail.po?pno=${product.productNo}'">
 							<div class="item-thumbnail-area">
-								<img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping/newitem1.png" alt="상품1">
+								<img class="item-thumbnail" src="${contextPath }/resources/uploadfile/productimg/${product.mainImg}" alt="상품1">
 							</div>
 							<div class="item-text-area">
 								<div class="item-title">
-									<div class="item-brand">성주</div>
-									<div class="item-name">당도선별 성주 꿀참외 1.5kg(4~7개입)</div>
+									<div class="item-brand">${product.productBrand}</div>
+									<div class="item-name">${product.productName }</div>
 								</div>
 								<div class="item-price">
-									<div class="item-origin-price">50,000</div>
 									<div>
-										<span class="discount-percent">20%</span>
-										<span class="discounted-price">16,900</span>
+										<span class="item-origin-price">${product.normalPrice }</span><span class="origin-won">원</span>
+									</div>
+									<div>
+										<span class="discount-percent">${product.discountPercent}</span><span class="percent">%</span>
+										<span class="discounted-price">${product.salePrice}</span><span class="discounted-won">원</span>
 									</div>
 								</div>
 							</div>
@@ -176,5 +179,7 @@
 		</div>
 	</div>
 	<jsp:include page="../common/footer.jsp" />
+	<script src="${contextPath }/resources/js/shopping/shoppingMain.js"></script>
+
 </body>
 </html>
