@@ -43,9 +43,9 @@
             <div id="weekly-best-recipe-container"  class="weekly-best-list-container">
                 <div class="list-top">
                     <span class="list-title">금주의 레시피</span>
-                    <span class="show-more-span"><a href="">더보기</a></span>
+                    <span class="show-more-span"><a href="${pageContext.request.contextPath}/main.re">더보기</a></span>
                 </div>
-                
+    
                 <div class="weekly-best-list">
                 <!-- 레시피 리스트 -->
                 <c:forEach begin="1" end="4">
@@ -66,7 +66,7 @@
             <div id="weekly-best-product-container" class="weekly-best-list-container">
                 <div class="list-top">
                     <span class="list-title">금주의 베스트 상품</span>
-                    <span class="show-more-span"><a href="">더보기</a></span>
+                    <span class="show-more-span"><a href="${pageContext.request.contextPath}/main.po">더보기</a></span>
                 </div>
 
                 <!-- 상품 리스트 -->
@@ -98,7 +98,7 @@
             <div id="weekly-best-board-container" class="weekly-best-list-container">
                 <div class="list-top">
                     <span class="list-title">금주의 노하우</span>
-                    <span class="show-more-span"><a href="">더보기</a></span>
+                    <span class="show-more-span"><a href="${pageContext.request.contextPath}/main.bo">더보기</a></span>
                 </div>
 
                 <!-- 노하우 리스트 -->
