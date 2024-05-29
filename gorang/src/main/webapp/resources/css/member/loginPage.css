@@ -90,6 +90,7 @@ hr{
     font-size: 16px;
     color: #787878;
 }
+
 .apiLogos{
     height: 50px;
     display: flex;
@@ -98,37 +99,15 @@ hr{
     margin-top: 28px;
     padding: 0 100px 0 100px;
 }
-.googleLogin{
+
+.oauth-login{
     width: 50px;
     height: 50px;
     border-radius: 50%;
     margin: auto;
 }
-.googleLogin img{
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-.naverLogin{
-    width: 50px;
-    height: 50px;
-    border-radius: 50%; 
-    margin: auto;
-}
-.naverLogin img{
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-.kakaoLogin{
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin: auto;
-}
-.kakaoLogin img{
+
+.oauth-login img{
     width: 50px;
     height: 50px;
     border-radius: 50%;

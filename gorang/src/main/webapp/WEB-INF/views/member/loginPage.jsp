@@ -8,10 +8,21 @@
             <meta charset="UTF-8">
             <title>Insert title here</title>
 
+             <!-- pretendard 폰트 -->
+            <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+            <!-- css -->
             <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
+            <link rel="stylesheet" href="${contextPath}/resources/css/default.css">
             <link rel="stylesheet" href="${contextPath }/resources/css/member/loginPage.css">
-            <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
-            
+            <!--js-->
+            <!-- jQuery library -->
+            <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+            <!-- Popper JS -->
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+            <!-- Latest compiled JavaScript -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
             <script src="${contextPath}/resources/js/member/loginPage.js"></script>
         </head>
 
@@ -43,27 +54,28 @@
                     <div class="find-IdPw-Regist">
                         <input type="button" name="findId" value="아이디 찾기">
                         <input type="button" name="findPw" value="비밀번호 찾기">
-                        <input type="button" name="register" value="회원가입" onclick="moveLocation('${pageContext.request.contextPath}/register.me')">
+                        <input type="button" name="register" value="회원가입" onclick="moveLocation('${contextPath}/register.me')">
                     </div>
+                    </form>
                     <hr>
                     <div class="apiLogin">
                         <div class="snsSpan"><span>SNS 계정으로 간편 로그인</span></div>
                         <div class="apiLogos">
-                            <div class="googleLogin">
-                                <button><img src="<%= request.getContextPath() %>/resources/images/google.png"
+                            <div class="oauth-login">
+                                <button id="google-login"><img src="${contextPath}/resources/images/google.png"
                                         alt=""></button>
                             </div>
-                            <div class="naverLogin">
-                                <button><img src="<%= request.getContextPath() %>/resources/images/naver.png"
+                            <div class="oauth-login">
+                                <button id="naver-login"><img src="${contextPath}/resources/images/naver.png"
                                         alt=""></button>
                             </div>
-                            <div class="kakaoLogin">
-                                <button><img src="<%= request.getContextPath() %>/resources/images/kakao.png"
+                            <div class="oauth-login">
+                                <button id="kakao-login"><img src="${contextPath}/resources/images/kakao.png"
                                         alt=""></button>
                             </div>
                         </div>
                     </div>
-                </form>
+                
             </div>
         </body>
 

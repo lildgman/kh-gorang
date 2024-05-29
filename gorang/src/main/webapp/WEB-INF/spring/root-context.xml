@@ -6,6 +6,33 @@
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+<<<<<<< HEAD
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+	 
+	 
+ <context:property-placeholder location="classpath:application.properties" file-encoding="UTF-8"/>
+ 
+  <!-- 커넥션풀을 쓸수있는 클래스 psql사용시 변경필요-->
+  <bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource" destroy-method="close">
+ 	<property name="driverClassName" value="${jdbc.driverClassName}"/>
+	<property name="url" value="${jdbc.url}"/>
+	<property name="username" value="${jdbc.username}"/>
+	<property name="password" value="${jdbc.password}"/>
+  </bean>
+	  
+  <bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
+  	<property name="configLocation" value="classpath:mybatis-config.xml"/>
+  	<property name="dataSource" ref="dataSource"/>
+  </bean>
+   
+  <bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession">
+   	<constructor-arg ref="sqlSessionFactory"/>
+  </bean>
+	
+	<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
+		<property name="maxUploadSize" value="100000000"/>
+		<property name="maxInMemorySize" value="100000000" />
+=======
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
@@ -13,6 +40,7 @@
 	<!-- 	TransactionManager  에러 처리-->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
+>>>>>>> 0676e682b32ace8ff1b3ecf1015f51481e1b527f
 	</bean>
 	
 	<!-- 커넥션풀을 쓸수있는 클래스 psql사용시 변경필요 -->
