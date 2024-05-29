@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common/header.css">
 
     <!--js-->
-<<<<<<< HEAD
 	<!-- jQuery library -->
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 	<!-- Popper JS -->
@@ -31,8 +30,6 @@
 	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 	crossorigin="anonymous"></script>
 
-=======
->>>>>>> 0676e682b32ace8ff1b3ecf1015f51481e1b527f
     <script src="${pageContext.request.contextPath}/resources/js/common/header.js"></script>
 
     <script type="text/javascript" charset="utf-8">

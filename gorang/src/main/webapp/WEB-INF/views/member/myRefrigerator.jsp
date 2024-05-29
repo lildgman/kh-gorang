@@ -10,8 +10,6 @@
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
     <link rel="stylesheet" href="${contextPath}/resources/css/member/myRefrigerator.css">
-    <!-- js -->
-    <script src="${contextPath}/resources/js/member/myPageRefrigerator.js"></script>
    
 </head>
 <body>
@@ -290,5 +288,7 @@
         </div>
     </div>
     <jsp:include page="../common/footer.jsp" />
+    <!-- js -->
+    <script src="${contextPath}/resources/js/member/myPageRefrigerator.js"></script>
 </body>
 </html>
