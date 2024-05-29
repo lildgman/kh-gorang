@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="productMapper">
+  	<!-- 상품 -->
+  	<resultMap type="Product" id="productResult">
+  		<result column="PRODUCT_NO" property="productNo"/>
+  		<result column="CATEGORY" property="category"/>
+  		<result column="PRODUCT_NAME" property="productName"/>
+  		<result column="PRODUCT_BRAND" property="productBrand"/>
+  		<result column="NORMAL_PRICE" property="normalPrice"/>
+  		<result column="SALE_PRICE" property="salePrice"/>
+  		<result column="DISCOUNT" property="discountPercent"/>
+  		<result column="MAIN_IMG" property="mainImg"/>
+  		<result column="DESCRIPTION" property="description"/>
+  		<result column="SHIPMENT_TYPE" property="shipmentType"/>
+  		<result column="SHIPMENT_TIME" property="shipmentTime"/>
+  		<result column="SHIPPING_PRICE" property="shippingPrice"/>
+  		<result column="STATUS" property="status"/>
+  	</resultMap>
+  	
+  	<!-- 소옵션 분류 -->
+  	<resultMap type="ProductDetailOption" id="productDetailOptionResult">
+  		<result column="OPTIONS_NAME_NO" property="detailOptionNo"/>
+  		<result column="OPTIONS_NAME" property="detailOptionName"/>
+  		<result column="OPTIONS_PRICE" property="detailOptionPrice"/>
+  		<result column="OPTIONS_STOCK" property="detailOptionQuantity"/>
+  		<result column="STATUS" property="status"/>
+  	</resultMap>
+  	
+  	<!-- 옵션 -->
+  	 <resultMap type="ProductOption" id="productOptionResult">
+  		<result column="OPTIONS_NAME_NO" property="optionNameNo"/>
+  		<result column="PRODUCT_NO" property="productNo"/>
+  		<result column="STATUS" property="status"/>
+  	</resultMap>
+  	
+
+  	<!-- 상품 추가 -->
+  	 <insert id="insertProduct" parameterType="Product">
+        INSERT INTO PRODUCT (
+            CATEGORY,
+            PRODUCT_NAME,
+            PRODUCT_BRAND,
+            NORMAL_PRICE,
+            SALE_PRICE,
+            DISCOUNT,
+            MAIN_IMG,
+            DESCRIPTION,
+            SHIPMENT_TYPE,
+            SHIPMENT_TIME,
+            SHIPPING_PRICE
+        ) VALUES (
+            #{category},
+            #{productName},
+            #{productBrand},
+            #{normalPrice},
+            #{salePrice},
+            #{discountPercent},
+            #{mainImg},
+            #{description},
+            #{shipmentType},
+            #{shipmentTime},
+            #{shippingPrice}
+        )
+    </insert>
+    
+    <!-- 상품 세부 옵션 등록 -->
+    <insert id="insertProductDetailOption" parameterType="ProductDetailOption">
+    	INSERT INTO OPTION_NAME(
+    		OPTIONS_NAME,
+    		OPTIONS_PRICE,
+    		OPTIONS_STOCK
+    	) VALUES (
+    		#{detailOptionName},
+    		#{detailOptionPrice},
+    		#{detailOptionQuantity}
+    	)
+    	
+    </insert>
+    
+    <!-- 가장 많이 팔린 상품 조회 -->
+    <select id="selectBestSellerList" resultMap="productResult">
+    	SELECT
+    		PRODUCT_NO,
+    		PRODUCT_NAME,
+    		PRODUCT_BRAND,
+    		NORMAL_PRICE,
+    		SALE_PRICE,
+    		DISCOUNT,
+    		MAIN_IMG
+    	FROM PRODUCT
+    	LIMIT 4
+    </select>
+    
+    <!-- 최근 입고된 상품 조회 -->
+    <select id="selectRecentProductList" resultMap="productResult">
+    	SELECT
+    		PRODUCT_NO,
+    		PRODUCT_NAME,
+    		PRODUCT_BRAND,
+    		NORMAL_PRICE,
+    		SALE_PRICE,
+    		DISCOUNT,
+    		MAIN_IMG
+    	FROM PRODUCT
+    	LIMIT 4
+    </select>
+  	
+	
+  	
+  </mapper>
