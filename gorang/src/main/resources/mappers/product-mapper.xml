@@ -141,6 +141,28 @@
     </select>
      -->
      
+     <!-- 상품 번호로 상품 조회 -->
+     <select id="selectProductByProductNo" resultMap="productResult">
+       SELECT 
+     		PRODUCT_NO,
+     		CATEGORY,
+     		PRODUCT_NAME,
+     		PRODUCT_BRAND,
+     		NORMAL_PRICE,
+     		SALE_PRICE,
+     		DISCOUNT,
+     		MAIN_IMG,
+     		DESCRIPTION,
+     		SHIPMENT_TYPE,
+     		SHIPMENT_TIME,
+     		SHIPPING_PRICE
+     	FROM PRODUCT
+     	WHERE 
+     		PRODUCT_NO = #{productNo} AND
+     		STATUS = 'Y'
+     </select>
+  
+     
      <select id="selectProductCount" resultType="_int">	
      	SELECT COUNT(*)
      	FROM (

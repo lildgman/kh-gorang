@@ -62,6 +62,11 @@ public class ProductServiceImpl implements ProductService{
 		return productDao.selectResultProductList(sqlSession, pi, map);
 	}
 
+	@Override
+	public Product selectProductByProductNo(int productNo) {
+		return productDao.selectProductByProductNo(sqlSession, productNo);
+	}
+
 	
 
 	

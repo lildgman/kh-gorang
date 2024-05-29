@@ -23,6 +23,9 @@ public interface ProductService {
 	// 상품 개수 조회
 	int selectProductCount(Map<String, String> map);
 	ArrayList<Product> selectResultProductList(PageInfo pi, Map<String, String> map);
+	
+	// 상품 번호로 상품 조회
+	Product selectProductByProductNo(int productNo);
 
 	
 

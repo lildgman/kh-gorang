@@ -1,16 +1,14 @@
 window.onload = function () {
 
 
+  //contextPath 담은 변수
+  const contextPath = getContextPath();
 
-  //페이지의 URL 에서 쿼리 파라미터 값 추출
+  const pno =  getParameterPno()
+  
+  productLoad({pno},(product)=>inputProductInfo(product, contextPath))
+  
 
-  function getParameterPno() {
-    let query = window.location.search;
-    let param = new URLSearchParams(query);
-    let pno = param.get('pno');
-    console.log(pno);
-    return pno;
-  }
 
   //찜버튼 눌렀을 때 발생하는 이벤트
   function clickZzim() {
@@ -157,6 +155,49 @@ window.onload = function () {
   displaySelectedImage();
 }
 
+// contextPath 저장
+function getContextPath() {
+  return sessionStorage.getItem("contextpath");
+}
+
+//페이지의 URL 에서 쿼리 파라미터 값 추출
+
+function getParameterPno() {
+  let query = window.location.search;
+  let param = new URLSearchParams(query);
+  let pno = param.get('pno');
+  console.log(pno);
+  return pno;
+}
+
+
+function productLoad(data, callback){
+  $.ajax({
+    url: "ajaxDetail.po",
+    data: data,
+    success: function(result){
+      callback(result);
+    },
+    error: function(){
+      console.log("불러오기 실패")
+    }
+  });
+}
+
+function inputProductInfo(product, contextPath){
+  console.log(product)
+
+  // 썸네일
+  document.querySelector("#product-img-container > img").src = contextPath + "/resources/uploadfile/productimg/" + product.mainImg;
+
+  //브랜드명
+  document.querySelector("#product_brand > span").innerHTML = product.productBrand;
+
+  
+
+  
+}
+
 // nav 눌렀을 때 발생하는 함수
 function scrollToDiv(div) {
   const divOffsetTop = document.querySelector(div).offsetTop;
@@ -175,38 +216,38 @@ function enrollQna() {
 }
 
 
-$(function(){
-  options("order.po", {productNo: '${product.productNo}'}, function(result){
-    drawOpt(result);
+// $(function(){
+//   options("order.po", {productNo: '${product.productNo}'}, function(result){
+//     drawOpt(result);
 
-  })
-})
+//   })
+// })
 
 
-function options(url, data, callback){
-  $.ajax({
-    url: url,
-    data: data,
-    success: function(result){
-      console.log(result);
-      callback(result);
-    },
-    error: function(){
-      console.log("옵션 불러오기 실패");
-    }
-  });
-}
+// function options(url, data, callback){
+//   $.ajax({
+//     url: url,
+//     data: data,
+//     success: function(result){
+//       console.log(result);
+//       callback(result);
+//     },
+//     error: function(){
+//       console.log("옵션 불러오기 실패");
+//     }
+//   });
+// }
 
-function drawOpt(result){
-  if(result.length === 0) return;
-  const pdOpt = document.querySelector("#product-opts");
+// function drawOpt(result){
+//   if(result.length === 0) return;
+//   const pdOpt = document.querySelector("#product-opts");
 
-  for(let el of result){
-    const pdOptDetail =  document.createElement("select");
-    pdOptDetail.setAttribute("class", "#product-opts");
+//   for(let el of result){
+//     const pdOptDetail =  document.createElement("select");
+//     pdOptDetail.setAttribute("class", "#product-opts");
 
-    pdOptDetail.innerHTML += `<options>` + el.detailOptionName + `<options>`;
+//     pdOptDetail.innerHTML += `<options>` + el.detailOptionName + `<options>`;
   
-    pdOpt.appendChild(pdOptDetail);
-  }
-}
+//     pdOpt.appendChild(pdOptDetail);
+//   }
+// }

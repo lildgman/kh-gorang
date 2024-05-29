@@ -46,7 +46,7 @@
 
             <div id="product-Information">
                 <div id="product_brand">
-                    성주
+                    <span>성주</span>
                 </div>
                 <div id="product_name_area">
                     <span id="product_name">성주 참외 꿀참외 1.5kg</span>

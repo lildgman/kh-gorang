@@ -60,6 +60,10 @@ public class ProductDao {
 		return (ArrayList)sqlSession.selectList("productMapper.selectResultProductList", map, rowBounds);
 	}
 
+	public Product selectProductByProductNo(SqlSessionTemplate sqlSession, int productNo) {
+		return sqlSession.selectOne("productMapper.selectProductByProductNo", productNo);
+	}
+
 
 	
 

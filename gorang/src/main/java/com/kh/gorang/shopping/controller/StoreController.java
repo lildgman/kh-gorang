@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -98,14 +99,14 @@ public class StoreController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "detailInfo.po", produces = "application/String; charset=utf-8")
-	public String productDetail(String pno) {
+	@GetMapping(value = "ajaxDetail.po", produces = "application/json; charset=utf-8")
+	public String productDetail(@RequestParam("pno") String pno) {
 		
 		int productNo = Integer.parseInt(pno);
 		
 		Product p = productService.selectProductByProductNo(productNo);
 		
-		return "shopping/productDetailForm";
+		return new Gson().toJson(p);
 	}
 	
 	@RequestMapping("cart")
