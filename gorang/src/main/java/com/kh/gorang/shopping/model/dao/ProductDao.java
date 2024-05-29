@@ -43,7 +43,7 @@ public class ProductDao {
 		return (ArrayList)sqlSession.selectList("productMapper.selectRecentProductList");
 	}
 
-	
+
 	public int selectProductCount(SqlSessionTemplate sqlSession, Map<String, String> map) {
 		return sqlSession.selectOne("productMapper.selectProductCount", map);
 	}
@@ -58,6 +58,10 @@ public class ProductDao {
 		log.info("pi={}",pi); 
 		
 		return (ArrayList)sqlSession.selectList("productMapper.selectResultProductList", map, rowBounds);
+	}
+
+	public Product selectProductByProductNo(SqlSessionTemplate sqlSession, int productNo) {
+		return sqlSession.selectOne("productMapper.selectProductByProductNo", productNo);
 	}
 
 

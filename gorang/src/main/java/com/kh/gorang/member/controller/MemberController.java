@@ -59,7 +59,6 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping("idCheck.me")
 	public String idCheck(String checkId) {
-		int result = memberService.idCheck(checkId);
 		return memberService.idCheck(checkId) > 0 ? "NNNNN" : "NNNNY";
 	}
 	
@@ -67,7 +66,6 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping("nameCheck.me")
 	public String nameCheck(String checkName) {
-		int result = memberService.nameCheck(checkName);
 		return memberService.nameCheck(checkName) > 0 ? "NNNNN" : "NNNNY";
 	}
 	
