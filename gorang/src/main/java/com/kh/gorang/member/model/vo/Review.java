@@ -24,4 +24,7 @@ public class Review {
 	private int refRecipeNo;
 	private int refProductNo;
 	private int refMemberNo;
+	private String writerNickname;
+	private String writerProfile;
+	
 }

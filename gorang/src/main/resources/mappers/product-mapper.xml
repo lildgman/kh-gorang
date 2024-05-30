@@ -317,15 +317,18 @@
     		rating,
     		review_photo,
     		review_type,
-    		member_no
-    	FROM REVIEW
+    		R.member_no,
+    		member_nickname as "writerNickname",
+    		member_profile as "writerProfile"
+    	FROM REVIEW R
+    	JOIN MEMBER USING (MEMBER_NO)
     	WHERE
     		product_no = #{productNo} and
     		status = 'Y'
     </select>
     
 
-  	
-	
-  	
+    
+
+  
   </mapper>

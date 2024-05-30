@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
 import com.kh.gorang.common.vo.PageInfo;
+import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.shopping.model.dao.ProductDao;
 import com.kh.gorang.shopping.model.vo.Product;
@@ -78,6 +79,8 @@ public class ProductServiceImpl implements ProductService{
 	public ArrayList<Review> selectProductReviewsByPno(int productNo) {
 		return productDao.selectProductReviewsByPno(sqlSession, productNo);
 	}
+
+
 
 
 
