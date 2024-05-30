@@ -81,11 +81,15 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 
+	@Override
+	public int selectAllProductQuantity() {
+		return productDao.selectAllProductQuanity(sqlSession);
+	}
 
 
-
-	
-
-	
+	@Override
+	public int selectSaleProductQuantity() {
+		return 0;
+	}
 
 }

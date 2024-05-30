@@ -37,7 +37,6 @@ public class ProductDao {
 		return sqlSession.insert("productMapper.insertOptions",map);
 	}
 
-
 	// 가장 많이 팔린 상품 4가지 조회
 	public ArrayList<Product> selectBestSellerList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("productMapper.selectBestSellerList");
@@ -58,9 +57,6 @@ public class ProductDao {
 		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
-		log.info("map={}",map);
-		log.info("pi={}",pi); 
-		
 		return (ArrayList)sqlSession.selectList("productMapper.selectResultProductList", map, rowBounds);
 	}
 
@@ -70,6 +66,11 @@ public class ProductDao {
 
 	public ArrayList<Review> selectProductReviewsByPno(SqlSessionTemplate sqlSession, int productNo) {
 		return (ArrayList)sqlSession.selectList("productMapper.selectProductReviewsByPno", productNo);
+	}
+
+	public int selectAllProductQuanity(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("productMapper.selectAllProductQuantity");
+		
 	}
 
 
