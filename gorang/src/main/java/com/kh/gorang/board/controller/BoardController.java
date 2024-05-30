@@ -37,7 +37,7 @@ public class BoardController {
 		}
 		else {
 			model.addAttribute("errorMsg", "게시글 작성 실패");
-			return "board/write.bo";
+			return "board/commonWrite";
 		}
 	}
 }

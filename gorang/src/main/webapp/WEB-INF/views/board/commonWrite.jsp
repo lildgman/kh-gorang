@@ -23,7 +23,10 @@
         </head>
 
         <body>
-            <form action="insert.bo" method="post" id="commonWrite-form" enctype="multipart/form-data">
+            <c:if test="${not empty errorMsg}">
+                <div class="error">${errorMsg}</div>
+            </c:if>
+            <form action="insert.bo" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="memberNo" value="${loginUser.memberNo}">
                 <main id="common-write">
                     <div id="write-top">
@@ -39,7 +42,7 @@
                     <div id="write-container">
                         <div id="writeTitleSection">
                             <div id="selectCategory">
-                                <select name="boardTag" id="boardTag" >
+                                <select name="boardTag" id="boardTag">
                                     <option selected disabled hidden>카테고리</option>
                                     <option value="#일상">#일상</option>
                                     <option value="#질문">#질문</option>
@@ -64,11 +67,12 @@
                                         비율)</span>
                                 </div>
                                 <div id="uploadThumbBtn">
-                                    <label className="boardThumbnail-button" for="boardThumbnail">
+                                    <label class="boardThumbnail-button" for="boardThumbnail">
                                         대표이미지 넣기
                                     </label>
                                     <input type="file" id="boardThumbnail" name="boardThumbnail"/>
                                 </div>
+                                
                             </div>
                         </div>
                         <textarea class="summernote" name="boardContent" id="boardContent"></textarea>

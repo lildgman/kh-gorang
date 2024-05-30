@@ -1,15 +1,20 @@
 package com.kh.gorang.shopping.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
 import com.kh.gorang.common.vo.PageInfo;
+import com.kh.gorang.member.model.vo.Member;
+import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.shopping.model.dao.ProductDao;
 import com.kh.gorang.shopping.model.vo.Product;
 import com.kh.gorang.shopping.model.vo.ProductDetailOption;
+import com.kh.gorang.shopping.model.vo.ProductInsertDTO;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,20 +28,23 @@ public class ProductServiceImpl implements ProductService{
 	private final SqlSessionTemplate sqlSession;
 	
 	@Override
-	public int insertProduct(Product product, ProductDetailOption productOption) {
+	public int insertProduct(ProductInsertDTO product) {
+
+		List<ProductDetailOption> detailOptions = product.getOptions();
+		List<Integer> optionNoList = new ArrayList<Integer>();		
 		
-		int insertProductResult =  productDao.insertProduct(sqlSession, product);
-		int insertProductDetailResult = 0;
-		if(insertProductResult > 0) {
-			insertProductDetailResult = productDao.insertProductDetailOption(sqlSession, productOption);			
+		int productNo = productDao.insertProduct(sqlSession, product);
+		
+		for(ProductDetailOption detailOption : detailOptions) {
+			int optionNo = productDao.insertDetailOptions(sqlSession, detailOption);
+			optionNoList.add(optionNo);
 		}
-		return insertProductResult*insertProductDetailResult;
-	}
-	
-	@Override
-	public int insertProduct(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return productDao.insertProduct(sqlSession, map);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("productNo",productNo);
+		map.put("optionNoList",optionNoList);
+		
+		return productDao.insertOptions(sqlSession, map);
 	}
 
 
@@ -66,6 +74,15 @@ public class ProductServiceImpl implements ProductService{
 	public Product selectProductByProductNo(int productNo) {
 		return productDao.selectProductByProductNo(sqlSession, productNo);
 	}
+
+	@Override
+	public ArrayList<Review> selectProductReviewsByPno(int productNo) {
+		return productDao.selectProductReviewsByPno(sqlSession, productNo);
+	}
+
+
+
+
 
 	
 

@@ -164,15 +164,15 @@
                 <!-- 상품 후기 -->
                 <div id="product_review_area">
                     <div class="description_title">상품 후기</div>
-                    <div id="product_review">
-                        <div id="review_writer_area">
-                            <div id="review_writer_pic_container">
-                                <img id="review_writer_pic" src="${contextPath }/resources/dummyImg/shopping/dog.jpeg"
+                    <div class="product_review">
+                        <div class="review_writer_area">
+                            <div class="review_writer_pic_container">
+                                <img class="review_writer_pic" src=""
                                     alt="">
                             </div>
-                            <div id="review_writer_id_rate">
-                                <div id="review_writer_id">user01</div>
-                                <div id="review_rate">
+                            <div class="review_writer_id_rate">
+                                <div class="review_writer_id">user01</div>
+                                <div class="review_rate">
                                     <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
                                     <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
                                     <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
@@ -181,13 +181,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="review_product_name">성주 참외 꿀참외 1.5kg</div>
-                        <div id="review_img_container">
+                        <div class="review_product_name">성주 참외 꿀참외 1.5kg</div>
+                        <div class="review_img_container">
                             <img class="review_img" src="${contextPath }/resources/dummyImg/shopping/dog.jpeg"></img>
                             <img class="review_img" src="${contextPath }/resources/dummyImg/shopping/dog.jpeg"></img>
                             <img class="review_img" src="${contextPath }/resources/dummyImg/shopping/dog.jpeg"></img>
                         </div>
-                        <div id="review_content">
+                        <div class="review_content">
                             <p>너무 신선하고 달아서 다음에도 구매하려구요 <br>
                                 짱짱굿!<br>
                                 ㅎㅎㅎ<br>

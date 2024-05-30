@@ -13,6 +13,7 @@
 	<!-- typeAlias: VO/DTO 클래스들의 풀클래스명을 단순한 클래스명(별칭)으로 사용하기 위한 별칭을 등록하는 영역 -->
 	<typeAliases>
 		<typeAlias type="com.kh.gorang.member.model.vo.Member" alias="Member" />
+		<typeAlias type="com.kh.gorang.member.model.vo.Review" alias="Review" />
  		<typeAlias type="com.kh.gorang.recipe.model.vo.Recipe" alias="Recipe" />
  		<typeAlias type="com.kh.gorang.recipe.model.vo.Division" alias="Division" />
  		<typeAlias type="com.kh.gorang.recipe.model.vo.IngredientsInfo" alias="IngredientsInfo" />
@@ -22,6 +23,7 @@
  		<typeAlias type="com.kh.gorang.shopping.model.vo.ProductDetailOption" alias="ProductDetailOption" />
  		<typeAlias type="com.kh.gorang.shopping.model.vo.ProductOption" alias="ProductOption" />
  		<typeAlias type="com.kh.gorang.board.model.vo.Board" alias="Board"/>
+ 		<typeAlias type="com.kh.gorang.shopping.model.vo.ProductInsertDTO" alias="ProductInsertDTO" />
 
 	</typeAliases>
 	
