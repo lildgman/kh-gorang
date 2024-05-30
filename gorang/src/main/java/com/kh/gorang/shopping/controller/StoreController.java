@@ -118,15 +118,6 @@ public class StoreController {
 		return new Gson().toJson(reviews);
 	}
 	
-	// ajax로 리뷰 작성자 가져오는 메소드
-	@ResponseBody
-	@GetMapping(value = "ajaxReviewMember.po", produces = "application/json; charset=utf-8")
-	public String ajaxSelectReviewWriter(@RequestParam("pno") String pno) {
-		int productNo = Integer.parseInt(pno);
-		ArrayList<Member> members = productService.selectMembersByReviewRefProductNo(productNo);
-		return new Gson().toJson(members);
-	}
-	
 	
 	
 	@RequestMapping("cart")

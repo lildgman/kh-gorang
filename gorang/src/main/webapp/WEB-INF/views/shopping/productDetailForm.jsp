@@ -167,7 +167,7 @@
                     <div class="product_review">
                         <div class="review_writer_area">
                             <div class="review_writer_pic_container">
-                                <img class="review_writer_pic" src="${contextPath }/resources/dummyImg/shopping/dog.jpeg"
+                                <img class="review_writer_pic" src=""
                                     alt="">
                             </div>
                             <div class="review_writer_id_rate">

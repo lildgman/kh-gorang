@@ -27,7 +27,7 @@ const contextPath = getContextPath();
 const pno =  getParameterPno()
 
 // 상품 썸네일 저장 위치
-const thumbnailLocation = contextPath + "/resources/uploadfile/productimg/";
+const thumbnailLocation = contextPath + "/resources/uploadfile/product/productimg/";
 // 프로필 사진 저장 위치
 const profileLocation = contextPath + "/resources/uploadfile/memberProfile/";
 
@@ -60,7 +60,7 @@ function ajaxGetProduct(data, callback){
   });
 }
 
-  //ajax 통신으로 pno 넘겨주고 평점 avg 산출
+  //ajax 통신으로 pno 넘겨주고 해당 상품 번호 참조하는 리뷰들 호출
   function ajaxGetProductReviews(data, callback){
   $.ajax({
     url: "ajaxReview.po",
@@ -75,21 +75,7 @@ function ajaxGetProduct(data, callback){
   });
 }
 
-  // ajax 통신으로 pno 넘겨주고 해당 상품에 리뷰 작성한 유저들 호출
-  function ajaxGetMembers(data, callback){
-    $.ajax({
-      url: "ajaxReviewMember.po",
-      data: data,
-      success: function(result){
-        console.log(result);
-        callback(result);
-      },
-      error: function(){
-        console.log("불러오기 실패");
-      }
-    })
-  }
-
+  // 리뷰 부분 구성하는 요소들 구축하는 메소드
   function putProductReviewList(reviews){
     
     
@@ -99,8 +85,6 @@ function ajaxGetProduct(data, callback){
     
     let ratingSum = 0;
 
-    // 해당 상품에 리뷰 작성한 모든 유저들 호출
-    ajaxGetMembers({pno}, (members)=>putMembersOnReview(members));
 
     for(let review of reviews){
 
@@ -121,9 +105,22 @@ function ajaxGetProduct(data, callback){
       const writerPic = document.createElement('img');
       writerPic.setAttribute("class", "review_writer_pic");
       writerPicContainer.appendChild(writerPic);
+      writerPic.src = profileLocation + review.writerProfile;
+      // 작성자 id, 평점 영역
+      const reviewWriterIdRate = document.createElement('div');
+      reviewWriterIdRate.setAttribute("class", "review_writer_id_rate");
+      reviewWriterArea.appendChild(reviewWriterIdRate);
+      // 작성자 아이디
+      const reviewWriterId = document.createElement('div');
+      reviewWriterId.setAttribute("class", "review_writer_id");
+      reviewWriterIdRate.appendChild(reviewWriterId);
+      reviewWriterId.innerHTML = review.writerNickname;
+      // 작성자 평점
+      
 
 
-      writerPic.src = profileLocation + product.mainImg;
+
+
 
     }
 
@@ -154,9 +151,6 @@ function inputProductInfo(product, thumbnailLocation){
   //상품명
   document.querySelector("#product_name").innerHTML = product.productName;
 
-  //리뷰 가져오기
-  ajaxGetProductReviews({pno}, (reviews)=>putProductReviewList(reviews))
-
   //가격
   document.querySelector("#product_origin_price").innerHTML = product.normalPrice;
 
@@ -165,6 +159,11 @@ function inputProductInfo(product, thumbnailLocation){
 
   //할인된 가격
   document.querySelector("#product_discounted_price").innerHTML = product.salePrice;
+
+  //리뷰 수, 리뷰 내용 가져오기
+  ajaxGetProductReviews({pno}, (reviews)=>putProductReviewList(reviews))
+
+  
 
 
   
