@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.kh.gorang.shopping.model.vo.Product;
-import com.kh.gorang.shopping.model.vo.ProductDetailOption;
+import com.kh.gorang.shopping.model.vo.ProductInsertDTO;
 import com.kh.gorang.shopping.service.ProductService;
 
 import lombok.RequiredArgsConstructor;
@@ -35,21 +34,16 @@ public class ManagerController {
 	@PostMapping("insert.po")
 	public String insertProduct(
 			MultipartFile upfile,
-			Product product, 
-			ProductDetailOption productOption,
+			ProductInsertDTO product,
 			HttpSession session,
 			Model model) {
-
+		
 		if(!upfile.getOriginalFilename().equals("")) {
 			String changeFileName = saveFile(upfile, session, "/productimg/");
 			product.setMainImg(changeFileName);
 		}
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("product", product);
-		map.put("productOption", productOption);
-		
-		int result = productService.insertProduct(map);
+	
+		int result = productService.insertProduct(product);
 
 		if(result > 0) {
 			session.setAttribute("alertMsg", "상품을 성공적으로 등록하였습니다.");
@@ -59,7 +53,6 @@ public class ManagerController {
 			session.setAttribute("alertMsg", "상품 등록을 실패하였습니다. 다시 등록해주세요.");
 			return "redirect:/enrollproduct.ma";
 		}
-		
 	}
 	
 	
