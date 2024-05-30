@@ -21,6 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.kh.gorang.common.template.Pagination;
 import com.kh.gorang.common.vo.PageInfo;
+import com.kh.gorang.member.model.vo.Member;
+import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.shopping.model.vo.Product;
 import com.kh.gorang.shopping.service.ProductService;
 
@@ -98,16 +100,34 @@ public class StoreController {
 		return "shopping/productDetailForm";
 	}
 	
+	// ajax 로 product 객체 가져오는 메소드
 	@ResponseBody
 	@GetMapping(value = "ajaxDetail.po", produces = "application/json; charset=utf-8")
-	public String productDetail(@RequestParam("pno") String pno) {
-		
+	public String ajaxSelectProduct(@RequestParam("pno") String pno) {
 		int productNo = Integer.parseInt(pno);
-		
 		Product p = productService.selectProductByProductNo(productNo);
-		
 		return new Gson().toJson(p);
 	}
+	
+	// ajax로 상품 리뷰 가져오는 메소드
+	@ResponseBody
+	@GetMapping(value = "ajaxReview.po", produces = "application/json; charset=utf-8")
+	public String ajaxSelectProductReviews(@RequestParam("pno") String pno) {
+		int productNo = Integer.parseInt(pno);
+		ArrayList<Review> reviews = productService.selectProductReviewsByPno(productNo);
+		return new Gson().toJson(reviews);
+	}
+	
+	// ajax로 리뷰 작성자 가져오는 메소드
+	@ResponseBody
+	@GetMapping(value = "ajaxReviewMember.po", produces = "application/json; charset=utf-8")
+	public String ajaxSelectReviewWriter(@RequestParam("pno") String pno) {
+		int productNo = Integer.parseInt(pno);
+		ArrayList<Member> members = productService.selectMembersByReviewRefProductNo(productNo);
+		return new Gson().toJson(members);
+	}
+	
+	
 	
 	@RequestMapping("cart")
 	public String productCartForm() {

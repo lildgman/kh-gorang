@@ -37,8 +37,21 @@
   		<result column="PRODUCT_NO" property="productNo"/>
   		<result column="STATUS" property="status"/>
   	</resultMap>
+	
+	<resultMap type="Review" id="reviewResult">
+		<result column="review_no" property="reviewNo"/>
+		<result column="review_content" property="reviewContent"/>
+		<result column="review_create_date" property="reviewCreateDate"/>
+		<result column="rating" property="rating"/>
+		<result column="review_photo" property="reviewPhoto"/>
+		<result column="review_type" property="reviewType"/>
+		<result column="status" property="status"/>
+		<result column="rcp_no" property="refRecipeNo"/>
+		<result column="product_no" property="refProductNo"/>
+		<result column="member_no" property="refMemberNo"/>
+	</resultMap>
 
-  	
+	
   	<!-- 상품 추가 -->
   	<!-- 
   	 <insert id="insertProduct" parameterType="Product">
@@ -295,6 +308,23 @@
 	   	</if>
      </select>
     
+    <!-- 상품 리뷰 조회 -->
+    <select id="selectProductReviewsByPno" resultMap="reviewResult">
+    	SELECT
+    		review_no,
+    		review_content,
+    		review_create_date,
+    		rating,
+    		review_photo,
+    		review_type,
+    		member_no
+    	FROM REVIEW
+    	WHERE
+    		product_no = #{productNo} and
+    		status = 'Y'
+    </select>
+    
+
   	
 	
   	

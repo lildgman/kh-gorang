@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.kh.gorang.common.vo.PageInfo;
+import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.shopping.model.vo.Product;
 import com.kh.gorang.shopping.model.vo.ProductDetailOption;
 import com.kh.gorang.shopping.model.vo.ProductInsertDTO;
@@ -25,6 +26,9 @@ public interface ProductService {
 	
 	// 상품 번호로 상품 조회
 	Product selectProductByProductNo(int productNo);
+	
+	// 상품 번호로 상품의 리뷰들 조회
+	ArrayList<Review> selectProductReviewsByPno(int productNo);
 
 	
 

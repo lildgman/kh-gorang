@@ -116,49 +116,51 @@ function deleteIngreBlock(element){
 }
 
 
-let igreInfoListIndex = 1; 
-function Inputs() {
-    const newBlock = document.createElement('div');
-    newBlock.className = 'recipe-smaill-block';
-    newBlock.innerHTML = `
-    <div class="location-btn"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Link.png" alt=""></div>
-    <div class="igre-name-block"><input name ="igreInfoList[${igreInfoListIndex}].ingreName" type="text" placeholder="재료명 예)돼지고기"></div>
-    <div class="igre-amount-block"><input name ="igreInfoList[${igreInfoListIndex}].ingreAmount" type="text" placeholder="수량"></div>
-    <div class="igre-unit-block"><input  name ="igreInfoList[${igreInfoListIndex}].ingreUnit" type="text" placeholder="단위"></div>
-    <div class="delete-btn"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" onclick="deleteSmaillBlock(this)"></div>
-    <button type="button">태그 +</button>`;
-    igreInfoListIndex++;
-    return newBlock;
-}
-
-// 기존 묶음 아래에 추가
-function addBundle(element) {
-    let cloneBlock = element.closest('.recipe-ingredient-info-bottom');
-    cloneBlock.querySelector('.add-igre-btn').insertAdjacentElement('beforebegin', Inputs());
-
-}
 
 
 // 기존 분류 추가
-let rcpDivListIndex=1;
+let rcpDivListIndex = 1;
+let igreInfoListIndex = 1;
+
+
+
 function addUnit(element) {
     let parentBlock = element.closest('#recipe-ingredient-info-area');
     let cloneBlock = parentBlock.querySelector("#recipe-ingredient-info-blocks").cloneNode(true);
     cloneBlock.querySelector('.recipe-ingredient-info-top').innerHTML = '';
-
     cloneBlock.querySelectorAll('.recipe-ingredient-info-bottom .recipe-smaill-block').forEach(child => {
         child.remove();
     });
-    cloneBlock.querySelector('.add-igre-btn').insertAdjacentElement('beforebegin', Inputs());
+    cloneBlock.querySelector('.add-igre-btn').addEventListener('click', addBundle); // 기존 묶음 아래에 추가할 수 있는 이벤트 리스너 추가
     cloneBlock.querySelector('.recipe-ingredient-info-top').innerHTML = `
-    <div class="location-btn"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Link.png" alt=""></div>
-    <div class="ingre-div-block" >
-        <input name="rcpDivList[${rcpDivListIndex}].divName" type="text" placeholder="분류 예)식재료">
-    </div>
-    <div class="delete-btn"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" onclick="deleteIngreBlock(this)"></div>`;
+        <div class="location-btn"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Link.png" alt=""></div>
+        <div class="ingre-div-block" >
+            <input name="rcpDivList[${rcpDivListIndex}].divName" type="text" placeholder="분류 예)식재료">
+        </div>
+        <div class="delete-btn"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" onclick="deleteIngreBlock(this)"></div>`;
     rcpDivListIndex++;
     parentBlock.querySelector('#add-div-btn').insertAdjacentElement('beforebegin', cloneBlock);
+}
 
+
+function addBundle(el) {
+    let cloneBlock = el.closest('.recipe-ingredient-info-bottom');
+    cloneBlock.querySelector('.add-igre-btn').insertAdjacentElement('beforebegin', Inputs(el));
+}
+
+function Inputs(el) {
+    const newBlock = document.createElement('div');
+    newBlock.className = 'recipe-smaill-block';
+    newBlock.id=`ingredients-${el.dataset.index}`;
+    newBlock.innerHTML = `
+        <div class="location-btn"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Link.png" alt=""></div>
+        <div class="igre-name-block"><input name="rcpDivList[${el.dataset.index}].ingredientsInfoList[${igreInfoListIndex}].ingreName" type="text" placeholder="재료명 예)돼지고기"></div>
+        <div class="igre-amount-block"><input name="rcpDivList[${el.dataset.index}].ingredientsInfoList[${igreInfoListIndex}].ingreAmount" type="text" placeholder="수량"></div>
+        <div class="igre-unit-block"><input name="rcpDivList[${el.dataset.index}].ingredientsInfoList[${igreInfoListIndex}].ingreUnit" type="text" placeholder="단위"></div>
+        <div class="delete-btn"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" onclick="deleteSmaillBlock(this)"></div>
+        <button type="button">태그 +</button>`;
+    igreInfoListIndex++;
+    return newBlock;
 }
 
 
