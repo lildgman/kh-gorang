@@ -1,10 +1,12 @@
 package com.kh.gorang.shopping.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
+import com.kh.gorang.common.vo.PageInfo;
 import com.kh.gorang.shopping.model.dao.ProductDao;
 import com.kh.gorang.shopping.model.vo.Product;
 import com.kh.gorang.shopping.model.vo.ProductDetailOption;
@@ -23,26 +25,50 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public int insertProduct(Product product, ProductDetailOption productOption) {
 		
-		int result =  productDao.insertProduct(sqlSession, product);
-		int result2 = 0;
-		if(result > 0) {
-			result2 = productDao.insertProductDetailOption(sqlSession, productOption);			
+		int insertProductResult =  productDao.insertProduct(sqlSession, product);
+		int insertProductDetailResult = 0;
+		if(insertProductResult > 0) {
+			insertProductDetailResult = productDao.insertProductDetailOption(sqlSession, productOption);			
 		}
-		return result*result2;
+		return insertProductResult*insertProductDetailResult;
 	}
+	
+	@Override
+	public int insertProduct(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return productDao.insertProduct(sqlSession, map);
+	}
+
 
 	@Override
 	public ArrayList<Product> selectBestSellerList() {
-//		ArrayList<Product> list = productDao.selectBestSellerList(sqlSession);
-//		log.info("list={}" ,list);
 		return productDao.selectBestSellerList(sqlSession);
 	}
 
 	@Override
 	public ArrayList<Product> selectRecentProductList() {
-//		ArrayList<Product> list = productDao.selectRecentProductList(sqlSession);
-//		log.info("list={}" ,list);
 		return productDao.selectRecentProductList(sqlSession);
 	}
+
+
+	@Override
+	public int selectProductCount(Map<String, String> map) {
+		return productDao.selectProductCount(sqlSession, map);
+	}
+
+	@Override
+	public ArrayList<Product> selectResultProductList(PageInfo pi, Map<String, String> map) {
+		log.info("----------------------------------------------------------}");
+		return productDao.selectResultProductList(sqlSession, pi, map);
+	}
+
+	@Override
+	public Product selectProductByProductNo(int productNo) {
+		return productDao.selectProductByProductNo(sqlSession, productNo);
+	}
+
+	
+
+	
 
 }

@@ -80,11 +80,12 @@ body{
     width: 700px;
     height: 405px;
     background-color: #E9F4FF;
-    padding: 113px 205px 113px 205px;
+    padding: 57.4px 205px 57.4px 205px;
 }
 #uploadThumbnailSection{
+    margin-top:30px;
     width: 290px;
-    height: 179px;
+    height: 209px;
     padding: 10px;
 }
 #uploadThumbnailSpan{

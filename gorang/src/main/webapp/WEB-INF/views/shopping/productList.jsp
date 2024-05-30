@@ -7,23 +7,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
-
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-
-    <!-- jQuery library -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
-
-    <!-- Popper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-
-    <!-- Latest compiled JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-
+    
     <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
 	<link rel="stylesheet" href="${contextPath }/resources/css/default.css">
     <link rel="stylesheet" href="${contextPath }/resources/css/shopping/storeList.css">
-    <script src="${contextPath }/resources/js/shopping/productList.js"></script>
 </head>
 
 <body>
@@ -59,7 +46,7 @@
                     <img class="category-image" src="${contextPath }/resources/dummyImg/shopping/fish.png" alt="어류">
                 </div>
                 <div class="category-name">
-                    육류
+                    어류
                 </div>
             </div>
 
@@ -68,7 +55,7 @@
                     <img class="category-image" src="${contextPath }/resources/dummyImg/shopping/meat.png" alt="육류">
                 </div>
                 <div class="category-name">
-                    어류
+                    육류
                 </div>
             </div>
 
@@ -106,9 +93,9 @@
             <!-- 정렬 방식 -->
             <div id="product-order-area">
                 <div id="product-order">
-                    <span class="sort" onclick="orderProductList('${contextPath }/list.st?sort=latest')">최신순</span> |
-                    <span class="sort" onclick="orderProductList('${contextPath }/list.st?sort=view')">조회수순</span> |
-                    <span class="sort" onclick="orderProductList('${contextPath }/list.st?sort=scrap')">스크랩순</span>
+                    <span class="sort" onclick="orderProductList('${contextPath }/list.po?sort=new')">최신순</span> |
+                    <span class="sort" onclick="orderProductList('${contextPath }/list.po?sort=view')">조회수순</span> |
+                    <span class="sort" onclick="orderProductList('${contextPath }/list.po?sort=scrap')">스크랩순</span>
                 </div>
             </div>
 
@@ -116,21 +103,21 @@
             <div id="product-list">
 
                 <!-- 상품 -->
-                <c:forEach var="a" begin="1" end="16">
-                	<div class="item" onclick="location.href='detail.po?pno=${a}'">
+                <c:forEach var="product" items="${list }">
+                	<div class="item" onclick="location.href='detail.po?pno=${product.productNo}'">
 	                    <div class="item-thumbnail-area">
-	                        <img class="item-thumbnail" src="${contextPath }/resources/dummyImg/shopping/item1.png" alt="상품1">
+	                        <img class="item-thumbnail" src="${contextPath }/resources/uploadfile/productimg/${product.mainImg }" alt="상품1">
 	                    </div>
 	                    <div class="item-text-area">
 	                        <div class="item-title">
-	                            <div class="item-brand">성주</div>
-	                            <div class="item-name">당도선별 성주 꿀참외 1.5kg(4~7개입)</div>
+	                            <div class="item-brand">${product.productBrand }</div>
+	                            <div class="item-name">${product.productName }</div>
 	                        </div>
 	                        <div class="item-price">
-	                            <div class="item-origin-price">50,000</div>
+	                            <div class="item-origin-price">${product.normalPrice }</div>
 	                            <div>
-	                                <span class="discount-percent">20%</span>
-	                                <span class="discounted-price">16,900</span>
+	                                <span class="discount-percent">${product.discountPercent }%</span>
+	                                <span class="discounted-price">${product.salePrice }</span>
 	                            </div>
 	                        </div>
 	                    </div>
@@ -143,18 +130,22 @@
 
         <div id="pagination-area">
             <div id="pagination">
-                <a href="#">&lt;</a>
-                <a href="#">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-                <a href="#">5</a>
-                <a href="#">6</a>
-                <a href="#">7</a>
-                <a href="#">8</a>
-                <a href="#">9</a>
-                <a href="#">10</a>
-                <a href="#">&gt;</a>
+            
+            	<c:choose>
+            		<c:when test="${pi.currentPage ne 1 }">
+            			<a href="list.po?cpage=${pi.currentPage -1 }">&lt;</a>
+            		</c:when>
+            	</c:choose>
+            	
+            	<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
+            		 <a href="list.po?cpage=${p}">${p}</a>
+            	</c:forEach>
+            	
+            	<c:choose>
+            		<c:when test="${(pi.currentPage ne pi.maxPage) or (pi.maxPage eq 0) }">
+            			<a href="list.po?cpage=${pi.currentPage +1 }">&gt;</a>
+            		</c:when>
+            	</c:choose>
             </div>
         </div>
     </div>
@@ -162,5 +153,7 @@
 
     <!-- 컨텐츠 끝 -->
     <jsp:include page="../common/footer.jsp" />
+    <script src="${contextPath }/resources/js/shopping/productList.js"></script>
+
 </body>
 </html>
