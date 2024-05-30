@@ -102,7 +102,7 @@
 				<!--제목부분-->
 				<div id="best-item-top" class="title-top">
 					<span class="items-title">가장 많이 판매되었어요</span>
-					<span class="more" onclick="location.href='list.po?sort=popular'">더보기</span>
+					<span class="more" onclick="location.href='list.po?sort=scrap'">더보기</span>
 				</div>
 
 				<!--가장 많이 판매된 상품 리스트-->

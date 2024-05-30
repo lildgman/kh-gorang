@@ -60,7 +60,7 @@
   	
   	
   	<!-- 레시피 게시글 추가 -->
-  	 <insert id="insertRecipe" parameterType="Recipe" useGeneratedKeys="true" keyProperty="recipeNo" >
+  	 <select id="insertRecipe" parameterType="Recipe" resultMap="recipeResult" >
 	  	INSERT INTO RECIPE (
 		        rcp_title,
 				rcp_content, 
@@ -83,14 +83,9 @@
 		        #{cookLevel},
 				#{memberNo}
 	    )
-	    RETURNING rcp_no
-	</insert>
+	     RETURNING *
+	</select>
     
-  	<!-- 레시피 마지막번호 추가 -->
-  	<insert id="getLastInsertedRecipeId" parameterType="Recipe">
-  		SELECT MAX(RCP_NO)
-  		FROM RECIPE
-  	</insert>  
   	
   	<!-- 레시피 재료분류 추가 -->
 	<insert id="insertRcpDiv" parameterType="Division">
@@ -99,7 +94,7 @@
 			RCP_NO
 		) VALUES(
 			#{division.divName},
-			#{rcpNo}
+			#{rcp_no}
 		) 			
 	</insert>
   	

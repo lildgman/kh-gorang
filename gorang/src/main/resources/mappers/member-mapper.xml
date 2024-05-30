@@ -25,7 +25,9 @@
   
   <!-- 로그인 쿼리문 -->
   <select id="loginMember" resultMap="memberResult">
-    SELECT MEMBER_EMAIL,
+    SELECT 
+    		MEMBER_NO,
+    	   MEMBER_EMAIL,
            MEMBER_PWD,
            MEMBER_NICKNAME,
            MEMBER_PHONE,
