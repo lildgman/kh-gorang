@@ -103,6 +103,7 @@
 		</select>
      --> 
      
+     <!-- 상품 추가 -->
      <select id="insertProduct" resultMap="productResult">
      	INSERT INTO PRODUCT (
      		PRODUCT_NO,
@@ -133,6 +134,7 @@
         ) RETURNING *
      </select>
      
+     <!-- 상세옵션 추가 -->
      <select id="insertDetailOption" resultMap="productDetailOptionResult">
      	INSERT INTO OPTION_NAME (
      		OPTIONS_NAME,
@@ -147,6 +149,7 @@
   		) RETURNING *
      </select>
      
+     <!-- 옵션 추가 -->
      <insert id="insertOptions">
      	INSERT INTO PRODUCT_OPTIONS (
      		PRODUCT_NO,
@@ -264,7 +267,7 @@
      </select>
      
      
-     
+     <!-- 조회결과 가져오기 -->
      <select id="selectResultProductList" resultMap="productResult">
      	SELECT 
      		PRODUCT_NO,
@@ -327,7 +330,11 @@
     		status = 'Y'
     </select>
     
-
+	<!-- 상품 전체 개수 조회 -->
+	<select id="selectAllProductQuantity" resultType="_int">
+		SELECT COUNT(*)
+		FROM PRODUCT
+	</select>
     
 
   

@@ -54,21 +54,6 @@
             
             <div id="right-title">상품 조회/수정</div>
 
-            <!-- 서치바 -->
-            <div class="searchbar-container">
-                <div class="searchbar">
-                    <div class="search-input-container">
-                        <div class="i-container">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </div>
-                        <input id="search-category-input" class="search-input" type="text" placeholder="상품명 입력">
-                    </div>
-                    <div class="search-btn-container">
-                        <button id="search-category-btn" class="search-btn" >검색</button>
-                    </div>
-                </div>
-            </div>
-
             <!-- 상품 상태 -->
             <div class="show-product-status-area">
                 <div class="product-status">
@@ -88,6 +73,23 @@
                     <div class="quantity-div">2</div>
                 </div>
             </div>
+
+            <!-- 서치바 -->
+            <div class="searchbar-container">
+                <div class="searchbar">
+                    <div class="search-input-container">
+                        <div class="i-container">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                        <input id="search-category-input" class="search-input" type="text" placeholder="상품명 입력">
+                    </div>
+                    <div class="search-btn-container">
+                        <button id="search-category-btn" class="search-btn" >검색</button>
+                    </div>
+                </div>
+            </div>
+
+            
 
             <!-- 상품 검색결과 -->
             <div class="search-product-result-table">
@@ -117,10 +119,7 @@
                                     상품명1
                                 </td>
                                 <td align="center">
-                                    <select name="" id="">
-                                        <option value="">판매중</option>
-                                        <option value="">일시품절</option>
-                                    </select>
+                                    판매중
                                 </td>
                                 <td align="center">
                                     9,000
@@ -136,7 +135,7 @@
                     </table> 
                 </div>
                 <div class="detail-search-btn-container">
-                    <button id="detail-search-btn" class="delete-btn">삭제하기</button>
+                    <button id="detail-search-btn" class="delete-btn">판매중지</button>
                     <button id="detail-search-btn" class="myBtn" onclick="searchProductOption()">상세조회</button>
                 </div>
             </div>

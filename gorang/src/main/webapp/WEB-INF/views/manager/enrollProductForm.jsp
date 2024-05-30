@@ -69,20 +69,38 @@
 
                 <div id="category-container" class="enroll-div-container">
                     <div class="container-title">
+                        <span>판매자명</span><span style="color: #d72020;">*</span>
+                    </div>
+                    <!-- searchbar -->
+                    <div class="searchbar-container">
+                        <div class="searchbar">
+                            <div class="search-input-container">
+                                <input id="search-category-input" class="search-input" type="text"
+                                    placeholder="판매자명 입력" name="seller" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="category-container" class="enroll-div-container">
+                    <div class="container-title">
                         <span>카테고리</span><span style="color: #d72020;">*</span>
                     </div>
                     <!-- searchbar -->
                     <div class="searchbar-container">
                         <div class="searchbar">
                             <div class="search-input-container">
-                                <div class="i-container">
-                                    <i class="fa-solid fa-magnifying-glass"></i>
-                                </div>
-                                <input id="search-category-input" class="search-input" type="text"
-                                    placeholder="카테고리명 입력" name="category" >
-                            </div>
-                            <div class="search-btn-container">
-                                <button id="search-category-btn" class="search-btn">검색</button>
+                                <!-- <input id="search-category-input" class="search-input" type="text"
+                                    placeholder="카테고리명 입력" name="category" required> -->
+                                <select name="category" id="category-select">
+                                    <option value="야채">야채</option>
+                                    <option value="과일">과일</option>
+                                    <option value="어류">어류</option>
+                                    <option value="육류">육류</option>
+                                    <option value="빵">빵</option>
+                                    <option value="면">면</option>
+                                    <option value="유제품">유제품</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -100,7 +118,7 @@
                             <div class="searchbar">
                                 <div class="search-input-container">
                                     <input id="search-product-name-input" class="search-input" type="text"
-                                        placeholder="상품명 입력(브랜드명 + 제품명)" name="productName" >
+                                        placeholder="상품명 입력(브랜드명 + 제품명)" name="productName" required>
                                 </div>
                                 <div class="search-btn-container">
                                     <button id="search-product-name-btn" class="search-btn">검색</button>
@@ -121,7 +139,7 @@
                                             <i class="fa-solid fa-magnifying-glass"></i>
                                         </div>
                                         <input id="search-brand-input" class="search-input" type="text"
-                                            placeholder="브랜드명 입력" name="productBrand" >
+                                            placeholder="브랜드명 입력" name="productBrand" required>
                                     </div>
                                     <div class="search-btn-container">
                                         <button id="search-brand-btn" class="search-btn">검색</button>
@@ -130,9 +148,9 @@
                             </div>
 
                             <!-- add-btn -->
-                            <div class="add-brand-btn-container">
+                            <!-- <div class="add-brand-btn-container">
                                 <button class="add-brand-btn">브랜드 추가</button>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -147,7 +165,7 @@
                             <div>정상가</div>
                             <div class="price-input-container">
                                 <input id="origin-price" class="price-input" type="text"
-                                    oninput="calculateDiscountPercent()" name="normalPrice" >원
+                                    oninput="calculateDiscountPercent()" name="normalPrice" required>원
                             </div>
                         </div>
 
@@ -155,13 +173,13 @@
                             <div>판매가</div>
                             <div class="price-input-container">
                                 <input id="saled-price" class="price-input" type="text"
-                                    oninput="calculateDiscountPercent()" name="salePrice" >원
+                                    oninput="calculateDiscountPercent()" name="salePrice" required>원
                             </div>
                         </div>
                         <div class="insert-product-price">
                             <div>할인율</div>
                             <div class="price-input-container">
-                                <input id="discount-percent" class="price-input" type="text" name="discountPercent">%
+                                <input id="discount-percent" class="price-input" type="text" name="discountPercent" required>%
                             </div>
                         </div>
                     </div>
@@ -234,7 +252,7 @@
                             <img src="${contextPath }/resources/dummyImg/manage/camera.png"  alt="">
                         </div>
                     </div>
-                    <input type="file" id="file-input" accept="image/*" name="upfile">
+                    <input type="file" id="file-input" accept="image/*" name="upfile" required>
                 </div>
 
                 <div class="enroll-div-container">
@@ -243,7 +261,7 @@
                     </div>
 
                     <div id="summernote-container">
-                        <textarea id="summernote" name="description"></textarea>
+                        <textarea id="summernote" name="description" required></textarea>
                     </div>
                 </div>
 
@@ -256,7 +274,7 @@
                         <div class="input-area">
                             <div class="shipping-method-title">배송방법</div>
                             <div>
-                                <select name="shipmentType" id="shipping-method" >
+                                <select name="shipmentType" id="shipping-method" required>
                                     <option value="일반">일반택배배송</option>
                                     <option value="특급">특급택배배송</option>
                                 </select>
@@ -265,13 +283,13 @@
                         <div class="input-area">
                             <div class="shipping-method-title">배송비</div>
                             <div>
-                                <input type="number" id="shippingPrice" name="shippingPrice">원
+                                <input type="number" id="shippingPrice" name="shippingPrice" required>원
                             </div>
                         </div>
                         <div class="input-area">
                             <div class="shipping-method-title">배송기간</div>
                             <div>
-                                <select name="shipmentTime" id="shipmentTime" >
+                                <select name="shipmentTime" id="shipmentTime" required>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
