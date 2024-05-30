@@ -1,6 +1,15 @@
 window.onload = function () {
 
-  function checkAll() {
+
+  checkAll();
+
+  updateQuantity();
+
+  updateTotalPrice();
+
+}
+
+ function checkAll() {
     let allCheckLabel = document.querySelector('#all-check-label');
     let allCheckbox = document.querySelector('#all-select-checkbox');
 
@@ -33,7 +42,7 @@ window.onload = function () {
     })
   }
 
-  function updateQuantity() {
+function updateQuantity() {
     const productPriceQuantityDivs = document.querySelectorAll(".product-quantity-price-container");
 
     productPriceQuantityDivs.forEach(function(productQuantity) {
@@ -73,18 +82,11 @@ window.onload = function () {
     })
   }
 
-  checkAll();
-  updateQuantity();
-  updateTotalPrice();
-}
-
 function updateTotalPrice() {
   updateTotalSaledPrice();
   updateTotalOriginPrice();
   updateTotalDiscountPrice();
 }
-
-
 
 function updateTotalSaledPrice() {
   const totalSaledPriceElement = document.querySelector("#cart-price-sum");
