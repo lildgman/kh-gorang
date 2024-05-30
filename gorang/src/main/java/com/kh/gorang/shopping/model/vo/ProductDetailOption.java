@@ -15,7 +15,8 @@ public class ProductDetailOption {
 	
 	private int detailOptionNo;
 	private String detailOptionName;
-	private int detailOptionPrice;
+	private int detailOptionOriginPrice;
+	private int detailOptionSaledPrice;
 	private int detailOptionQuantity;
 	private String status;
 }
