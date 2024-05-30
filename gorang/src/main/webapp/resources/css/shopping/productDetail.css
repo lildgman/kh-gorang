@@ -296,14 +296,14 @@
   font-weight: bold;
 }
 
-#product_review {
+.product_review {
   width: 100%;
   display: flex;
   flex-direction: column;
   border-bottom:1px solid #cececd ;
 }
 
-#review_writer_area{
+.review_writer_area{
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -312,27 +312,28 @@
   margin-bottom: 10px;
 }
 
-#review_writer_pic_container {
+.review_writer_pic_container {
   width: 60px;
   height: 60px;
 }
 
-#review_writer_id_rate{
+.review_writer_id_rate{
   display: flex;
   flex-direction: column;
 }
 
-#review_writer_pic{
+.review_writer_pic{
+  height: 100%;
   border-radius: 50%;
 }
 
-#review_product_name{
+.review_product_name{
   font-size: 16px;
   color: #999999;
   margin-bottom: 10px;
 }
 
-#review_img_container{
+.review_img_container{
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -346,7 +347,7 @@
   height: 100px;
 }
 
-#review_content{
+.review_content{
   font-size: 16px;
 }
 
