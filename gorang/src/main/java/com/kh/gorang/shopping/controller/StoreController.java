@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.kh.gorang.common.template.Pagination;
 import com.kh.gorang.common.vo.PageInfo;
-import com.kh.gorang.member.model.vo.Member;
+import com.kh.gorang.member.model.vo.QnA;
 import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.shopping.model.vo.Product;
 import com.kh.gorang.shopping.service.ProductService;
@@ -116,6 +116,15 @@ public class StoreController {
 		int productNo = Integer.parseInt(pno);
 		ArrayList<Review> reviews = productService.selectProductReviewsByPno(productNo);
 		return new Gson().toJson(reviews);
+	}
+	
+	//ajax로 상품 문의 가져오는 메소드
+	@ResponseBody
+	@GetMapping(value = "ajaxQnA.po", produces = "application/json; charset=utf-8")
+	public String ajaxSelectProductQnAs(@RequestParam("pno") String pno) {
+		int productNo = Integer.parseInt(pno);
+		ArrayList<QnA> qnas = productService.selectProductQnAsByPno(productNo);
+		return new Gson().toJson(qnas);
 	}
 	
 	

@@ -38,6 +38,7 @@
   		<result column="STATUS" property="status"/>
   	</resultMap>
 	
+	<!-- 리뷰 -->
 	<resultMap type="Review" id="reviewResult">
 		<result column="review_no" property="reviewNo"/>
 		<result column="review_content" property="reviewContent"/>
@@ -50,7 +51,21 @@
 		<result column="product_no" property="refProductNo"/>
 		<result column="member_no" property="refMemberNo"/>
 	</resultMap>
-
+	
+	<!-- 문의 -->
+	<resultMap type="QnA" id="qnaResult">
+		<result column="qna_no" property="qnaNo"/>
+		<result column="qna_content" property="qnaContent"/>
+		<result column="qna_create_date" property="qnaCreateDate"/>
+		<result column="qna_type" property="qnaType"/>
+		<result column="qna_photo" property="qnaPhoto"/>
+		<result column="status" property="status"/>
+		<result column="qna_no2" property="refQnaNo"/>
+		<result column="rcp_no" property="refRecipeNo"/>
+		<result column="product_no" property="refProductNo"/>
+		<result column="member_no" property="writerNo"/>
+	</resultMap>
+	
 	
   	<!-- 상품 추가 -->
   	<!-- 
@@ -325,6 +340,25 @@
     	WHERE
     		product_no = #{productNo} and
     		status = 'Y'
+    </select>
+    
+    <!-- 상품 문의 조회 -->
+    <select id="selectProductQnAsByPno" resultMap="qnaResult">
+    	select
+    		qna_no,
+    		qna_content,
+    		qna_create_date,
+    		qna_type,
+    		qna_photo,
+    		qna_no2,
+    		product_no,
+    		member_no,
+    		member_nickname as "writerNickname",
+    		member_profile as "writerProfile"
+    	FROM QNA
+ 		JOIN MEMBER USING (MEMBER_NO)
+ 		WHERE product_no = #{productNo} and
+ 			  status = 'Y'
     </select>
     
 

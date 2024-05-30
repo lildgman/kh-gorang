@@ -385,6 +385,7 @@
 
 #qna_content{
   width: 100%;
+  table-layout: fixed;
 }
 
 #qna_content tr {
@@ -400,11 +401,22 @@
 }
 
 .qna_title {
-  width: 350px;
+  width: 40%;
+  text-align: left;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: pointer;
 }
 
-.qna_writer, .qna_create_date, .qna_status {
-  width: 120px;
+.qna_writer{
+  width: 18%;
+} 
+.qna_create_date{
+  width: 12%;
+}
+.qna_status {
+  width: 10%;
 }
 
 .qna_answer{

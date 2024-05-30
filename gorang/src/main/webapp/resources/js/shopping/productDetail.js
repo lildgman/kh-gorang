@@ -75,9 +75,24 @@ function ajaxGetProduct(data, callback){
   });
 }
 
+function ajaxGetProductQnAs(data, callback){
+    $.ajax({
+      url: "ajaxQnA.po",
+      data: data,
+      success: function(result){
+        console.log(result);
+        callback(result);
+      },
+      error: function(){
+        console.log("불러오기 실패")
+      }
+    });
+  }
+
   // 리뷰 부분 구성하는 요소들 구축하는 메소드
+  // 리뷰를 위해서는 상품 번호를 바로 참조하는 것이 아니라 유저가 구매한 상품 옵션을 통해 상품 번호를 가져와야함
+  // 옵션명이 필요함!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   function putProductReviewList(reviews){
-    
     
     console.log(reviews.length);
 
@@ -116,26 +131,56 @@ function ajaxGetProduct(data, callback){
       reviewWriterIdRate.appendChild(reviewWriterId);
       reviewWriterId.innerHTML = review.writerNickname;
       // 작성자 평점
-      
+      const reviewRate = document.createElement('div');
+      reviewRate.setAttribute("class", "review_rate");
 
+      const reviewRateStar = document.createElement('i');
+      reviewRateStar.setAttribute("class", "fa-solid fa-star");
+      reviewRateStar.setAttribute("style", "color: #FFD43B;");
+      // 리뷰의 평점만큼 반복문 돌려서 별 모양 표시
+      for(let i = 0; i < review.rating; i++){
+        reviewRate.appendChild(reviewRateStar);
+      }
 
+      const reviewProductName = document.createElement('div');
+      reviewProductName.setAttribute("class", "review_product_name");
+      productReview.appendChild(reviewProductName);
+      // 유저가 구입한 상품의 옵션명을 가져와야함
+      reviewProductName.innerHTML;
 
-
-
+      const reviewContent = document.createElement('div');
+      reviewContent.setAttribute("class", "review_content");
     }
-
-  
     // 상품 평점 평균
     let ratingAvg = ratingSum / reviews.length;
     document.querySelector("#product_review_quantity").innerHTML = ratingAvg;
+  }
 
+  function putProductQnAList(qnas){
+    const qnaContentTbody = document.querySelector('#qna_content > tbody');
 
-    // 리뷰 객체들 반복문
-    // 각 리뷰
+    let qnaStatus = "답변대기";
 
-    //상품 평점 = 리뷰 객체들 반복문 -> 리뷰 평점 += -> 평점 sum / 리뷰들 length
-    //리뷰 
+    for(let qna of qnas){
+      if(qna.qnaType != 1){
+        continue;
+      }
+      const qnaContentTableTr = document.createElement('tr');
+      qnaContentTbody.appendChild(qnaContentTableTr);
+      qnaContentTableTr.innerHTML = `<td class="qna_title" style="text-align: left">${qna.qnaContent}</td>`
+      qnaContentTableTr.innerHTML += `<td class="qna_writer">${qna.writerNickname}</td>`
+      qnaContentTableTr.innerHTML += `<td class="qna_create_date">${qna.qnaCreateDate}</td>`
+      //Answer 이 있는지 확인
+      if(qna.refQnaNo != 0){
+        qnaStatus = "답변완료"
+      }
+      //만약 참조하는 refQnaNo가 있다면 답변완료
+      qnaContentTableTr.innerHTML += `<td class="qna_status">${qnaStatus}</td>`
+      //답변 여부 초기화
+      qnaStatus = "답변대기";
+    }
 
+    //페이지 처리
   }
 
 // ajaxGetProduct에서 가져온 product 객체 정보를 토대로 화면에 나타날 정보 입력하는 콜백 함수
@@ -160,10 +205,11 @@ function inputProductInfo(product, thumbnailLocation){
   //할인된 가격
   document.querySelector("#product_discounted_price").innerHTML = product.salePrice;
 
-  //리뷰 수, 리뷰 내용 가져오기
+  //리뷰 수, 리뷰 내용 가져오기 미완!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 결제 페이지 먼저 구축
   ajaxGetProductReviews({pno}, (reviews)=>putProductReviewList(reviews))
 
-  
+  //상품 문의 가져오기
+  ajaxGetProductQnAs({pno}, (qnas)=>putProductQnAList(qnas));
 
 
   
