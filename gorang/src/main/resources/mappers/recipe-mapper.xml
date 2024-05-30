@@ -88,14 +88,29 @@
     
   	
   	<!-- 레시피 재료분류 추가 -->
-	<insert id="insertRcpDiv" parameterType="Division">
+	<select id="insertDivision" parameterType="Division" resultMap="DivisionResult">
 		INSERT INTO DIVISION (
-			DIV_NAME,
-			RCP_NO
+			div_name,
+			rcp_no
 		) VALUES(
-			#{division.divName},
-			#{rcp_no}
-		) 			
-	</insert>
+			#{divName},
+			#{recipeNo}
+		) 	
+		RETURNING *		
+	</select>
   	
+  	<!-- 레시피 재료묶음 추가 -->
+  	<insert id="insertIngredientsInfo" parameterType="IngredientsInfo">
+  		INSERT INTO INGREDIENTS_INFO(
+  			ingre_name,
+  			ingre_amount,
+  			ingre_unit,
+  			div_no
+  		) VALUES(
+  			#{ingreName},
+  			#{ingreAmount},
+  			#{ingreUnit},
+  			#{divNo}
+  		)
+  	</insert>
   </mapper>
