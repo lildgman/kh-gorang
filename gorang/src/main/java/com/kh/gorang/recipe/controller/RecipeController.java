@@ -39,14 +39,10 @@ public class RecipeController {
 	}
 	
 	@RequestMapping("insert.re")
-	public String insertRecipe(Recipe rcp,RecipeInsertDTO recipeInsertDTO, Member m,
+	public String insertRecipe(Recipe rcp,RecipeInsertDTO recipeInsertDTO, 
 			MultipartFile upfile, HttpSession session, Model model){
-			
-		System.out.println(session.getAttribute("loginUser"));
-			System.out.println(m);
 			System.out.println("1."+rcp);
 			System.out.println("2."+recipeInsertDTO.getRcpDivList());
-			System.out.println("3."+recipeInsertDTO.getIgreInfoList());
 			
 			int result =recipeService.insertRecipeInsertDTO(rcp, recipeInsertDTO);
 
