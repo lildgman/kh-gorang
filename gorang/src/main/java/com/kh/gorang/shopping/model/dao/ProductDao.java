@@ -1,6 +1,7 @@
 package com.kh.gorang.shopping.model.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
@@ -12,6 +13,7 @@ import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.shopping.model.vo.Product;
 import com.kh.gorang.shopping.model.vo.ProductDetailOption;
+import com.kh.gorang.shopping.model.vo.ProductInsertDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,22 +21,22 @@ import lombok.extern.slf4j.Slf4j;
 @Repository
 public class ProductDao {
 
-	// 상품 등록
-	public int insertProduct(SqlSessionTemplate sqlSession, Product product) {
-		return sqlSession.insert("productMapper.insertProduct", product);
-		
+	public int insertProduct(SqlSessionTemplate sqlSession, ProductInsertDTO product) {
+		// TODO Auto-generated method stub
+
+		Product resultProduct = sqlSession.selectOne("productMapper.insertProduct",product);
+		return resultProduct.getProductNo();
 	}
 	
-	public int insertProduct(SqlSessionTemplate sqlSession, Map<String, Object> map) {
-		int res = sqlSession.selectOne("productMapper.insertProduct", map);
-		log.info("res : {}",res);
-		return res;
+	public int insertDetailOptions(SqlSessionTemplate sqlSession, ProductDetailOption detailOption) {
+		ProductDetailOption result = sqlSession.selectOne("productMapper.insertDetailOption",detailOption);
+		return result.getDetailOptionNo();
+	}
+	
+	public int insertOptions(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.insert("productMapper.insertOptions",map);
 	}
 
-	// 상품 옵션 등록
-	public int insertProductDetailOption(SqlSessionTemplate sqlSession, ProductDetailOption productOption) {
-		return sqlSession.insert("productMapper.insertProductDetailOption",productOption);
-	}
 
 	// 가장 많이 팔린 상품 4가지 조회
 	public ArrayList<Product> selectBestSellerList(SqlSessionTemplate sqlSession) {
@@ -72,6 +74,15 @@ public class ProductDao {
 
 
 
+
+
+	
+
+	
+
+	
+
+	
 
 
 	

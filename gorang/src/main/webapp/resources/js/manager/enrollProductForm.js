@@ -1,32 +1,6 @@
+let optionNo = 0;
+
 window.onload = function () {
-
-  function fileInputClick() {
-    const imgContainer = document.getElementById('input-img-container');
-    const fileInput = document.getElementById('file-input');
-
-    imgContainer.addEventListener('click', () => {
-      fileInput.click();
-    });
-  }
-
-  function displaySelectedImage() {
-    const fileInput = document.getElementById('file-input');
-    const mainImgContainer = document.getElementById('main-img-container');
-
-    fileInput.addEventListener('change', (event) => {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          mainImgContainer.innerHTML = `<img id="main-img" src="${e.target.result}" alt="Selected Image">`;
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-  }
-
-  fileInputClick();
-  displaySelectedImage();
 
   $('#summernote').summernote({
     width: 1000,
@@ -45,6 +19,34 @@ window.onload = function () {
       onImageUpload: uploadFiles
     }
   });
+
+  fileInputClick();
+  displaySelectedImage();
+}
+
+function fileInputClick() {
+  const imgContainer = document.getElementById('input-img-container');
+  const fileInput = document.getElementById('file-input');
+
+  imgContainer.addEventListener('click', () => {
+    fileInput.click();
+  });
+}
+
+function displaySelectedImage() {
+  const fileInput = document.getElementById('file-input');
+  const mainImgContainer = document.getElementById('main-img-container');
+
+  fileInput.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        mainImgContainer.innerHTML = `<img id="main-img" src="${e.target.result}" alt="Selected Image">`;
+      };
+      reader.readAsDataURL(file);
+    }
+  });
 }
 
 function addOption() {
@@ -55,24 +57,28 @@ function addOption() {
   newRow.innerHTML = `<tr class="option-tr">
                         <td align="center">
                             <input type="checkbox" name="" id="" class="deleteTrCheckBox">
-                        </td>
-                        <td align="center">
-                            <input type="checkbox" name="" id="">
-                        </td>
-                        <td align="center">
-                            <input type="text" id="">
-                        </td>
-                        <td align="center">
-                            <input type="number" class="txt-align-right" placeholder="개">
-                        </td>
-                        <td align="center">
-                            <input type="number" class="txt-align-right" placeholder="원">
-                        </td>
-                        <td align="center">
-                            <input type="number" class="txt-align-right" placeholder="원">
-                        </td>
+                          </td>
+                          <td align="center">
+                            <input type="checkbox" name="main-option" id="">
+                          </td>
+                          <td align="center">
+                            <input type="text" id="detailOptionName" name="options[${optionNo}].detailOptionName">
+                          </td>
+                          <td align="center">
+                            <input type="number" class="txt-align-right" placeholder="개"
+                                id="detailOptionQuantity" name="options[${optionNo}].detailOptionQuantity">
+                          </td>
+                          <td align="center">
+                            <input type="number" class="txt-align-right" placeholder="원"
+                                id="detailOptionOriginPrice" name="options[${optionNo}].detailOptionOriginPrice">
+                          </td>
+                          <td align="center">
+                            <input type="number" class="txt-align-right" placeholder="원"
+                                id="detailOptionSaledPrice" name="options[${optionNo}].detailOptionSaledPrice">
+                          </td>
                       </tr>`;
   optionTableTbody.appendChild(newRow);
+  optionNo++;
 }
 
 function deleteSelectedOption() {
@@ -127,5 +133,48 @@ function insertFileApi(data, callback) {
       console.log("파일업로드 api 요청 실패");
     }
   })
+}
+
+function enrollProduct() {
+  const category = document.querySelector('#search-category-input').value
+  const productName = document.querySelector('#search-product-name-input').value
+  const productBrand = document.querySelector('#search-brand-input').value
+  const normalPrice = document.querySelector('#origin-price').value
+  const salePrice = document.querySelector('#saled-price').value
+  const discountPercent = document.querySelector('#discount-percent').value
+
+  const detailOption = addProductDetailOptions();
+
+  const fileInput = document.querySelector('#file-input');
+  const fileData = fileInput.files[0];
+
+  console.log(fileInput.files[0]);
+
+  let productInfo = {};
+}
+
+function addProductDetailOptions() {
+  let productDetailOptions = [];
+
+  // 상품 옵션을 배열에 담는 함수
+  const optionTrElements = document.querySelectorAll('.option-tr');
+  optionTrElements.forEach(function (optionTrElement) {
+    const detailOptionName = optionTrElement.querySelector("#detailOptionName").value;
+    const detailOptionQuantity = optionTrElement.querySelector("#detailOptionQuantity").value;
+    const detailOptionOriginPrice = optionTrElement.querySelector("#detailOptionOriginPrice").value;
+    const detailOptionSaledPrice = optionTrElement.querySelector("#detailOptionSaledPrice").value;
+
+    let productDetailOption = {
+      detailOptionName: detailOptionName,
+      detailOptionQuantity: detailOptionQuantity,
+      detailOptionOriginPrice: detailOptionOriginPrice,
+      detailOptionSaledPrice: detailOptionSaledPrice
+    };
+
+    productDetailOptions.push(productDetailOption);
+  });
+
+  return productDetailOptions;
+
 }
 
