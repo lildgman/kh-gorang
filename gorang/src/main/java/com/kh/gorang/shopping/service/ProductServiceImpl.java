@@ -16,6 +16,7 @@ import com.kh.gorang.shopping.model.dao.ProductDao;
 import com.kh.gorang.shopping.model.vo.Product;
 import com.kh.gorang.shopping.model.vo.ProductDetailOption;
 import com.kh.gorang.shopping.model.vo.ProductInsertDTO;
+import com.kh.gorang.shopping.model.vo.ProductOption;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -98,6 +99,12 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public int selectSaleProductQuantity() {
 		return 0;
+	}
+
+
+	@Override
+	public ArrayList<ProductOption> selectProductOptsByPno(int productNo) {
+		return productDao.selectProductOptsByPno(sqlSession, productNo);
 	}
 
 }

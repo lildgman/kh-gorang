@@ -10,6 +10,7 @@ import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.shopping.model.vo.Product;
 import com.kh.gorang.shopping.model.vo.ProductDetailOption;
 import com.kh.gorang.shopping.model.vo.ProductInsertDTO;
+import com.kh.gorang.shopping.model.vo.ProductOption;
 
 public interface ProductService {
 
@@ -40,6 +41,9 @@ public interface ProductService {
 	int selectAllProductQuantity();
 
 	int selectSaleProductQuantity();
+	
+	//상품 옵션 조회
+	ArrayList<ProductOption> selectProductOptsByPno(int productNo);
 
 	
 

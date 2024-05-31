@@ -279,9 +279,8 @@
                                 <div id="qna_product_name_header">
                                     상품명
                                 </div>
-                                <div id="qna_product_name">
-                                    상품이름
-                                </div>
+                                <select name="pdoptName" id="qna_product_name">
+                                </select>
                             </div>
 
                             <div id="product_pic_container">

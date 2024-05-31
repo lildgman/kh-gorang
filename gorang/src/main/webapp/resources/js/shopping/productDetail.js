@@ -60,6 +60,8 @@ function ajaxGetProduct(data, callback){
   });
 }
 
+//=========================== review 관련 메소드 ========================================
+
   //ajax 통신으로 pno 넘겨주고 해당 상품 번호 참조하는 리뷰들 호출
   function ajaxGetProductReviews(data, callback){
   $.ajax({
@@ -75,24 +77,10 @@ function ajaxGetProduct(data, callback){
   });
 }
 
-function ajaxGetProductQnAs(data, callback){
-    $.ajax({
-      url: "ajaxQnA.po",
-      data: data,
-      success: function(result){
-        console.log(result);
-        callback(result);
-      },
-      error: function(){
-        console.log("불러오기 실패")
-      }
-    });
-  }
-
   // 리뷰 부분 구성하는 요소들 구축하는 메소드
   // 리뷰를 위해서는 상품 번호를 바로 참조하는 것이 아니라 유저가 구매한 상품 옵션을 통해 상품 번호를 가져와야함
   // 옵션명이 필요함!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  function putProductReviewList(reviews){
+function putProductReviewList(reviews){
     
     console.log(reviews.length);
 
@@ -154,34 +142,114 @@ function ajaxGetProductQnAs(data, callback){
     // 상품 평점 평균
     let ratingAvg = ratingSum / reviews.length;
     document.querySelector("#product_review_quantity").innerHTML = ratingAvg;
-  }
+}
 
-  function putProductQnAList(qnas){
+// ============================= QNA 관련 메소드 ====================================
+function ajaxGetProductQnAs(data, callback){
+    $.ajax({
+      url: "ajaxQnA.po",
+      data: data,
+      success: function(result){
+        callback(result);
+      },
+      error: function(){
+        console.log("불러오기 실패")
+      }
+    });
+}
+  // 문의 구축하는 메소드
+function putProductQnAList(qnas){
     const qnaContentTbody = document.querySelector('#qna_content > tbody');
 
     let qnaStatus = "답변대기";
 
     for(let qna of qnas){
-      if(qna.qnaType != 1){
+      // 답변글일 경우 노출안시킴
+      if(qna.qnaAnswerType === 2){
         continue;
       }
+      //tr 생성
       const qnaContentTableTr = document.createElement('tr');
+      qnaContentTableTr.setAttribute("class", "qna_content_tr")
       qnaContentTbody.appendChild(qnaContentTableTr);
-      qnaContentTableTr.innerHTML = `<td class="qna_title" style="text-align: left">${qna.qnaContent}</td>`
+      //qna 제목 td 생성
+      const qnaTitle = document.createElement('td');
+      qnaContentTableTr.appendChild(qnaTitle);
+      qnaTitle.setAttribute("class", "qna_title");
+      qnaTitle.innerHTML = qna.qnaContent;
+      //qna 작성자, 작성일 td 생성
       qnaContentTableTr.innerHTML += `<td class="qna_writer">${qna.writerNickname}</td>`
       qnaContentTableTr.innerHTML += `<td class="qna_create_date">${qna.qnaCreateDate}</td>`
-      //Answer 이 있는지 확인
-      if(qna.refQnaNo != 0){
+
+      if(qna.answerNo != 0){
         qnaStatus = "답변완료"
       }
-      //만약 참조하는 refQnaNo가 있다면 답변완료
-      qnaContentTableTr.innerHTML += `<td class="qna_status">${qnaStatus}</td>`
+       //답변 여부 보여주는 부분
+       qnaContentTableTr.innerHTML += `<td class="qna_status">${qnaStatus}</td>`
+
+      //qna
+      //qna 내용 생성
+      const qnaQuestionTr = document.createElement('tr');
+      qnaQuestionTr.setAttribute("class", "qna_content_tr_display_none");
+      qnaQuestionTr.setAttribute("style", "border: none");
+      qnaContentTbody.appendChild(qnaQuestionTr);
+      // 질문 상세
+      const qnaContentQuestionTd = document.createElement('td');
+      qnaQuestionTr.appendChild(qnaContentQuestionTd);
+      qnaContentQuestionTd.setAttribute("style", "text-align: left");
+      qnaContentQuestionTd.setAttribute("colspan", "4");
+      qnaContentQuestionTd.innerHTML = qna.qnaContent;
+
+      //만약 답변이 있다면 생성
+      if(qna.answerNo != 0){
+        // 답변 상세
+        const qnaContentAnswerTd = document.createElement('td');
+        qnaQuestionTr.appendChild(qnaContentAnswerTd);
+        qnaContentAnswerTd.setAttribute("style", "text-align: left");
+        qnaContentAnswerTd.setAttribute("colspan", "4");
+        qnaContentAnswerTd.innerHTML = `${qna.answerContent} <br> ${qna.answerCreateDate}`;
+      }
+    
       //답변 여부 초기화
       qnaStatus = "답변대기";
     }
 
-    //페이지 처리
-  }
+     // 이벤트 핸들러 등록
+  $(".qna_content_tr").click(function() {
+    // 현재 보이는 상세 내용 숨기기
+    $(".qna_content_tr_display").removeClass("qna_content_tr_display").addClass("qna_content_tr_display_none");
+
+    // 클릭된 요소의 다음 요소(상세 내용) 보이게 하기
+    $(this).next().removeClass("qna_content_tr_display_none").addClass("qna_content_tr_display");
+  });
+      //페이지 처리!!!!!!!!!!!!!!!!!!!!!!!
+}
+
+// 상품 옵션 가져오는 ajax
+function ajaxGetProductOpt(data, callback){
+  $.ajax({
+    url: "ajaxOpt.po",
+    data: data,
+    success: function(result){
+      console.log(result);
+      callback(result);
+    },
+    error: function(){
+      console.log("불러오기 실패")
+    }
+  });
+}
+
+
+ // 문의하기 모달창 구축하는 메소드
+function inquireQuestion(product){
+  // 상품명 div
+  const pnameForQna = document.querySelector("#qna_product_name");
+  // 상품 옵션 불러와서 넣기
+  
+
+}
+    
 
 // ajaxGetProduct에서 가져온 product 객체 정보를 토대로 화면에 나타날 정보 입력하는 콜백 함수
 function inputProductInfo(product, thumbnailLocation){
@@ -212,7 +280,6 @@ function inputProductInfo(product, thumbnailLocation){
   ajaxGetProductQnAs({pno}, (qnas)=>putProductQnAList(qnas));
 
 
-  
 }
 
 //찜버튼 눌렀을 때 발생하는 이벤트

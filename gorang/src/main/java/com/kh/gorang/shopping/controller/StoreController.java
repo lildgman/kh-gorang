@@ -24,6 +24,7 @@ import com.kh.gorang.common.vo.PageInfo;
 import com.kh.gorang.member.model.vo.QnA;
 import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.shopping.model.vo.Product;
+import com.kh.gorang.shopping.model.vo.ProductOption;
 import com.kh.gorang.shopping.service.ProductService;
 
 import lombok.RequiredArgsConstructor;
@@ -125,6 +126,15 @@ public class StoreController {
 		int productNo = Integer.parseInt(pno);
 		ArrayList<QnA> qnas = productService.selectProductQnAsByPno(productNo);
 		return new Gson().toJson(qnas);
+	}
+	
+	// ajax 로 상품 옵션 가져오는 메소드
+	@ResponseBody
+	@GetMapping(value = "ajaxOpt.po", produces = "application/json; charset=utf-8")
+	public String ajaxSelectProductOpts(@RequestParam("pno") String pno) {
+		int productNo = Integer.parseInt(pno);
+		ArrayList<ProductOption> opts = productService.selectProductOptsByPno(productNo);
+		return new Gson().toJson(opts);
 	}
 	
 	
