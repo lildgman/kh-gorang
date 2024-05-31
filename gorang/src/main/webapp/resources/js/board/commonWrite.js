@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const saveContentBtn = document.getElementById('saveContentBtn');
-    const enrollContentBtn = document.getElementById('enrollContentBtn');
+    // const enrollContentBtn = document.getElementById('enrollContentBtn'); // 수정: enrollContentBtn 변수 삭제
     const boardCategory = document.getElementById('boardCategory');
     const boardTitle = document.getElementById('boardTitle');
     const boardThumbnail = document.getElementById('boardThumbnail');
@@ -76,28 +76,34 @@ document.addEventListener('DOMContentLoaded', function() {
     // 페이지 로드 시 임시 저장된 데이터 불러오기
     loadTemporaryData();
 
-    // 썸네일 이미지를 표시하는 함수
-    function displayThumbnail(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                // 기존 하위 요소 제거
-                while (writeUploadThumbnail.firstChild) {
-                    writeUploadThumbnail.removeChild(writeUploadThumbnail.firstChild);
-                }
-                // 새로운 이미지 요소 생성 및 추가
-                const img = document.createElement('img');
-                img.src = e.target.result;
-                img.style.width = '100%';
-                img.style.height = 'auto';
-                img.style.objectFit = 'cover';
-                img.style.aspectRatio = '1 / 1';
-                // writeUploadThumbnail div를 이미지로 교체
-                writeUploadThumbnail.innerHTML = '';
-                writeUploadThumbnail.appendChild(img);
+   // 썸네일 이미지를 표시하는 함수
+function displayThumbnail(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            // 기존 하위 요소 제거
+            while (writeUploadThumbnail.firstChild) {
+                writeUploadThumbnail.removeChild(writeUploadThumbnail.firstChild);
             }
-            reader.readAsDataURL(file);
+            // 새로운 이미지 요소 생성 및 추가
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.style.width = '100%';
+            img.style.height = 'auto';
+            img.style.objectFit = 'cover';
+            img.style.aspectRatio = '1 / 1';
+            // writeUploadThumbnail div를 이미지로 교체
+            writeUploadThumbnail.innerHTML = '';
+            writeUploadThumbnail.appendChild(img);
         }
+        reader.readAsDataURL(file);
+        // 이미지를 업로드하는 경우 썸네일 값을 파일 이름으로 설정
+        boardThumbnail.value = file.name;
+    } else {
+        // 이미지를 선택하지 않은 경우 썸네일 값을 빈 문자열("")로 설정
+        boardThumbnail.value = '';
     }
+}
+
 });

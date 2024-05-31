@@ -23,7 +23,11 @@
         </head>
 
         <body>
-            <form action="${contextPath}/insert.bo" method="post">
+            <c:if test="${not empty errorMsg}">
+                <div class="error">${errorMsg}</div>
+            </c:if>
+            <form action="insert.bo" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="memberNo" value="${loginUser.memberNo}">
                 <main id="common-write">
                     <div id="write-top">
                         <div id="writeBtnSection">
@@ -38,7 +42,7 @@
                     <div id="write-container">
                         <div id="writeTitleSection">
                             <div id="selectCategory">
-                                <select name="boardCategory" id="boardCategory" >
+                                <select name="boardTag" id="boardTag">
                                     <option selected disabled hidden>카테고리</option>
                                     <option value="#일상">#일상</option>
                                     <option value="#질문">#질문</option>
@@ -48,7 +52,7 @@
                                 </select>
                             </div>
                             <div id="writeTitle">
-                                <input type="text" placeholder="제목을 입력해주세요." id="boardTitle">
+                                <input type="text" placeholder="제목을 입력해주세요." id="boardTitle" name="boardTitle">
                             </div>
                         </div>
                         <div id="writeUploadThumbnail">
@@ -63,14 +67,14 @@
                                         비율)</span>
                                 </div>
                                 <div id="uploadThumbBtn">
-                                    <label className="boardThumbnail-button" for="boardThumbnail">
+                                    <label class="boardThumbnail-button" for="file">
                                         대표이미지 넣기
                                     </label>
-                                    <input type="file" id="boardThumbnail"/>
+                                    <input type="file" id="file" accept="image/*" name="file">                                    
                                 </div>
                             </div>
                         </div>
-                        <textarea class="summernote" name="editordata" id="boardContent"></textarea>
+                        <textarea class="summernote" name="boardContent" id="boardContent"></textarea>
                     </div>
                 </main>
             </form>
