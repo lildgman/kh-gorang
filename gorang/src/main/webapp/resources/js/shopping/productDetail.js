@@ -60,6 +60,13 @@ function ajaxGetProduct(data, callback){
   });
 }
 
+// ========================== 구매 관련 메소드 =====================
+function putProductOptsForOrder(opts){
+  // 드롭다운으로 옵션 보여준 뒤
+  // 옵션 클릭 시 appendChild
+}
+
+
 //=========================== review 관련 메소드 ========================================
 
   //ajax 통신으로 pno 넘겨주고 해당 상품 번호 참조하는 리뷰들 호출
@@ -251,7 +258,6 @@ function ajaxGetProductOpts(data, callback){
   });
 }
 
-
  // 문의하기 모달창 구축하는 메소드
 function inquireQuestion(opts){
   console.log("test");
@@ -271,7 +277,8 @@ function inquireQuestion(opts){
      optnames.innerHTML = opt.detailOptionName;
   }
 }
-    
+
+
 
 // ajaxGetProduct에서 가져온 product 객체 정보를 토대로 화면에 나타날 정보 입력하는 콜백 함수
 function inputProductInfo(product, thumbnailLocation){
@@ -296,6 +303,7 @@ function inputProductInfo(product, thumbnailLocation){
   document.querySelector("#product_discounted_price").innerHTML = product.salePrice;
 
   // 상품 선택하기(미구현)
+  ajaxGetProductOpts({pno}, (opts)=>putProductOptsForOrder(opts));
 
   //리뷰 수, 리뷰 내용 가져오기 미완!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 결제 페이지 먼저 구축
   ajaxGetProductReviews({pno}, (reviews)=>putProductReviewList(reviews));
