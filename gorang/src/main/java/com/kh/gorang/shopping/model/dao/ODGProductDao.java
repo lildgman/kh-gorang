@@ -1,10 +1,12 @@
 package com.kh.gorang.shopping.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.gorang.shopping.model.vo.Product;
 import com.kh.gorang.shopping.model.vo.ProductDetailOption;
 import com.kh.gorang.shopping.model.vo.ProductInsertDTO;
 
@@ -39,6 +41,15 @@ public class ODGProductDao {
 	// 판매 중지된 상품개수 조회
 	public int selectSuspendedProductQuantity(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("odgProductMapper.selectSuspendedProductQuantity");
+	}
+
+	public ArrayList<Product> ajaxSearchProduct(SqlSessionTemplate sqlSession, String searchProductName) {
+		return (ArrayList)sqlSession.selectList("odgProductMapper.ajaxSearchProduct", searchProductName);
+	}
+
+	public ArrayList<ProductDetailOption> ajaxSearchProductOption(SqlSessionTemplate sqlSession, String productNo) {
+		return (ArrayList)sqlSession.selectList("odgProductMapper.ajaxSearchProductOption",productNo);
+		
 	}
 
 }
