@@ -38,6 +38,7 @@
 		<mapper resource="/mappers/recipe-mapper.xml" />
 
 		<mapper resource="/mappers/product-mapper.xml" />
+		<mapper resource="/mappers/enroll-product-mapper.xml" />
 
 	</mappers>
 </configuration>  

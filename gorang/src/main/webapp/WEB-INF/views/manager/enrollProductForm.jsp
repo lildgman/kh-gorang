@@ -179,7 +179,7 @@
                         <div class="insert-product-price">
                             <div>할인율</div>
                             <div class="price-input-container">
-                                <input id="discount-percent" class="price-input" type="text" name="discountPercent" required>%
+                                <input id="discount-percent" class="price-input" type="text" name="discountPercent" readonly>%
                             </div>
                         </div>
                     </div>

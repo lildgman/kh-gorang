@@ -33,32 +33,6 @@ public class ManagerController {
 		return "manager/enrollProductForm";
 	}
 	
-	@PostMapping("insert.po")
-	public String insertProduct(
-			MultipartFile upfile,
-			ProductInsertDTO product,
-			HttpSession session,
-			Model model) {
-		
-		if(!upfile.getOriginalFilename().equals("")) {
-			String changeFileName = saveFile(upfile, session, "/productimg/");
-			product.setMainImg(changeFileName);
-		}
-	
-		int result = productService.insertProduct(product);
-
-		if(result > 0) {
-			session.setAttribute("alertMsg", "상품을 성공적으로 등록하였습니다.");
-			return "redirect:/enrollproduct.ma";
-
-		} else {
-			session.setAttribute("alertMsg", "상품 등록을 실패하였습니다. 다시 등록해주세요.");
-			return "redirect:/enrollproduct.ma";
-		}
-	}
-	
-	
-	
 	@RequestMapping("updateproduct.ma")
 	public String managerProductUpdateForm() {
 		
