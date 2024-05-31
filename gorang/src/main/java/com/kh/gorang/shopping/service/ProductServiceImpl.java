@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.gorang.common.vo.PageInfo;
 import com.kh.gorang.member.model.vo.Member;
+import com.kh.gorang.member.model.vo.QnA;
 import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.shopping.model.dao.ProductDao;
 import com.kh.gorang.shopping.model.vo.Product;
@@ -82,9 +83,16 @@ public class ProductServiceImpl implements ProductService{
 
 
 	@Override
+	public ArrayList<QnA> selectProductQnAsByPno(int productNo) {
+		return productDao.selectProductQnAsByPno(sqlSession, productNo);
+	}
+
+
+
 	public int selectAllProductQuantity() {
 		return productDao.selectAllProductQuanity(sqlSession);
 	}
+
 
 
 	@Override

@@ -167,7 +167,7 @@
                     <div class="product_review">
                         <div class="review_writer_area">
                             <div class="review_writer_pic_container">
-                                <img class="review_writer_pic" src=""
+                                <img class="review_writer_pic" src="${contextPath }/resources/dummyImg/shopping/dog.jpeg"
                                     alt="">
                             </div>
                             <div class="review_writer_id_rate">
@@ -224,30 +224,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="qna_title" style="text-align: left;">유통기한은 어느정도 인가요?</td>
-                                <td class="qna_writer">작성자ID</td>
-                                <td class="qna_create_date">2024-04-21</td>
-                                <td class="qna_status">답변완료</td>
-                            </tr>
-                            <tr>
-                                <td id="qna_answer" colspan="4" style="text-align: left;">
-                                    <div id="qna_q">
-                                        <span class="span_q_a">Q</span><span>유통기한은 어느정도 인가요?</span>
-                                    </div>
-                                    <div id="qna_a">
-                                        <span class="span_q_a">A</span><span>정해진 소비기한은 없지만 2~3일 내로 섭취하는 것을
-                                            권장드립니다.</span>
-                                    </div>
-                                    <div id="qna_a_date">2024-04-22</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="qna_title" style="text-align: left;">유통기한은 어느정도 인가요?</td>
-                                <td class="qna_writer">작성자ID</td>
-                                <td class="qna_create_date">2024-04-21</td>
-                                <td class="qna_status">답변완료</td>
-                            </tr>
                         </tbody>
                     </table>
                     <div id="qna_pagination_area" style="margin-top: 10px;">
