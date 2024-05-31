@@ -393,7 +393,7 @@
   border-bottom: 1px solid #CECECD;
 }
 
-#qna_content td{
+#qna_content  td{
   text-align: center;
   padding-top: 16px;
   padding-bottom: 16px;
@@ -437,6 +437,15 @@
   margin-left: 50px;
   font-size: 14px;
   color: #cececd;
+}
+
+.qna_content_tr_display{
+  display: flex;
+  flex-direction: column;
+}
+
+.qna_content_tr_display_none{
+  display: none;
 }
 
 #modal-qna-content {
@@ -541,5 +550,4 @@
   height: 100%;
   overflow: hidden;
 }
-
 

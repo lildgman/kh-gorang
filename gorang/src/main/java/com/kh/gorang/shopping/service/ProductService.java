@@ -40,8 +40,10 @@ public interface ProductService {
 	int selectAllProductQuantity();
 
 	int selectSaleProductQuantity();
-
 	
-
-
+	//상품 옵션 조회
+	ArrayList<ProductDetailOption> selectProductOptsByPno(int productNo);
+	
+	//상품 문의 등록
+	int insertProductQna(QnA q);
 }

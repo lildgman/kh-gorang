@@ -9,7 +9,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
 import com.kh.gorang.common.vo.PageInfo;
-import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.QnA;
 import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.shopping.model.dao.ProductDao;
@@ -99,5 +98,20 @@ public class ProductServiceImpl implements ProductService{
 	public int selectSaleProductQuantity() {
 		return 0;
 	}
+
+
+	@Override
+	public ArrayList<ProductDetailOption> selectProductOptsByPno(int productNo) {
+		return productDao.selectProductOptsByPno(sqlSession, productNo);
+	}
+
+
+	@Override
+	public int insertProductQna(QnA q) {
+		return productDao.insertProductQna(sqlSession, q);
+	}
+
+	
+
 
 }

@@ -81,22 +81,12 @@ public class ProductDao {
 		
 	}
 
+	public ArrayList<ProductDetailOption> selectProductOptsByPno(SqlSessionTemplate sqlSession, int productNo) {
+		return (ArrayList)sqlSession.selectList("productMapper.selectProductOptsByPno", productNo);
+	}
 
 
-
-
-
-	
-
-	
-
-	
-
-	
-
-
-	
-
-	
-
+	public int insertProductQna(SqlSessionTemplate sqlSession, QnA q) {
+		return sqlSession.insert("productMapper.insertProductQna", q);
+	}
 }

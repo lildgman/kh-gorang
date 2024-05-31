@@ -24,6 +24,7 @@ import com.kh.gorang.common.vo.PageInfo;
 import com.kh.gorang.member.model.vo.QnA;
 import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.shopping.model.vo.Product;
+import com.kh.gorang.shopping.model.vo.ProductDetailOption;
 import com.kh.gorang.shopping.service.ProductService;
 
 import lombok.RequiredArgsConstructor;
@@ -127,6 +128,38 @@ public class StoreController {
 		return new Gson().toJson(qnas);
 	}
 	
+	// ajax 로 상품 옵션 가져오는 메소드
+	@ResponseBody
+	@GetMapping(value = "ajaxOpt.po", produces = "application/json; charset=utf-8")
+	public String ajaxSelectProductOpts(@RequestParam("pno") String pno) {
+		int productNo = Integer.parseInt(pno);
+		ArrayList<ProductDetailOption> opts = productService.selectProductOptsByPno(productNo);
+		return new Gson().toJson(opts);
+	}
+	
+	
+	@RequestMapping("insertQna.po")
+	public String insertProductQna(@RequestParam int writerNo, @RequestParam int refProductNo,
+								   @RequestParam int refPdoptNo, @RequestParam String qnaPhoto,
+								   @RequestParam String qnaContent, HttpSession session) {
+		QnA q = new QnA();
+		q.setQnaContent(qnaContent);
+		q.setQnaPhoto(qnaPhoto);
+		q.setWriterNo(writerNo);
+		q.setRefProductNo(refProductNo);
+		q.setRefPdoptNo(refPdoptNo);
+		
+		
+		int result = productService.insertProductQna(q);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "문의 등록 성공.");
+			return "redirect:/";
+		} else {
+			session.setAttribute("alertMsg", "문의 등록 실패");
+			return "redirect:/";
+		}
+	}
 	
 	
 	@RequestMapping("cart")
