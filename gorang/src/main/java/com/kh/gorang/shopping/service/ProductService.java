@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.kh.gorang.common.vo.PageInfo;
 import com.kh.gorang.member.model.vo.Member;
+import com.kh.gorang.member.model.vo.QnA;
 import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.shopping.model.vo.Product;
 import com.kh.gorang.shopping.model.vo.ProductDetailOption;
@@ -31,10 +32,15 @@ public interface ProductService {
 	// 상품 번호로 상품의 리뷰들 조회
 	ArrayList<Review> selectProductReviewsByPno(int productNo);
 
+
+	// 상품 번호로 상품 문의들 조회
+	ArrayList<QnA> selectProductQnAsByPno(int productNo);
+
 	// 상품 전체 조회
 	int selectAllProductQuantity();
 
 	int selectSaleProductQuantity();
+
 	
 
 
