@@ -289,3 +289,12 @@ input[type="number"]::-webkit-inner-spin-button {
   background-color: #1e90ff;
   color: white;
 }
+
+#category-select {
+  border-style: none;
+  width: 100%;
+}
+
+#category-select:focus {
+  outline: none;
+}

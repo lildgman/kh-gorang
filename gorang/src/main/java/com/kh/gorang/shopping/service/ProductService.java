@@ -30,6 +30,11 @@ public interface ProductService {
 	
 	// 상품 번호로 상품의 리뷰들 조회
 	ArrayList<Review> selectProductReviewsByPno(int productNo);
+
+	// 상품 전체 조회
+	int selectAllProductQuantity();
+
+	int selectSaleProductQuantity();
 	
 
 
