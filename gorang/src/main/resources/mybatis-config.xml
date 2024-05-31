@@ -22,7 +22,6 @@
  		<typeAlias type="com.kh.gorang.recipe.model.vo.CookTip" alias="CookTip" />
  		<typeAlias type="com.kh.gorang.shopping.model.vo.Product" alias="Product" />
  		<typeAlias type="com.kh.gorang.shopping.model.vo.ProductDetailOption" alias="ProductDetailOption" />
- 		<typeAlias type="com.kh.gorang.shopping.model.vo.ProductOption" alias="ProductOption" />
  		<typeAlias type="com.kh.gorang.shopping.model.vo.ProductInsertDTO" alias="ProductInsertDTO" />
 	</typeAliases>
 	

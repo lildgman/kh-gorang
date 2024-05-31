@@ -150,6 +150,7 @@ function ajaxGetProductQnAs(data, callback){
       url: "ajaxQnA.po",
       data: data,
       success: function(result){
+        console.log(result);
         callback(result);
       },
       error: function(){
@@ -159,6 +160,16 @@ function ajaxGetProductQnAs(data, callback){
 }
   // 문의 구축하는 메소드
 function putProductQnAList(qnas){
+
+  // 상품 문의 모달
+    // 문의하기 버튼
+    const qnaModalBtn = document.querySelector("#qna_top > button");
+    // 문의하기 버튼 클릭 시 상품 문의 모달 내용 채우는 메소드 발동
+    qnaModalBtn.addEventListener("click", function(){
+      ajaxGetProductOpts({pno},(opts)=>inquireQuestion(opts));
+    })
+
+  // 문의 내용
     const qnaContentTbody = document.querySelector('#qna_content > tbody');
 
     let qnaStatus = "답변대기";
@@ -226,7 +237,7 @@ function putProductQnAList(qnas){
 }
 
 // 상품 옵션 가져오는 ajax
-function ajaxGetProductOpt(data, callback){
+function ajaxGetProductOpts(data, callback){
   $.ajax({
     url: "ajaxOpt.po",
     data: data,
@@ -242,12 +253,23 @@ function ajaxGetProductOpt(data, callback){
 
 
  // 문의하기 모달창 구축하는 메소드
-function inquireQuestion(product){
-  // 상품명 div
-  const pnameForQna = document.querySelector("#qna_product_name");
-  // 상품 옵션 불러와서 넣기
+function inquireQuestion(opts){
+  console.log("test");
+  // 옵션명 보여줄 셀렉트
+  const inputForPno = document.createElement('input');
+  inputForPno.setAttribute("type", "hidden");
+  inputForPno.setAttribute("name", "refProductNo");
+  inputForPno.setAttribute("value", pno);
+  document.querySelector("#modal-qna-content").appendChild(inputForPno);
+  const optnameSelect = document.querySelector("#qna_product_name");
   
-
+  // 상품 옵션 불러와서 넣기
+  for(let opt of opts){
+     const optnames = document.createElement('option');
+     optnameSelect.appendChild(optnames);
+     optnames.setAttribute('value', opt.detailOptionNo);
+     optnames.innerHTML = opt.detailOptionName;
+  }
 }
     
 
@@ -273,11 +295,14 @@ function inputProductInfo(product, thumbnailLocation){
   //할인된 가격
   document.querySelector("#product_discounted_price").innerHTML = product.salePrice;
 
+  // 상품 선택하기(미구현)
+
   //리뷰 수, 리뷰 내용 가져오기 미완!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 결제 페이지 먼저 구축
-  ajaxGetProductReviews({pno}, (reviews)=>putProductReviewList(reviews))
+  ajaxGetProductReviews({pno}, (reviews)=>putProductReviewList(reviews));
 
   //상품 문의 가져오기
   ajaxGetProductQnAs({pno}, (qnas)=>putProductQnAList(qnas));
+
 
 
 }
@@ -427,11 +452,6 @@ function moveToPage(url) {
   window.location.href = url;
 }
 
-// 문의 작성 완료 버튼 클릭시 발생하는 함수
-function enrollQna() {
-  alert("성공적으로 문의를 작성하였습니다.");
-  location.reload();
-}
 
 
 // $(function(){

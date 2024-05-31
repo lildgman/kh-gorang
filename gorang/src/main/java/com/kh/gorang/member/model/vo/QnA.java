@@ -26,6 +26,7 @@ public class QnA {
 	private int refQnaNo;
 	private int refRecipeNo;
 	private int refProductNo;
+	private int refPdoptNo;
 	private int writerNo;
 	private String writerNickname;
 	private String writerProfile;

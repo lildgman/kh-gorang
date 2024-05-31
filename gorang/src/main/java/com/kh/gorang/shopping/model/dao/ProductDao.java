@@ -15,7 +15,6 @@ import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.shopping.model.vo.Product;
 import com.kh.gorang.shopping.model.vo.ProductDetailOption;
 import com.kh.gorang.shopping.model.vo.ProductInsertDTO;
-import com.kh.gorang.shopping.model.vo.ProductOption;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -82,26 +81,12 @@ public class ProductDao {
 		
 	}
 
-	public ArrayList<ProductOption> selectProductOptsByPno(SqlSessionTemplate sqlSession, int productNo) {
+	public ArrayList<ProductDetailOption> selectProductOptsByPno(SqlSessionTemplate sqlSession, int productNo) {
 		return (ArrayList)sqlSession.selectList("productMapper.selectProductOptsByPno", productNo);
 	}
 
 
-
-
-
-
-	
-
-	
-
-	
-
-	
-
-
-	
-
-	
-
+	public int insertProductQna(SqlSessionTemplate sqlSession, QnA q) {
+		return sqlSession.insert("productMapper.insertProductQna", q);
+	}
 }

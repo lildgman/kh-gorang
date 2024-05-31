@@ -63,6 +63,7 @@
   <!-- 회원가입 -->
   <insert id="insertMember">
     INSERT INTO MEMBER (
+       MEMBER_NO,
        MEMBER_EMAIL,
        MEMBER_PWD,
        MEMBER_NICKNAME,
@@ -72,6 +73,7 @@
        MEMBER_BIRTH
     )
     VALUES (
+       nextval('member_member_no_seq'),
        #{memberEmail},
        #{memberPwd},
        #{nickname},
