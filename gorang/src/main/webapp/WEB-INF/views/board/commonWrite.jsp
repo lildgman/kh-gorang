@@ -67,12 +67,11 @@
                                         비율)</span>
                                 </div>
                                 <div id="uploadThumbBtn">
-                                    <label class="boardThumbnail-button" for="boardThumbnail">
+                                    <label class="boardThumbnail-button" for="file">
                                         대표이미지 넣기
                                     </label>
-                                    <input type="file" id="boardThumbnail" name="boardThumbnail"/>
+                                    <input type="file" id="file"  accept="image/*" name="file"/>                                    
                                 </div>
-                                
                             </div>
                         </div>
                         <textarea class="summernote" name="boardContent" id="boardContent"></textarea>
