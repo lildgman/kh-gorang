@@ -6,11 +6,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.gorang.shopping.model.vo.ProductInsertDTO;
-import com.kh.gorang.shopping.service.EnrollProductService;
+import com.kh.gorang.shopping.service.ODGProductService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,9 +20,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-public class EnrollProductController {
+public class ODGProductController {
 	
-	private final EnrollProductService enrollProductService;
+	private final ODGProductService odgProductService;
 	
 	
 	@PostMapping("insert.po")
@@ -35,7 +37,7 @@ public class EnrollProductController {
 			productDTO.setMainImg(changeFileName);
 		}
 				
-		int result = enrollProductService.insertProduct(productDTO);
+		int result = odgProductService.insertProduct(productDTO);
 
 		if(result > 0) {
 			session.setAttribute("alertMsg", "상품을 성공적으로 등록하였습니다.");
@@ -45,6 +47,14 @@ public class EnrollProductController {
 			session.setAttribute("alertMsg", "상품 등록을 실패하였습니다. 다시 등록해주세요.");
 			return "redirect:/enrollproduct.ma";
 		}
+	}
+	
+	@GetMapping("search.po")
+	@ResponseBody
+	public String searchProduct(String searchProductName) {
+		log.info("searchProductName={}",searchProductName);
+		
+		return "ok";
 	}
 	
 
