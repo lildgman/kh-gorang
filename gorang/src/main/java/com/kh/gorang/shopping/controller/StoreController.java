@@ -44,8 +44,8 @@ public class StoreController {
 		
 		List<String> changeNameList = new ArrayList<String>();
 		for(MultipartFile mf : fileList) {
-			String changeName = saveFile(mf,session,"/productdescimg/");
-			changeNameList.add("/productdescimg/"+changeName);
+			String changeName = saveFile(mf,session,"/product/productdescimg/");
+			changeNameList.add("/product/productdescimg/"+changeName);
 		}
 		return new Gson().toJson(changeNameList);
 	}
