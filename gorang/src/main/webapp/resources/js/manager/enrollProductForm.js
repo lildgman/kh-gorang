@@ -62,19 +62,19 @@ function addOption() {
                             <input type="checkbox" name="main-option" id="">
                           </td>
                           <td align="center">
-                            <input type="text" id="detailOptionName" name="options[${optionNo}].detailOptionName">
+                            <input type="text" id="detailOptionName" name="options[${optionNo}].detailOptionName" required>
                           </td>
                           <td align="center">
                             <input type="number" class="txt-align-right" placeholder="개"
-                                id="detailOptionQuantity" name="options[${optionNo}].detailOptionQuantity">
+                                id="detailOptionQuantity" name="options[${optionNo}].detailOptionQuantity" required>
                           </td>
                           <td align="center">
                             <input type="number" class="txt-align-right" placeholder="원"
-                                id="detailOptionOriginPrice" name="options[${optionNo}].detailOptionOriginPrice">
+                                id="detailOptionOriginPrice" name="options[${optionNo}].detailOptionOriginPrice" required>
                           </td>
                           <td align="center">
                             <input type="number" class="txt-align-right" placeholder="원"
-                                id="detailOptionSaledPrice" name="options[${optionNo}].detailOptionSaledPrice">
+                                id="detailOptionSaledPrice" name="options[${optionNo}].detailOptionSaledPrice" required>
                           </td>
                       </tr>`;
   optionTableTbody.appendChild(newRow);

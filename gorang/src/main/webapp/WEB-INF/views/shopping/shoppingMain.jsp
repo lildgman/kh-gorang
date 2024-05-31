@@ -112,7 +112,7 @@
 					<c:forEach var="product" items="${bestSellerList }">
 						<div class="item" onclick="location.href='detail.po?pno=${product.productNo}'">
 							<div class="item-thumbnail-area">
-								<img class="item-thumbnail" src="${contextPath }/resources/uploadfile/productimg/${product.mainImg}" alt="상품1">
+								<img class="item-thumbnail" src="${contextPath }/resources/uploadfile/product/productimg/${product.mainImg}" alt="상품1">
 							</div>
 							<div class="item-text-area">
 								<div class="item-title">
@@ -151,7 +151,7 @@
 					<c:forEach var="product" items="${recentProductList }">
 						<div class="item" onclick="location.href='detail.po?pno=${product.productNo}'">
 							<div class="item-thumbnail-area">
-								<img class="item-thumbnail" src="${contextPath }/resources/uploadfile/productimg/${product.mainImg}" alt="상품1">
+								<img class="item-thumbnail" src="${contextPath }/resources/uploadfile/product/productimg/${product.mainImg}" alt="상품1">
 							</div>
 							<div class="item-text-area">
 								<div class="item-title">
