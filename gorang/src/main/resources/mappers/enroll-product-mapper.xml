@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="enrollProductMapper">
+  	<!-- 상품 -->
+  	<resultMap type="Product" id="productResult">
+  		<result column="PRODUCT_NO" property="productNo"/>
+  		<result column="SELLER" property="seller"/>
+  		<result column="CATEGORY" property="category"/>
+  		<result column="PRODUCT_NAME" property="productName"/>
+  		<result column="PRODUCT_BRAND" property="productBrand"/>
+  		<result column="NORMAL_PRICE" property="normalPrice"/>
+  		<result column="SALE_PRICE" property="salePrice"/>
+  		<result column="DISCOUNT" property="discountPercent"/>
+  		<result column="MAIN_IMG" property="mainImg"/>
+  		<result column="DESCRIPTION" property="description"/>
+  		<result column="SHIPMENT_TYPE" property="shipmentType"/>
+  		<result column="SHIPMENT_TIME" property="shipmentTime"/>
+  		<result column="SHIPPING_PRICE" property="shippingPrice"/>
+  		<result column="STATUS" property="status"/>
+  	</resultMap>
+  	
+  	<!-- 소옵션 분류 -->
+  	<resultMap type="ProductDetailOption" id="productDetailOptionResult">
+  		<result column="OPTIONS_NAME_NO" property="detailOptionNo"/>
+  		<result column="OPTIONS_NAME" property="detailOptionName"/>
+  		<result column="MAIN_OPTION" property="mainDetailOption"/>
+  		<result column="OPTIONS_NORMAL_PRICE" property="detailOptionOriginPrice"/>
+  		<result column="OPTIONS_SALE_PRICE" property="detailOptionSaledPrice"/>
+  		<result column="OPTIONS_STOCK" property="detailOptionQuantity"/>
+  		<result column="STATUS" property="status"/>
+  	</resultMap>
+     
+     <!-- 상품 추가 -->
+     <insert id="insertProduct" parameterType="Product">
+     	INSERT INTO PRODUCT (
+     		SELLER,
+            CATEGORY,
+            PRODUCT_NAME,
+            PRODUCT_BRAND,
+            NORMAL_PRICE,
+            SALE_PRICE,
+            DISCOUNT,
+            MAIN_IMG,
+            DESCRIPTION,
+            SHIPMENT_TYPE,
+            SHIPMENT_TIME,
+            SHIPPING_PRICE
+        ) VALUES (
+        	#{seller},
+            #{category},
+            #{productName},
+            #{productBrand},
+            #{normalPrice},
+            #{salePrice},
+            #{discountPercent},
+            #{mainImg},
+            #{description},
+            #{shipmentType},
+            #{shipmentTime},
+            #{shippingPrice}
+        ) 
+     </insert>
+     
+     <insert id="insertProductOptions" parameterType="java.util.List">
+     	INSERT INTO OPTION_NAME (
+     		OPTIONS_NAME,
+     		MAIN_OPTION,
+     		OPTIONS_NORMAL_PRICE,
+     		OPTIONS_SALE_PRICE,
+     		OPTIONS_STOCK,
+     		PRODUCT_NO
+     	) VALUES 
+     	<foreach collection="list" item="option" separator=",">
+     		(
+     			#{option.detailOptionName},
+     			#{option.mainDetailOption},
+     			#{option.detailOptionOriginPrice},
+     			#{option.detailOptionSaledPrice},
+     			#{option.detailOptionQuantity},
+     			currval('product_product_no_seq')
+     		)
+     	</foreach>
+     </insert>
+     
+     <!-- 상세옵션 추가 -->
+     <select id="insertDetailOption" resultMap="productDetailOptionResult">
+     	INSERT INTO OPTION_NAME (
+     		OPTIONS_NAME,
+     		OPTIONS_NORMAL_PRICE,
+     		OPTIONS_SALE_PRICE,
+     		OPTIONS_STOCK
+     	) VALUES (
+			#{detailOptionName},
+			#{detailOptionOriginPrice},
+			#{detailOptionSaledPrice},
+			#{detailOptionQuantity}
+  		) RETURNING *
+     </select>
+        
+    <!-- 가장 많이 팔린 상품 조회 -->
+    <select id="selectBestSellerList" resultMap="productResult">
+    	SELECT
+    		PRODUCT_NO,
+    		PRODUCT_NAME,
+    		PRODUCT_BRAND,
+    		NORMAL_PRICE,
+    		SALE_PRICE,
+    		DISCOUNT,
+    		MAIN_IMG
+    	FROM PRODUCT
+    	WHERE STATUS = 'Y'
+    	ORDER BY SCRAP_COUNT DESC
+    	LIMIT 4
+    </select>
+    
+    <!-- 최근 입고된 상품 조회 -->
+    <select id="selectRecentProductList" resultMap="productResult">
+    	SELECT
+    		PRODUCT_NO,
+    		PRODUCT_NAME,
+    		PRODUCT_BRAND,
+    		NORMAL_PRICE,
+    		SALE_PRICE,
+    		DISCOUNT,
+    		MAIN_IMG
+    	FROM PRODUCT
+    	WHERE STATUS = 'Y'
+    	ORDER BY PRODUCT_DATE DESC
+    	LIMIT 4
+    </select>
+    
+    <!-- 
+    <select id="selectProductCount" resultType="_int">
+    	SELECT COUNT(*)
+    	FROM PRODUCT
+    	WHERE STATUS = 'Y'
+    </select>
+     -->
+     
+     <!-- 상품 번호로 상품 조회 -->
+     <select id="selectProductByProductNo" resultMap="productResult">
+       SELECT 
+     		PRODUCT_NO,
+     		CATEGORY,
+     		PRODUCT_NAME,
+     		PRODUCT_BRAND,
+     		NORMAL_PRICE,
+     		SALE_PRICE,
+     		DISCOUNT,
+     		MAIN_IMG,
+     		DESCRIPTION,
+     		SHIPMENT_TYPE,
+     		SHIPMENT_TIME,
+     		SHIPPING_PRICE
+     	FROM PRODUCT
+     	WHERE 
+     		PRODUCT_NO = #{productNo} AND
+     		STATUS = 'Y'
+     </select>
+  
+     
+     <select id="selectProductCount" resultType="_int">	
+     	SELECT COUNT(*)
+     	FROM (
+     		SELECT *
+	    	FROM PRODUCT
+	    	WHERE STATUS = 'Y'
+	    		<if test='category == "야채"'>
+	    			AND CATEGORY LIKE '야채'
+	    		</if>
+	    		<if test='category == "과일"'>
+	    			AND CATEGORY LIKE '과일'
+	    		</if>
+	    		<if test='category == "어류"'>
+	    			AND CATEGORY LIKE '어류'
+	    		</if>
+	    		<if test='category == "육류"'>
+	    			AND CATEGORY LIKE '육류'
+	    		</if>
+	    		<if test='category == "빵"'>
+	    			AND CATEGORY LIKE '빵'
+	    		</if>
+	    		<if test='category == "면"'>
+	    			AND CATEGORY LIKE '면'
+	    		</if>
+	    		<if test='category == "유제품"'>
+	    			AND CATEGORY LIKE '유제품'
+	    		</if>
+	    	<if test='sort == "new"'>
+	    		ORDER BY PRODUCT_DATE
+	    	</if>
+	    	<if test='sort == "view"'>
+	    		ORDER BY PRODUCT_VIEW
+	    	</if>
+	    	<if test='sort == "scrap"'>
+	    		ORDER BY SCRAP_COUNT
+	    	</if>
+     	)
+     </select>
+     
+     
+     <!-- 조회결과 가져오기 -->
+     <select id="selectResultProductList" resultMap="productResult">
+     	SELECT 
+     		PRODUCT_NO,
+     		PRODUCT_NAME,
+     		PRODUCT_BRAND,
+     		NORMAL_PRICE,
+     		SALE_PRICE,
+     		DISCOUNT,
+     		MAIN_IMG
+     	FROM PRODUCT
+     	WHERE STATUS = 'Y' 
+	     	<if test='category == "야채"'>
+	   			AND CATEGORY LIKE '야채'
+	   		</if>
+	   		<if test='category == "과일"'>
+	   			AND CATEGORY LIKE '과일'
+	   		</if>
+	   		<if test='category == "어류"'>
+	   			AND CATEGORY LIKE '어류'
+	   		</if>
+	   		<if test='category == "육류"'>
+	   			AND CATEGORY LIKE '육류'
+	   		</if>
+	   		<if test='category == "빵"'>
+	   			AND CATEGORY LIKE '빵'
+	   		</if>
+	   		<if test='category == "면"'>
+	   			AND CATEGORY LIKE '면'
+	   		</if>
+	   		<if test='category == "유제품"'>
+	   			AND CATEGORY LIKE '유제품'
+	   		</if>
+	   	<if test='sort == "new"'>
+	   		ORDER BY PRODUCT_DATE
+	   	</if>
+	   	<if test='sort == "view"'>
+	   		ORDER BY PRODUCT_VIEW
+	   	</if>
+	   	<if test='sort == "scrap"'>
+	   		ORDER BY SCRAP_COUNT
+	   	</if>
+     </select>
+
+	<!-- 상품 전체 개수 조회 -->
+	<select id="selectAllProductQuantity" resultType="_int">
+		SELECT COUNT(*)
+		FROM PRODUCT
+	</select>
+
+    
+
+  
+  </mapper>
