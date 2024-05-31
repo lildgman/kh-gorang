@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-  <mapper namespace="enrollProductMapper">
+  <mapper namespace="odgProductMapper">
   	<!-- 상품 -->
   	<resultMap type="Product" id="productResult">
   		<result column="PRODUCT_NO" property="productNo"/>
@@ -30,6 +30,7 @@
   		<result column="OPTIONS_NORMAL_PRICE" property="detailOptionOriginPrice"/>
   		<result column="OPTIONS_SALE_PRICE" property="detailOptionSaledPrice"/>
   		<result column="OPTIONS_STOCK" property="detailOptionQuantity"/>
+  		<result column="PRODUCT_NO" property="productNo"/>
   		<result column="STATUS" property="status"/>
   	</resultMap>
      
@@ -84,21 +85,7 @@
      		)
      	</foreach>
      </insert>
-     
-     <!-- 상세옵션 추가 -->
-     <select id="insertDetailOption" resultMap="productDetailOptionResult">
-     	INSERT INTO OPTION_NAME (
-     		OPTIONS_NAME,
-     		OPTIONS_NORMAL_PRICE,
-     		OPTIONS_SALE_PRICE,
-     		OPTIONS_STOCK
-     	) VALUES (
-			#{detailOptionName},
-			#{detailOptionOriginPrice},
-			#{detailOptionSaledPrice},
-			#{detailOptionQuantity}
-  		) RETURNING *
-     </select>
+
         
     <!-- 가장 많이 팔린 상품 조회 -->
     <select id="selectBestSellerList" resultMap="productResult">
@@ -251,8 +238,29 @@
 		SELECT COUNT(*)
 		FROM PRODUCT
 	</select>
+	
+	<!-- 판매중인 상품 개수 조회 -->
+	<select id="selectSaleProductQuantity" resultType="_int">
+		SELECT COUNT(*)
+		FROM PRODUCT
+		WHERE STATUS = 'Y'
+	</select>
 
+	<!-- 일시품절된 상품 개수 조회 -->
+	<select id="selectShortageProductQuantity" resultType="_int">
+		SELECT COUNT(*) as shortage_product_quantity
+		FROM (
+			SELECT PRODUCT_NO, SUM(OPTIONS_STOCK) as total_quantity
+			FROM OPTION_NAME
+			GROUP BY PRODUCT_NO
+			HAVING SUM(OPTIONS_STOCK) = 0
+		)
+	</select>
     
-
+	<select id="selectSuspendedProductQuantity" resultType="_int">
+		SELECT COUNT(*)
+		FROM PRODUCT
+		WHERE STATUS = 'N'
+	</select>
   
   </mapper>

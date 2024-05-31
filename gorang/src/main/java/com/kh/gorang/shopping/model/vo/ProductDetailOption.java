@@ -20,6 +20,7 @@ public class ProductDetailOption {
 	private int detailOptionOriginPrice;
 	private int detailOptionSaledPrice;
 	private int detailOptionQuantity;
+	private int productNo;
 	private String status;
 
 }
