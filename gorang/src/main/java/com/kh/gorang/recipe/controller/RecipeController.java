@@ -40,6 +40,7 @@ public class RecipeController {
 	
 	@RequestMapping("insert.re")
 	public String insertRecipe(Recipe rcp,RecipeInsertDTO recipeInsertDTO, 
+
 			MultipartFile upfile, HttpSession session, Model model){
 			System.out.println("1."+rcp);
 			System.out.println("2."+recipeInsertDTO.getRcpDivList());

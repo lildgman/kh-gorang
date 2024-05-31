@@ -2,6 +2,8 @@ package com.kh.gorang.shopping.controller;
 
 import static com.kh.gorang.common.template.SaveFileController.saveFile;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.gorang.shopping.model.vo.Product;
+import com.kh.gorang.shopping.model.vo.ProductDetailOption;
 import com.kh.gorang.shopping.model.vo.ProductInsertDTO;
 import com.kh.gorang.shopping.service.ODGProductService;
 
@@ -24,7 +28,7 @@ public class ODGProductController {
 	
 	private final ODGProductService odgProductService;
 	
-	
+	// 상품 등록
 	@PostMapping("insert.po")
 	public String insertProduct(
 			MultipartFile upfile,
@@ -49,10 +53,24 @@ public class ODGProductController {
 		}
 	}
 	
+	
+	// 상품 검색
 	@GetMapping("search.po")
 	@ResponseBody
-	public String searchProduct(String searchProductName) {
+	public ArrayList<Product> ajaxSearchProduct(String searchProductName) {
 		log.info("searchProductName={}",searchProductName);
+		ArrayList<Product> resultList = odgProductService.ajaxSearchProduct(searchProductName);
+		
+		return resultList;
+	}
+	
+	@GetMapping("option.po")
+	@ResponseBody
+	public String ajaxSearchProductOption(String productNo) {
+		log.info("productNo={}", productNo);
+		
+		//옵션은 여러개 있을 수 있으니 list로 받아주자.
+		ArrayList<ProductDetailOption> resultList = odgProductService.ajaxSearchProductOption(productNo);
 		
 		return "ok";
 	}

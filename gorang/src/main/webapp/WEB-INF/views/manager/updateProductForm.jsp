@@ -93,7 +93,7 @@
 
             <!-- 상품 검색결과 -->
             <div class="search-product-result-table">
-                <div class="result-title">총 <span id="search-result-count">2</span>개 상품</div>
+                <div class="result-title">총 <span id="search-result-count"></span>개 상품</div>
                 <div class="product-table-container">
                     <table class="product-table">
                         <thead>
@@ -108,7 +108,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="option-tr">
+                            <!-- <tr class="option-tr">
                                 <td align="center">
                                     <input type="checkbox" name="" id="">
                                 </td>
@@ -130,7 +130,7 @@
                                 <td align="center">
                                     조미료 > 간장
                                 </td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table> 
                 </div>
@@ -144,7 +144,7 @@
             <div class="ds-none">
                 <div class="result-title">상품 옵션</div>
                 <div class="product-table-container">
-                    <table class="product-table">
+                    <table class="product-option-table">
                         <thead>
                             <tr>
                                 <td align="center" class="option-name-td">옵션명</td>
@@ -154,7 +154,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="option-tr">
+                            <tr class="">
                                 <td align="center">
                                     <input type="text" >
                                 </td>

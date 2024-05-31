@@ -149,16 +149,16 @@
   font-weight: bold;
 }
 
-.product-table {
+.product-table, .product-option-table {
   width: 1000px;
   border-collapse: collapse;
 }
 
-.product-table tr td {
+.product-table tr td, .product-option-table tr td {
   border: 1px solid #cececd;
 }
 
-.product-table td {
+.product-table td, .product-option-table td{
   padding: 5px;
 }
 
@@ -190,7 +190,7 @@
   width: 230px;
 }
 
-.product-table input {
+.product-table input, .product-option-table input {
   width: 100%;
   border: 1px solid #cececd;
   padding: 5px;
