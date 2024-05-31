@@ -1,5 +1,6 @@
 package com.kh.gorang.shopping.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.gorang.shopping.model.dao.ODGProductDao;
+import com.kh.gorang.shopping.model.vo.Product;
 import com.kh.gorang.shopping.model.vo.ProductDetailOption;
 import com.kh.gorang.shopping.model.vo.ProductInsertDTO;
 
@@ -37,7 +39,6 @@ public class ODGProductServiceImpl implements ODGProductService {
 		return result1 * result2;
 	}
 	
-	
 	// 전체 상품 개수 조회
 	@Override
 	public int selectAllProductQuantity() {
@@ -60,5 +61,17 @@ public class ODGProductServiceImpl implements ODGProductService {
 	@Override
 	public int selectSuspendedProductQuantity() {
 		return odgProductDao.selectSuspendedProductQuantity(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Product> ajaxSearchProduct(String searchProductName) {
+		return odgProductDao.ajaxSearchProduct(sqlSession, searchProductName);
+	}
+
+	@Override
+	public ArrayList<ProductDetailOption> ajaxSearchProductOption(String productNo) {
+		ArrayList<ProductDetailOption> list = odgProductDao.ajaxSearchProductOption(sqlSession, productNo);
+		log.info("list={}",list);
+		return null;
 	}
 }

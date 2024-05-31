@@ -257,10 +257,25 @@
 		)
 	</select>
     
+    <!-- 판매중지된 상품 개수 조회 -->
 	<select id="selectSuspendedProductQuantity" resultType="_int">
 		SELECT COUNT(*)
 		FROM PRODUCT
 		WHERE STATUS = 'N'
+	</select>
+	
+	<!-- ajax로 상품 검색 -->
+	<select id="ajaxSearchProduct" resultMap="productResult">
+		SELECT *
+		FROM PRODUCT
+		WHERE PRODUCT_NAME LIKE '%${searchProductName}%'
+	</select>
+	
+	<!-- ajax 상품 옵션 검색 -->
+	<select id="ajaxSearchProductOption" resultMap="productDetailOptionResult">
+		SELECT *
+		FROM OPTION_NAME
+		WHERE PRODUCT_NO LIKT #{productNo}
 	</select>
   
   </mapper>
