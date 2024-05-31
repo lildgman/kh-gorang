@@ -47,7 +47,7 @@ public class ODGProductDao {
 		return (ArrayList)sqlSession.selectList("odgProductMapper.ajaxSearchProduct", searchProductName);
 	}
 
-	public ArrayList<ProductDetailOption> ajaxSearchProductOption(SqlSessionTemplate sqlSession, String productNo) {
+	public ArrayList<ProductDetailOption> ajaxSearchProductOption(SqlSessionTemplate sqlSession, int productNo) {
 		return (ArrayList)sqlSession.selectList("odgProductMapper.ajaxSearchProductOption",productNo);
 		
 	}
