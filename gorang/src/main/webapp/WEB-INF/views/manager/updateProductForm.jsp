@@ -58,19 +58,19 @@
             <div class="show-product-status-area">
                 <div class="product-status">
                     <div>전체</div>
-                    <div class="quantity-div">2</div>
+                    <div class="quantity-div">${allProductQuantity }</div>
                 </div>
                 <div class="product-status">
                     <div>판매중</div>
-                    <div class="quantity-div">2</div>
+                    <div class="quantity-div">${saleProductQuantity }</div>
                 </div>
                 <div class="product-status">
                     <div>일시품절</div>
-                    <div class="quantity-div">2</div>
+                    <div class="quantity-div">${shortageProductQuantity }</div>
                 </div>
                 <div class="product-status">
                     <div>판매정지</div>
-                    <div class="quantity-div">2</div>
+                    <div class="quantity-div">${suspendedProductQuantity }</div>
                 </div>
             </div>
 
@@ -81,10 +81,10 @@
                         <div class="i-container">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </div>
-                        <input id="search-category-input" class="search-input" type="text" placeholder="상품명 입력">
+                        <input id="search-product-name-input" class="search-input" type="text" placeholder="상품명 입력">
                     </div>
                     <div class="search-btn-container">
-                        <button id="search-category-btn" class="search-btn" >검색</button>
+                        <button id="search-category-btn" class="search-btn" onclick="searchProduct()">검색</button>
                     </div>
                 </div>
             </div>
@@ -93,7 +93,7 @@
 
             <!-- 상품 검색결과 -->
             <div class="search-product-result-table">
-                <div class="result-title">총 <span>2</span>개 상품</div>
+                <div class="result-title">총 <span id="search-result-count">2</span>개 상품</div>
                 <div class="product-table-container">
                     <table class="product-table">
                         <thead>

@@ -2,6 +2,8 @@ package com.kh.gorang.board.controller;
 
 import static com.kh.gorang.common.template.SaveFileController.saveFile;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 public class BoardController {
 	@Autowired
 	private BoardService boardService;
+	
 	@RequestMapping("main.bo")
 	public String boardMain() {
 		return "board/boardMain";
@@ -38,13 +41,15 @@ public class BoardController {
 	}
 	
 	@PostMapping("insert.bo")
-	public String insertBoard(Board board,HttpSession session, Model model, @RequestParam("file") MultipartFile file) {
+	public String insertBoard(Board board, HttpSession session, Model model, @RequestParam("file") MultipartFile file) {
+		
+		log.info("file={}",file);
 		if(!file.getOriginalFilename().equals("")) {
 			String changeFileName = saveFile(file, session, "/board/boardMainContentFile/");
 			board.setBoardThumbnail(changeFileName);
 		}
 		
-		
+		log.info("file={}",file);
 		log.info("board={}", board);
 		int result = boardService.insertBoard(board);
 		if(result>0) {

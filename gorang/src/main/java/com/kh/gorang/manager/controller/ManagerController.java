@@ -1,21 +1,10 @@
 package com.kh.gorang.manager.controller;
 
-import static com.kh.gorang.common.template.SaveFileController.saveFile;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.kh.gorang.shopping.model.vo.ProductInsertDTO;
-import com.kh.gorang.shopping.service.ProductService;
+import com.kh.gorang.shopping.service.ODGProductService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,54 +14,30 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class ManagerController {
 	
-	@Autowired
-	private final ProductService productService;
+	private final ODGProductService odgProductService;
 	
 	@RequestMapping("enrollproduct.ma")
 	public String managerProductEnrollForm() {
 		return "manager/enrollProductForm";
 	}
 	
-	@PostMapping("insert.po")
-	public String insertProduct(
-			MultipartFile upfile,
-			ProductInsertDTO product,
-			HttpSession session,
-			Model model) {
-		
-		if(!upfile.getOriginalFilename().equals("")) {
-			String changeFileName = saveFile(upfile, session, "/productimg/");
-			product.setMainImg(changeFileName);
-		}
-	
-		int result = productService.insertProduct(product);
-
-		if(result > 0) {
-			session.setAttribute("alertMsg", "상품을 성공적으로 등록하였습니다.");
-			return "redirect:/enrollproduct.ma";
-
-		} else {
-			session.setAttribute("alertMsg", "상품 등록을 실패하였습니다. 다시 등록해주세요.");
-			return "redirect:/enrollproduct.ma";
-		}
-	}
-	
-	
-	
 	@RequestMapping("updateproduct.ma")
-	public String managerProductUpdateForm() {
+	public String managerProductUpdateForm(Model model) {
 		
 		// 상품 전체 개수
-		int allProductQuantity = productService.selectAllProductQuantity();
-		log.info("allProductQuantity={}",allProductQuantity);
+		int allProductQuantity = odgProductService.selectAllProductQuantity();
 		// 판매중인 상품 개수
-		int saleProductQuantity = productService.selectSaleProductQuantity();
-		
+		int saleProductQuantity = odgProductService.selectSaleProductQuantity();
 		// 일시품절인 상품 개수
-		
+		int shortageProductQuantity = odgProductService.selectShortageProductQuantity();
 		// 판매정지된 상품 개수
+		int suspendedProductQuantity = odgProductService.selectSuspendedProductQuantity();
+
 		
-		
+		model.addAttribute("allProductQuantity", allProductQuantity);
+		model.addAttribute("saleProductQuantity", saleProductQuantity);
+		model.addAttribute("shortageProductQuantity", shortageProductQuantity);
+		model.addAttribute("suspendedProductQuantity", suspendedProductQuantity);
 		
 		return "manager/updateProductForm";
 	}

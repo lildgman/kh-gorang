@@ -59,7 +59,9 @@ function addOption() {
                             <input type="checkbox" name="" id="" class="deleteTrCheckBox">
                           </td>
                           <td align="center">
-                            <input type="checkbox" name="main-option" id="">
+                            <input type="checkbox" name="options[${optionNo}].mainDetailOption" id="mainDetailOption" value="yes">
+                            <input type="hidden" name="_options[${optionNo}].mainDetailOption" value="on"/>
+                            <label for="mainDetailOption"></label>
                           </td>
                           <td align="center">
                             <input type="text" id="detailOptionName" name="options[${optionNo}].detailOptionName" required>
@@ -177,4 +179,3 @@ function addProductDetailOptions() {
   return productDetailOptions;
 
 }
-

@@ -14,6 +14,7 @@ import lombok.ToString;
 public class Product {
 	
 	private int productNo;
+	private String seller;
 	private String category;
 	private String productName;
 	private String productBrand;
