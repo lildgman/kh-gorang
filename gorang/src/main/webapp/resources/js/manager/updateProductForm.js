@@ -13,17 +13,46 @@ function searchProductOption() {
         productNo: productNo 
       },
       success: function(res) {
-        console.log(res);
-        const productOption = document.querySelector('.ds-none');
-        productOption.style.display = "flex";
-        productOption.classList.add('displayFlex');
+        const optionList = res;
+        const optionTbody = document.querySelector('#product-option-tbody');
+        optionTbody.innerHTML="";
+        
+        displayProductOptions();
+        drawProductOptions(optionList, optionTbody);
+      
       },
       error: function() {
         console.log("상품 옵션 조회 실패");
       }
     })
   }
-  
+}
+
+function drawProductOptions(optionList, optionTbody) {
+  optionList.forEach(option => {
+    const newRow = `
+                    <tr class="product-option-tr">
+                        <td align="center">
+                            <input type="text" value="` + option.detailOptionName + `">
+                        </td>
+                        <td align="center">
+                            <input type="number" class="txt-align-right" placeholder="개" value="` + option.detailOptionQuantity + `">
+                        </td>
+                        <td align="center">
+                            <input type="number" class="txt-align-right" placeholder="원" value="` + option.detailOptionOriginPrice + `">
+                        </td>
+                        <td align="center">
+                            <input type="number" class="txt-align-right" placeholder="원" value="` + option.detailOptionSaledPrice + `">
+                        </td>
+                    </tr>`;
+    optionTbody.innerHTML += newRow;
+  });
+}
+
+function displayProductOptions() {
+  const productOption = document.querySelector('.ds-none');
+  productOption.style.display = "flex";
+  productOption.classList.add('displayFlex');
 }
 
 // 

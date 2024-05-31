@@ -69,9 +69,9 @@ public class ODGProductServiceImpl implements ODGProductService {
 	}
 
 	@Override
-	public ArrayList<ProductDetailOption> ajaxSearchProductOption(String productNo) {
+	public ArrayList<ProductDetailOption> ajaxSearchProductOption(int productNo) {
 		ArrayList<ProductDetailOption> list = odgProductDao.ajaxSearchProductOption(sqlSession, productNo);
 		log.info("list={}",list);
-		return null;
+		return list;
 	}
 }

@@ -153,8 +153,8 @@
                                 <td align="center" class="product-saled-price-td">판매가</td>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr class="">
+                        <tbody id="product-option-tbody">
+                            <tr class="product-option-tr">
                                 <td align="center">
                                     <input type="text" >
                                 </td>

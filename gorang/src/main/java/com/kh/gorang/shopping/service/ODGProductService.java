@@ -27,6 +27,6 @@ public interface ODGProductService {
 	ArrayList<Product> ajaxSearchProduct(String searchProductName);
 
 	// 상품 옵션 검색
-	ArrayList<ProductDetailOption> ajaxSearchProductOption(String productNo);
+	ArrayList<ProductDetailOption> ajaxSearchProductOption(int productNo);
 
 }

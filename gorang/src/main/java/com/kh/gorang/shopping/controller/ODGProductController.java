@@ -66,13 +66,13 @@ public class ODGProductController {
 	
 	@GetMapping("option.po")
 	@ResponseBody
-	public String ajaxSearchProductOption(String productNo) {
+	public ArrayList<ProductDetailOption> ajaxSearchProductOption(int productNo) {
 		log.info("productNo={}", productNo);
 		
 		//옵션은 여러개 있을 수 있으니 list로 받아주자.
 		ArrayList<ProductDetailOption> resultList = odgProductService.ajaxSearchProductOption(productNo);
 		
-		return "ok";
+		return resultList;
 	}
 	
 

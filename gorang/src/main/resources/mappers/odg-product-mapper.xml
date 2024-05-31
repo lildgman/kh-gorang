@@ -275,7 +275,7 @@
 	<select id="ajaxSearchProductOption" resultMap="productDetailOptionResult">
 		SELECT *
 		FROM OPTION_NAME
-		WHERE PRODUCT_NO LIKT #{productNo}
+		WHERE PRODUCT_NO = #{productNo}
 	</select>
   
   </mapper>
