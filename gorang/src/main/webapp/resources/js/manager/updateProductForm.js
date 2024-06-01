@@ -106,3 +106,37 @@ function checkSelectedOneProduct(event) {
   }
   event.target.checked = true;
 }
+
+function updateProductStatus() {
+  const checkbox = document.querySelector('.check-product:checked');
+
+  if(!checkbox) {
+    alert("상품을 선택해주세요");
+  } else {
+    const checkedProductTr = checkbox.closest('.option-tr');
+    const productNo = parseInt(checkedProductTr.querySelector('.product-no').innerText);
+
+    const result = confirm("정말로 상품 상태를 변경하시겠습니까?");
+
+    if(result) {
+      $.ajax({
+        url: 'update-status.po',
+        type: 'post',
+        data: {
+          productNo: productNo
+        },
+        success: function(res) {
+          if(res === 'done') {
+            alert("상품 상태 변경이 성공하였습니다.");
+            window.location.href = window.location.href; 
+          } else {
+            alert("상품 상태 변경을 실패하였습니다. 다시 진행해주세요.")
+          }
+        },
+        error: function() {
+          console.log('판매중지 api 요청 실패');
+        }
+      })
+    }
+  }
+}

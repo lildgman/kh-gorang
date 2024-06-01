@@ -277,5 +277,23 @@
 		FROM OPTION_NAME
 		WHERE PRODUCT_NO = #{productNo}
 	</select>
-  
+	
+	<!-- ajax 상품 상태 변경 -->
+	<update id="ajaxUpdateProductStatus" parameterType="Product">
+		UPDATE PRODUCT
+		<if test='status == "Y"'>
+			SET STATUS = 'N'
+		</if>
+		<if test='status == "N"'>
+			SET STATUS = 'Y'
+		</if>
+		
+		WHERE PRODUCT_NO = #{productNo}
+	</update>
+	
+	<select id="selectProduct" resultMap="productResult">
+		SELECT *
+		FROM PRODUCT
+		WHERE PRODUCT_NO = #{productNo}
+	</select>
   </mapper>

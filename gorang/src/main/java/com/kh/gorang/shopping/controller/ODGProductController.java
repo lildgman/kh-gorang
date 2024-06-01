@@ -9,7 +9,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,6 +19,7 @@ import com.kh.gorang.shopping.model.vo.Product;
 import com.kh.gorang.shopping.model.vo.ProductDetailOption;
 import com.kh.gorang.shopping.model.vo.ProductInsertDTO;
 import com.kh.gorang.shopping.service.ODGProductService;
+import com.sun.scenario.effect.light.Light;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -64,6 +67,7 @@ public class ODGProductController {
 		return resultList;
 	}
 	
+	//상품 옵션 조
 	@GetMapping("option.po")
 	@ResponseBody
 	public ArrayList<ProductDetailOption> ajaxSearchProductOption(int productNo) {
@@ -73,6 +77,21 @@ public class ODGProductController {
 		ArrayList<ProductDetailOption> resultList = odgProductService.ajaxSearchProductOption(productNo);
 		
 		return resultList;
+	}
+	
+	// 상품 상태 변경
+	@PostMapping("update-status.po")
+	@ResponseBody
+	public String ajaxUpdateProductStatus(@RequestParam int productNo) {
+		
+		
+		int result = odgProductService.ajaxUpdateProductStatus(productNo);
+		
+		if(result > 0) {
+			return "done";
+		} else {
+			return "undone";
+		}
 	}
 	
 

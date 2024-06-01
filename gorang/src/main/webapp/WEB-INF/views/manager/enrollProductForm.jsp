@@ -120,9 +120,6 @@
                                     <input id="search-product-name-input" class="search-input" type="text"
                                         placeholder="상품명 입력(브랜드명 + 제품명)" name="productName" required>
                                 </div>
-                                <div class="search-btn-container">
-                                    <button id="search-product-name-btn" class="search-btn">검색</button>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -140,9 +137,6 @@
                                         </div>
                                         <input id="search-brand-input" class="search-input" type="text"
                                             placeholder="브랜드명 입력" name="productBrand" required>
-                                    </div>
-                                    <div class="search-btn-container">
-                                        <button id="search-brand-btn" class="search-btn">검색</button>
                                     </div>
                                 </div>
                             </div>
