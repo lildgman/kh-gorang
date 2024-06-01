@@ -8,10 +8,6 @@ window.onload = function () {
   
   clickZzim();
 
-  minusProductQuantity();
-
-  plusProductQuantity();
-
   addProductToCart();
 
   clickBuyButton();
@@ -64,6 +60,61 @@ function ajaxGetProduct(data, callback){
 function putProductOptsForOrder(opts){
   // 드롭다운으로 옵션 보여준 뒤
   // 옵션 클릭 시 appendChild
+  //select 요소 가져오기
+  const pdoptSelect = document.querySelector("#product-opts-select");
+  //셀렉트의 옵션값 넣기
+  for(let opt of opts){
+    const pdoptSelectOpt = document.createElement('option');
+    pdoptSelect.appendChild(pdoptSelectOpt);
+    pdoptSelectOpt.value = opt.detailOptionNo;
+    pdoptSelectOpt.innerHTML = `${opt.detailOptionName} &nbsp &nbsp ${opt.detailOptionSaledPrice}`;
+  }
+
+  //셀렉트 요소 change 시 하단에 수량 조절하는 부분 생성
+  pdoptSelect.addEventListener("change", function(ev){
+    const pdQuantityContent = document.createElement('div');
+    pdQuantityContent.setAttribute("class", "product_quantity_content");
+    document.querySelector("#product_quantity_area").appendChild(pdQuantityContent);
+
+    // 상품옵션명
+    const selectedProductName = document.createElement('div');
+    selectedProductName.setAttribute("class", "pname");
+    selectedProductName.innerHTML = ev.target.options[ev.target.selectedIndex].innerHTML;
+    pdQuantityContent.appendChild(selectedProductName);
+
+    // const pdAmountPrice = document.createElement('div');
+    // pdAmountPrice.setAttribute("class", "product_amount_price");
+    // pdQuantityArea.appendChild(pdAmountPrice);
+
+    // const pamountBtn = document.createElement('div');
+    // pamountBtn.setAttribute("id", "pamount_btn");
+    // pdAmountPrice.appendChild(pamountBtn);
+    // //마이너스 버튼
+    // const pbtnMinusQuantity = document.createElement('div');
+    // pbtnMinusQuantity.setAttribute("class", "pbtn minus_quantity");
+    // pamountBtn.appendChild(pbtnMinusQuantity);
+    // pbtnMinusQuantity.innerHTML = "-";
+    // //수량 보여주는 input 요소
+    // const pbtnQuantity = document.createElement('input');
+    // pbtnQuantity.setAttribute("class", "pbtn quantity pbtn-quantity");
+    // pbtnQuantity.setAttribute("type", "text");
+    // pbtnQuantity.value = "1";
+    // pamountBtn.appendChild(pbtnQuantity);
+    // // 플러스 버튼
+    // const pbtnPlusQuantity = document.createElement('div');
+    // pbtnPlusQuantity.setAttribute("class", "pbtn plus_quantity");
+    // pamountBtn.appendChild(pbtnPlusQuantity);
+    // pbtnPlusQuantity.innerHTML = "+";
+
+    // minusProductQuantity();
+
+    // plusProductQuantity();
+  })
+
+ 
+
+
+  
 }
 
 

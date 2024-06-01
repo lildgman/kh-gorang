@@ -97,21 +97,30 @@
                                 <form action="order.po">
                                     <div class="product-opts">
                                         <span>상품 선택</span>
-                                        <div id="product-opts-select">
-                                            상품을 선택해주세요
-                                        </div>
+                                        <select id="product-opts-select">
+                                            <option value="">상품을 선택해주세요</option>
+                                        </select>
                                     </div>
                                     <div id="product_quantity_area">
-                                        <div class="product_amount_price">
-                                            <div id="pamount_btn">
-                                                <div class="pbtn minus_quantity">-</div>
-                                                <input class="pbtn quantity pbtn-quantity" type="text"
-                                                    value="1"></input>
-                                                <div class="pbtn plus_quantity">+</div>
+                                        <!-- <div class="product_quantity_content">
+                                            <div class="pname">
+                                                어떤가요
                                             </div>
-                                        </div>
+                                            <div class="product_amount_price">
+                                                <div id="pamount_btn">
+                                                    <div class="pbtn minus_quantity">-</div>
+                                                    <input class="pbtn quantity pbtn-quantity" type="text"
+                                                        value="1"></input>
+                                                    <div class="pbtn plus_quantity">+</div>
+                                                </div>
+                                                <div class="product-price-view">
+                                                    <span class="product-price-basicPrice">3,400원</span>
+                                                    <span class="product-price-discountedPrice">2,400원</span>
+                                                </div>
+                                            </div>
+                                        </div> -->
                                     </div>
-                                    <div id="price-area">
+                                    <!-- <div id="price-area">
                                         <div style="font-weight: bold; font-size: 20px;">총금액</div>
                                         <div style="font-weight: bold; font-size: 25px; color: #1E90FF;">
                                             <span class="product-price">24,000</span>원
@@ -121,7 +130,7 @@
                                         <button class="myBtn btn_cart">장바구니 담기</button>
                                         <button class="myBtn btn_buy"
                                             onclick="moveToPage('${contextPath }/order')">구매하기</button>
-                                    </div>
+                                    </div> -->
                                 </form>
                             </div>
                         </div>
