@@ -1,9 +1,10 @@
 package com.kh.gorang.shopping.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -63,15 +64,29 @@ public class ODGProductServiceImpl implements ODGProductService {
 		return odgProductDao.selectSuspendedProductQuantity(sqlSession);
 	}
 
+	// ajax 상품 조회 
 	@Override
 	public ArrayList<Product> ajaxSearchProduct(String searchProductName) {
 		return odgProductDao.ajaxSearchProduct(sqlSession, searchProductName);
 	}
 
+	// ajax 상품 옵션 조회 
 	@Override
 	public ArrayList<ProductDetailOption> ajaxSearchProductOption(int productNo) {
-		ArrayList<ProductDetailOption> list = odgProductDao.ajaxSearchProductOption(sqlSession, productNo);
-		log.info("list={}",list);
-		return list;
+		
+		return odgProductDao.ajaxSearchProductOption(sqlSession, productNo);
+	}
+
+	
+	@Override
+	public int ajaxUpdateProductStatus(int productNo) {
+		Product product = odgProductDao.selectProduct(sqlSession, productNo);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("productNo",productNo);
+		map.put("status",product.getStatus());
+			
+		return odgProductDao.ajaxUpdateProductStatus(sqlSession, map);
 	}
 }
