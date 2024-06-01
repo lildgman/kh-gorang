@@ -1,3 +1,4 @@
+// 상품 옵션 찾아주는 함수
 function searchProductOption() {
   const checkbox = document.querySelector('.check-product:checked');
 
@@ -28,34 +29,37 @@ function searchProductOption() {
   }
 }
 
+// 찾은 옵션들을 토대로 table을 그려주는 함수
 function drawProductOptions(optionList, optionTbody) {
   optionList.forEach(option => {
     const newRow = `
                     <tr class="product-option-tr">
+                    <input type="hidden" class="detail-option-no" value="` + option.detailOptionNo + `">
                         <td align="center">
-                            <input type="text" value="` + option.detailOptionName + `">
+                            <input type="text" class="detail-option-name" value="` + option.detailOptionName + `">
                         </td>
                         <td align="center">
-                            <input type="number" class="txt-align-right" placeholder="개" value="` + option.detailOptionQuantity + `">
+                            <input type="number" class="txt-align-right detail-option-quantity" placeholder="개" value="` + option.detailOptionQuantity + `">
                         </td>
                         <td align="center">
-                            <input type="number" class="txt-align-right" placeholder="원" value="` + option.detailOptionOriginPrice + `">
+                            <input type="number" class="txt-align-right detail-option-origin-price" placeholder="원" value="` + option.detailOptionOriginPrice + `">
                         </td>
                         <td align="center">
-                            <input type="number" class="txt-align-right" placeholder="원" value="` + option.detailOptionSaledPrice + `">
+                            <input type="number" class="txt-align-right detail-option-sale-price" placeholder="원" value="` + option.detailOptionSaledPrice + `">
                         </td>
                     </tr>`;
     optionTbody.innerHTML += newRow;
   });
 }
 
+// 숨겨져있던 옵션 보여주는 부문 보여주는 함수
 function displayProductOptions() {
   const productOption = document.querySelector('.ds-none');
   productOption.style.display = "flex";
   productOption.classList.add('displayFlex');
 }
 
-// 
+// 상품조회 함수
 function searchProduct() {
   const tbody = $('.product-table tbody');
   const searchProductName = document.querySelector("#search-product-name-input").value;
@@ -77,6 +81,7 @@ function searchProduct() {
   })
 }
 
+// 조회된 상품을 토대로 table 그려주는 함수
 function drawProductInfo(productList, tbody) {
   $('#search-result-count').text(productList.length);
   productList.forEach(product => {
@@ -99,6 +104,7 @@ function drawProductInfo(productList, tbody) {
   });
 }
 
+// 상품 하나만 체크되도록 해주는 함수
 function checkSelectedOneProduct(event) {
   const checkboxs = document.querySelectorAll('.check-product');
   for(let c of checkboxs){
@@ -107,6 +113,7 @@ function checkSelectedOneProduct(event) {
   event.target.checked = true;
 }
 
+// 상품 상태 변경하는 함수
 function updateProductStatus() {
   const checkbox = document.querySelector('.check-product:checked');
 
@@ -134,9 +141,57 @@ function updateProductStatus() {
           }
         },
         error: function() {
-          console.log('판매중지 api 요청 실패');
+          console.log('상품상태 업데이트 api 요청 실패');
         }
       })
     }
   }
+}
+
+// 상품 옵션을 변경해주는 함수
+function updateProductOption() {
+
+  let productDetailOptions = getProductOptions();
+
+  $.ajax({
+    url: 'update-option.po',
+    type: 'post',
+    contentType: 'application/json',
+    data: JSON.stringify(productDetailOptions),
+    success: function(res) {
+      console.log(res);
+    },
+    error: function() {
+      console.log("상품 옵션 업데이트 api 요청 실패");
+    }
+
+  })
+
+  console.log(productDetailOptions);
+
+}
+
+// 상품 옵션 배열을 반환하는 함수
+function getProductOptions() {
+  let productDetailOptions = [];
+  let productDetailOption = {};
+
+  const optionTrs = document.querySelectorAll('.product-option-tr');
+
+  optionTrs.forEach(optionTr => {
+    const optionNo = optionTr.querySelector('.detail-option-no').value;
+    const optionName = optionTr.querySelector('.detail-option-name').value;
+    const optionQuantity = optionTr.querySelector('.detail-option-quantity').value;
+    const optionOriginPrice = optionTr.querySelector('.detail-option-origin-price').value;
+    const optionSalePrice = optionTr.querySelector('.detail-option-sale-price').value;
+
+    productDetailOption.detailOptionNo = optionNo;
+    productDetailOption.detailOptionName = optionName;
+    productDetailOption.detailOptionQuantity = optionQuantity;
+    productDetailOption.detailOptionOriginPrice = optionOriginPrice;
+    productDetailOption.detailOptionSalePrice = optionSalePrice;
+
+    productDetailOptions.push(productDetailOption);
+  });
+  return productDetailOptions;
 }

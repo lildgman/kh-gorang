@@ -9,8 +9,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,7 +19,6 @@ import com.kh.gorang.shopping.model.vo.Product;
 import com.kh.gorang.shopping.model.vo.ProductDetailOption;
 import com.kh.gorang.shopping.model.vo.ProductInsertDTO;
 import com.kh.gorang.shopping.service.ODGProductService;
-import com.sun.scenario.effect.light.Light;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -71,7 +70,6 @@ public class ODGProductController {
 	@GetMapping("option.po")
 	@ResponseBody
 	public ArrayList<ProductDetailOption> ajaxSearchProductOption(int productNo) {
-		log.info("productNo={}", productNo);
 		
 		//옵션은 여러개 있을 수 있으니 list로 받아주자.
 		ArrayList<ProductDetailOption> resultList = odgProductService.ajaxSearchProductOption(productNo);
@@ -92,6 +90,17 @@ public class ODGProductController {
 		} else {
 			return "undone";
 		}
+	}
+	
+	// 상품 옵션 변경 
+	@PostMapping("update-option.po")
+	@ResponseBody
+	public String ajaxUpdateProductOptions(@RequestBody ArrayList<ProductDetailOption> productDetailOptions) {
+		
+		log.info("productDetailOptions={}",productDetailOptions);
+		
+		
+		return "ok";
 	}
 	
 
