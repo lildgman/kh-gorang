@@ -2,6 +2,7 @@ package com.kh.gorang.shopping.model.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -47,9 +48,17 @@ public class ODGProductDao {
 		return (ArrayList)sqlSession.selectList("odgProductMapper.ajaxSearchProduct", searchProductName);
 	}
 
-	public ArrayList<ProductDetailOption> ajaxSearchProductOption(SqlSessionTemplate sqlSession, String productNo) {
+	public ArrayList<ProductDetailOption> ajaxSearchProductOption(SqlSessionTemplate sqlSession, int productNo) {
 		return (ArrayList)sqlSession.selectList("odgProductMapper.ajaxSearchProductOption",productNo);
 		
+	}
+
+	public int ajaxUpdateProductStatus(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.update("odgProductMapper.ajaxUpdateProductStatus", map);
+	}
+
+	public Product selectProduct(SqlSessionTemplate sqlSession, int productNo) {
+		return sqlSession.selectOne("odgProductMapper.selectProduct", productNo);
 	}
 
 }

@@ -135,7 +135,7 @@
                     </table> 
                 </div>
                 <div class="detail-search-btn-container">
-                    <button id="detail-search-btn" class="delete-btn">판매중지</button>
+                    <button id="detail-search-btn" class="delete-btn" onclick="updateProductStatus()">상태변경</button>
                     <button id="detail-search-btn" class="myBtn" onclick="searchProductOption()">상세조회</button>
                 </div>
             </div>
@@ -153,8 +153,8 @@
                                 <td align="center" class="product-saled-price-td">판매가</td>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr class="">
+                        <tbody id="product-option-tbody">
+                            <!-- <tr class="product-option-tr">
                                 <td align="center">
                                     <input type="text" >
                                 </td>
@@ -167,12 +167,12 @@
                                 <td align="center">
                                     <input type="number" class="txt-align-right" placeholder="원">
                                 </td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
                 <div id="update-btn-container">
-                    <button class="myBtn">수정하기</button>
+                    <button class="myBtn" onclick="updateProductOption()">수정하기</button>
                 </div>
             </div>
 
