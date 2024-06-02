@@ -60,7 +60,6 @@ public class ODGProductController {
 	@GetMapping("search.po")
 	@ResponseBody
 	public ArrayList<Product> ajaxSearchProduct(String searchProductName) {
-		log.info("searchProductName={}",searchProductName);
 		ArrayList<Product> resultList = odgProductService.ajaxSearchProduct(searchProductName);
 		
 		return resultList;
@@ -105,5 +104,6 @@ public class ODGProductController {
 			return "undone";
 		}
 	}
+	
 	
 }

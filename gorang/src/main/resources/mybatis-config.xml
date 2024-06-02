@@ -41,10 +41,11 @@
 
 		<mapper resource="/mappers/product-mapper.xml" />
 
-		
 		<mapper resource="/mappers/board-mapper.xml" />
 
 		<mapper resource="/mappers/odg-product-mapper.xml" />
+		
+		<mapper resource="/mappers/manager-mapper.xml" />
 
 
 	</mappers>
