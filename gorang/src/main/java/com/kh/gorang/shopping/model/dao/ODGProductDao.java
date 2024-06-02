@@ -61,4 +61,8 @@ public class ODGProductDao {
 		return sqlSession.selectOne("odgProductMapper.selectProduct", productNo);
 	}
 
+	public int ajaxUpdateProductOption(SqlSessionTemplate sqlSession, ProductDetailOption option) {
+		return sqlSession.update("odgProductMapper.ajaxUpdateProductOptions", option);
+	}
+
 }

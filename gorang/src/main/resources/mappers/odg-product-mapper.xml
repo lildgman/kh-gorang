@@ -296,4 +296,15 @@
 		FROM PRODUCT
 		WHERE PRODUCT_NO = #{productNo}
 	</select>
+	
+	<update id="ajaxUpdateProductOptions" parameterType="ProductDetailOption">
+		UPDATE OPTION_NAME
+		SET 
+			OPTIONS_NAME = #{detailOptionName},
+			OPTIONS_NORMAL_PRICE = #{detailOptionOriginPrice},
+			OPTIONS_SALE_PRICE = #{detailOptionSaledPrice},
+			OPTIONS_STOCK = #{detailOptionQuantity}
+		WHERE 
+			OPTIONS_NAME_NO = #{detailOptionNo}
+	</update>
   </mapper>

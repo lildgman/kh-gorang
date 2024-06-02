@@ -29,7 +29,10 @@ public interface ODGProductService {
 	// 상품 옵션 검색
 	ArrayList<ProductDetailOption> ajaxSearchProductOption(int productNo);
 
-	// 상품 상태 변
+	// 상품 상태 변경 
 	int ajaxUpdateProductStatus(int productNo);
+
+	// 상품 옵션 변경 
+	int ajaxUpdateProductOptions(ArrayList<ProductDetailOption> productDetailOptions);
 
 }
