@@ -1,4 +1,4 @@
-package com.kh.gorang.manager.Service;
+package com.kh.gorang.manager.service;
 
 import java.util.ArrayList;
 

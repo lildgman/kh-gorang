@@ -8,9 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.board.model.vo.BoardSearchDTO;
-import com.kh.gorang.manager.Service.ManagerService;
+import com.kh.gorang.manager.service.ManagerService;
 import com.kh.gorang.shopping.service.ODGProductService;
 
 import lombok.RequiredArgsConstructor;
