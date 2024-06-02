@@ -115,7 +115,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  height: 200px;
+  height: fit-content;
 }
 
 #product_buy_info{
@@ -134,10 +134,38 @@
   height: 50px;
 }
 
-#product-opts-select{
+.product-opt-select{
+  position: relative;
   border: 1px solid #EDEDED;
   height: 30px;
   width: 455px;
+}
+
+/* 셀렉트 부분 */
+.product-opts-list{
+  position: absolute;
+  display: none;
+  top: 100%;
+  left: 0;
+  width: 100%;
+}
+
+/* .product-opts-list {
+  max-height: fit-content;
+} */
+
+.product-opt-select-options{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.product-opt-select-name{
+
+}
+
+.product-opt-select-price{
+
 }
 
 #product_quantity_area {

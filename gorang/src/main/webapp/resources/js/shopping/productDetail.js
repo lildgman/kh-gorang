@@ -58,17 +58,28 @@ function ajaxGetProduct(data, callback){
 
 // ========================== 구매 관련 메소드 =====================
 function putProductOptsForOrder(opts){
-  // 드롭다운으로 옵션 보여준 뒤
-  // 옵션 클릭 시 appendChild
+  //드롭다운 구현
+
   //select 요소 가져오기
-  const pdoptSelect = document.querySelector("#product-opts-select");
+  const pdoptLiST = document.querySelector(".product-opts-list");
   //셀렉트의 옵션값 넣기
   for(let opt of opts){
-    const pdoptSelectOpt = document.createElement('option');
-    pdoptSelect.appendChild(pdoptSelectOpt);
-    pdoptSelectOpt.value = opt.detailOptionNo;
-    pdoptSelectOpt.innerHTML = `${opt.detailOptionName} &nbsp &nbsp ${opt.detailOptionSaledPrice}`;
+    //옵션 부분
+    const pdoptSelectOpt = document.createElement('li');
+    pdoptSelectOpt.setAttribute("class", "product-opt-select-options")
+    pdoptLiST.appendChild(pdoptSelectOpt);
+    //옵션명
+    const pdoptSelectOptName = document.createElement('span');
+    pdoptSelectOptName.setAttribute("class", "product-opt-select-name");
+    pdoptSelectOpt.appendChild(pdoptSelectOptName);
+    pdoptSelectOptName.innerHTML = opt.detailOptionName; 
+    //옵션 가격
+    const pdoptSelectOptPrice = document.createElement('span');
+    pdoptSelectOptPrice.setAttribute("class", "product-opt-select-price");
+    pdoptSelectOpt.appendChild(pdoptSelectOptPrice);
+    pdoptSelectOptPrice.innerHTML = opt.detailOptionSaledPrice;
   }
+  
 
   //셀렉트 요소 change 시 하단에 수량 조절하는 부분 생성
   pdoptSelect.addEventListener("change", function(ev){
@@ -82,29 +93,46 @@ function putProductOptsForOrder(opts){
     selectedProductName.innerHTML = ev.target.options[ev.target.selectedIndex].innerHTML;
     pdQuantityContent.appendChild(selectedProductName);
 
-    // const pdAmountPrice = document.createElement('div');
-    // pdAmountPrice.setAttribute("class", "product_amount_price");
-    // pdQuantityArea.appendChild(pdAmountPrice);
+    // 옵션 수량 조절
+    const pdAmountPrice = document.createElement('div');
+    pdAmountPrice.setAttribute("class", "product_amount_price");
+    pdQuantityContent.appendChild(pdAmountPrice);
+    const pamountBtn = document.createElement('div');
+    pamountBtn.setAttribute("id", "pamount_btn");
+    pdAmountPrice.appendChild(pamountBtn);
+    //마이너스 버튼
+    const pbtnMinusQuantity = document.createElement('div');
+    pbtnMinusQuantity.setAttribute("class", "pbtn minus_quantity");
+    pamountBtn.appendChild(pbtnMinusQuantity);
+    pbtnMinusQuantity.innerHTML = "-";
+    //수량 보여주는 input 요소
+    const pbtnQuantity = document.createElement('input');
+    pbtnQuantity.setAttribute("class", "pbtn quantity pbtn-quantity");
+    pbtnQuantity.setAttribute("type", "text");
+    pbtnQuantity.value = "1";
+    pamountBtn.appendChild(pbtnQuantity);
+    // 플러스 버튼
+    const pbtnPlusQuantity = document.createElement('div');
+    pbtnPlusQuantity.setAttribute("class", "pbtn plus_quantity");
+    pamountBtn.appendChild(pbtnPlusQuantity);
+    pbtnPlusQuantity.innerHTML = "+";
 
-    // const pamountBtn = document.createElement('div');
-    // pamountBtn.setAttribute("id", "pamount_btn");
-    // pdAmountPrice.appendChild(pamountBtn);
-    // //마이너스 버튼
-    // const pbtnMinusQuantity = document.createElement('div');
-    // pbtnMinusQuantity.setAttribute("class", "pbtn minus_quantity");
-    // pamountBtn.appendChild(pbtnMinusQuantity);
-    // pbtnMinusQuantity.innerHTML = "-";
-    // //수량 보여주는 input 요소
-    // const pbtnQuantity = document.createElement('input');
-    // pbtnQuantity.setAttribute("class", "pbtn quantity pbtn-quantity");
-    // pbtnQuantity.setAttribute("type", "text");
-    // pbtnQuantity.value = "1";
-    // pamountBtn.appendChild(pbtnQuantity);
-    // // 플러스 버튼
-    // const pbtnPlusQuantity = document.createElement('div');
-    // pbtnPlusQuantity.setAttribute("class", "pbtn plus_quantity");
-    // pamountBtn.appendChild(pbtnPlusQuantity);
-    // pbtnPlusQuantity.innerHTML = "+";
+    // 가격 보여주는 부분
+    const productPriceView = document.createElement('div');
+    productPriceView.setAttribute("class", "product-price-view");
+    pdAmountPrice.appendChild(productPriceView);
+    // 정상가
+    const productBasicPrice = document.createElement('span');
+    productPriceView.appendChild(productBasicPrice);
+    productBasicPrice.setAttribute("class", "product-price-basicPrice");
+    productBasicPrice.innerHTML;
+    
+    // 할인가
+    const productDiscountedPrice = document.createElement('span');
+    productPriceView.appendChild(productDiscountedPrice);
+    productDiscountedPrice.setAttribute("class", "product-price-discountedPrice");
+    
+
 
     // minusProductQuantity();
 
@@ -352,6 +380,7 @@ function inputProductInfo(product, thumbnailLocation){
 
   //할인된 가격
   document.querySelector("#product_discounted_price").innerHTML = product.salePrice;
+
 
   // 상품 선택하기(미구현)
   ajaxGetProductOpts({pno}, (opts)=>putProductOptsForOrder(opts));

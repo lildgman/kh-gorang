@@ -97,9 +97,12 @@
                                 <form action="order.po">
                                     <div class="product-opts">
                                         <span>상품 선택</span>
-                                        <select id="product-opts-select">
-                                            <option value="">상품을 선택해주세요</option>
-                                        </select>
+                                        <div class="product-opt-select">
+                                            <div>상품을 선택해주세요</div>
+                                            <ul class="product-opts-list">
+
+                                            </ul>
+                                        </div>
                                     </div>
                                     <div id="product_quantity_area">
                                         <!-- <div class="product_quantity_content">
