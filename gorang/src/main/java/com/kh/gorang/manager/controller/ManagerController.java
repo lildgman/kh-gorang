@@ -1,9 +1,15 @@
 package com.kh.gorang.manager.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kh.gorang.board.model.vo.BoardSearchDTO;
+import com.kh.gorang.manager.service.ManagerService;
 import com.kh.gorang.shopping.service.ODGProductService;
 
 import lombok.RequiredArgsConstructor;
@@ -15,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ManagerController {
 	
 	private final ODGProductService odgProductService;
+	private final ManagerService managerService;
 	
 	@RequestMapping("enrollproduct.ma")
 	public String managerProductEnrollForm() {
@@ -53,4 +60,15 @@ public class ManagerController {
 		return "manager/memberManagementForm";
 
 	}
+	
+	@GetMapping("search-board.ma")
+	@ResponseBody
+	public ArrayList<BoardSearchDTO> ajaxSearchBoard(String searchBoardTitle) {
+		
+		ArrayList<BoardSearchDTO> list = managerService.ajaxSearchBoard(searchBoardTitle);
+		
+		return list;
+	}
+	
+	
 }

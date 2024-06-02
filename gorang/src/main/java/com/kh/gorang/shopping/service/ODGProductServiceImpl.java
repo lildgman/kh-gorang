@@ -77,7 +77,7 @@ public class ODGProductServiceImpl implements ODGProductService {
 		return odgProductDao.ajaxSearchProductOption(sqlSession, productNo);
 	}
 
-	
+	// ajax 상품 상태 변경
 	@Override
 	public int ajaxUpdateProductStatus(int productNo) {
 		Product product = odgProductDao.selectProduct(sqlSession, productNo);
@@ -88,5 +88,17 @@ public class ODGProductServiceImpl implements ODGProductService {
 		map.put("status",product.getStatus());
 			
 		return odgProductDao.ajaxUpdateProductStatus(sqlSession, map);
+	}
+	
+	// ajax 상품 옵션 변경
+	@Override
+	public int ajaxUpdateProductOptions(ArrayList<ProductDetailOption> productDetailOptions) {
+		
+		int result = 0;
+		for(ProductDetailOption option : productDetailOptions) {
+			result = odgProductDao.ajaxUpdateProductOption(sqlSession, option);
+		}
+		
+		return result;
 	}
 }

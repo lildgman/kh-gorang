@@ -60,7 +60,6 @@ public class ODGProductController {
 	@GetMapping("search.po")
 	@ResponseBody
 	public ArrayList<Product> ajaxSearchProduct(String searchProductName) {
-		log.info("searchProductName={}",searchProductName);
 		ArrayList<Product> resultList = odgProductService.ajaxSearchProduct(searchProductName);
 		
 		return resultList;
@@ -96,12 +95,15 @@ public class ODGProductController {
 	@PostMapping("update-option.po")
 	@ResponseBody
 	public String ajaxUpdateProductOptions(@RequestBody ArrayList<ProductDetailOption> productDetailOptions) {
+		log.info("list = {}", productDetailOptions);
+		int result = odgProductService.ajaxUpdateProductOptions(productDetailOptions);
 		
-		log.info("productDetailOptions={}",productDetailOptions);
-		
-		
-		return "ok";
+		if(result > 0 ) {
+			return "done";
+		} else {
+			return "undone";
+		}
 	}
 	
-
+	
 }

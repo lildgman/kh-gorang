@@ -48,7 +48,6 @@
         <div id="right-container">
             <div id="right-title">게시판 관리</div>
 
-            
             <!-- 서치바 -->
             <div class="searchbar-container">
                 <div class="searchbar">
@@ -56,17 +55,17 @@
                         <div class="i-container">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </div>
-                        <input id="search-category-input" class="search-input" type="text" placeholder="상품명 입력">
+                        <input id="search-board-name-input" class="search-input" type="text" placeholder="게시글 제목 입력">
                     </div>
                     <div class="search-btn-container">
-                        <button id="search-category-btn" class="search-btn" >검색</button>
+                        <button id="search-board-name-btn" class="search-btn" onclick="searchBoard()">검색</button>
                     </div>
                 </div>
             </div>
 
             <!-- 게시글 목록 -->
             <div id="admin-board-list-area">
-                <div id="admin-board-title">총 N개의 게시글</div>
+                <div id="admin-board-title">총 <span id="board-count"></span>개의 게시글</div>
                 <div id="admin-board-list-blocks">
                     <table border="1">
                         <thead>
@@ -82,7 +81,7 @@
                         </thead>
                         <tbody>
                             <tr class="admin-tbody-tr">
-                                <td class="tbody-checkbox"><input type="checkbox" name="" id=""></td>
+                                <td class="tbody-checkbox"><input type="checkbox" name="check" id=""></td>
                                 <td style="color: #1e90ff;">1821515</td>
                                 <td>레시피</td>
                                 <td>개발은 참 즐거워</td>
