@@ -137,7 +137,7 @@ function updateProductStatus() {
             alert("상품 상태 변경이 성공하였습니다.");
             window.location.href = window.location.href; 
           } else {
-            alert("상품 상태 변경을 실패하였습니다. 다시 진행해주세요.")
+            alert("상품 상태 변경을 실패하였습니다. 다시 진행해주세요.");
           }
         },
         error: function() {
@@ -153,28 +153,32 @@ function updateProductOption() {
 
   let productDetailOptions = getProductOptions();
 
-  $.ajax({
-    url: 'update-option.po',
-    type: 'post',
-    contentType: 'application/json',
-    data: JSON.stringify(productDetailOptions),
-    success: function(res) {
-      console.log(res);
-    },
-    error: function() {
-      console.log("상품 옵션 업데이트 api 요청 실패");
-    }
+  const result = confirm("상품 옵션을 변경하시겠습니까?")
 
-  })
-
-  console.log(productDetailOptions);
-
+  if(result) {
+    $.ajax({
+      url: 'update-option.po',
+      type: 'post',
+      contentType: 'application/json',
+      data: JSON.stringify(productDetailOptions),
+      success: function(res) {
+        if(res === 'done') {
+          alert("상품 옵션 변경이 완료되었습니다.")
+          window.location.href = window.location.href; 
+        } else {
+          alert("상품 옵션 변경을 실패하였습니다. 다시 진행해주세요.");
+        }
+      },
+      error: function() {
+        console.log("상품 옵션 업데이트 api 요청 실패");
+      }
+    })
+  }
 }
 
 // 상품 옵션 배열을 반환하는 함수
 function getProductOptions() {
   let productDetailOptions = [];
-  let productDetailOption = {};
 
   const optionTrs = document.querySelectorAll('.product-option-tr');
 
@@ -185,13 +189,16 @@ function getProductOptions() {
     const optionOriginPrice = optionTr.querySelector('.detail-option-origin-price').value;
     const optionSalePrice = optionTr.querySelector('.detail-option-sale-price').value;
 
-    productDetailOption.detailOptionNo = optionNo;
-    productDetailOption.detailOptionName = optionName;
-    productDetailOption.detailOptionQuantity = optionQuantity;
-    productDetailOption.detailOptionOriginPrice = optionOriginPrice;
-    productDetailOption.detailOptionSalePrice = optionSalePrice;
+    let productDetailOption = {
+      detailOptionNo: optionNo,
+      detailOptionName: optionName,
+      detailOptionQuantity: optionQuantity,
+      detailOptionOriginPrice: optionOriginPrice,
+      detailOptionSaledPrice: optionSalePrice
+    };
 
     productDetailOptions.push(productDetailOption);
   });
+
   return productDetailOptions;
 }
