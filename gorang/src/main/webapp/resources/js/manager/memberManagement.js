@@ -70,10 +70,10 @@ function formattingDate(dateString) {
 }
 
 // 회원 삭제 함수
-function deleteMember() {
+function updateMember() {
   let memberNoList = getMemberNo();
 
-  const result = confirm("정말로 회원탈퇴 처리를 하시겠습니까?");
+  const result = confirm("정말로 회원상태를 변경하시겠습니까?");
 
   if(result) {
     $.ajax({
@@ -83,10 +83,10 @@ function deleteMember() {
       data : JSON.stringify(memberNoList),
       success: function(res) {
         if(res === "done") {
-          alert("회원탈퇴처리를 성공적으로 처리하였습니다.");
+          alert("회원상태를 성공적으로 변경하였습니다.");
           window.location.href = window.location.href;
         } else {
-          alert("회원탈퇴처리를 실패하였습니다.")
+          alert("회원상태 변경을 실패하였습니다.")
         }
       }, 
       error: function() {

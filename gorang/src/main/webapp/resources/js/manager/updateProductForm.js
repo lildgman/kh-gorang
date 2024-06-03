@@ -32,23 +32,21 @@ function searchProductOption() {
 // 찾은 옵션들을 토대로 table을 그려주는 함수
 function drawProductOptions(optionList, optionTbody) {
   optionList.forEach(option => {
-    const newRow = `
-                    <tr class="product-option-tr">
-                    <input type="hidden" class="detail-option-no" value="` + option.detailOptionNo + `">
-                        <td align="center">
-                            <input type="text" class="detail-option-name" value="` + option.detailOptionName + `">
-                        </td>
-                        <td align="center">
-                            <input type="number" class="txt-align-right detail-option-quantity" placeholder="개" value="` + option.detailOptionQuantity + `">
-                        </td>
-                        <td align="center">
-                            <input type="number" class="txt-align-right detail-option-origin-price" placeholder="원" value="` + option.detailOptionOriginPrice + `">
-                        </td>
-                        <td align="center">
-                            <input type="number" class="txt-align-right detail-option-sale-price" placeholder="원" value="` + option.detailOptionSaledPrice + `">
-                        </td>
-                    </tr>`;
-    optionTbody.innerHTML += newRow;
+
+    const newRow = $('<tr class="product-option-tr"></tr>');
+
+    newRow.append('<input type="hidden" class="detail-option-no" value="' + option.detailOptionNo + '">');
+    if(option.mainDetailOption) {
+      newRow.append('<td align="center"><input type="checkbox" class="main-option-checkbox" onclick="checkSelectedOneMainOption(event)" checked></td>');
+    } else {
+      newRow.append('<td align="center"><input type="checkbox" class="main-option-checkbox" onclick="checkSelectedOneMainOption(event)" ></td>');
+    }
+    newRow.append('<td align="center"><input type="text" class="detail-option-name" value="' + option.detailOptionName + '"></td>');
+    newRow.append('<td align="center"><input type="number" class="txt-align-right detail-option-quantity" placeholder="개" value="' + option.detailOptionQuantity + '"></td>');
+    newRow.append('<td align="center"><input type="number" class="txt-align-right detail-option-origin-price" placeholder="원" value="' + option.detailOptionOriginPrice + '"></td>');
+    newRow.append('<td align="center"><input type="number" class="txt-align-right detail-option-sale-price" placeholder="원" value="' + option.detailOptionSaledPrice + '"></td>');
+    
+    optionTbody.append(newRow[0]);
   });
 }
 
@@ -107,6 +105,15 @@ function drawProductInfo(productList, tbody) {
 // 상품 하나만 체크되도록 해주는 함수
 function checkSelectedOneProduct(event) {
   const checkboxs = document.querySelectorAll('.check-product');
+  for(let c of checkboxs){
+    c.checked = false;
+  }
+  event.target.checked = true;
+}
+
+// 대표옵션 하나만 체크되도록 하는 함수
+function checkSelectedOneMainOption(event) {
+  const checkboxs = document.querySelectorAll('.main-option-checkbox');
   for(let c of checkboxs){
     c.checked = false;
   }
@@ -183,6 +190,7 @@ function getProductOptions() {
   const optionTrs = document.querySelectorAll('.product-option-tr');
 
   optionTrs.forEach(optionTr => {
+    const mainOption = optionTr.querySelector('.main-option-checkbox').checked;
     const optionNo = optionTr.querySelector('.detail-option-no').value;
     const optionName = optionTr.querySelector('.detail-option-name').value;
     const optionQuantity = optionTr.querySelector('.detail-option-quantity').value;
@@ -190,13 +198,13 @@ function getProductOptions() {
     const optionSalePrice = optionTr.querySelector('.detail-option-sale-price').value;
 
     let productDetailOption = {
+      mainDetailOption : mainOption,
       detailOptionNo: optionNo,
       detailOptionName: optionName,
       detailOptionQuantity: optionQuantity,
       detailOptionOriginPrice: optionOriginPrice,
       detailOptionSaledPrice: optionSalePrice
     };
-
     productDetailOptions.push(productDetailOption);
   });
 

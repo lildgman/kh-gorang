@@ -1,9 +1,12 @@
 package com.kh.gorang.manager.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.gorang.board.model.vo.BoardSearchDTO;
 import com.kh.gorang.manager.model.dao.ManagerDao;
@@ -24,10 +27,7 @@ public class ManagerServiceImpl implements ManagerService{
 	@Override
 	public ArrayList<BoardSearchDTO> ajaxSearchBoard(String searchBoardTitle) {
  
-		ArrayList<BoardSearchDTO> resultList = managerDao.ajaxSearchBoard(sqlSession, searchBoardTitle);
-		log.info("resultList={}",resultList);
-		return null;
-//		return managerDao.ajaxSearchBoard(sqlSession, searchBoardTitle);
+		return managerDao.ajaxSearchBoard(sqlSession, searchBoardTitle);
 	}
 
 	// ajax 회원 검색
@@ -37,10 +37,27 @@ public class ManagerServiceImpl implements ManagerService{
 		return managerDao.ajaxSearchMember(sqlSession, searchMember);
 	}
 
-	// ajax 회원 탈퇴
+	// ajax 회원 상태 변경
 	@Override
-	public int ajaxDeleteMember(ArrayList<Integer> memberNoList) {
-		return  managerDao.ajaxDeleteMember(sqlSession, memberNoList);
+	@Transactional
+	public int ajaxUpdateMember(ArrayList<Integer> memberNoList) {
+		
+		int result = 0;
+		
+		for(Integer memberNo : memberNoList) {
+			Member member = managerDao.selectMember(sqlSession, memberNo);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("memberNo", member.getMemberNo());
+			map.put("memberStatus", member.getMemberStatus());
+			
+			result = managerDao.ajaxUpdateMemberStatus(sqlSession, map);
+			
+		}
+		
+//		return managerDao.ajaxUpdateMember(sqlSession, memberNoList);
+		
+		return result;
 	}
 
 }

@@ -101,7 +101,7 @@
                     </table> 
                 </div>
                 <div class="delete-member-btn-container">
-                    <button id="delete-member-btn" class="myBtn" onclick="deleteMember()">탈퇴</button>
+                    <button id="delete-member-btn" class="myBtn" onclick="updateMember()">상태변경</button>
                 </div>
             </div>
         </div>
