@@ -18,6 +18,38 @@
   	<result column="MEMBER_NO" property="memberNo"></result>
   </resultMap>
   
+  <!-- 게시글 총 갯수 조회 -->
+  <select id ="selectListCount" resultType="_int">
+  SELECT COUNT(*)
+  FROM BOARD
+  WHERE STATUS = 'Y'
+  </select>
+  
+  <select id ="selectList" resultMap="boardResult">
+  SELECT BOARD_NO,
+  			BOARD_TITLE,
+  			MEMBER_NO,
+  			BOARD_VIEWS,
+  			BOARD_THUMBNAIL,
+  			TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS "BOARD_CREATE_DATE"
+  		FROM BOARD
+  		WHERE STATUS = 'Y'
+  		ORDER BY BOARD_NO DESC
+  </select>
+  
+
+  
+  <select id ="selectBoard" resultMap="boardResult">
+   SELECT BOARD_NO, 
+		   BOARD_TITLE, 
+		   MEMBER_NO, 
+		   BOARD_THUMBNAIL, 
+		   TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS "BOARD_CREATE_DATE"
+    		FROM BOARD
+    		WHERE STATUS = 'Y'
+    		AND BOARD_NO = #{boardNo}
+  </select>
+  
   <!-- 게시판 게시글 추가  -->
   <insert id = "insertBoard" parameterType="Board">
   	INSERT INTO BOARD(
