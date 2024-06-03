@@ -3,20 +3,52 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="boardMapper">
+  
   <!-- 게시판 -->
   <resultMap type ="Board" id="boardResult">	
   	<result column="BOARD_NO" property="boardNo"></result>
   	<result column="BOARD_TITLE" property="boardTitle"></result>
   	<result column="BOARD_CONTENT" property="boardContent"></result>
-  	<result column="BOARD_THUMBNAIL" property="boardThunbnail"></result>
+  	<result column="BOARD_THUMBNAIL" property="boardThumbnail"></result>
   	<result column="BOARD_CREATE_DATE" property="boardCreateDate"></result>
   	<result column="BOARD_VIEWS" property="boardViews"></result>
   	<result column="BOARD_TAG" property="boardTag"></result>
   	<result column="BOARD_VOTE" property="boardVote"></result>
   	<result column="STATUS" property="status"></result>
   	<result column="MEMBER_NO" property="memberNo"></result>
-  	
   </resultMap>
+  
+  <!-- 게시글 총 갯수 조회 -->
+  <select id ="selectListCount" resultType="_int">
+  SELECT COUNT(*)
+  FROM BOARD
+  WHERE STATUS = 'Y'
+  </select>
+  
+  <select id ="selectList" resultMap="boardResult">
+  SELECT BOARD_NO,
+  			BOARD_TITLE,
+  			MEMBER_NO,
+  			BOARD_VIEWS,
+  			BOARD_THUMBNAIL,
+  			TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS "BOARD_CREATE_DATE"
+  		FROM BOARD
+  		WHERE STATUS = 'Y'
+  		ORDER BY BOARD_NO DESC
+  </select>
+  
+
+  
+  <select id ="selectBoard" resultMap="boardResult">
+   SELECT BOARD_NO, 
+		   BOARD_TITLE, 
+		   MEMBER_NO, 
+		   BOARD_THUMBNAIL, 
+		   TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS "BOARD_CREATE_DATE"
+    		FROM BOARD
+    		WHERE STATUS = 'Y'
+    		AND BOARD_NO = #{boardNo}
+  </select>
   
   <!-- 게시판 게시글 추가  -->
   <insert id = "insertBoard" parameterType="Board">
@@ -34,4 +66,11 @@
   		#{memberNo}
   	)
   </insert>
+  
+  <!-- 상세 게시글 조회 -->
+  <select id="getBoardByNo" resultMap="boardResult" parameterType="int">
+    SELECT * FROM BOARD
+    WHERE BOARD_NO = #{boardNo}
+  </select>
+  
   </mapper>

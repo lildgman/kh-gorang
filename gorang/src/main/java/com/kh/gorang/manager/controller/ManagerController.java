@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -73,12 +75,25 @@ public class ManagerController {
 	
 	@GetMapping("search-member.ma")
 	@ResponseBody
-	public String ajaxSearchMember(String searchMember) {
-		
-		log.info("searchMember={}",searchMember);
+	public ArrayList<Member> ajaxSearchMember(String searchMember) {
 		
 		ArrayList<Member> memberList = managerService.ajaxSearchMember(searchMember);
-		return "ok";
+		return memberList;
+	}
+	
+	@PostMapping("delete-member.ma")
+	@ResponseBody
+	public String ajaxUpdateMember(@RequestBody ArrayList<Integer> memberNoList) {
+		
+		int result = managerService.ajaxUpdateMember(memberNoList);
+		
+		if(result > 0) {
+			return "done";
+		} else {
+			return "undone";
+		}
+		
+		
 	}
 	
 	

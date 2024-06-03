@@ -123,21 +123,22 @@
   font-weight: bold;
 }
 
-.member-table-container {
+#member-table-container {
   margin-bottom: 50px;
 }
 
-.member-table {
+#member-table {
   width: 480px;
   border-collapse: collapse;
 }
 
-.member-table tr td {
+#member-table tr td {
   border: 1px solid #cececd;
 }
 
-.member-table td {
+#member-table td {
   padding: 5px;
+  white-space: nowrap;
 }
 
 .checkbox-td {
@@ -156,7 +157,7 @@
   width: 140px;
 }
 
-.member-table input {
+#member-table input {
   width: 100%;
   border: 1px solid #cececd;
   padding: 5px;

@@ -51,13 +51,71 @@
 		<result column="MEMBER_NO" property="memberNo" />
 	</resultMap>
 
+	<!-- 회원 -->
+	<resultMap type="Member" id="memberResult">
+		<result column="MEMBER_NO" property="memberNo" />
+		<result column="MEMBER_EMAIL" property="memberEmail" />
+		<result column="MEMBER_PWD" property="memberPwd" />
+		<result column="MEMBER_NICKNAME" property="nickname" />
+		<result column="MEMBER_PHONE" property="memberPhone" />
+		<result column="MEMBER_GENDER" property="gender" />
+		<result column="MEMBER_ADDRESS" property="memberAddress" />
+		<result column="MEMBER_BIRTH" property="birth" />
+		<result column="MEMBER_PROFILE" property="profile" />
+		<result column="MEMBER_GRADE" property="grade" />
+		<result column="MEMBER_ENROLL_DATE" property="memberEnrollDate" />
+		<result column="MEMBER_MODIFY_DATE" property="memberModifyDate" />
+		<result column="MEMBER_STATUS" property="memberStatus" />
+		<result column="ALARM_STATUS" property="alarm" />
+		<result column="LOGIN_SIGN_PATH" property="loginPath" />
+	</resultMap>
+
 	<!-- ajax 상품 조회 -->
 	<select id="ajaxSearchBoard" resultMap="boardResult">
 		SELECT *
 		FROM BOARD
 		WHERE
-			BOARD_TITLE LIKE '%${searchBoardTitle}%'
+		BOARD_TITLE LIKE '%${searchBoardTitle}%'
 	</select>
-
-
+	
+	<!-- ajax 회원 조회 -->
+	<select id="ajaxSearchMember" resultMap="memberResult">
+		SELECT *
+		FROM MEMBER
+		WHERE
+			MEMBER_EMAIL LIKE '%${searchMember}%'
+			OR MEMBER_NICKNAME LIKE '%${searchMember}%'
+	</select>
+	
+	<!-- ajax 회원 탈퇴 -->
+	<!-- 
+	<update id="ajaxDeleteMember" parameterType="java.util.List">
+		<foreach collection="list" item="memberNo" separator=";">
+			UPDATE MEMBER
+			SET MEMBER_STATUS = 'N'
+			WHERE
+				MEMBER_NO = #{memberNo}
+		</foreach>
+	</update>
+	 -->
+	
+	<!-- 회원번호로 회원 조회 -->
+	<select id="selectMember" resultMap="memberResult">
+		SELECT *
+		FROM MEMBER
+		WHERE
+			MEMBER_NO = #{memberNo}
+	</select>
+	
+	<!-- 회원상태 변경 -->
+	<update id="ajaxUpdateMemberStatus" parameterType="Member">
+		UPDATE MEMBER
+		<if test='memberStatus == "Y"'>
+			SET MEMBER_STATUS = 'N'
+		</if>
+		<if test='memberStatus == "N"'>
+			SET MEMBER_STATUS = 'Y'
+		</if>
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
 </mapper>

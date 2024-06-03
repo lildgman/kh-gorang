@@ -1,6 +1,7 @@
 package com.kh.gorang.manager.model.dao;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -20,8 +21,17 @@ public class ManagerDao {
 	
 	// ajax 회원 조회
 	public ArrayList<Member> ajaxSearchMember(SqlSessionTemplate sqlSession, String searchMember) {
-		// TODO Auto-generated method stub
-		return null;
+		return (ArrayList)sqlSession.selectList("managerMapper.ajaxSearchMember", searchMember);
+	}
+
+	// 회원번호로 회원 조회
+	public Member selectMember(SqlSessionTemplate sqlSession, Integer memberNo) {
+		return sqlSession.selectOne("managerMapper.selectMember", memberNo);
+	}
+
+	// 회원 상태 변경
+	public int ajaxUpdateMemberStatus(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.update("managerMapper.ajaxUpdateMemberStatus", map);
 	}
 
 }
