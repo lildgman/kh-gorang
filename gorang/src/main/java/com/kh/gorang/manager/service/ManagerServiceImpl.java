@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
-import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.board.model.vo.BoardSearchDTO;
 import com.kh.gorang.manager.model.dao.ManagerDao;
 import com.kh.gorang.member.model.vo.Member;
@@ -35,9 +34,13 @@ public class ManagerServiceImpl implements ManagerService{
 	@Override
 	public ArrayList<Member> ajaxSearchMember(String searchMember) {
 		
-		ArrayList<Member> result = managerDao.ajaxSearchMember(sqlSession, searchMember);
-		
-		return null;
+		return managerDao.ajaxSearchMember(sqlSession, searchMember);
+	}
+
+	// ajax 회원 탈퇴
+	@Override
+	public int ajaxDeleteMember(ArrayList<Integer> memberNoList) {
+		return  managerDao.ajaxDeleteMember(sqlSession, memberNoList);
 	}
 
 }

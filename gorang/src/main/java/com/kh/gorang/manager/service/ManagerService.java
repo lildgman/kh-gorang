@@ -14,4 +14,7 @@ public interface ManagerService {
 	// ajax 회원 검색
 	ArrayList<Member> ajaxSearchMember(String searchMember);
 
+	// ajax 회원 탈퇴
+	int ajaxDeleteMember(ArrayList<Integer> memberNoList);
+
 }
