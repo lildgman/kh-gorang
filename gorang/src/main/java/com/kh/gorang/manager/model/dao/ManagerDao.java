@@ -34,4 +34,15 @@ public class ManagerDao {
 		return sqlSession.update("managerMapper.ajaxUpdateMemberStatus", map);
 	}
 
+	// 게시글 누적 신고수 조회
+	public int getReportCount(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.selectOne("managerMapper.selectReportCount", boardNo);
+	}
+
+	// 게시글 작성자 조회
+	public String getBoardWriter(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.selectOne("managerMapper.selectBoardWriter", boardNo);
+	}
+
+	
 }

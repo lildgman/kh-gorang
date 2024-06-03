@@ -69,9 +69,36 @@
 		<result column="ALARM_STATUS" property="alarm" />
 		<result column="LOGIN_SIGN_PATH" property="loginPath" />
 	</resultMap>
-
+	
+	<!-- 신고 -->
+	<resultMap type="Report" id="reportResult">
+		<result column="REPORT_NO" property="reportNo"/>
+		<result column="REPORT_WHY" property="reportReason"/>
+		<result column="REPORT_CONTENT" property="reportContent"/>
+		<result column="BOARD_NO" property="boardNo"/>
+		<result column="MEMBER_NO" property="memberNo"/>
+	</resultMap>
+	
+	<!-- BoardSearchDTO -->
+	<resultMap type="BoardSearchDTO" id="boardSearchDTOResult">
+		<result column="REPORT_COUNT" property="reportCount" />
+		<result column="BOARD_WRITER" property="boardWriter" />
+		<association property="board" javaType="Board">
+			<result column="BOARD_NO" property="boardNo" />
+			<result column="BOARD_TITLE" property="boardTitle" />
+			<result column="BOARD_CONTENT" property="boardContent" />
+			<result column="BOARD_THUMBNAIL" property="boardThumbnail" />
+			<result column="BOARD_CREATE_DATE" property="boardCreateDate" />
+			<result column="BOARD_VIEWS" property="boardViews" />
+			<result column="BOARD_TAG" property="boardTag" />
+			<result column="BOARD_VOTE" property="boardVote" />
+			<result column="STATUS" property="status" />
+			<result column="MEMBER_NO" property="memberNo" />
+		</association>
+	</resultMap>
+	
 	<!-- ajax 상품 조회 -->
-	<select id="ajaxSearchBoard" resultMap="boardResult">
+	<select id="ajaxSearchBoard" resultMap="boardSearchDTOResult">
 		SELECT *
 		FROM BOARD
 		WHERE
@@ -86,18 +113,6 @@
 			MEMBER_EMAIL LIKE '%${searchMember}%'
 			OR MEMBER_NICKNAME LIKE '%${searchMember}%'
 	</select>
-	
-	<!-- ajax 회원 탈퇴 -->
-	<!-- 
-	<update id="ajaxDeleteMember" parameterType="java.util.List">
-		<foreach collection="list" item="memberNo" separator=";">
-			UPDATE MEMBER
-			SET MEMBER_STATUS = 'N'
-			WHERE
-				MEMBER_NO = #{memberNo}
-		</foreach>
-	</update>
-	 -->
 	
 	<!-- 회원번호로 회원 조회 -->
 	<select id="selectMember" resultMap="memberResult">
@@ -118,4 +133,19 @@
 		</if>
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
+	
+	<!-- 누적신고수 조회 -->
+	<select id="selectReportCount" resultType="_int">
+		SELECT COUNT(BOARD_NO) AS REPORT_COUNT
+		FROM REPORT
+		WHERE BOARD_NO = #{boardNo}
+	</select>
+	
+	<!-- 작성자 조회 -->
+	<select id="selectBoardWriter" resultType="string">
+		SELECT MEMBER_NICKNAME
+		FROM MEMBER
+		JOIN BOARD USING (MEMBER_NO)
+		WHERE BOARD_NO = #{boardNo}
+	</select>
 </mapper>

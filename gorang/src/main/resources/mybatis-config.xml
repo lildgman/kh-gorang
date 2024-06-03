@@ -24,8 +24,10 @@
  		<typeAlias type="com.kh.gorang.shopping.model.vo.ProductDetailOption" alias="ProductDetailOption" />
 
  		<typeAlias type="com.kh.gorang.board.model.vo.Board" alias="Board"/>
-
+		<typeAlias type="com.kh.gorang.board.model.vo.Report" alias="Report"/>
+		
  		<typeAlias type="com.kh.gorang.shopping.model.vo.ProductInsertDTO" alias="ProductInsertDTO" />
+ 		<typeAlias type="com.kh.gorang.board.model.vo.BoardSearchDTO" alias="BoardSearchDTO" />
 	</typeAliases>
 	
 	<!-- 
