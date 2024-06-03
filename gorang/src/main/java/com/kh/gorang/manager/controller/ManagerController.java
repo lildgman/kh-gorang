@@ -77,18 +77,15 @@ public class ManagerController {
 	@ResponseBody
 	public ArrayList<Member> ajaxSearchMember(String searchMember) {
 		
-		log.info("searchMember={}",searchMember);
-		
 		ArrayList<Member> memberList = managerService.ajaxSearchMember(searchMember);
 		return memberList;
 	}
 	
 	@PostMapping("delete-member.ma")
 	@ResponseBody
-	public String ajaxDeleteMember(@RequestBody ArrayList<Integer> memberNoList) {
+	public String ajaxUpdateMember(@RequestBody ArrayList<Integer> memberNoList) {
 		
-		log.info("memberNoList={}", memberNoList);
-		int result = managerService.ajaxDeleteMember(memberNoList);
+		int result = managerService.ajaxUpdateMember(memberNoList);
 		
 		if(result > 0) {
 			return "done";

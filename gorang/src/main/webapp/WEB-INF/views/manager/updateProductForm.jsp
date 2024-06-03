@@ -147,6 +147,7 @@
                     <table class="product-option-table">
                         <thead>
                             <tr>
+                                <td align="center" class="main-option-td">대표옵션</td>
                                 <td align="center" class="option-name-td">옵션명</td>
                                 <td align="center" class="product-quantity-td">재고</td>
                                 <td align="center" class="product-origin-price-td">정상가</td>

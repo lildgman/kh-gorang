@@ -88,6 +88,7 @@
 	</select>
 	
 	<!-- ajax 회원 탈퇴 -->
+	<!-- 
 	<update id="ajaxDeleteMember" parameterType="java.util.List">
 		<foreach collection="list" item="memberNo" separator=";">
 			UPDATE MEMBER
@@ -95,5 +96,26 @@
 			WHERE
 				MEMBER_NO = #{memberNo}
 		</foreach>
+	</update>
+	 -->
+	
+	<!-- 회원번호로 회원 조회 -->
+	<select id="selectMember" resultMap="memberResult">
+		SELECT *
+		FROM MEMBER
+		WHERE
+			MEMBER_NO = #{memberNo}
+	</select>
+	
+	<!-- 회원상태 변경 -->
+	<update id="ajaxUpdateMemberStatus" parameterType="Member">
+		UPDATE MEMBER
+		<if test='memberStatus == "Y"'>
+			SET MEMBER_STATUS = 'N'
+		</if>
+		<if test='memberStatus == "N"'>
+			SET MEMBER_STATUS = 'Y'
+		</if>
+		WHERE MEMBER_NO = #{memberNo}
 	</update>
 </mapper>

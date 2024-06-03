@@ -301,6 +301,7 @@
 		UPDATE OPTION_NAME
 		SET 
 			OPTIONS_NAME = #{detailOptionName},
+			MAIN_OPTION = #{mainDetailOption},
 			OPTIONS_NORMAL_PRICE = #{detailOptionOriginPrice},
 			OPTIONS_SALE_PRICE = #{detailOptionSaledPrice},
 			OPTIONS_STOCK = #{detailOptionQuantity}
