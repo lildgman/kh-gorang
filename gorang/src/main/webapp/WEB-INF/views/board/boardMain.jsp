@@ -56,31 +56,28 @@
                         </div>
                         <div class="commonContainer">
                             <c:forEach var="board" items="${list}">
-    <div class="common-item" data-board-no="${board.boardNo}">
-        <div class="common-content-item">
-            <div id="boardThumbnail">
-                <img src="${board.boardThumbnail}" alt="썸네일">
-            </div>
-            <div id="commonContentInfoBox">
-                <div id="boardTitle"><span>${board.boardTitle}</span></div>
-                <div id="commonContentWriter">
-                    <div id="commonContentWriterImg">
-                        <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png">
-                    </div>
-                    <span>${member.memberNo}</span>
-                </div>
-                <div id="commonContentBoardInfo">
-                    <div id="commonBoardInfoScrap">스크랩 <span>18</span></div>
-                    <div id="boardCount">조회수 <span>${board.count}</span></div>
-                    <div id="commonBoardInfoRec">추천수 <span>12</span></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</c:forEach>
-
-
-
+                                <div class="common-item" data-board-no="${board.boardNo}">
+                                    <div class="common-content-item">
+                                        <div id="boardThumbnail">
+                                            <img src="${board.boardThumbnail}" alt="썸네일">
+                                        </div>
+                                        <div id="commonContentInfoBox">
+                                            <div id="boardTitle"><span>${board.boardTitle}</span></div>
+                                            <div id="commonContentWriter">
+                                                <div id="commonContentWriterImg">
+                                                    <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png">
+                                                </div>
+                                                <span>${member.memberNo}</span>
+                                            </div>
+                                            <div id="commonContentBoardInfo">
+                                                <div id="commonBoardInfoScrap">스크랩 <span>18</span></div>
+                                                <div id="boardCount">조회수 <span></span></div>
+                                                <div id="commonBoardInfoRec">추천수 <span>12</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
                         </div>
                         <div id="BoardPageBarBox">
                             <div id="pagingArea">
