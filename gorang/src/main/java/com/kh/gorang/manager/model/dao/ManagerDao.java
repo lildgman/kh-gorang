@@ -20,8 +20,12 @@ public class ManagerDao {
 	
 	// ajax 회원 조회
 	public ArrayList<Member> ajaxSearchMember(SqlSessionTemplate sqlSession, String searchMember) {
-		// TODO Auto-generated method stub
-		return null;
+		return (ArrayList)sqlSession.selectList("managerMapper.ajaxSearchMember", searchMember);
+	}
+
+	// ajax 회원 탈퇴
+	public int ajaxDeleteMember(SqlSessionTemplate sqlSession, ArrayList<Integer> memberNoList) {
+		return sqlSession.update("managerMapper.ajaxDeleteMember", memberNoList);
 	}
 
 }
