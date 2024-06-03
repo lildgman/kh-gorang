@@ -61,10 +61,10 @@
                         <div class="i-container">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </div>
-                        <input id="search-category-input" class="search-input" type="text" placeholder="ID 입력">
+                        <input id="search-member-input" class="search-input" type="text" placeholder="ID 입력">
                     </div>
                     <div class="search-btn-container">
-                        <button id="search-category-btn" class="search-btn" >검색</button>
+                        <button id="search-member-btn" class="search-btn" onclick="searchMember()">검색</button>
                     </div>
                 </div>
             </div>
