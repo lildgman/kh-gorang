@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.kh.gorang.common.template.Pagination;
@@ -96,9 +98,17 @@ public class StoreController {
 	}
 	
 	@RequestMapping("detail.po")
-	public String productDetailForm(@RequestParam String pno) {
-		log.info("pno = {}" , pno );
-		return "shopping/productDetailForm";
+	public String productDetailForm(@RequestParam String pno, Model model) {
+	    int productNo = Integer.parseInt(pno); 
+	    Product p = productService.selectProductByProductNo(productNo);
+	    
+	    if (p == null) {
+	        model.addAttribute("alertMsg", "조회 실패");
+	        return "redirect:/list.po";
+	    } else {
+	        model.addAttribute("p", p);
+	        return "shopping/productDetailForm";
+	    }
 	}
 	
 	// ajax 로 product 객체 가져오는 메소드

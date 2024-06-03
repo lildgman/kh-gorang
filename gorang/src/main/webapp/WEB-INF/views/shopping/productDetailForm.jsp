@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <!DOCTYPE html>
         <html>
 
@@ -26,30 +25,30 @@
             <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
             <link rel="stylesheet" href="${contextPath }/resources/css/default.css">
             <link rel="stylesheet" href="${contextPath }/resources/css/shopping/productDetail.css">
+
         </head>
 
         <body>
             <!-- 헤더 시작-->
             <jsp:include page="../common/header.jsp" />
             <!-- 헤더 끝-->
-
             <!-- 상품 상세페이지 -->
             <div id="product-detail-container">
                 <!-- 사이드바 -->
                 <jsp:include page="../common/sidebar.jsp" />
+
                 <!-- 상품 간략 정보-->
                 <div id="productInfo-area">
                     <div id="product-img-container">
-                        <img class="product-thumbnail" src="${contextPath }/resources/dummyImg/shopping/item1.png"
+                        <img class="product-thumbnail" src="${contextPath }/resources/uploadfile/product/productimg/${p.mainImg}"
                             alt="">
                     </div>
-
                     <div id="product-Information">
                         <div id="product_brand">
-                            <span>브랜드명</span>
+                            <span>${p.productBrand}</span>
                         </div>
                         <div id="product_name_area">
-                            <span id="product_name">상품명</span>
+                            <span id="product_name">${p.productName}</span>
                             <span id="zzim">
                                 <i class="fa-regular fa-heart fa-xl"></i>
                             </span>
@@ -61,12 +60,12 @@
                             </div>
                         </div>
                         <div>
-                            <span id="product_origin_price">가격</span><span class="won">원</span>
+                            <span id="product_origin_price">${p.normalPrice}</span><span class="won">원</span>
                         </div>
                         <div id="product_discount_price">
-                            <span id="product_discount_percent">할인율</span>
+                            <span id="product_discount_percent">${p.discountPercent}%</span>
                             <div>
-                                <span id="product_discounted_price">할인된 가격</span><span
+                                <span id="product_discounted_price">${p.salePrice}</span><span
                                     style="font-size: 30px; font-weight: bold;">원</span>
                             </div>
                         </div>
@@ -94,47 +93,33 @@
                         </div>
                         <div id="product_buy_info_area">
                             <div id="product_buy_info">
-                                <form action="order.po">
-                                    <div class="product-opts">
-                                        <span>상품 선택</span>
-                                        <div class="product-opt-select">
-                                            <div>상품을 선택해주세요</div>
-                                            <ul class="product-opts-list">
-
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div id="product_quantity_area">
-                                        <!-- <div class="product_quantity_content">
-                                            <div class="pname">
-                                                어떤가요
+                                <div><span>상품 선택</span></div>
+                                <div id="product-opt-form-wrapper">
+                                    <form action="order.po?pno=${product.productNo}" id="product-opt-form">
+                                        <div class="product-opts">
+                                            <div class="product-opt-select">
+                                                <div><span>상품을 선택해주세요</span></div>
+                                                <ul class="product-opts-list">
+    
+                                                </ul>
                                             </div>
-                                            <div class="product_amount_price">
-                                                <div id="pamount_btn">
-                                                    <div class="pbtn minus_quantity">-</div>
-                                                    <input class="pbtn quantity pbtn-quantity" type="text"
-                                                        value="1"></input>
-                                                    <div class="pbtn plus_quantity">+</div>
-                                                </div>
-                                                <div class="product-price-view">
-                                                    <span class="product-price-basicPrice">3,400원</span>
-                                                    <span class="product-price-discountedPrice">2,400원</span>
+                                        </div>
+                                        <div id="product_quantity_area">
+                                        </div>
+                                        <div id="product-price-btn-wrapper">
+                                            <div id="price-area">
+                                                <div style="font-weight: bold; font-size: 20px;">총금액</div>
+                                                <div style="font-weight: bold; font-size: 25px; color: #1E90FF;">
+                                                    <span class="product-price"></span>원
                                                 </div>
                                             </div>
-                                        </div> -->
-                                    </div>
-                                    <!-- <div id="price-area">
-                                        <div style="font-weight: bold; font-size: 20px;">총금액</div>
-                                        <div style="font-weight: bold; font-size: 25px; color: #1E90FF;">
-                                            <span class="product-price">24,000</span>원
+                                            <div class="product_buy_btn_container">
+                                                <button class="myBtn btn_cart">장바구니 담기</button>
+                                                <button class="myBtn btn_buy">구매하기</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="product_buy_btn_container">
-                                        <button class="myBtn btn_cart">장바구니 담기</button>
-                                        <button class="myBtn btn_buy"
-                                            onclick="moveToPage('${contextPath }/order')">구매하기</button>
-                                    </div> -->
-                                </form>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -260,27 +245,6 @@
                     </div>
 
                     <div id="area_right">
-                        <div id="product-buy-container">
-                            <div class="pname">
-                                성주 참외 꿀참외 1.5kg
-                            </div>
-                            <div class="product_quantity_price">
-                                <div id="pamount_btn">
-                                    <div class="pbtn minus_quantity">-</div>
-                                    <input class="pbtn quantity pbtn-quantity" value="1"></input>
-                                    <div class="pbtn plus_quantity">+</div>
-                                </div>
-                                <div id="price">
-                                    <span class="product-price">24,000</span>원
-                                </div>
-                            </div>
-                            <div class="product_buy_btn_container">
-                                <button class="btn_cart mini_btn ">장바구니</button>
-                                <button class="btn_buy mini_btn"
-                                    onclick="moveToPage('${contextPath }/order')">구매하기</button>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
 
