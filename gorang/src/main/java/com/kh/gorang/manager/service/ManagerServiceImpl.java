@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.board.model.vo.BoardSearchDTO;
 import com.kh.gorang.manager.model.dao.ManagerDao;
+import com.kh.gorang.member.model.vo.Member;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +29,15 @@ public class ManagerServiceImpl implements ManagerService{
 		log.info("resultList={}",resultList);
 		return null;
 //		return managerDao.ajaxSearchBoard(sqlSession, searchBoardTitle);
+	}
+
+	// ajax 회원 검색
+	@Override
+	public ArrayList<Member> ajaxSearchMember(String searchMember) {
+		
+		ArrayList<Member> result = managerDao.ajaxSearchMember(sqlSession, searchMember);
+		
+		return null;
 	}
 
 }

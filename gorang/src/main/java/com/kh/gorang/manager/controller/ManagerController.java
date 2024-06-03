@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.gorang.board.model.vo.BoardSearchDTO;
 import com.kh.gorang.manager.service.ManagerService;
+import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.shopping.service.ODGProductService;
 
 import lombok.RequiredArgsConstructor;
@@ -65,9 +66,19 @@ public class ManagerController {
 	@ResponseBody
 	public ArrayList<BoardSearchDTO> ajaxSearchBoard(String searchBoardTitle) {
 		
-		ArrayList<BoardSearchDTO> list = managerService.ajaxSearchBoard(searchBoardTitle);
+		ArrayList<BoardSearchDTO> boardList = managerService.ajaxSearchBoard(searchBoardTitle);
 		
-		return list;
+		return boardList;
+	}
+	
+	@GetMapping("search-member.ma")
+	@ResponseBody
+	public String ajaxSearchMember(String searchMember) {
+		
+		log.info("searchMember={}",searchMember);
+		
+		ArrayList<Member> memberList = managerService.ajaxSearchMember(searchMember);
+		return "ok";
 	}
 	
 	
