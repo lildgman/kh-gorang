@@ -94,7 +94,7 @@ function inputProductInfo(pno, profileLocation){
   ajaxGetProductReviews({pno}, (reviews)=>putProductReviewList(reviews, profileLocation));
 
   //상품 문의 가져오기
-  ajaxGetProductQnAs({pno}, (qnas)=>putProductQnAList(qnas));
+  ajaxGetProductQnAs({pno}, (qnas)=>putProductQnAList(pno, qnas));
 }
 
 // =========================== 제품 옵션 및 수량 조절 메소드 ======================
@@ -283,14 +283,11 @@ function putProductOptsForOrder(opts){
   // 리뷰를 위해서는 상품 번호를 바로 참조하는 것이 아니라 유저가 구매한 상품 옵션을 통해 상품 번호를 가져와야함
   // 옵션명이 필요함!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 function putProductReviewList(reviews, profileLocation){
-    
-    console.log(reviews.length);
-
     const productReviewArea = document.querySelector("#product_review_area");
-    
+    // 리뷰수
+    document.querySelector("#product_review_quantity").innerHTML = reviews.length;
+    // 평점 평균 변수
     let ratingSum = 0;
-
-
     for(let review of reviews){
 
       ratingSum += review.rating;
@@ -342,13 +339,13 @@ function putProductReviewList(reviews, profileLocation){
       reviewContent.setAttribute("class", "review_content");
     }
     // 상품 평점 평균
-    let ratingAvg = ratingSum / reviews.length;
-    document.querySelector("#product_review_quantity").innerHTML = ratingAvg;
+    let ratingAvg = (ratingSum / reviews.length).toFixed(1);
+    document.querySelector("#product_grade").innerHTML = ratingAvg;
 }
 
 // ============================= QNA 관련 메소드 ====================================
   // 문의 구축하는 메소드
-function putProductQnAList(qnas){
+function putProductQnAList(pno, qnas){
 
   // 상품 문의 모달
     // 문의하기 버튼
@@ -428,15 +425,9 @@ function putProductQnAList(qnas){
 
  // 문의하기 모달창 구축하는 메소드
 function inquireQuestion(opts){
-  console.log("test");
+  console.log(opts);
   // 옵션명 보여줄 셀렉트
-  const inputForPno = document.createElement('input');
-  inputForPno.setAttribute("type", "hidden");
-  inputForPno.setAttribute("name", "refProductNo");
-  inputForPno.setAttribute("value", pno);
-  document.querySelector("#modal-qna-content").appendChild(inputForPno);
   const optnameSelect = document.querySelector("#qna_product_name");
-  
   // 상품 옵션 불러와서 넣기
   for(let opt of opts){
      const optnames = document.createElement('option');

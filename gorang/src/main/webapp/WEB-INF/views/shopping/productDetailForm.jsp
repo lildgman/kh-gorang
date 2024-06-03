@@ -74,7 +74,7 @@
                                 <tbody>
                                     <tr>
                                         <td>판매자</td>
-                                        <td>고랭</td>
+                                        <td>${p.seller}</td>
                                     </tr>
                                     <tr>
                                         <td>판매단위</td>
@@ -86,7 +86,7 @@
                                     </tr>
                                     <tr>
                                         <td>배송</td>
-                                        <td>무료배송</td>
+                                        <td>${p.shipmentType}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -95,7 +95,7 @@
                             <div id="product_buy_info">
                                 <div><span>상품 선택</span></div>
                                 <div id="product-opt-form-wrapper">
-                                    <form action="order.po?pno=${product.productNo}" id="product-opt-form">
+                                    <form action="order.po?pno=${p.productNo}" id="product-opt-form">
                                         <div class="product-opts">
                                             <div class="product-opt-select">
                                                 <div><span>상품을 선택해주세요</span></div>
@@ -263,6 +263,7 @@
                             <div class="modal-body" style="height: 100%;">
                                 <form id="modal-qna-content" action="insertQna.po">
                                     <input type="hidden" name="writerNo" value=${loginUser.memberNo}>
+                                    <input type="hidden" name="refProductNo" value=${p.productNo}>
                                     <div id="product_name_container">
                                         <div id="qna_product_name_header">
                                             상품명
