@@ -77,7 +77,7 @@ function updateMember() {
 
   if(result) {
     $.ajax({
-      url: "delete-member.ma",
+      url: "update-status.me",
       type: "post",
       contentType: "application/json",
       data : JSON.stringify(memberNoList),

@@ -15,6 +15,6 @@ public interface ManagerService {
 	ArrayList<Member> ajaxSearchMember(String searchMember);
 
 	// ajax 회원 상태 변경
-	int ajaxUpdateMember(ArrayList<Integer> memberNoList);
+	int ajaxUpdateMemberStatus(ArrayList<Integer> memberNoList);
 
 }
