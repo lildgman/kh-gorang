@@ -23,11 +23,22 @@ public class ManagerServiceImpl implements ManagerService{
 	private final ManagerDao managerDao;
 	private final SqlSessionTemplate sqlSession;
 	
-	// ajax 상품 검색
+	// ajax 게시글 검색
 	@Override
 	public ArrayList<BoardSearchDTO> ajaxSearchBoard(String searchBoardTitle) {
  
-		return managerDao.ajaxSearchBoard(sqlSession, searchBoardTitle);
+		ArrayList<BoardSearchDTO> resultList = managerDao.ajaxSearchBoard(sqlSession, searchBoardTitle);
+		
+		for(BoardSearchDTO b : resultList) {
+			int reportCount = managerDao.getReportCount(sqlSession, b.getBoard().getBoardNo());
+			String boardWriter = managerDao.getBoardWriter(sqlSession, b.getBoard().getBoardNo());
+			b.setReportCount(reportCount);
+			b.setBoardWriter(boardWriter);
+		}
+		
+		log.info("resultList={}", resultList);
+		
+		return resultList;
 	}
 
 	// ajax 회원 검색
@@ -40,7 +51,7 @@ public class ManagerServiceImpl implements ManagerService{
 	// ajax 회원 상태 변경
 	@Override
 	@Transactional
-	public int ajaxUpdateMember(ArrayList<Integer> memberNoList) {
+	public int ajaxUpdateMemberStatus(ArrayList<Integer> memberNoList) {
 		
 		int result = 0;
 		
@@ -55,7 +66,6 @@ public class ManagerServiceImpl implements ManagerService{
 			
 		}
 		
-//		return managerDao.ajaxUpdateMember(sqlSession, memberNoList);
 		
 		return result;
 	}

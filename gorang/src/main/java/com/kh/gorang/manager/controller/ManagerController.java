@@ -81,11 +81,11 @@ public class ManagerController {
 		return memberList;
 	}
 	
-	@PostMapping("delete-member.ma")
+	@PostMapping("update-status.me")
 	@ResponseBody
-	public String ajaxUpdateMember(@RequestBody ArrayList<Integer> memberNoList) {
+	public String ajaxUpdateMemberStatus(@RequestBody ArrayList<Integer> memberNoList) {
 		
-		int result = managerService.ajaxUpdateMember(memberNoList);
+		int result = managerService.ajaxUpdateMemberStatus(memberNoList);
 		
 		if(result > 0) {
 			return "done";
@@ -93,7 +93,15 @@ public class ManagerController {
 			return "undone";
 		}
 		
+	}
+	
+	@PostMapping("update-status.bo")
+	@ResponseBody
+	public String ajaxUpdateBoardStatus(@RequestBody ArrayList<Integer> boardNoList) {
 		
+		log.info("boardNoList = {}", boardNoList);
+		
+		return "ok";
 	}
 	
 	
