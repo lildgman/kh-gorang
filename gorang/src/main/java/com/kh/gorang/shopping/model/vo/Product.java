@@ -26,5 +26,6 @@ public class Product {
 	private String shipmentType;
 	private int shipmentTime;
 	private int shippingPrice;
+	private int productView;
 	private String status;
 }

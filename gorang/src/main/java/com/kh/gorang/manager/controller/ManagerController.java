@@ -107,6 +107,5 @@ public class ManagerController {
 			return "undone";
 		}
 	}
-	
-	
+
 }

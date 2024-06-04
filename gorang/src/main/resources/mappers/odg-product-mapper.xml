@@ -19,6 +19,7 @@
   		<result column="SHIPMENT_TYPE" property="shipmentType"/>
   		<result column="SHIPMENT_TIME" property="shipmentTime"/>
   		<result column="SHIPPING_PRICE" property="shippingPrice"/>
+  		<result column="PRODUCT_VIEW" property="productView"/>
   		<result column="STATUS" property="status"/>
   	</resultMap>
   	
