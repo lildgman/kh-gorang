@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.gorang.board.model.vo.Board;
@@ -61,12 +62,16 @@ public class BoardController {
 	    
 	    if (board != null) {
 	        model.addAttribute("board", board);
+	        
 	        return "board/boardDetail";
 	    } else {
 	        model.addAttribute("errorMsg", "게시글 조회 실패");
 	        return "board/boardMain";
 	    }
 	}
+	
+
+
 
 	//게시글 추가
 	@PostMapping("insert.bo")

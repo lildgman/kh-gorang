@@ -108,7 +108,7 @@ body {
     flex-direction: column;
 }
 
-#commonContentImg img {
+#boardThumbnail img {
     width: 100%;
     height: auto;
 }
@@ -116,10 +116,10 @@ body {
 #commonContentInfoBox {
     padding: 10px;
 }
-#commonContentTitle{
+#boardTitle{
     text-align: center;
 }
-#commonContentTitle span {
+#boardTitle span {
     font-size: 16px;
     font-weight: bold;
     color: #333;
