@@ -31,28 +31,21 @@
 
                 <!-- 배너 게시판 인기 이미지영역 -->
                 <div id="banner-imgs">
-                    <div class="banner-best-img">
-                        <img src="${contextPath}/resources/images/member-img/Img (1).png">
-                    </div>
-                    <div class="banner-best-img">
-                        <img src="${contextPath}/resources/dummyImg/recipe/레시피3(창녕갈릭 삼치 조림)/recipeBoardImg(3).jpg">
-                    </div>
-                    <div class="banner-best-img">
-                        <img src="${contextPath}/resources/images/member-img/Rectangle 18311.png">
-                    </div>
+                	<c:forEach var="board" items="${mostViewBoardList }">
+                		<div class="banner-best-img">
+	                        <img src="${contextPath}/resources/uploadfile/board/boardMainContentFile/${board.boardThumbnail}">
+	                    </div>          	
+                	</c:forEach>
                 </div>
+                
                  <!-- 배너 레시피 인기 이미지영역 --> 
                 <div id="banner-imgs-recipe">
-                    <div class="banner-best-img">
-                        <img src="${contextPath}/resources/images/member-img/Img.png">
-                        
-                    </div>
-                    <div class="banner-best-img">
-                        <img src="${contextPath}/resources/images/member-img/Img.png">
-                    </div>
-                    <div class="banner-best-img">
-                        <img src="${contextPath}/resources/images/member-img/Img.png">
-                    </div>
+                	<c:forEach var="recipe" items="${mostViewRecipeList }">
+                		<div class="banner-best-img">
+	                        <img src="${contextPath}/resources/images/member-img/Img.png">               
+	                    </div>   	
+                	</c:forEach>
+                    
                 </div>
 
                 <script>

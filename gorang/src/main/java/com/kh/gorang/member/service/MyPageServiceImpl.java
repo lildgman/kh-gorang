@@ -1,6 +1,7 @@
 package com.kh.gorang.member.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
@@ -77,17 +78,53 @@ public class MyPageServiceImpl implements MyPageService{
 		return myPageDao.getMostViewBoardList(sqlSession, memberNo);
 	}
 
+	// 스크랩한 내용물들 조회
 	@Override
 	public ArrayList<Object> getScrapList(int memberNo) {
 
-		ArrayList<Object> scrapList = new ArrayList<Object>();
+		ArrayList<Object> allScrapList = new ArrayList<Object>();
 		
 		ArrayList<Recipe> scrapRecipeList = myPageDao.getMostViewScrapedRecipeList(sqlSession, memberNo);
-		ArrayList<Board> scrapBoardList = ;
-		ArrayList<Product> scrapProductList = ;
+		for(Recipe r : scrapRecipeList) {
+			allScrapList.add(r);
+		}
 		
+		ArrayList<Board> scrapBoardList = myPageDao.getMostViewScrapedBoardList(sqlSession, memberNo);
+		for(Board b : scrapBoardList) {
+			allScrapList.add(b);
+		}
 		
-		return null;
+		ArrayList<Product> scrapProductList = myPageDao.getMostViewScrapedProductList(sqlSession, memberNo);
+		for(Product p : scrapProductList) {
+			allScrapList.add(p);
+		}
+		
+		Collections.shuffle(allScrapList);
+		ArrayList<Object> scrapList = new ArrayList<Object>(allScrapList.subList(0, 4));		
+	
+		return scrapList;
+	}
+
+	// 좋아요 누른 내용물들 조회
+	@Override
+	public ArrayList<Object> getLikeContentList(int memberNo) {
+		
+		ArrayList<Object> allLikeList = new ArrayList<Object>();
+		
+		ArrayList<Recipe> likeRecipeList = myPageDao.getLikedRecipeList(sqlSession, memberNo);
+		for(Recipe r : likeRecipeList) {
+			allLikeList.add(r);
+		}
+		
+		ArrayList<Board> likeBoardList = myPageDao.getLikedBoardList(sqlSession, memberNo);
+		for(Board b : likeBoardList) {
+			allLikeList.add(b);
+		}
+		
+		Collections.shuffle(allLikeList);	
+		ArrayList<Object> likeList = new ArrayList<Object>(allLikeList.subList(0, 4));
+	
+		return likeList;
 	}
 
 }

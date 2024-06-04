@@ -25,7 +25,10 @@ public interface MyPageService {
 	// 조회수가 많은 순으로 정렬된 게시글
 	ArrayList<Board> getMostViewBoardList(int memberNo);
 
-	// 스크랩 내용 조회
+	// 스크랩 내용물들 조회
 	ArrayList<Object> getScrapList(int memberNo);
+
+	// 좋아요 내용물들 조회
+	ArrayList<Object> getLikeContentList(int memberNo);
 
 }
