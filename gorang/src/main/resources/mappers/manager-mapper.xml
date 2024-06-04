@@ -101,8 +101,8 @@
 	<select id="ajaxSearchBoard" resultMap="boardSearchDTOResult">
 		SELECT *
 		FROM BOARD
-		WHERE
-		BOARD_TITLE LIKE '%${searchBoardTitle}%'
+		WHERE BOARD_TITLE LIKE '%${searchBoardTitle}%'
+		ORDER BY BOARD_NO
 	</select>
 	
 	<!-- ajax 회원 조회 -->
@@ -112,6 +112,7 @@
 		WHERE
 			MEMBER_EMAIL LIKE '%${searchMember}%'
 			OR MEMBER_NICKNAME LIKE '%${searchMember}%'
+		ORDER BY MEMBER_NO
 	</select>
 	
 	<!-- 회원번호로 회원 조회 -->
