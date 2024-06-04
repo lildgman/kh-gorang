@@ -60,7 +60,27 @@ public class MyPageDao {
 
 	// 스크랩한 레시피들 조회수가 많은 순으로 정렬된 리스트 조회
 	public ArrayList<Recipe> getMostViewScrapedRecipeList(SqlSessionTemplate sqlSession, int memberNo) {
-		return (ArrayList);
+		return (ArrayList)sqlSession.selectList("myPageMapper.selectMostViewScrapedRecipeList",memberNo);
+	}
+
+	// 스크랩한 게시글들 조회수가 많은 순으로 정렬된 리스트로 조회
+	public ArrayList<Board> getMostViewScrapedBoardList(SqlSessionTemplate sqlSession, int memberNo) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.selectMostViewScrapedBoardList", memberNo);
+	}
+
+	// 스크랩한 상품들 조회수가 많은 순으로 정렬된 리스트로 조회
+	public ArrayList<Product> getMostViewScrapedProductList(SqlSessionTemplate sqlSession, int memberNo) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.selectMostViewScrapedProductList", memberNo);
+	}
+
+	// 좋아요 누른 레시피 조회
+	public ArrayList<Recipe> getLikedRecipeList(SqlSessionTemplate sqlSession, int memberNo) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.selectLikedRecipeList", memberNo);
+	}
+
+	// 좋아요 누른 게시글 조회
+	public ArrayList<Board> getLikedBoardList(SqlSessionTemplate sqlSession, int memberNo) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.selectLikedBoardList", memberNo);
 	}
 
 }
