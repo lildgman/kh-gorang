@@ -51,7 +51,7 @@ function displaySelectedImage() {
 
 function addOption() {
   const optionTableTbody = document.querySelector('#option-table-tbody');
-
+  
   let newRow = document.createElement('tr');
   newRow.className = 'option-tr';
   newRow.innerHTML = `<tr class="option-tr">
@@ -59,7 +59,7 @@ function addOption() {
                             <input type="checkbox" name="" id="" class="deleteTrCheckBox">
                           </td>
                           <td align="center">
-                            <input type="checkbox" name="options[${optionNo}].mainDetailOption" id="mainDetailOption" value="yes">
+                            <input type="checkbox" name="options[${optionNo}].mainDetailOption" id="mainDetailOption" class="check-main-option" value="yes" onclick="checkSelectedOneOption(event);">
                             <input type="hidden" name="_options[${optionNo}].mainDetailOption" value="on"/>
                             <label for="mainDetailOption"></label>
                           </td>
@@ -84,13 +84,13 @@ function addOption() {
 }
 
 function deleteSelectedOption() {
-  let checkedCheckBoxes = document.querySelectorAll('.deleteTrCheckBox:checked');
+  let checkBoxes = document.querySelectorAll('.deleteTrCheckBox:checked');
   let optionTrs = document.querySelectorAll(".option-tr");
 
   if (optionTrs.length <= 1) {
     alert("옵션은 1개 이상이어야 합니다.");
   } else {
-    checkedCheckBoxes.forEach(function (checkCheckBox) {
+    checkBoxes.forEach(function (checkCheckBox) {
       checkCheckBox.closest('tr').remove();
     })
   }
@@ -135,5 +135,15 @@ function insertFileApi(data, callback) {
       console.log("파일업로드 api 요청 실패");
     }
   })
+}
+
+function checkSelectedOneOption(event) {
+  const checkBoxes = document.querySelectorAll('.check-main-option');
+  
+  checkBoxes.forEach(function(checkBox) {
+    checkBox.checked = false;
+  })
+
+  event.target.checked = true;
 }
 

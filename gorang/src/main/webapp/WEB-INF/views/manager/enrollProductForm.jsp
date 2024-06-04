@@ -205,26 +205,8 @@
 
                             <tbody id="option-table-tbody">
                                 <!-- <tr class="option-tr">
-                                    <td align="center">
-                                        <input type="checkbox" name="" id="" class="deleteTrCheckBox">
-                                    </td>
-                                    <td align="center">
-                                        <input type="checkbox" name="main-option" id="">
-                                    </td>
-                                    <td align="center">
-                                        <input type="text" id="detailOptionName" name="options[0].detailOptionName">
-                                    </td>
-                                    <td align="center">
-                                        <input type="number" class="txt-align-right" placeholder="개"
-                                            id="detailOptionQuantity" name="options[0].detailOptionQuantity">
-                                    </td>
-                                    <td align="center">
-                                        <input type="number" class="txt-align-right" placeholder="원"
-                                            id="detailOptionOriginPrice" name="options[0].detailOptionOriginPrice">
-                                    </td>
-                                    <td align="center">
-                                        <input type="number" class="txt-align-right" placeholder="원"
-                                            id="detailOptionSaledPrice" name="options[0].detailOptionSaledPrice">
+                                    <td align="center" colspan="6">
+                                        옵션을 등록해주세요
                                     </td>
                                 </tr> -->
                             </tbody>

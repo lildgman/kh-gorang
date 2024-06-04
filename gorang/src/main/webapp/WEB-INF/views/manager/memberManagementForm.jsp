@@ -61,10 +61,10 @@
                         <div class="i-container">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </div>
-                        <input id="search-category-input" class="search-input" type="text" placeholder="ID 입력">
+                        <input id="search-member-input" class="search-input" type="text" placeholder="ID 입력">
                     </div>
                     <div class="search-btn-container">
-                        <button id="search-category-btn" class="search-btn" >검색</button>
+                        <button id="search-member-btn" class="search-btn" onclick="searchMember()">검색</button>
                     </div>
                 </div>
             </div>
@@ -72,35 +72,36 @@
             <!-- 상품 검색결과 -->
             <div class="search-member-result-table">
                 <div class="member-table-container">
-                    <table class="member-table">
+                    <table id="member-table">
                         <thead>
                             <tr>
                                 <td align="center" class="checkbox-td">선택</td>
                                 <td align="center" class="user-id-td">사용자 ID</td>
                                 <td align="center" class="member-nickname-td">사용자 닉네임</td>
-                                <td align="center" class="product-createdate-td">가입일</td>
+                                <td align="center" class="member-createdate-td">가입일</td>
+                                <td align="center" class="member-status-td">회원상태</td>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="option-tr">
+                            <!-- <tr class="member-tr">
                                 <td align="center">
-                                    <input type="checkbox" name="" id="">
+                                    <input type="checkbox" class="check-member">
                                 </td>
-                                <td align="center">
+                                <td align="center" class="member-email">
                                     user01
                                 </td>
-                                <td align="center">
+                                <td align="center" class="member-nickname">
                                     user01
                                 </td>
-                                <td align="center">
+                                <td align="center" class="member-enroll-date">
                                     2024-04-21
                                 </td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table> 
                 </div>
                 <div class="delete-member-btn-container">
-                    <button id="delete-member-btn" class="myBtn">탈퇴</button>
+                    <button id="delete-member-btn" class="myBtn" onclick="updateMember()">상태변경</button>
                 </div>
             </div>
         </div>

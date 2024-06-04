@@ -51,13 +51,121 @@
 		<result column="MEMBER_NO" property="memberNo" />
 	</resultMap>
 
+	<!-- 회원 -->
+	<resultMap type="Member" id="memberResult">
+		<result column="MEMBER_NO" property="memberNo" />
+		<result column="MEMBER_EMAIL" property="memberEmail" />
+		<result column="MEMBER_PWD" property="memberPwd" />
+		<result column="MEMBER_NICKNAME" property="nickname" />
+		<result column="MEMBER_PHONE" property="memberPhone" />
+		<result column="MEMBER_GENDER" property="gender" />
+		<result column="MEMBER_ADDRESS" property="memberAddress" />
+		<result column="MEMBER_BIRTH" property="birth" />
+		<result column="MEMBER_PROFILE" property="profile" />
+		<result column="MEMBER_GRADE" property="grade" />
+		<result column="MEMBER_ENROLL_DATE" property="memberEnrollDate" />
+		<result column="MEMBER_MODIFY_DATE" property="memberModifyDate" />
+		<result column="MEMBER_STATUS" property="memberStatus" />
+		<result column="ALARM_STATUS" property="alarm" />
+		<result column="LOGIN_SIGN_PATH" property="loginPath" />
+	</resultMap>
+	
+	<!-- 신고 -->
+	<resultMap type="Report" id="reportResult">
+		<result column="REPORT_NO" property="reportNo"/>
+		<result column="REPORT_WHY" property="reportReason"/>
+		<result column="REPORT_CONTENT" property="reportContent"/>
+		<result column="BOARD_NO" property="boardNo"/>
+		<result column="MEMBER_NO" property="memberNo"/>
+	</resultMap>
+	
+	<!-- BoardSearchDTO -->
+	<resultMap type="BoardSearchDTO" id="boardSearchDTOResult">
+		<result column="REPORT_COUNT" property="reportCount" />
+		<result column="BOARD_WRITER" property="boardWriter" />
+		<association property="board" javaType="Board">
+			<result column="BOARD_NO" property="boardNo" />
+			<result column="BOARD_TITLE" property="boardTitle" />
+			<result column="BOARD_CONTENT" property="boardContent" />
+			<result column="BOARD_THUMBNAIL" property="boardThumbnail" />
+			<result column="BOARD_CREATE_DATE" property="boardCreateDate" />
+			<result column="BOARD_VIEWS" property="boardViews" />
+			<result column="BOARD_TAG" property="boardTag" />
+			<result column="BOARD_VOTE" property="boardVote" />
+			<result column="STATUS" property="status" />
+			<result column="MEMBER_NO" property="memberNo" />
+		</association>
+	</resultMap>
+	
 	<!-- ajax 상품 조회 -->
-	<select id="ajaxSearchBoard" resultMap="boardResult">
+	<select id="ajaxSearchBoard" resultMap="boardSearchDTOResult">
 		SELECT *
 		FROM BOARD
-		WHERE
-			BOARD_TITLE LIKE '%${searchBoardTitle}%'
+		WHERE BOARD_TITLE LIKE '%${searchBoardTitle}%'
+		ORDER BY BOARD_NO
 	</select>
-
-
+	
+	<!-- ajax 회원 조회 -->
+	<select id="ajaxSearchMember" resultMap="memberResult">
+		SELECT *
+		FROM MEMBER
+		WHERE
+			MEMBER_EMAIL LIKE '%${searchMember}%'
+			OR MEMBER_NICKNAME LIKE '%${searchMember}%'
+		ORDER BY MEMBER_NO
+	</select>
+	
+	<!-- 회원번호로 회원 조회 -->
+	<select id="selectMember" resultMap="memberResult">
+		SELECT *
+		FROM MEMBER
+		WHERE
+			MEMBER_NO = #{memberNo}
+	</select>
+	
+	<!-- 회원상태 변경 -->
+	<update id="ajaxUpdateMemberStatus" parameterType="Member">
+		UPDATE MEMBER
+		<if test='memberStatus == "Y"'>
+			SET MEMBER_STATUS = 'N'
+		</if>
+		<if test='memberStatus == "N"'>
+			SET MEMBER_STATUS = 'Y'
+		</if>
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	<!-- 누적신고수 조회 -->
+	<select id="selectReportCount" resultType="_int">
+		SELECT COUNT(BOARD_NO) AS REPORT_COUNT
+		FROM REPORT
+		WHERE BOARD_NO = #{boardNo}
+	</select>
+	
+	<!-- 작성자 조회 -->
+	<select id="selectBoardWriter" resultType="string">
+		SELECT MEMBER_NICKNAME
+		FROM MEMBER
+		JOIN BOARD USING (MEMBER_NO)
+		WHERE BOARD_NO = #{boardNo}
+	</select>
+	
+	<!-- 게시글 번호로 게시글 상태 조회 -->
+	<select id="selectBoard" resultType="string">
+		SELECT STATUS
+		FROM BOARD
+		WHERE BOARD_NO = #{boardNo}
+	</select>
+	
+	<!-- 게시글 상태 변경 -->
+	<update id="ajaxUpdateBoardStatus" parameterType="Board">
+		UPDATE BOARD
+		<if test='boardStatus == "Y"'>
+			SET STATUS = 'N'
+		</if>
+		<if test='boardStatus == "N"'>
+			SET STATUS = 'Y'
+		</if>
+		WHERE BOARD_NO = #{boardNo}
+	</update>
 </mapper>

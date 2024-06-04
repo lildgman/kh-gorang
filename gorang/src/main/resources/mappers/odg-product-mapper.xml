@@ -291,16 +291,19 @@
 		WHERE PRODUCT_NO = #{productNo}
 	</update>
 	
+	<!-- 상품번호로 상품 조회 -->
 	<select id="selectProduct" resultMap="productResult">
 		SELECT *
 		FROM PRODUCT
 		WHERE PRODUCT_NO = #{productNo}
 	</select>
 	
+	<!-- 상품 옵션 수정 -->
 	<update id="ajaxUpdateProductOptions" parameterType="ProductDetailOption">
 		UPDATE OPTION_NAME
 		SET 
 			OPTIONS_NAME = #{detailOptionName},
+			MAIN_OPTION = #{mainDetailOption},
 			OPTIONS_NORMAL_PRICE = #{detailOptionOriginPrice},
 			OPTIONS_SALE_PRICE = #{detailOptionSaledPrice},
 			OPTIONS_STOCK = #{detailOptionQuantity}

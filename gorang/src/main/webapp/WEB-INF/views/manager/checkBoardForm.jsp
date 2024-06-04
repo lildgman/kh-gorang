@@ -67,7 +67,7 @@
             <div id="admin-board-list-area">
                 <div id="admin-board-title">총 <span id="board-count"></span>개의 게시글</div>
                 <div id="admin-board-list-blocks">
-                    <table border="1">
+                    <table border="1" id="admin-board-list">
                         <thead>
                             <tr id="admin-thead-tr">
                                 <td class="thead-td1">선택</td>
@@ -77,27 +77,12 @@
                                 <td class="thead-td5">작성자</td>
                                 <td class="thead-td6">작성일</td>
                                 <td class="thead-td7">누적 신고 수</td>
+                                <td class="thead-td8">게시글 상태</td>
                             </tr>
                         </thead>
                         <tbody>
                             <tr class="admin-tbody-tr">
-                                <td class="tbody-checkbox"><input type="checkbox" name="check" id=""></td>
-                                <td style="color: #1e90ff;">1821515</td>
-                                <td>레시피</td>
-                                <td>개발은 참 즐거워</td>
-                                <td>1821515</td>
-                                <td>2024/01/01</td>
-                                <td>1234</td>
-                            </tr>
-
-                            <tr class="admin-tbody-tr">
-                                <td class="tbody-checkbox"><input type="checkbox" name="" id=""></td>
-                                <td style="color: #1e90ff;">1823525</td>
-                                <td>일반글</td>
-                                <td>괴발개발</td>
-                                <td>1821515</td>
-                                <td>2024/01/01</td>
-                                <td>123</td>
+                               <td colspan="8">게시글을 검색해주세요</td>
                             </tr>
                         </tbody>
                     </table>
@@ -107,7 +92,7 @@
             <!-- <div></div> -->
             <!-- 숨기기 버튼 -->
             <div id="hidden-board-btn">
-                <button>숨기기</button>
+                <button onclick="updateBoardStatus()">상태변경</button>
             </div>
         </div>
     </div>

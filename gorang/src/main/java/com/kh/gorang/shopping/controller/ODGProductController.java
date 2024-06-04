@@ -81,7 +81,6 @@ public class ODGProductController {
 	@ResponseBody
 	public String ajaxUpdateProductStatus(@RequestParam int productNo) {
 		
-		
 		int result = odgProductService.ajaxUpdateProductStatus(productNo);
 		
 		if(result > 0) {

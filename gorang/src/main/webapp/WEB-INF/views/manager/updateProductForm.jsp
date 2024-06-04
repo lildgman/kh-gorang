@@ -108,29 +108,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- <tr class="option-tr">
-                                <td align="center">
-                                    <input type="checkbox" name="" id="">
+                            <tr class="option-tr">
+                                <td align="center" colspan="7">
+                                    상품을 검색해주세요.
                                 </td>
-                                <td align="center">
-                                    1821515
-                                </td>
-                                <td align="center">
-                                    상품명1
-                                </td>
-                                <td align="center">
-                                    판매중
-                                </td>
-                                <td align="center">
-                                    9,000
-                                </td>
-                                <td align="center">
-                                    10,000
-                                </td>
-                                <td align="center">
-                                    조미료 > 간장
-                                </td>
-                            </tr> -->
+                            </tr>
                         </tbody>
                     </table> 
                 </div>
@@ -147,6 +129,7 @@
                     <table class="product-option-table">
                         <thead>
                             <tr>
+                                <td align="center" class="main-option-td">대표옵션</td>
                                 <td align="center" class="option-name-td">옵션명</td>
                                 <td align="center" class="product-quantity-td">재고</td>
                                 <td align="center" class="product-origin-price-td">정상가</td>
