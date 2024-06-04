@@ -138,6 +138,49 @@
 		WHERE MEMBER_NO = #{memberNo}
 		ORDER BY BOARD_VIEWS DESC
 	</select>
-
 	
+	<!-- 스크랩한 레시피 조회 -->
+	<select id="selectMostViewScrapedRecipeList" resultMap="recipeResult">
+		SELECT R.*
+		FROM RECIPE R
+		JOIN SCRAP_RECIPE SR USING (RCP_NO)
+		WHERE SR.MEMBER_NO = #{memberNo}
+		ORDER BY R.RCP_VIEW DESC
+	</select>
+	
+	<!-- 스크랩한 게시글 조회 -->
+	<select id="selectMostViewScrapedBoardList" resultMap="boardResult">
+		SELECT B.*
+		FROM BOARD B
+		JOIN SCRAP_BOARD SB USING (BOARD_NO)
+		WHERE SB.MEMBER_NO = #{memberNo}
+		ORDER BY B.BOARD_VIEWS DESC
+	</select>
+
+	<!-- 스크랩한 상품 리스트 조회 -->
+	<select id="selectMostViewScrapedProductList" resultMap="productResult">
+		SELECT P.*
+		FROM PRODUCT P
+		JOIN SCRAP_PRODUCT SP USING (PRODUCT_NO)
+		WHERE SP.MEMBER_NO = #{memberNo}
+		ORDER BY P.PRODUCT_VIEW DESC
+	</select>
+	
+	<!-- 좋아요 누른 레시피 리스트 조회 -->
+	<select id="selectLikedRecipeList" resultMap="recipeResult">
+		SELECT R.*
+		FROM RECIPE R
+		JOIN LIKE_RECIPE LR USING (RCP_NO)
+		WHERE LR.MEMBER_NO = #{memberNo}
+		ORDER BY R.RCP_VIEW DESC
+	</select>
+	
+	<!-- 좋아요 누른 게시글 리스트 조회 -->
+	<select id="selectLikedBoardList" resultMap="boardResult">
+		SELECT B.*
+		FROM BOARD B
+		JOIN LIKE_BOARD LB USING (BOARD_NO)
+		WHERE LB.MEMBER_NO = #{memberNo}
+		ORDER BY B.BOARD_VIEWS DESC
+	</select>
 </mapper>

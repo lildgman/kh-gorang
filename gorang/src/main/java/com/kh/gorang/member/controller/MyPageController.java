@@ -1,10 +1,13 @@
 package com.kh.gorang.member.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.gorang.board.model.vo.Board;
@@ -24,7 +27,7 @@ public class MyPageController {
 
 	//마이페이지 메인
 	@RequestMapping("main.me")
-	public String myPageViewAll(HttpSession session){
+	public String myPageViewAll(HttpSession session, Model model){
 		
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		
@@ -47,8 +50,21 @@ public class MyPageController {
 		
 		// 내 게시글 중 조회수 많은 순으로 게시글 리스트 가져오기
 		ArrayList<Board> mostViewBoardList = myPageService.getMostViewBoardList(memberNo);
+		
+		// 스크랩한 내용물들 리스트
+		ArrayList<Object> scrapContentList = myPageService.getScrapList(memberNo);
 				
-		ArrayList<Object> scrapList = myPageService.getScrapList(memberNo);
+		// 좋아요한 내용물들 리스트
+		ArrayList<Object> likeContentList = myPageService.getLikeContentList(memberNo);
+
+		model.addAttribute("followingCount", followingCount);
+		model.addAttribute("followerCount", followerCount);
+		model.addAttribute("totalScrapCount", totalScrapCount);
+		model.addAttribute("totalLikeCount", totalLikeCount);
+		model.addAttribute("mostViewRecipeList", mostViewRecipeList);
+		model.addAttribute("mostViewBoardList", mostViewBoardList);
+		model.addAttribute("scrapContentList", scrapContentList);
+		model.addAttribute("likeContentList", likeContentList);
 		
 		
 		return "member/myPageAllView";
