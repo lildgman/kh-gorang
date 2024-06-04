@@ -57,6 +57,10 @@ public class MyPageController {
 		// 좋아요한 내용물들 리스트
 		ArrayList<Object> likeContentList = myPageService.getLikeContentList(memberNo);
 
+		
+		log.info("likeContentList={}",likeContentList);
+		
+		
 		model.addAttribute("followingCount", followingCount);
 		model.addAttribute("followerCount", followerCount);
 		model.addAttribute("totalScrapCount", totalScrapCount);
