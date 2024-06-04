@@ -64,18 +64,26 @@ public class MyPageServiceImpl implements MyPageService{
 		return boardLikeCount + recipeLikeCount;
 	}
 
-	// 조회수가 많은 순으로 정렬된 레시피 조회
+	// 조회수가 많은 순으로 정렬된 레시피 조회 3개
 	@Override
 	public ArrayList<Recipe> getMostViewRecipeList(int memberNo) {
 		
-		return myPageDao.getMostViewRecipeList(sqlSession, memberNo);
+		ArrayList<Recipe> list = myPageDao.getMostViewRecipeList(sqlSession, memberNo);
+		
+		ArrayList<Recipe> resultList = new ArrayList<Recipe>(list.subList(0, 3));
+		
+		return resultList;
 	}
 
 	// 조회수가 많은 순으로 정렬된 게시글 조회
 	@Override
 	public ArrayList<Board> getMostViewBoardList(int memberNo) {
 		
-		return myPageDao.getMostViewBoardList(sqlSession, memberNo);
+		ArrayList<Board> list = myPageDao.getMostViewBoardList(sqlSession, memberNo);
+		
+		ArrayList<Board> resultList = new ArrayList<Board>(list.subList(0, 3));
+		
+		return resultList;
 	}
 
 	// 스크랩한 내용물들 조회

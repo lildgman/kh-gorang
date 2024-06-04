@@ -42,10 +42,9 @@
                 <div id="banner-imgs-recipe">
                 	<c:forEach var="recipe" items="${mostViewRecipeList }">
                 		<div class="banner-best-img">
-	                        <img src="${contextPath}/resources/images/member-img/Img.png">               
+	                        <img src="${contextPath}/resources/uploadfile/recipe/recipemain/${recipe.recipeMainPhoto}">               
 	                    </div>   	
                 	</c:forEach>
-                    
                 </div>
 
                 <script>
