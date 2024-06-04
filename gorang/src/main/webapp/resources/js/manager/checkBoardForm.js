@@ -71,19 +71,29 @@ function formattingDate(dateString) {
 function updateBoardStatus() {
   const boardNoList = getCheckedBoard();
 
-  $.ajax({
-    url: 'update-status.bo',
-    type: 'post',
-    contentType: 'application/json',
-    data: JSON.stringify(boardNoList),
-    success: function(res) {
-      console.log(res);
-    },
-    error: function() {
-      console.log("게시글 상태 변경 api 호출 실패");
-    }
+  const result = confirm("정말로 게시물의 상태를 변경하시겠습니까?");
 
-  })
+  if(result) {
+    $.ajax({
+      url: 'update-status.bo',
+      type: 'post',
+      contentType: 'application/json',
+      data: JSON.stringify(boardNoList),
+      success: function(res) {
+        if(res === 'done') {
+          alert("게시물 상태를 성공적으로 변경하였습니다.");
+          window.location.href = window.location.href;
+        } else {
+          alert("게시물 상태 변경을 실패하였습니다.")
+        }
+      },
+      error: function() {
+        console.log("게시글 상태 변경 api 호출 실패");
+      }
+  
+    })
+  }
+
 }
 
 function getCheckedBoard() {

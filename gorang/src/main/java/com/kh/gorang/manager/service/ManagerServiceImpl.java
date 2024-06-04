@@ -26,6 +26,7 @@ public class ManagerServiceImpl implements ManagerService{
 	
 	// ajax 게시글 검색
 	@Override
+	@Transactional
 	public ArrayList<BoardSearchDTO> ajaxSearchBoard(String searchBoardTitle) {
  
 		ArrayList<BoardSearchDTO> resultList = managerDao.ajaxSearchBoard(sqlSession, searchBoardTitle);
