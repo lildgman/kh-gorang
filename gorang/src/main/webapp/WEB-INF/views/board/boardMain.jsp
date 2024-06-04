@@ -13,6 +13,7 @@
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
                 integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
                 crossorigin="anonymous">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    
             <script src="${contextPath}/resources/js/board/boardMain.js"></script>
         </head>
 
@@ -59,7 +60,7 @@
                                 <div class="common-item" data-board-no="${board.boardNo}">
                                     <div class="common-content-item">
                                         <div id="boardThumbnail">
-                                            <img src="${board.boardThumbnail}" alt="썸네일">
+                                            <img src="${pageContext.request.contextPath}/resources/uploadfile/board/boardMainContentFile/${board.boardThumbnail}" alt="썸네일">
                                         </div>
                                         <div id="commonContentInfoBox">
                                             <div id="boardTitle"><span>${board.boardTitle}</span></div>
@@ -70,9 +71,9 @@
                                                 <span>${member.memberNo}</span>
                                             </div>
                                             <div id="commonContentBoardInfo">
-                                                <div id="commonBoardInfoScrap">스크랩 <span>18</span></div>
-                                                <div id="boardCount">조회수 <span></span></div>
-                                                <div id="commonBoardInfoRec">추천수 <span>12</span></div>
+                                                <div id="commonBoardInfoScrap">스크랩 <span>0</span></div>
+                                                <div id="boardCount">조회수 <span>${board.boardViews}</span></div>
+                                                <div id="commonBoardInfoRec">추천수 <span>${board.boardVote}</span></div>
                                             </div>
                                         </div>
                                     </div>
@@ -84,35 +85,41 @@
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination">
                                         <c:choose>
-                                            <c:when test="${ pi.currentPage eq 1 }">
-                                                <li class="page-item disabled"><a class="page-link"
-                                                        href="#">Previous</a></li>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <li class="page-item"><a class="page-link"
-                                                        href="list.bo?cpage=${pi.currentPage - 1}">Previous</a></li>
-                                            </c:otherwise>
-                                        </c:choose>
-
-                                        <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-                                            <li class="page-item"><a class="page-link"
-                                                    href="list.bo?cpage=${p}">${p}</a></li>
-                                        </c:forEach>
-
-                                        <c:choose>
-                                            <c:when test="${ pi.currentPage eq pi.maxPage }">
-                                                <li class="page-item disabled"><a class="page-link" href="#">Next</a>
+                                            <c:when test="${pi.currentPage eq 1}">
+                                                <li class="page-item disabled">
+                                                    <a class="page-link" href="#">Previous</a>
                                                 </li>
                                             </c:when>
                                             <c:otherwise>
-                                                <li class="page-item"><a class="page-link"
-                                                        href="list.bo?cpage=${pi.currentPage + 1}">Next</a></li>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="main.bo?cpage=${pi.currentPage - 1}">Previous</a>
+                                                </li>
+                                            </c:otherwise>
+                                        </c:choose>
+                        
+                                        <c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
+                                            <li class="page-item">
+                                                <a class="page-link" href="main.bo?cpage=${p}">${p}</a>
+                                            </li>
+                                        </c:forEach>
+                        
+                                        <c:choose>
+                                            <c:when test="${pi.currentPage eq pi.maxPage}">
+                                                <li class="page-item disabled">
+                                                    <a class="page-link" href="#">Next</a>
+                                                </li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="main.bo?cpage=${pi.currentPage + 1}">Next</a>
+                                                </li>
                                             </c:otherwise>
                                         </c:choose>
                                     </ul>
                                 </nav>
                             </div>
                         </div>
+                        
 
                     </div>
                 </div>
