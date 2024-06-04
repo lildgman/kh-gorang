@@ -101,6 +101,7 @@ public class ManagerController {
 		
 		log.info("boardNoList = {}", boardNoList);
 		
+		int result = managerService.ajaxUpdateBoardStatus(boardNoList);
 		return "ok";
 	}
 	
