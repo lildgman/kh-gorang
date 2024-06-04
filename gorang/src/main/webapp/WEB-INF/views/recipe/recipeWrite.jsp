@@ -168,7 +168,7 @@
             <!-- 조리 순서 영역 -->
             <div id="cooking-order-area">
                 <div id="cooking-order-area-title">조리순서</div>
-                <div id="cooking-order-blocks" id="cookOrder-0">
+                <div class="cooking-order-blocks" id="cookOrder-0">
                     <div class="cooking-order-block" >
                         <div class="cooking-order-block-top">
                             <div class="cook-order-number-img">1</div>
@@ -181,8 +181,8 @@
                                 <img class="cookingImg-real" src="" alt="" >
                                 <input name ="cookOrderList[0].cookOrdPhoto" type="file"  id="fileInput"  onchange="changeCookIngOrderImg(this,0)">
                             </div>
-                            <div class="cooking-order-block-bottom-tips" id="cookTip-0">
-                                <div class="cooking-order-block-bottom-tip">
+                            <div class="cooking-order-block-bottom-tips">
+                                <div class="cooking-order-block-bottom-tip" id="cookTip-0">
                                     <input  name ="cookOrderList[0].cookTip[0].CookTip" type="text" placeholder="팁 예) 볶는 시간은 최소로 합니다">
                                     <button type="button" class="add-tip">
                                         <img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/plus (2).png" alt="" onclick="addTip(this,0,0)"></button>
