@@ -44,5 +44,17 @@ public class ManagerDao {
 		return sqlSession.selectOne("managerMapper.selectBoardWriter", boardNo);
 	}
 
+	// 게시글 번호로 게시글 상태 조회
+	public String selectBoard(SqlSessionTemplate sqlSession, Integer boardNo) {
+		return sqlSession.selectOne("managerMapper.selectBoard", boardNo);
+	}
+	
+	// 게시글 상태 변경
+	public int ajaxUpdateBoardStatus(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.update("managerMapper.ajaxUpdateBoardStatus", map);
+	}
+
+	
+
 	
 }

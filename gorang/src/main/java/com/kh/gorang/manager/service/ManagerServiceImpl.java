@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.board.model.vo.BoardSearchDTO;
 import com.kh.gorang.manager.model.dao.ManagerDao;
 import com.kh.gorang.member.model.vo.Member;
@@ -25,6 +26,7 @@ public class ManagerServiceImpl implements ManagerService{
 	
 	// ajax 게시글 검색
 	@Override
+	@Transactional
 	public ArrayList<BoardSearchDTO> ajaxSearchBoard(String searchBoardTitle) {
  
 		ArrayList<BoardSearchDTO> resultList = managerDao.ajaxSearchBoard(sqlSession, searchBoardTitle);
@@ -66,6 +68,27 @@ public class ManagerServiceImpl implements ManagerService{
 			
 		}
 		
+		
+		return result;
+	}
+
+	@Override
+	@Transactional
+	public int ajaxUpdateBoardStatus(ArrayList<Integer> boardNoList) {
+		
+		int result = 0;
+		
+		for(Integer boardNo : boardNoList) {
+			
+			String boardStatus = managerDao.selectBoard(sqlSession, boardNo);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("boardNo", boardNo);
+			map.put("boardStatus", boardStatus);
+			
+			result = managerDao.ajaxUpdateBoardStatus(sqlSession, map);
+
+		}
 		
 		return result;
 	}
