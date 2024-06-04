@@ -95,112 +95,203 @@ function changecompleteImg(inputFile){
 
 //--------------------------------재료정보-------------------------------
 // 재료명 행삭제
-function deleteSmaillBlock(element) {
+
+
+function deleteSmaillBlock(element, num1,num2) {
+    let bottom = element.closest(".recipe-ingredient-info-bottom");
+    let ingreList = bottom.querySelectorAll(".recipe-smaill-block");
+    let count = 0;
     let parentBlock = element.closest('.recipe-smaill-block');
-    parentBlock.remove();
+    ingreList.forEach(function() {
+        count++;
+    });
+    
+    if (count > 1) {
+        // num2 -= 1;
+        // let getNum = parseInt(element.closest('.recipe-smaill-block').id.split('-')[1]);
+        ingreList.forEach(function(block) {
+            let blockId = parseInt(block.id.split('-')[1]);
+            if (num2 < blockId) {    
+                block.id = `ingredients-${blockId-1}`;
+                let inputs = block.querySelectorAll('input');
+                inputs.forEach(function(input) {
+                    input.name = input.name.replace(/\.ingredientsInfoList\[\d+\]/g, function(match) {
+                        let num = parseInt(match.match(/\d+/)[0]) - 1;
+                        return `.ingredientsInfoList[${num}]`;
+                    });
+                });
+                
+                let deleteBtn = block.querySelector('.delete-btn img');
+                deleteBtn.setAttribute('onclick', `deleteSmaillBlock(this, ${num1}, ${blockId - 1})`);
+            }
+        });
+     
+        bottom.querySelector('.add-igre-btn img').setAttribute('onclick', `deleteSmaillBlock(this, ${num1}, ${count-2})`);
+        bottom.querySelector('.add-igre-btn button').setAttribute('onclick', `addBundle(this, ${num1}, ${count-2})`);
+        
+        parentBlock.remove();
+    }
+
 }
 
+
 //분류 행삭제
-function deleteIngreBlock(element){
-    let count =0;
+function deleteIngreBlock(element,num1){
+    let parentBlock = element.closest("#recipe-ingredient-info-area");
+
+    let deletePart = element.closest('.recipe-ingredient-info-blocks');
     // 분류가 전체 1개만 있을시 삭제불가
-   document.querySelectorAll("#recipe-ingredient-info-area #recipe-ingredient-info-blocks").forEach(function(child){
-        count++;
-   })
-   if(count>1){
-        let parentBlock =element.closest('#recipe-ingredient-info-blocks');
-        console.log(parentBlock); 
-        parentBlock.remove();
-   }
-   
+    let count =parentBlock.querySelectorAll(".recipe-ingredient-info-blocks").length;
+    console.log("grant count:"+count);
+    if(count>1){
+        let divList =parentBlock.querySelectorAll('.recipe-ingredient-info-blocks');
+        console.log(divList);
+        divList.forEach(function(block){ 
+            let blockId = parseInt(block.id.split('-')[1]);
+            if(num1 <blockId){
+                
+                block.querySelector('.delete-btn').setAttribute('onclick', `deleteIngreBlock(this, ${blockId - 1})`);
+                block.id = `divisions-${blockId - 1}`;
+                let inputs = block.querySelectorAll('input');
+              
+                inputs.forEach(function(input) {
+                    input.name = input.name.replace(/rcpDivList\[\d+\]/g, function(match) {
+                        let num = parseInt(match.match(/\d+/)[0]) - 1;
+                        console.log(num);
+                        return `rcpDivList[${num}]`;
+                    });
+
+                    
+                });
+                let leningre = block.querySelectorAll('.recipe-smaill-block').length;
+                block.querySelector('.add-igre-btn img').setAttribute('onclick', `addBundle(this, ${blockId - 1}, ${leningre - 1})`);
+                block.querySelector('.add-igre-btn button').setAttribute('onclick', `addBundle(this, ${blockId - 1}, ${leningre - 1})`);
+            }
+        })
+        parentBlock.querySelector("#add-div-btn button").setAttribute('onclick',`addUnit(this,${count-2})`)
+        deletePart.remove();
+    }
 }
 
 
 
 
 // 기존 분류 추가
-let rcpDivListIndex = 1;
-let igreInfoListIndex = 1;
 
 
 
-function addUnit(element) {
+function addUnit(element,num) {
+    console.log("addUnit num :" + num );
+    num += 1;
     let parentBlock = element.closest('#recipe-ingredient-info-area');
-    let cloneBlock = parentBlock.querySelector("#recipe-ingredient-info-blocks").cloneNode(true);
-    cloneBlock.querySelector('.recipe-ingredient-info-top').innerHTML = '';
-    cloneBlock.querySelectorAll('.recipe-ingredient-info-bottom .recipe-smaill-block').forEach(child => {
-        child.remove();
-    });
-    cloneBlock.querySelector('.add-igre-btn').addEventListener('click', addBundle); // 기존 묶음 아래에 추가할 수 있는 이벤트 리스너 추가
-    cloneBlock.querySelector('.recipe-ingredient-info-top').innerHTML = `
+    console.log(parentBlock);
+    let cloneblock =  document.createElement('div');
+    cloneblock.className ='recipe-ingredient-info-blocks';
+    cloneblock.id=`divisions-${num}`;
+    cloneblock.innerHTML=`
+    <div class="recipe-ingredient-info-top">
         <div class="location-btn"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Link.png" alt=""></div>
-        <div class="ingre-div-block" >
-            <input name="rcpDivList[${rcpDivListIndex}].divName" type="text" placeholder="분류 예)식재료">
+        <div class="ingre-div-block" > 
+            <input name="rcpDivList[${num}].divName" type="text" placeholder="분류 예)식재료">
+        </div> 
+        <div class="delete-btn" onclick="deleteIngreBlock(this,${num})"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" ></div>
+    </div>
+    <div class="recipe-ingredient-info-bottom" >
+        <div class="recipe-smaill-block"  id="ingredients-0">
+            <div class="location-btn"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Link.png" alt=""></div>
+            <div class="igre-name-block"><input name="rcpDivList[${num}].ingredientsInfoList[0].ingreName" type="text" placeholder="재료명 예)돼지고기"></div>
+            <div class="igre-amount-block"><input name="rcpDivList[${num}].ingredientsInfoList[0].ingreAmount" type="text" placeholder="수량"></div>
+            <div class="igre-unit-block"><input name="rcpDivList[${num}].ingredientsInfoList[0].ingreUnit" type="text" placeholder="단위"></div>
+            <div class="delete-btn"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" onclick="deleteSmaillBlock(this,${num},0)"></div>
+            <button type="button">태그 +</button>
         </div>
-        <div class="delete-btn"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" onclick="deleteIngreBlock(this)"></div>`;
-    rcpDivListIndex++;
-    parentBlock.querySelector('#add-div-btn').insertAdjacentElement('beforebegin', cloneBlock);
+        <div class="add-igre-btn">                     
+            <img src="/gorang/resources/dummyImg/recipe/recipeWrite/plus.png" alt="" onclick="addBundle(this,${num},0)">
+            <button type="button" onclick="addBundle(this,${num},0)">묶음 추가</button>
+        </div>
+    </div>        
+    `
+    parentBlock.querySelector('#add-div-btn').insertAdjacentElement('beforebegin',cloneblock);
+    parentBlock.querySelector('#add-div-btn').innerHTML='';
+    parentBlock.querySelector('#add-div-btn').innerHTML=`
+     
+            <button type="button" onclick="addUnit(this,${num})">+ 분류 추가</button>
+      
+    `;
+  
+    
 }
 
-
-function addBundle(el) {
-    let cloneBlock = el.closest('.recipe-ingredient-info-bottom');
-    cloneBlock.querySelector('.add-igre-btn').insertAdjacentElement('beforebegin', Inputs(el));
+function addBundle(element,num1,num2) {
+    console.log("addBundle num1 :" + num1 +",  num2 : " + num2);
+    num2 +=1
+    console.log(num2);
+    let parentBlock = element.closest('.recipe-ingredient-info-bottom');
+    parentBlock.querySelector(".add-igre-btn").innerHTML='';
+    parentBlock.querySelector(".add-igre-btn").innerHTML=`
+    <img src="/gorang/resources/dummyImg/recipe/recipeWrite/plus.png" alt="" onclick="addBundle(this,${num1},${num2})">
+    <button type="button" onclick="addBundle(this,${num1},${num2})">묶음 추가</button>
+    `;
+    parentBlock.querySelector('.add-igre-btn').insertAdjacentElement('beforebegin', Inputs(num1,num2));
 }
 
-function Inputs(el) {
+ function Inputs(num1,num2) {
+
     const newBlock = document.createElement('div');
     newBlock.className = 'recipe-smaill-block';
-    newBlock.id=`ingredients-${el.dataset.index}`;
+    newBlock.id =`ingredients-${num2}`;
     newBlock.innerHTML = `
         <div class="location-btn"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Link.png" alt=""></div>
-        <div class="igre-name-block"><input name="rcpDivList[${el.dataset.index}].ingredientsInfoList[${igreInfoListIndex}].ingreName" type="text" placeholder="재료명 예)돼지고기"></div>
-        <div class="igre-amount-block"><input name="rcpDivList[${el.dataset.index}].ingredientsInfoList[${igreInfoListIndex}].ingreAmount" type="text" placeholder="수량"></div>
-        <div class="igre-unit-block"><input name="rcpDivList[${el.dataset.index}].ingredientsInfoList[${igreInfoListIndex}].ingreUnit" type="text" placeholder="단위"></div>
-        <div class="delete-btn"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" onclick="deleteSmaillBlock(this)"></div>
-        <button type="button">태그 +</button>`;
-    igreInfoListIndex++;
+        <div class="igre-name-block"><input name="rcpDivList[${num1}].ingredientsInfoList[${num2}].ingreName" type="text" placeholder="재료명 예)돼지고기"></div>
+        <div class="igre-amount-block"><input name="rcpDivList[${num1}].ingredientsInfoList[${num2}].ingreAmount" type="text" placeholder="수량"></div>
+        <div class="igre-unit-block"><input name="rcpDivList[${num1}].ingredientsInfoList[${num2}].ingreUnit" type="text" placeholder="단위"></div>
+        <div class="delete-btn"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" onclick="deleteSmaillBlock(this,${num1},${num2})"></div>
+        <button type="button">태그 +</button>
+    </div>`;
     return newBlock;
-}
+ }
 
 
 //--------------------------------조리순서-------------------------------
-function tipInputs() {
+function tipInputs(num1,num2) {
     const newBlock = document.createElement('div');
     newBlock.className = 'cooking-order-block-bottom-tip';
     newBlock.innerHTML = `
     <input  name ="CookTip" type="text" placeholder="팁 예) 볶는 시간은 최소로 합니다">
-    <button type="button" class="add-tip"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/plus (2).png" alt="" onclick="addTip(this)"></button>
+    <button type="button" class="add-tip"><img src="c/resources/dummyImg/recipe/recipeWrite/plus (2).png" alt="" onclick="addTip(this)"></button>
     <button type="button" class="delte-tip"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Icon.png" alt=""  onclick="deleteTip(this)"></button>
     `;
     return newBlock;
 }
-function orderInputs(){
+function orderInputs(num){
+    num +=1;
     const newBlock = document.createElement('div');
     newBlock.id = 'cooking-order-blocks';
     newBlock.innerHTML = `
-    <div class="cooking-order-block">
+    <div class="cooking-order-block" id="cookOrder-${num}">
     <div class="cooking-order-block-top">
         <div class="cook-order-number-img">1</div>
-        <div class="cook-order-write-content"><input name ="cookOrdContent" type="text" placeholder="예) 소고기는 기름을 떼어내고 적당한 크기로 썰어주세요"></div>
+        <div class="cook-order-write-content"><input name ="cookOrderList[${num}].cookOrdContent" type="text" placeholder="예) 소고기는 기름을 떼어내고 적당한 크기로 썰어주세요"></div>
         <div class="cook-order-hambugerbar"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/SVG.png" alt=""></div>
     </div>
-    <div class="cooking-order-block-bottom">
-        <div class="cooking-order-block-bottom-img" onclick="cookIngOrderImg(this)">
+    <div class="cooking-order-block-bottom" >
+        <div class="cooking-order-block-bottom-img" onclick="cookIngOrderImg(this,${num})">
             <img class ="cookingImg" src="/gorang/resources/dummyImg/recipe/recipeWrite/camera.png" alt="">
             <img class="cookingImg-real" src="" alt="" >
-            <input name ="cookOrdPhoto" type="file"  id="fileInput"  onchange="changeCookIngOrderImg(this)">
+            <input name ="cookOrderList[${num}].cookOrdPhoto" type="file"  id="fileInput"  onchange="changeCookIngOrderImg(this,${num})">
         </div>
-        <div class="cooking-order-block-bottom-tips">
+        <div class="cooking-order-block-bottom-tips" id="cookTip-0">
             <div class="cooking-order-block-bottom-tip">
-                <input  name ="CookTip" type="text" placeholder="팁 예) 볶는 시간은 최소로 합니다">
-                <button type="button" class="add-tip"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/plus (2).png" alt="" onclick="addTip(this)"></button>
-                <button type="button" class="delte-tip"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Icon.png" alt=""  onclick="deleteTip(this)"></button>
+                <input  name ="cookOrderList[${num}].cookTip[0].CookTip" type="text" placeholder="팁 예) 볶는 시간은 최소로 합니다">
+                <button type="button" class="add-tip">
+                    <img src="/gorang/resources/dummyImg/recipe/recipeWrite/plus (2).png" alt="" onclick="addTip(this,${num},0)"></button>
+                <button type="button" class="delte-tip">
+                    <img src="/gorang/resources/dummyImg/recipe/recipeWrite/Icon.png" alt=""  onclick="deleteTip(this,${num},0)"></button>
             </div>
         </div>
     </div>
     <div id="recipe-order-delete-btn-area">
-        <button type="button" id="order-delete-btn" onclick="deleteCookingOrder(this)">삭제</button>
+        <button type="button" id="order-delete-btn" onclick="deleteCookingOrder(this,${num})">삭제</button>
     </div>
 </div>
     `;
@@ -210,7 +301,7 @@ function orderInputs(){
 
 
 // 팁 추가 최대 4개
-function addTip(element){
+function addTip(element,num1,num2){
     let countTip=0;
     let parentBlock = element.closest(".cooking-order-block-bottom-tips");
     let checkCount = parentBlock.querySelectorAll(".cooking-order-block-bottom-tip");
@@ -220,18 +311,20 @@ function addTip(element){
     console.log(countTip);
     if(countTip<4){
         let cloneBlock = element.closest(".cooking-order-block-bottom-tips");
-        cloneBlock.querySelector('.cooking-order-block-bottom-tip').insertAdjacentElement('beforebegin', tipInputs());
+        cloneBlock.querySelector('.cooking-order-block-bottom-tip').insertAdjacentElement('afterend', tipInputs(num1,num2));
     }
 }
 //요리순서 추가
-function addCookingOrder(element){
+function addCookingOrder(element,num){
     let parentBlock = element.closest("#cooking-order-area");
-    parentBlock.querySelector('#add-order-btn').insertAdjacentElement('beforebegin', orderInputs());
+    parentBlock.querySelector('#add-order-btn').insertAdjacentElement('beforebegin', orderInputs(num));
    
     let lastNum =  parentBlock.querySelectorAll(".cook-order-number-img").length;
     parentBlock.querySelectorAll(".cook-order-number-img")[lastNum-1].innerHTML=lastNum;
-    
-    console.log(parentBlock);
+    cloneBlock.querySelector('#add-order-btn').innerHTML='';
+        cloneBlock.querySelector('#add-order-btn').innerHTML=`
+        <button type="button" onclick="addCookingOrder(this,${num+1})">+ 순서 추가</button>
+        `;
 }
 
 // 팁 삭제

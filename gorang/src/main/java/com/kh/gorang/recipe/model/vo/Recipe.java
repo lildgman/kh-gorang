@@ -25,6 +25,7 @@ public class Recipe {
 	private String cookTime;
 	private String cookKind;
 	private String cookLevel;
+	private int recipeView;
 	private char status;
 	private int memberNo;
 

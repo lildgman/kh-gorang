@@ -15,10 +15,10 @@ import lombok.ToString;
 public class RecipeInsertDTO {
 
 	List<Division> rcpDivList;
-//	List<IngredientsInfo> igreInfoList;
+	List<CookOrder> cookOrderList;
 	
 	public RecipeInsertDTO() {
 		rcpDivList = new ArrayList<Division>();
-//		igreInfoList = new ArrayList<IngredientsInfo>();
+		cookOrderList = new ArrayList<CookOrder>();
 	}
 }
