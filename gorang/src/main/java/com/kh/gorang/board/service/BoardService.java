@@ -12,10 +12,11 @@ public interface BoardService{
 	//게시글 리스트 조회(게시글메인)
 	ArrayList<Board>selectList(PageInfo pi);
 	
-	
 	//상세 게시글 조회
 	Board selectBoard(int boardNo);
 	
 	//게시글 추가
 	int insertBoard(Board board);
-}
+	
+	
+}	
