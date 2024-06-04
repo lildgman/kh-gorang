@@ -148,4 +148,23 @@
 		JOIN BOARD USING (MEMBER_NO)
 		WHERE BOARD_NO = #{boardNo}
 	</select>
+	
+	<!-- 게시글 번호로 게시글 상태 조회 -->
+	<select id="selectBoard" resultType="string">
+		SELECT STATUS
+		FROM BOARD
+		WHERE BOARD_NO = #{boardNo}
+	</select>
+	
+	<!-- 게시글 상태 변경 -->
+	<update id="ajaxUpdateBoardStatus" parameterType="Board">
+		UPDATE BOARD
+		<if test='boardStatus == "Y"'>
+			SET STATUS = 'N'
+		</if>
+		<if test='boardStatus == "N"'>
+			SET STATUS = 'Y'
+		</if>
+		WHERE BOARD_NO = #{boardNo}
+	</update>
 </mapper>
