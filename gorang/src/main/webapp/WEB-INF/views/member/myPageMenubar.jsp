@@ -46,7 +46,6 @@
                 <div id="user-alarm">
                     <a href="">알림</a><br><div class="zero">0</div>
                 </div>
-              
             </div>
         </div>
         <div id="user-menu">
