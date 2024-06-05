@@ -57,8 +57,6 @@
   	</resultMap>
   	
   	
-  	
-  	
   	<!-- 레시피 게시글 추가 -->
   	 <select id="insertRecipe" parameterType="Recipe" resultMap="recipeResult" >
 	  	INSERT INTO RECIPE (
