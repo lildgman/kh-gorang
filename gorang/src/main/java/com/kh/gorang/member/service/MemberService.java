@@ -1,6 +1,9 @@
 package com.kh.gorang.member.service;
 
+import java.util.List;
+
 import com.kh.gorang.member.model.vo.Member;
+import com.kh.gorang.member.model.vo.ProductCart;
 
 public interface MemberService {
 	//로그인서비스
@@ -16,6 +19,9 @@ public interface MemberService {
 	int insertMember(Member m);
 
 	Member selectMemberByEmail(String email);
+	
+	// 장바구니 저장
+	int insertProductCart(int memberNo, List<ProductCart> pdCarts);
 	
 	
 }

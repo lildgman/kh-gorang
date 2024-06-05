@@ -149,7 +149,7 @@
                                     </div>
                                     <span>마이페이지</span>
                                 </div>
-                                <div class="header-bottom-right-login-bottom-logo"  onclick="moveLocation('${pageContext.request.contextPath}/cart')">
+                                <div class="header-bottom-right-login-bottom-logo"  onclick="moveLocation('${pageContext.request.contextPath}/cart.po')">
                                     <div>
                                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M4.88086 7.5H8.43934C9.13506 7.5 9.48292 7.5 9.74481 7.68876C10.0067 7.87752 10.1167 8.20753 10.3367 8.86754L11.5475 12.5" stroke="#222222" stroke-width="2" stroke-linecap="round"/>

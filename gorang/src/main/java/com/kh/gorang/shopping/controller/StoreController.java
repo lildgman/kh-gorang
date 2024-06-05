@@ -25,8 +25,10 @@ import com.google.gson.reflect.TypeToken;
 import com.kh.gorang.common.template.Pagination;
 import com.kh.gorang.common.vo.PageInfo;
 import com.kh.gorang.member.model.vo.Member;
+import com.kh.gorang.member.model.vo.ProductCart;
 import com.kh.gorang.member.model.vo.QnA;
 import com.kh.gorang.member.model.vo.Review;
+import com.kh.gorang.member.service.MemberService;
 import com.kh.gorang.shopping.model.vo.Order;
 import com.kh.gorang.shopping.model.vo.OrderPdopt;
 import com.kh.gorang.shopping.model.vo.Product;
@@ -45,6 +47,7 @@ public class StoreController {
 	
 	private final ProductService productService;
 	private final OrderService orderService;
+	private final MemberService memberService;
 	
 	// 상품 설명에 들어가는 이미지 저장하는 메서드
 	@PostMapping("detaildesc")
@@ -89,12 +92,6 @@ public class StoreController {
 		int productCount = productService.selectProductCount(map);
 		
 		PageInfo pi = Pagination.getPageInfo(productCount, cpage, 10, 20);
-		
-		log.info("productCount={}",productCount);
-		log.info("cpage={}",cpage);
-		log.info("category={}",category);
-		log.info("sort={}",sort);
-		log.info("pi={}", pi);
 		
 		ArrayList<Product> list = productService.selectResultProductList(pi, map);
 		
@@ -180,10 +177,31 @@ public class StoreController {
 	}
 	
 	
-	@RequestMapping("cart")
+	@RequestMapping("cart.po")
 	public String productCartForm() {
 		return "shopping/shoppingCartForm";
 	}
+	
+	// 장바구니 저장하기 위한 메소드
+	@ResponseBody
+	@PostMapping(value = "ajaxInsertCart.po", produces = "application/json; charset=utf-8")
+	public String ajaxInsertCart(@RequestBody String selectedOptsForCart, HttpSession session) {
+		
+		Member m = (Member)session.getAttribute("loginUser");
+		
+		Gson gson = new Gson();
+		
+		Type type = new TypeToken<List<ProductCart>>(){}.getType();
+		
+		List<ProductCart> pdCarts = gson.fromJson(selectedOptsForCart, type);
+		
+		int result = memberService.insertProductCart(m.getMemberNo(), pdCarts);
+		
+		return null;
+	}
+	
+	
+	
 	
 	// 상품 상세 페이지에서 바로 구매할 경우 사용하는 컨트롤러
 	@PostMapping("order.po")

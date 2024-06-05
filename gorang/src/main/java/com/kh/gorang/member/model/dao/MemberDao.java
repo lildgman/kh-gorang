@@ -1,9 +1,12 @@
 package com.kh.gorang.member.model.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.gorang.member.model.vo.Member;
+import com.kh.gorang.member.model.vo.ProductCart;
 
 @Repository
 public class MemberDao {
@@ -25,6 +28,18 @@ public class MemberDao {
 
 	public Member selectMemberByEmail(SqlSessionTemplate sqlSession, String email) {
 		return sqlSession.selectOne("memberMapper.selectMemberByEmail", email);
+	}
+
+	public int insertProductCart(SqlSessionTemplate sqlSession, int memberNo, List<ProductCart> pdCarts) {
+		
+		int result = 1;
+		
+		for(ProductCart productCart : pdCarts) {
+			productCart.setMemberNo(memberNo);
+			result *= sqlSession.insert("memberMapper.insertProductCart", productCart);
+		}
+		
+		return result;
 	}
 	
 }

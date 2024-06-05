@@ -1,11 +1,14 @@
 package com.kh.gorang.member.service;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.gorang.member.model.dao.MemberDao;
 import com.kh.gorang.member.model.vo.Member;
+import com.kh.gorang.member.model.vo.ProductCart;
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -43,6 +46,11 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public Member selectMemberByEmail(String email) {
 		return memberDao.selectMemberByEmail(sqlSession, email);
+	}
+
+	@Override
+	public int insertProductCart(int memberNo, List<ProductCart> pdCarts) {
+		return memberDao.insertProductCart(sqlSession, memberNo, pdCarts);
 	}
 
 	

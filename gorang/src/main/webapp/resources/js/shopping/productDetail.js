@@ -37,7 +37,6 @@ function getParameterPno() {
     url: "ajaxReview.po",
     data: data,
     success: function(result){
-      console.log(result);
       callback(result);
     },
     error: function(){
@@ -52,7 +51,6 @@ function ajaxGetProductQnAs(data, callback){
     url: "ajaxQnA.po",
     data: data,
     success: function(result){
-      console.log(result);
       callback(result);
     },
     error: function(){
@@ -67,7 +65,6 @@ function ajaxGetProductOpts(data, callback){
     url: "ajaxOpt.po",
     data: data,
     success: function(result){
-      console.log(result);
       callback(result);
     },
     error: function(){
@@ -76,6 +73,22 @@ function ajaxGetProductOpts(data, callback){
   });
 }
 
+function ajaxPutPdoptInCart(data){
+  $.ajax({
+    url: "ajaxInsertCart.po",
+    data: data,
+    method: "POST",
+    success: function(res){
+      console.log(res);
+      alert("장바구니에 추가되었습니다.");
+    },
+    error: function(){
+      console.log("장바구니 입력 실패");
+    }
+  })
+}
+
+// ==========================================  화면 동적 구성 위한 메소드 ============================
 // ajaxGetProduct에서 가져온 product 객체 정보를 토대로 화면에 나타날 정보 입력하는 콜백 함수
 function inputProductInfo(pno, profileLocation){
 
@@ -297,6 +310,29 @@ function putProductOptsForOrder(opts){
 // DOM 이 완전히 로드되지 않은 상태에서 이벤트 리스너 발생하여 document.querySelector("#product-buy-btn") 를 찾지 못하는 상황 발생
 // 따라서 "DOMContentLoaded" 이벤트 리스너를 추가
 document.addEventListener("DOMContentLoaded", function(){
+
+  // 장바구니 버튼 클릭 이벤트
+  document.querySelector(".btn_cart").addEventListener("click", function (){
+    const selectedOptsForCart = [];
+
+    // 각 옵션번호, 수량을 가져와서 JSON 형태로 저장
+    document.querySelectorAll(".product_quantity_content").forEach(function(ev){
+      const selectedOptNo = ev.querySelector(".product-opt-select-no").value;
+      const selectedOptQnt = ev.querySelector(".pbtn-quantity").value;
+
+      selectedOptsForCart.push({
+        pdOptNo: selectedOptNo,
+        pdOptQuantity: selectedOptQnt
+      });
+    });
+
+    //Json 문자열로 변환
+    selectedOptsForCartJson = JSON.stringify(selectedOptsForCart);
+
+    ajaxPutPdoptInCart(selectedOptsForCartJson);
+
+  })
+  
   // JSON 형식으로 보내기 위한 구매하기 버튼 클릭 이벤트
   document.querySelector("#product-buy-btn").addEventListener("click", function(){
     // array 변수 선언
@@ -324,8 +360,8 @@ document.addEventListener("DOMContentLoaded", function(){
           productName: productName,
           mainImg: mainImg,
           productShipment: shipmentType
-      });
-  });
+    });
+    });
 
     //Json 문자열로 변환
     selectedOptsJson = JSON.stringify(selectedOpts);
@@ -486,7 +522,6 @@ function putProductQnAList(pno, qnas){
       //페이지 처리!!!!!!!!!!!!!!!!!!!!!!!
 }
 
-
  // 문의하기 모달창 구축하는 메소드
 function inquireQuestion(opts){
   console.log(opts);
@@ -519,31 +554,6 @@ function clickZzim() {
       zzim.innerHTML = `<i class="fa-regular fa-heart fa-xl"></i>`;
       zzimStatus = false;
     }
-  })
-}
-
-
-// 장바구니 눌렀을 때 발생하는 이벤트 함수
-function addProductToCart() {
-  const addProductToCartBtns = document.querySelectorAll(".btn_cart");
-
-  addProductToCartBtns.forEach(function (addProductToCartBtn) {
-
-    addProductToCartBtn.addEventListener("click", function () {
-
-      alert("장바구니에 추가되었습니다.");
-    })
-  })
-}
-
-// 구매하기 눌렀을 때 발생하는 이벤트
-function clickBuyButton() {
-  let buybtns = document.querySelectorAll(".btn_buy");
-
-  buybtns.forEach(function (buybtn) {
-    buybtn.addEventListener("click", function () {
-      window.location.href = "/gorang/order";
-    })
   })
 }
 
