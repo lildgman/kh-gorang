@@ -41,5 +41,8 @@ public class BoardServiceImpl implements BoardService{
 	public int insertBoard(Board board) {
 		return boardDao.insertBoard(sqlSession,board);
 	}
-
+	@Override
+    public void increaseViewCount(int boardNo) {
+        boardDao.increaseViewCount(sqlSession, boardNo);
+    }
 }
