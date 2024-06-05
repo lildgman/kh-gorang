@@ -23,7 +23,7 @@
   	
   	<!-- 주문한 상품의 옵션 정보 -->
   	<resultMap type="OrderPdopt" id="OrderPdoptResult">
-  		<result column="options_name_no" property="OrderPdoptNo"/>
+  		<result column="options_name_no" property="optNo"/>
   		<result column="product_no" property="refProductNo"/>
   		<result column="quantity" property="optQuantity"/>
   	</resultMap>
@@ -54,19 +54,21 @@
 		#{recipientPhone},
 		#{requirements},
 		#{totalPrice},
-		#{paymentType}
+		#{payment}
   	)
   </insert>
   
   <insert id="insertOrderPdoptList">
   	insert into order_pdopt
-  	(
-  		product_no,
+  	(	
+  		options_name_no,
+  		order_no,
   		quantity
   	)
   	values
-  	(
-  		#{refProductNo},
+  	(	
+  		#{optNo},
+  		currval('orders_order_no_seq'),
   		#{optQuantity}
   	)
   

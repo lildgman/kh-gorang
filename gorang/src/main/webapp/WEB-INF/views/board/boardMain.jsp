@@ -30,19 +30,19 @@
                         <div id="BoardTagBoxBottom">
                             <div id="PapularTagBox">
                                 <div id="PapularTags">
-                                    <span>#일상</span>
+                                    <a id="TagDaily" href="${pageContext.request.contextPath}/main.bo?sort=dailyTag">#일상</a>
                                 </div>
                                 <div id="PapularTags">
-                                    <span>#질문</span>
+                                    <a id="TagQuestion" href="${pageContext.request.contextPath}/main.bo?sort=questionTag">#질문</a>
                                 </div>
                                 <div id="PapularTags">
-                                    <span>#노하우</span>
+                                    <a id="TagKnowHow" href="${pageContext.request.contextPath}/main.bo?sort=knowHowTag">#노하우</a>
                                 </div>
                                 <div id="PapularTags">
-                                    <span>#꿀팁</span>
+                                    <a id="TagTip" href="${pageContext.request.contextPath}/main.bo?sort=tipTag">#꿀팁</a>
                                 </div>
                                 <div id="PapularTags">
-                                    <span>#보관법</span>
+                                    <a id="TagMethod" href="${pageContext.request.contextPath}/main.bo?sort=methodTag">#보관법</a>
                                 </div>
                             </div>
                         </div>
@@ -50,8 +50,8 @@
                     <div id="BoardContents">
                         <div id="BoardSortings">
                             <div id="BoardSortingsBox">
-                                <a id="SortingsLatest" href="${pageContext.request.contextPath}/main.bo">최신순</a>
-                                <a id="SortingsViews" href="${pageContext.request.contextPath}/mainSortView.bo">조회수순</a>
+                                <a id="SortingsLatest" href="${pageContext.request.contextPath}/main.bo?sort=latest">최신순</a>
+                                <a id="SortingsViews" href="${pageContext.request.contextPath}/main.bo?sort=viewCount">조회수순</a>
                                 <a id="SortingsScrap" href="">스크랩순</a>
                             </div>
                         </div>

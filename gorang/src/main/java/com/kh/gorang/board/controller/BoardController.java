@@ -27,39 +27,39 @@ import lombok.extern.slf4j.Slf4j;
 public class BoardController {
 	@Autowired
 	private BoardService boardService;
-	
+	//게시판 메인
 	@RequestMapping("main.bo")
-    public String selectListByLatest(
+    public String selectListBySort(
             @RequestParam(value="cpage", defaultValue="1") int currentPage, 
+            @RequestParam(value="sort", defaultValue="latest") String sort, 
             Model model) {
         int boardNo = boardService.selectListCount();
         PageInfo pi = Pagination.getPageInfo(boardNo, currentPage, 16, 16);
-        ArrayList<Board> list = boardService.selectListByLatest(pi);
+
+        ArrayList<Board> list = new ArrayList<>();
+        if (sort.equals("latest")) {
+            list = boardService.selectListByLatest(pi);
+        } else if (sort.equals("viewCount")) {
+            list = boardService.selectListByViewCount(pi);
+        } else if (sort.equals("dailyTag")) {
+            list = boardService.selectListByTag(pi, "#일상");
+        } else if (sort.equals("questionTag")) {
+            list = boardService.selectListByTag(pi, "#질문");
+        } else if (sort.equals("knowHowTag")) {
+            list = boardService.selectListByTag(pi, "#노하우");
+        } else if (sort.equals("tipTag")) {
+            list = boardService.selectListByTag(pi, "#꿀팁");
+        } else if (sort.equals("methodTag")) {
+            list = boardService.selectListByTag(pi, "#보관법");
+        }
 
         model.addAttribute("list", list);
         model.addAttribute("pi", pi);
-        model.addAttribute("sort", "latest"); 
+        model.addAttribute("sort", sort);
 
         return "board/boardMain";
     }
     
-    // 조회수순으로 게시글 메인 화면 보여주기
-    @RequestMapping("mainSortView.bo")
-    public String selectListByViewCount(
-            @RequestParam(value="cpage", defaultValue="1") int currentPage, 
-            Model model) {
-        int boardNo = boardService.selectListCount();
-        PageInfo pi = Pagination.getPageInfo(boardNo, currentPage, 16, 16);
-        
-        ArrayList<Board> list = boardService.selectListByViewCount(pi);
-
-        model.addAttribute("list", list);
-        model.addAttribute("pi", pi);
-        model.addAttribute("sort", "viewCount");
-
-        return "board/boardMain";
-    }
-	
 	//게시글 쓰기
 	@RequestMapping("write.bo")
 	public String commonWrite() {
@@ -87,9 +87,6 @@ public class BoardController {
 	    }
 	}
 	
-
-
-
 	//게시글 추가
 	@PostMapping("insert.bo")
 	public String insertBoard(

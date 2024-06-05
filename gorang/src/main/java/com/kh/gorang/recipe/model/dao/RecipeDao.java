@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.recipe.model.vo.RecipeInsertDTO;
+import com.kh.gorang.common.vo.Media;
 import com.kh.gorang.recipe.model.vo.CookOrder;
 import com.kh.gorang.recipe.model.vo.CookTip;
 import com.kh.gorang.recipe.model.vo.Division;
@@ -43,6 +44,12 @@ public class RecipeDao {
 	public int insertCookTip(SqlSessionTemplate sqlSession, CookTip cTip, int cookOrderNum) {
 		cTip.setCookOrdNo(cookOrderNum);
 		return sqlSession.insert("recipeMapper.insertCookTip",cTip);
+	}
+	
+	//완성 사진들 추가
+	public int insertRecipeMedia(SqlSessionTemplate sqlSession,Media md, int rcpNo) {
+		md.setRecipeNo(rcpNo);
+		return sqlSession.insert("recipeMapper.insertRecipeMedia",md);
 	}
 
 	

@@ -5,6 +5,7 @@ window.onload = function () {
  
 }
 
+
  document.addEventListener("DOMContentLoaded", function(){
   const loginUser = sessionStorage.getItem("loginUser");
   console.log(loginUser);
@@ -13,10 +14,10 @@ window.onload = function () {
     const data = getDataForAjax();
     AjaxForInsertOrder(data);
   })
-
-  document.querySelector("#put-myInfo").addEventListener("clcik", function(){
-    document.querySelector("#input-buyer-email").value =  loginUser.memberEmail;
-    document.querySelector("#input-buyer-phone").value = loginUser.memberPhone;
+  // 로그인 유저 정보 넣는 이벤트
+  document.querySelector("#put-myInfo").addEventListener("click", function(){
+    document.querySelector("#input-buyer-email").value = document.querySelector("#information-loginUser-email").value;
+    document.querySelector("#input-buyer-phone").value = document.querySelector("#information-loginUser-phone").value;
   })
 
  })
@@ -88,8 +89,9 @@ function AjaxForInsertOrder(data){
     data: JSON.stringify(data),
     method: "POST",
     contentType: "application/json",
-    success: function(){
+    success: function(res){
       console.log("데이터 송신 성공");
+      window.location.href = res;
     },
     error: function(){
       console.log("불러오기 실패");
@@ -108,7 +110,6 @@ function getDataForAjax(){
     // JSON
     orderOpts.push({
       optNo: ev.querySelector(".input-order-optNo").value,
-      refProductNo: ev.querySelector(".input-pdopt-pno").value,
       optQuantity: ev.querySelector(".order-product-quantity").innerHTML
     });
   });
@@ -118,8 +119,8 @@ function getDataForAjax(){
     buyerEmail: document.querySelector("#input-buyer-email").value,
     buyerPhone: document.querySelector("#input-buyer-phone").value,
     deliveryAddressName: document.querySelector("#input-delivery-name").value,
-    recipentName: document.querySelector("#input-delivery-recipient").value,
-    recipientAddress: document.querySelector("#address").innerHTML + `&nbsp` + document.querySelector("#input-delivery-detailAddress").value,
+    recipientName: document.querySelector("#input-delivery-recipient").value,
+    recipientAddress: document.querySelector("#address").innerHTML + document.querySelector("#input-delivery-detailAddress").value,
     recipientPhone:  document.querySelector("#input-delivery-phone").value,
     requirements: document.querySelector("#requirement-select").options[document.querySelector("#requirement-select").selectedIndex].value,
     payment: document.querySelector(".payment.selected > div").innerHTML,

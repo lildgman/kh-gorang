@@ -23,9 +23,12 @@ public class OrderServiceImpl implements OrderService {
 	@Transactional(rollbackFor = {Exception.class})
 	@Override
 	public int insertOrder(Order orderInfo, List<OrderPdopt> orderOpts) {
-		return orderDao.insertOrder(sqlSession, orderInfo)
-				* orderDao.insertOrderPdoptList(sqlSession, orderOpts);
-		
+		int result1 = orderDao.insertOrder(sqlSession, orderInfo);
+		int result2 = 0;
+		if(result1 > 0 ) {
+			result2 = orderDao.insertOrderPdoptList(sqlSession, orderOpts);
+		}
+		return result1 * result2;
 	}
 
 }
