@@ -70,9 +70,7 @@ public class MyPageServiceImpl implements MyPageService{
 		
 		ArrayList<Recipe> list = myPageDao.getMostViewRecipeList(sqlSession, memberNo);
 		
-		ArrayList<Recipe> resultList = new ArrayList<Recipe>(list.subList(0, 3));
-		
-		return resultList;
+		return list;
 	}
 
 	// 조회수가 많은 순으로 정렬된 게시글 조회
@@ -104,9 +102,14 @@ public class MyPageServiceImpl implements MyPageService{
 		}
 		
 		Collections.shuffle(allScrapList);
-		ArrayList<Object> scrapList = new ArrayList<Object>(allScrapList.subList(0, 4));		
-	
-		return scrapList;
+		
+//		if(allScrapList.size() > 4) {
+//			ArrayList<Object> scrapList = new ArrayList<Object>(allScrapList.subList(0, 4));
+//			return scrapList;
+//		}
+		
+		return allScrapList;
+		
 	}
 
 	// 좋아요 누른 내용물들 조회
@@ -126,9 +129,14 @@ public class MyPageServiceImpl implements MyPageService{
 		}
 		
 		Collections.shuffle(allLikeList);	
-		ArrayList<Object> likeList = new ArrayList<Object>(allLikeList.subList(0, 4));
-	
-		return likeList;
+		
+//		if(allLikeList.size() > 4) {
+//			ArrayList<Object> likeList = new ArrayList<Object>(allLikeList.subList(0, 4));
+//			return likeList;
+//		}
+		
+		return allLikeList;
+		
 	}
 
 }

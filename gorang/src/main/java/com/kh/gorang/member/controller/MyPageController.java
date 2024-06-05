@@ -51,13 +51,7 @@ public class MyPageController {
 		
 		// 내 게시글 중 조회수 많은 순으로 게시글 리스트 가져오기
 		ArrayList<Board> resultBoardList = myPageService.getMostViewBoardList(memberNo);
-		
-		// 내 게시글 중 조회수 많은 순으로 게시글 리스트 가져오기 (3개)
-		ArrayList<Board> mostViewBoardList3 = new ArrayList<Board>(resultBoardList.subList(0, 3));
-		
-		// 내 게시글 중 조회수 많은 순으로 게시글 리스트 가져오기 (3개)
-		ArrayList<Board> mostViewBoardList4 = new ArrayList<Board>(resultBoardList.subList(0, 4));
-		
+			
 		// 스크랩한 내용물들 리스트
 		ArrayList<Object> scrapContentList = myPageService.getScrapList(memberNo);
 		// 객체 타입을 체크해서 Map에 저장하고 JSP로 넘기자
@@ -67,23 +61,29 @@ public class MyPageController {
 		ArrayList<Object> likeContentList = myPageService.getLikeContentList(memberNo);
 		// 객체 타입을 체크해서 Map에 저장하고 JSP로 넘기자
 		ArrayList<Map<String, Object>> processedLikedList = getProcessedList(likeContentList);
-			
+		
+		
+		log.info("resultBoardList={}", resultBoardList);
+		log.info("resultBoardList.size()={}", resultBoardList.size());
+		log.info("processedScrapList={}", processedScrapList);
+		log.info("processedLikedList={}", processedLikedList);
+		
+		
 		model.addAttribute("followingCount", followingCount);
 		model.addAttribute("followerCount", followerCount);
 		model.addAttribute("totalScrapCount", totalScrapCount);
 		model.addAttribute("totalLikeCount", totalLikeCount);
 		model.addAttribute("mostViewRecipeList", mostViewRecipeList);
-		model.addAttribute("mostViewBoardList3", mostViewBoardList3);
-		model.addAttribute("mostViewBoardList4", mostViewBoardList4);
+		model.addAttribute("resultBoardList",resultBoardList);
 		model.addAttribute("processedScrapList", processedScrapList);
 		model.addAttribute("processedLikedList", processedLikedList);
 		
 		return "member/myPageAllView";
 	}
 
-	private ArrayList<Map<String, Object>> getProcessedList(ArrayList<Object> scrapContentList) {
+	private ArrayList<Map<String, Object>> getProcessedList(ArrayList<Object> contentList) {
 		ArrayList<Map<String, Object>> processedList = new ArrayList<Map<String,Object>>();
-		for(Object obj : scrapContentList) {
+		for(Object obj : contentList) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("object",obj);
 			if(obj instanceof Board) {
