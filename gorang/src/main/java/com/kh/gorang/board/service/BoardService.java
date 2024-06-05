@@ -18,5 +18,7 @@ public interface BoardService{
 	//게시글 추가
 	int insertBoard(Board board);
 	
+	//게시글 조회수 증가
+	void increaseViewCount(int boardNo);
 	
 }	

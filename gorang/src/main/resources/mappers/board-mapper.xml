@@ -78,5 +78,11 @@
     WHERE BOARD_NO = #{boardNo}
   </select>
   
-  
+  <!-- 게시글 조회수 증가 -->
+  <update id="increaseViewCount" parameterType="int">
+    UPDATE BOARD
+    SET BOARD_VIEWS = BOARD_VIEWS + 1
+    WHERE BOARD_NO = #{boardNo}
+ </update>
+
   </mapper>
