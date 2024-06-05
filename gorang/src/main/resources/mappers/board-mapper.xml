@@ -112,4 +112,80 @@
         WHERE STATUS = 'Y'
         ORDER BY BOARD_VIEWS DESC
     </select>
+    
+    <!-- 일상 태그 게시물 조회 -->
+    <select id="selectListByTagDaily" resultMap="boardResult">
+	SELECT BOARD_NO,
+		   BOARD_TITLE,
+		   MEMBER_NO,
+		   BOARD_VIEWS,
+		   BOARD_THUMBNAIL,
+		   BOARD_VOTE,
+		   BOARD_TAG,
+		   TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS "BOARD_CREATE_DATE"
+	FROM BOARD
+	WHERE STATUS = 'Y'
+	  AND BOARD_TAG = '#일상'
+	ORDER BY BOARD_VIEWS DESC
+</select>
+<!-- 질문 태그 게시물 조회 -->
+    <select id="selectListByTagQuestion" resultMap="boardResult">
+	SELECT BOARD_NO,
+		   BOARD_TITLE,
+		   MEMBER_NO,
+		   BOARD_VIEWS,
+		   BOARD_THUMBNAIL,
+		   BOARD_VOTE,
+		   BOARD_TAG,
+		   TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS "BOARD_CREATE_DATE"
+	FROM BOARD
+	WHERE STATUS = 'Y'
+	  AND BOARD_TAG = '#질문'
+	ORDER BY BOARD_VIEWS DESC
+</select>
+<!-- 노하우 태그 게시물 조회 -->
+    <select id="selectListByTagKnowHow" resultMap="boardResult">
+	SELECT BOARD_NO,
+		   BOARD_TITLE,
+		   MEMBER_NO,
+		   BOARD_VIEWS,
+		   BOARD_THUMBNAIL,
+		   BOARD_VOTE,
+		   BOARD_TAG,
+		   TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS "BOARD_CREATE_DATE"
+	FROM BOARD
+	WHERE STATUS = 'Y'
+	  AND BOARD_TAG = '#노하우'
+	ORDER BY BOARD_VIEWS DESC
+</select>
+<!-- 꿀팁 태그 게시물 조회 -->
+    <select id="selectListByTagTip" resultMap="boardResult">
+	SELECT BOARD_NO,
+		   BOARD_TITLE,
+		   MEMBER_NO,
+		   BOARD_VIEWS,
+		   BOARD_THUMBNAIL,
+		   BOARD_VOTE,
+		   BOARD_TAG,
+		   TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS "BOARD_CREATE_DATE"
+	FROM BOARD
+	WHERE STATUS = 'Y'
+	  AND BOARD_TAG = '#꿀팁'
+	ORDER BY BOARD_VIEWS DESC
+</select>
+<!-- 보관법 태그 게시물 조회 -->
+    <select id="selectListByTagMethod" resultMap="boardResult">
+	SELECT BOARD_NO,
+		   BOARD_TITLE,
+		   MEMBER_NO,
+		   BOARD_VIEWS,
+		   BOARD_THUMBNAIL,
+		   BOARD_VOTE,
+		   BOARD_TAG,
+		   TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS "BOARD_CREATE_DATE"
+	FROM BOARD
+	WHERE STATUS = 'Y'
+	  AND BOARD_TAG = '#보관법'
+	ORDER BY BOARD_VIEWS DESC
+</select>
   </mapper>

@@ -56,4 +56,27 @@ public class BoardServiceImpl implements BoardService{
     public ArrayList<Board> selectListByViewCount(PageInfo pi) {
         return boardDao.selectListByViewCount(sqlSession, pi);
     }
+	
+	@Override
+	public ArrayList<Board> selectListByTagDaily(PageInfo pi){
+		return boardDao.selectListByTagDaily(sqlSession, pi);
+	}
+	
+	@Override
+	public ArrayList<Board> selectListByTagQuestion(PageInfo pi){
+		return boardDao.selectListByTagQuestion(sqlSession, pi);
+	}
+	
+	@Override
+	public ArrayList<Board> selectListByTagKnowHow(PageInfo pi){
+		return boardDao.selectListByTagKnowHow(sqlSession, pi);
+	}
+	@Override
+	public ArrayList<Board> selectListByTagTip(PageInfo pi){
+		return boardDao.selectListByTagTip(sqlSession, pi);
+	}
+	@Override
+	public ArrayList<Board> selectListByTagMethod(PageInfo pi){
+		return boardDao.selectListByTagMethod(sqlSession, pi);
+	}
 }

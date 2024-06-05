@@ -17,7 +17,19 @@ public interface BoardService{
     
 	//게시글 리스트 조회(조회수 순)
 	ArrayList<Board> selectListByViewCount(PageInfo pi);
-
+	
+	//게시글 리스트 조회(일상 태그)
+	ArrayList<Board> selectListByTagDaily(PageInfo pi);
+	//게시글 리스트 조회(질문 태그)
+	ArrayList<Board> selectListByTagQuestion(PageInfo pi);
+	//게시글 리스트 조회(노하우 태그)
+	ArrayList<Board> selectListByTagKnowHow(PageInfo pi);
+	//게시글 리스트 조회(꿀팁 태그)
+	ArrayList<Board> selectListByTagTip(PageInfo pi);
+	//게시글 리스트 조회(보관법 태그)
+	ArrayList<Board> selectListByTagMethod(PageInfo pi);
+		
+	
 	//상세 게시글 조회
 	Board selectBoard(int boardNo);
 	

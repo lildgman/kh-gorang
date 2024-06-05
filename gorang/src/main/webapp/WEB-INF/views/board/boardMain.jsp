@@ -30,19 +30,19 @@
                         <div id="BoardTagBoxBottom">
                             <div id="PapularTagBox">
                                 <div id="PapularTags">
-                                    <span>#일상</span>
+                                    <a id="TagDaily" href="${pageContext.request.contextPath}/mainTagDaily.bo">#일상</a>
                                 </div>
                                 <div id="PapularTags">
-                                    <span>#질문</span>
+                                    <a id="TagQuestion" href="${pageContext.request.contextPath}/mainTagQuestion.bo">#질문</a>
                                 </div>
                                 <div id="PapularTags">
-                                    <span>#노하우</span>
+                                    <a id="TagKnowHow" href="${pageContext.request.contextPath}/mainTagKnowHow.bo">#노하우</a>
                                 </div>
                                 <div id="PapularTags">
-                                    <span>#꿀팁</span>
+                                    <a id="TagTip" href="${pageContext.request.contextPath}/mainTagTip.bo">#꿀팁</a>
                                 </div>
                                 <div id="PapularTags">
-                                    <span>#보관법</span>
+                                    <a id="TagMethod" href="${pageContext.request.contextPath}/mainTagMethod.bo">#보관법</a>
                                 </div>
                             </div>
                         </div>

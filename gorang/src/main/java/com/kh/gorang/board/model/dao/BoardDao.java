@@ -34,6 +34,36 @@ public class BoardDao{
         return (ArrayList)sqlSession.selectList("boardMapper.selectListByLatest", null, rowBounds);
     }
 	
+    public ArrayList<Board> selectListByTagDaily(SqlSessionTemplate sqlSession, PageInfo pi){
+    	int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+    	RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+    	return (ArrayList)sqlSession.selectList("boardMapper.selectListByTagDaily" , null, rowBounds);
+    }
+    public ArrayList<Board> selectListByTagQuestion(SqlSessionTemplate sqlSession, PageInfo pi){
+    	int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+    	RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+    	return (ArrayList)sqlSession.selectList("boardMapper.selectListByTagQuestion" , null, rowBounds);
+    }
+    
+    public ArrayList<Board> selectListByTagKnowHow(SqlSessionTemplate sqlSession, PageInfo pi){
+    	int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+    	RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+    	return (ArrayList)sqlSession.selectList("boardMapper.selectListByTagKnowHow" , null, rowBounds);
+    }
+    
+    public ArrayList<Board> selectListByTagTip(SqlSessionTemplate sqlSession, PageInfo pi){
+    	int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+    	RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+    	return (ArrayList)sqlSession.selectList("boardMapper.selectListByTagTip" , null, rowBounds);
+    }
+    
+    public ArrayList<Board> selectListByTagMethod(SqlSessionTemplate sqlSession, PageInfo pi){
+    	int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+    	RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+    	return (ArrayList)sqlSession.selectList("boardMapper.selectListByTagMethod" , null, rowBounds);
+    }
+    
+    
 	public Board selectBoard(SqlSessionTemplate sqlSession, int boardNo) {
 	    return sqlSession.selectOne("boardMapper.selectBoard", boardNo);
 	}
@@ -45,7 +75,6 @@ public class BoardDao{
 	public void increaseViewCount(SqlSessionTemplate sqlSession, int boardNo) {
         sqlSession.update("boardMapper.increaseViewCount", boardNo);
     }
-
 	
 	
 }
