@@ -30,7 +30,7 @@
                     <div id="user-following"><a href="">팔로잉 ${followingCount }</a></div>
                 </div>
                 <div id="user-grade">
-                    브론즈등급
+                	${loginUser.grade }등급
                 </div>
             </div>
             <div id="user-profile-area-line">

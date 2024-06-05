@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member/myRecipeBoard.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
         <!-- js -->
-        <script src="${pageContext.request.contextPath}/resources/js/member/myPageBoard.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/member/myPageRecipeBoard.js"></script>
     </head>
     <body>
 
@@ -30,143 +30,56 @@
 
                     <div id="myPage-board-list-area">
                      
-
-                            <div class="myPage-board-list-block">
-                                <div class="myPage-board-img">
-                                    <img src="${pageContext.request.contextPath}/resources/images/member-img/Rectangle 59.png" alt="사진">
-                                </div>
-                                <div class="myPage-board-content">
-                                    레시피 게시글 제목 입력합니다. ^0^
-                                    <br> <span>조회수 : 12 </span> <span>댓글 : 3</span>
-                                    <div class="myPage-board-content-bottom">
-                                        <div class="myPage-board-chuchun">
-                                            <img src="${pageContext.request.contextPath}/resources/images/member-img/Facebook_Thumb_icon.svg.png" alt="">추천 15
-                                        </div>
-                                        <div class="myPage-board-edit">
-                                            2024.01.01 수정 / <span id="deleteBtn" onclick="deleteRecipeBoard(this)">삭제</span>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="myPage-board-list-block">
-                                <div class="myPage-board-img">
-                                    <img src="${pageContext.request.contextPath}/resources/images/member-img/Rectangle 59.png" alt="사진">
-                                </div>
-                                <div class="myPage-board-content">
-                                    레시피 게시글 제목 입력합니다. ^0^
-                                    <br> <span>조회수 : 12 </span> <span>댓글 : 3</span>
-                                    <div class="myPage-board-content-bottom">
-                                        <div class="myPage-board-chuchun">
-                                            <img src="${pageContext.request.contextPath}/resources/images/member-img/Facebook_Thumb_icon.svg.png" alt="">추천 15
-                                        </div>
-                                        <div class="myPage-board-edit">
-                                            2024.01.01 수정 / <span id="deleteBtn" onclick="deleteRecipeBoard(this)">삭제</span>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="myPage-board-list-block">
-                                <div class="myPage-board-img">
-                                    <img src="${pageContext.request.contextPath}/resources/images/member-img/Rectangle 59.png" alt="사진">
-                                </div>
-                                <div class="myPage-board-content">
-                                    레시피 게시글 제목 입력합니다. ^0^
-                                    <br> <span>조회수 : 12 </span> <span>댓글 : 3</span>
-                                    <div class="myPage-board-content-bottom">
-                                        <div class="myPage-board-chuchun">
-                                            <img src="${pageContext.request.contextPath}/resources/images/member-img/Facebook_Thumb_icon.svg.png" alt="">추천 15
-                                        </div>
-                                        <div class="myPage-board-edit">
-                                            2024.01.01 수정 / <span id="deleteBtn" onclick="deleteRecipeBoard(this)">삭제</span>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-
-
-                     
-                            <div class="myPage-board-list-block">
-                                <div class="myPage-board-img">
-                                    <img src="${pageContext.request.contextPath}/resources/images/member-img/Rectangle 59.png" alt="사진">
-                                </div>
-                                <div class="myPage-board-content">
-                                    레시피 게시글 제목 입력합니다. ^0^
-                                    <br> <span>조회수 : 12 </span> <span>댓글 : 3</span>
-                                    <div class="myPage-board-content-bottom">
-                                        <div class="myPage-board-chuchun">
-                                            <img src="${pageContext.request.contextPath}/resources/images/member-img/Facebook_Thumb_icon.svg.png" alt="">추천 15
-                                        </div>
-                                        <div class="myPage-board-edit">
-                                            2024.01.01 수정 / <span id="deleteBtn" onclick="deleteRecipeBoard(this)">삭제</span>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="myPage-board-list-block">
-                                <div class="myPage-board-img">
-                                    <img src="${pageContext.request.contextPath}/resources/images/member-img/Rectangle 59.png" alt="사진">
-                                </div>
-                                <div class="myPage-board-content">
-                                    레시피 게시글 제목 입력합니다. ^0^
-                                    <br> <span>조회수 : 12 </span> <span>댓글 : 3</span>
-                                    <div class="myPage-board-content-bottom">
-                                        <div class="myPage-board-chuchun">
-                                            <img src="${pageContext.request.contextPath}/resources/images/member-img/Facebook_Thumb_icon.svg.png" alt="">추천 15
-                                        </div>
-                                        <div class="myPage-board-edit">
-                                            2024.01.01 수정 / <span id="deleteBtn" onclick="deleteRecipeBoard(this)">삭제</span>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="myPage-board-list-block">
-                                <div class="myPage-board-img">
-                                    <img src="${pageContext.request.contextPath}/resources/images/member-img/Rectangle 59.png" alt="사진">
-                                </div>
-                                <div class="myPage-board-content">
-                                    레시피 게시글 제목 입력합니다. ^0^
-                                    <br> <span>조회수 : 12 </span> <span>댓글 : 3</span>
-                                    <div class="myPage-board-content-bottom">
-                                        <div class="myPage-board-chuchun">
-                                            <img src="${pageContext.request.contextPath}/resources/images/member-img/Facebook_Thumb_icon.svg.png" alt="">추천 15
-                                        </div>
-                                        <div class="myPage-board-edit">
-                                            2024.01.01 수정 / <span id="deleteBtn" onclick="deleteRecipeBoard(this)">삭제</span>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-        
+						<c:choose>
+							<c:when test="${empty recipeList }">
+								작성한 레시피가 없습니다.
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="recipeDTO" items="${recipeList }">
+									<div class="myPage-board-list-block" >
+		                                <div class="myPage-board-img" data-no="${recipeDTO.recipe.recipeNo}" onclick="movePage(this)">
+		                                    <img src="${pageContext.request.contextPath}/resources/uploadfile/recipe/recipemain/${recipeDTO.recipe.recipeMainPhoto}" alt="사진">
+		                                </div>
+		                                <div class="myPage-board-content">
+		                                   	${recipeDTO.recipe.recipeTitle }
+		                                    <br> <span>조회수 : ${recipeDTO.recipe.recipeView } </span> <span>댓글 : ${recipeDTO.commentCount }</span>
+		                                    <div class="myPage-board-content-bottom">
+		                                        <div class="myPage-board-chuchun">
+		                                            <img src="${pageContext.request.contextPath}/resources/images/member-img/Facebook_Thumb_icon.svg.png" alt="">추천 ${recipeDTO.likeCount }
+		                                        </div>
+		                                        <div class="myPage-board-edit">
+		                                            ${recipeDTO.recipe.recipeWriteDate } 수정 / <span id="deleteBtn" onclick="deleteRecipeBoard(this)">삭제</span>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                            </div>
+								</c:forEach>	
+							</c:otherwise>						
+						</c:choose>
+                            
                     </div>
                      <!-- 상품 리스트 끝 -->
 
                     <div id="pagination-area">
-                        <div id="pagination">
-                            <a href="#">&lt;</a>
-                            <a href="#">1</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#">4</a>
-                            <a href="#">5</a>
-                            <a href="#">6</a>
-                            <a href="#">7</a>
-                            <a href="#">8</a>
-                            <a href="#">9</a>
-                            <a href="#">10</a>
-                            <a href="#">&gt;</a>
-                        </div>
-                    </div>
+			            <div id="pagination">
+			            
+			            	<c:choose>
+			            		<c:when test="${pi.currentPage ne 1 }">
+			            			<a href="list.po?cpage=${pi.currentPage -1 }">&lt;</a>
+			            		</c:when>
+			            	</c:choose>
+			            	
+			            	<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
+			            		 <a href="list.po?cpage=${p}">${p}</a>
+			            	</c:forEach>
+			            	
+			            	<c:choose>
+			            		<c:when test="${(pi.currentPage ne pi.maxPage) or (pi.maxPage eq 0) }">
+			            			<a href="list.po?cpage=${pi.currentPage +1 }">&gt;</a>
+			            		</c:when>
+			            	</c:choose>
+			            </div>
+			        </div>	
                 </div>
             </div>
             <%@ include file="../common/footer.jsp"%>
