@@ -43,13 +43,9 @@ public class RecipeController {
 	public String insertRecipe(Recipe rcp,RecipeInsertDTO recipeInsertDTO, MultipartFile[]  completeImages, HttpSession session, Model model){
 //		SaveFileController sfc = new SaveFileController();
 		
-		int result =recipeService.insertRecipeInsertDTO(rcp, recipeInsertDTO);
-		for (MultipartFile upfile : completeImages) {
-	        if (!upfile.getOriginalFilename().equals("")) {
-	            // 파일 저장 또는 처리 로직 추가
-	        	String changeName = saveFile(upfile,session,"/recipe/recipefinal");
-	        }
-	    }
+		int result =recipeService.insertRecipeInsertDTO(rcp, recipeInsertDTO, completeImages, session);
+		
+	
 		if(true) {			
 			return "recipe/recipeList";
 		}
