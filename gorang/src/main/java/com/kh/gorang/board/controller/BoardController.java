@@ -44,7 +44,7 @@ public class BoardController {
     }
     
     // 조회수순으로 게시글 메인 화면 보여주기
-    @RequestMapping("main.bo/sortByView")
+    @RequestMapping("mainSortView.bo")
     public String selectListByViewCount(
             @RequestParam(value="cpage", defaultValue="1") int currentPage, 
             Model model) {

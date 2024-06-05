@@ -51,7 +51,7 @@
                         <div id="BoardSortings">
                             <div id="BoardSortingsBox">
                                 <a id="SortingsLatest" href="${pageContext.request.contextPath}/main.bo">최신순</a>
-                                <a id="SortingsViews" href="${pageContext.request.contextPath}/main.bo/sortByView">조회수순</a>
+                                <a id="SortingsViews" href="${pageContext.request.contextPath}/mainSortView.bo">조회수순</a>
                                 <a id="SortingsScrap" href="">스크랩순</a>
                             </div>
                         </div>
