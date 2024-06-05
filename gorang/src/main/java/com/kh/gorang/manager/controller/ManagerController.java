@@ -52,7 +52,6 @@ public class ManagerController {
 		return "manager/updateProductForm";
 	}
 	
-
 	@RequestMapping("boards.ma")
 	public String managerBoardCheckForm() {
 		return "manager/checkBoardForm";
