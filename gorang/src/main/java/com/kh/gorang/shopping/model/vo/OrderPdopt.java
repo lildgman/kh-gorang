@@ -1,7 +1,5 @@
 package com.kh.gorang.shopping.model.vo;
 
-import java.sql.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +12,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class OrderPdopt {
-	private int OrderPdoptNo;
-	private int refProductNo;
+	private int optNo;
+	private int refOrderNo;
 	private int optQuantity;
 }
