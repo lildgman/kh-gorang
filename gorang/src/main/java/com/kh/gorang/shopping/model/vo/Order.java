@@ -24,7 +24,7 @@ public class Order {
 	private String recipientPhone;
 	private String requirements;
 	private int totalPrice;
-	private String paymentType;
+	private String payment;
 	private Date orderDate;
 	private String status;
 }
