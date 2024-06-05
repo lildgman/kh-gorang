@@ -84,5 +84,32 @@
     SET BOARD_VIEWS = BOARD_VIEWS + 1
     WHERE BOARD_NO = #{boardNo}
  </update>
-
+ 
+	<!-- 최신순으로 게시글 리스트 조회 -->
+    <select id="selectListByLatest" resultMap="boardResult">
+        SELECT BOARD_NO,
+               BOARD_TITLE,
+               MEMBER_NO,
+               BOARD_VIEWS,
+               BOARD_THUMBNAIL,
+               BOARD_VOTE,
+               TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS "BOARD_CREATE_DATE"
+        FROM BOARD
+        WHERE STATUS = 'Y'
+        ORDER BY BOARD_NO DESC
+    </select>
+    
+    <!-- 조회수순으로 게시글 리스트 조회 -->
+    <select id="selectListByViewCount" resultMap="boardResult">
+        SELECT BOARD_NO,
+               BOARD_TITLE,
+               MEMBER_NO,
+               BOARD_VIEWS,
+               BOARD_THUMBNAIL,
+               BOARD_VOTE,
+               TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS "BOARD_CREATE_DATE"
+        FROM BOARD
+        WHERE STATUS = 'Y'
+        ORDER BY BOARD_VIEWS DESC
+    </select>
   </mapper>

@@ -12,6 +12,12 @@ public interface BoardService{
 	//게시글 리스트 조회(게시글메인)
 	ArrayList<Board>selectList(PageInfo pi);
 	
+	//게시글 리스트 조회(최신 순)
+    ArrayList<Board> selectListByLatest(PageInfo pi);
+    
+	//게시글 리스트 조회(조회수 순)
+	ArrayList<Board> selectListByViewCount(PageInfo pi);
+
 	//상세 게시글 조회
 	Board selectBoard(int boardNo);
 	
