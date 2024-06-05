@@ -68,13 +68,16 @@ body {
     float: right;
     display: flex;
 }
+#BoardSortingsBox a{
+    text-decoration: none;
+}
 #SortingsLatest{
     margin: 0 4px 0px 4px;
     color: #6D6D6D;
     border-right: 2px solid #E6E6E6;
     padding-right: 10px;
 }
-#SortingsNums{
+#SortingsViews{
     margin: 0 4px 0px 4px;
     color: #6D6D6D;
     border-right: 2px solid #E6E6E6;

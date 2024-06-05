@@ -50,9 +50,9 @@
                     <div id="BoardContents">
                         <div id="BoardSortings">
                             <div id="BoardSortingsBox">
-                                <div id="SortingsLatest">최신순</div>
-                                <div id="SortingsNums">조회수순</div>
-                                <div id="SortingsScrap">스크랩순</div>
+                                <a id="SortingsLatest" href="${pageContext.request.contextPath}/main.bo">최신순</a>
+                                <a id="SortingsViews" href="${pageContext.request.contextPath}/main.bo/sortByView">조회수순</a>
+                                <a id="SortingsScrap" href="">스크랩순</a>
                             </div>
                         </div>
                         <div class="commonContainer">

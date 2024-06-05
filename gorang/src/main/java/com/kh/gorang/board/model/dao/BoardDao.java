@@ -22,6 +22,17 @@ public class BoardDao{
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("boardMapper.selectList", null, rowBounds);
 	}
+	public ArrayList<Board> selectListByViewCount(SqlSessionTemplate sqlSession, PageInfo pi) {
+        int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+        RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+        return (ArrayList)sqlSession.selectList("boardMapper.selectListByViewCount", null, rowBounds);
+    }
+    
+    public ArrayList<Board> selectListByLatest(SqlSessionTemplate sqlSession, PageInfo pi) {
+        int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+        RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+        return (ArrayList)sqlSession.selectList("boardMapper.selectListByLatest", null, rowBounds);
+    }
 	
 	public Board selectBoard(SqlSessionTemplate sqlSession, int boardNo) {
 	    return sqlSession.selectOne("boardMapper.selectBoard", boardNo);
@@ -30,5 +41,11 @@ public class BoardDao{
 	public int insertBoard(SqlSessionTemplate sqlSession, Board board) {
 		return sqlSession.insert("boardMapper.insertBoard",board);
 	}
+	
+	public void increaseViewCount(SqlSessionTemplate sqlSession, int boardNo) {
+        sqlSession.update("boardMapper.increaseViewCount", boardNo);
+    }
+
+	
 	
 }
