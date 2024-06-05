@@ -32,7 +32,10 @@
 
             <!-- 구매자 정보 칸 -->
             <div id="buyer-information-area">
-                <div class="area-top">구매자 정보</div>
+                <div class="area-top">
+                    구매자 정보
+                    <button id="put-myInfo">내 정보 넣기</button>
+                </div>
                 <div id="buyer-information" class="information-area">
                     <div id="buyer-name-area" class="information-div">
                         <div class="information-title">이름</div>
@@ -45,16 +48,6 @@
                         <div id="email-container">
                             <div id="email-name-container" class="input-container">
                                 <input type="text" id="input-buyer-email"> 
-                            </div>
-                            <span style="margin-left: 15px; margin-right: 15px;">@</span> 
-                            <div class="input-container">
-                                <select name="" id="email-select">
-                                    <option value="naver.com">naver.com</option>
-                                    <option value="gmail.com">gmail.com</option>
-                                    <option value="daum.net">daum.net</option>
-                                    <option value="kakao.com">kakao.com</option>
-                                    <option value="직접 입력">직접 입력</option>
-                                </select>
                             </div>
                         </div>
                     </div>

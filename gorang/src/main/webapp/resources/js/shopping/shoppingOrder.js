@@ -6,11 +6,19 @@ window.onload = function () {
 }
 
  document.addEventListener("DOMContentLoaded", function(){
+  const loginUser = sessionStorage.getItem("loginUser");
+  console.log(loginUser);
    // 구매하기 버튼 클릭 시 컨트롤러로 정보 보내는 ajax 함수 실행하기 위한 이벤트 핸들러
   document.querySelector("#buy_btn").addEventListener("click", function(){
     const data = getDataForAjax();
     AjaxForInsertOrder(data);
   })
+
+  document.querySelector("#put-myInfo").addEventListener("clcik", function(){
+    document.querySelector("#input-buyer-email").value =  loginUser.memberEmail;
+    document.querySelector("#input-buyer-phone").value = loginUser.memberPhone;
+  })
+
  })
 
 // 상품 총 금액 계산
@@ -94,9 +102,6 @@ function getDataForAjax(){
   // 구매자 및 배송지 정보
   const orderInfo = [];
 
-  // 이메일 셀렉트 요소
-  const buyerEmailAddress = document.querySelector("#email-select");
-
   // 주문 상품 정보
   const orderOpts = [];
   document.querySelectorAll(".order-product-container").forEach(function(ev){
@@ -110,9 +115,7 @@ function getDataForAjax(){
 
   orderInfo.push({
     buyerName: document.querySelector("#input-buyer-name").value,
-    buyerEmail: document.querySelector("#input-buyer-email").value + 
-                document.querySelector("#email-container > span").innerHTML + 
-                buyerEmailAddress.options[buyerEmailAddress.selectedIndex].value,
+    buyerEmail: document.querySelector("#input-buyer-email").value,
     buyerPhone: document.querySelector("#input-buyer-phone").value,
     deliveryAddressName: document.querySelector("#input-delivery-name").value,
     recipentName: document.querySelector("#input-delivery-recipient").value,
