@@ -92,42 +92,54 @@
 	<select id="selectBoardScrapCount" resultType="_int">
 		SELECT COUNT(MEMBER_NO)
 		FROM SCRAP_BOARD
-		WHERE MEMBER_NO = #{memberNo}
+		WHERE 
+			STATUS = 'Y' AND
+			MEMBER_NO = #{memberNo}
 	</select>
 
 	<!-- 상품 스크랩 수 조회 -->
 	<select id="selectProductScrapCount" resultType="_int">
 		SELECT COUNT(MEMBER_NO)
 		FROM SCRAP_PRODUCT
-		WHERE MEMBER_NO = #{memberNo}
+		WHERE 
+			STATUS = 'Y' AND
+			MEMBER_NO = #{memberNo}
 	</select>
 
 	<!-- 레시피 스크랩 수 조회 -->
 	<select id="selectRecipeScrapCount" resultType="_int">
 		SELECT COUNT(MEMBER_NO)
 		FROM SCRAP_RECIPE
-		WHERE MEMBER_NO = #{memberNo}
+		WHERE 
+			STATUS = 'Y' AND
+			MEMBER_NO = #{memberNo}
 	</select>
 
 	<!-- 게시글 좋아요 수 조회 -->
-	<select id="selectBoardLikeCount" resultType="_int">
+	<select id="selectTotalBoardLikeCount" resultType="_int">
 		SELECT COUNT(MEMBER_NO)
 		FROM LIKE_BOARD
-		WHERE MEMBER_NO = #{memberNo}
+		WHERE 
+			STATUS = 'Y' AND
+			MEMBER_NO = #{memberNo}
 	</select>
 
 	<!-- 레시피 좋아요 수 조회 -->
-	<select id="selectRecipeLikeCount" resultType="_int">
+	<select id="selectTotalRecipeLikeCount" resultType="_int">
 		SELECT COUNT(MEMBER_NO)
 		FROM LIKE_RECIPE
-		WHERE MEMBER_NO = #{memberNo}
+		WHERE 
+			STATUS = 'Y' AND
+			MEMBER_NO = #{memberNo}
 	</select>
 
 	<!-- 조회수가 많은 순으로 정렬된 레시피 리스트 조회 -->
 	<select id="selectMostViewRecipeList" resultMap="recipeResult">
 		SELECT *
 		FROM RECIPE
-		WHERE MEMBER_NO = #{memberNo}
+		WHERE 
+			STATUS = 'Y' AND
+			MEMBER_NO = #{memberNo}
 		ORDER BY RCP_VIEW DESC
 	</select>
 	
@@ -135,7 +147,9 @@
 	<select id="selectMostViewBoardList" resultMap="boardResult">
 		SELECT *
 		FROM BOARD
-		WHERE MEMBER_NO = #{memberNo}
+		WHERE 
+			STATUS = 'Y' AND
+			MEMBER_NO = #{memberNo}
 		ORDER BY BOARD_VIEWS DESC
 	</select>
 	
@@ -144,7 +158,9 @@
 		SELECT R.*
 		FROM RECIPE R
 		JOIN SCRAP_RECIPE SR USING (RCP_NO)
-		WHERE SR.MEMBER_NO = #{memberNo}
+		WHERE 
+			R.STATUS = 'Y' AND
+			SR.MEMBER_NO = #{memberNo}
 		ORDER BY R.RCP_VIEW DESC
 	</select>
 	
@@ -153,7 +169,9 @@
 		SELECT B.*
 		FROM BOARD B
 		JOIN SCRAP_BOARD SB USING (BOARD_NO)
-		WHERE SB.MEMBER_NO = #{memberNo}
+		WHERE 
+			B.STATUS = 'Y' AND
+			SB.MEMBER_NO = #{memberNo}
 		ORDER BY B.BOARD_VIEWS DESC
 	</select>
 
@@ -162,7 +180,9 @@
 		SELECT P.*
 		FROM PRODUCT P
 		JOIN SCRAP_PRODUCT SP USING (PRODUCT_NO)
-		WHERE SP.MEMBER_NO = #{memberNo}
+		WHERE 
+			P.STATUS = 'Y' AND
+			SP.MEMBER_NO = #{memberNo}
 		ORDER BY P.PRODUCT_VIEW DESC
 	</select>
 	
@@ -171,7 +191,9 @@
 		SELECT R.*
 		FROM RECIPE R
 		JOIN LIKE_RECIPE LR USING (RCP_NO)
-		WHERE LR.MEMBER_NO = #{memberNo}
+		WHERE 
+			R.STATUS = 'Y' AND
+			LR.MEMBER_NO = #{memberNo}
 		ORDER BY R.RCP_VIEW DESC
 	</select>
 	
@@ -180,7 +202,53 @@
 		SELECT B.*
 		FROM BOARD B
 		JOIN LIKE_BOARD LB USING (BOARD_NO)
-		WHERE LB.MEMBER_NO = #{memberNo}
+		WHERE 
+			B.STATUS = 'Y' AND
+			LB.MEMBER_NO = #{memberNo}
 		ORDER BY B.BOARD_VIEWS DESC
 	</select>
+	
+	<!-- 최신순으로 정렬된 레시피 리스트 조회 -->
+	<select id="selectRecentRecipeList" resultMap="recipeResult">
+		SELECT *
+		FROM RECIPE
+		WHERE 
+			STATUS = 'Y' AND
+			MEMBER_NO = #{memberNo}
+	</select>
+	
+	<!-- 나의 레시피 개수 조회 -->
+	<select id="selectMyRecipeCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM RECIPE
+		WHERE 
+			STATUS = 'Y' AND
+			MEMBER_NO = #{memberNo}
+	</select>
+	
+	<!-- 레시피 댓글 개수 조회 -->
+	<select id="selectRecipeCommentCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM COMMENTS
+		WHERE
+			STATUS = 'Y' AND
+			REF_COMMENT_NO = #{recipeNo}
+	</select> 
+	
+	<!-- 레시피 좋아요 개수 조회 -->
+	<select id="selectRecipeLikeCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM LIKE_RECIPE
+		WHERE 
+			STATUS = 'Y' AND
+			RCP_NO = #{recipeNo}
+	</select>
+	
+	<!-- 레시피 삭제 -->
+	<update id="deleteRecipe" parameterType="Recipe">
+		UPDATE RECIPE
+		SET STATUS = 'N'
+		WHERE RCP_NO = #{recipeNo}
+	</update>
+	
 </mapper>
