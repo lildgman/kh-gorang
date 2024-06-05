@@ -20,5 +20,5 @@ public class CookOrder {
 	private String cookOrdPhoto;
 	private char status;
 	private int recipeNo;
-	private List<CookTip> cookTip;
+	private List<CookTip> cookTipList;
 }

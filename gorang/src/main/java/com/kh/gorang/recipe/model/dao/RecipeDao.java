@@ -22,43 +22,32 @@ public class RecipeDao {
 	public Recipe insertRecipe(SqlSessionTemplate sqlSession, Recipe rcp) { 
 		return (Recipe)sqlSession.selectOne("recipeMapper.insertRecipe",rcp);
 	}
+	
+	//재료 정보 분류 추가 및 분류 번호 찾기
 	public Division insertDivision(SqlSessionTemplate sqlSession, Division div,int rcpNo) {
 		div.setRecipeNo(rcpNo);
 		return (Division)sqlSession.selectOne("recipeMapper.insertDivision",div);
 	}
+	//재료 정보 추가
 	public int insertIngredientsInfo(SqlSessionTemplate sqlSession, IngredientsInfo ingre, int divNo) {
 		ingre.setDivNo(divNo);
 		System.out.println("Dao null확인:"+ingre+",  num:" + divNo);
 		return sqlSession.insert("recipeMapper.insertIngredientsInfo",ingre);
 	}
-	
+	//레시피 순서 추가 및 레시피번호 찾기
+	public CookOrder insertCookOrder(SqlSessionTemplate sqlSession, CookOrder cookOrder, int rcpNo) {
+		cookOrder.setRecipeNo(rcpNo);
+		return (CookOrder)sqlSession.selectOne("recipeMapper.insertCookOrder",cookOrder);
+	}
+	//팁 추가
+	public int insertCookTip(SqlSessionTemplate sqlSession, CookTip cTip, int cookOrderNum) {
+		cTip.setCookOrdNo(cookOrderNum);
+		return sqlSession.insert("recipeMapper.insertCookTip",cTip);
+	}
 
 	
-	
-	
 
-	
-//	//Divsion추가
-//	public int insertRecipeInsertDTODivList(SqlSessionTemplate sqlSession, List<Division> rcpDivList, int rcpNo) {
-//		 int check = 1;
-//		 for (Division division : rcpDivList) {
-//			 Map<String, Object> parameters = new HashMap<>();
-//		        parameters.put("division", division.getDivName());
-//		        parameters.put("rcp_no", rcpNo);
-//		        int divNum= sqlSession.insert("recipeMapper.insertRcpDiv",parameters);
-//		 }
-//		 return check;
-//	}
-//	
-//	
-//	//	IgreList 추가
-//	public int insertRecipeInsertDTOIgreList(SqlSessionTemplate sqlSession, List<IngredientsInfo> igreInfoList) {
-//		int check = 1;
-//		 for (IngredientsInfo division : igreInfoList) {
-//		    check *= sqlSession.insert("recipeMapper.insertIngreInfo", division);
-//		 }
-//		 return check;
-//	}
+
 
 	
 
