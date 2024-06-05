@@ -24,9 +24,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.kh.gorang.common.template.Pagination;
 import com.kh.gorang.common.vo.PageInfo;
+import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.QnA;
 import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.shopping.model.vo.Order;
+import com.kh.gorang.shopping.model.vo.OrderPdopt;
 import com.kh.gorang.shopping.model.vo.Product;
 import com.kh.gorang.shopping.model.vo.ProductDetailOption;
 import com.kh.gorang.shopping.service.ProductService;
@@ -208,26 +210,30 @@ public class StoreController {
 	// 주문 데이터 처리하는 컨트롤러
 	@ResponseBody
 	@PostMapping(value = "insertOrder.po", produces = "application/json; charset=utf-8")
-	public String aJaxInsertProductOrder(@RequestBody Map<String, Object> orderData, Model model) {
+	public String aJaxInsertProductOrder(@RequestBody Map<String, Object> orderData, Model model, HttpSession session) {
+		Member m = (Member)session.getAttribute("loginUser");
+		
+		System.out.println(m);
+		
 		// Gson을 사용하여 JSON 데이터를 처리
 	    Gson gson = new Gson();
 	    
 	    // 각 데이터 파싱
 	    String orderInfoJson = gson.toJson(orderData.get("orderInfo"));
 	    String orderOptsJson = gson.toJson(orderData.get("orderOpts"));
-
-	    System.out.println("Order Info: " + orderInfoJson);
-	    System.out.println("Order Options: " + orderOptsJson);
 		
-//	    //JSON을 Java 객체로 변환
-//	    Type orderInfoType = new TypeToken<List<Order>>(){}.getType();
-//	    Type orderOptsType = new TypeToken<List<Map<String, Object>>>(){}.getType();
-//
-//	    Map<String, Object> orderInfo = gson.fromJson(orderInfoJson, orderInfoType);
-//	    List<Map<String, Object>> orderOpts = gson.fromJson(orderOptsJson, orderOptsType);
-//
-//	    System.out.println("Parsed Order Info: " + orderInfo);
-//	    System.out.println("Parsed Order Options: " + orderOpts);
+	    // JSON을 Java 객체로 변환
+	    Type orderInfoType = new TypeToken<List<Order>>(){}.getType();
+	    Type orderOptsType = new TypeToken<List<OrderPdopt>>(){}.getType();
+	    
+	    List<Order> orderInfoList = gson.fromJson(orderInfoJson, orderInfoType);
+	    List<OrderPdopt> orderOpts = gson.fromJson(orderOptsJson, orderOptsType);
+	    // Order 는 무조건 1개만 날라오기 때문에 바로 파싱 가능
+	    Order orderInfo = orderInfoList.get(0);
+	    
+//	   int result = OrderService.insertOrder(orderInfo, orderOpts);
+	    
+	    
 		
 		
 		return null;

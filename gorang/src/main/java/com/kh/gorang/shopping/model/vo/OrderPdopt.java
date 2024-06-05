@@ -16,5 +16,5 @@ import lombok.ToString;
 public class OrderPdopt {
 	private int OrderPdoptNo;
 	private int refProductNo;
-	private int quantity;
+	private int optQuantity;
 }

@@ -134,8 +134,9 @@
                 <div class="information-area">
                 
                	<c:forEach var="opt" items="${opts}">
-                    <input type="hidden" class="input-pdopt-pno" value="${opt.productNo}">
+                    
                		<div class="order-product-container">
+                        <input type="hidden" class="input-pdopt-pno" value="${opt.productNo}">
                         <input type="hidden" class="input-order-optNo" value="${opt.detailOptionNo}">
                         <div class="order-product-container-top">
                             <span class="brandName">${opt.productBrand}</span>
