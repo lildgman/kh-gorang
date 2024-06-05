@@ -41,4 +41,5 @@ public class BoardServiceImpl implements BoardService{
 	public int insertBoard(Board board) {
 		return boardDao.insertBoard(sqlSession,board);
 	}
+
 }

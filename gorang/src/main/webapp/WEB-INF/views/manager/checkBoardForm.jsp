@@ -82,7 +82,7 @@
                         </thead>
                         <tbody>
                             <tr class="admin-tbody-tr">
-                               <td colspan="7">게시글을 검색해주세요</td>
+                               <td colspan="8">게시글을 검색해주세요</td>
                             </tr>
                         </tbody>
                     </table>
