@@ -18,7 +18,6 @@ import com.kh.gorang.shopping.model.vo.ProductInsertDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Repository
 public class ProductDao {
 
