@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
         <!DOCTYPE html>
         <html>
 
@@ -39,6 +40,7 @@
 
                 <!-- 상품 간략 정보-->
                 <div id="productInfo-area">
+                    <input type="hidden" id="product-no" value="${p.productNo}">
                     <div id="product-img-container">
                         <img class="product-thumbnail" src="${contextPath }/resources/uploadfile/product/productimg/${p.mainImg}"
                             alt="">
@@ -60,13 +62,14 @@
                             </div>
                         </div>
                         <div>
-                            <span id="product_origin_price">${p.normalPrice}</span><span class="won">원</span>
+                            <span id="product_origin_price"> <fmt:formatNumber value="${p.normalPrice}" type="number"/></span>
+                            <span class="won">원</span>
                         </div>
                         <div id="product_discount_price">
                             <span id="product_discount_percent">${p.discountPercent}%</span>
                             <div>
-                                <span id="product_discounted_price">${p.salePrice}</span><span
-                                    style="font-size: 30px; font-weight: bold;">원</span>
+                                <span id="product_discounted_price"><fmt:formatNumber value="${p.salePrice}" type="number"/></span>
+                                <span style="font-size: 30px; font-weight: bold;">원</span>
                             </div>
                         </div>
                         <div id="product_etc">
@@ -95,7 +98,9 @@
                             <div id="product_buy_info">
                                 <div><span>상품 선택</span></div>
                                 <div id="product-opt-form-wrapper">
-                                    <form action="order.po?pno=${p.productNo}" id="product-opt-form">
+                                    <form action="order.po" id="product-opt-form" method="post">
+                                        
+
                                         <div class="product-opts">
                                             <div class="product-opt-select">
                                                 <div><span>상품을 선택해주세요</span></div>
@@ -115,9 +120,14 @@
                                             </div>
                                             <div class="product_buy_btn_container">
                                                 <button class="myBtn btn_cart">장바구니 담기</button>
-                                                <button class="myBtn btn_buy">구매하기</button>
+                                                <button class="myBtn btn_buy" id="product-buy-btn">구매하기</button>
                                             </div>
                                         </div>
+                                        <input type="hidden" id="input-productBrand" value="${p.productBrand}">
+                                        <input type="hidden" id="input-productName" value="${p.productName}">
+                                        <input type="hidden" id="input-mainImg" value="${p.mainImg}">
+                                        <input type="hidden" id="input-shipmentType" value="${p.shipmentType}">
+                                        <input type="hidden" name="selectedOptList" />
                                     </form>
                                 </div>
                             </div>
@@ -143,25 +153,7 @@
 
                         <!-- 상품 설명 -->
                         <div id="product_description_area">
-                            <div id="product_description_picture">
-                                <img id="product_description_img"
-                                    src="${contextPath }/resources/dummyImg/shopping/product_description.png"
-                                    alt="상품사진">
-                            </div>
-
-                            <div id="product_description_p">
-                                <p>경북 성주는 풍부한 일조량, 물 빠짐이 좋은 미사질 토양을 지녀 참외를 재배하기에 최적의 조건을 갖춘 곳인데요. 참외가 참 신선하고 맛이 좋다 싶으면
-                                    역시나 성주에서
-                                    온 참외이곤 하지요.
-                                    컬리는 과실이 통통하게 잘 여문 향긋한 성주 참외를 온 가족이 함께 즐길 수 있는 양으로 담아 준비했어요.
-                                    시원한 냉장고 혹은 찬물에 잠시 두었다가 꺼내 먹으면, 참외의 달콤한 향이 더욱 선명하게 느껴질 거예요.
-                                    아삭아삭한 식감, 함뿍 배어 나오는 달큰한 과즙을 그대로 음미해 보세요.</p>
-                            </div>
-
-                            <div id="product_detail_description">
-                                <img id="product_detail_img"
-                                    src="${contextPath }/resources/dummyImg/shopping/product_detail.png" alt="">
-                            </div>
+                            ${p.description}
                         </div>
 
                         <!-- 상품 후기 -->

@@ -3,6 +3,7 @@ input[type="checkbox"] {
   height: 20px; 
 }
 
+/* 주문 */
 #order-container {
   display: flex;
   flex-direction: row;
@@ -19,17 +20,18 @@ input[type="checkbox"] {
   width: 807px;
 }
 
+/* 구매자 정보 */
+#buyer-information-area {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
 .area-top {
   font-size: 19px;
   font-weight: bold;
   border-bottom:1px solid #ededed;
   padding-bottom: 14px;
-}
-
-#buyer-information-area {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
 }
 
 .information-area {
@@ -88,6 +90,8 @@ input[type="checkbox"] {
   border: none;
 }
 
+/* 배송지 정보 */
+
 .address-input-container {
   display: flex;
   flex-direction: column;
@@ -112,10 +116,16 @@ input[type="checkbox"] {
   border-radius: 4px;
 }
 
+.input-container.large{
+  width: 400px;
+  
+}
+
 .wd-576 {
   width: 576px;
 }
 
+/* 주문 상품 정보 */
 .order-product-container {
   width: 100%;
   border: 1px solid #ededed;
@@ -158,6 +168,22 @@ input[type="checkbox"] {
   align-items: flex-start;
   gap: 10px;
 }
+
+.order-product-name{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+.order-product-name-pname{
+  font-size: 14px;
+}
+
+.order-product-name-optname{
+  color: #cecece;
+}
+
 
 .won {
   font-weight: bold;

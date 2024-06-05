@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const contextPath = getContextPath();
   const pno = getParameterPno();
   const profileLocation = contextPath + "/resources/uploadfile/memberProfile/";
-  let totalPrice = 0;
 
   // 파라미터값으로 뿌려주고 남은 정보창 채우기
   inputProductInfo(pno, profileLocation);
@@ -90,6 +89,7 @@ function inputProductInfo(pno, profileLocation){
   // 상품 선택하기
   ajaxGetProductOpts({pno}, (opts)=>putProductOptsForOrder(opts));
 
+  
   //리뷰 수, 리뷰 내용 가져오기 미완!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 결제 페이지 먼저 구축
   ajaxGetProductReviews({pno}, (reviews)=>putProductReviewList(reviews, profileLocation));
 
@@ -120,7 +120,14 @@ function putProductOptsForOrder(opts){
     const pdoptSelectOptPrice = document.createElement('span');
     pdoptSelectOptPrice.setAttribute("class", "product-opt-select-price");
     pdoptSelectOpt.appendChild(pdoptSelectOptPrice);
-    pdoptSelectOptPrice.innerHTML = opt.detailOptionSaledPrice;
+    pdoptSelectOptPrice.innerHTML = opt.detailOptionSaledPrice.toLocaleString();
+
+    //옵션 번호 hidden
+    const pdoptSelectOptNo = document.createElement('input');
+    pdoptSelectOptNo.setAttribute("type", "hidden");
+    pdoptSelectOptNo.setAttribute("class", "product-opt-select-no")
+    pdoptSelectOpt.appendChild(pdoptSelectOptNo);
+    pdoptSelectOptNo.value = opt.detailOptionNo;
   }
   
   //드롭박스 구현
@@ -142,12 +149,13 @@ function putProductOptsForOrder(opts){
     
     // 상품 선택 항목에서 보여지는 부분
     const selectedOption = $(this);
+    const selectedOptionNo = selectedOption.find(".product-opt-select-no").val();
     const selectedOptionName = selectedOption.find(".product-opt-select-name").text();
     const selectedOptionPrice = selectedOption.find(".product-opt-select-price").text();
     //parseFloat?
 
     if (!isOptionAlreadySelected(selectedOptionName)) {
-      createQuantityAdjustment(selectedOptionName, selectedOptionPrice);
+      createQuantityAdjustment(selectedOptionNo, selectedOptionName, selectedOptionPrice);
     }
   });
 
@@ -164,7 +172,8 @@ function putProductOptsForOrder(opts){
   }
 
  // 옵션별 수량 조절 부분 생성하는 메소드
-  function createQuantityAdjustment(optionName, optionPrice){
+  function createQuantityAdjustment(optionNo, optionName, optionPrice){ 
+
     // 수량 조절 부분 생성
     const pdQuantityContent = document.createElement('div');
     pdQuantityContent.setAttribute("class", "product_quantity_content");
@@ -174,6 +183,13 @@ function putProductOptsForOrder(opts){
     selectedProductName.setAttribute("class", "pname");
     selectedProductName.innerHTML = optionName; // 첫번째 span 의 innerHTML
     pdQuantityContent.appendChild(selectedProductName);
+
+    // 옵션 번호 hidden
+    const pdoptSelectOptNo = document.createElement('input');
+    pdoptSelectOptNo.setAttribute("type", "hidden");
+    pdoptSelectOptNo.setAttribute("class", "product-opt-select-no");
+    pdoptSelectOptNo.value = optionNo;
+    pdQuantityContent.appendChild(pdoptSelectOptNo);
 
     // 옵션 수량 조절
     const pdAmountPrice = document.createElement('div');
@@ -212,7 +228,6 @@ function putProductOptsForOrder(opts){
     productPriceView.appendChild(productBasicPrice);
     productBasicPrice.setAttribute("class", "product-price-basicPrice");
     productBasicPrice.innerHTML = optionPrice; // 두번째 span 의 innerHTML부분
-    //productBasicPrice.innerHTML = optionPrice.toFixed(2); ?
 
     // 할인가
     const productDiscountedPrice = document.createElement('span');
@@ -231,6 +246,7 @@ function putProductOptsForOrder(opts){
     document.querySelector("#product_quantity_area").appendChild(pdQuantityContent);
 
     updateTotalPrice();
+
   }
 
   // 삭제 버튼 클릭 이벤트 추가
@@ -268,14 +284,62 @@ function putProductOptsForOrder(opts){
   // 총금액 업데이트 함수
   function updateTotalPrice() {
     const totalPrice = calculateTotalPrice();
-    $(".product-price").text(totalPrice);
+    document.querySelector(".product-price").innerHTML = totalPrice.toLocaleString();
     if (totalPrice > 0) {
       $("#product-price-btn-wrapper").show();
     } else {
       $("#product-price-btn-wrapper").hide();
     }
   }
+
 }
+
+// DOM 이 완전히 로드되지 않은 상태에서 이벤트 리스너 발생하여 document.querySelector("#product-buy-btn") 를 찾지 못하는 상황 발생
+// 따라서 "DOMContentLoaded" 이벤트 리스너를 추가
+document.addEventListener("DOMContentLoaded", function(){
+  // JSON 형식으로 보내기 위한 구매하기 버튼 클릭 이벤트
+  document.querySelector("#product-buy-btn").addEventListener("click", function(){
+    // array 변수 선언
+    const selectedOpts = [];
+    
+    // 각 옵션번호, 수량을 가져와서 JSON 형태로 저장
+    document.querySelectorAll(".product_quantity_content").forEach(function(ev){
+      const selectedOptNo = ev.querySelector(".product-opt-select-no").value;
+      const selectedOptName = ev.querySelector(".pname").innerHTML;
+      const selectedOptQnt = ev.querySelector(".pbtn-quantity").value;
+      const selectedOptPrice = ev.querySelector(".product-price-basicPrice").innerHTML.replace(/,/g, "");
+      const selectedPno = document.querySelector("#product-no").value;
+      const productBrand = document.querySelector("#input-productBrand").value;
+      const productName = document.querySelector("#input-productName").value;
+      const mainImg = document.querySelector("#input-mainImg").value;
+      const shipmentType = document.querySelector("#input-shipmentType").value;
+
+      selectedOpts.push({
+          detailOptionNo: selectedOptNo,
+          detailOptionName: selectedOptName,
+          detailOptionQuantity: selectedOptQnt,
+          detailOptionSaledPrice: selectedOptPrice,
+          productNo: selectedPno,
+          productBrand: productBrand,
+          productName: productName,
+          mainImg: mainImg,
+          productShipment: shipmentType
+      });
+  });
+
+    //Json 문자열로 변환
+    selectedOptsJson = JSON.stringify(selectedOpts);
+
+    //hidden input 에 json 넣기
+    document.querySelector("input[name='selectedOptList']").value = selectedOptsJson;
+
+    //제출
+    document.querySelector("#product-opt-form").submit();
+  });
+})
+
+
+
 
 //=========================== review 관련 메소드 ========================================
 
