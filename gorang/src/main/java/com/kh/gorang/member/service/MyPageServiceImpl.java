@@ -7,7 +7,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
 import com.kh.gorang.board.model.vo.Board;
+import com.kh.gorang.common.vo.PageInfo;
 import com.kh.gorang.member.model.dao.MyPageDao;
+import com.kh.gorang.recipe.model.vo.MyPageRecipeDTO;
 import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.shopping.model.vo.Product;
 
@@ -56,10 +58,10 @@ public class MyPageServiceImpl implements MyPageService{
 	public int getTotalLikeCount(int memberNo) {
 		
 		// 게시글 좋아요 수 조회
-		int boardLikeCount = myPageDao.getBoardLikeCount(sqlSession, memberNo);
+		int boardLikeCount = myPageDao.getTotalBoardLikeCount(sqlSession, memberNo);
 		
 		// 레시피 좋아요 수 조회
-		int recipeLikeCount = myPageDao.getRecipeLikeCount(sqlSession, memberNo);
+		int recipeLikeCount = myPageDao.getTotalRecipeLikeCount(sqlSession, memberNo);
 		
 		return boardLikeCount + recipeLikeCount;
 	}
@@ -68,9 +70,7 @@ public class MyPageServiceImpl implements MyPageService{
 	@Override
 	public ArrayList<Recipe> getMostViewRecipeList(int memberNo) {
 		
-		ArrayList<Recipe> list = myPageDao.getMostViewRecipeList(sqlSession, memberNo);
-		
-		return list;
+		return myPageDao.getMostViewRecipeList(sqlSession, memberNo);
 	}
 
 	// 조회수가 많은 순으로 정렬된 게시글 조회
@@ -103,11 +103,6 @@ public class MyPageServiceImpl implements MyPageService{
 		
 		Collections.shuffle(allScrapList);
 		
-//		if(allScrapList.size() > 4) {
-//			ArrayList<Object> scrapList = new ArrayList<Object>(allScrapList.subList(0, 4));
-//			return scrapList;
-//		}
-		
 		return allScrapList;
 		
 	}
@@ -130,13 +125,41 @@ public class MyPageServiceImpl implements MyPageService{
 		
 		Collections.shuffle(allLikeList);	
 		
-//		if(allLikeList.size() > 4) {
-//			ArrayList<Object> likeList = new ArrayList<Object>(allLikeList.subList(0, 4));
-//			return likeList;
-//		}
-		
 		return allLikeList;
 		
+	}
+
+	// 나의 레시피 개수 조회
+	@Override
+	public int getMyRecipeCount(int memberNo) {
+		return myPageDao.getMyRecipeCount(sqlSession, memberNo);
+	}
+
+	// 최신순으로 정렬한 레시피 조회
+	@Override
+	public ArrayList<MyPageRecipeDTO> getRecentRecipeList(PageInfo pi, int memberNo) {
+		
+		ArrayList<MyPageRecipeDTO> result = new ArrayList<MyPageRecipeDTO>();
+		
+		ArrayList<Recipe> recipeList = myPageDao.getRecentRecipeList(sqlSession, pi ,memberNo);
+		
+		for(Recipe recipe : recipeList) {
+			int recipeCommentCount = myPageDao.getRecipeCommentCount(sqlSession, recipe.getRecipeNo());
+			int recipeLikeCount = myPageDao.getRecipeLikeCount(sqlSession, recipe.getRecipeNo());
+			MyPageRecipeDTO myPageRecipeDTO = new MyPageRecipeDTO(recipe, recipeCommentCount, recipeLikeCount);
+			result.add(myPageRecipeDTO);
+		}
+		
+		log.info("result={}",result);
+		
+		
+		return result;
+	}
+
+	// 레시피 삭제 
+	@Override
+	public int removeRecipe(int recipeNo) {
+		return myPageDao.removeRecipe(sqlSession, recipeNo);
 	}
 
 }

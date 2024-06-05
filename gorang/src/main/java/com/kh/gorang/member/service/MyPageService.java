@@ -3,6 +3,8 @@ package com.kh.gorang.member.service;
 import java.util.ArrayList;
 
 import com.kh.gorang.board.model.vo.Board;
+import com.kh.gorang.common.vo.PageInfo;
+import com.kh.gorang.recipe.model.vo.MyPageRecipeDTO;
 import com.kh.gorang.recipe.model.vo.Recipe;
 
 public interface MyPageService {
@@ -30,5 +32,14 @@ public interface MyPageService {
 
 	// 좋아요 내용물들 조회
 	ArrayList<Object> getLikeContentList(int memberNo);
+
+	// 최신순으로 정렬된 레시피 조회
+	ArrayList<MyPageRecipeDTO> getRecentRecipeList(PageInfo pi, int memberNo);
+	
+	// 나의 레시피 개수 조회
+	int getMyRecipeCount(int memberNo);
+
+	// 레시피 삭제
+	int removeRecipe(int recipeNo);
 
 }
