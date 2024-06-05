@@ -185,21 +185,25 @@ public class StoreController {
 	// 장바구니 저장하기 위한 메소드
 	@ResponseBody
 	@PostMapping(value = "ajaxInsertCart.po", produces = "application/json; charset=utf-8")
-	public String ajaxInsertCart(@RequestBody String selectedOptsForCart, HttpSession session) {
+	public String ajaxInsertCart(@RequestBody List<ProductCart> pdCarts, HttpSession session) {
+	    System.out.println(pdCarts);
 		
-		Member m = (Member)session.getAttribute("loginUser");
+		Member m = (Member) session.getAttribute("loginUser");
 		
-		Gson gson = new Gson();
-		
-		Type type = new TypeToken<List<ProductCart>>(){}.getType();
-		
-		List<ProductCart> pdCarts = gson.fromJson(selectedOptsForCart, type);
-		
-		int result = memberService.insertProductCart(m.getMemberNo(), pdCarts);
-		
-		return null;
+		int memberNo = m.getMemberNo();
+	    
+	    // 각 ProductCart 객체에 memberNo를 설정합니다.
+	    for (ProductCart cart : pdCarts) {
+	        cart.setMemberNo(memberNo);
+	    }
+	    
+	    memberService.insertProductCart(pdCarts);
+	    
+	    
+	    System.out.println(pdCarts);
+	    
+	    return new Gson().toJson(memberService.insertProductCart(pdCarts) > 0 ? "success" : "fail");
 	}
-	
 	
 	
 	

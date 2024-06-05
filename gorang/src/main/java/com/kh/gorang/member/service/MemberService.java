@@ -21,7 +21,7 @@ public interface MemberService {
 	Member selectMemberByEmail(String email);
 	
 	// 장바구니 저장
-	int insertProductCart(int memberNo, List<ProductCart> pdCarts);
+	int insertProductCart(List<ProductCart> pdCarts);
 	
 	
 }

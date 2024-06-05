@@ -15,11 +15,14 @@
 		<typeAlias type="com.kh.gorang.member.model.vo.Member" alias="Member" />
 		<typeAlias type="com.kh.gorang.member.model.vo.Review" alias="Review" />
 		<typeAlias type="com.kh.gorang.member.model.vo.QnA" alias="QnA" />
+		<typeAlias type="com.kh.gorang.member.model.vo.ProductCart" alias="ProductCart"/>
+		
  		<typeAlias type="com.kh.gorang.recipe.model.vo.Recipe" alias="Recipe" />
  		<typeAlias type="com.kh.gorang.recipe.model.vo.Division" alias="Division" />
  		<typeAlias type="com.kh.gorang.recipe.model.vo.IngredientsInfo" alias="IngredientsInfo" />
  		<typeAlias type="com.kh.gorang.recipe.model.vo.CookOrder" alias="CookOrder" />
  		<typeAlias type="com.kh.gorang.recipe.model.vo.CookTip" alias="CookTip" />
+ 		
  		<typeAlias type="com.kh.gorang.shopping.model.vo.Product" alias="Product" />
  		<typeAlias type="com.kh.gorang.shopping.model.vo.ProductDetailOption" alias="ProductDetailOption" />
 
@@ -33,6 +36,7 @@
  		<typeAlias type="com.kh.gorang.shopping.model.vo.OrderPdopt" alias="OrderPdopt"/>
  
  		<typeAlias type="com.kh.gorang.common.vo.Media" alias="Media"/>
+ 		
  		
 	</typeAliases>
 	

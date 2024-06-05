@@ -23,6 +23,13 @@
     <result column="LOGIN_SIGN_PATH" property="loginPath"/>
   </resultMap>
   
+  <resultMap type="ProductCart" id="ProductCartResult">
+  	<result column="member_no" property="memberNo"/>
+  	<result column="options_name_no" property="pdOptNo"/>
+  	<result column="option_quantity" property="pdOptQuantity"/>
+  	<result column="status" property="status"/>
+  </resultMap>
+  
   <!-- 로그인 쿼리문 -->
   <select id="loginMember" resultMap="memberResult">
     SELECT 
@@ -104,5 +111,21 @@
      WHERE MEMBER_EMAIL = #{email}
        AND MEMBER_STATUS = 'Y'
   </select>
+  
+  <!-- 장바구니 저장  -->
+  <insert id="insertProductCart">
+  	insert into product_cart
+  	(
+  		member_no,
+  		options_name_no,
+  		option_quantity
+  	)
+  	values
+  	(
+  		#{memberNo},
+  		#{pdOptNo},
+  		#{pdOptQuantity}
+  	)
+  </insert>
   
 </mapper>

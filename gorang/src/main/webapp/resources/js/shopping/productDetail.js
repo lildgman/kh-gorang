@@ -76,8 +76,9 @@ function ajaxGetProductOpts(data, callback){
 function ajaxPutPdoptInCart(data){
   $.ajax({
     url: "ajaxInsertCart.po",
-    data: data,
+    data: JSON.stringify(data),
     method: "POST",
+    contentType: "application/json",
     success: function(res){
       console.log(res);
       alert("장바구니에 추가되었습니다.");
@@ -312,7 +313,8 @@ function putProductOptsForOrder(opts){
 document.addEventListener("DOMContentLoaded", function(){
 
   // 장바구니 버튼 클릭 이벤트
-  document.querySelector(".btn_cart").addEventListener("click", function (){
+  document.querySelector(".btn_cart").addEventListener("click", function (ev){
+    ev.preventDefault();
     const selectedOptsForCart = [];
 
     // 각 옵션번호, 수량을 가져와서 JSON 형태로 저장
@@ -320,16 +322,19 @@ document.addEventListener("DOMContentLoaded", function(){
       const selectedOptNo = ev.querySelector(".product-opt-select-no").value;
       const selectedOptQnt = ev.querySelector(".pbtn-quantity").value;
 
-      selectedOptsForCart.push({
+      const productCart = {
         pdOptNo: selectedOptNo,
         pdOptQuantity: selectedOptQnt
-      });
+      };
+
+      selectedOptsForCart.push(productCart);
     });
 
     //Json 문자열로 변환
-    selectedOptsForCartJson = JSON.stringify(selectedOptsForCart);
 
-    ajaxPutPdoptInCart(selectedOptsForCartJson);
+    console.log(selectedOptsForCart);
+
+    ajaxPutPdoptInCart(selectedOptsForCart);
 
   })
   

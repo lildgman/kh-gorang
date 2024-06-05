@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.gorang.member.model.dao.MemberDao;
 import com.kh.gorang.member.model.vo.Member;
@@ -38,6 +39,7 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.nameCheck(sqlSession, checkName);
 	}
 	
+	@Transactional(rollbackFor = {Exception.class})
 	@Override
 	public int insertMember(Member m) {
 		return memberDao.insertMember(sqlSession, m);
@@ -47,10 +49,19 @@ public class MemberServiceImpl implements MemberService{
 	public Member selectMemberByEmail(String email) {
 		return memberDao.selectMemberByEmail(sqlSession, email);
 	}
-
+	
+	@Transactional(rollbackFor = {Exception.class})
 	@Override
-	public int insertProductCart(int memberNo, List<ProductCart> pdCarts) {
-		return memberDao.insertProductCart(sqlSession, memberNo, pdCarts);
+	public int insertProductCart(List<ProductCart> pdCarts) {
+		
+		for(ProductCart productCart : pdCarts) {
+			
+			
+			
+			memberDao.insertProductCart(sqlSession, productCart);
+		}
+		
+		return memberDao.insertProductCart(sqlSession, pdCarts);
 	}
 
 	

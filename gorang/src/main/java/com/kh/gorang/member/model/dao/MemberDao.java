@@ -30,16 +30,7 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.selectMemberByEmail", email);
 	}
 
-	public int insertProductCart(SqlSessionTemplate sqlSession, int memberNo, List<ProductCart> pdCarts) {
-		
-		int result = 1;
-		
-		for(ProductCart productCart : pdCarts) {
-			productCart.setMemberNo(memberNo);
-			result *= sqlSession.insert("memberMapper.insertProductCart", productCart);
-		}
-		
-		return result;
+	public int insertProductCart(SqlSessionTemplate sqlSession, ProductCart p) {
+		return sqlSession.insert("memberMapper.insertProductCart", p);
 	}
-	
 }
