@@ -18,7 +18,7 @@
        <!-- 헤더 -->
        <jsp:include page="../common/header.jsp" />
        
-       <form  action="${contextPath}/insert.re" method="post">  
+       <form  action="${contextPath}/insert.re" method="post" enctype="multipart/form-data">  
         <div id="head-btn-area">
             <button id="save-recipe">임시 저장</button>
             <button type="submit"  id="register-rcipe" onclick="return enrollRecipeBtn()">등록 하기</button>
@@ -183,7 +183,7 @@
                             </div>
                             <div class="cooking-order-block-bottom-tips">
                                 <div class="cooking-order-block-bottom-tip" id="cookTip-0">
-                                    <input  name ="cookOrderList[0].cookTip[0].CookTip" type="text" placeholder="팁 예) 볶는 시간은 최소로 합니다">
+                                    <input  name ="cookOrderList[0].cookTipList[0].cookTipContent" type="text" placeholder="팁 예) 볶는 시간은 최소로 합니다">
                                     <button type="button" class="add-tip">
                                         <img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/plus (2).png" alt="" onclick="addTip(this,0,0)"></button>
                                     <button type="button" class="delte-tip">
@@ -208,22 +208,22 @@
                     <div class="complete-food-img-block"  onclick="completeImg(this)">
                         <img class="completeImg" src="${contextPath}/resources/dummyImg/recipe/recipeWrite/camera.png" alt="">
                         <img class="completeImg-real" src="" alt="" >
-                        <input type="file" name="" id="" onchange="changecompleteImg(this)">
+                        <input type="file" name="completeImages" id="" onchange="changecompleteImg(this)">
                     </div>
                     <div class="complete-food-img-block"  onclick="completeImg(this)">
                         <img class="completeImg"  src="${contextPath}/resources/dummyImg/recipe/recipeWrite/camera.png" alt="">
                         <img class="completeImg-real" src="" alt="" >
-                        <input type="file" name="" id="" onchange="changecompleteImg(this)">
+                        <input type="file" name="completeImages" id="" onchange="changecompleteImg(this)">
                     </div>
                     <div class="complete-food-img-block"  onclick="completeImg(this)">
                         <img class="completeImg" src="${contextPath}/resources/dummyImg/recipe/recipeWrite/camera.png" alt="">
                         <img class="completeImg-real" src="" alt="" >
-                        <input type="file" name="" id="" onchange="changecompleteImg(this)">
+                        <input type="file" name="completeImages" id="" onchange="changecompleteImg(this)">
                     </div>
                     <div class="complete-food-img-block"  onclick="completeImg(this)">
                         <img class="completeImg" src="${contextPath}/resources/dummyImg/recipe/recipeWrite/camera.png" alt="">
                         <img class="completeImg-real" src="" alt="" >
-                        <input type="file" name="" id="" onchange="changecompleteImg(this)">
+                        <input type="file" name="completeImages" id="" onchange="changecompleteImg(this)">
                     </div>
                 </div>
             </div>
