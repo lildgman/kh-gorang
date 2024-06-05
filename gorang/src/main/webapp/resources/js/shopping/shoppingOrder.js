@@ -2,8 +2,27 @@ window.onload = function () {
 
   calculateTotalProductPrice();
   calculateTotalPrice();
+ 
 }
 
+
+ document.addEventListener("DOMContentLoaded", function(){
+  const loginUser = sessionStorage.getItem("loginUser");
+  console.log(loginUser);
+   // 구매하기 버튼 클릭 시 컨트롤러로 정보 보내는 ajax 함수 실행하기 위한 이벤트 핸들러
+  document.querySelector("#buy_btn").addEventListener("click", function(){
+    const data = getDataForAjax();
+    AjaxForInsertOrder(data);
+  })
+  // 로그인 유저 정보 넣는 이벤트
+  document.querySelector("#put-myInfo").addEventListener("click", function(){
+    document.querySelector("#input-buyer-email").value = document.querySelector("#information-loginUser-email").value;
+    document.querySelector("#input-buyer-phone").value = document.querySelector("#information-loginUser-phone").value;
+  })
+
+ })
+
+// 상품 총 금액 계산
 function calculateTotalProductPrice() {
   const orderContainerElements = document.querySelectorAll('.order-product-container');
   const totalProductPriceEl = document.querySelector('#total-product-price');
@@ -14,7 +33,7 @@ function calculateTotalProductPrice() {
   })
   totalProductPriceEl.innerText = totalPrice.toLocaleString();
 }
-
+// 결제해야 할 총 금액 계산
 function calculateTotalPrice() {
   const totalProductPrice = parseInt(document.querySelector('#total-product-price').innerText.replace(/,/g, ''));
   const totalDeliveryCharge = parseInt(document.querySelector('#total-delivery-charge').innerText.replace(/,/g, ''));
@@ -26,7 +45,7 @@ function calculateTotalPrice() {
   })
 
 }
-
+// 클릭한 결제수단 경계 색칠 및 카드 결제 클릭 시 동적 요소 생성 위한 메소드
 function clickPayment(element, type) {
 
   const payments = document.querySelectorAll(".payment");
@@ -48,7 +67,7 @@ function clickPayment(element, type) {
   })
 
 }
-
+// 주소 검색 api
 function searchAddress() {
   new daum.Postcode({
     oncomplete: function (data) {
@@ -62,4 +81,59 @@ function searchAddress() {
 
     }
   }).open();
+}
+// 주문 데이터 보내기 위한 ajax
+function AjaxForInsertOrder(data){
+  $.ajax({
+    url: "insertOrder.po",
+    data: JSON.stringify(data),
+    method: "POST",
+    contentType: "application/json",
+    success: function(res){
+      console.log("데이터 송신 성공");
+      window.location.href = res;
+    },
+    error: function(){
+      console.log("불러오기 실패");
+    }
+  });
+}
+
+// ajax 로 보내기 위한 데이터를 작성하기 위한 함수
+function getDataForAjax(){
+  // 구매자 및 배송지 정보
+  const orderInfo = [];
+
+  // 주문 상품 정보
+  const orderOpts = [];
+  document.querySelectorAll(".order-product-container").forEach(function(ev){
+    // JSON
+    orderOpts.push({
+      optNo: ev.querySelector(".input-order-optNo").value,
+      optQuantity: ev.querySelector(".order-product-quantity").innerHTML
+    });
+  });
+
+  orderInfo.push({
+    buyerName: document.querySelector("#input-buyer-name").value,
+    buyerEmail: document.querySelector("#input-buyer-email").value,
+    buyerPhone: document.querySelector("#input-buyer-phone").value,
+    deliveryAddressName: document.querySelector("#input-delivery-name").value,
+    recipientName: document.querySelector("#input-delivery-recipient").value,
+    recipientAddress: document.querySelector("#address").innerHTML + document.querySelector("#input-delivery-detailAddress").value,
+    recipientPhone:  document.querySelector("#input-delivery-phone").value,
+    requirements: document.querySelector("#requirement-select").options[document.querySelector("#requirement-select").selectedIndex].value,
+    payment: document.querySelector(".payment.selected > div").innerHTML,
+    totalPrice: document.querySelector(".totalPrice").innerHTML.replace(/,/g, "")
+  });
+
+
+  const orderData = {
+    orderInfo: orderInfo,
+    orderOpts: orderOpts
+  };
+
+  console.log(orderData);
+
+  return orderData;
 }

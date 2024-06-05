@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 
@@ -32,35 +32,31 @@
 
             <!-- 구매자 정보 칸 -->
             <div id="buyer-information-area">
-                <div class="area-top">구매자 정보</div>
+                <div class="area-top">
+                    구매자 정보
+                    <button id="put-myInfo">내 정보 넣기</button>
+                    <input type="hidden" id="information-loginUser-email" value="${loginUser.memberEmail}">
+                    <input type="hidden" id="information-loginUser-phone" value="${loginUser.memberPhone}">
+                </div>
                 <div id="buyer-information" class="information-area">
                     <div id="buyer-name-area" class="information-div">
                         <div class="information-title">이름</div>
                         <div class="input-container">
-                            <input type="text">
+                            <input type="text" id="input-buyer-name">
                         </div>
                     </div>
                     <div id="buyer-email-area" class="information-div">
                         <div class="information-title">이메일</div>
                         <div id="email-container">
                             <div id="email-name-container" class="input-container">
-                                <input type="text"> 
-                            </div>
-                            <span style="margin-left: 15px; margin-right: 15px;">@</span> 
-                            <div class="input-container">
-                                <select name="" id="email-select">
-                                    <option value="">naver.com</option>
-                                    <option value="">gmail.com</option>
-                                    <option value="">daum.net</option>
-                                    <option value="">kakao.com</option>
-                                </select>
+                                <input type="text" id="input-buyer-email"> 
                             </div>
                         </div>
                     </div>
                     <div id="buyer-phone-area" class="information-div">
                         <div class="information-title">전화번호</div>
                         <div class="input-container">
-                            <input type="text">
+                            <input type="text" id="input-buyer-phone">
                         </div>
                     </div>
                 </div>
@@ -73,21 +69,21 @@
                     <div id="buyer-address-name-area" class="information-div">
                         <div class="information-title">배송지명</div>
                         <div class="input-container">
-                            <input type="text">
+                            <input type="text" id="input-delivery-name">
                         </div>
                     </div>
 
                     <div id="buyer-recipient-area" class="information-div">
                         <div class="information-title">받는사람</div>
                         <div class="input-container">
-                            <input type="text">
+                            <input type="text" id="input-delivery-recipient">
                         </div>
                     </div>
 
                     <div id="buyer-phonenumber-area" class="information-div">
                         <div class="information-title">전화번호</div>
                         <div class="input-container">
-                            <input type="text">
+                            <input type="text" id="input-delivery-phone">
                         </div>
                     </div>
 
@@ -99,14 +95,12 @@
                                     <button id="find-address-btn" onclick="searchAddress()">주소찾기</button>
                                 </div>
                                 <div class="input-container" id="zonecode">
-                                    <!-- <input type="text"> -->
                                 </div>
                             </div>
-                            <div class="input-container" id="address">
-                                <!-- <input type="text"> -->
+                            <div class="input-container large" id="address">
                             </div>
-                            <div class="input-container">
-                                <input type="text" placeholder="상세주소 입력" style="padding-left: 10px;">
+                            <div class="input-container large">
+                                <input type="text" placeholder="상세주소 입력" style="padding-left: 10px;" id="input-delivery-detailAddress">
                             </div>
                         </div>
                     </div>
@@ -115,10 +109,11 @@
                         <div class="information-title">요청사항</div>
                         <div class="input-container wd-576">
                             <select name="" id="requirement-select">
-                                <option value="">부재시 문앞에 놓아주세요</option>
-                                <option value="">배송전 미리 연락주세요</option>
-                                <option value="">부재시 경비실에 맡겨주세요</option>
-                                <option value="">부재시 전화주시거나 문자 남겨주세요</option>
+                                <option value="부재시 문앞에 놓아주세요">부재시 문앞에 놓아주세요</option>
+                                <option value="배송전 미리 연락주세요">배송전 미리 연락주세요</option>
+                                <option value="부재시 경비실에 맡겨주세요">부재시 경비실에 맡겨주세요</option>
+                                <option value="부재시 전화주시거나 문자 남겨주세요">부재시 전화주시거나 문자 남겨주세요</option>
+                                <option value="직접 입력">직접 입력</option>
                             </select>
                         </div>
                     </div>
@@ -133,26 +128,29 @@
                 <div class="area-top">주문상품</div>
                 <div class="information-area">
                 
-               	<c:forEach begin="1" end="3" step="1">
+               	<c:forEach var="opt" items="${opts}">
+                    
                		<div class="order-product-container">
+                        <input type="hidden" class="input-order-optNo" value="${opt.detailOptionNo}">
                         <div class="order-product-container-top">
-                            <span class="brandName">성주</span>
-                            <span class="shipping-method">무료배송</span>
+                            <span class="brandName">${opt.productBrand}</span>
+                            <span class="shipping-method">${opt.shipmentType}</span>
                         </div>
                         <div class="order-product-container-content">
                             <div class="order-product-img-container">
-                                <img class="order-product-img" src="${contextPath }/resources/dummyImg/shopping/item1.png" alt="">
+                                <img class="order-product-img" src="${contextPath }/resources/dummyImg/shopping/${opt.mainImg}" alt="">
                             </div>
                             <div class="order-product-info">  
-                                <div>
-                                    성주 참외 꿀참외 1.5kg
+                                <div class="order-product-name">
+                                    <span class="order-product-name-pname">${opt.productName}</span>
+                                    <span class="order-product-name-optname">${opt.detailOptionName}</span>
                                 </div>
                                 <div class="order-product-quantity-area">
                                     <div>
-                                        <span class="order-product-saled-price">24,000</span><span class="won">원</span>
+                                        <span class="order-product-saled-price"><fmt:formatNumber value="${opt.detailOptionSaledPrice}" type="number"/></span><span class="won">원</span>
                                     </div>
                                     <div>
-                                        <span class="order-product-quantity">1</span><span>개</span>
+                                        <span class="order-product-quantity">${opt.detailOptionQuantity}</span><span>개</span>
 
                                     </div>
                                 </div>
@@ -246,7 +244,7 @@
                     <div id="total-product-price-area">
                         <span>총 상품금액</span>
                         <div>
-                            <span id="total-product-price">30,000</span><span>원</span>
+                            <span id="total-product-price"></span><span>원</span>
                         </div>
                     </div>
                     <div id="total-delivery-charge-area">
@@ -260,7 +258,7 @@
                 <div id="cart-price-sum-area">
                     <span style="font-size: 17px; font-weight: bold;">결제금액</span>
                     <div>
-                        <span class="cart-price-sum totalPrice">24,000</span><span class="total-price-sum">원</span>
+                        <span class="cart-price-sum totalPrice"></span><span class="total-price-sum">원</span>
 
                     </div>
                 </div>
@@ -268,7 +266,7 @@
             </div>
 
             <div id="buy_btn_container">
-                <button id="buy_btn"><span class="totalPrice">24,000</span>원 결제하기</button>
+                <button id="buy_btn"><span class="totalPrice"></span>원 결제하기</button>
             </div>
         </div>
     </div>

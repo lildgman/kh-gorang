@@ -51,7 +51,7 @@ function displaySelectedImage() {
 
 function addOption() {
   const optionTableTbody = document.querySelector('#option-table-tbody');
-
+  
   let newRow = document.createElement('tr');
   newRow.className = 'option-tr';
   newRow.innerHTML = `<tr class="option-tr">

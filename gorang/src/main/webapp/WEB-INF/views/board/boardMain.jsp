@@ -13,6 +13,7 @@
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
                 integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
                 crossorigin="anonymous">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    
             <script src="${contextPath}/resources/js/board/boardMain.js"></script>
         </head>
 
@@ -29,19 +30,19 @@
                         <div id="BoardTagBoxBottom">
                             <div id="PapularTagBox">
                                 <div id="PapularTags">
-                                    <span>#일상</span>
+                                    <a id="TagDaily" href="${pageContext.request.contextPath}/main.bo?sort=dailyTag">#일상</a>
                                 </div>
                                 <div id="PapularTags">
-                                    <span>#질문</span>
+                                    <a id="TagQuestion" href="${pageContext.request.contextPath}/main.bo?sort=questionTag">#질문</a>
                                 </div>
                                 <div id="PapularTags">
-                                    <span>#노하우</span>
+                                    <a id="TagKnowHow" href="${pageContext.request.contextPath}/main.bo?sort=knowHowTag">#노하우</a>
                                 </div>
                                 <div id="PapularTags">
-                                    <span>#꿀팁</span>
+                                    <a id="TagTip" href="${pageContext.request.contextPath}/main.bo?sort=tipTag">#꿀팁</a>
                                 </div>
                                 <div id="PapularTags">
-                                    <span>#보관법</span>
+                                    <a id="TagMethod" href="${pageContext.request.contextPath}/main.bo?sort=methodTag">#보관법</a>
                                 </div>
                             </div>
                         </div>
@@ -49,73 +50,76 @@
                     <div id="BoardContents">
                         <div id="BoardSortings">
                             <div id="BoardSortingsBox">
-                                <div id="SortingsLatest">최신순</div>
-                                <div id="SortingsNums">조회수순</div>
-                                <div id="SortingsScrap">스크랩순</div>
+                                <a id="SortingsLatest" href="${pageContext.request.contextPath}/main.bo?sort=latest">최신순</a>
+                                <a id="SortingsViews" href="${pageContext.request.contextPath}/main.bo?sort=viewCount">조회수순</a>
+                                <a id="SortingsScrap" href="">스크랩순</a>
                             </div>
                         </div>
                         <div class="commonContainer">
                             <c:forEach var="board" items="${list}">
-    <div class="common-item" data-board-no="${board.boardNo}">
-        <div class="common-content-item">
-            <div id="boardThumbnail">
-                <img src="${board.boardThumbnail}" alt="썸네일">
-            </div>
-            <div id="commonContentInfoBox">
-                <div id="boardTitle"><span>${board.boardTitle}</span></div>
-                <div id="commonContentWriter">
-                    <div id="commonContentWriterImg">
-                        <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png">
-                    </div>
-                    <span>${member.memberNo}</span>
-                </div>
-                <div id="commonContentBoardInfo">
-                    <div id="commonBoardInfoScrap">스크랩 <span>18</span></div>
-                    <div id="boardCount">조회수 <span>${board.count}</span></div>
-                    <div id="commonBoardInfoRec">추천수 <span>12</span></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</c:forEach>
-
-
-
+                                <div class="common-item" data-board-no="${board.boardNo}">
+                                    <div class="common-content-item">
+                                        <div id="boardThumbnail">
+                                            <img src="${pageContext.request.contextPath}/resources/uploadfile/board/boardMainContentFile/${board.boardThumbnail}" alt="썸네일">
+                                        </div>
+                                        <div id="commonContentInfoBox">
+                                            <div id="boardTitle"><span>${board.boardTitle}</span></div>
+                                            <div id="commonContentWriter">
+                                                <div id="commonContentWriterImg">
+                                                    <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png">
+                                                </div>
+                                                <span>${member.memberNo}</span>
+                                            </div>
+                                            <div id="commonContentBoardInfo">
+                                                <div id="commonBoardInfoScrap">스크랩 <span>0</span></div>
+                                                <div id="boardCount">조회수 <span>${board.boardViews}</span></div>
+                                                <div id="commonBoardInfoRec">추천수 <span>${board.boardVote}</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
                         </div>
                         <div id="BoardPageBarBox">
                             <div id="pagingArea">
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination">
                                         <c:choose>
-                                            <c:when test="${ pi.currentPage eq 1 }">
-                                                <li class="page-item disabled"><a class="page-link"
-                                                        href="#">Previous</a></li>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <li class="page-item"><a class="page-link"
-                                                        href="list.bo?cpage=${pi.currentPage - 1}">Previous</a></li>
-                                            </c:otherwise>
-                                        </c:choose>
-
-                                        <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-                                            <li class="page-item"><a class="page-link"
-                                                    href="list.bo?cpage=${p}">${p}</a></li>
-                                        </c:forEach>
-
-                                        <c:choose>
-                                            <c:when test="${ pi.currentPage eq pi.maxPage }">
-                                                <li class="page-item disabled"><a class="page-link" href="#">Next</a>
+                                            <c:when test="${pi.currentPage eq 1}">
+                                                <li class="page-item disabled">
+                                                    <a class="page-link" href="#">Previous</a>
                                                 </li>
                                             </c:when>
                                             <c:otherwise>
-                                                <li class="page-item"><a class="page-link"
-                                                        href="list.bo?cpage=${pi.currentPage + 1}">Next</a></li>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="main.bo?cpage=${pi.currentPage - 1}">Previous</a>
+                                                </li>
+                                            </c:otherwise>
+                                        </c:choose>
+                        
+                                        <c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
+                                            <li class="page-item">
+                                                <a class="page-link" href="main.bo?cpage=${p}">${p}</a>
+                                            </li>
+                                        </c:forEach>
+                        
+                                        <c:choose>
+                                            <c:when test="${pi.currentPage eq pi.maxPage}">
+                                                <li class="page-item disabled">
+                                                    <a class="page-link" href="#">Next</a>
+                                                </li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="main.bo?cpage=${pi.currentPage + 1}">Next</a>
+                                                </li>
                                             </c:otherwise>
                                         </c:choose>
                                     </ul>
                                 </nav>
                             </div>
                         </div>
+                        
 
                     </div>
                 </div>

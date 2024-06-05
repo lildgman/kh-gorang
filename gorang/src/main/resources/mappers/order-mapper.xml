@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="orderMapper">
+  	<!-- 주문 정보 -->
+  	<resultMap type="Order" id="OrderResult">
+  		<result column="purchase_no" property="orderNo"/>
+  		<result column="member_no" property="memberNo"/>
+  		<result column="buyer_name" property="buyerName"/>
+  		<result column="buyer_email" property="buyerEmail"/>
+  		<result column="buyer_phone" property="buyerPhone"/>
+  		<result column="recipient_name" property="recipientName"/>
+  		<result column="recipient_address" property="recipientAddress"/>
+  		<result column="recipient_phone" property="recipientPhone"/>
+  		<result column="ORDER_MEMO" property="requirements"/>
+  		<result column="PAYMENT_TYPE" property="paymentType"/>
+  		<result column="FINAL_PRICE" property="totalPrice"/>
+  		<result column="ORDER_DATE" property="orderDate"/>
+  		<result column="STATUS" property="status"/>
+  	</resultMap>
+  	
+  	<!-- 주문한 상품의 옵션 정보 -->
+  	<resultMap type="OrderPdopt" id="OrderPdoptResult">
+  		<result column="options_name_no" property="optNo"/>
+  		<result column="product_no" property="refProductNo"/>
+  		<result column="quantity" property="optQuantity"/>
+  	</resultMap>
+  	
+  <!-- 주문 정보 저장 -->
+  <insert id="insertOrder">
+  	insert into orders
+  	(
+  		member_no,
+  		buyer_name,
+  		buyer_email,
+  		buyer_phone,
+  		recipient_name,
+  		recipient_address,
+  		recipient_phone,
+  		ORDER_MEMO,
+  		FINAL_PRICE,
+  		PAYMENT_TYPE
+  	)
+  	values
+  	(
+		#{memberNo},
+		#{buyerName},
+		#{buyerEmail},
+		#{buyerPhone},
+		#{recipientName},
+		#{recipientAddress},
+		#{recipientPhone},
+		#{requirements},
+		#{totalPrice},
+		#{payment}
+  	)
+  </insert>
+  
+  <insert id="insertOrderPdoptList">
+  	insert into order_pdopt
+  	(	
+  		options_name_no,
+  		order_no,
+  		quantity
+  	)
+  	values
+  	(	
+  		#{optNo},
+  		currval('orders_order_no_seq'),
+  		#{optQuantity}
+  	)
+  
+  </insert>
+  
+</mapper>
+  
+ 

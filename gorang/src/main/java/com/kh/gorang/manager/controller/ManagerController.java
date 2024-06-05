@@ -98,10 +98,13 @@ public class ManagerController {
 	@ResponseBody
 	public String ajaxUpdateBoardStatus(@RequestBody ArrayList<Integer> boardNoList) {
 		
-		log.info("boardNoList = {}", boardNoList);
+		int result = managerService.ajaxUpdateBoardStatus(boardNoList);
 		
-		return "ok";
+		if(result > 0) {
+			return "done";
+		} else {
+			return "undone";
+		}
 	}
-	
-	
+
 }

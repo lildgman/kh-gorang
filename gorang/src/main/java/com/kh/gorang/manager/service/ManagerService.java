@@ -17,4 +17,7 @@ public interface ManagerService {
 	// ajax 회원 상태 변경
 	int ajaxUpdateMemberStatus(ArrayList<Integer> memberNoList);
 
+	// ajax 게시물 상태 변경
+	int ajaxUpdateBoardStatus(ArrayList<Integer> boardNoList);
+
 }

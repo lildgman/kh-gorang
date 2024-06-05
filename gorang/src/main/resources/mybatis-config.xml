@@ -28,6 +28,12 @@
 		
  		<typeAlias type="com.kh.gorang.shopping.model.vo.ProductInsertDTO" alias="ProductInsertDTO" />
  		<typeAlias type="com.kh.gorang.board.model.vo.BoardSearchDTO" alias="BoardSearchDTO" />
+ 		
+ 		<typeAlias type="com.kh.gorang.shopping.model.vo.Order" alias="Order"/>
+ 		<typeAlias type="com.kh.gorang.shopping.model.vo.OrderPdopt" alias="OrderPdopt"/>
+ 
+ 		<typeAlias type="com.kh.gorang.common.vo.Media" alias="Media"/>
+ 		
 	</typeAliases>
 	
 	<!-- 
@@ -38,17 +44,13 @@
 	<!-- mappers: 실행할 sql문들을 기록해둔 mapper 파일들을 등록하는 영역 -->
 	<mappers>
 		<mapper resource="/mappers/member-mapper.xml" />
-
 		<mapper resource="/mappers/recipe-mapper.xml" />
-
 		<mapper resource="/mappers/product-mapper.xml" />
-
 		<mapper resource="/mappers/board-mapper.xml" />
-
 		<mapper resource="/mappers/odg-product-mapper.xml" />
-		
 		<mapper resource="/mappers/manager-mapper.xml" />
-
-
+		<mapper resource="/mappers/mypage-mapper.xml" />
+		<mapper resource="/mappers/order-mapper.xml"/>
+		<mapper resource="/mappers/media-mapper.xml"/>
 	</mappers>
 </configuration>  

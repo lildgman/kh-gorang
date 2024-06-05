@@ -2,6 +2,7 @@ package com.kh.gorang.shopping.controller;
 
 import static com.kh.gorang.common.template.SaveFileController.saveFile;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,18 +14,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.kh.gorang.common.template.Pagination;
 import com.kh.gorang.common.vo.PageInfo;
+import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.QnA;
 import com.kh.gorang.member.model.vo.Review;
+import com.kh.gorang.shopping.model.vo.Order;
+import com.kh.gorang.shopping.model.vo.OrderPdopt;
 import com.kh.gorang.shopping.model.vo.Product;
 import com.kh.gorang.shopping.model.vo.ProductDetailOption;
+import com.kh.gorang.shopping.service.OrderService;
 import com.kh.gorang.shopping.service.ProductService;
 
 import lombok.RequiredArgsConstructor;
@@ -35,7 +42,9 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class StoreController {
 	
+	
 	private final ProductService productService;
+	private final OrderService orderService;
 	
 	// 상품 설명에 들어가는 이미지 저장하는 메서드
 	@PostMapping("detaildesc")
@@ -95,10 +104,19 @@ public class StoreController {
 		return "shopping/productList";
 	}
 	
+	// 상품 상세 페이지 리턴하는 컨트롤러
 	@RequestMapping("detail.po")
-	public String productDetailForm(@RequestParam String pno) {
-		log.info("pno = {}" , pno );
-		return "shopping/productDetailForm";
+	public String productDetailForm(@RequestParam String pno, Model model) {
+	    int productNo = Integer.parseInt(pno); 
+	    Product p = productService.selectProductByProductNo(productNo);
+	    
+	    if (p == null) {
+	        model.addAttribute("alertMsg", "조회 실패");
+	        return "redirect:/list.po";
+	    } else {
+	        model.addAttribute("p", p);
+	        return "shopping/productDetailForm";
+	    }
 	}
 	
 	// ajax 로 product 객체 가져오는 메소드
@@ -167,8 +185,64 @@ public class StoreController {
 		return "shopping/shoppingCartForm";
 	}
 	
-	@RequestMapping("order")
-	public String productOrderForm() {
+	// 상품 상세 페이지에서 바로 구매할 경우 사용하는 컨트롤러
+	@PostMapping("order.po")
+	public String productOrderForm(@RequestParam String selectedOptList,  Model model) {
+		System.out.println(selectedOptList);
+//		Gson gson = new Gson();
+//		// Gson 으로 JSON.stringfy() 한 것을 다시 객체 형태로 변환하기(Gson.fromJson() 사용 / 정석은 dto 사용)
+//		
+//		// 1. JSON 형태를 List 로 변경하기
+//		Type type = new TypeToken<List<ProductDetailOption>>(){}.getType();
+//		// 2. Type 객체를 넣기
+//		List<ProductDetailOption> opts = gson.fromJson(selectedOptList, type);
+//		model.addAttribute("opts", opts);
+		
+		//그냥 list 형태로 보냄
+		Gson gson = new Gson();
+		Type type = new TypeToken<List>(){}.getType();
+		List opts = gson.fromJson(selectedOptList, type);
+		
+		model.addAttribute("opts", opts);
+		
+		System.out.println(opts);
+		
 		return "shopping/shoppingOrderForm";
+	}
+	
+	
+	// 주문 데이터 처리하는 컨트롤러
+	@ResponseBody
+	@PostMapping(value = "insertOrder.po", produces = "application/json; charset=utf-8")
+	public String aJaxInsertProductOrder(@RequestBody Map<String, Object> orderData, HttpSession session) {
+		// 로그인 유저 정보
+		Member m = (Member)session.getAttribute("loginUser");
+		
+		// Gson을 사용하여 JSON 데이터를 처리
+	    Gson gson = new Gson();
+	    
+	    // 각 데이터 파싱
+	    String orderInfoJson = gson.toJson(orderData.get("orderInfo"));
+	    String orderOptsJson = gson.toJson(orderData.get("orderOpts"));
+		
+	    // JSON을 Java 객체로 변환
+	    Type orderInfoType = new TypeToken<List<Order>>(){}.getType();
+	    Type orderOptsType = new TypeToken<List<OrderPdopt>>(){}.getType();
+	    
+	    List<Order> orderInfoList = gson.fromJson(orderInfoJson, orderInfoType);
+	    List<OrderPdopt> orderOpts = gson.fromJson(orderOptsJson, orderOptsType);
+	    // Order 는 무조건 1개만 날라오기 때문에 바로 파싱 가능
+	    Order orderInfo = orderInfoList.get(0);
+	    orderInfo.setMemberNo(m.getMemberNo());
+	    
+	    int result = orderService.insertOrder(orderInfo, orderOpts);
+	    
+	    if(result == 0) {
+	    	session.setAttribute("alertMsg", "주문 실패하였습니다.");
+	    } else {
+	    	session.setAttribute("alertMsg", "주문 성공하였습니다.");
+	    }
+	    
+		return new Gson().toJson("list.po?cpage=1");
 	}
 }

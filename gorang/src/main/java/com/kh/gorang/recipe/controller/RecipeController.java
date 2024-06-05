@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.gorang.common.template.SaveFileController;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.recipe.model.vo.RecipeInsertDTO;
@@ -39,14 +40,12 @@ public class RecipeController {
 	}
 	
 	@RequestMapping("insert.re")
-	public String insertRecipe(Recipe rcp,RecipeInsertDTO recipeInsertDTO, 
-
-			MultipartFile upfile, HttpSession session, Model model){
-			System.out.println("1."+rcp);
-			System.out.println("2."+recipeInsertDTO.getRcpDivList());
-			
-			int result =recipeService.insertRecipeInsertDTO(rcp, recipeInsertDTO);
-
+	public String insertRecipe(Recipe rcp,RecipeInsertDTO recipeInsertDTO, MultipartFile[]  completeImages, HttpSession session, Model model){
+//		SaveFileController sfc = new SaveFileController();
+		
+		int result =recipeService.insertRecipeInsertDTO(rcp, recipeInsertDTO, completeImages, session);
+		
+	
 		if(true) {			
 			return "recipe/recipeList";
 		}
@@ -55,6 +54,8 @@ public class RecipeController {
 			return "recipe/write.re";
 		}
 	}
+
+
 	
 	
 

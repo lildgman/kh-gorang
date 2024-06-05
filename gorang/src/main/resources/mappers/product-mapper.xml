@@ -62,120 +62,6 @@
 		<result column="member_no" property="writerNo"/>
 	</resultMap>
 	
-	
-	
-  	<!-- 상품 추가 -->
-  	<!-- 
-  	 <insert id="insertProduct" parameterType="Product">
-        INSERT INTO PRODUCT (
-            CATEGORY,
-            PRODUCT_NAME,
-            PRODUCT_BRAND,
-            NORMAL_PRICE,
-            SALE_PRICE,
-            DISCOUNT,
-            MAIN_IMG,
-            DESCRIPTION,
-            SHIPMENT_TYPE,
-            SHIPMENT_TIME,
-            SHIPPING_PRICE
-        ) VALUES (
-            #{category},
-            #{productName},
-            #{productBrand},
-            #{normalPrice},
-            #{salePrice},
-            #{discountPercent},
-            #{mainImg},
-            #{description},
-            #{shipmentType},
-            #{shipmentTime},
-            #{shippingPrice}
-        )
-    </insert>
-     -->
-    
-    <!--  
-    	<select id="insertProduct" resultType="_int">
-			SELECT insert_product(
-				'${product.category}',
-				'${product.productName}',
-				'${product.productBrand}',
-				${product.normalPrice},
-				${product.salePrice},
-				${product.discountPercent},
-				'${product.mainImg}',
-				'${product.description}',
-				'${product.shipmentType}',
-				${product.shipmentTime},
-				${product.shippingPrice},
-				'${productOption.detailOptionName}',
-				${productOption.detailOptionPrice},
-				${productOption.detailOptionQuantity})
-		</select>
-     --> 
-     
-     <!-- 상품 추가 -->
-     <select id="insertProduct" resultMap="productResult">
-     	INSERT INTO PRODUCT (
-     		PRODUCT_NO,
-            CATEGORY,
-            PRODUCT_NAME,
-            PRODUCT_BRAND,
-            NORMAL_PRICE,
-            SALE_PRICE,
-            DISCOUNT,
-            MAIN_IMG,
-            DESCRIPTION,
-            SHIPMENT_TYPE,
-            SHIPMENT_TIME,
-            SHIPPING_PRICE
-        ) VALUES (
-        	nextval('product_product_no_seq'),
-            #{category},
-            #{productName},
-            #{productBrand},
-            #{normalPrice},
-            #{salePrice},
-            #{discountPercent},
-            #{mainImg},
-            #{description},
-            #{shipmentType},
-            #{shipmentTime},
-            #{shippingPrice}
-        ) RETURNING *
-     </select>
-     
-     <!-- 상세옵션 추가 -->
-     <select id="insertDetailOption" resultMap="productDetailOptionResult">
-     	INSERT INTO OPTION_NAME (
-     		OPTIONS_NAME,
-     		OPTIONS_NORMAL_PRICE,
-     		OPTIONS_SALE_PRICE,
-     		OPTIONS_STOCK
-     	) VALUES (
-			#{detailOptionName},
-			#{detailOptionOriginPrice},
-			#{detailOptionSaledPrice},
-			#{detailOptionQuantity}
-  		) RETURNING *
-     </select>
-     
-     <!-- 옵션 추가 -->
-     <insert id="insertOptions">
-     	INSERT INTO PRODUCT_OPTIONS (
-     		PRODUCT_NO,
-     		OPTIONS_NAME_NO
-     	) VALUES 
-     	<foreach collection="optionNoList" item="optionNo" separator=",">
-     		(
-     			#{productNo},
-     			#{optionNo}	
-     		)
-     	
-     	</foreach>
-     </insert>
-
     
     <!-- 가장 많이 팔린 상품 조회 -->
     <select id="selectBestSellerList" resultMap="productResult">
@@ -345,7 +231,6 @@
     <insert id="insertProductQna">
     insert into QNA
     (
-     qna_no,
      qna_content,
      qna_type,
      qna_photo,
@@ -355,7 +240,6 @@
     )
     values
     (
-    	nextval('qna_qna_no_seq'),
     	#{qnaContent},
     	1,
     	#{qnaPhoto},

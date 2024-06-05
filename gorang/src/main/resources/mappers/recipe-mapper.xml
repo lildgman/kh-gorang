@@ -57,8 +57,6 @@
   	</resultMap>
   	
   	
-  	
-  	
   	<!-- 레시피 게시글 추가 -->
   	 <select id="insertRecipe" parameterType="Recipe" resultMap="recipeResult" >
 	  	INSERT INTO RECIPE (
@@ -111,6 +109,33 @@
   			#{ingreAmount},
   			#{ingreUnit},
   			#{divNo}
+  		)
+  	</insert>
+  	
+  	
+  	<!-- 레시피순서 추가 -->
+	<select id="insertCookOrder" parameterType="CookOrder" resultMap="CookOrderResult">
+		INSERT INTO COOK_ORDER (
+			cook_ord_content,
+			cook_ord_photo,
+			rcp_no
+			
+		) VALUES(
+			#{cookOrdContent},
+			#{cookOrdPhoto},
+			#{recipeNo}
+		) 	
+		RETURNING *		
+	</select>
+	
+	<!-- 레시피순서 팁 추가 -->
+  	<insert id="insertCookTip" parameterType="CookTip">
+  		INSERT INTO COOK_TIP(
+  			cook_tip_content,
+  			cook_ord_no
+  		) VALUES(
+  			#{cookTipContent},
+  			#{cookOrdNo}
   		)
   	</insert>
   </mapper>

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
         <!DOCTYPE html>
         <html>
 
@@ -26,30 +26,31 @@
             <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
             <link rel="stylesheet" href="${contextPath }/resources/css/default.css">
             <link rel="stylesheet" href="${contextPath }/resources/css/shopping/productDetail.css">
+
         </head>
 
         <body>
             <!-- 헤더 시작-->
             <jsp:include page="../common/header.jsp" />
             <!-- 헤더 끝-->
-
             <!-- 상품 상세페이지 -->
             <div id="product-detail-container">
                 <!-- 사이드바 -->
                 <jsp:include page="../common/sidebar.jsp" />
+
                 <!-- 상품 간략 정보-->
                 <div id="productInfo-area">
+                    <input type="hidden" id="product-no" value="${p.productNo}">
                     <div id="product-img-container">
-                        <img class="product-thumbnail" src="${contextPath }/resources/dummyImg/shopping/item1.png"
+                        <img class="product-thumbnail" src="${contextPath }/resources/uploadfile/product/productimg/${p.mainImg}"
                             alt="">
                     </div>
-
                     <div id="product-Information">
                         <div id="product_brand">
-                            <span>브랜드명</span>
+                            <span>${p.productBrand}</span>
                         </div>
                         <div id="product_name_area">
-                            <span id="product_name">상품명</span>
+                            <span id="product_name">${p.productName}</span>
                             <span id="zzim">
                                 <i class="fa-regular fa-heart fa-xl"></i>
                             </span>
@@ -61,13 +62,14 @@
                             </div>
                         </div>
                         <div>
-                            <span id="product_origin_price">가격</span><span class="won">원</span>
+                            <span id="product_origin_price"> <fmt:formatNumber value="${p.normalPrice}" type="number"/></span>
+                            <span class="won">원</span>
                         </div>
                         <div id="product_discount_price">
-                            <span id="product_discount_percent">할인율</span>
+                            <span id="product_discount_percent">${p.discountPercent}%</span>
                             <div>
-                                <span id="product_discounted_price">할인된 가격</span><span
-                                    style="font-size: 30px; font-weight: bold;">원</span>
+                                <span id="product_discounted_price"><fmt:formatNumber value="${p.salePrice}" type="number"/></span>
+                                <span style="font-size: 30px; font-weight: bold;">원</span>
                             </div>
                         </div>
                         <div id="product_etc">
@@ -75,7 +77,7 @@
                                 <tbody>
                                     <tr>
                                         <td>판매자</td>
-                                        <td>고랭</td>
+                                        <td>${p.seller}</td>
                                     </tr>
                                     <tr>
                                         <td>판매단위</td>
@@ -87,45 +89,47 @@
                                     </tr>
                                     <tr>
                                         <td>배송</td>
-                                        <td>무료배송</td>
+                                        <td>${p.shipmentType}</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                         <div id="product_buy_info_area">
                             <div id="product_buy_info">
-                                <form action="order.po">
-                                    <div class="product-opts">
-                                        <span>상품 선택</span>
-                                        <select name="" id="product-opts-select">
-                                            <option value="">상품을 선택해주세요</option>
-                                        </select>
-                                    </div>
-                                    <div id="product_quantity_area">
-                                        <div>
-                                            수량 선택
-                                        </div>
-                                        <div class="product_amount_price">
-                                            <div id="pamount_btn">
-                                                <div class="pbtn minus_quantity">-</div>
-                                                <input class="pbtn quantity pbtn-quantity" type="text"
-                                                    value="1"></input>
-                                                <div class="pbtn plus_quantity">+</div>
+                                <div><span>상품 선택</span></div>
+                                <div id="product-opt-form-wrapper">
+                                    <form action="order.po" id="product-opt-form" method="post">
+                                        
+
+                                        <div class="product-opts">
+                                            <div class="product-opt-select">
+                                                <div><span>상품을 선택해주세요</span></div>
+                                                <ul class="product-opts-list">
+    
+                                                </ul>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div id="price-area">
-                                        <div style="font-weight: bold; font-size: 20px;">총금액</div>
-                                        <div style="font-weight: bold; font-size: 25px; color: #1E90FF;">
-                                            <span class="product-price">24,000</span>원
+                                        <div id="product_quantity_area">
                                         </div>
-                                    </div>
-                                    <div class="product_buy_btn_container">
-                                        <button class="myBtn btn_cart">장바구니 담기</button>
-                                        <button class="myBtn btn_buy"
-                                            onclick="moveToPage('${contextPath }/order')">구매하기</button>
-                                    </div>
-                                </form>
+                                        <div id="product-price-btn-wrapper">
+                                            <div id="price-area">
+                                                <div style="font-weight: bold; font-size: 20px;">총금액</div>
+                                                <div style="font-weight: bold; font-size: 25px; color: #1E90FF;">
+                                                    <span class="product-price"></span>원
+                                                </div>
+                                            </div>
+                                            <div class="product_buy_btn_container">
+                                                <button class="myBtn btn_cart">장바구니 담기</button>
+                                                <button class="myBtn btn_buy" id="product-buy-btn">구매하기</button>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" id="input-productBrand" value="${p.productBrand}">
+                                        <input type="hidden" id="input-productName" value="${p.productName}">
+                                        <input type="hidden" id="input-mainImg" value="${p.mainImg}">
+                                        <input type="hidden" id="input-shipmentType" value="${p.shipmentType}">
+                                        <input type="hidden" name="selectedOptList" />
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -149,25 +153,7 @@
 
                         <!-- 상품 설명 -->
                         <div id="product_description_area">
-                            <div id="product_description_picture">
-                                <img id="product_description_img"
-                                    src="${contextPath }/resources/dummyImg/shopping/product_description.png"
-                                    alt="상품사진">
-                            </div>
-
-                            <div id="product_description_p">
-                                <p>경북 성주는 풍부한 일조량, 물 빠짐이 좋은 미사질 토양을 지녀 참외를 재배하기에 최적의 조건을 갖춘 곳인데요. 참외가 참 신선하고 맛이 좋다 싶으면
-                                    역시나 성주에서
-                                    온 참외이곤 하지요.
-                                    컬리는 과실이 통통하게 잘 여문 향긋한 성주 참외를 온 가족이 함께 즐길 수 있는 양으로 담아 준비했어요.
-                                    시원한 냉장고 혹은 찬물에 잠시 두었다가 꺼내 먹으면, 참외의 달콤한 향이 더욱 선명하게 느껴질 거예요.
-                                    아삭아삭한 식감, 함뿍 배어 나오는 달큰한 과즙을 그대로 음미해 보세요.</p>
-                            </div>
-
-                            <div id="product_detail_description">
-                                <img id="product_detail_img"
-                                    src="${contextPath }/resources/dummyImg/shopping/product_detail.png" alt="">
-                            </div>
+                            ${p.description}
                         </div>
 
                         <!-- 상품 후기 -->
@@ -251,27 +237,6 @@
                     </div>
 
                     <div id="area_right">
-                        <div id="product-buy-container">
-                            <div class="pname">
-                                성주 참외 꿀참외 1.5kg
-                            </div>
-                            <div class="product_quantity_price">
-                                <div id="pamount_btn">
-                                    <div class="pbtn minus_quantity">-</div>
-                                    <input class="pbtn quantity pbtn-quantity" value="1"></input>
-                                    <div class="pbtn plus_quantity">+</div>
-                                </div>
-                                <div id="price">
-                                    <span class="product-price">24,000</span>원
-                                </div>
-                            </div>
-                            <div class="product_buy_btn_container">
-                                <button class="btn_cart mini_btn ">장바구니</button>
-                                <button class="btn_buy mini_btn"
-                                    onclick="moveToPage('${contextPath }/order')">구매하기</button>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
 
@@ -290,6 +255,7 @@
                             <div class="modal-body" style="height: 100%;">
                                 <form id="modal-qna-content" action="insertQna.po">
                                     <input type="hidden" name="writerNo" value=${loginUser.memberNo}>
+                                    <input type="hidden" name="refProductNo" value=${p.productNo}>
                                     <div id="product_name_container">
                                         <div id="qna_product_name_header">
                                             상품명
