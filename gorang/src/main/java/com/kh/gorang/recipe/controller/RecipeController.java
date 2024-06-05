@@ -58,6 +58,8 @@ public class RecipeController {
 			return "recipe/write.re";
 		}
 	}
+
+
 	
 	
 
