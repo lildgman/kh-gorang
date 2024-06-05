@@ -14,6 +14,7 @@ import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.service.MyPageService;
 import com.kh.gorang.recipe.model.vo.Recipe;
+import com.kh.gorang.shopping.model.vo.Product;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -45,33 +46,56 @@ public class MyPageController {
 		// 총 좋아요 개수
 		int totalLikeCount = myPageService.getTotalLikeCount(memberNo);
 		
-		// 내 레시피 중 조회수 많은 순으로 레시피 리스트 가져오기
+		// 내 레시피 중 조회수 많은 순으로 레시피 리스트 가져오기 3개
 		ArrayList<Recipe> mostViewRecipeList = myPageService.getMostViewRecipeList(memberNo);
 		
 		// 내 게시글 중 조회수 많은 순으로 게시글 리스트 가져오기
-		ArrayList<Board> mostViewBoardList = myPageService.getMostViewBoardList(memberNo);
+		ArrayList<Board> resultBoardList = myPageService.getMostViewBoardList(memberNo);
+		
+		// 내 게시글 중 조회수 많은 순으로 게시글 리스트 가져오기 (3개)
+		ArrayList<Board> mostViewBoardList3 = new ArrayList<Board>(resultBoardList.subList(0, 3));
+		
+		// 내 게시글 중 조회수 많은 순으로 게시글 리스트 가져오기 (3개)
+		ArrayList<Board> mostViewBoardList4 = new ArrayList<Board>(resultBoardList.subList(0, 4));
 		
 		// 스크랩한 내용물들 리스트
 		ArrayList<Object> scrapContentList = myPageService.getScrapList(memberNo);
-				
+		// 객체 타입을 체크해서 Map에 저장하고 JSP로 넘기자
+		ArrayList<Map<String, Object>> processedScrapList = getProcessedList(scrapContentList);
+		
 		// 좋아요한 내용물들 리스트
 		ArrayList<Object> likeContentList = myPageService.getLikeContentList(memberNo);
-
-		
-		log.info("likeContentList={}",likeContentList);
-		
-		
+		// 객체 타입을 체크해서 Map에 저장하고 JSP로 넘기자
+		ArrayList<Map<String, Object>> processedLikedList = getProcessedList(likeContentList);
+			
 		model.addAttribute("followingCount", followingCount);
 		model.addAttribute("followerCount", followerCount);
 		model.addAttribute("totalScrapCount", totalScrapCount);
 		model.addAttribute("totalLikeCount", totalLikeCount);
 		model.addAttribute("mostViewRecipeList", mostViewRecipeList);
-		model.addAttribute("mostViewBoardList", mostViewBoardList);
-		model.addAttribute("scrapContentList", scrapContentList);
-		model.addAttribute("likeContentList", likeContentList);
-		
+		model.addAttribute("mostViewBoardList3", mostViewBoardList3);
+		model.addAttribute("mostViewBoardList4", mostViewBoardList4);
+		model.addAttribute("processedScrapList", processedScrapList);
+		model.addAttribute("processedLikedList", processedLikedList);
 		
 		return "member/myPageAllView";
+	}
+
+	private ArrayList<Map<String, Object>> getProcessedList(ArrayList<Object> scrapContentList) {
+		ArrayList<Map<String, Object>> processedList = new ArrayList<Map<String,Object>>();
+		for(Object obj : scrapContentList) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("object",obj);
+			if(obj instanceof Board) {
+				map.put("type","Board");
+			} else if (obj instanceof Recipe) {
+				map.put("type", "Recipe");
+			} else if(obj instanceof Product) {
+				map.put("type", "Product");
+			}
+			processedList.add(map);
+		}
+		return processedList;
 	}
 	
 	//마이페이지 레시피게시판

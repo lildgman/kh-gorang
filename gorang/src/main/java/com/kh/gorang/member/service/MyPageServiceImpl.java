@@ -78,12 +78,8 @@ public class MyPageServiceImpl implements MyPageService{
 	// 조회수가 많은 순으로 정렬된 게시글 조회
 	@Override
 	public ArrayList<Board> getMostViewBoardList(int memberNo) {
-		
-		ArrayList<Board> list = myPageDao.getMostViewBoardList(sqlSession, memberNo);
-		
-		ArrayList<Board> resultList = new ArrayList<Board>(list.subList(0, 3));
-		
-		return resultList;
+			
+		return myPageDao.getMostViewBoardList(sqlSession, memberNo);
 	}
 
 	// 스크랩한 내용물들 조회

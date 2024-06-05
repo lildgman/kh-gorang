@@ -28,24 +28,38 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 	
-	//게시글 메인
 	@RequestMapping("main.bo")
-	
-	public String selectList(
-			@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
-			int boardNo = boardService.selectListCount();
-		
-			PageInfo pi = Pagination.getPageInfo(boardNo, currentPage, 16, 16);
-			ArrayList<Board> list = boardService.selectList(pi);
-		
-			model.addAttribute("list", list);
-			model.addAttribute("pi", pi);
-			
-	        
-			return "board/boardMain";
-	}
-	
+    public String selectListByLatest(
+            @RequestParam(value="cpage", defaultValue="1") int currentPage, 
+            Model model) {
+        int boardNo = boardService.selectListCount();
+        PageInfo pi = Pagination.getPageInfo(boardNo, currentPage, 16, 16);
+        ArrayList<Board> list = boardService.selectListByLatest(pi);
 
+        model.addAttribute("list", list);
+        model.addAttribute("pi", pi);
+        model.addAttribute("sort", "latest"); 
+
+        return "board/boardMain";
+    }
+    
+    // 조회수순으로 게시글 메인 화면 보여주기
+    @RequestMapping("main.bo/sortByView")
+    public String selectListByViewCount(
+            @RequestParam(value="cpage", defaultValue="1") int currentPage, 
+            Model model) {
+        int boardNo = boardService.selectListCount();
+        PageInfo pi = Pagination.getPageInfo(boardNo, currentPage, 16, 16);
+        
+        ArrayList<Board> list = boardService.selectListByViewCount(pi);
+
+        model.addAttribute("list", list);
+        model.addAttribute("pi", pi);
+        model.addAttribute("sort", "viewCount");
+
+        return "board/boardMain";
+    }
+	
 	//게시글 쓰기
 	@RequestMapping("write.bo")
 	public String commonWrite() {
