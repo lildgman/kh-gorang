@@ -31,6 +31,7 @@ import com.kh.gorang.shopping.model.vo.Order;
 import com.kh.gorang.shopping.model.vo.OrderPdopt;
 import com.kh.gorang.shopping.model.vo.Product;
 import com.kh.gorang.shopping.model.vo.ProductDetailOption;
+import com.kh.gorang.shopping.service.OrderService;
 import com.kh.gorang.shopping.service.ProductService;
 
 import lombok.RequiredArgsConstructor;
@@ -42,6 +43,7 @@ import lombok.extern.slf4j.Slf4j;
 public class StoreController {
 	
 	private final ProductService productService;
+	private final OrderService orderService;
 	
 	// 상품 설명에 들어가는 이미지 저장하는 메서드
 	@PostMapping("detaildesc")
@@ -210,11 +212,10 @@ public class StoreController {
 	// 주문 데이터 처리하는 컨트롤러
 	@ResponseBody
 	@PostMapping(value = "insertOrder.po", produces = "application/json; charset=utf-8")
-	public String aJaxInsertProductOrder(@RequestBody Map<String, Object> orderData, Model model, HttpSession session) {
+	public String aJaxInsertProductOrder(@RequestBody Map<String, Object> orderData, HttpSession session) {
+		// 로그인 유저 정보
 		Member m = (Member)session.getAttribute("loginUser");
-		
-		System.out.println(m);
-		
+				
 		// Gson을 사용하여 JSON 데이터를 처리
 	    Gson gson = new Gson();
 	    
@@ -230,12 +231,17 @@ public class StoreController {
 	    List<OrderPdopt> orderOpts = gson.fromJson(orderOptsJson, orderOptsType);
 	    // Order 는 무조건 1개만 날라오기 때문에 바로 파싱 가능
 	    Order orderInfo = orderInfoList.get(0);
+	    orderInfo.setMemberNo(m.getMemberNo());
 	    
-//	   int result = OrderService.insertOrder(orderInfo, orderOpts);
+	    int result = orderService.insertOrder(orderInfo, orderOpts);
+	    
+	    if(result == 0) {
+	    	session.setAttribute("alertMsg", "주문 실패하였습니다.");
+	    } else {
+	    	session.setAttribute("alertMsg", "주문 성공하였습니다.");
+	    }
 	    
 	    
-		
-		
-		return null;
+		return "list.pr";
 	}
 }

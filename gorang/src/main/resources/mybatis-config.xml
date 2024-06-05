@@ -28,6 +28,9 @@
 		
  		<typeAlias type="com.kh.gorang.shopping.model.vo.ProductInsertDTO" alias="ProductInsertDTO" />
  		<typeAlias type="com.kh.gorang.board.model.vo.BoardSearchDTO" alias="BoardSearchDTO" />
+ 		
+ 		<typeAlias type="com.kh.gorang.shopping.model.vo.Order" alias="Order"/>
+ 		<typeAlias type="com.kh.gorang.shopping.model.vo.OrderPdopt" alias="OrderPdopt"/>
 	</typeAliases>
 	
 	<!-- 
@@ -44,5 +47,6 @@
 		<mapper resource="/mappers/odg-product-mapper.xml" />
 		<mapper resource="/mappers/manager-mapper.xml" />
 		<mapper resource="/mappers/mypage-mapper.xml" />
+		<mapper resource="/mappers/order-mapper.xml"/>
 	</mappers>
 </configuration>  

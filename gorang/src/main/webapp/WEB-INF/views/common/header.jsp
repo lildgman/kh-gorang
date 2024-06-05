@@ -37,6 +37,12 @@
     </script>
 </head>
 <body>
+    <c:if test="${not empty alertMsg}">
+                <script>
+                    alert("${alertMsg}");
+                </script>
+                <c:remove var="alertMsg" />
+     </c:if>
     <div id="header">
         <div id="header-top">
             <span>신규가입 시 1만원 쿠폰을 지급해드려요!</span>
