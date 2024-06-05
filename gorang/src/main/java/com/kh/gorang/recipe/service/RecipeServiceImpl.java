@@ -45,7 +45,7 @@ public class RecipeServiceImpl implements RecipeService{
 		}
 		//조리순서
 		for(CookOrder cookOrder : recipeInsertDTO.getCookOrderList()) {
-			int orderNum = recipeDao.insertCookOrder(sqlSession,cookOrder,rcpNo)
+//			int orderNum = recipeDao.insertCookOrder(sqlSession,cookOrder,rcpNo)
 		}
 
 
