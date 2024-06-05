@@ -40,6 +40,8 @@ public class BoardController {
 		
 			model.addAttribute("list", list);
 			model.addAttribute("pi", pi);
+			
+	        
 			return "board/boardMain";
 	}
 	
@@ -61,6 +63,7 @@ public class BoardController {
 	    Board board = boardService.selectBoard(boardNo);
 	    
 	    if (board != null) {
+	    	boardService.increaseViewCount(boardNo);
 	        model.addAttribute("board", board);
 	        
 	        return "board/boardDetail";
