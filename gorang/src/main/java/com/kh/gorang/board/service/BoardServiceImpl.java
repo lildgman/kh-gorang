@@ -10,73 +10,52 @@ import com.kh.gorang.board.model.dao.BoardDao;
 import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.common.vo.PageInfo;
 
-
-
-
 @Service
-public class BoardServiceImpl implements BoardService{
-	
-	@Autowired
-	private SqlSessionTemplate sqlSession;
-	
-	@Autowired
-	private BoardDao boardDao;
-	
-	@Override
-	public int selectListCount() {
-		int count = boardDao.selectListCount(sqlSession);
-		return count;
-	}
-	@Override
-	public ArrayList<Board> selectList(PageInfo pi){
-		return boardDao.selectList(sqlSession, pi);
-	}
-	
-	@Override
-	public Board selectBoard(int boardNo) {
-		return boardDao.selectBoard(sqlSession, boardNo);
-	}
-	
-	@Override
-	public int insertBoard(Board board) {
-		return boardDao.insertBoard(sqlSession,board);
-	}
-	
-	@Override
+public class BoardServiceImpl implements BoardService {
+
+    @Autowired
+    private SqlSessionTemplate sqlSession;
+
+    @Autowired
+    private BoardDao boardDao;
+
+    @Override
+    public int selectListCount() {
+        return boardDao.selectListCount(sqlSession);
+    }
+
+    @Override
+    public ArrayList<Board> selectList(PageInfo pi) {
+        return boardDao.selectList(sqlSession, pi);
+    }
+
+    @Override
+    public Board selectBoard(int boardNo) {
+        return boardDao.selectBoard(sqlSession, boardNo);
+    }
+
+    @Override
+    public int insertBoard(Board board) {
+        return boardDao.insertBoard(sqlSession, board);
+    }
+
+    @Override
     public void increaseViewCount(int boardNo) {
         boardDao.increaseViewCount(sqlSession, boardNo);
     }
-	
-	@Override
+
+    @Override
     public ArrayList<Board> selectListByLatest(PageInfo pi) {
         return boardDao.selectListByLatest(sqlSession, pi);
     }
-	
-	@Override
+
+    @Override
     public ArrayList<Board> selectListByViewCount(PageInfo pi) {
         return boardDao.selectListByViewCount(sqlSession, pi);
     }
-	
-	@Override
-	public ArrayList<Board> selectListByTagDaily(PageInfo pi){
-		return boardDao.selectListByTagDaily(sqlSession, pi);
-	}
-	
-	@Override
-	public ArrayList<Board> selectListByTagQuestion(PageInfo pi){
-		return boardDao.selectListByTagQuestion(sqlSession, pi);
-	}
-	
-	@Override
-	public ArrayList<Board> selectListByTagKnowHow(PageInfo pi){
-		return boardDao.selectListByTagKnowHow(sqlSession, pi);
-	}
-	@Override
-	public ArrayList<Board> selectListByTagTip(PageInfo pi){
-		return boardDao.selectListByTagTip(sqlSession, pi);
-	}
-	@Override
-	public ArrayList<Board> selectListByTagMethod(PageInfo pi){
-		return boardDao.selectListByTagMethod(sqlSession, pi);
-	}
+
+    @Override
+    public ArrayList<Board> selectListByTag(PageInfo pi, String tag) {
+        return boardDao.selectListByTag(sqlSession, pi, tag);
+    }
 }
