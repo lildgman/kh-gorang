@@ -21,13 +21,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.kh.gorang.common.template.Pagination;
 import com.kh.gorang.common.vo.PageInfo;
 import com.kh.gorang.member.model.vo.QnA;
 import com.kh.gorang.member.model.vo.Review;
+import com.kh.gorang.shopping.model.vo.Order;
 import com.kh.gorang.shopping.model.vo.Product;
 import com.kh.gorang.shopping.model.vo.ProductDetailOption;
 import com.kh.gorang.shopping.service.ProductService;
@@ -220,15 +219,15 @@ public class StoreController {
 	    System.out.println("Order Info: " + orderInfoJson);
 	    System.out.println("Order Options: " + orderOptsJson);
 		
-	    //JSON을 Java 객체로 변환
-	    Type orderInfoType = new TypeToken<List<Order>>(){}.getType();
-	    Type orderOptsType = new TypeToken<List<Map<String, Object>>>(){}.getType();
-
-	    Map<String, Object> orderInfo = gson.fromJson(orderInfoJson, orderInfoType);
-	    List<Map<String, Object>> orderOpts = gson.fromJson(orderOptsJson, orderOptsType);
-
-	    System.out.println("Parsed Order Info: " + orderInfo);
-	    System.out.println("Parsed Order Options: " + orderOpts);
+//	    //JSON을 Java 객체로 변환
+//	    Type orderInfoType = new TypeToken<List<Order>>(){}.getType();
+//	    Type orderOptsType = new TypeToken<List<Map<String, Object>>>(){}.getType();
+//
+//	    Map<String, Object> orderInfo = gson.fromJson(orderInfoJson, orderInfoType);
+//	    List<Map<String, Object>> orderOpts = gson.fromJson(orderOptsJson, orderOptsType);
+//
+//	    System.out.println("Parsed Order Info: " + orderInfo);
+//	    System.out.println("Parsed Order Options: " + orderOpts);
 		
 		
 		return null;

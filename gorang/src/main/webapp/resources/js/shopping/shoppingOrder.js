@@ -2,13 +2,13 @@ window.onload = function () {
 
   calculateTotalProductPrice();
   calculateTotalPrice();
-  
+  // 구매하기 버튼 클릭 시 컨트롤러로 정보 보내는 ajax 함수 실행하기 위한 이벤트 핸들러
   document.querySelector("#buy_btn").addEventListener("click", function(){
     const data = getDataForAjax();
     AjaxForInsertOrder(data);
   })
 }
-
+// 상품 총 금액 계산
 function calculateTotalProductPrice() {
   const orderContainerElements = document.querySelectorAll('.order-product-container');
   const totalProductPriceEl = document.querySelector('#total-product-price');
@@ -19,7 +19,7 @@ function calculateTotalProductPrice() {
   })
   totalProductPriceEl.innerText = totalPrice.toLocaleString();
 }
-
+// 결제해야 할 총 금액 계산
 function calculateTotalPrice() {
   const totalProductPrice = parseInt(document.querySelector('#total-product-price').innerText.replace(/,/g, ''));
   const totalDeliveryCharge = parseInt(document.querySelector('#total-delivery-charge').innerText.replace(/,/g, ''));
@@ -31,7 +31,7 @@ function calculateTotalPrice() {
   })
 
 }
-
+// 클릭한 결제수단 경계 색칠 및 카드 결제 클릭 시 동적 요소 생성 위한 메소드
 function clickPayment(element, type) {
 
   const payments = document.querySelectorAll(".payment");
@@ -53,7 +53,7 @@ function clickPayment(element, type) {
   })
 
 }
-
+// 주소 검색 api
 function searchAddress() {
   new daum.Postcode({
     oncomplete: function (data) {
@@ -88,58 +88,34 @@ function AjaxForInsertOrder(data){
 function getDataForAjax(){
   // 구매자 및 배송지 정보
   const orderInfo = [];
-  // 구매자 정보
+
   // 이메일 셀렉트 요소
   const buyerEmailAddress = document.querySelector("#email-select");
-  // 구매자명
-  const buyerName = document.querySelector("#input-buyer-name").value;
-  // 구매자 이메일 주소
-  const buyerEmail = document.querySelector("#input-buyer-email").value + 
-                    document.querySelector("#email-container > span").innerHTML + 
-                    buyerEmailAddress.options[buyerEmailAddress.selectedIndex].value;
-  // 구매자 전화번호
-  const buyerPhone = document.querySelector("#input-buyer-phone").value;
-
-  // 배송지 정보
-  // 배송지명
-  const deliveryAddressName = document.querySelector("#input-delivery-name").value;
-  // 수령인
-  const recipent = document.querySelector("#input-delivery-recipient").value;
-  // 수령인 전화번호
-  const recipientPhone = document.querySelector("#input-delivery-phone").value;
-  // 배송지 주소
-  const recipientAddress = document.querySelector("#address").innerHTML + `&nbsp` + document.querySelector("#input-delivery-detailAddress").value;
-  // 요청사항
-  const buyerRequirement = document.querySelector("#requirement-select").options[document.querySelector("#requirement-select").selectedIndex].value;
-  // 결제 수단
-  const payment = document.querySelector(".payment.selected > div").innerHTML;
-  // 총 결제 금액
-  const totalPrice = document.querySelector(".totalPrice").innerHTML.replace(/,/g, "");
 
   // 주문 상품 정보
   const orderOpts = [];
   document.querySelectorAll(".order-product-container").forEach(function(ev){
-    // 상품정보
-    const optNo = ev.querySelector(".input-order-optNo").value;
-    const optQuantity = ev.querySelector(".order-product-quantity").innerHTML;
     // JSON
     orderOpts.push({
-      optNo: optNo,
-      optQuantity: optQuantity
+      optNo: ev.querySelector(".input-order-optNo").value,
+      refProductNo: ev.querySelector(".input-pdopt-pno").value,
+      optQuantity: ev.querySelector(".order-product-quantity").innerHTML
     });
   });
 
   orderInfo.push({
-    name: buyerName,
-    email: buyerEmail,
-    phone: buyerPhone,
-    deliveryAddress: deliveryAddressName,
-    recipient: recipent,
-    recipientAddress: recipientAddress,
-    recipientPhone: recipientPhone,
-    buyerRequirement: buyerRequirement,
-    payment: payment,
-    totalPrice: totalPrice,
+    buyerName: document.querySelector("#input-buyer-name").value,
+    buyerEmail: document.querySelector("#input-buyer-email").value + 
+                document.querySelector("#email-container > span").innerHTML + 
+                buyerEmailAddress.options[buyerEmailAddress.selectedIndex].value,
+    buyerPhone: document.querySelector("#input-buyer-phone").value,
+    deliveryAddressName: document.querySelector("#input-delivery-name").value,
+    recipentName: document.querySelector("#input-delivery-recipient").value,
+    recipientAddress: document.querySelector("#address").innerHTML + `&nbsp` + document.querySelector("#input-delivery-detailAddress").value,
+    recipientPhone:  document.querySelector("#input-delivery-phone").value,
+    requirements: document.querySelector("#requirement-select").options[document.querySelector("#requirement-select").selectedIndex].value,
+    payment: document.querySelector(".payment.selected > div").innerHTML,
+    totalPrice: document.querySelector(".totalPrice").innerHTML.replace(/,/g, "")
   });
 
 

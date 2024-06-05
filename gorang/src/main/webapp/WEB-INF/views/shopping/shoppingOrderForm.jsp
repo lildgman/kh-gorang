@@ -81,7 +81,7 @@
                     <div id="buyer-recipient-area" class="information-div">
                         <div class="information-title">받는사람</div>
                         <div class="input-container">
-                            <input type="text" id="input-delivery-recipent">
+                            <input type="text" id="input-delivery-recipient">
                         </div>
                     </div>
 
@@ -134,6 +134,7 @@
                 <div class="information-area">
                 
                	<c:forEach var="opt" items="${opts}">
+                    <input type="hidden" class="input-pdopt-pno" value="${opt.productNo}">
                		<div class="order-product-container">
                         <input type="hidden" class="input-order-optNo" value="${opt.detailOptionNo}">
                         <div class="order-product-container-top">

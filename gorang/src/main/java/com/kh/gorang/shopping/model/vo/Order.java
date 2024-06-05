@@ -17,12 +17,16 @@ public class Order {
 	private int orderNo;
 	private int productNo;
 	private int memberNo;
+	private String buyerName;
+	private String buyerEmail;
+	private String buyerPhone;
 	private String recipientName;
 	private String recipientAddress;
 	private String recipientPhone;
 	private String requirements;
+	private String totalPrice;
+	private String paymentType;
 	private Date orderDate;
 	private Date arrivalDate;
-	private String paymentType;
 	private String status;
 }
