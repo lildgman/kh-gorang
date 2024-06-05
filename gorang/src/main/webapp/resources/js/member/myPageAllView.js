@@ -32,7 +32,7 @@ function movePage(element) {
 
     const contentType = element.getAttribute('data-type');
     const contentNo = element.getAttribute('data-no');
-    console.log(window.location.href);
+
     if(contentType === 'board') {
         window.location.href = "detail.bo?boardNo=" + contentNo;
     } else if(contentType === 'recipe') {
@@ -40,6 +40,5 @@ function movePage(element) {
     } else if (contentType === 'product') {
         window.location.href = "detail.po?pno=" + contentNo;
     }
-    console.log(element.getAttribute('data-type'));
-    console.log(element.getAttribute('data-no'));
+
 }
