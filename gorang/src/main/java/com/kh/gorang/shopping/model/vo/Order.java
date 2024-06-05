@@ -23,7 +23,7 @@ public class Order {
 	private String recipientAddress;
 	private String recipientPhone;
 	private String requirements;
-	private String totalPrice;
+	private int totalPrice;
 	private String paymentType;
 	private Date orderDate;
 	private String status;
