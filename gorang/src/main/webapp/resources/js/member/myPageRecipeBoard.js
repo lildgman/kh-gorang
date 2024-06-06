@@ -36,5 +36,5 @@ function movePage(element) {
 }
 
 function sortRecipe(element) {
-    const sortMethod = 
+
 }

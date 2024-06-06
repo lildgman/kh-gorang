@@ -125,6 +125,20 @@ public class MyPageController {
 		
 		return "member/myPageBoard";
 	}
+	
+	@PostMapping("remove-board.me")
+	@ResponseBody
+	public String removeMyBoard(int boardNo) {
+
+		int result = myPageService.removeBoard(boardNo);
+		
+		if(result > 0) {
+			return "done";
+		} else {
+			return "undone";
+		}
+		
+	}
 
 	//마이페이지 나의냉장고
 	@RequestMapping("myRefrigerator.me")

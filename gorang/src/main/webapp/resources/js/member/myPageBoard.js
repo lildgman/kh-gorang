@@ -11,6 +11,7 @@ function deleteRecipeBoard(element){
       const boardContainer = element.closest('.myPage-board-list-block');
       const boardNo = parseInt(boardContainer.querySelector('.myPage-board-img').getAttribute('data-no'));
       
+      console.log(boardNo);
       $.ajax({
           url: 'remove-board.me',
           type: 'post',
@@ -20,7 +21,7 @@ function deleteRecipeBoard(element){
           success: function(res) {
               if(res === 'done') {
                   alert("게시글을 삭제하였습니다.");
-                  recipeContainer.remove();
+                  boardContainer.remove();
               } else {
                   alert("게시글 삭제를 실패하였습니다.");
               }
