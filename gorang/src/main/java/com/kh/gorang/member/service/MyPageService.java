@@ -3,6 +3,7 @@ package com.kh.gorang.member.service;
 import java.util.ArrayList;
 
 import com.kh.gorang.board.model.vo.Board;
+import com.kh.gorang.board.model.vo.MyPageBoardDTO;
 import com.kh.gorang.common.vo.PageInfo;
 import com.kh.gorang.recipe.model.vo.MyPageRecipeDTO;
 import com.kh.gorang.recipe.model.vo.Recipe;
@@ -41,5 +42,11 @@ public interface MyPageService {
 
 	// 레시피 삭제
 	int removeRecipe(int recipeNo);
+
+	// 나의 게시글 개수 조회 
+	int getBoardCount(int memberNo);
+
+	// 나의 게시글 조회 
+	ArrayList<MyPageBoardDTO> getBoardList(PageInfo pi, int memberNo);
 
 }

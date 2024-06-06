@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
 import com.kh.gorang.board.model.vo.Board;
+import com.kh.gorang.board.model.vo.MyPageBoardDTO;
 import com.kh.gorang.common.vo.PageInfo;
 import com.kh.gorang.member.model.dao.MyPageDao;
 import com.kh.gorang.recipe.model.vo.MyPageRecipeDTO;
@@ -162,4 +163,30 @@ public class MyPageServiceImpl implements MyPageService{
 		return myPageDao.removeRecipe(sqlSession, recipeNo);
 	}
 
+	// 나의 게시글 개수 조회 
+	@Override
+	public int getBoardCount(int memberNo) {
+		return myPageDao.getBoardCount(sqlSession, memberNo);
+	}
+
+	
+	@Override
+	public ArrayList<MyPageBoardDTO> getBoardList(PageInfo pi, int memberNo) {
+		
+		ArrayList<MyPageBoardDTO> result = new ArrayList<>();
+		
+		ArrayList<Board> boardList = myPageDao.getBoardList(sqlSession, pi, memberNo);
+		
+		for(Board board : boardList) {
+			int boardCommentCount = myPageDao.getBoardCommentCount(sqlSession, board.getBoardNo());
+			int boardLikeCount = myPageDao.getBoardLikeCount(sqlSession, board.getBoardNo());
+			MyPageBoardDTO boardInfo = new MyPageBoardDTO(board, boardCommentCount, boardLikeCount);
+			result.add(boardInfo);
+		}
+		
+		log.info("result={}",result);
+		return result;
+	}
+
+	
 }
