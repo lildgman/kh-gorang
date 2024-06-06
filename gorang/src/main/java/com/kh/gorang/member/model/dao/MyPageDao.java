@@ -115,7 +115,7 @@ public class MyPageDao {
 
 	// 레시피 삭제 
 	public int removeRecipe(SqlSessionTemplate sqlSession, int recipeNo) {
-		return sqlSession.update("myPageMapper.deleteRecipe", recipeNo);
+		return sqlSession.update("myPageMapper.removeRecipe", recipeNo);
 	}
 
 	// 게시글 개수 조회 
@@ -141,6 +141,11 @@ public class MyPageDao {
 	public int getBoardLikeCount(SqlSessionTemplate sqlSession, int boardNo) {
 		return sqlSession.selectOne("myPageMapper.selectBoardLikeCount", boardNo);
 		
+	}
+
+	// 게시글 삭제 
+	public int removeBoard(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.update("myPageMapper.removeBoard", boardNo);
 	}
 	
 

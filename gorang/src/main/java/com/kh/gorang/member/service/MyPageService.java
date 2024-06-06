@@ -43,10 +43,13 @@ public interface MyPageService {
 	// 레시피 삭제
 	int removeRecipe(int recipeNo);
 
-	// 나의 게시글 개수 조회 
+	// 게시글 개수 조회 
 	int getBoardCount(int memberNo);
 
-	// 나의 게시글 조회 
+	// 게시글 조회 
 	ArrayList<MyPageBoardDTO> getBoardList(PageInfo pi, int memberNo);
+
+	// 게시글 삭
+	int removeBoard(int boardNo);
 
 }

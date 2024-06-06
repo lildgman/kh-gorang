@@ -246,7 +246,7 @@
 	</select>
 	
 	<!-- 레시피 삭제 -->
-	<update id="deleteRecipe" parameterType="Recipe">
+	<update id="removeRecipe" parameterType="Recipe">
 		UPDATE RECIPE
 		SET STATUS = 'N'
 		WHERE RCP_NO = #{recipeNo}
@@ -290,5 +290,11 @@
 			BOARD_NO = #{boardNo}
 	</select>
 	
+	<!-- 게시글 삭제 -->
+	<update id="removeBoard" parameterType="Board">
+		UPDATE BOARD
+		SET STATUS = 'N'
+		WHERE BOARD_NO = #{boardNo}
+	</update>
 	
 </mapper>

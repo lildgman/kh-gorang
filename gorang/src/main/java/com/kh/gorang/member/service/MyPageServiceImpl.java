@@ -169,7 +169,7 @@ public class MyPageServiceImpl implements MyPageService{
 		return myPageDao.getBoardCount(sqlSession, memberNo);
 	}
 
-	
+	// 게시글 조회 
 	@Override
 	public ArrayList<MyPageBoardDTO> getBoardList(PageInfo pi, int memberNo) {
 		
@@ -186,6 +186,12 @@ public class MyPageServiceImpl implements MyPageService{
 		
 		log.info("result={}",result);
 		return result;
+	}
+
+	//게시글 삭제
+	@Override
+	public int removeBoard(int boardNo) {
+		return myPageDao.removeBoard(sqlSession, boardNo);
 	}
 
 	
