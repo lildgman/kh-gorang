@@ -40,46 +40,47 @@
 
             <!-- 장바구니 내용물들 -->
             <div id="product-content-area">
-
-                <!-- 장바구니 내용물 -->
-                <c:forEach begin="1" end="3" step="1">
-                    <div class="product-in-cart">
-                        <div class="select-checkbox-container">
-                            <input type="checkbox" class="select-checkbox" onclick="changeAllCheckBox()">
-                        </div>
-
-                        <div class="product-img-container">
-                            <img class="product-img" src="${contextPath }/resources/dummyImg/shopping/item1.png" alt="">
-                        </div>
-
-                        <div class="cart-product-info-container">
-                            <div class="cart-product-name-container">
-                                <span class="cart-product-name">성주 참외 꿀참외 1.5kg</span>
-                                <span class="cart-product-delete" onclick="deleteProduct(this)"><i class="fa-solid fa-x"></i></span>
-                            </div>
-                            <div class="product-delivery-method">무료배송</div>
-                            <div class="product-quantity-price-container">
-                                <div class="product-quantity">
-                                    <div class="pbtn minus_quantity" id="minus_quantity">-</div>
-                                    <div class="pbtn quantity" id="quantity">1</div>
-                                    <div class="pbtn plus_quantity" id="plus_quantity" >+</div>
+                <c:choose>
+                    <c:when test="${empty carts}">
+                        <div><span>장바구니가 비어있습니다.</span></div>
+                    </c:when>
+                    <c:otherwise>
+        <!-- 장바구니 내용물 -->
+                        <c:forEach var="cart" items="${carts}">
+                            <div class="product-in-cart">
+                                <div class="select-checkbox-container">
+                                    <input type="checkbox" class="select-checkbox" onclick="changeAllCheckBox()">
                                 </div>
-                                <div class="product-price">
-                                    <div>
-                                        <span class="product-origin-price">30,000</span><span class="origin-won">원</span>
+                                <div class="product-img-container">
+                                    <img class="product-img" src="${contextPath }/resources/dummyImg/shopping/${cart.pdForCart.mainImg}" alt="">
+                                </div>
+                                <div class="cart-product-info-container">
+                                    <div class="cart-product-name-container">
+                                        <span class="cart-product-name">${cart.pdForCart.productName}</span>
+                                        <span class="cart-productOpt-name">${cart.pdOptForCart.detailOptionName}</span>
                                     </div>
-                                    <div>
-                                        <span class="product-saled-price">24,000</span><span class="saled-won">원</span>
+                                    <div class="product-delivery-method">${cart.pdForCart.shipmentType}</div>
+                                    <div class="product-quantity-price-container">
+                                        <div class="product-quantity">
+                                            <div class="pbtn minus_quantity" id="minus_quantity">-</div>
+                                            <div class="pbtn quantity" id="quantity">1</div>
+                                            <div class="pbtn plus_quantity" id="plus_quantity" >+</div>
+                                        </div>
+                                        <div class="product-price">
+                                            <div>
+                                                <span class="product-origin-price">${cart.pdOptForCart.detailOptionOriginPrice}</span><span class="origin-won">원</span>
+                                            </div>
+                                            <div>
+                                                <span class="product-saled-price">${cart.pdOptForCart.detailOptionSaledPrice}</span><span class="saled-won">원</span>
+                                            </div>
+                                        </div>
                                     </div>
+                                    <div class="cart-product-delete" onclick="deleteProduct(this)"><i class="fa-solid fa-x"></i></div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                </c:forEach>
-
-
-
+                        </c:forEach>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
 

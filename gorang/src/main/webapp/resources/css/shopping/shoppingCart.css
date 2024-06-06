@@ -3,6 +3,7 @@ input[type="checkbox"] {
   height: 20px; 
 }
 
+/* 장바구니 */
 #cart-container {
   display: flex;
   flex-direction: row;
@@ -19,6 +20,15 @@ input[type="checkbox"] {
   width: 807px;
 }
 
+/* 장바구니 컨테이너 top */
+#product-area-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+
 #selectall-checkbox-container {
   display: flex;
   flex-direction: row;
@@ -28,13 +38,7 @@ input[type="checkbox"] {
   font-size: 17px;
 }
 
-#product-area-top {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  
-}
+
 
 #selected-delete {
   font-size: 15px;
@@ -43,6 +47,8 @@ input[type="checkbox"] {
 #selected-delete:hover {
   cursor: pointer;
 }
+
+/* 장바구니 content */
 
 #product-content-area {
   display: flex;
@@ -90,13 +96,15 @@ input[type="checkbox"] {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  position: relative;
 }
 
 .cart-product-name-container {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 3px;
 }
 
 .product-delivery-method{
@@ -129,6 +137,14 @@ input[type="checkbox"] {
   font-size: 21px;
   font-weight: bold;
 }
+
+.cart-product-delete{
+  position: absolute;
+  right: 10px;
+  top:10px
+}
+
+/* 총 결제 금액 영역 */
 
 #cart-price-area {
   display: flex;

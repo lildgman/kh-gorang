@@ -88,8 +88,6 @@ public class MemberController {
 			return "member/register.me";
 		}
 	}
-	
-	
 }
 
 

@@ -1,5 +1,6 @@
 package com.kh.gorang.member.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -20,6 +21,7 @@ public class MemberServiceImpl implements MemberService{
 	@Autowired
 	private MemberDao memberDao;
 	
+	@Transactional(readOnly = true)
 	@Override
 	public Member loginMember(Member m) {
 		// SqlSessionTemplate bean등록 후 @Autowired했음
@@ -28,12 +30,14 @@ public class MemberServiceImpl implements MemberService{
 			
 		return memberDao.loginMember(sqlSession, m);
 	}
-
+	
+	@Transactional(readOnly = true)
 	@Override
 	public int idCheck(String checkId) {
 		return memberDao.idCheck(sqlSession, checkId);
 	}
-
+	
+	@Transactional(readOnly = true)
 	@Override
 	public int nameCheck(String checkName) {
 		return memberDao.nameCheck(sqlSession, checkName);
@@ -44,7 +48,8 @@ public class MemberServiceImpl implements MemberService{
 	public int insertMember(Member m) {
 		return memberDao.insertMember(sqlSession, m);
 	}
-
+	
+	@Transactional(readOnly = true)
 	@Override
 	public Member selectMemberByEmail(String email) {
 		return memberDao.selectMemberByEmail(sqlSession, email);
@@ -53,19 +58,26 @@ public class MemberServiceImpl implements MemberService{
 	@Transactional(rollbackFor = {Exception.class})
 	@Override
 	public int insertProductCart(List<ProductCart> pdCarts) {
-		
+		int result = 1;
+		// 1. 받아온 장바구니 리스트를 반목문을 통해 쪼갬
 		for(ProductCart productCart : pdCarts) {
-			
-			
-			
-			memberDao.insertProductCart(sqlSession, productCart);
+		// 2. 쪼갠 장바구니 객체를 유저가 기존 장바구니에 저장돼 있는지 조회 통해 저장 여부 확인
+			ProductCart productCartRes = memberDao.selectProductCart(sqlSession, productCart);
+		// 3. 만약 조회 결과가 없다면 insert, 조회 결과가 있다면 update(선택한 수량을 더해줌)
+			if(productCartRes == null) {
+				result *= memberDao.insertProductCart(sqlSession, productCart);
+			} else {
+				result *= memberDao.updateProductCart(sqlSession, productCart);
+			}
 		}
-		
-		return memberDao.insertProductCart(sqlSession, pdCarts);
+		return result;
 	}
-
 	
-
+	// 로그인한 유저가 담은 장바구니 목록 가져오기 위한 메소드
+	@Transactional(readOnly = true)
+	@Override
+	public ArrayList<ProductCart> selectProductCartList(Member m) {
+		return memberDao.selectProductCartList(sqlSession, m);
+	}
 	
-
 }

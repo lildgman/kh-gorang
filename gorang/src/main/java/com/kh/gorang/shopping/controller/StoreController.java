@@ -176,9 +176,15 @@ public class StoreController {
 		}
 	}
 	
-	
+	// 로그인한 유저가 장바구니에 담은 목록을 addAttribute 해서 view 에 넘겨주기
 	@RequestMapping("cart.po")
-	public String productCartForm() {
+	public String productCartForm(Model model, HttpSession session) {
+	 	Member m =  (Member)session.getAttribute("loginUser");
+	 	
+	 	ArrayList<ProductCart> carts = memberService.selectProductCartList(m);
+		
+	 	model.addAttribute("carts", carts);
+	 	
 		return "shopping/shoppingCartForm";
 	}
 	

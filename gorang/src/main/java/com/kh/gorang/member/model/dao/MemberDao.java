@@ -1,6 +1,6 @@
 package com.kh.gorang.member.model.dao;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -29,8 +29,22 @@ public class MemberDao {
 	public Member selectMemberByEmail(SqlSessionTemplate sqlSession, String email) {
 		return sqlSession.selectOne("memberMapper.selectMemberByEmail", email);
 	}
-
+	
+//	=============================== 장바구니 관련 =================================================
+	
 	public int insertProductCart(SqlSessionTemplate sqlSession, ProductCart p) {
 		return sqlSession.insert("memberMapper.insertProductCart", p);
+	}
+
+	public ProductCart selectProductCart(SqlSessionTemplate sqlSession, ProductCart productCart) {
+		return sqlSession.selectOne("memberMapper.selectProductCart", productCart);
+	}
+
+	public int updateProductCart(SqlSessionTemplate sqlSession, ProductCart productCart) {
+		return sqlSession.update("memberMapper.updateProductCart", productCart);
+	}
+
+	public ArrayList<ProductCart> selectProductCartList(SqlSessionTemplate sqlSession, Member m) {
+		return (ArrayList)sqlSession.selectList("memberMapper.selectProductCartList", m);
 	}
 }

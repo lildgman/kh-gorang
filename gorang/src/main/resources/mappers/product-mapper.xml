@@ -209,6 +209,7 @@
 	   	</if>
      </select>
     
+    <!-- =========================== 리뷰 ================================ -->
     <!-- 상품 리뷰 조회 -->
     <select id="selectProductReviewsByPno" resultMap="reviewResult">
     	SELECT
@@ -227,12 +228,15 @@
     		product_no = #{productNo} and
     		status = 'Y'
     </select>
+    
+    <!-- ===================================== 문의 ======================= -->
     <!-- 상품 문의 등록 -->
     <insert id="insertProductQna">
     insert into QNA
     (
      qna_content,
      qna_type,
+     qna_anwser_type,
      qna_photo,
      product_no,
      member_no,
@@ -241,6 +245,7 @@
     values
     (
     	#{qnaContent},
+    	1,
     	1,
     	#{qnaPhoto},
     	#{refProductNo},

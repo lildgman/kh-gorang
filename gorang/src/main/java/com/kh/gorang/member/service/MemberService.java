@@ -1,5 +1,6 @@
 package com.kh.gorang.member.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.kh.gorang.member.model.vo.Member;
@@ -22,6 +23,9 @@ public interface MemberService {
 	
 	// 장바구니 저장
 	int insertProductCart(List<ProductCart> pdCarts);
+	
+	// 장바구니 목록 불러오기 
+	ArrayList<ProductCart> selectProductCartList(Member m);
 	
 	
 }

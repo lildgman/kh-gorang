@@ -29,6 +29,7 @@
 			<mapping path="/order.po"/>
 			<mapping path="/write.re"/>
 			<mapping path="/write.bo"/>
+			<mapping path="ajaxInsertCart.po"/>
 			<beans:bean class="com.kh.gorang.common.interceptor.LoginInterceptor" id="LoginInterceptor"/>
 		</interceptor>
 	</interceptors>
