@@ -215,6 +215,7 @@
 		WHERE 
 			STATUS = 'Y' AND
 			MEMBER_NO = #{memberNo}
+		ORDER BY RCP_WRITE_DATE DESC
 	</select>
 	
 	<!-- 나의 레시피 개수 조회 -->
@@ -245,10 +246,55 @@
 	</select>
 	
 	<!-- 레시피 삭제 -->
-	<update id="deleteRecipe" parameterType="Recipe">
+	<update id="removeRecipe" parameterType="Recipe">
 		UPDATE RECIPE
 		SET STATUS = 'N'
 		WHERE RCP_NO = #{recipeNo}
+	</update>
+	
+	<!-- 게시글 개수 조회 -->
+	<select id="selectBoardCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE
+			STATUS = 'Y' AND
+			MEMBER_NO = #{memberNo}
+	</select>
+	
+	<!-- 게시글 조회 -->
+	<select id="selectRecentBoardList" resultMap="boardResult">
+		SELECT *
+		FROM BOARD
+		WHERE
+			STATUS = 'Y' AND
+			MEMBER_NO = #{memberNo}
+		ORDER BY BOARD_CREATE_DATE
+	
+	</select>
+	
+	<!--게시글 코멘트 개수 조회 -->
+	<select id="selectBoardCommentCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM COMMENTS
+		WHERE
+			STATUS = 'Y' AND
+			BOARD_NO = #{boardNo}
+	</select> 
+	
+	<!-- 게시글 좋아요 개수 조회  -->
+	<select id="selectBoardLikeCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM LIKE_BOARD
+		WHERE
+			STATUS = 'Y' AND
+			BOARD_NO = #{boardNo}
+	</select>
+	
+	<!-- 게시글 삭제 -->
+	<update id="removeBoard" parameterType="Board">
+		UPDATE BOARD
+		SET STATUS = 'N'
+		WHERE BOARD_NO = #{boardNo}
 	</update>
 	
 </mapper>

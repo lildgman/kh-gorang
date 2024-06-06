@@ -35,3 +35,6 @@ function movePage(element) {
     window.location.href = "detail.re?recipeNo=" + contentNo;
 }
 
+function sortRecipe(element) {
+
+}

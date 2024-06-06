@@ -9,12 +9,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.gorang.board.model.vo.Board;
+import com.kh.gorang.board.model.vo.MyPageBoardDTO;
 import com.kh.gorang.common.template.Pagination;
 import com.kh.gorang.common.vo.PageInfo;
 import com.kh.gorang.member.model.vo.Member;
@@ -55,6 +55,9 @@ public class MyPageController {
 		ArrayList<Object> likeContentList = myPageService.getLikeContentList(memberNo);
 		// 객체 타입을 체크해서 Map에 저장하고 JSP로 넘기자
 		ArrayList<Map<String, Object>> processedLikedList = getProcessedList(likeContentList);
+		
+		log.info("processedScrapList",processedScrapList);
+		log.info("processedLikedList",processedLikedList);
 		
 		model.addAttribute("mostViewRecipeList", mostViewRecipeList);
 		model.addAttribute("resultBoardList",resultBoardList);
@@ -103,8 +106,38 @@ public class MyPageController {
 	
 	//마이페이지 자유게시판
 	@RequestMapping("board.me")
-	public String myBoard(){
+	public String myBoard(
+			HttpSession session,
+			@RequestParam(defaultValue="1") int cpage,					
+			Model model){
+		
+		int memberNo = getLoginUserNo(session);
+		addAttributeUserInfo(model, memberNo);
+		
+		// 게시글 페이지네이션
+		int boardCount = myPageService.getBoardCount(memberNo);
+		PageInfo pi = Pagination.getPageInfo(boardCount, cpage, 10, 6);
+		
+		ArrayList<MyPageBoardDTO> boardList = myPageService.getBoardList(pi, memberNo);
+		
+		model.addAttribute("boardList", boardList);
+		model.addAttribute("pi", pi);
+		
 		return "member/myPageBoard";
+	}
+	
+	@PostMapping("remove-board.me")
+	@ResponseBody
+	public String removeMyBoard(int boardNo) {
+
+		int result = myPageService.removeBoard(boardNo);
+		
+		if(result > 0) {
+			return "done";
+		} else {
+			return "undone";
+		}
+		
 	}
 
 	//마이페이지 나의냉장고

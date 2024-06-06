@@ -115,7 +115,38 @@ public class MyPageDao {
 
 	// 레시피 삭제 
 	public int removeRecipe(SqlSessionTemplate sqlSession, int recipeNo) {
-		return sqlSession.update("myPageMapper.deleteRecipe", recipeNo);
+		return sqlSession.update("myPageMapper.removeRecipe", recipeNo);
 	}
+
+	// 게시글 개수 조회 
+	public int getBoardCount(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectBoardCount", memberNo);
+	}
+
+	// 게시글 조회 
+	public ArrayList<Board> getBoardList(SqlSessionTemplate sqlSession, PageInfo pi, int memberNo) {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("myPageMapper.selectRecentBoardList", memberNo, rowBounds);
+	}
+
+	// 게시글의 달린 코멘트 개수 조회 
+	public int getBoardCommentCount(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.selectOne("myPageMapper.selectBoardCommentCount", boardNo);
+	}
+
+	// 게시글의 좋아요 개수 조회 
+	public int getBoardLikeCount(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.selectOne("myPageMapper.selectBoardLikeCount", boardNo);
+		
+	}
+
+	// 게시글 삭제 
+	public int removeBoard(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.update("myPageMapper.removeBoard", boardNo);
+	}
+	
 
 }
