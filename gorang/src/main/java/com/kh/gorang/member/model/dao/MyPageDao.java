@@ -1,12 +1,14 @@
 package com.kh.gorang.member.model.dao;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.gorang.board.model.vo.Board;
+import com.kh.gorang.board.model.vo.BoardComment;
 import com.kh.gorang.common.vo.PageInfo;
 import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.shopping.model.vo.Product;
@@ -88,13 +90,13 @@ public class MyPageDao {
 		return (ArrayList)sqlSession.selectList("myPageMapper.selectLikedBoardList", memberNo);
 	}
 
-	// 최신순으로 조회된 레시피 조회
-	public ArrayList<Recipe> getRecentRecipeList(SqlSessionTemplate sqlSession, PageInfo pi, int memberNo) {
+	// 레시피 조회
+	public ArrayList<Recipe> getRecipeList(SqlSessionTemplate sqlSession, PageInfo pi, Map<String, Object> map) {
 		
 		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
-		return (ArrayList)sqlSession.selectList("myPageMapper.selectRecentRecipeList", memberNo, rowBounds);
+		return (ArrayList)sqlSession.selectList("myPageMapper.selectRecipeList", map, rowBounds);
 	}
 
 	// 나의 레시피 개수 조회
@@ -103,9 +105,9 @@ public class MyPageDao {
 		return sqlSession.selectOne("myPageMapper.selectMyRecipeCount", memberNo);
 	}
 
-	// 레시피 코맨트 개수 조회
-	public int getRecipeCommentCount(SqlSessionTemplate sqlSession, int recipeNo) {
-		return sqlSession.selectOne("myPageMapper.selectRecipeCommentCount", recipeNo);
+	// 레시피 리뷰 개수 조회
+	public int getRecipeReviewCount(SqlSessionTemplate sqlSession, int recipeNo) {
+		return sqlSession.selectOne("myPageMapper.selectRecipeReviewCount", recipeNo);
 	}
 
 	// 레시피 좋아요 개수 조회
@@ -124,12 +126,12 @@ public class MyPageDao {
 	}
 
 	// 게시글 조회 
-	public ArrayList<Board> getBoardList(SqlSessionTemplate sqlSession, PageInfo pi, int memberNo) {
+	public ArrayList<Board> getBoardList(SqlSessionTemplate sqlSession, PageInfo pi, Map<String, Object> map) {
 		
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
-		return (ArrayList)sqlSession.selectList("myPageMapper.selectRecentBoardList", memberNo, rowBounds);
+		return (ArrayList)sqlSession.selectList("myPageMapper.selectRecentBoardList", map, rowBounds);
 	}
 
 	// 게시글의 달린 코멘트 개수 조회 
@@ -146,6 +148,20 @@ public class MyPageDao {
 	// 게시글 삭제 
 	public int removeBoard(SqlSessionTemplate sqlSession, int boardNo) {
 		return sqlSession.update("myPageMapper.removeBoard", boardNo);
+	}
+
+	// 댓글 개수 조회 
+	public int getCommentCount(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectCommentCount", memberNo);
+	}
+
+	// 댓글 조회 
+	public ArrayList<BoardComment> getBoardCommentList(SqlSessionTemplate sqlSession, PageInfo commentPI,
+			int memberNo) {
+		int offset = (commentPI.getCurrentPage() - 1) * commentPI.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, commentPI.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("myPageMapper.selectCommentList", memberNo, rowBounds);
 	}
 	
 

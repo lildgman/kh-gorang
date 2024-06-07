@@ -7,14 +7,10 @@ import lombok.Data;
 @Data
 public class MyPageRecipeDTO {
 		
-	private Recipe recipe;
-	private int commentCount;
-	private int likeCount;
+	private final Recipe recipe;
+	private final int reviewCount;
+	private final int likeCount;
 	
-	public MyPageRecipeDTO(Recipe recipe, int recipeCommentCount, int likeCount) {
-		this.recipe = recipe;
-		this.commentCount = recipeCommentCount;
-		this.likeCount = likeCount;
-	}
+
 }
 
