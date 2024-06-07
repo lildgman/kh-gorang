@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -176,6 +177,8 @@ public class StoreController {
 		}
 	}
 	
+	// ================================== 장바구니 관련 컨트롤러 =========================================
+	
 	// 로그인한 유저가 장바구니에 담은 목록을 addAttribute 해서 view 에 넘겨주기
 	@RequestMapping("cart.po")
 	public String productCartForm(Model model, HttpSession session) {
@@ -183,10 +186,30 @@ public class StoreController {
 	 	
 	 	ArrayList<ProductCart> carts = memberService.selectProductCartList(m);
 		
-	 	model.addAttribute("carts", carts);
+	 	// 조회 결과 받아온 장바구니 품목들을 pdForCart 속성을 중심으로 묶음
+	 	Map<Product, List<ProductCart>> groupedCarts = new HashMap<>();
+	 	
+	 	
+	 	for(ProductCart cart : carts) {
+	 		//pdForCart값 추출
+	 		Product product = cart.getPdForCart();
+	 		//pdForCart 값을 key로 갖는 쌍의 존재 여부를 분기
+	 		//해당하는 키 값이 없다면 해당 키 값의 쌍을 생성한 후에 cart 변수 넣어주기
+	 		if(!groupedCarts.containsKey(product)) {
+	 			groupedCarts.put(product, new ArrayList<>());
+	 		}
+	 		//해당하는 키값이 있다면 cart 변수 바로 add
+	 		groupedCarts.get(product).add(cart);
+	 	}
+	 	
+	 	// 묶은 결과를 model.addAttribute 해서 jsp 로 넘김
+	 	model.addAttribute("groupedCarts", groupedCarts);
+	 	
+	 	System.out.println(groupedCarts);
 	 	
 		return "shopping/shoppingCartForm";
 	}
+	
 	
 	// 장바구니 저장하기 위한 메소드
 	@ResponseBody
@@ -211,12 +234,27 @@ public class StoreController {
 	    return new Gson().toJson(memberService.insertProductCart(pdCarts) > 0 ? "success" : "fail");
 	}
 	
+	@ResponseBody
+	@PostMapping(value = "ajaxDeleteCart.po")
+	public String ajaxDeleteCart(@RequestBody List<Integer> optListForDelete, HttpSession session) {
+		
+		Member m = (Member)session.getAttribute("loginUser");
+		
+		int memberNo = m.getMemberNo();
+		
+		return memberService.deleteProductCart(memberNo, optListForDelete) > 0 ? "success" : "fail";
+	}
 	
+	
+	
+	// ========================================== 주문 관련 컨트롤러 ========================================
 	
 	// 상품 상세 페이지에서 바로 구매할 경우 사용하는 컨트롤러
-	@PostMapping("order.po")
-	public String productOrderForm(@RequestParam String selectedOptList,  Model model) {
+	@ResponseBody
+	@PostMapping(value = "order.po")
+	public String productOrderForm(@RequestBody List<ProductDetailOption> selectedOptList,  HttpSession session) {
 		System.out.println(selectedOptList);
+		
 //		Gson gson = new Gson();
 //		// Gson 으로 JSON.stringfy() 한 것을 다시 객체 형태로 변환하기(Gson.fromJson() 사용 / 정석은 dto 사용)
 //		
@@ -224,23 +262,36 @@ public class StoreController {
 //		Type type = new TypeToken<List<ProductDetailOption>>(){}.getType();
 //		// 2. Type 객체를 넣기
 //		List<ProductDetailOption> opts = gson.fromJson(selectedOptList, type);
-//		model.addAttribute("opts", opts);
 		
-		//그냥 list 형태로 보냄
-		Gson gson = new Gson();
-		Type type = new TypeToken<List>(){}.getType();
-		List opts = gson.fromJson(selectedOptList, type);
+		// Product 객체를 key 값으로 갖는 Map 형태로 재구축
+		Map<Product, List<ProductDetailOption>> groupedOpts = new HashMap<>();
 		
-		model.addAttribute("opts", opts);
+		for(ProductDetailOption pdopt : selectedOptList) {
+			Product p = pdopt.getPdForOpt();
+			//p 값을 쌍으로 가진 데이터의 존재 여부 확인
+			if(!groupedOpts.containsKey(p)) {
+				// 없다면 새로운 쌍 생성
+				groupedOpts.put(p, new ArrayList<>());
+			};
+			// 키 값이 있다면 value값 넣기
+			groupedOpts.get(p).add(pdopt);
+		}
 		
-		System.out.println(opts);
+		session.setAttribute("groupedOpts", groupedOpts);
 		
+		System.out.println(groupedOpts);
+		    
+	    return "orderForm.po";
+	}
+	
+	@RequestMapping(value = "orderForm.po")
+	public String orderForm() {
 		return "shopping/shoppingOrderForm";
 	}
+
 	
 	
 	// 주문 데이터 처리하는 컨트롤러
-	@ResponseBody
 	@PostMapping(value = "insertOrder.po", produces = "application/json; charset=utf-8")
 	public String aJaxInsertProductOrder(@RequestBody Map<String, Object> orderData, HttpSession session) {
 		// 로그인 유저 정보

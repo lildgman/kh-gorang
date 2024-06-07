@@ -123,6 +123,7 @@
                                                 <button class="myBtn btn_buy" id="product-buy-btn">구매하기</button>
                                             </div>
                                         </div>
+                                        <input type="hidden" id="input-productSeller" value="${p.seller}">
                                         <input type="hidden" id="input-productBrand" value="${p.productBrand}">
                                         <input type="hidden" id="input-productName" value="${p.productName}">
                                         <input type="hidden" id="input-mainImg" value="${p.mainImg}">

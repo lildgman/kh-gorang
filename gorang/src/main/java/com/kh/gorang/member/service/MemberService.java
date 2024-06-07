@@ -27,5 +27,8 @@ public interface MemberService {
 	// 장바구니 목록 불러오기 
 	ArrayList<ProductCart> selectProductCartList(Member m);
 	
+	// 장바구니 삭제
+	int deleteProductCart(int memberNo, List<Integer> optListForDelete);
+	
 	
 }

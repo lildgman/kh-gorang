@@ -79,5 +79,13 @@ public class MemberServiceImpl implements MemberService{
 	public ArrayList<ProductCart> selectProductCartList(Member m) {
 		return memberDao.selectProductCartList(sqlSession, m);
 	}
+
+	// 장바구니 삭제
+
+	@Override
+	public int deleteProductCart(int memberNo, List<Integer> optListForDelete) {
+		// TODO Auto-generated method stub
+		return memberDao.deleteProductCart(sqlSession, memberNo, optListForDelete);
+	}
 	
 }
