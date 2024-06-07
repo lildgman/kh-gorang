@@ -9,8 +9,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // 이벤트 핸들러 등록
   clickZzim();
-  addProductToCart();
-  clickBuyButton();
   fileInputClick();
   displaySelectedImage();
 });
@@ -339,9 +337,27 @@ document.addEventListener("DOMContentLoaded", function(){
   })
   
   // JSON 형식으로 보내기 위한 구매하기 버튼 클릭 이벤트
-  document.querySelector("#product-buy-btn").addEventListener("click", function(){
+  document.querySelector("#product-buy-btn").addEventListener("click", function(e){
+    e.preventDefault();
     // array 변수 선언
     const selectedOpts = [];
+
+    // 상품 정보
+    const selectedPno = document.querySelector("#product-no").value;
+    const productSeller = document.querySelector("#input-productSeller").value;
+    const productBrand = document.querySelector("#input-productBrand").value;
+    const productName = document.querySelector("#input-productName").value;
+    const mainImg = document.querySelector("#input-mainImg").value;
+    const shipmentType = document.querySelector("#input-shipmentType").value;
+
+    const selectProductInfo = {
+      productNo: selectedPno,
+      seller: productSeller,
+      productBrand: productBrand,
+      productName: productName,
+      mainImg: mainImg,
+      shipmentType: shipmentType
+    };  
     
     // 각 옵션번호, 수량을 가져와서 JSON 형태로 저장
     document.querySelectorAll(".product_quantity_content").forEach(function(ev){
@@ -349,34 +365,37 @@ document.addEventListener("DOMContentLoaded", function(){
       const selectedOptName = ev.querySelector(".pname").innerHTML;
       const selectedOptQnt = ev.querySelector(".pbtn-quantity").value;
       const selectedOptPrice = ev.querySelector(".product-price-basicPrice").innerHTML.replace(/,/g, "");
-      const selectedPno = document.querySelector("#product-no").value;
-      const productBrand = document.querySelector("#input-productBrand").value;
-      const productName = document.querySelector("#input-productName").value;
-      const mainImg = document.querySelector("#input-mainImg").value;
-      const shipmentType = document.querySelector("#input-shipmentType").value;
+      
 
       selectedOpts.push({
           detailOptionNo: selectedOptNo,
           detailOptionName: selectedOptName,
           detailOptionQuantity: selectedOptQnt,
           detailOptionSaledPrice: selectedOptPrice,
-          productNo: selectedPno,
-          productBrand: productBrand,
-          productName: productName,
-          mainImg: mainImg,
-          productShipment: shipmentType
-    });
+          pdForOpt : selectProductInfo
+      });
     });
 
-    //Json 문자열로 변환
-    selectedOptsJson = JSON.stringify(selectedOpts);
-
-    //hidden input 에 json 넣기
-    document.querySelector("input[name='selectedOptList']").value = selectedOptsJson;
-
-    //제출
-    document.querySelector("#product-opt-form").submit();
+    ajaxForBuy(selectedOpts);
   });
+
+  function ajaxForBuy(data) {
+    $.ajax({
+      url: "order.po",
+      data: JSON.stringify(data),
+      method: "post",
+      contentType: 'application/json; charset=utf-8',
+      dataType: "text",
+      success: function(res) {
+        console.log(res);
+        window.location.href = res;
+      },
+      error: function() {
+        console.log("송신 실패");
+      }
+    });
+  }
+
 })
 
 

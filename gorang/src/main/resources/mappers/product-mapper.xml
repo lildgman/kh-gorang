@@ -31,6 +31,7 @@
   		<result column="OPTIONS_STOCK" property="detailOptionQuantity"/>
   		<result column="PRODUCT_NO" property="productNo"/>
   		<result column="STATUS" property="status"/>
+  		<collection property="pdForOpt" resultMap="productResult"/>
   	</resultMap>
 	
 	<!-- 리뷰 -->
@@ -290,16 +291,22 @@
 	<!-- 상품 옵션 조회 -->
 	<select id="selectProductOptsByPno" resultMap="productDetailOptionResult">
 		select
-			options_name_no,
-			options_name,
-			main_option,
-			options_normal_price,
-			options_sale_price,
-			options_stock,
-			product_no
-		from option_name
-		where product_no = #{productNo} and
-			  status = 'Y'
+			o.options_name_no,
+			o.options_name,
+			o.main_option,
+			o.options_normal_price,
+			o.options_sale_price,
+			o.options_stock,
+			o.product_no,
+			p.seller,
+			p.product_name,
+			p.product_brand,
+			p.main_img,
+			p.shipment_type
+		from option_name o
+		left join product p on (o.product_no = p.product_no) 
+		where o.product_no = #{productNo} and
+			  o.status = 'Y'
 	</select>
     
 

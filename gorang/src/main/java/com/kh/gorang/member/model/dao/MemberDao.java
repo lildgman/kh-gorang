@@ -1,6 +1,9 @@
 package com.kh.gorang.member.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -46,5 +49,18 @@ public class MemberDao {
 
 	public ArrayList<ProductCart> selectProductCartList(SqlSessionTemplate sqlSession, Member m) {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectProductCartList", m);
+	}
+
+	public int deleteProductCart(SqlSessionTemplate sqlSession, List<ProductCart> p) {
+		return sqlSession.delete("memberMapper.deleteProductCart", p);
+	}
+
+	public int deleteProductCart(SqlSessionTemplate sqlSession, int memberNo, List<Integer> pdOptNos) {
+		
+		 Map<String, Object> params = new HashMap<>();
+		    params.put("memberNo", memberNo);
+		    params.put("pdOptNos", pdOptNos);
+		    
+		return sqlSession.delete("memberMapper.deleteProductCart", params);
 	}
 }

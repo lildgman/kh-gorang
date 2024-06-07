@@ -7,8 +7,6 @@ window.onload = function () {
 
 
  document.addEventListener("DOMContentLoaded", function(){
-  const loginUser = sessionStorage.getItem("loginUser");
-  console.log(loginUser);
    // 구매하기 버튼 클릭 시 컨트롤러로 정보 보내는 ajax 함수 실행하기 위한 이벤트 핸들러
   document.querySelector("#buy_btn").addEventListener("click", function(){
     const data = getDataForAjax();
