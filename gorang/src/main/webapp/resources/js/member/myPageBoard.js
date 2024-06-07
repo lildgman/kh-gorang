@@ -35,3 +35,8 @@ function deleteRecipeBoard(element){
   }
   
 }
+
+function sortRecipe(element) {
+  const sortingMethod = element.getAttribute('data-sort');
+  window.location.href = "board.me?sort=" + sortingMethod;
+}

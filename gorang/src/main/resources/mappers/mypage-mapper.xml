@@ -73,6 +73,16 @@
   		<result column="PRODUCT_VIEW" property="productView"/>
   		<result column="STATUS" property="status"/>
   	</resultMap>
+  	
+  	<!-- 댓글 -->
+  	<resultMap type="BoardComment" id="boardCommentResult">
+  		<result column="COMMENT_NO" property="commentNo"/>
+  		<result column="COMMENT_CONTENT" property="commentContent"/>
+  		<result column="COMMENT_DATE" property="commentDate"/>
+  		<result column="STATUS" property="status"/>
+  		<result column="BOARD_NO" property="boardNo"/>
+  		<result column="MEMBER_NO" property="memberNo"/>
+  	</resultMap>
 
 	<!-- 팔로잉 수 조회 -->
 	<select id="selectFollowingCount" resultType="_int">
@@ -208,14 +218,35 @@
 		ORDER BY B.BOARD_VIEWS DESC
 	</select>
 	
-	<!-- 최신순으로 정렬된 레시피 리스트 조회 -->
-	<select id="selectRecentRecipeList" resultMap="recipeResult">
-		SELECT *
-		FROM RECIPE
-		WHERE 
-			STATUS = 'Y' AND
-			MEMBER_NO = #{memberNo}
-		ORDER BY RCP_WRITE_DATE DESC
+	<!-- 레시피 리스트 조회 -->
+	<select id="selectRecipeList" resultMap="recipeResult">
+		SELECT R.RCP_NO, 
+	       R.RCP_TITLE, 
+	       R.RCP_MAIN_PHOTO, 
+	       R.RCP_WRITE_DATE, 
+	       R.RCP_VIEW, 
+	       R.STATUS, 
+	       R.MEMBER_NO, 
+	       COUNT(*) AS LIKE_COUNT
+		FROM RECIPE R
+		LEFT JOIN LIKE_RECIPE LR USING (RCP_NO)
+		WHERE R.STATUS = 'Y' AND R.MEMBER_NO = #{memberNo}
+		GROUP BY R.RCP_NO, 
+		         R.RCP_TITLE, 
+		         R.RCP_MAIN_PHOTO, 
+		         R.RCP_WRITE_DATE, 
+		         R.RCP_VIEW, 
+		         R.STATUS, 
+		         R.MEMBER_NO
+		<if test='sortingMethod == "recent"'>
+			ORDER BY R.RCP_WRITE_DATE DESC
+		</if>
+		<if test='sortingMethod == "view"'>
+			ORDER BY R.RCP_VIEW DESC
+		</if>
+		<if test='sortingMethod == "like"'>
+			ORDER BY LIKE_COUNT DESC
+		</if>
 	</select>
 	
 	<!-- 나의 레시피 개수 조회 -->
@@ -228,12 +259,12 @@
 	</select>
 	
 	<!-- 레시피 댓글 개수 조회 -->
-	<select id="selectRecipeCommentCount" resultType="_int">
+	<select id="selectRecipeReviewCount" resultType="_int">
 		SELECT COUNT(*)
-		FROM COMMENTS
+		FROM REVIEW
 		WHERE
 			STATUS = 'Y' AND
-			REF_COMMENT_NO = #{recipeNo}
+			RCP_NO = #{recipeNo}
 	</select> 
 	
 	<!-- 레시피 좋아요 개수 조회 -->
@@ -263,13 +294,33 @@
 	
 	<!-- 게시글 조회 -->
 	<select id="selectRecentBoardList" resultMap="boardResult">
-		SELECT *
-		FROM BOARD
-		WHERE
-			STATUS = 'Y' AND
-			MEMBER_NO = #{memberNo}
-		ORDER BY BOARD_CREATE_DATE
-	
+		SELECT B.BOARD_NO,
+				B.BOARD_TITLE,
+				B.BOARD_CREATE_DATE,
+				B.BOARD_VIEWS,
+				B.BOARD_THUMBNAIL,
+				B.STATUS,
+				B.MEMBER_NO,
+				COUNT(*) AS LIKE_COUNT
+		FROM BOARD B
+		LEFT JOIN LIKE_BOARD LB USING (BOARD_NO)
+		WHERE B.STATUS = 'Y' AND B.MEMBER_NO = #{memberNo}
+		GROUP BY B.BOARD_NO,
+				B.BOARD_TITLE,
+				B.BOARD_CREATE_DATE,
+				B.BOARD_VIEWS,
+				B.BOARD_THUMBNAIL,
+				B.STATUS,
+				B.MEMBER_NO
+		<if test='sort == "recent"'>
+			ORDER BY B.BOARD_CREATE_DATE DESC
+		</if>
+		<if test='sort == "view"'>
+			ORDER BY B.BOARD_VIEWS DESC
+		</if>
+		<if test='sort == "like"'>
+			ORDER BY LIKE_COUNT DESC
+		</if>
 	</select>
 	
 	<!--게시글 코멘트 개수 조회 -->
@@ -296,5 +347,39 @@
 		SET STATUS = 'N'
 		WHERE BOARD_NO = #{boardNo}
 	</update>
+	
+	<!-- 댓글 개수 조회 -->
+	<select id="selectCommentCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM COMMENTS
+		WHERE
+			STATUS = 'Y'
+			AND MEMBER_NO = #{memberNo}		
+	</select>
+	
+	<!-- 댓글 조회 -->
+	<select id="selectCommentList" resultMap="boardCommentResult">
+		SELECT 
+			COMMENT_NO,
+			COMMENT_CONTENT,
+			COMMENT_DATE,
+			STATUS,
+			BOARD_NO,
+			MEMBER_NO
+		FROM COMMENTS
+		WHERE
+			STATUS = 'Y'
+			AND MEMBER_NO = #{memberNo}	
+		ORDER BY COMMENT_DATE DESC
+	</select>
+	
+	<!-- 리뷰 개수 조회 -->
+	<select id="selectReviewCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM REVIEW
+		WHERE
+			STATUS = 'Y'
+			AND MEMBER_NO = #{memberNo} 
+	</select> 
 	
 </mapper>

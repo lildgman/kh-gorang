@@ -2,14 +2,17 @@ package com.kh.gorang.member.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
 import com.kh.gorang.board.model.vo.Board;
+import com.kh.gorang.board.model.vo.BoardComment;
 import com.kh.gorang.board.model.vo.MyPageBoardDTO;
 import com.kh.gorang.common.vo.PageInfo;
 import com.kh.gorang.member.model.dao.MyPageDao;
+import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.recipe.model.vo.MyPageRecipeDTO;
 import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.shopping.model.vo.Product;
@@ -136,23 +139,20 @@ public class MyPageServiceImpl implements MyPageService{
 		return myPageDao.getMyRecipeCount(sqlSession, memberNo);
 	}
 
-	// 최신순으로 정렬한 레시피 조회
+	//레시피 조회
 	@Override
-	public ArrayList<MyPageRecipeDTO> getRecentRecipeList(PageInfo pi, int memberNo) {
+	public ArrayList<MyPageRecipeDTO> getRecipeList(PageInfo pi, Map<String, Object> map) {
 		
 		ArrayList<MyPageRecipeDTO> result = new ArrayList<MyPageRecipeDTO>();
 		
-		ArrayList<Recipe> recipeList = myPageDao.getRecentRecipeList(sqlSession, pi ,memberNo);
+		ArrayList<Recipe> recipeList = myPageDao.getRecipeList(sqlSession, pi ,map);
 		
 		for(Recipe recipe : recipeList) {
-			int recipeCommentCount = myPageDao.getRecipeCommentCount(sqlSession, recipe.getRecipeNo());
+			int recipeReviewCount = myPageDao.getRecipeReviewCount(sqlSession, recipe.getRecipeNo());
 			int recipeLikeCount = myPageDao.getRecipeLikeCount(sqlSession, recipe.getRecipeNo());
-			MyPageRecipeDTO myPageRecipeDTO = new MyPageRecipeDTO(recipe, recipeCommentCount, recipeLikeCount);
+			MyPageRecipeDTO myPageRecipeDTO = new MyPageRecipeDTO(recipe, recipeReviewCount, recipeLikeCount);
 			result.add(myPageRecipeDTO);
 		}
-		
-		log.info("result={}",result);
-		
 		
 		return result;
 	}
@@ -171,11 +171,11 @@ public class MyPageServiceImpl implements MyPageService{
 
 	// 게시글 조회 
 	@Override
-	public ArrayList<MyPageBoardDTO> getBoardList(PageInfo pi, int memberNo) {
+	public ArrayList<MyPageBoardDTO> getBoardList(PageInfo pi, Map<String, Object> map) {
 		
 		ArrayList<MyPageBoardDTO> result = new ArrayList<>();
 		
-		ArrayList<Board> boardList = myPageDao.getBoardList(sqlSession, pi, memberNo);
+		ArrayList<Board> boardList = myPageDao.getBoardList(sqlSession, pi, map);
 		
 		for(Board board : boardList) {
 			int boardCommentCount = myPageDao.getBoardCommentCount(sqlSession, board.getBoardNo());
@@ -192,6 +192,30 @@ public class MyPageServiceImpl implements MyPageService{
 	@Override
 	public int removeBoard(int boardNo) {
 		return myPageDao.removeBoard(sqlSession, boardNo);
+	}
+
+	// 댓글 개수 조회 
+	@Override
+	public int getCommentCount(int memberNo) {
+		return myPageDao.getCommentCount(sqlSession, memberNo);
+	}
+
+	// 댓글 조회 
+	@Override
+	public ArrayList<BoardComment> getBoardCommentList(PageInfo commentPI, int memberNo) {
+		return myPageDao.getBoardCommentList(sqlSession, commentPI, memberNo);
+	}
+
+	// 리뷰개수조회 
+	@Override
+	public int getReviewCount(int memberNo) {
+		return myPageDao.getReviewCount(sqlSession, memberNo);
+	}
+
+	//리뷰 리스트 조회 
+	@Override
+	public ArrayList<Review> getReviewList(PageInfo reviewPI, int memberNo) {
+		return null;
 	}
 
 	

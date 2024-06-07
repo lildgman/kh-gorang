@@ -27,9 +27,9 @@
                 자유 게시글
             </div>
             <div id="myPage-sort">
-                <div>최신순</div>
-                <div>조회순</div>
-                <div>좋아요순</div>
+                <div data-sort="recent" onclick="sortRecipe(this)">최신순</div>
+				<div data-sort="view" onclick="sortRecipe(this)">조회순</div>
+				<div data-sort="like" onclick="sortRecipe(this)">좋아요순</div>
             </div>
 
             <div id="myPage-board-list-area">
@@ -71,17 +71,17 @@
 
 					<c:choose>
 						<c:when test="${pi.currentPage ne 1 }">
-							<a href="board.me?cpage=${pi.currentPage -1 }">&lt;</a>
+							<a href="board.me?cpage=${pi.currentPage -1 }&sort=${sort}">&lt;</a>
 						</c:when>
 					</c:choose>
 
 					<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
-						<a href="board.me?cpage=${p}">${p}</a>
+						<a href="board.me?cpage=${p}&sort=${sort}">${p}</a>
 					</c:forEach>
 
 					<c:choose>
 						<c:when test="${(pi.currentPage ne pi.maxPage) or (pi.maxPage eq 0) }">
-							<a href="board.me?cpage=${pi.currentPage +1 }">&gt;</a>
+							<a href="board.me?cpage=${pi.currentPage +1 }&sort=${sort}">&gt;</a>
 						</c:when>
 					</c:choose>
 				</div>
