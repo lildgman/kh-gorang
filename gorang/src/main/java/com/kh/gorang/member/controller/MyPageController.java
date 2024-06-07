@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.gorang.board.model.vo.Board;
+import com.kh.gorang.board.model.vo.BoardComment;
 import com.kh.gorang.board.model.vo.MyPageBoardDTO;
 import com.kh.gorang.common.template.Pagination;
 import com.kh.gorang.common.vo.PageInfo;
 import com.kh.gorang.member.model.vo.Member;
+import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.member.service.MyPageService;
 import com.kh.gorang.recipe.model.vo.MyPageRecipeDTO;
 import com.kh.gorang.recipe.model.vo.Recipe;
@@ -71,7 +73,8 @@ public class MyPageController {
 	//마이페이지 레시피게시판
 	@RequestMapping("recipe.me")
 	public String myRecipeBoard(HttpSession session, 
-			@RequestParam(defaultValue="1") int cpage,					
+			@RequestParam(defaultValue="1") int cpage,
+			@RequestParam(defaultValue="recent") String sort,
 			Model model){
 		
 		// 회원정보들
@@ -82,10 +85,15 @@ public class MyPageController {
 		int myRecipeCount = myPageService.getMyRecipeCount(memberNo);
 		PageInfo pi = Pagination.getPageInfo(myRecipeCount, cpage, 10, 6);	
 				
-		ArrayList<MyPageRecipeDTO> recipeList = myPageService.getRecentRecipeList(pi, memberNo);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("sortingMethod", sort);
+		
+		ArrayList<MyPageRecipeDTO> recipeList = myPageService.getRecipeList(pi, map);
 			
 		model.addAttribute("recipeList", recipeList);
 		model.addAttribute("pi",pi);
+		model.addAttribute("sort", sort);
 		
 		return "member/myRecipeBoard";
 	}
@@ -106,9 +114,9 @@ public class MyPageController {
 	
 	//마이페이지 자유게시판
 	@RequestMapping("board.me")
-	public String myBoard(
-			HttpSession session,
-			@RequestParam(defaultValue="1") int cpage,					
+	public String myBoard(HttpSession session,
+			@RequestParam(defaultValue="1") int cpage,
+			@RequestParam(defaultValue="recent") String sort,
 			Model model){
 		
 		int memberNo = getLoginUserNo(session);
@@ -118,10 +126,15 @@ public class MyPageController {
 		int boardCount = myPageService.getBoardCount(memberNo);
 		PageInfo pi = Pagination.getPageInfo(boardCount, cpage, 10, 6);
 		
-		ArrayList<MyPageBoardDTO> boardList = myPageService.getBoardList(pi, memberNo);
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("sort", sort);
+		
+		ArrayList<MyPageBoardDTO> boardList = myPageService.getBoardList(pi, map);
 		
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("pi", pi);
+		model.addAttribute("sort", sort);
 		
 		return "member/myPageBoard";
 	}
@@ -166,7 +179,33 @@ public class MyPageController {
 	
 	//마이 페이지 리뷰
 	@RequestMapping("review.me")
-	public String myPageReplyReviewView(){
+	public String myPageReplyReviewView(
+				HttpSession session,
+				@RequestParam(defaultValue="1") int currCommentPage,
+				@RequestParam(defaultValue="1") int currReviewPage,
+				Model model){
+		
+		int memberNo = getLoginUserNo(session);
+		addAttributeUserInfo(model, memberNo);
+		
+		// 댓글 부분
+		int commentCount = myPageService.getCommentCount(memberNo);
+		PageInfo commentPI = Pagination.getPageInfo(commentCount, currCommentPage, 10, 5);
+		
+		ArrayList<BoardComment> boardCommentList = myPageService.getBoardCommentList(commentPI, memberNo);
+		
+		// 후기 부분
+		int reviewCount = myPageService.getReviewCount(memberNo);
+		PageInfo reviewPI = Pagination.getPageInfo(reviewCount, currReviewPage, 10, 5);
+		
+		ArrayList<Review> reviewList = myPageService.getReviewList(reviewPI, memberNo);
+		
+		log.info("commentCount={}", commentCount);
+		log.info("boardCommentList={}", boardCommentList);
+		
+		log.info("reviewCount={}", reviewCount);
+		
+		
 		return "member/myPageReplyReview";
 	}
 	
