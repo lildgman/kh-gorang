@@ -36,5 +36,6 @@ function movePage(element) {
 }
 
 function sortRecipe(element) {
-
+    const sortingMethod = element.getAttribute('data-sort');
+    window.location.href = "recipe.me?sort=" + sortingMethod;
 }

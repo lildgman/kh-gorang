@@ -46,12 +46,12 @@
 								</div>
 								<div class="myPage-board-content">
 									${recipeDTO.recipe.recipeTitle }
-									<br> <span>조회수 : ${recipeDTO.recipe.recipeView } </span> <span>댓글 : ${recipeDTO.commentCount }</span>
+									<br> <span>조회수 : ${recipeDTO.recipe.recipeView } </span> <span>리뷰 : ${recipeDTO.reviewCount }</span>
 									<div class="myPage-board-content-bottom">
 										<div class="myPage-board-chuchun">
 											<img
 												src="${pageContext.request.contextPath}/resources/images/member-img/Facebook_Thumb_icon.svg.png"
-												alt="">추천 ${recipeDTO.likeCount }
+												alt="">좋아요 ${recipeDTO.likeCount }
 										</div>
 										<div class="myPage-board-edit">
 											${recipeDTO.recipe.recipeWriteDate } 수정 / <span id="deleteBtn"
@@ -72,17 +72,17 @@
 
 					<c:choose>
 						<c:when test="${pi.currentPage ne 1 }">
-							<a href="recipe.me?cpage=${pi.currentPage -1 }">&lt;</a>
+							<a href="recipe.me?cpage=${pi.currentPage -1 }&sort=${sort}">&lt;</a>
 						</c:when>
 					</c:choose>
 
 					<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
-						<a href="recipe.me?cpage=${p}">${p}</a>
+						<a href="recipe.me?cpage=${p}&sort=${sort}">${p}</a>
 					</c:forEach>
 
 					<c:choose>
 						<c:when test="${(pi.currentPage ne pi.maxPage) or (pi.maxPage eq 0) }">
-							<a href="recipe.me?cpage=${pi.currentPage +1 }">&gt;</a>
+							<a href="recipe.me?cpage=${pi.currentPage +1 }&sort=${sort}">&gt;</a>
 						</c:when>
 					</c:choose>
 				</div>
