@@ -19,6 +19,7 @@ import com.kh.gorang.board.model.vo.MyPageBoardDTO;
 import com.kh.gorang.common.template.Pagination;
 import com.kh.gorang.common.vo.PageInfo;
 import com.kh.gorang.member.model.vo.Member;
+import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.member.service.MyPageService;
 import com.kh.gorang.recipe.model.vo.MyPageRecipeDTO;
 import com.kh.gorang.recipe.model.vo.Recipe;
@@ -194,9 +195,16 @@ public class MyPageController {
 		ArrayList<BoardComment> boardCommentList = myPageService.getBoardCommentList(commentPI, memberNo);
 		
 		// 후기 부분
+		int reviewCount = myPageService.getReviewCount(memberNo);
+		PageInfo reviewPI = Pagination.getPageInfo(reviewCount, currReviewPage, 10, 5);
+		
+		ArrayList<Review> reviewList = myPageService.getReviewList(reviewPI, memberNo);
 		
 		log.info("commentCount={}", commentCount);
 		log.info("boardCommentList={}", boardCommentList);
+		
+		log.info("reviewCount={}", reviewCount);
+		
 		
 		return "member/myPageReplyReview";
 	}

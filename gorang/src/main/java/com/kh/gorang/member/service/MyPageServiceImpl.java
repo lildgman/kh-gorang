@@ -12,6 +12,7 @@ import com.kh.gorang.board.model.vo.BoardComment;
 import com.kh.gorang.board.model.vo.MyPageBoardDTO;
 import com.kh.gorang.common.vo.PageInfo;
 import com.kh.gorang.member.model.dao.MyPageDao;
+import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.recipe.model.vo.MyPageRecipeDTO;
 import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.shopping.model.vo.Product;
@@ -203,6 +204,18 @@ public class MyPageServiceImpl implements MyPageService{
 	@Override
 	public ArrayList<BoardComment> getBoardCommentList(PageInfo commentPI, int memberNo) {
 		return myPageDao.getBoardCommentList(sqlSession, commentPI, memberNo);
+	}
+
+	// 리뷰개수조회 
+	@Override
+	public int getReviewCount(int memberNo) {
+		return myPageDao.getReviewCount(sqlSession, memberNo);
+	}
+
+	//리뷰 리스트 조회 
+	@Override
+	public ArrayList<Review> getReviewList(PageInfo reviewPI, int memberNo) {
+		return null;
 	}
 
 	

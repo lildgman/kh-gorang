@@ -371,7 +371,15 @@
 			STATUS = 'Y'
 			AND MEMBER_NO = #{memberNo}	
 		ORDER BY COMMENT_DATE DESC
-	
 	</select>
+	
+	<!-- 리뷰 개수 조회 -->
+	<select id="selectReviewCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM REVIEW
+		WHERE
+			STATUS = 'Y'
+			AND MEMBER_NO = #{memberNo} 
+	</select> 
 	
 </mapper>
