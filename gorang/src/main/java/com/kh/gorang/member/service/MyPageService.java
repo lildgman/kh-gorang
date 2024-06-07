@@ -7,6 +7,7 @@ import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.board.model.vo.BoardComment;
 import com.kh.gorang.board.model.vo.MyPageBoardDTO;
 import com.kh.gorang.common.vo.PageInfo;
+import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.recipe.model.vo.MyPageRecipeDTO;
 import com.kh.gorang.recipe.model.vo.Recipe;
 
@@ -59,5 +60,11 @@ public interface MyPageService {
 
 	//댓글 리스트 조회 
 	ArrayList<BoardComment> getBoardCommentList(PageInfo commentPI, int memberNo);
+
+	// 리뷰 개수 조회 
+	int getReviewCount(int memberNo);
+
+	// 리뷰 리스트 조회 
+	ArrayList<Review> getReviewList(PageInfo reviewPI, int memberNo);
 
 }

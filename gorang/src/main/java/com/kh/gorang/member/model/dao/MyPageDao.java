@@ -163,6 +163,11 @@ public class MyPageDao {
 		
 		return (ArrayList)sqlSession.selectList("myPageMapper.selectCommentList", memberNo, rowBounds);
 	}
+
+	// 리 개수 조회 
+	public int getReviewCount(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectReviewCount", memberNo);
+	}
 	
 
 }
