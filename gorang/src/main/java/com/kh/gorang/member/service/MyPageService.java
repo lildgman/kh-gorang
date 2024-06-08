@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.kh.gorang.board.model.vo.Board;
-import com.kh.gorang.board.model.vo.BoardComment;
+import com.kh.gorang.board.model.vo.MyPageBoardCommentDTO;
 import com.kh.gorang.board.model.vo.MyPageBoardDTO;
 import com.kh.gorang.common.vo.PageInfo;
 import com.kh.gorang.member.model.vo.Review;
@@ -59,7 +59,7 @@ public interface MyPageService {
 	int getCommentCount(int memberNo);
 
 	//댓글 리스트 조회 
-	ArrayList<BoardComment> getBoardCommentList(PageInfo commentPI, int memberNo);
+	ArrayList<MyPageBoardCommentDTO> getBoardCommentList(PageInfo commentPI, int memberNo);
 
 	// 리뷰 개수 조회 
 	int getReviewCount(int memberNo);
