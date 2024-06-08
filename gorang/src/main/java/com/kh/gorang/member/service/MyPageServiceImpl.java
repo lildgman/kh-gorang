@@ -8,7 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
 import com.kh.gorang.board.model.vo.Board;
-import com.kh.gorang.board.model.vo.BoardComment;
+import com.kh.gorang.board.model.vo.MyPageBoardCommentDTO;
 import com.kh.gorang.board.model.vo.MyPageBoardDTO;
 import com.kh.gorang.common.vo.PageInfo;
 import com.kh.gorang.member.model.dao.MyPageDao;
@@ -202,7 +202,7 @@ public class MyPageServiceImpl implements MyPageService{
 
 	// 댓글 조회 
 	@Override
-	public ArrayList<BoardComment> getBoardCommentList(PageInfo commentPI, int memberNo) {
+	public ArrayList<MyPageBoardCommentDTO> getBoardCommentList(PageInfo commentPI, int memberNo) {
 		return myPageDao.getBoardCommentList(sqlSession, commentPI, memberNo);
 	}
 
@@ -215,7 +215,7 @@ public class MyPageServiceImpl implements MyPageService{
 	//리뷰 리스트 조회 
 	@Override
 	public ArrayList<Review> getReviewList(PageInfo reviewPI, int memberNo) {
-		return null;
+		return myPageDao.getReviewList(sqlSession, reviewPI, memberNo);
 	}
 
 	
