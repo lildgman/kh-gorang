@@ -132,6 +132,7 @@
                                         <div class="order-product-container-top">
                                             <span class="brandName">${entry.key.productBrand}</span>
                                             <span class="shipping-method">${entry.key.shipmentType}</span>
+                                            <span class="shipping-cost">${entry.key.shippingPrice}</span>
                                         </div>
                                         <div class="order-product-container-content">
                                             <div class="order-product-img-container">
@@ -284,9 +285,10 @@
 
                         </div>
 
-                        <div id="buy_btn_container">
+                        <form id="buy_btn_container" method="post" action="insertOrder.po">
+                            <input type="hidden" id="order-input-orderInfo" name="orderDataJson">
                             <button id="buy_btn"><span class="totalPrice"></span>원 결제하기</button>
-                        </div>
+                        </form>
                     </div>
                 </div>
 

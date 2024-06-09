@@ -1,7 +1,5 @@
 package com.kh.gorang.recipe.model.vo;
 
-import java.util.ArrayList;
-
 import lombok.Data;
 
 @Data

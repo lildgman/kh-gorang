@@ -1,245 +1,234 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member/myPageBuyList.css">
-</head>
-<body>
-    <jsp:include page="../common/header.jsp" />
-    
-     
-    <div id="body-area">
-        <!-- 왼쪽 프로필 메뉴바영역 -->
-        <jsp:include page="myPageMenubar.jsp" />
+        <!DOCTYPE html>
+        <html>
 
-        <!-- 우측 메인영역 -->
-        <div id="right-body-area">
-            <div id="myPage-buy-list-top">
-                구매내역
+        <head>
+            <meta charset="UTF-8">
+            <title>Insert title here</title>
+
+            <!-- Latest compiled and minified CSS -->
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+
+            <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
+            <link rel="stylesheet" href="${contextPath}/resources/css/default.css">
+            <link rel="stylesheet" href="${contextPath}/resources/css/member/myPageBuyList.css">
+        </head>
+
+        <body>
+            <jsp:include page="../common/header.jsp" />
+
+
+            <div id="body-area">
+                <!-- 왼쪽 프로필 메뉴바영역 -->
+                <jsp:include page="myPageMenubar.jsp" />
+
+                <!-- 우측 메인영역 -->
+                <div id="right-body-area">
+                    <c:choose>
+                        <c:when test="${empty orderPdopts}">
+                            <span>구매 내역이 없습니다.</span>
+                        </c:when>
+                        <c:otherwise>
+                            <div id="myPage-buy-list-top">
+                                구매내역
+                            </div>
+                            <div id="myPage-buy-list-bottom">
+                                <table style="border-spacing: 10px;">
+                                    <thead>
+                                        <tr>
+                                            <td colspan="2" id="head-name">상품</td>
+                                            <td id="head-amount">수량</td>
+                                            <td id="head-price">상품가격</td>
+                                            <td id="head-buyDate">결제일자</td>
+                                            <td colspan="2" id="head-status">상태</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach var="orderPdopt" items="${orderPdopts}">
+                                            <tr class="tbody-buy-list-block">
+                                                <td class="tbody-td-img"><img
+                                                        src="${contextPath}/resources/uploadfile/product/productimg/${orderPdopt.orderPdThumbnail}"
+                                                        alt="">
+                                                </td>
+                                                <td class="tbody-td-name">
+                                                    <input type="hidden" class="buyList-input-productNo" value="${orderPdopt.orderPdNo}">
+                                                    <input type="hidden" class="buyList-input-pdOptNo" value="${orderPdopt.optNo}">
+                                                    <span class="product-brand-name">${orderPdopt.orderPdBrand}</span>
+                                                    <br>
+                                                    <span class="product-name">${orderPdopt.orderPdName}</span> <br>
+                                                    <span class="product-opt-name">${orderPdopt.orderPdOptName}</span>
+                                                </td>
+                                                <td class="tbody-td-amount">${orderPdopt.optQuantity}</td>
+                                                <td class="tbody-td-price">${orderPdopt.orderPdOptPrice}원</td>
+                                                <td class="tbody-td-buyDate">${orderPdopt.orderPdOptDate}</td>
+                                                <td class="tbody-td-status">
+                                                    <span style="color:#068E3D;">배송 완료</span><br>
+                                                    <!-- <span class="status-font">도착 예정일<br>2024.01.02</span>  -->
+                                                </td>
+                                                <td class="tbody-td-btn">
+                                                    <button class="tbody-td-btn-qna" data-toggle="modal"
+                                                        data-target="#qna_Modal">문의 하기</button>
+                                                    <button class="tbody-td-btn-write" data-toggle="modal" data-target="#buyList-review_Modal">후기 쓰기</button>
+                                                    <button class="tbody-td-btn-cancle" onclick="showSweetConfirm()">주문
+                                                        취소</button>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- 문의하기 modal -->
+                            <div class="modal fade" id="qna_Modal" style="display: none;" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content" style="height: 600px;">
+
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 style="font-size: 16px; margin-bottom: 0px;">상품 문의하기</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+
+                                        <!-- Modal body -->
+                                        <div class="modal-body" style="height: 100%;">
+                                            <form id="modal-qna-content" action="insertQna.po">
+                                                <input type="hidden" name="writerNo" id="qna-modal-writerNo" value=${loginUser.memberNo}>
+                                                <input type="hidden" name="refProductNo" id="qna-modal-refProductNo">
+                                                <div id="product_name_container">
+                                                    <div id="qna_product_name_header">
+                                                        상품명
+                                                    </div>
+                                                    <select name="refPdoptNo" id="qna_product_name">
+                                                        <option></option>
+                                                    </select>
+                                                </div>
+                                                <div id="product_pic_container">
+                                                    <div style="font-size: 14px; font-weight: bold;">
+                                                        사진 첨부(선택)
+                                                    </div>
+                                                    <div style="font-size: 12px;">
+                                                        사진을 첨부해주세요.(최대 1장)
+                                                    </div>
+                                                    <div id="qna_pic_container">
+
+                                                    </div>
+                                                    <div id="add_qna_product_pic">
+                                                        <div id="pic_svg_container">
+                                                            <svg width="21" height="16" viewBox="0 0 21 16" fill="none"
+                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                <path
+                                                                    d="M19.6059 0C20.1059 0 20.5059 0.4 20.5059 0.9V15.1C20.5059 15.6 20.1059 16 19.6059 16H1.40586C1.16716 16 0.938246 15.9052 0.769463 15.7364C0.600681 15.5676 0.505859 15.3387 0.505859 15.1V0.9C0.505859 0.4 0.905859 0 1.40586 0H19.6059ZM18.6959 1.8H2.30586V12.65L7.84586 6.38C7.96586 6.21 8.22586 6.21 8.36586 6.38L11.4659 9.92C11.5259 9.98 11.5459 10.06 11.5259 10.12L11.1259 11.96C11.1059 12.1 11.2759 12.19 11.3559 12.08L14.5159 8.65C14.5664 8.59992 14.6347 8.57183 14.7059 8.57183C14.777 8.57183 14.8453 8.59992 14.8959 8.65L18.6859 12.77V1.8H18.6959ZM15.3259 6.6C14.9394 6.60004 14.5685 6.44791 14.2934 6.17654C14.0183 5.90517 13.8611 5.53639 13.8559 5.15C13.8559 4.34 14.5159 3.69 15.3259 3.69C16.1359 3.69 16.8059 4.34 16.8059 5.15C16.8059 5.95 16.1459 6.6 15.3259 6.6Z"
+                                                                    fill="#1E90FF" />
+                                                            </svg>
+                                                        </div>
+                                                        <span style="color:#1E90FF; font-size: 14px;">사진 첨부하기</span>
+                                                        <input type="file" name="qnaPhoto" id="file-input"
+                                                            accept="image/*">
+
+                                                    </div>
+                                                </div>
+
+                                                <div id="product_qna_content_container">
+                                                    <div style="font-size: 14px; font-weight: bold;">
+                                                        문의내용
+                                                    </div>
+                                                    <div id="product_qna_content_textarea">
+                                                        <textarea name="qnaContent" id="product_qna_content"
+                                                            placeholder="문의 내용을 입력하세요."></textarea>
+                                                    </div>
+                                                </div>
+
+                                                <div id="product_qna_enroll_btn_container">
+                                                    <button type="submit" id="product_qna_enroll_btn">완료</button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 후기작성 modal -->
+                            <div class="modal fade" id="buyList-review_Modal" style="display: none;" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content" style="height: fit-content;">
+
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 style="font-size: 16px; margin-bottom: 0px;">상품 후기 작성하기</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+
+                                        <!-- 202406101237 후기 모달 창에 맞게 수정 작업 -->
+                                        <!-- Modal body -->
+                                        <div class="modal-body" style="height: 100%;">
+                                            <form id="modal-review-content-form" action="insertReview.po">
+                                                <input type="hidden" name="refMemberNo" value=${loginUser.memberNo}>
+                                                <input type="hidden" name="refProductNo">
+                                                <div id="product_name_container">
+                                                    <div id="qna_product_name_header">
+                                                        상품명
+                                                    </div>
+                                                    <select name="refPdoptNo" id="qna_product_name">
+                                                        <option></option>
+                                                    </select>
+                                                </div>
+                                                <div id="product_pic_container">
+                                                    <div style="font-size: 14px; font-weight: bold;">
+                                                        사진 첨부(선택)
+                                                    </div>
+                                                    <div style="font-size: 12px;">
+                                                        사진을 첨부해주세요.(최대 1장)
+                                                    </div>
+                                                    <div id="qna_pic_container">
+
+                                                    </div>
+                                                    <div id="add_qna_product_pic">
+                                                        <div id="pic_svg_container">
+                                                            <svg width="21" height="16" viewBox="0 0 21 16" fill="none"
+                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                <path
+                                                                    d="M19.6059 0C20.1059 0 20.5059 0.4 20.5059 0.9V15.1C20.5059 15.6 20.1059 16 19.6059 16H1.40586C1.16716 16 0.938246 15.9052 0.769463 15.7364C0.600681 15.5676 0.505859 15.3387 0.505859 15.1V0.9C0.505859 0.4 0.905859 0 1.40586 0H19.6059ZM18.6959 1.8H2.30586V12.65L7.84586 6.38C7.96586 6.21 8.22586 6.21 8.36586 6.38L11.4659 9.92C11.5259 9.98 11.5459 10.06 11.5259 10.12L11.1259 11.96C11.1059 12.1 11.2759 12.19 11.3559 12.08L14.5159 8.65C14.5664 8.59992 14.6347 8.57183 14.7059 8.57183C14.777 8.57183 14.8453 8.59992 14.8959 8.65L18.6859 12.77V1.8H18.6959ZM15.3259 6.6C14.9394 6.60004 14.5685 6.44791 14.2934 6.17654C14.0183 5.90517 13.8611 5.53639 13.8559 5.15C13.8559 4.34 14.5159 3.69 15.3259 3.69C16.1359 3.69 16.8059 4.34 16.8059 5.15C16.8059 5.95 16.1459 6.6 15.3259 6.6Z"
+                                                                    fill="#1E90FF" />
+                                                            </svg>
+                                                        </div>
+                                                        <span style="color:#1E90FF; font-size: 14px;">사진 첨부하기</span>
+                                                        <input type="file" name="qnaPhoto" id="file-input"
+                                                            accept="image/*">
+
+                                                    </div>
+                                                </div>
+
+                                                <div id="product_qna_content_container">
+                                                    <div style="font-size: 14px; font-weight: bold;">
+                                                        문의내용
+                                                    </div>
+                                                    <div id="product_qna_content_textarea">
+                                                        <textarea name="qnaContent" id="product_qna_content"
+                                                            placeholder="문의 내용을 입력하세요."></textarea>
+                                                    </div>
+                                                </div>
+
+                                                <div id="product_qna_enroll_btn_container">
+                                                    <button type="submit" id="product_qna_enroll_btn">완료</button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        
+                        </c:otherwise>
+                    </c:choose>
+                </div>
             </div>
-            <div id="myPage-buy-list-bottom">
-                <table>
-                    <thead>
-                        <tr>
-                            <td colspan="2" id="head-name">상품</td>
-                            <td id="head-amount">수량</td>
-                            <td id="head-price">결재금액</td>
-                            <td id="head-buyDate">결재일자</td>
-                            <td colspan="2" id="head-status">상태</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="tbody-buy-list-block">
-                            <td class="tbody-td-img"><img src="${contextPath}/resources/images//member-img/Rectangle 18311 (2).png" alt="">
-                            </td>
-                            <td class="tbody-td-name">
-                                <span class="product-no">주문번호 No.12</span><br>
-                                <span class="product-brand-name">[오늘 농장] 싱싱한 과일 참외</span>
-                            </td>
-                            <td class="tbody-td-amount">5</td>
-                            <td class="tbody-td-price">12,600원</td>
-                            <td class="tbody-td-buyDate">2024.12.31</td>
-                            <td class="tbody-td-status">
-                                <span>배송중</span><br>
-                                <span class="status-font">도착 예정일<br>2024.01.02</span> 
-                            </td>
-                            <td class="tbody-td-btn">
-                                <button class="tbody-td-btn-qna">문의 하기</button>
-                                <button class="tbody-td-btn-write">후기 쓰기</button>
-                                <button class="tbody-td-btn-cancle" onclick="showSweetConfirm()">주문 취소</button>
-                            </td>
-                        </tr>
+            <jsp:include page="../common/footer.jsp" />
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script src="${contextPath }/resources/js/member/myPageBuyList.js"></script>
+        </body>
 
-                        <tr class="tbody-buy-list-block">
-                            <td class="tbody-td-img"><img src="${contextPath}/resources/images//member-img/Rectangle 18311 (2).png" alt="">
-                            </td>
-                            <td class="tbody-td-name">
-                                <span class="product-no">주문번호 No.12</span><br>
-                                <span class="product-brand-name">[오늘 농장] 싱싱한 과일 참외</span>
-                            </td>
-                            <td class="tbody-td-amount">5</td>
-                            <td class="tbody-td-price">12,600원</td>
-                            <td class="tbody-td-buyDate">2024.12.31</td>
-                            <td class="tbody-td-status">
-                                <span>배송중</span><br>
-                                <span class="status-font">도착 예정일<br>2024.01.02</span> 
-                            </td>
-                            <td class="tbody-td-btn">
-                                <button class="tbody-td-btn-qna">문의 하기</button>
-                                <button class="tbody-td-btn-write">후기 쓰기</button>
-                                <button class="tbody-td-btn-cancle">주문 취소</button>
-                            </td>
-                        </tr>
-
-                        
-                        <tr class="tbody-buy-list-block">
-                            <td class="tbody-td-img"><img src="${contextPath}/resources/images//member-img/Rectangle 18311 (2).png" alt="">
-                            </td>
-                            <td class="tbody-td-name">
-                                <span class="product-no">주문번호 No.12</span><br>
-                                <span class="product-brand-name">[오늘 농장] 싱싱한 과일 참외</span>
-                            </td>
-                            <td class="tbody-td-amount">5</td>
-                            <td class="tbody-td-price">12,600원</td>
-                            <td class="tbody-td-buyDate">2024.12.31</td>
-                            <td class="tbody-td-status">
-                                <span style="color:#068E3D;">배송 완료</span><br>
-                                <!-- <span class="status-font">도착 예정일<br>2024.01.02</span>  -->
-                            </td>
-                            <td class="tbody-td-btn">
-                                <button class="tbody-td-btn-qna">문의 하기</button>
-                                <button class="tbody-td-btn-write">후기 쓰기</button>
-                                <!-- <button class="tbody-td-btn-cancle">주문 취소</button> -->
-                            </td>
-                        </tr>
-
-                        
-                        <tr class="tbody-buy-list-block">
-                            <td class="tbody-td-img"><img src="${contextPath}/resources/images//member-img/Rectangle 18311 (2).png" alt="">
-                            </td>
-                            <td class="tbody-td-name">
-                                <span class="product-no">주문번호 No.12</span><br>
-                                <span class="product-brand-name">[오늘 농장] 싱싱한 과일 참외</span>
-                            </td>
-                            <td class="tbody-td-amount">5</td>
-                            <td class="tbody-td-price">12,600원</td>
-                            <td class="tbody-td-buyDate">2024.12.31</td>
-                            <td class="tbody-td-status">
-                                <span style="color:#068E3D;">배송 완료</span><br>
-                                <!-- <span class="status-font">도착 예정일<br>2024.01.02</span>  -->
-                            </td>
-                            <td class="tbody-td-btn">
-                                <button class="tbody-td-btn-qna">문의 하기</button>
-                                <button class="tbody-td-btn-write">후기 쓰기</button>
-                                <!-- <button class="tbody-td-btn-cancle">주문 취소</button> -->
-                            </td>
-                        </tr>
-
-                        
-                        <tr class="tbody-buy-list-block">
-                            <td class="tbody-td-img"><img src="${contextPath}/resources/images//member-img/Rectangle 18311 (2).png" alt="">
-                            </td>
-                            <td class="tbody-td-name">
-                                <span class="product-no">주문번호 No.12</span><br>
-                                <span class="product-brand-name">[오늘 농장] 싱싱한 과일 참외</span>
-                            </td>
-                            <td class="tbody-td-amount">5</td>
-                            <td class="tbody-td-price">12,600원</td>
-                            <td class="tbody-td-buyDate">2024.12.31</td>
-                            <td class="tbody-td-status">
-                                <span style="color:#068E3D;">배송 완료</span><br>
-                                <!-- <span class="status-font">도착 예정일<br>2024.01.02</span>  -->
-                            </td>
-                            <td class="tbody-td-btn">
-                                <button class="tbody-td-btn-qna">문의 하기</button>
-                                <button class="tbody-td-btn-write">후기 쓰기</button>
-                                <!-- <button class="tbody-td-btn-cancle">주문 취소</button> -->
-                            </td>
-                        </tr>
-
-                        
-                        <tr class="tbody-buy-list-block">
-                            <td class="tbody-td-img"><img src="${contextPath}/resources/images//member-img/Rectangle 18311 (2).png" alt="">
-                            </td>
-                            <td class="tbody-td-name">
-                                <span class="product-no">주문번호 No.12</span><br>
-                                <span class="product-brand-name">[오늘 농장] 싱싱한 과일 참외</span>
-                            </td>
-                            <td class="tbody-td-amount">5</td>
-                            <td class="tbody-td-price">12,600원</td>
-                            <td class="tbody-td-buyDate">2024.12.31</td>
-                            <td class="tbody-td-status">
-                                <span style="color:#068E3D;">배송 완료</span><br>
-                                <!-- <span class="status-font">도착 예정일<br>2024.01.02</span>  -->
-                            </td>
-                            <td class="tbody-td-btn">
-                                <button class="tbody-td-btn-qna">문의 하기</button>
-                                <button class="tbody-td-btn-write">후기 쓰기</button>
-                                <!-- <button class="tbody-td-btn-cancle">주문 취소</button> -->
-                            </td>
-                        </tr>
-
-                        
-                        <tr class="tbody-buy-list-block">
-                            <td class="tbody-td-img"><img src="${contextPath}/resources/images//member-img/Rectangle 18311 (2).png" alt="">
-                            </td>
-                            <td class="tbody-td-name">
-                                <span class="product-no">주문번호 No.12</span><br>
-                                <span class="product-brand-name">[오늘 농장] 싱싱한 과일 과일 참외외참싱싱한 과일 참외외 </span>
-                            </td>
-                            <td class="tbody-td-amount">5</td>
-                            <td class="tbody-td-price">12,600원</td>
-                            <td class="tbody-td-buyDate">2024.12.31</td>
-                            <td class="tbody-td-status">
-                                <span style="color:#068E3D;">배송 완료</span><br>
-                                <!-- <span class="status-font">도착 예정일<br>2024.01.02</span>  -->
-                            </td>
-                            <td class="tbody-td-btn">
-                                <button class="tbody-td-btn-qna">문의 하기</button>
-                                <button class="tbody-td-btn-write">후기 쓰기</button>
-                                <!-- <button class="tbody-td-btn-cancle">주문 취소</button> -->
-                            </td>
-                        </tr>
-
-                        
-                        <tr class="tbody-buy-list-block">
-                            <td class="tbody-td-img"><img src="${contextPath}/resources/images//member-img/Rectangle 18311 (2).png" alt="">
-                            </td>
-                            <td class="tbody-td-name">
-                                <span class="product-no">주문번호 No.12</span><br>
-                                <span class="product-brand-name">[오늘 농장] 싱싱한 과일 참외</span>
-                            </td>
-                            <td class="tbody-td-amount">5</td>
-                            <td class="tbody-td-price">12,600원</td>
-                            <td class="tbody-td-buyDate">2024.12.31</td>
-                            <td class="tbody-td-status">
-                                <span style="color:#068E3D;">배송 완료</span><br>
-                                <!-- <span class="status-font">도착 예정일<br>2024.01.02</span>  -->
-                            </td>
-                            <td class="tbody-td-btn">
-                                <button class="tbody-td-btn-qna">문의 하기</button>
-                                <button class="tbody-td-btn-write">후기 쓰기</button>
-                                <!-- <button class="tbody-td-btn-cancle">주문 취소</button> -->
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <jsp:include page="../common/footer.jsp" />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-            <script>
-                function showSweetConfirm() {
-                    Swal.fire({
-                        title: '주문 취소하시겠습니까?',
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonText: '확인',
-                        cancelButtonText: '취소'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            Swal.fire(
-                                '주문 취소',
-                                '주문이 취소되었습니다.',
-                                'success'
-                            );
-                            // 탈퇴 처리 코드 여기에 추가
-                        } else if (result.dismiss === Swal.DismissReason.cancel) {
-                            Swal.fire(
-                                '취소됨',
-                                '주문이 취소되지 않았습니다.',
-                                'error'
-                            );
-                        }
-                    });
-                }
-            </script>
-</body>
-</html>
+        </html>

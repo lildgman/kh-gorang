@@ -7,17 +7,56 @@ window.onload = function () {
 
 
  document.addEventListener("DOMContentLoaded", function(){
-   // 구매하기 버튼 클릭 시 컨트롤러로 정보 보내는 ajax 함수 실행하기 위한 이벤트 핸들러
-  document.querySelector("#buy_btn").addEventListener("click", function(){
-    const data = getDataForAjax();
-    AjaxForInsertOrder(data);
-  })
   // 로그인 유저 정보 넣는 이벤트
   document.querySelector("#put-myInfo").addEventListener("click", function(){
     document.querySelector("#input-buyer-email").value = document.querySelector("#information-loginUser-email").value;
     document.querySelector("#input-buyer-phone").value = document.querySelector("#information-loginUser-phone").value;
-  })
+  });
 
+  // 구매하기 버튼 클릭 시 컨트롤러로 정보 보내는 ajax 함수 실행하기 위한 이벤트 핸들러
+  // 주문 정보 JSON 형태로 취합 후 컨트롤러로 submit하는 함수
+  document.querySelector("#buy_btn").addEventListener("click", function(event){
+    event.preventDefault();
+
+  // 구매자 및 배송지 정보
+  const orderInfo = {
+      buyerName: document.querySelector("#input-buyer-name").value,
+      buyerEmail: document.querySelector("#input-buyer-email").value,
+      buyerPhone: document.querySelector("#input-buyer-phone").value,
+      deliveryAddressName: document.querySelector("#input-delivery-name").value,
+      recipientName: document.querySelector("#input-delivery-recipient").value,
+      recipientAddress: document.querySelector("#address").innerHTML + document.querySelector("#input-delivery-detailAddress").value,
+      recipientPhone:  document.querySelector("#input-delivery-phone").value,
+      requirements: document.querySelector("#requirement-select").options[document.querySelector("#requirement-select").selectedIndex].value,
+      payment: document.querySelector(".payment.selected > div").innerHTML,
+      totalPrice: document.querySelector(".totalPrice").innerHTML.replace(/,/g, "")
+  }
+  // 주문 상품 정보 저장 위한 배열 선언
+  const orderOpts = [];
+  // 제품 div
+  document.querySelectorAll(".order-product-container").forEach(function(ev){
+    // 옵션 div
+    ev.querySelectorAll(".order-productOpt-container").forEach(function(e){
+        // JSON
+      orderOpts.push({
+        optNo: e.querySelector(".input-order-optNo").value,
+        optQuantity: e.querySelector(".order-product-quantity").innerHTML
+      });
+    })
+  });
+
+  const orderDataJson = {
+    orderInfo: orderInfo,
+    orderOpts: orderOpts
+  };
+  
+  console.log(orderDataJson);
+
+  // JSON 형태의 데이터를 input.value 에 입력
+  document.querySelector("#order-input-orderInfo").value = JSON.stringify(orderDataJson);
+  // 제출
+  document.querySelector("#buy_btn_container").submit();
+  });
  })
 
 // 상품 총 금액 계산
@@ -80,58 +119,4 @@ function searchAddress() {
     }
   }).open();
 }
-// 주문 데이터 보내기 위한 ajax
-function AjaxForInsertOrder(data){
-  $.ajax({
-    url: "insertOrder.po",
-    data: JSON.stringify(data),
-    method: "POST",
-    contentType: "application/json",
-    success: function(res){
-      console.log("데이터 송신 성공");
-      window.location.href = res;
-    },
-    error: function(){
-      console.log("불러오기 실패");
-    }
-  });
-}
 
-// ajax 로 보내기 위한 데이터를 작성하기 위한 함수
-function getDataForAjax(){
-  // 구매자 및 배송지 정보
-  const orderInfo = [];
-
-  // 주문 상품 정보
-  const orderOpts = [];
-  document.querySelectorAll(".order-product-container").forEach(function(ev){
-    // JSON
-    orderOpts.push({
-      optNo: ev.querySelector(".input-order-optNo").value,
-      optQuantity: ev.querySelector(".order-product-quantity").innerHTML
-    });
-  });
-
-  orderInfo.push({
-    buyerName: document.querySelector("#input-buyer-name").value,
-    buyerEmail: document.querySelector("#input-buyer-email").value,
-    buyerPhone: document.querySelector("#input-buyer-phone").value,
-    deliveryAddressName: document.querySelector("#input-delivery-name").value,
-    recipientName: document.querySelector("#input-delivery-recipient").value,
-    recipientAddress: document.querySelector("#address").innerHTML + document.querySelector("#input-delivery-detailAddress").value,
-    recipientPhone:  document.querySelector("#input-delivery-phone").value,
-    requirements: document.querySelector("#requirement-select").options[document.querySelector("#requirement-select").selectedIndex].value,
-    payment: document.querySelector(".payment.selected > div").innerHTML,
-    totalPrice: document.querySelector(".totalPrice").innerHTML.replace(/,/g, "")
-  });
-
-
-  const orderData = {
-    orderInfo: orderInfo,
-    orderOpts: orderOpts
-  };
-
-  console.log(orderData);
-
-  return orderData;
-}

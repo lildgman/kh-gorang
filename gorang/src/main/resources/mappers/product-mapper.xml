@@ -44,6 +44,7 @@
 		<result column="review_type" property="reviewType"/>
 		<result column="status" property="status"/>
 		<result column="rcp_no" property="refRecipeNo"/>
+		<result column="pdopt_no" property="refPdOptNo"/>
 		<result column="product_no" property="refProductNo"/>
 		<result column="member_no" property="refMemberNo"/>
 	</resultMap>
@@ -60,6 +61,7 @@
 		<result column="ref_qna_no" property="refQnaNo"/>
 		<result column="rcp_no" property="refRecipeNo"/>
 		<result column="product_no" property="refProductNo"/>
+		<result column="PDOPT_NO" property="refPdoptNo"/>
 		<result column="member_no" property="writerNo"/>
 	</resultMap>
 	
@@ -237,11 +239,11 @@
     (
      qna_content,
      qna_type,
-     qna_anwser_type,
+     qna_answer_type,
      qna_photo,
      product_no,
      member_no,
-     pdopt
+     pdopt_no
     )
     values
     (
@@ -265,7 +267,7 @@
 			q.qna_photo,
 			q.ref_qna_no,
 			q.product_no,
-			q.pdopt,
+			q.pdopt_no,
 			q.member_no,
 			member_nickname as "writerNickname",
 			member_profile as "writerProfile",
@@ -275,7 +277,7 @@
 		FROM QNA q
 		JOIN MEMBER USING (MEMBER_NO)
 		LEFT JOIN QNA a ON q.qna_no = a.ref_qna_no
-		LEFT JOIN OPTION_NAME ON q.pdopt = options_name_no
+		LEFT JOIN OPTION_NAME ON q.pdopt_no = options_name_no
 		WHERE q.product_no = #{productNo} and
 				q.qna_type = 1 and
 				q.status = 'Y'

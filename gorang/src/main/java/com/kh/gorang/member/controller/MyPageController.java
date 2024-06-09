@@ -165,11 +165,7 @@ public class MyPageController {
 		return "member/myPageInfoEdit";
 	}
 	
-	//구매내역
-	@RequestMapping("buyList.me")
-	public String myPageBuyList(){
-		return "member/myPageBuyList";
-	}
+
 	
 	//마이 페이지 질의응답
 	@RequestMapping("qna.me")

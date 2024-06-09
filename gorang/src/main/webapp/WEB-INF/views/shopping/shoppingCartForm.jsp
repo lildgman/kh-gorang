@@ -65,6 +65,7 @@
                                                 <span class="cart-product-name">${entry.key.productName}</span>
                                             </div>
                                             <div class="product-delivery-method">${entry.key.shipmentType}</div>
+                                            <div class="product-delivery-cost">${entry.key.shippingPrice}</div>
                                             <c:forEach var="cart" items="${entry.value}">
                                                 <div class="cart-pdopt-container">
                                                     <input type="hidden" class="cart-input-optNo" value="${cart.pdOptNo}">
@@ -131,10 +132,12 @@
                                 </div>
 
                             </div>
-
-                            <div id="buy_btn_container">
-                                <button id="buy_btn">구매하기</button>
-                            </div>
+                            <form action="order.po" id="cart-form" method="post">
+                                <input type="hidden" class="cart-input-json" name="selectedOptList">
+                                <div id="buy_btn_container">
+                                    <button id="buy_btn">구매하기</button>
+                                </div>
+                            </form>
                         </div>
                     </c:otherwise>
                 </c:choose>

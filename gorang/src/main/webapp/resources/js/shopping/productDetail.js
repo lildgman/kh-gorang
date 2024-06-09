@@ -349,6 +349,7 @@ document.addEventListener("DOMContentLoaded", function(){
     const productName = document.querySelector("#input-productName").value;
     const mainImg = document.querySelector("#input-mainImg").value;
     const shipmentType = document.querySelector("#input-shipmentType").value;
+    const shippingPrice = document.querySelector("#input-shipmentCost").value;
 
     const selectProductInfo = {
       productNo: selectedPno,
@@ -356,7 +357,8 @@ document.addEventListener("DOMContentLoaded", function(){
       productBrand: productBrand,
       productName: productName,
       mainImg: mainImg,
-      shipmentType: shipmentType
+      shipmentType: shipmentType, 
+      shippingPrice: shippingPrice
     };  
     
     // 각 옵션번호, 수량을 가져와서 JSON 형태로 저장
@@ -376,26 +378,10 @@ document.addEventListener("DOMContentLoaded", function(){
       });
     });
 
-    ajaxForBuy(selectedOpts);
+    document.querySelector("#productDetail-input-hidden").value = JSON.stringify(selectedOpts);
+
+    document.querySelector("#product-opt-form").submit();
   });
-
-  function ajaxForBuy(data) {
-    $.ajax({
-      url: "order.po",
-      data: JSON.stringify(data),
-      method: "post",
-      contentType: 'application/json; charset=utf-8',
-      dataType: "text",
-      success: function(res) {
-        console.log(res);
-        window.location.href = res;
-      },
-      error: function() {
-        console.log("송신 실패");
-      }
-    });
-  }
-
 })
 
 

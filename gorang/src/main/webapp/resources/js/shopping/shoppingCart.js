@@ -8,6 +8,7 @@ window.onload = function () {
 
 }
 
+// 장바구니 삭제
 function ajaxForDeleteCart(data){
   $.ajax({
     url: "ajaxDeleteCart.po",
@@ -201,30 +202,12 @@ function updateTotalDiscountPrice() {
   totalDiscountPriceEl.innerText = totalDiscountPrice;
 }
 
-// 장바구니 목록을 주문 페이지로 보내기 위한 ajax
-function ajaxForBuy(data){
-  $.ajax({
-    url: "order.po",
-    data: JSON.stringify(data),
-    method: "post",
-    contentType: "application/json",
-    dataType: "text",
-    success: function(res){
-      console.log(res);
-      window.location.href = res;
-    },
-    error: function(){
-      console.log("송신 실패");
-    }
-  })
-}
-
-
 // 구매하기 버튼에 클릭 이벤트 체크된 장바구니 목록의 데이터를 JSON 형태로 취합하기 위한 메소드 
 document.addEventListener("DOMContentLoaded", function(){
-  document.querySelector("#buy_btn").addEventListener("click", function(){
-  // 데이터를 모두 담을 배열 선언
+  document.querySelector("#buy_btn").addEventListener("click", function(e){
+    e.preventDefault();
 
+  // 데이터를 담을 배열 선언
   const selectedOpts = [];
 
   document.querySelectorAll(".product-in-cart").forEach(function(ev){
@@ -233,9 +216,7 @@ document.addEventListener("DOMContentLoaded", function(){
       // foreach 문에서는 return 을 사용하면 다음 반복으로 넘어감
       return;
     }
-    // 상품 항목별 데이터 담을 배열
-    
-
+  
     // 상품 정보
     const selectedPno = ev.querySelector(".cart-input-productNo").value;
     const productSeller = ev.querySelector(".cart-input-seller").value;
@@ -243,6 +224,7 @@ document.addEventListener("DOMContentLoaded", function(){
     const productName = ev.querySelector(".cart-product-name").innerHTML;
     const mainImg = ev.querySelector(".cart-input-mainImg").value;
     const shipmentType = ev.querySelector(".product-delivery-method").innerHTML;
+    const shippingPrice = ev.querySelector(".product-delivery-cost").innerHTML;
 
     const selectProductInfo = {
       productNo: selectedPno,
@@ -250,7 +232,8 @@ document.addEventListener("DOMContentLoaded", function(){
       productBrand: productBrand,
       productName: productName,
       mainImg: mainImg,
-      shipmentType: shipmentType
+      shipmentType: shipmentType,
+      shippingPrice: shippingPrice
     };
     // 옵션별 정보
     ev.querySelectorAll(".cart-pdopt-container").forEach(function(opt){
@@ -270,7 +253,9 @@ document.addEventListener("DOMContentLoaded", function(){
     });
   });
 
-  ajaxForBuy(selectedOpts);
+  document.querySelector(".cart-input-json").value = JSON.stringify(selectedOpts);
+  
+  document.querySelector("#cart-form").submit();
 
   });
 })

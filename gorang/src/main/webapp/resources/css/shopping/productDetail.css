@@ -518,7 +518,7 @@
 .qna_content_tr_display_none{
   display: none;
 }
-
+/* 문의하기 모달 관련 css */
 #modal-qna-content {
   width: 100%;
   height: 390px;
@@ -594,9 +594,8 @@
   border-radius: 4px;
 }
 
-
-#zzim:hover{
-  cursor: pointer;
+#file-input {
+  display: none;
 }
 
 #qna_pic_container {
@@ -605,13 +604,16 @@
   display: none;
 }
 
-#file-input {
-  display: none;
-}
-
 #qna-img {
   width: 100%;
   height: 100%;
   overflow: hidden;
 }
+
+#zzim:hover{
+  cursor: pointer;
+}
+
+
+
 

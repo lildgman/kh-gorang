@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -250,23 +249,22 @@ public class StoreController {
 	// ========================================== 주문 관련 컨트롤러 ========================================
 	
 	// 상품 상세 페이지에서 바로 구매할 경우 사용하는 컨트롤러
-	@ResponseBody
-	@PostMapping(value = "order.po")
-	public String productOrderForm(@RequestBody List<ProductDetailOption> selectedOptList,  HttpSession session) {
+	@RequestMapping("order.po")
+	public String productOrderForm(String selectedOptList,  Model m) {
 		System.out.println(selectedOptList);
 		
-//		Gson gson = new Gson();
-//		// Gson 으로 JSON.stringfy() 한 것을 다시 객체 형태로 변환하기(Gson.fromJson() 사용 / 정석은 dto 사용)
-//		
-//		// 1. JSON 형태를 List 로 변경하기
-//		Type type = new TypeToken<List<ProductDetailOption>>(){}.getType();
-//		// 2. Type 객체를 넣기
-//		List<ProductDetailOption> opts = gson.fromJson(selectedOptList, type);
+		Gson gson = new Gson();
+		// Gson 으로 JSON.stringfy() 한 것을 다시 객체 형태로 변환하기(Gson.fromJson() 사용 / 정석은 dto 사용)
+		
+		// 1. JSON 형태를 List 로 변경하기
+		Type type = new TypeToken<List<ProductDetailOption>>(){}.getType();
+		// 2. Type 객체를 넣기
+		List<ProductDetailOption> opts = gson.fromJson(selectedOptList, type);
 		
 		// Product 객체를 key 값으로 갖는 Map 형태로 재구축
 		Map<Product, List<ProductDetailOption>> groupedOpts = new HashMap<>();
 		
-		for(ProductDetailOption pdopt : selectedOptList) {
+		for(ProductDetailOption pdopt : opts) {
 			Product p = pdopt.getPdForOpt();
 			//p 값을 쌍으로 가진 데이터의 존재 여부 확인
 			if(!groupedOpts.containsKey(p)) {
@@ -277,42 +275,41 @@ public class StoreController {
 			groupedOpts.get(p).add(pdopt);
 		}
 		
-		session.setAttribute("groupedOpts", groupedOpts);
+		m.addAttribute("groupedOpts", groupedOpts);
 		
 		System.out.println(groupedOpts);
 		    
-	    return "orderForm.po";
-	}
-	
-	@RequestMapping(value = "orderForm.po")
-	public String orderForm() {
-		return "shopping/shoppingOrderForm";
+	    return "shopping/shoppingOrderForm";
 	}
 
 	
-	
 	// 주문 데이터 처리하는 컨트롤러
-	@PostMapping(value = "insertOrder.po", produces = "application/json; charset=utf-8")
-	public String aJaxInsertProductOrder(@RequestBody Map<String, Object> orderData, HttpSession session) {
-		// 로그인 유저 정보
-		Member m = (Member)session.getAttribute("loginUser");
+	@PostMapping(value = "insertOrder.po")
+	public String insertProductOrder(@RequestParam("orderDataJson") String orderDataJson, HttpSession session) {
+		System.out.println("Order Info JSON: " + orderDataJson);
 		
 		// Gson을 사용하여 JSON 데이터를 처리
 	    Gson gson = new Gson();
 	    
-	    // 각 데이터 파싱
-	    String orderInfoJson = gson.toJson(orderData.get("orderInfo"));
-	    String orderOptsJson = gson.toJson(orderData.get("orderOpts"));
-		
-	    // JSON을 Java 객체로 변환
-	    Type orderInfoType = new TypeToken<List<Order>>(){}.getType();
-	    Type orderOptsType = new TypeToken<List<OrderPdopt>>(){}.getType();
+	    // Map 으로 파싱
+	    Type orderDataType = new TypeToken<Map<String, Object>>(){}.getType();
+	    Map<String, Object> orderData = gson.fromJson(orderDataJson, orderDataType);
 	    
-	    List<Order> orderInfoList = gson.fromJson(orderInfoJson, orderInfoType);
-	    List<OrderPdopt> orderOpts = gson.fromJson(orderOptsJson, orderOptsType);
-	    // Order 는 무조건 1개만 날라오기 때문에 바로 파싱 가능
-	    Order orderInfo = orderInfoList.get(0);
-	    orderInfo.setMemberNo(m.getMemberNo());
+	    //orderInfo 를 Order.class 형식으로 파싱
+	    //orderInfo 추출
+	    Order orderInfo = gson.fromJson(gson.toJson(orderData.get("orderInfo")), Order.class);
+	    
+	    // 로그인 유저 정보
+	 	Member m = (Member)session.getAttribute("loginUser");
+	 	orderInfo.setMemberNo(m.getMemberNo());
+	    
+	    //orderOpts 추출
+	   Type orderOptsType = new TypeToken<List<OrderPdopt>>(){}.getType();
+	   List<OrderPdopt> orderOpts = gson.fromJson(gson.toJson(orderData.get("orderOpts")), orderOptsType);
+	    
+	    System.out.println(orderInfo);
+	    System.out.println(orderOpts);
+	    
 	    
 	    int result = orderService.insertOrder(orderInfo, orderOpts);
 	    
@@ -322,6 +319,6 @@ public class StoreController {
 	    	session.setAttribute("alertMsg", "주문 성공하였습니다.");
 	    }
 	    
-		return new Gson().toJson("list.po?cpage=1");
+		return "redirect:/list.po";
 	}
 }
