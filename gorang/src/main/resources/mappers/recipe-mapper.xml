@@ -57,7 +57,25 @@
   	</resultMap>
   	
   	
-  	<!-- 레시피 게시글 추가 -->
+	 <!-- 레시피 찾기 -->
+	 <select id="selectRecipe" resultMap="recipeResult">
+	   SELECT rcp_no,
+	         rcp_title,
+	         rcp_content, 
+	         rcp_main_photo, 
+	         rcp_tag,
+	         cook_amount, 
+	         cook_time, 
+	         cook_kind, 
+	         cook_level, 
+	         member_no
+	  FROM RECIPE
+	  WHERE STATUS = 'Y'
+	    AND rcp_no = #{rcpNo}
+	 </select>
+  	
+  	
+  	 <!-- 레시피 게시글 추가 -->
   	 <select id="insertRecipe" parameterType="Recipe" resultMap="recipeResult" >
 	  	INSERT INTO RECIPE (
 		        rcp_title,
@@ -138,4 +156,8 @@
   			#{cookOrdNo}
   		)
   	</insert>
+  	
+  	
+  	
+  	
   </mapper>

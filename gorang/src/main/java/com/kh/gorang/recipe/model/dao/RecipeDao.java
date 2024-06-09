@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.recipe.model.vo.RecipeInsertDTO;
@@ -49,8 +50,45 @@ public class RecipeDao {
 	//완성 사진들 추가
 	public int insertRecipeMedia(SqlSessionTemplate sqlSession,Media md, int rcpNo) {
 		md.setRecipeNo(rcpNo);
-		return sqlSession.insert("recipeMapper.insertRecipeMedia",md);
+		return sqlSession.insert("mediaMapper.insertRecipeMedia",md);
 	}
+	
+	//레시피 찾기
+	public Recipe selectRecipe(SqlSessionTemplate sqlSession, int rcpNo) {
+		return sqlSession.selectOne("recipeMapper.selectRecipe",rcpNo);
+	}
+	
+	//레시피 분류 찾기
+	public List<Division> selectDivList(SqlSessionTemplate sqlSession, int rcpNo) {	
+		return sqlSession.selectList("recipeMapper.selectDivList", rcpNo);
+	}
+	//레시피 재료 속성(분류) 찾기
+	public List<IngredientsInfo> selectIngredientsInfoList(SqlSessionTemplate sqlSession, int divNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	//레시피 조리순서 찾기
+	public List<CookOrder> selectCookOrderList(SqlSessionTemplate sqlSession, int rcpNo) {
+		return sqlSession.selectList("recipeMapper.selectDivList", rcpNo);
+	}
+	
+	
+	//레시피 완성사진 찾기
+	public List<Media> selectCompleteFoodPhoto(SqlSessionTemplate sqlSession, int rcpNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("mediaMapper.selectCompleteFoodPhoto", rcpNo);
+	}
+
+	public List<CookTip> selectCookTipList(SqlSessionTemplate sqlSession, int cookOrdNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+
+
 
 	
 

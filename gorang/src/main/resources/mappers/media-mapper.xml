@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="MediaMapper">
+  <mapper namespace="mediaMapper">
   <!-- 미디어 -->
   	<resultMap type="Media" id="mediaResult">
   		<result column="MEDIA_NO" property="mediaNo"/>
@@ -31,7 +31,7 @@
   			#{filePath},
   			#{originName},
   			#{changeName},
-  			#{recipeNo},
+  			#{recipeNo}
   		)
   	</insert>
  </mapper>
