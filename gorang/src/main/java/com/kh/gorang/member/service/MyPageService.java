@@ -6,9 +6,11 @@ import java.util.Map;
 import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.board.model.vo.MyPageBoardCommentDTO;
 import com.kh.gorang.board.model.vo.MyPageBoardDTO;
+import com.kh.gorang.board.model.vo.MyPageScrapBoardDTO;
 import com.kh.gorang.common.vo.PageInfo;
 import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.recipe.model.vo.MyPageRecipeDTO;
+import com.kh.gorang.recipe.model.vo.MyPageScrapRecipeDTO;
 import com.kh.gorang.recipe.model.vo.Recipe;
 
 public interface MyPageService {
@@ -66,5 +68,17 @@ public interface MyPageService {
 
 	// 리뷰 리스트 조회 
 	ArrayList<Review> getReviewList(PageInfo reviewPI, int memberNo);
+
+	// 스크랩한 레시피 조회 
+	ArrayList<MyPageScrapRecipeDTO> getScrapRecipeList(int memberNo);
+
+	// 스크랩 레시피 삭제 
+	int deleteScrapRecipe(Map<String, Object> map);
+
+	// 스크랩 게시글 조회 
+	ArrayList<MyPageScrapBoardDTO> getScrapBoardList(int memberNo);
+
+	// 스크랩 게시글 삭
+	int deleteScrapBoard(Map<String, Object> map);
 
 }

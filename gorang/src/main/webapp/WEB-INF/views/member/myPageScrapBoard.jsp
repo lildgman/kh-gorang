@@ -12,14 +12,13 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
     <link rel="stylesheet" href="${contextPath }/resources/css/member/myPageScrapBoard.css">
     <!--js-->
-    <script src="${pageContext.request.contextPath}/resources/js/member/myPageLike/myPageLikeRecipe.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/member/myPageScrap/myPageScrapBoard.js"></script>
     
 </head>
 <body>
     
     <%@ include file="../common/header.jsp"%>
     
-     
     <div id="body-area">
         <!-- 왼쪽 프로필 메뉴바영역 -->
         <jsp:include page="myPageMenubar.jsp" />
@@ -29,24 +28,29 @@
             <div id="scrap-area">
                 <div id="scrap-area-top">
                     <span>스크랩 > 게시글</span>
-                    <span>(9)</span>
+                    <span>(${scrapBoardList.size() })</span>
                 </div>
                 <div id="delete-edit" onclick="editBtn()">편집</div>           
                 <div id="delete-like" onclick="deleteBtn()">삭제</div>
             
                 <div id="scrap-area-content">
-
-					<c:forEach begin="1" end="9" step="1">
-						<div class="scrap-content">
-                        <div class="scrap-img">
-                            <img src="${contextPath}/resources/dummyImg/shopping/dog.jpeg" alt="">
-                        </div>
-                        <div class="scrap-checkbox">
-                            <input type="checkbox" name="" id="delete-check" class="delete-check">
-                        </div>
-                    </div>
-					</c:forEach>                    
-                    
+                	<c:choose>
+                		<c:when test="${empty scrapBoardList }">
+                			스크랩한 게시글이 없습니다.
+                		</c:when>
+                		<c:otherwise>
+                			<c:forEach var="board" items="${scrapBoardList }">
+								<div class="scrap-content">
+		                            <div class="scrap-img" data-no="${board.boardNo}" onclick="moveDetailPage(this)">
+		                                <img src="${contextPath}/resources/uploadfile/board/boardMainContentFile/${board.boardThumbnail}" alt="">
+		                            </div>
+		                            <div class="scrap-checkbox">
+		                                <input type="checkbox" name="" id="delete-check" class="delete-check">
+		                            </div>
+		                        </div>
+							</c:forEach>     
+                		</c:otherwise>
+                	</c:choose>
                 </div>
             </div>
         </div>
