@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
     <link rel="stylesheet" href="${contextPath }/resources/css/member/myPageScrapRecipe.css">
     <!--js-->
-<script src="${pageContext.request.contextPath}/resources/js/member/myPageLike/myPageLikeRecipe.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/member/myPageScrap/myPageScrapRecipe.js"></script>
 </head>
 <body>
     
@@ -28,24 +28,29 @@
             <div id="scrap-area">
                 <div id="scrap-area-top">
                     <span>스크랩 > 레시피</span>
-                    <span>(9)</span>
+                    <span id="scrap-recipe-count">(${scrapRecipeList.size() })</span>
                 </div>
                 <div id="delete-edit" onclick="editBtn()">편집</div>           
-                    <div id="delete-like" onclick="deleteBtn()">삭제</div>
+                <div id="delete-like" onclick="deleteBtn()">삭제</div>
             
                 <div id="scrap-area-content">
-
-					<c:forEach begin="1" end="9" step="1">
-						<div class="scrap-content">
-                        <div class="scrap-img">
-                            <img src="${contextPath}/resources/dummyImg/shopping/dog.jpeg" alt="">
-                        </div>
-                        <div class="scrap-checkbox">
-                            <input type="checkbox" name="" id="delete-check" class="delete-check">
-                        </div>
-                    </div>
-					</c:forEach>                    
-                    
+                	<c:choose>
+                		<c:when test="${empty scrapRecipeList }">
+                			스크랩한 레시피가 없습니다.
+                		</c:when>
+                		<c:otherwise>
+                			<c:forEach var="recipe" items="${scrapRecipeList }">
+								<div class="scrap-content">
+		                            <div class="scrap-img" data-no="${recipe.recipeNo}" onclick="movePage(this)">
+		                                <img src="${contextPath}/resources/uploadfile/recipe/recipemain/${recipe.recipeMainImg}" alt="">
+		                            </div>
+		                            <div class="scrap-checkbox">
+		                                <input type="checkbox" name="" id="delete-check" class="delete-check">
+		                            </div>
+		                        </div>
+							</c:forEach>    
+                		</c:otherwise>
+                	</c:choose>     
                 </div>
             </div>
         </div>

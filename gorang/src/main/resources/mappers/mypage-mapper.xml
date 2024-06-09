@@ -98,6 +98,34 @@
 		<result column="product_no" property="refProductNo"/>
 		<result column="member_no" property="refMemberNo"/>
 	</resultMap>
+	
+	<!-- 스크랩 레시피 -->
+	<resultMap type="ScrapRecipe" id="scrapRecipeResult">
+		<result column="MEMBER_NO" property="memberNo"/>
+		<result column="RCP_NO" property="recipeNo"/>
+		<result column="STATUS" property="status" />
+		<result column="SCRAP_RECIPE_DATE" property="scrapDate"/>
+	</resultMap>
+
+	<!-- 스크랩 레시피 DTO -->
+	<resultMap type="MyPageScrapRecipeDTO" id="myPageScrapRecipeDTOResult">
+		<result column="RCP_NO" property="recipeNo" />
+		<result column="RCP_MAIN_PHOTO" property="recipeMainImg" />
+	</resultMap>
+	
+	<resultMap type="ScrapBoard" id="scrapBoardResult">
+		<result column="MEMBER_NO" property="memberNo"/>
+		<result column="BOARD_NO" property="boardNo"/>
+		<result column="STATUS" property="status"/>
+		<result column="SCRAP_BOARD_DATE" property="scrapDate"/>
+	
+	</resultMap>
+	
+	<!-- 스크랩 게시글 DTO --> 
+	<resultMap type="MyPageScrapBoardDTO" id="myPageScrapBoardDTOResult">
+		<result column="BOARD_NO" property="boardNo"/>
+		<result column="BOARD_THUMBNAIL" property="boardThumbnail"/>
+	</resultMap>
 
 	<!-- 팔로잉 수 조회 -->
 	<select id="selectFollowingCount" resultType="_int">
@@ -405,7 +433,44 @@
 		WHERE STATUS = 'Y'
 			AND MEMBER_NO = #{memberNo}
 		ORDER BY REVIEW_CREATE_DATE DESC
-
 	</select>
+	
+	<!-- 스크랩 레시피 조회 -->
+	<select id="selectScrapRecipeList" resultMap="myPageScrapRecipeDTOResult">
+		SELECT R.RCP_NO, R.RCP_MAIN_PHOTO
+		FROM RECIPE R
+		JOIN SCRAP_RECIPE SR USING (RCP_NO)
+		WHERE 
+			R.STATUS = 'Y' AND
+			SR.STATUS = 'Y' AND
+			SR.MEMBER_NO = #{memberNo}
+		ORDER BY R.RCP_WRITE_DATE DESC
+	</select>
+	
+	<!-- 스크랩 레시피 삭제  -->
+	<update id="deleteScrapRecipe" parameterType="ScrapRecipe">
+		UPDATE SCRAP_RECIPE
+		SET STATUS = 'N'
+		WHERE MEMBER_NO = #{memberNo} AND RCP_NO = #{recipeNo}
+	</update>
+	
+	<!-- 스크랩 게시글 조회 -->
+	<select id="selectScrapBoard" resultMap="myPageScrapBoardDTOResult">
+		SELECT B.BOARD_NO, B.BOARD_THUMBNAIL
+		FROM BOARD B
+		JOIN SCRAP_BOARD SB USING (BOARD_NO)
+		WHERE
+			B.STATUS = 'Y' AND
+			SB.STATUS = 'Y' AND
+			SB.MEMBER_NO = #{memberNo}
+	</select>
+	
+	<!-- 스크랩 게시글 삭제  -->
+	<update id="deleteScrapBoard" parameterType="ScrapBoard">
+		UPDATE SCRAP_BOARD
+		SET STATUS = 'N'
+		WHERE MEMBER_NO = #{memberNo} AND BOARD_NO = #{boardNo}
+	</update> 
+	
 	
 </mapper>
