@@ -8,11 +8,22 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.gorang.board.model.vo.Board;
+import com.kh.gorang.board.model.vo.MyPageBoardCommentDTO;
+import com.kh.gorang.board.model.vo.MyPageBoardDTO;
+import com.kh.gorang.board.model.vo.MyPageScrapBoardDTO;
+import com.kh.gorang.common.template.Pagination;
+import com.kh.gorang.common.vo.PageInfo;
 import com.kh.gorang.member.model.vo.Member;
+import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.member.service.MyPageService;
+import com.kh.gorang.recipe.model.vo.MyPageRecipeDTO;
+import com.kh.gorang.recipe.model.vo.MyPageScrapRecipeDTO;
 import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.shopping.model.vo.Product;
 
@@ -30,24 +41,11 @@ public class MyPageController {
 	@RequestMapping("main.me")
 	public String myPageViewAll(HttpSession session, Model model){
 		
-		Member loginUser = (Member)session.getAttribute("loginUser");
+		int memberNo = getLoginUserNo(session);	
+		addAttributeUserInfo(model, memberNo);
 		
-		int memberNo = loginUser.getMemberNo();
-		
-		// 팔로잉 수
-		int followingCount = myPageService.getFollowingCount(memberNo);
-		
-		// 팔로워 수
-		int followerCount = myPageService.getFollowerCount(memberNo);
-		
-		// 총 스크랩 수
-		int totalScrapCount = myPageService.getTotalScrapCount(memberNo);
-		
-		// 총 좋아요 개수
-		int totalLikeCount = myPageService.getTotalLikeCount(memberNo);
-		
-		// 내 레시피 중 조회수 많은 순으로 레시피 리스트 가져오기 3개
-		ArrayList<Recipe> mostViewRecipeList = myPageService.getMostViewRecipeList(memberNo);
+		// 내 레시피 중 조회수 많은 순으로 레시피 리스트 가져오기
+		ArrayList<Recipe> mostViewRecipeList = myPageService.getMostViewRecipeList(memberNo);	
 		
 		// 내 게시글 중 조회수 많은 순으로 게시글 리스트 가져오기
 		ArrayList<Board> resultBoardList = myPageService.getMostViewBoardList(memberNo);
@@ -62,17 +60,9 @@ public class MyPageController {
 		// 객체 타입을 체크해서 Map에 저장하고 JSP로 넘기자
 		ArrayList<Map<String, Object>> processedLikedList = getProcessedList(likeContentList);
 		
+		log.info("processedScrapList",processedScrapList);
+		log.info("processedLikedList",processedLikedList);
 		
-		log.info("resultBoardList={}", resultBoardList);
-		log.info("resultBoardList.size()={}", resultBoardList.size());
-		log.info("processedScrapList={}", processedScrapList);
-		log.info("processedLikedList={}", processedLikedList);
-		
-		
-		model.addAttribute("followingCount", followingCount);
-		model.addAttribute("followerCount", followerCount);
-		model.addAttribute("totalScrapCount", totalScrapCount);
-		model.addAttribute("totalLikeCount", totalLikeCount);
 		model.addAttribute("mostViewRecipeList", mostViewRecipeList);
 		model.addAttribute("resultBoardList",resultBoardList);
 		model.addAttribute("processedScrapList", processedScrapList);
@@ -81,33 +71,88 @@ public class MyPageController {
 		return "member/myPageAllView";
 	}
 
-	private ArrayList<Map<String, Object>> getProcessedList(ArrayList<Object> contentList) {
-		ArrayList<Map<String, Object>> processedList = new ArrayList<Map<String,Object>>();
-		for(Object obj : contentList) {
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("object",obj);
-			if(obj instanceof Board) {
-				map.put("type","Board");
-			} else if (obj instanceof Recipe) {
-				map.put("type", "Recipe");
-			} else if(obj instanceof Product) {
-				map.put("type", "Product");
-			}
-			processedList.add(map);
-		}
-		return processedList;
-	}
-	
+
 	//마이페이지 레시피게시판
 	@RequestMapping("recipe.me")
-	public String myRecipeBoard(){
+	public String myRecipeBoard(HttpSession session, 
+			@RequestParam(defaultValue="1") int cpage,
+			@RequestParam(defaultValue="recent") String sort,
+			Model model){
+		
+		// 회원정보들
+		int memberNo = getLoginUserNo(session);
+		addAttributeUserInfo(model, memberNo);
+		
+		// 레시피 페이지네이션
+		int myRecipeCount = myPageService.getMyRecipeCount(memberNo);
+		PageInfo pi = Pagination.getPageInfo(myRecipeCount, cpage, 10, 6);	
+				
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("sortingMethod", sort);
+		
+		ArrayList<MyPageRecipeDTO> recipeList = myPageService.getRecipeList(pi, map);
+			
+		model.addAttribute("recipeList", recipeList);
+		model.addAttribute("pi",pi);
+		model.addAttribute("sort", sort);
+		
 		return "member/myRecipeBoard";
 	}
 	
+	@PostMapping("remove-recipe.me")
+	@ResponseBody
+	public String removeMyRecipe(int recipeNo) {
+		
+		int result = myPageService.removeRecipe(recipeNo);
+		
+		if(result > 0) {
+			return "done";
+		} else {
+			return "undone";
+		}
+	}
+	
+	
 	//마이페이지 자유게시판
 	@RequestMapping("board.me")
-	public String myBoard(){
+	public String myBoard(HttpSession session,
+			@RequestParam(defaultValue="1") int cpage,
+			@RequestParam(defaultValue="recent") String sort,
+			Model model){
+		
+		int memberNo = getLoginUserNo(session);
+		addAttributeUserInfo(model, memberNo);
+		
+		// 게시글 페이지네이션
+		int boardCount = myPageService.getBoardCount(memberNo);
+		PageInfo pi = Pagination.getPageInfo(boardCount, cpage, 10, 6);
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("sort", sort);
+		
+		ArrayList<MyPageBoardDTO> boardList = myPageService.getBoardList(pi, map);
+		
+		model.addAttribute("boardList", boardList);
+		model.addAttribute("pi", pi);
+		model.addAttribute("sort", sort);
+		
 		return "member/myPageBoard";
+	}
+	
+	@PostMapping("remove-board.me")
+	@ResponseBody
+	public String removeMyBoard(int boardNo) {
+
+		int result = myPageService.removeBoard(boardNo);
+		
+		if(result > 0) {
+			return "done";
+		} else {
+			return "undone";
+		}
+		
 	}
 
 	//마이페이지 나의냉장고
@@ -136,7 +181,32 @@ public class MyPageController {
 	
 	//마이 페이지 리뷰
 	@RequestMapping("review.me")
-	public String myPageReplyReviewView(){
+	public String myPageReplyReviewView(
+				HttpSession session,
+				@RequestParam(defaultValue="1") int comment_cpage,
+				@RequestParam(defaultValue="1") int review_cpage,
+				Model model){
+		
+		int memberNo = getLoginUserNo(session);
+		addAttributeUserInfo(model, memberNo);
+		
+		// 댓글 부분
+		int commentCount = myPageService.getCommentCount(memberNo);
+		PageInfo commentPI = Pagination.getPageInfo(commentCount, comment_cpage, 10, 5);
+		
+		ArrayList<MyPageBoardCommentDTO> boardCommentList = myPageService.getBoardCommentList(commentPI, memberNo);
+		
+		// 후기 부분
+		int reviewCount = myPageService.getReviewCount(memberNo);
+		PageInfo reviewPI = Pagination.getPageInfo(reviewCount, review_cpage, 10, 5);
+		
+		ArrayList<Review> reviewList = myPageService.getReviewList(reviewPI, memberNo);
+		
+		model.addAttribute("boardCommentList", boardCommentList);
+		model.addAttribute("commentPI", commentPI);
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("reviewPI", reviewPI);
+		
 		return "member/myPageReplyReview";
 	}
 	
@@ -167,8 +237,37 @@ public class MyPageController {
 	}
 	
 	@RequestMapping("scrapBoard.me")
-	public String myPageScrapBoard(){
+	public String myPageScrapBoard(
+				HttpSession session,
+				Model model){
+		int memberNo = getLoginUserNo(session);
+		addAttributeUserInfo(model, memberNo);
+		
+		ArrayList<MyPageScrapBoardDTO> scrapBoardList = myPageService.getScrapBoardList(memberNo);
+		
+		model.addAttribute("scrapBoardList", scrapBoardList);
+		
 		return "member/myPageScrapBoard";
+	}
+	
+	@ResponseBody
+	@PostMapping("delete-scrap-board.me")
+	public String deleteScrapBoard(
+			HttpSession session,
+			@RequestParam int boardNo) {
+
+		int memberNo = getLoginUserNo(session);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("boardNo", boardNo);
+		
+		int result = myPageService.deleteScrapBoard(map);
+		
+		if(result > 0) {
+			return "done";
+		} else {
+			return "undone";
+		}
 	}
 	
 	@RequestMapping("scrapProduct.me")
@@ -177,9 +276,78 @@ public class MyPageController {
 	}
 	
 	@RequestMapping("scrapRecipe.me")
-	public String myPageScrapRecipe(){
+	public String myPageScrapRecipe(
+				HttpSession session,
+				Model model){
+		
+		int memberNo = getLoginUserNo(session);
+		addAttributeUserInfo(model, memberNo);
+		
+		ArrayList<MyPageScrapRecipeDTO> scrapRecipeList = myPageService.getScrapRecipeList(memberNo);
+		
+		model.addAttribute("scrapRecipeList", scrapRecipeList);
+		
 		return "member/myPageScrapRecipe";
 	}
 	
+	@ResponseBody
+	@PostMapping("delete-scrap-recipe.me")
+	public String myPageDeleteScrapRecipe(
+			HttpSession session,
+			@RequestParam int recipeNo) {
+		
+		int memberNo = getLoginUserNo(session);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("recipeNo", recipeNo);
+		
+		int result = myPageService.deleteScrapRecipe(map);
+		
+		if(result > 0) {
+			return "done";
+		} else {
+			return "undone";
+		}
+		
+	}
 	
+	private void addAttributeUserInfo(Model model, int memberNo) {
+		// 팔로잉 수
+		int followingCount = myPageService.getFollowingCount(memberNo);
+		model.addAttribute("followingCount", followingCount);
+		// 팔로워 수
+		int followerCount = myPageService.getFollowerCount(memberNo);
+		model.addAttribute("followerCount", followerCount);
+		// 총 스크랩 수
+		int totalScrapCount = myPageService.getTotalScrapCount(memberNo);
+		model.addAttribute("totalScrapCount", totalScrapCount);
+		// 총 좋아요 개수
+		int totalLikeCount = myPageService.getTotalLikeCount(memberNo);
+		model.addAttribute("totalLikeCount", totalLikeCount);
+	}
+
+	private int getLoginUserNo(HttpSession session) {
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		int memberNo = loginUser.getMemberNo();
+		return memberNo;
+	}
+	
+	
+	private ArrayList<Map<String, Object>> getProcessedList(ArrayList<Object> contentList) {
+		ArrayList<Map<String, Object>> processedList = new ArrayList<Map<String,Object>>();
+		for(Object obj : contentList) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("object",obj);
+			if(obj instanceof Board) {
+				map.put("type","Board");
+			} else if (obj instanceof Recipe) {
+				map.put("type", "Recipe");
+			} else if(obj instanceof Product) {
+				map.put("type", "Product");
+			}
+			processedList.add(map);
+		}
+		return processedList;
+	}
 }

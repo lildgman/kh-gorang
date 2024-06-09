@@ -35,6 +35,8 @@
                 <div class="area-top">
                     구매자 정보
                     <button id="put-myInfo">내 정보 넣기</button>
+                    <input type="hidden" id="information-loginUser-email" value="${loginUser.memberEmail}">
+                    <input type="hidden" id="information-loginUser-phone" value="${loginUser.memberPhone}">
                 </div>
                 <div id="buyer-information" class="information-area">
                     <div id="buyer-name-area" class="information-div">
@@ -129,7 +131,6 @@
                	<c:forEach var="opt" items="${opts}">
                     
                		<div class="order-product-container">
-                        <input type="hidden" class="input-pdopt-pno" value="${opt.productNo}">
                         <input type="hidden" class="input-order-optNo" value="${opt.detailOptionNo}">
                         <div class="order-product-container-top">
                             <span class="brandName">${opt.productBrand}</span>

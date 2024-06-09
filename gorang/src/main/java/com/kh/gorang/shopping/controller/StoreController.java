@@ -210,13 +210,14 @@ public class StoreController {
 		return "shopping/shoppingOrderForm";
 	}
 	
+	
 	// 주문 데이터 처리하는 컨트롤러
 	@ResponseBody
 	@PostMapping(value = "insertOrder.po", produces = "application/json; charset=utf-8")
 	public String aJaxInsertProductOrder(@RequestBody Map<String, Object> orderData, HttpSession session) {
 		// 로그인 유저 정보
 		Member m = (Member)session.getAttribute("loginUser");
-				
+		
 		// Gson을 사용하여 JSON 데이터를 처리
 	    Gson gson = new Gson();
 	    
@@ -242,7 +243,6 @@ public class StoreController {
 	    	session.setAttribute("alertMsg", "주문 성공하였습니다.");
 	    }
 	    
-	    
-		return "list.pr";
+		return new Gson().toJson("list.po?cpage=1");
 	}
 }
