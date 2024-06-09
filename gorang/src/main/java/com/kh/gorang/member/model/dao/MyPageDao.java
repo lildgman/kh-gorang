@@ -8,8 +8,11 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.gorang.board.model.vo.Board;
-import com.kh.gorang.board.model.vo.BoardComment;
+import com.kh.gorang.board.model.vo.MyPageBoardCommentDTO;
+import com.kh.gorang.board.model.vo.MyPageScrapBoardDTO;
 import com.kh.gorang.common.vo.PageInfo;
+import com.kh.gorang.member.model.vo.Review;
+import com.kh.gorang.recipe.model.vo.MyPageScrapRecipeDTO;
 import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.shopping.model.vo.Product;
 
@@ -156,7 +159,7 @@ public class MyPageDao {
 	}
 
 	// 댓글 조회 
-	public ArrayList<BoardComment> getBoardCommentList(SqlSessionTemplate sqlSession, PageInfo commentPI,
+	public ArrayList<MyPageBoardCommentDTO> getBoardCommentList(SqlSessionTemplate sqlSession, PageInfo commentPI,
 			int memberNo) {
 		int offset = (commentPI.getCurrentPage() - 1) * commentPI.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, commentPI.getBoardLimit());
@@ -164,9 +167,38 @@ public class MyPageDao {
 		return (ArrayList)sqlSession.selectList("myPageMapper.selectCommentList", memberNo, rowBounds);
 	}
 
-	// 리 개수 조회 
+	// 리뷰 개수 조회 
 	public int getReviewCount(SqlSessionTemplate sqlSession, int memberNo) {
 		return sqlSession.selectOne("myPageMapper.selectReviewCount", memberNo);
+	}
+
+	// 리뷰 조회 
+	public ArrayList<Review> getReviewList(SqlSessionTemplate sqlSession, PageInfo reviewPI, int memberNo) {
+		
+		int offset = (reviewPI.getCurrentPage() - 1) * reviewPI.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, reviewPI.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("myPageMapper.selectReviewList", memberNo, rowBounds);
+	}
+
+	// 스크랩한 레시피 조회 
+	public ArrayList<MyPageScrapRecipeDTO> getScrapRecipeList(SqlSessionTemplate sqlSession, int memberNo) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.selectScrapRecipeList", memberNo);
+	}
+
+	// 스크랩한 레시피 삭제 
+	public int deleteScrapRecipe(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.update("myPageMapper.deleteScrapRecipe", map);
+	}
+
+	// 스크랩한 게시글 조회 
+	public ArrayList<MyPageScrapBoardDTO> getScrapBoardList(SqlSessionTemplate sqlSession, int memberNo) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.selectScrapBoard", memberNo);
+	}
+
+	// 스크랩 게시글 삭제 
+	public int deleteScrapBoard(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.update("myPageMapper.deleteScrapBoard", map);
 	}
 	
 

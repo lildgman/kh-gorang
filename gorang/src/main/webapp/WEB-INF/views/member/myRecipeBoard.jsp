@@ -69,7 +69,6 @@
 
 			<div id="pagination-area">
 				<div id="pagination">
-
 					<c:choose>
 						<c:when test="${pi.currentPage ne 1 }">
 							<a href="recipe.me?cpage=${pi.currentPage -1 }&sort=${sort}">&lt;</a>

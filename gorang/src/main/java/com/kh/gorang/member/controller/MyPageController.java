@@ -14,14 +14,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.gorang.board.model.vo.Board;
-import com.kh.gorang.board.model.vo.BoardComment;
+import com.kh.gorang.board.model.vo.MyPageBoardCommentDTO;
 import com.kh.gorang.board.model.vo.MyPageBoardDTO;
+import com.kh.gorang.board.model.vo.MyPageScrapBoardDTO;
 import com.kh.gorang.common.template.Pagination;
 import com.kh.gorang.common.vo.PageInfo;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.member.service.MyPageService;
 import com.kh.gorang.recipe.model.vo.MyPageRecipeDTO;
+import com.kh.gorang.recipe.model.vo.MyPageScrapRecipeDTO;
 import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.shopping.model.vo.Product;
 
@@ -177,8 +179,8 @@ public class MyPageController {
 	@RequestMapping("review.me")
 	public String myPageReplyReviewView(
 				HttpSession session,
-				@RequestParam(defaultValue="1") int currCommentPage,
-				@RequestParam(defaultValue="1") int currReviewPage,
+				@RequestParam(defaultValue="1") int comment_cpage,
+				@RequestParam(defaultValue="1") int review_cpage,
 				Model model){
 		
 		int memberNo = getLoginUserNo(session);
@@ -186,21 +188,20 @@ public class MyPageController {
 		
 		// 댓글 부분
 		int commentCount = myPageService.getCommentCount(memberNo);
-		PageInfo commentPI = Pagination.getPageInfo(commentCount, currCommentPage, 10, 5);
+		PageInfo commentPI = Pagination.getPageInfo(commentCount, comment_cpage, 10, 5);
 		
-		ArrayList<BoardComment> boardCommentList = myPageService.getBoardCommentList(commentPI, memberNo);
+		ArrayList<MyPageBoardCommentDTO> boardCommentList = myPageService.getBoardCommentList(commentPI, memberNo);
 		
 		// 후기 부분
 		int reviewCount = myPageService.getReviewCount(memberNo);
-		PageInfo reviewPI = Pagination.getPageInfo(reviewCount, currReviewPage, 10, 5);
+		PageInfo reviewPI = Pagination.getPageInfo(reviewCount, review_cpage, 10, 5);
 		
 		ArrayList<Review> reviewList = myPageService.getReviewList(reviewPI, memberNo);
 		
-		log.info("commentCount={}", commentCount);
-		log.info("boardCommentList={}", boardCommentList);
-		
-		log.info("reviewCount={}", reviewCount);
-		
+		model.addAttribute("boardCommentList", boardCommentList);
+		model.addAttribute("commentPI", commentPI);
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("reviewPI", reviewPI);
 		
 		return "member/myPageReplyReview";
 	}
@@ -232,8 +233,37 @@ public class MyPageController {
 	}
 	
 	@RequestMapping("scrapBoard.me")
-	public String myPageScrapBoard(){
+	public String myPageScrapBoard(
+				HttpSession session,
+				Model model){
+		int memberNo = getLoginUserNo(session);
+		addAttributeUserInfo(model, memberNo);
+		
+		ArrayList<MyPageScrapBoardDTO> scrapBoardList = myPageService.getScrapBoardList(memberNo);
+		
+		model.addAttribute("scrapBoardList", scrapBoardList);
+		
 		return "member/myPageScrapBoard";
+	}
+	
+	@ResponseBody
+	@PostMapping("delete-scrap-board.me")
+	public String deleteScrapBoard(
+			HttpSession session,
+			@RequestParam int boardNo) {
+
+		int memberNo = getLoginUserNo(session);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("boardNo", boardNo);
+		
+		int result = myPageService.deleteScrapBoard(map);
+		
+		if(result > 0) {
+			return "done";
+		} else {
+			return "undone";
+		}
 	}
 	
 	@RequestMapping("scrapProduct.me")
@@ -242,8 +272,39 @@ public class MyPageController {
 	}
 	
 	@RequestMapping("scrapRecipe.me")
-	public String myPageScrapRecipe(){
+	public String myPageScrapRecipe(
+				HttpSession session,
+				Model model){
+		
+		int memberNo = getLoginUserNo(session);
+		addAttributeUserInfo(model, memberNo);
+		
+		ArrayList<MyPageScrapRecipeDTO> scrapRecipeList = myPageService.getScrapRecipeList(memberNo);
+		
+		model.addAttribute("scrapRecipeList", scrapRecipeList);
+		
 		return "member/myPageScrapRecipe";
+	}
+	
+	@ResponseBody
+	@PostMapping("delete-scrap-recipe.me")
+	public String myPageDeleteScrapRecipe(
+			HttpSession session,
+			@RequestParam int recipeNo) {
+		
+		int memberNo = getLoginUserNo(session);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("recipeNo", recipeNo);
+		
+		int result = myPageService.deleteScrapRecipe(map);
+		
+		if(result > 0) {
+			return "done";
+		} else {
+			return "undone";
+		}
+		
 	}
 	
 	private void addAttributeUserInfo(Model model, int memberNo) {
