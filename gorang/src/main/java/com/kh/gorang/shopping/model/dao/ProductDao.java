@@ -84,4 +84,8 @@ public class ProductDao {
 	public int insertProductQna(SqlSessionTemplate sqlSession, QnA q) {
 		return sqlSession.insert("productMapper.insertProductQna", q);
 	}
+
+	public int insertProductReview(SqlSessionTemplate sqlSession, Review re) {
+		return sqlSession.insert("productMapper.insertProductReview", re);
+	}
 }

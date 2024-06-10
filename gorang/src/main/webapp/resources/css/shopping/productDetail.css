@@ -354,6 +354,8 @@
   font-size: 18px;
 }
 
+/* review */
+
 #product_review_area{
   width: 100%;
   display: flex;
@@ -440,6 +442,8 @@
   color : #6D6D6D;
 }
 
+/* qna */
+
 #product_qna_area{
   width: 100%;
   display: flex;
@@ -521,7 +525,7 @@
 /* 문의하기 모달 관련 css */
 #modal-qna-content {
   width: 100%;
-  height: 390px;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -529,7 +533,7 @@
 
 #product_name_container, #product_pic_container, #product_qna_content_container {
   width: 100%;
-  height: 175px;
+  height: fit-content;
 }
 
 #product_name_container {

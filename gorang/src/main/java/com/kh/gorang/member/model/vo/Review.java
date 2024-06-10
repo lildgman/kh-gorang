@@ -25,7 +25,9 @@ public class Review {
 	private int refProductNo;
 	private int refPdOptNo;
 	private int refMemberNo;
+//	브라우저에 뿌리기 위해 필요한 속성
 	private String writerNickname;
 	private String writerProfile;
+	private String refPdOptName;
 	
 }
