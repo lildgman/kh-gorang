@@ -16,7 +16,7 @@
         <div id ="user-info">
             <div id="user-profile-area">
                 <div id="user-profile">
-                    <img src="${contextPath}/resources/images/member-img/${loginUser.profile}" alt="화원 프로필">
+                    <img src="${contextPath}/resources/uploadfile/memberProfile/${loginUser.profile}" alt="화원 프로필">
                 </div>
                 <div id="user-profile-pencil">
                     <img src="${contextPath}/resources/images/member-img/Icon_Edit.png" alt="프로필 사진 버튼">
