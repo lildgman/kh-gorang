@@ -264,6 +264,12 @@ public class MyPageServiceImpl implements MyPageService{
 		return myPageDao.getLikeRecipeList(sqlSession, memberNo);
 	}
 
+	// 좋아요 레시피 삭제
+	@Override
+	public int deleteLikeRecipe(Map<String, Object> map) {
+		return myPageDao.deleteLikeRecipe(sqlSession, map);
+	}
+
 	
 
 	

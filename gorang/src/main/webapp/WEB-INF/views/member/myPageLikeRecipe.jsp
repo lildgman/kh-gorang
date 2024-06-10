@@ -37,7 +37,7 @@
 						<c:otherwise>
 							<c:forEach var="recipe" items="${likeRecipeList }">
 								<div class="scrap-content">
-			                        <div class="scrap-img" data-no="${recipe.recipeNo }">
+			                        <div class="scrap-img" data-no="${recipe.recipeNo }" onclick="moveDetailPage(this)">
 			                            <img src="${contextPath}/resources/uploadfile/recipe/recipemain/${recipe.recipeMainImg}" alt="">
 			                        </div>
 			                        <div class="scrap-checkbox">
