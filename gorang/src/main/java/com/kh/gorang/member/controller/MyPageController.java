@@ -225,10 +225,35 @@ public class MyPageController {
 		
 		ArrayList<MyPageLikeRecipeDTO> likeRecipeList = myPageService.getLikeRecipeList(memberNo);
 		
+		log.info("likeRecipeList={}", likeRecipeList);
+		
 		model.addAttribute("likeRecipeList",likeRecipeList);
 		
 		return "member/myPageLikeRecipe";
 	}
+	
+	@PostMapping("delete-like-recipe.me")
+	@ResponseBody
+	public String deleteLikeRecipe(
+			HttpSession session,
+			@RequestParam int recipeNo) {
+		
+		int memberNo = getLoginUserNo(session);
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("memberNo" , memberNo);
+		map.put("recipeNo", recipeNo);
+		
+		int result = myPageService.deleteLikeRecipe(map);
+		
+		if(result > 0) {
+			return "done";
+		} else {
+			return "undone";
+		}
+	}
+	
+	
 	@RequestMapping("likeBoard.me")
 	public String myPageLikeBoard(){
 		return "member/myPageLikeBoard";

@@ -133,13 +133,20 @@
 		<result column="PRODUCT_NO" property="productNo"/>
 		<result column="STATUS" property="status"/>
 		<result column="SCRAP_PRODUCT_DATE" property="scrapDate"/>
-	
 	</resultMap>
 	
 	<!-- 스크랩 상품 DTO -->
 	<resultMap type="MyPageScrapProductDTO" id="myPageScrapProductDTOResult">
 		<result column="PRODUCT_NO" property="productNo"/>
 		<result column="MAIN_IMG" property="productImg"/>
+	</resultMap>
+	
+	<!-- 좋아요 레시피 -->
+	<resultMap type="LikeRecipe" id="likeRecipeResult">
+		<result column="MEMBER_NO" property="memberNo"/>
+		<result column="PRODUCT_NO" property="recipeNo"/>
+		<result column="STATUS" property="status"/>
+		<result column="SCRAP_PRODUCT_DATE" property="LikeDate"/>
 	</resultMap>
 	
 	<!-- 좋아요 레시피 DTO -->
@@ -518,12 +525,19 @@
 	<select id="selectLikeRecipe" resultMap="myPageLikeRecipeDTOResult">
 		SELECT R.RCP_NO, R.RCP_MAIN_PHOTO
 		FROM RECIPE R
-		JOIN SCRAP_RECIPE SR USING (RCP_NO)
+		JOIN LIKE_RECIPE LR USING (RCP_NO)
 		WHERE 
 			R.STATUS = 'Y' AND
-			SR.STATUS = 'Y' AND
-			SR.MEMBER_NO = #{memberNo}
+			LR.STATUS = 'Y' AND
+			LR.MEMBER_NO = #{memberNo}
 		ORDER BY R.RCP_WRITE_DATE DESC
 	</select>
+	
+	<!-- 좋아요 레시피 삭제 -->
+	<update id="deleteLikeRecipe" parameterType="likeRecipeResult">
+		UPDATE LIKE_RECIPE
+		SET STATUS = 'N'
+		WHERE MEMBER_NO = #{memberNo} AND RCP_NO = #{recipeNo}
+	</update>
 	
 </mapper>
