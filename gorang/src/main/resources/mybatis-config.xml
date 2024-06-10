@@ -28,16 +28,20 @@
 		
  		<typeAlias type="com.kh.gorang.shopping.model.vo.ProductInsertDTO" alias="ProductInsertDTO" />
  		<typeAlias type="com.kh.gorang.board.model.vo.BoardSearchDTO" alias="BoardSearchDTO" />
- 		<typeAlias type="com.kh.gorang.board.model.vo.MyPageBoardCommentDTO" alias="MyPageBoardCommentDTO" />
  		
  		<typeAlias type="com.kh.gorang.shopping.model.vo.Order" alias="Order"/>
  		<typeAlias type="com.kh.gorang.shopping.model.vo.OrderPdopt" alias="OrderPdopt"/>
  
  		<typeAlias type="com.kh.gorang.common.vo.Media" alias="Media"/>
- 		<typeAlias type="com.kh.gorang.recipe.model.vo.MyPageScrapRecipeDTO" alias="MyPageScrapRecipeDTO" />
  		<typeAlias type="com.kh.gorang.recipe.model.vo.ScrapRecipe" alias="ScrapRecipe" />
  		<typeAlias type="com.kh.gorang.board.model.vo.ScrapBoard" alias="ScrapBoard" />
- 		<typeAlias type="com.kh.gorang.board.model.vo.MyPageScrapBoardDTO" alias="MyPageScrapBoardDTO"/>
+ 		<typeAlias type="com.kh.gorang.member.model.vo.ScrapProduct" alias="ScrapProduct" />
+ 		<typeAlias type="com.kh.gorang.member.model.vo.MyPageBoardCommentDTO" alias="MyPageBoardCommentDTO" />
+ 		<typeAlias type="com.kh.gorang.member.model.vo.MyPageScrapBoardDTO" alias="MyPageScrapBoardDTO"/>
+ 		<typeAlias type="com.kh.gorang.member.model.vo.MyPageScrapProductDTO" alias="MyPageScrapProductDTO"/>
+ 		<typeAlias type="com.kh.gorang.member.model.vo.MyPageScrapRecipeDTO" alias="MyPageScrapRecipeDTO" />
+ 		<typeAlias type="com.kh.gorang.member.model.vo.MyPageLikeRecipeDTO" alias="MyPageLikeRecipeDTO" />
+ 		
 	</typeAliases>
 	
 	<!-- 

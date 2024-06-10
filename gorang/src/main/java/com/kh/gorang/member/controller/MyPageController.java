@@ -14,16 +14,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.gorang.board.model.vo.Board;
-import com.kh.gorang.board.model.vo.MyPageBoardCommentDTO;
-import com.kh.gorang.board.model.vo.MyPageBoardDTO;
-import com.kh.gorang.board.model.vo.MyPageScrapBoardDTO;
 import com.kh.gorang.common.template.Pagination;
 import com.kh.gorang.common.vo.PageInfo;
 import com.kh.gorang.member.model.vo.Member;
+import com.kh.gorang.member.model.vo.MyPageBoardCommentDTO;
+import com.kh.gorang.member.model.vo.MyPageBoardDTO;
+import com.kh.gorang.member.model.vo.MyPageLikeRecipeDTO;
+import com.kh.gorang.member.model.vo.MyPageRecipeDTO;
+import com.kh.gorang.member.model.vo.MyPageScrapBoardDTO;
+import com.kh.gorang.member.model.vo.MyPageScrapProductDTO;
+import com.kh.gorang.member.model.vo.MyPageScrapRecipeDTO;
 import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.member.service.MyPageService;
-import com.kh.gorang.recipe.model.vo.MyPageRecipeDTO;
-import com.kh.gorang.recipe.model.vo.MyPageScrapRecipeDTO;
 import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.shopping.model.vo.Product;
 
@@ -218,7 +220,17 @@ public class MyPageController {
 	
 	//좋아요
 	@RequestMapping("likeRecipe.me")
-	public String myPageLikeRecipe(){
+	public String myPageLikeRecipe(
+			HttpSession session,
+			Model model){
+		
+		int memberNo = getLoginUserNo(session);
+		addAttributeUserInfo(model, memberNo);
+		
+		ArrayList<MyPageLikeRecipeDTO> likeRecipeList = myPageService.getLikeRecipeList(memberNo);
+		
+		model.addAttribute("likeRecipeList",likeRecipeList);
+		
 		return "member/myPageLikeRecipe";
 	}
 	@RequestMapping("likeBoard.me")
@@ -271,8 +283,39 @@ public class MyPageController {
 	}
 	
 	@RequestMapping("scrapProduct.me")
-	public String myPageScrapProduct(){
+	public String myPageScrapProduct(
+			HttpSession session,
+			Model model){
+		
+		int memberNo = getLoginUserNo(session);
+		addAttributeUserInfo(model, memberNo);
+		
+		ArrayList<MyPageScrapProductDTO> scrapProductList = myPageService.getScrapProduct(memberNo);
+		model.addAttribute("scrapProductList", scrapProductList);
+		
 		return "member/myPageScrapProduct";
+	}
+	
+	@PostMapping("delete-scrap-product.me")
+	@ResponseBody
+	public String deleteScrapProduct(
+			HttpSession session,
+			@RequestParam int productNo) {
+		
+		log.info("productNo = {}" , productNo);
+		
+		int memberNo = getLoginUserNo(session);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("productNo", productNo);
+		
+		int result = myPageService.deleteScrapProduct(map);
+		
+		if(result > 0) {
+			return "done";
+		} else {
+			return "undone";
+		}
 	}
 	
 	@RequestMapping("scrapRecipe.me")

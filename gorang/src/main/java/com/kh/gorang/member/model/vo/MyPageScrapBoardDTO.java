@@ -1,4 +1,4 @@
-package com.kh.gorang.board.model.vo;
+package com.kh.gorang.member.model.vo;
 
 import lombok.Data;
 
