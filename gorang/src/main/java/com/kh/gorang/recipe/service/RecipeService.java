@@ -28,6 +28,8 @@ public interface RecipeService {
 
 	List<Media> selectCompleteFoodPhotoList(int recipeNo);
 
+	int updateRecipeInsertDTO(Recipe rcp, RecipeInsertDTO recipeInsertDTO, HttpSession session);
+
 
 
 
