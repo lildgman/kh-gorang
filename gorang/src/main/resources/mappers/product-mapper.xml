@@ -47,6 +47,10 @@
 		<result column="pdopt_no" property="refPdOptNo"/>
 		<result column="product_no" property="refProductNo"/>
 		<result column="member_no" property="refMemberNo"/>
+		
+		<result column="member_nickname" property="writerNickname"/>
+		<result column="member_profile" property="writerProfile"/>
+		<result column="options_name" property="refPdOptName"/>
 	</resultMap>
 	
 	<!-- 문의 -->
@@ -223,14 +227,39 @@
     		review_photo,
     		review_type,
     		R.member_no,
-    		member_nickname as "writerNickname",
-    		member_profile as "writerProfile"
+    		member_nickname,
+    		member_profile,
+    		options_name
     	FROM REVIEW R
     	JOIN MEMBER USING (MEMBER_NO)
+    	JOIN OPTION_NAME ON pdopt_no = OPTIONS_NAME_NO
     	WHERE
-    		product_no = #{productNo} and
-    		status = 'Y'
+    		R.product_no = #{productNo} and
+    		R.status = 'Y'
     </select>
+    
+    <insert id="insertProductReview">
+    insert into review
+    (
+	    member_no,
+	    product_no,
+	    pdopt_no,
+	    review_type,
+	    rating,
+	    review_photo,
+	    review_content
+    )
+    values
+    (
+	    #{refMemberNo},
+	    #{refProductNo},
+	    #{refPdOptNo},
+	    1,
+	    #{rating},
+	    #{reviewPhoto},
+	    #{reviewContent}
+    )
+    </insert>
     
     <!-- ===================================== 문의 ======================= -->
     <!-- 상품 문의 등록 -->

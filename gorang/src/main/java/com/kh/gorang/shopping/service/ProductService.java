@@ -45,4 +45,7 @@ public interface ProductService {
 	
 	//상품 문의 등록
 	int insertProductQna(QnA q);
+	
+	//상품 후기 등록
+	int insertProductReview(Review re);
 }

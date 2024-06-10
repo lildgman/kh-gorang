@@ -2,10 +2,9 @@ document.addEventListener("DOMContentLoaded", function () {
   // 전역 변수 초기화
   const contextPath = getContextPath();
   const pno = getParameterPno();
-  const profileLocation = contextPath + "/resources/uploadfile/memberProfile/";
 
   // 파라미터값으로 뿌려주고 남은 정보창 채우기
-  inputProductInfo(pno, profileLocation);
+  inputProductInfo(pno, contextPath);
 
   // 이벤트 핸들러 등록
   clickZzim();
@@ -102,7 +101,7 @@ function inputProductInfo(pno, profileLocation){
   ajaxGetProductOpts({pno}, (opts)=>putProductOptsForOrder(opts));
 
   
-  //리뷰 수, 리뷰 내용 가져오기 미완!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 결제 페이지 먼저 구축
+  //리뷰 수, 리뷰 내용 가져오기
   ajaxGetProductReviews({pno}, (reviews)=>putProductReviewList(reviews, profileLocation));
 
   //상품 문의 가져오기
@@ -385,21 +384,21 @@ document.addEventListener("DOMContentLoaded", function(){
 })
 
 
-
-
 //=========================== review 관련 메소드 ========================================
 
   // 리뷰 부분 구성하는 요소들 구축하는 메소드
   // 리뷰를 위해서는 상품 번호를 바로 참조하는 것이 아니라 유저가 구매한 상품 옵션을 통해 상품 번호를 가져와야함
   // 옵션명이 필요함!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-function putProductReviewList(reviews, profileLocation){
+
+
+
+function putProductReviewList(reviews, contextPath){
     const productReviewArea = document.querySelector("#product_review_area");
     // 리뷰수
     document.querySelector("#product_review_quantity").innerHTML = reviews.length;
     // 평점 평균 변수
     let ratingSum = 0;
     for(let review of reviews){
-
       ratingSum += review.rating;
       //리뷰 내용 담을 div
       const productReview = document.createElement('div');
@@ -417,7 +416,7 @@ function putProductReviewList(reviews, profileLocation){
       const writerPic = document.createElement('img');
       writerPic.setAttribute("class", "review_writer_pic");
       writerPicContainer.appendChild(writerPic);
-      writerPic.src = profileLocation + review.writerProfile;
+      writerPic.src = contextPath + "/resources/uploadfile/memberProfile/" + review.writerProfile;
       // 작성자 id, 평점 영역
       const reviewWriterIdRate = document.createElement('div');
       reviewWriterIdRate.setAttribute("class", "review_writer_id_rate");
@@ -427,30 +426,54 @@ function putProductReviewList(reviews, profileLocation){
       reviewWriterId.setAttribute("class", "review_writer_id");
       reviewWriterIdRate.appendChild(reviewWriterId);
       reviewWriterId.innerHTML = review.writerNickname;
+
       // 작성자 평점
       const reviewRate = document.createElement('div');
       reviewRate.setAttribute("class", "review_rate");
+      reviewWriterIdRate.appendChild(reviewRate);
 
-      const reviewRateStar = document.createElement('i');
-      reviewRateStar.setAttribute("class", "fa-solid fa-star");
-      reviewRateStar.setAttribute("style", "color: #FFD43B;");
       // 리뷰의 평점만큼 반복문 돌려서 별 모양 표시
       for(let i = 0; i < review.rating; i++){
+        const reviewRateStar = document.createElement('i');
+        reviewRateStar.setAttribute("class", "fa-solid fa-star");
+        reviewRateStar.setAttribute("style", "color: #FFD43B;");
         reviewRate.appendChild(reviewRateStar);
       }
 
+      // 유저가 구입한 상품의 옵션명
       const reviewProductName = document.createElement('div');
       reviewProductName.setAttribute("class", "review_product_name");
       productReview.appendChild(reviewProductName);
-      // 유저가 구입한 상품의 옵션명을 가져와야함
-      reviewProductName.innerHTML;
+      reviewProductName.innerHTML = review.refPdOptName;
+      
+      // 리뷰 사진
+      const reviewPhotoWrapper = document.createElement('div');
+      reviewPhotoWrapper.setAttribute("class", "review_img_container");
+      productReview.appendChild(reviewPhotoWrapper);
+      const reviewPhoto = document.createElement('img');
+      reviewPhoto.setAttribute("class", "review_img");
+      reviewPhotoWrapper.appendChild(reviewPhoto);
+      reviewPhoto.setAttribute("src", contextPath + "/resources/uploadfile/review/product-review/" + review.reviewPhoto);
 
+      // 리뷰 내용
       const reviewContent = document.createElement('div');
       reviewContent.setAttribute("class", "review_content");
+      reviewContent.innerHTML = review.reviewContent;
+      productReview.appendChild(reviewContent);
     }
     // 상품 평점 평균
     let ratingAvg = (ratingSum / reviews.length).toFixed(1);
     document.querySelector("#product_grade").innerHTML = ratingAvg;
+
+    const reviewPagenationAreaDiv = document.createElement('div');
+    reviewPagenationAreaDiv.setAttribute("id", "review_pagination_area");
+    reviewPagenationAreaDiv.innerHTML = `<div id="review_pagination">
+                                            <a href="#">&lt;</a>
+                                            <a href="#">1</a>
+                                            <a href="#">2</a>
+                                            <a href="#">&gt;</a>
+                                         </div>`
+    productReviewArea.appendChild(reviewPagenationAreaDiv);
 }
 
 // ============================= QNA 관련 메소드 ====================================
@@ -505,7 +528,9 @@ function putProductQnAList(pno, qnas){
       qnaQuestionTr.appendChild(qnaContentQuestionTd);
       qnaContentQuestionTd.setAttribute("style", "text-align: left");
       qnaContentQuestionTd.setAttribute("colspan", "4");
-      qnaContentQuestionTd.innerHTML = qna.qnaContent;
+      qnaContentQuestionTd.innerHTML = `<span>질문</span> <br>
+                                        <img src="/gorang/resources/uploadfile/qna/product-qna/${qna.qnaPhoto}">
+                                        <p>${qna.qnaContent}</p>`
 
       //만약 답변이 있다면 생성
       if(qna.answerNo != 0){

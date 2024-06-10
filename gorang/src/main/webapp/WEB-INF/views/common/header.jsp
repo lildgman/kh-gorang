@@ -136,6 +136,12 @@
 		                <!-- 로그인 후 -->
 		                <div id="header-bottom-right-login">
                             <div id="header-bottom-right-login-top">
+                                <c:if test="${loginUser.memberNo == 1}">
+                                    <span onclick="moveLocation('${pageContext.request.contextPath}/enrollproduct.ma')">관리자 페이지</span>
+                                    <svg width="1" height="12" viewBox="0 0 1 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="1" height="12" fill="#E6E6E6"/>
+                                    </svg>
+                                </c:if>
                                 <span onclick="moveLocation('${pageContext.request.contextPath}/logout.me')">로그아웃</span>
                                 <svg width="1" height="12" viewBox="0 0 1 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect width="1" height="12" fill="#E6E6E6"/>
