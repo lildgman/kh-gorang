@@ -153,36 +153,36 @@
                     <div class="cooking-order-blocks" id="cookOrder-${orderIndex.index}">
                         <div class="cooking-order-block" >
                             <div class="cooking-order-block-top">
-                                <div class="cook-order-number-img">${orderIndex.index}+1</div>
-                                <div class="cook-order-write-content"><input name ="cookOrderList[${orderIndex.index}].cookOrdContent" type="text" placeholder="예) 소고기는 기름을 떼어내고 적당한 크기로 썰어주세요"></div>
+                                <div class="cook-order-number-img">1</div>
+                                <div class="cook-order-write-content"><input name ="cookOrderList[${orderIndex.index}].cookOrdContent" type="text" placeholder="예) 소고기는 기름을 떼어내고 적당한 크기로 썰어주세요" value="${cookOrder.cookOrdContent}"></div>
                                 <div class="cook-order-hambugerbar"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/SVG.png" alt=""></div>
                             </div>
                             <div class="cooking-order-block-bottom" >
                                 <div class="cooking-order-block-bottom-img" onclick="cookIngOrderImg(this,'${orderIndex.index}')">
-                                    <img class ="cookingImg" src="${contextPath}/resources/dummyImg/recipe/recipeWrite/camera.png" alt="">
-                                    <input type="hidden" name="cookOrderList[${orderIndex.index}].cookOrdPhoto" id="cookOrdPhoto" value="">
-                                    <img class="cookingImg-real" src="${contextPath}/resources/uploadfile/recipe/recipeorder/${cookOrder.cookOrdPhoto}" alt="" >
-                                    <input type="file"  id="fileInput"  onchange="changeCookIngOrderImg(this,'${orderIndex.index}')">
+                                    <img class ="cookingImg" src="${contextPath}/resources/dummyImg/recipe/recipeWrite/camera.png" alt="" style="display: none;">
+                                    <input type="hidden" name="cookOrderList[${orderIndex.index}].cookOrdPhoto" id="cookOrdPhoto" value="${cookOrder.cookOrdPhoto}">
+                                    <img class="cookingImg-real" src="${contextPath}/resources/uploadfile/recipe/recipeorder/${cookOrder.cookOrdPhoto}" alt="" style="display: block;" >
+                                    <input type="file"  id="fileInput"  onchange="changeCookIngOrderImg(this,'${orderIndex.index}')" value="">
                                 </div>
                                 <c:forEach var="cookTip" items="${cookOrder.cookTipList}" varStatus="tipIndex">
                                     <div class="cooking-order-block-bottom-tips">
-                                        <div class="cooking-order-block-bottom-tip" id="cookTip-0">
-                                            <input name ="cookOrderList[0].cookTipList[0].cookTipContent" type="text" placeholder="팁 예) 볶는 시간은 최소로 합니다">
+                                        <div class="cooking-order-block-bottom-tip" id="cookTip-${tipIndex.index}">
+                                            <input name ="cookOrderList[${orderIndex.index}].cookTipList[${tipIndex.index}].cookTipContent" type="text" placeholder="팁 예) 볶는 시간은 최소로 합니다" value="${cookTip.cookTipContent}">
                                             <button type="button" class="add-tip">
-                                                <img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/plus (2).png" alt="" onclick="addTip(this,0,0)"></button>
+                                                <img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/plus (2).png" alt="" onclick="addTip(this,'${orderIndex.index}','${tipIndex.index}')"></button>
                                             <button type="button" class="delte-tip">
-                                                <img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt=""  onclick="deleteTip(this,0,0)"></button>
+                                                <img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt=""  onclick="deleteTip(this,'${orderIndex.index}','${tipIndex.index}')"></button>
                                         </div>
                                     </div>
                                 </c:forEach>
                             </div>
                             <div id="recipe-order-delete-btn-area">
-                                <button type="button" id="order-delete-btn" onclick="deleteCookingOrder(this,0)">삭제</button>
+                                <button type="button" id="order-delete-btn" onclick="deleteCookingOrder(this,'${orderIndex.index}')">삭제</button>
                             </div>
                         </div>
                     </div>
                     <div id="add-order-btn">
-                        <button type="button" onclick="addCookingOrder(this,0)">+ 순서 추가</button>
+                        <button type="button" onclick="addCookingOrder(this,'${recipeInsertDTO.cookOrderList.size()}'-1)">+ 순서 추가</button>
                     </div>
                 </c:forEach>
             </div>
@@ -191,30 +191,23 @@
             <div id="complete-food-img-area">
                 <div id="complete-food-img-title">완성사진</div>
                 <div id="complete-food-img-blocks" >
-                    <div class="complete-food-img-block"  onclick="completeImg(this)">
-                        <img class="completeImg" src="${contextPath}/resources/dummyImg/recipe/recipeWrite/camera.png" alt="">
-                        <input type="hidden" name="completeFoodPhoto[0].originName" id="completeFoodPhoto" value="">
-                        <img class="completeImg-real"src="" alt="" >
-                        <input type="file"  class="completeImages" id="" onchange="changecompleteImg(this)">
-                    </div>
-                    <div class="complete-food-img-block"  onclick="completeImg(this)">
-                        <img class="completeImg" src="${contextPath}/resources/dummyImg/recipe/recipeWrite/camera.png" alt="">
-                        <input type="hidden" name="completeFoodPhoto[1].originName" id="completeFoodPhoto" value="">
-                        <img class="completeImg-real" src="" alt="" >
-                        <input type="file" class="completeImages" id="" onchange="changecompleteImg(this)">
-                    </div>
-                    <div class="complete-food-img-block"  onclick="completeImg(this)">
-                        <img class="completeImg" src="${contextPath}/resources/dummyImg/recipe/recipeWrite/camera.png" alt="">
-                        <input type="hidden" name="completeFoodPhoto[2].originName" id="completeFoodPhoto" value="">
-                        <img class="completeImg-real" src="" alt="" >
-                        <input type="file"  class="completeImages" id="" onchange="changecompleteImg(this)">
-                    </div>
-                    <div class="complete-food-img-block"  onclick="completeImg(this)">
-                        <img class="completeImg" src="${contextPath}/resources/dummyImg/recipe/recipeWrite/camera.png" alt="">
-                        <input type="hidden" name="ompleteFoodPhoto[3].originName" id="completeFoodPhoto" value="">
-                        <img class="completeImg-real" src="" alt="" >
-                        <input type="file"  class="completeImages" id="" onchange="changecompleteImg(this)">
-                    </div>
+                    <c:forEach var="media" items="${recipeInsertDTO.completeFoodPhoto}" varStatus="status">
+                        <div class="complete-food-img-block"  onclick="completeImg(this)">
+                            <img class="completeImg" src="${contextPath}/resources/dummyImg/recipe/recipeWrite/camera.png" alt="" style="display: none;">
+                            <input type="hidden" name="completeFoodPhoto[${status.index}].originName" value="${media.originName}">
+                            <img class="completeImg-real" src="${contextPath}/resources/uploadfile/recipe/recipefinal/${media.changeName}" alt="" style="display: block;">
+                            <input type="file" class="completeImages" id="" onchange="changecompleteImg(this)">
+                        </div>
+                    </c:forEach>
+
+                    <c:forEach begin="${recipeInsertDTO.completeFoodPhoto.size()}" end="3" varStatus="status">
+                        <div class="complete-food-img-block"  onclick="completeImg(this)">
+                            <img class="completeImg" src="${contextPath}/resources/dummyImg/recipe/recipeWrite/camera.png" alt="">
+                            <input type="hidden" name="completeFoodPhoto[${status.index}].originName" value="">
+                            <img class="completeImg-real" src="" alt="">
+                            <input type="file" class="completeImages" id="" onchange="changecompleteImg(this)">
+                        </div>
+                    </c:forEach>
                 </div>
             </div>
         </div>
