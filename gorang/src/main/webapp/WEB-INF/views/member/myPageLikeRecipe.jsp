@@ -23,24 +23,33 @@
             <div id="scrap-area">
                 <div id="scrap-area-top">
                     <span>좋아요 > 레시피</span>
-                    <span>(9)</span>
+                    <span>(${likeRecipeList.size() })</span>
                 </div>
 
                 <div id="delete-edit" onclick="editBtn()">편집</div>           
                     <div id="delete-like" onclick="deleteBtn()">삭제</div>
             
                 <div id="scrap-area-content">
-
-					<c:forEach begin="1" end="9" step="1">
-						<div class="scrap-content">
-                        <div class="scrap-img">
-                            <img src="${contextPath}/resources/dummyImg/shopping/dog.jpeg" alt="">
-                        </div>
-                        <div class="scrap-checkbox">
-                            <input type="checkbox" name="" id="delete-check" class="delete-check">
-                        </div>
-                    </div>
-					</c:forEach>                    
+					<c:choose>
+						<c:when test="${empty likeRecipeList }">
+							좋아요를 누른 레시피가 없습니다.
+						</c:when>
+						<c:otherwise>
+							<c:forEach var="recipe" items="${likeRecipeList }">
+								<div class="scrap-content">
+			                        <div class="scrap-img" data-no="${recipe.recipeNo }">
+			                            <img src="${contextPath}/resources/uploadfile/recipe/recipemain/${recipe.recipeMainImg}" alt="">
+			                        </div>
+			                        <div class="scrap-checkbox">
+			                            <input type="checkbox" name="" id="delete-check" class="delete-check">
+			                        </div>
+			                    </div>
+							</c:forEach>   
+						</c:otherwise>
+					
+					
+					</c:choose>
+					                 
                     
                 </div>
             </div>

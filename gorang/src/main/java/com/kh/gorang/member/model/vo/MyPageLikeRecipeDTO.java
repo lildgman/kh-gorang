@@ -1,9 +1,9 @@
-package com.kh.gorang.recipe.model.vo;
+package com.kh.gorang.member.model.vo;
 
 import lombok.Data;
 
 @Data
-public class MyPageScrapRecipeDTO {
+public class MyPageLikeRecipeDTO {
 	private final int recipeNo;
 	private final String recipeMainImg;
 }

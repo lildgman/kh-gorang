@@ -4,13 +4,15 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.kh.gorang.board.model.vo.Board;
-import com.kh.gorang.board.model.vo.MyPageBoardCommentDTO;
-import com.kh.gorang.board.model.vo.MyPageBoardDTO;
-import com.kh.gorang.board.model.vo.MyPageScrapBoardDTO;
 import com.kh.gorang.common.vo.PageInfo;
+import com.kh.gorang.member.model.vo.MyPageBoardCommentDTO;
+import com.kh.gorang.member.model.vo.MyPageBoardDTO;
+import com.kh.gorang.member.model.vo.MyPageLikeRecipeDTO;
+import com.kh.gorang.member.model.vo.MyPageRecipeDTO;
+import com.kh.gorang.member.model.vo.MyPageScrapBoardDTO;
+import com.kh.gorang.member.model.vo.MyPageScrapProductDTO;
+import com.kh.gorang.member.model.vo.MyPageScrapRecipeDTO;
 import com.kh.gorang.member.model.vo.Review;
-import com.kh.gorang.recipe.model.vo.MyPageRecipeDTO;
-import com.kh.gorang.recipe.model.vo.MyPageScrapRecipeDTO;
 import com.kh.gorang.recipe.model.vo.Recipe;
 
 public interface MyPageService {
@@ -80,5 +82,16 @@ public interface MyPageService {
 
 	// 스크랩 게시글 삭
 	int deleteScrapBoard(Map<String, Object> map);
+
+	// 스크랩 상품 조회 
+	ArrayList<MyPageScrapProductDTO> getScrapProduct(int memberNo);
+	
+	// 스크랩 상품 삭제 
+	int deleteScrapProduct(Map<String, Object> map);
+
+	// 좋아요 레시피 조회
+	ArrayList<MyPageLikeRecipeDTO> getLikeRecipeList(int memberNo);
+
+	
 
 }
