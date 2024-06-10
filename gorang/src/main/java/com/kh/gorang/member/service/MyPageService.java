@@ -92,6 +92,9 @@ public interface MyPageService {
 	// 좋아요 레시피 조회
 	ArrayList<MyPageLikeRecipeDTO> getLikeRecipeList(int memberNo);
 
+	// 좋아요 레시피 삭제
+	int deleteLikeRecipe(Map<String, Object> map);
+
 	
 
 }
