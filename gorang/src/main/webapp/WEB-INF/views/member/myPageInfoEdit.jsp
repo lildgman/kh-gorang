@@ -107,11 +107,11 @@
                     <hr style="width: 740px; height: 4px; margin-left: 232px; color: #D4D4D4;">
                     <div id="userWithdraw">
                         <div id="withdrawInfo"><span>회원탈퇴 후 동일 아이디로 재가입이 불가합니다</span></div>
-                        <div id="withdrawBtn"><button>회원탈퇴</button></div>
+                        <div id="withdrawBtn"><button type="button" onclick="location.href='withdrawal.me'">회원탈퇴</button></div>
                     </div>
                     <div id="btnArea">
                         <div id="commitBtn"><button type="button" onclick="submitMemberInfo()">확인</button></div>
-                        <div id="cancelBtn"><button type="button">취소</button></div>
+                        <div id="cancelBtn"><button type="button" onclick="location.href='edit.me'">취소</button></div>
                     </div>
                 </div>
             </div>
