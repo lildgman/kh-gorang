@@ -186,7 +186,7 @@ public class StoreController {
 //		re.set
 		
 		
-		int result = productService.insertProductQna(q);
+		int result = productService.insertProductReview(re);
 		
 		if(result > 0) {
 			session.setAttribute("alertMsg", "문의 등록 성공.");
