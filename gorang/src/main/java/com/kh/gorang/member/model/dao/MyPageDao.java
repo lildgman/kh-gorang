@@ -218,6 +218,11 @@ public class MyPageDao {
 		return (ArrayList)sqlSession.selectList("myPageMapper.selectLikeRecipe", memberNo);
 	}
 
+	// 좋아요 레시피 삭제
+	public int deleteLikeRecipe(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.update("myPageMapper.deleteLikeRecipe", map);
+	}
+
 	
 	
 
