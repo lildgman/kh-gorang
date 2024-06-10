@@ -110,7 +110,7 @@ public class RecipeController {
 	@RequestMapping("update.re")
 	public String updateRecipe(Recipe rcp, RecipeInsertDTO recipeInsertDTO ,HttpSession session, Model model){
 
-		int result =recipeService.insertRecipeInsertDTO(rcp, recipeInsertDTO, session);
+		int result =recipeService.updateRecipeInsertDTO(rcp, recipeInsertDTO, session);
 		if(result>0) {			
 			return "recipe/recipeList";
 		}

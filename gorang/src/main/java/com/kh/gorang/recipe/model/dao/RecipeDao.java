@@ -81,6 +81,13 @@ public class RecipeDao {
 	}
 	
 	
+	//레시피 수정
+	public Recipe updateRecipe(SqlSessionTemplate sqlSession, Recipe rcp) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
 
 
 
