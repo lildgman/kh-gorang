@@ -61,6 +61,10 @@ body {
     left: 90px;
 }
 
+#userProfile-pencil img:hover {
+    cursor: pointer;
+}
+
 /* 유저 닉네임 팔로워 팔로잉 등급 영역 */
 #userNickName-area{
     height: 96px;
@@ -183,7 +187,7 @@ body {
 #userNpwCheckWrap{
     height: 60px;
     width: 700px;
-    margin: 30px 231px;
+    margin: 0px 231px;
     display: flex;
 }
 #userNickNameWrap{
@@ -291,7 +295,7 @@ body {
 }
 #ChangePnumBtn{
     margin-left: 220px;
-    width: 56px;
+    width: 85px;
     height: 30px;
     border:#1E90FF solid;
     text-align: center;
@@ -362,3 +366,29 @@ body {
     color: #fff;
 }
 
+.change-info-input {
+    border-style: none;
+}
+
+.change-info-input:focus {
+    outline: none;
+    border-style: none;
+}
+
+#file-input {
+    display: none;
+  }
+
+#valid-password-result{
+    display: none;
+    margin: 0px 231px;
+    padding-left: 136px;
+}
+
+.wrong {
+    color: red;
+}
+
+.match {
+    color: blue;
+}

@@ -569,4 +569,42 @@
 		SET STATUS = 'N'
 		WHERE MEMBER_NO = #{memberNo} AND BOARD_NO = #{boardNo}
 	</update>
+	
+	<!-- 회원 닉네임 체크 -->
+	<select id="selectMemberNicknameCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE 
+			MEMBER_NO != #{memberNo}
+			AND MEMBER_NICKNAME = #{nickname}
+	</select>
+	
+	<!-- 회원 전화번호 체크 -->
+	<select id="selectMemberPhoneCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE 
+			MEMBER_NO != #{memberNo}
+			AND MEMBER_PHONE LIKE #{memberPhone}
+	</select>
+	
+	<!-- 회원 정보 업데이트 -->
+	<update id="updateMemberInfo" parameterType="Member">
+		UPDATE MEMBER
+		SET 
+			MEMBER_PWD = #{memberPwd},
+			MEMBER_NICKNAME = #{nickname},
+			MEMBER_PHONE = #{memberPhone},
+			MEMBER_PROFILE = #{profile}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	<!-- 변경된 회원 조회 -->
+	<select id="selectMember" resultMap="memberResult">
+		SELECT *
+		FROM MEMBER
+		WHERE MEMBER_NO = #{memberNo}
+			AND MEMBER_STATUS = 'Y'
+	</select>
+	
 </mapper>
