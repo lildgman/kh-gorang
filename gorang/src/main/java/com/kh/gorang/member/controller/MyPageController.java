@@ -387,6 +387,11 @@ public class MyPageController {
 		}
 	}
 	
+	@GetMapping("withdrawal.me")
+	public String withdrawalForm() {		
+		return "member/myPageWithDraw";
+	}
+	
 	
 	@RequestMapping("loginForm.me")
 	public String login(){

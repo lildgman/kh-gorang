@@ -9,14 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    
-
-
     <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
     <link rel="stylesheet" href="${contextPath }/resources/css/manager/enrollproduct.css">
     <link rel="stylesheet" href="${contextPath }/resources/css/manager/commonManager.css">
-
+    <script src="${pageContext.request.contextPath}/resources/js/member/myPageInfoEdit.js"></script>
 
 </head>
 
