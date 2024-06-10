@@ -146,7 +146,7 @@
 		<result column="MEMBER_NO" property="memberNo"/>
 		<result column="PRODUCT_NO" property="recipeNo"/>
 		<result column="STATUS" property="status"/>
-		<result column="SCRAP_PRODUCT_DATE" property="LikeDate"/>
+		<result column="LIKE_RECIPE_DATE" property="LikeDate"/>
 	</resultMap>
 	
 	<!-- 좋아요 레시피 DTO -->
@@ -155,7 +155,13 @@
 		<result column="RCP_MAIN_PHOTO" property="recipeMainImg" />
 	</resultMap>
 	
-	
+	<!-- 좋아요 게시글 -->
+	<resultMap type="LikeBoard" id="likeBoardResult">
+		<result column="MEMBER_NO" property="memberNo"/>
+		<result column="BOARD_NO" property="boardNo"/>
+		<result column="STATUS" property="status"/>
+		<result column="LIKE_BOARD_DATE" property="LikeDate"/>
+	</resultMap>
 
 	<!-- 팔로잉 수 조회 -->
 	<select id="selectFollowingCount" resultType="_int">
