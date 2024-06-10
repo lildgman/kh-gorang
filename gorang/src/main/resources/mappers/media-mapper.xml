@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="mediaMapper">
+  <!-- 미디어 -->
+  	<resultMap type="Media" id="mediaResult">
+  		<result column="MEDIA_NO" property="mediaNo"/>
+  		<result column="MEDIA_TYPE" property="mediaType"/>
+  		<result column="MEDIA_KIND" property="mediaKind"/>
+  		<result column="FILE_PATH" property="filePath"/>
+  		<result column="UPLOAD_DATE" property="uploadDate"/>
+  		<result column="ORIGIN_NAME" property="originName"/>
+  		<result column="CHANGE_NAME" property="changeName"/>
+  		<result column="BOARD_NO" property="boardNo"/>
+  		<result column="RCP_NO" property="recipeNo"/>
+  		<result column="PRODUCT_NO" property="productNo"/>
+  	</resultMap>
+  	
+  	<!-- 레시피 완성 사진 추가 -->
+  	<insert id="insertRecipeMedia" parameterType="Media">
+  		INSERT INTO MEDIA(
+  			media_type,
+  			media_kind,
+  			file_path,
+  			origin_name,
+  			change_name,
+  			rcp_no
+  		) VALUES(
+  			#{mediaType},
+  			#{mediaKind},
+  			#{filePath},
+  			#{originName},
+  			#{changeName},
+  			#{recipeNo}
+  		)
+  	</insert>
+  	
+  	<!-- 레시피 완성사진 찾기 -->
+  	<select id="selectCompleteFoodPhoto" resultMap="mediaResult">
+  	SELECT M.media_no,
+  			M.media_type,
+  			M.media_kind,
+  			M.file_path,
+  			M.upload_date,
+  			M.origin_name,
+  			M.change_name,
+  			M.status,
+  			M.rcp_no
+  	FROM MEDIA M
+  	JOIN RECIPE R ON R.rcp_no = M.rcp_no
+  	WHERE M.status = 'Y'
+  	AND M.rcp_no = ${rcp_no}
+  	</select>
+  	
+ </mapper>

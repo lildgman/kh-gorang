@@ -1,7 +1,6 @@
 package com.kh.gorang.shopping.model.dao;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
@@ -9,16 +8,12 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.gorang.common.vo.PageInfo;
-import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.QnA;
 import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.shopping.model.vo.Product;
 import com.kh.gorang.shopping.model.vo.ProductDetailOption;
 import com.kh.gorang.shopping.model.vo.ProductInsertDTO;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Repository
 public class ProductDao {
 
@@ -88,5 +83,9 @@ public class ProductDao {
 
 	public int insertProductQna(SqlSessionTemplate sqlSession, QnA q) {
 		return sqlSession.insert("productMapper.insertProductQna", q);
+	}
+
+	public int insertProductReview(SqlSessionTemplate sqlSession, Review re) {
+		return sqlSession.insert("productMapper.insertProductReview", re);
 	}
 }

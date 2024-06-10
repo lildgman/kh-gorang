@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.kh.gorang.common.vo.PageInfo;
-import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.QnA;
 import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.shopping.model.vo.Product;
@@ -46,4 +45,7 @@ public interface ProductService {
 	
 	//상품 문의 등록
 	int insertProductQna(QnA q);
+	
+	//상품 후기 등록
+	int insertProductReview(Review re);
 }

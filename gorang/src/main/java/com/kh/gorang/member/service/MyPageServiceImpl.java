@@ -2,12 +2,24 @@ package com.kh.gorang.member.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
 import com.kh.gorang.board.model.vo.Board;
+import com.kh.gorang.common.vo.PageInfo;
 import com.kh.gorang.member.model.dao.MyPageDao;
+import com.kh.gorang.member.model.vo.Member;
+import com.kh.gorang.member.model.vo.MyPageBoardCommentDTO;
+import com.kh.gorang.member.model.vo.MyPageBoardDTO;
+import com.kh.gorang.member.model.vo.MyPageLikeBoardDTO;
+import com.kh.gorang.member.model.vo.MyPageLikeRecipeDTO;
+import com.kh.gorang.member.model.vo.MyPageRecipeDTO;
+import com.kh.gorang.member.model.vo.MyPageScrapBoardDTO;
+import com.kh.gorang.member.model.vo.MyPageScrapProductDTO;
+import com.kh.gorang.member.model.vo.MyPageScrapRecipeDTO;
+import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.shopping.model.vo.Product;
 
@@ -56,10 +68,10 @@ public class MyPageServiceImpl implements MyPageService{
 	public int getTotalLikeCount(int memberNo) {
 		
 		// 게시글 좋아요 수 조회
-		int boardLikeCount = myPageDao.getBoardLikeCount(sqlSession, memberNo);
+		int boardLikeCount = myPageDao.getTotalBoardLikeCount(sqlSession, memberNo);
 		
 		// 레시피 좋아요 수 조회
-		int recipeLikeCount = myPageDao.getRecipeLikeCount(sqlSession, memberNo);
+		int recipeLikeCount = myPageDao.getTotalRecipeLikeCount(sqlSession, memberNo);
 		
 		return boardLikeCount + recipeLikeCount;
 	}
@@ -68,22 +80,14 @@ public class MyPageServiceImpl implements MyPageService{
 	@Override
 	public ArrayList<Recipe> getMostViewRecipeList(int memberNo) {
 		
-		ArrayList<Recipe> list = myPageDao.getMostViewRecipeList(sqlSession, memberNo);
-		
-		ArrayList<Recipe> resultList = new ArrayList<Recipe>(list.subList(0, 3));
-		
-		return resultList;
+		return myPageDao.getMostViewRecipeList(sqlSession, memberNo);
 	}
 
 	// 조회수가 많은 순으로 정렬된 게시글 조회
 	@Override
 	public ArrayList<Board> getMostViewBoardList(int memberNo) {
-		
-		ArrayList<Board> list = myPageDao.getMostViewBoardList(sqlSession, memberNo);
-		
-		ArrayList<Board> resultList = new ArrayList<Board>(list.subList(0, 3));
-		
-		return resultList;
+			
+		return myPageDao.getMostViewBoardList(sqlSession, memberNo);
 	}
 
 	// 스크랩한 내용물들 조회
@@ -108,9 +112,9 @@ public class MyPageServiceImpl implements MyPageService{
 		}
 		
 		Collections.shuffle(allScrapList);
-		ArrayList<Object> scrapList = new ArrayList<Object>(allScrapList.subList(0, 4));		
-	
-		return scrapList;
+		
+		return allScrapList;
+		
 	}
 
 	// 좋아요 누른 내용물들 조회
@@ -130,9 +134,182 @@ public class MyPageServiceImpl implements MyPageService{
 		}
 		
 		Collections.shuffle(allLikeList);	
-		ArrayList<Object> likeList = new ArrayList<Object>(allLikeList.subList(0, 4));
-	
-		return likeList;
+		
+		return allLikeList;
+		
 	}
 
+	// 나의 레시피 개수 조회
+	@Override
+	public int getMyRecipeCount(int memberNo) {
+		return myPageDao.getMyRecipeCount(sqlSession, memberNo);
+	}
+
+	//레시피 조회
+	@Override
+	public ArrayList<MyPageRecipeDTO> getRecipeList(PageInfo pi, Map<String, Object> map) {
+		
+		ArrayList<MyPageRecipeDTO> result = new ArrayList<MyPageRecipeDTO>();
+		
+		ArrayList<Recipe> recipeList = myPageDao.getRecipeList(sqlSession, pi ,map);
+		
+		for(Recipe recipe : recipeList) {
+			int recipeReviewCount = myPageDao.getRecipeReviewCount(sqlSession, recipe.getRecipeNo());
+			int recipeLikeCount = myPageDao.getRecipeLikeCount(sqlSession, recipe.getRecipeNo());
+			MyPageRecipeDTO myPageRecipeDTO = new MyPageRecipeDTO(recipe, recipeReviewCount, recipeLikeCount);
+			result.add(myPageRecipeDTO);
+		}
+		
+		return result;
+	}
+
+	// 레시피 삭제 
+	@Override
+	public int removeRecipe(int recipeNo) {
+		return myPageDao.removeRecipe(sqlSession, recipeNo);
+	}
+
+	// 나의 게시글 개수 조회 
+	@Override
+	public int getBoardCount(int memberNo) {
+		return myPageDao.getBoardCount(sqlSession, memberNo);
+	}
+
+	// 게시글 조회 
+	@Override
+	public ArrayList<MyPageBoardDTO> getBoardList(PageInfo pi, Map<String, Object> map) {
+		
+		ArrayList<MyPageBoardDTO> result = new ArrayList<>();
+		
+		ArrayList<Board> boardList = myPageDao.getBoardList(sqlSession, pi, map);
+		
+		for(Board board : boardList) {
+			int boardCommentCount = myPageDao.getBoardCommentCount(sqlSession, board.getBoardNo());
+			int boardLikeCount = myPageDao.getBoardLikeCount(sqlSession, board.getBoardNo());
+			MyPageBoardDTO boardInfo = new MyPageBoardDTO(board, boardCommentCount, boardLikeCount);
+			result.add(boardInfo);
+		}
+		
+		log.info("result={}",result);
+		return result;
+	}
+
+	//게시글 삭제
+	@Override
+	public int removeBoard(int boardNo) {
+		return myPageDao.removeBoard(sqlSession, boardNo);
+	}
+
+	// 댓글 개수 조회 
+	@Override
+	public int getCommentCount(int memberNo) {
+		return myPageDao.getCommentCount(sqlSession, memberNo);
+	}
+
+	// 댓글 조회 
+	@Override
+	public ArrayList<MyPageBoardCommentDTO> getBoardCommentList(PageInfo commentPI, int memberNo) {
+		return myPageDao.getBoardCommentList(sqlSession, commentPI, memberNo);
+	}
+
+	// 리뷰개수조회 
+	@Override
+	public int getReviewCount(int memberNo) {
+		return myPageDao.getReviewCount(sqlSession, memberNo);
+	}
+
+	//리뷰 리스트 조회 
+	@Override
+	public ArrayList<Review> getReviewList(PageInfo reviewPI, int memberNo) {
+		return myPageDao.getReviewList(sqlSession, reviewPI, memberNo);
+	}
+
+	//스크랩 리스트 조회 
+	@Override
+	public ArrayList<MyPageScrapRecipeDTO> getScrapRecipeList(int memberNo) {
+		return myPageDao.getScrapRecipeList(sqlSession, memberNo);
+	}
+
+	// 스크랩 레시피 삭제 
+	@Override
+	public int deleteScrapRecipe(Map<String, Object> map) {
+		return myPageDao.deleteScrapRecipe(sqlSession, map);
+	}
+
+	// 스크랩 게시글 조회 
+	@Override
+	public ArrayList<MyPageScrapBoardDTO> getScrapBoardList(int memberNo) {
+		return myPageDao.getScrapBoardList(sqlSession, memberNo);
+	}
+
+	// 스크랩 게시글 삭제 
+	@Override
+	public int deleteScrapBoard(Map<String, Object> map) {
+		return myPageDao.deleteScrapBoard(sqlSession, map);
+	}
+
+	// 스크랩 상품 조회
+	@Override
+	public ArrayList<MyPageScrapProductDTO> getScrapProduct(int memberNo) {
+		return myPageDao.getScrapProduct(sqlSession, memberNo);
+	}
+	
+	// 스크랩 상품 삭제
+	@Override
+	public int deleteScrapProduct(Map<String, Object> map) {
+		return myPageDao.deleteScrapProduct(sqlSession, map);
+	}
+
+	// 좋아요 레시피 조회
+	@Override
+	public ArrayList<MyPageLikeRecipeDTO> getLikeRecipeList(int memberNo) {
+		return myPageDao.getLikeRecipeList(sqlSession, memberNo);
+	}
+
+	// 좋아요 레시피 삭제
+	@Override
+	public int deleteLikeRecipe(Map<String, Object> map) {
+		return myPageDao.deleteLikeRecipe(sqlSession, map);
+	}
+
+	// 좋아요 게시글 조회
+	@Override
+	public ArrayList<MyPageLikeBoardDTO> getLikeBoardList(int memberNo) {
+		return myPageDao.getLikeBoardList(sqlSession, memberNo);
+	}
+
+	// 좋아요 게시글 삭제
+	@Override
+	public int deleteLikeBoard(Map<String, Object> map) {
+		return myPageDao.deleteLikeBoard(sqlSession, map);
+	}
+
+	// 회원 닉네임 중복체크
+	@Override
+	public int checkMemberNickname(Map<String, Object> map) {
+		return myPageDao.checkMemberNickname(sqlSession, map);
+	}
+
+	// 회원 전화번호 중복체크
+	@Override
+	public int checkMemberPhone(Map<String, Object> map) {
+		return myPageDao.checkMemberPhone(sqlSession, map);
+	}
+
+	// 회원 정보 업데이트
+	@Override
+	public Member updateMemberInfo(Member member) {
+		
+		int result = myPageDao.updateMemberInfo(sqlSession, member);
+		
+		if(result > 0) {
+			return myPageDao.selectMember(sqlSession, member.getMemberNo());
+		}
+		
+		return null;
+	}
+
+	
+
+	
 }

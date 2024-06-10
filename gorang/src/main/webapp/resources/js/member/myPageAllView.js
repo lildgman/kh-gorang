@@ -27,3 +27,18 @@ function BoardImg(){
     document.getElementById("banner-imgs-recipe").style.display="none";
     document.getElementById("banner-imgs").style.display="flex";
 }
+
+function movePage(element) {
+
+    const contentType = element.getAttribute('data-type');
+    const contentNo = element.getAttribute('data-no');
+
+    if(contentType === 'board') {
+        window.location.href = "detail.bo?boardNo=" + contentNo;
+    } else if(contentType === 'recipe') {
+        window.location.href = "detail.re?recipeNo=" + contentNo;
+    } else if (contentType === 'product') {
+        window.location.href = "detail.po?pno=" + contentNo;
+    }
+
+}

@@ -22,5 +22,7 @@ public class ProductDetailOption {
 	private int detailOptionQuantity;
 	private int productNo;
 	private String status;
+	
+	private Product pdForOpt;
 
 }

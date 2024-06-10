@@ -1,8 +1,20 @@
 package com.kh.gorang.member.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.kh.gorang.board.model.vo.Board;
+import com.kh.gorang.common.vo.PageInfo;
+import com.kh.gorang.member.model.vo.Member;
+import com.kh.gorang.member.model.vo.MyPageBoardCommentDTO;
+import com.kh.gorang.member.model.vo.MyPageBoardDTO;
+import com.kh.gorang.member.model.vo.MyPageLikeBoardDTO;
+import com.kh.gorang.member.model.vo.MyPageLikeRecipeDTO;
+import com.kh.gorang.member.model.vo.MyPageRecipeDTO;
+import com.kh.gorang.member.model.vo.MyPageScrapBoardDTO;
+import com.kh.gorang.member.model.vo.MyPageScrapProductDTO;
+import com.kh.gorang.member.model.vo.MyPageScrapRecipeDTO;
+import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.recipe.model.vo.Recipe;
 
 public interface MyPageService {
@@ -30,5 +42,76 @@ public interface MyPageService {
 
 	// 좋아요 내용물들 조회
 	ArrayList<Object> getLikeContentList(int memberNo);
+
+	// 최신순으로 정렬된 레시피 조회
+	ArrayList<MyPageRecipeDTO> getRecipeList(PageInfo pi, Map<String, Object> map);
+	
+	// 나의 레시피 개수 조회
+	int getMyRecipeCount(int memberNo);
+
+	// 레시피 삭제
+	int removeRecipe(int recipeNo);
+
+	// 게시글 개수 조회 
+	int getBoardCount(int memberNo);
+
+	// 게시글 조회 
+	ArrayList<MyPageBoardDTO> getBoardList(PageInfo pi, Map<String, Object> map);
+
+	// 게시글 삭제 
+	int removeBoard(int boardNo);
+
+	//댓글 개수 조회 
+	int getCommentCount(int memberNo);
+
+	//댓글 리스트 조회 
+	ArrayList<MyPageBoardCommentDTO> getBoardCommentList(PageInfo commentPI, int memberNo);
+
+	// 리뷰 개수 조회 
+	int getReviewCount(int memberNo);
+
+	// 리뷰 리스트 조회 
+	ArrayList<Review> getReviewList(PageInfo reviewPI, int memberNo);
+
+	// 스크랩한 레시피 조회 
+	ArrayList<MyPageScrapRecipeDTO> getScrapRecipeList(int memberNo);
+
+	// 스크랩 레시피 삭제 
+	int deleteScrapRecipe(Map<String, Object> map);
+
+	// 스크랩 게시글 조회 
+	ArrayList<MyPageScrapBoardDTO> getScrapBoardList(int memberNo);
+
+	// 스크랩 게시글 삭
+	int deleteScrapBoard(Map<String, Object> map);
+
+	// 스크랩 상품 조회 
+	ArrayList<MyPageScrapProductDTO> getScrapProduct(int memberNo);
+	
+	// 스크랩 상품 삭제 
+	int deleteScrapProduct(Map<String, Object> map);
+
+	// 좋아요 레시피 조회
+	ArrayList<MyPageLikeRecipeDTO> getLikeRecipeList(int memberNo);
+
+	// 좋아요 레시피 삭제
+	int deleteLikeRecipe(Map<String, Object> map);
+
+	// 좋아요 게시글 조회
+	ArrayList<MyPageLikeBoardDTO> getLikeBoardList(int memberNo);
+
+	// 좋아요 게시글 삭제
+	int deleteLikeBoard(Map<String, Object> map);
+
+	// 회원 닉네임 체크
+	int checkMemberNickname(Map<String, Object> map);
+
+	// 회원 전화번호 체크
+	int checkMemberPhone(Map<String, Object> map);
+
+	// 회원 정보 업데이트
+	Member updateMemberInfo(Member member);
+
+	
 
 }

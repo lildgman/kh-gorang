@@ -16,7 +16,7 @@
         <div id ="user-info">
             <div id="user-profile-area">
                 <div id="user-profile">
-                    <img src="${contextPath}/resources/images/member-img/${loginUser.profile}" alt="화원 프로필">
+                    <img src="${contextPath}/resources/uploadfile/memberProfile/${loginUser.profile}" alt="화원 프로필">
                 </div>
                 <div id="user-profile-pencil">
                     <img src="${contextPath}/resources/images/member-img/Icon_Edit.png" alt="프로필 사진 버튼">
@@ -30,7 +30,7 @@
                     <div id="user-following"><a href="">팔로잉 ${followingCount }</a></div>
                 </div>
                 <div id="user-grade">
-                    브론즈등급
+                	${loginUser.grade }등급
                 </div>
             </div>
             <div id="user-profile-area-line">
@@ -46,7 +46,6 @@
                 <div id="user-alarm">
                     <a href="">알림</a><br><div class="zero">0</div>
                 </div>
-              
             </div>
         </div>
         <div id="user-menu">

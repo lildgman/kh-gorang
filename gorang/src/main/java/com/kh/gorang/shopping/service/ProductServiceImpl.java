@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.gorang.common.vo.PageInfo;
@@ -24,8 +25,11 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService{
 
-	private final ProductDao productDao;
-	private final SqlSessionTemplate sqlSession;
+	@Autowired
+	SqlSessionTemplate sqlSession;
+	
+	@Autowired
+	ProductDao productDao;
 	
 	@Override
 	public int insertProduct(ProductInsertDTO product) {
@@ -109,6 +113,12 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public int insertProductQna(QnA q) {
 		return productDao.insertProductQna(sqlSession, q);
+	}
+
+
+	@Override
+	public int insertProductReview(Review re) {
+		return productDao.insertProductReview(sqlSession, re);
 	}
 
 	

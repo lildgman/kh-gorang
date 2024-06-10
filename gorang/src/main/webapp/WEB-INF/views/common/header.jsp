@@ -37,6 +37,12 @@
     </script>
 </head>
 <body>
+    <c:if test="${not empty alertMsg}">
+                <script>
+                    alert("${alertMsg}");
+                </script>
+                <c:remove var="alertMsg" />
+     </c:if>
     <div id="header">
         <div id="header-top">
             <span>신규가입 시 1만원 쿠폰을 지급해드려요!</span>
@@ -130,6 +136,12 @@
 		                <!-- 로그인 후 -->
 		                <div id="header-bottom-right-login">
                             <div id="header-bottom-right-login-top">
+                                <c:if test="${loginUser.memberNo == 1}">
+                                    <span onclick="moveLocation('${pageContext.request.contextPath}/enrollproduct.ma')">관리자 페이지</span>
+                                    <svg width="1" height="12" viewBox="0 0 1 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="1" height="12" fill="#E6E6E6"/>
+                                    </svg>
+                                </c:if>
                                 <span onclick="moveLocation('${pageContext.request.contextPath}/logout.me')">로그아웃</span>
                                 <svg width="1" height="12" viewBox="0 0 1 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect width="1" height="12" fill="#E6E6E6"/>
@@ -143,7 +155,7 @@
                                     </div>
                                     <span>마이페이지</span>
                                 </div>
-                                <div class="header-bottom-right-login-bottom-logo"  onclick="moveLocation('${pageContext.request.contextPath}/cart')">
+                                <div class="header-bottom-right-login-bottom-logo"  onclick="moveLocation('${pageContext.request.contextPath}/cart.po')">
                                     <div>
                                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M4.88086 7.5H8.43934C9.13506 7.5 9.48292 7.5 9.74481 7.68876C10.0067 7.87752 10.1167 8.20753 10.3367 8.86754L11.5475 12.5" stroke="#222222" stroke-width="2" stroke-linecap="round"/>

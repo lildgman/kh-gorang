@@ -1,7 +1,8 @@
 package com.kh.gorang.recipe.model.vo;
 
-import java.sql.Date;
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,5 +21,5 @@ public class CookOrder {
 	private String cookOrdPhoto;
 	private char status;
 	private int recipeNo;
-	private List<CookTip> cookTip;
+	private List<CookTip> cookTipList;
 }
