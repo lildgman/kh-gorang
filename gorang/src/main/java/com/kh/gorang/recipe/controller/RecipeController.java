@@ -91,7 +91,7 @@ public class RecipeController {
 	
 	//레시피 수정창으로 이동
 	@RequestMapping("updateForm.re")
-	public String updateFormRecipe(int recipeNo,Model model) {
+	public String updateFormRecipe(@RequestParam("recipeNo") int recipeNo,Model model) {
 		Recipe rcp = recipeService.selectRecipe(recipeNo);
 		
 		RecipeInsertDTO recipeInsertDTO = new RecipeInsertDTO();

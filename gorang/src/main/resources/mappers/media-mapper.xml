@@ -38,19 +38,19 @@
   	
   	<!-- 레시피 완성사진 찾기 -->
   	<select id="selectCompleteFoodPhoto" resultMap="mediaResult">
-  	SELECT media_no,
-  			media_type,
-  			media_kind,
-  			file_path,
-  			upload_data,
-  			origin_name,
-  			change_name,
-  			status,
-  			rcp_no
+  	SELECT M.media_no,
+  			M.media_type,
+  			M.media_kind,
+  			M.file_path,
+  			M.upload_date,
+  			M.origin_name,
+  			M.change_name,
+  			M.status,
+  			M.rcp_no
   	FROM MEDIA M
-  	JOIN RECIPE R ON R.rcp_no AND M.rcp_no
+  	JOIN RECIPE R ON R.rcp_no = M.rcp_no
   	WHERE M.status = 'Y'
   	AND M.rcp_no = ${rcp_no}
-  	
+  	</select>
   	
  </mapper>
