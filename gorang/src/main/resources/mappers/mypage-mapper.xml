@@ -162,6 +162,12 @@
 		<result column="STATUS" property="status"/>
 		<result column="LIKE_BOARD_DATE" property="LikeDate"/>
 	</resultMap>
+	
+	<!-- 좋아요 게시글 DTO -->
+	<resultMap type="MyPageLikeBoardDTO" id="myPageLikeBoardDTOResult">
+		<result column="BOARD_NO" property="boardNo"/>
+		<result column="BOARD_THUMBNAIL" property="boardThumbnail"/>
+	</resultMap>
 
 	<!-- 팔로잉 수 조회 -->
 	<select id="selectFollowingCount" resultType="_int">
@@ -546,4 +552,21 @@
 		WHERE MEMBER_NO = #{memberNo} AND RCP_NO = #{recipeNo}
 	</update>
 	
+	<!-- 좋아요 게시글 조회 -->
+	<select id="selectLikeBoard" resultMap="myPageLikeBoardDTOResult">
+		SELECT B.BOARD_NO, B.BOARD_THUMBNAIL
+		FROM BOARD B
+		JOIN LIKE_BOARD LB USING(BOARD_NO)
+		WHERE
+			B.STATUS = 'Y' AND
+			LB.STATUS = 'Y' AND
+			LB.MEMBER_NO = #{memberNo}
+	</select>
+	
+	<!-- 좋아요 게시글 삭제 -->
+	<update id="deleteLikeBoard" parameterType="LikeBoard">
+		UPDATE LIKE_BOARD
+		SET STATUS = 'N'
+		WHERE MEMBER_NO = #{memberNo} AND BOARD_NO = #{boardNo}
+	</update>
 </mapper>

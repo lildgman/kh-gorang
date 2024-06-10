@@ -57,6 +57,10 @@ body {
         overflow: hidden;
     }
 
+    .scrap-content img:hover {
+        cursor: pointer;
+    }
+
     .scrap-checkbox{
         position: absolute;
         top: 10px;

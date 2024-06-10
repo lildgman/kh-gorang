@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.common.vo.PageInfo;
 import com.kh.gorang.member.model.vo.MyPageBoardCommentDTO;
+import com.kh.gorang.member.model.vo.MyPageLikeBoardDTO;
 import com.kh.gorang.member.model.vo.MyPageLikeRecipeDTO;
 import com.kh.gorang.member.model.vo.MyPageScrapBoardDTO;
 import com.kh.gorang.member.model.vo.MyPageScrapProductDTO;
@@ -221,6 +222,16 @@ public class MyPageDao {
 	// 좋아요 레시피 삭제
 	public int deleteLikeRecipe(SqlSessionTemplate sqlSession, Map<String, Object> map) {
 		return sqlSession.update("myPageMapper.deleteLikeRecipe", map);
+	}
+
+	// 좋아요 게시글 조회
+	public ArrayList<MyPageLikeBoardDTO> getLikeBoardList(SqlSessionTemplate sqlSession, int memberNo) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.selectLikeBoard",memberNo);
+	}
+
+	// 좋아요 게시글 삭제
+	public int deleteLikeBoard(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.update("myPageMapper.deleteLikeBoard", map);
 	}
 
 	
