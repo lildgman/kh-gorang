@@ -64,26 +64,24 @@ public class RecipeDao {
 	}
 	//레시피 재료 속성(분류) 찾기
 	public List<IngredientsInfo> selectIngredientsInfoList(SqlSessionTemplate sqlSession, int divNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectList("recipeMapper.selectIngredientsInfoList", divNo);
 	}
 
 	
 	//레시피 조리순서 찾기
 	public List<CookOrder> selectCookOrderList(SqlSessionTemplate sqlSession, int rcpNo) {
-		return sqlSession.selectList("recipeMapper.selectDivList", rcpNo);
+		return sqlSession.selectList("recipeMapper.selectCookOrderList", rcpNo);
 	}
 	
 	
 	//레시피 완성사진 찾기
 	public List<Media> selectCompleteFoodPhoto(SqlSessionTemplate sqlSession, int rcpNo) {
-		// TODO Auto-generated method stub
 		return sqlSession.selectList("mediaMapper.selectCompleteFoodPhoto", rcpNo);
 	}
-
+	
+	//레시피 팁 찾기
 	public List<CookTip> selectCookTipList(SqlSessionTemplate sqlSession, int cookOrdNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectList("recipeMapper.selectCookTipList", cookOrdNo);
 	}
 	
 	

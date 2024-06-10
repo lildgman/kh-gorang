@@ -17,6 +17,7 @@
   		<result column="PRODUCT_NO" property="productNo"/>
   	</resultMap>
   	
+  	<!-- 레시피 완성 사진 추가 -->
   	<insert id="insertRecipeMedia" parameterType="Media">
   		INSERT INTO MEDIA(
   			media_type,
@@ -34,4 +35,22 @@
   			#{recipeNo}
   		)
   	</insert>
+  	
+  	<!-- 레시피 완성사진 찾기 -->
+  	<select id="selectCompleteFoodPhoto" resultMap="mediaResult">
+  	SELECT media_no,
+  			media_type,
+  			media_kind,
+  			file_path,
+  			upload_data,
+  			origin_name,
+  			change_name,
+  			status,
+  			rcp_no
+  	FROM MEDIA M
+  	JOIN RECIPE R ON R.rcp_no AND M.rcp_no
+  	WHERE M.status = 'Y'
+  	AND M.rcp_no = ${rcp_no}
+  	
+  	
  </mapper>

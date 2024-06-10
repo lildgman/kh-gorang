@@ -92,7 +92,7 @@ public class RecipeServiceImpl implements RecipeService{
 		return recipeDao.selectRecipe(sqlSession,recipeNo);
 	}
 	
-	//레시피 분류 찾기
+	//레시피 분류(재료 정보) 찾기
 	@Override
 	public List<Division> selectDivList(int recipeNo) {
 		 List<Division> divList =  recipeDao.selectDivList(sqlSession,recipeNo);
@@ -101,16 +101,18 @@ public class RecipeServiceImpl implements RecipeService{
 		 }
 		return divList;
 	}
-
+	
+	//레시피 조리순서(팁) 찾기
 	@Override
 	public List<CookOrder> selectCookOrderList(int recipeNo) {
 		 List<CookOrder> cookOrderList =  recipeDao.selectCookOrderList(sqlSession,recipeNo);
 		 for(CookOrder ord : cookOrderList) {
 			 ord.setCookTipList(recipeDao.selectCookTipList(sqlSession,ord.getCookOrdNo()));
-		 }
+		 } 
 		return cookOrderList;
 	}
-
+	
+	//레시피 완성사진 찾기
 	@Override
 	public List<Media> selectCompleteFoodPhotoList(int recipeNo) {
 		return recipeDao.selectCompleteFoodPhoto(sqlSession,recipeNo);

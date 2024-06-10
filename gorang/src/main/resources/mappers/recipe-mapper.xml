@@ -74,6 +74,43 @@
 	    AND rcp_no = #{rcpNo}
 	 </select>
   	
+  	 <!-- 레시피 분류 찾기 -->
+  	 <select id="selectDivList" resultMap="DivisionResult">
+  	 	SELECT D.*
+  	 	FROM  DIVISION D
+  	 	JOIN RECIPE R ON D.rcp_no = R.rcp_no
+  	 	WHERE D.stauts= 'Y'
+  	 	AND R.rcp_no = ${rcp_no}
+  	 </select>
+  	
+  	
+  	<!-- 레시피 재료 찾기 -->
+  	<select id="selectIngredientsInfoList" resultMap="ingredientsInfoResult">
+  		SELECT I.*
+  		FROM INGREDIENTS_INFO I
+  		JOIN DIVISION D ON I.div_no = d.div_no 
+  		WHERE I.status = 'Y'
+  		AND D.div_no = ${div_no}
+  	</select>
+  	
+  	 <!-- 레시피 조리순서 찾기 -->
+  	 <select id="selectCookOrderList" resultMap="DivisionResult">
+  	 	SELECT CO.*
+  	 	FROM  COOK_ORDER CO
+  	 	JOIN RECIPE R ON CO.rcp_no = R.rcp_no
+  	 	WHERE CO.status= 'Y'
+  	 	AND R.rcp_no = ${rcp_no}
+  	 </select>
+  	
+  	 <!-- 레시피 팁 찾기 -->
+  	 <select id="selectCookTipList" resultMap="DivisionResult">
+  	 	SELECT CT.*
+  	 	FROM  COOK_TIP CT
+  	 	JOIN COOK_ORDER CO ON CT.cook_ord_no = CO.cook_ord_no
+  	 	WHERE CT.stauts= 'Y'
+  	 	AND CO.cook_ord_no = ${rcp_no}
+  	 </select>
+  	
   	
   	 <!-- 레시피 게시글 추가 -->
   	 <select id="insertRecipe" parameterType="Recipe" resultMap="recipeResult" >

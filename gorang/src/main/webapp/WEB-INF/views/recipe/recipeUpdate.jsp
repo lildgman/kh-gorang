@@ -10,7 +10,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
 <link rel="stylesheet" href="${contextPath}/resources/css/recipe/recipeWrite.css">
-<script src="${contextPath}/resources/js/recipe/recipeWrite.js"></script>
+<script src="${contextPath}/resources/js/recipe/recipeUpdate.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
