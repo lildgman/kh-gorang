@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.common.vo.PageInfo;
+import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.MyPageBoardCommentDTO;
 import com.kh.gorang.member.model.vo.MyPageBoardDTO;
 import com.kh.gorang.member.model.vo.MyPageLikeBoardDTO;
@@ -101,6 +102,15 @@ public interface MyPageService {
 
 	// 좋아요 게시글 삭제
 	int deleteLikeBoard(Map<String, Object> map);
+
+	// 회원 닉네임 체크
+	int checkMemberNickname(Map<String, Object> map);
+
+	// 회원 전화번호 체크
+	int checkMemberPhone(Map<String, Object> map);
+
+	// 회원 정보 업데이트
+	Member updateMemberInfo(Member member);
 
 	
 
