@@ -28,68 +28,12 @@
                     <div id = "recommend-recipe-texthead">
                         추천 레시피 
                     </div>
-
                     <div id="recommend-recipe-modal-btn">                            
                         <button id="viewModalBtn" onclick="viewModal()">
                             직접레시피 찾기
                         </button>
-                        <!-- 모달 창 -->
-                        <div id="myModal" class="modal">
-                            <div id="modal-content-recipe-find">
-                                <div id="modal-title-header">
-                                    레시피 찾기
-                                </div>
-
-                                <div id="modal-search-igre">
-                                    <input id="input-igretext" placeholder=" 식품명 입력"  onkeypress="handleKeyPress(event)"></input> 
-                                    <button onclick="findSearch()">
-                                    <img src="${pageContext.request.contextPath}/resources/images/member-img/search 3.png" alt="">
-                                    </button>
-                                </div>
-                                
-                                <div id="list-igre-area">
-                                    <button id="selectAll-btn" onclick="findSelectAll()">모두선택</button>
-                                </div>
-                                
-                                <div id="list-title">
-                                    <span id="first-list-title" >식품명</span>
-                                    <span id="second-list-title" >소비기한</span>
-                                </div>
-                                <div id="overflow-recipe-area">
-                                    <c:forEach begin="1" end="10" varStatus="loop">
-                                        <div class="row-igre-area">
-                                            <input type="checkbox" name="" id="">
-                                            <span>닭가슴살 블랙페퍼</span>
-                                            <span>2024.08.05</span>
-                                        </div>
-                                    </c:forEach>     
-                                    <c:forEach begin="1" end="10" varStatus="loop">
-                                        <div class="row-igre-area">
-                                            <input type="checkbox" name="" id="">
-                                            <span>돼지가슴살 블랙페퍼</span>
-                                            <span>2024.08.05</span>
-                                        </div>
-                                    </c:forEach> 
-                                    <c:forEach begin="1" end="10" varStatus="loop">
-                                        <div class="row-igre-area">
-                                            <input type="checkbox" name="" id="">
-                                            <span>소가슴살 블랙페퍼</span>
-                                            <span>2024.08.05</span>
-                                        </div>
-                                    </c:forEach>  
-                                </div>
-
-                                <div id="modal-search-recipe-bottom">
-                                    <button id="closeModalBtn" class="close">닫 기</button>
-                                        <button id="completeModalBtn" class="complete">완 료</button>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
-
-      
-
 
                 <!-- 추천레시피 이미지영역 -->
                 <div id="recommend-recipe-imgs">
@@ -116,86 +60,6 @@
                         <button id="viewModalBtn-two" onclick="viewModal2()">
                             + 추가하기
                         </button>
-
-                            <!-- 모달 창 -->
-                            <div id="myModal-two" class="modal-two">
-                            <div id="modal-content-recipe-add">
-                                <div id="modal-title-recipe-header">
-                                    식재료 추가하기
-                                </div>
-
-                                <div id="modal-search-igre2">
-                                    <input id="input-igretext2" placeholder=" 식품명 입력" onkeypress="handleKeyPress2(event)"></input> 
-                                    <button onclick="findSearch2()">
-                                    <img src="${pageContext.request.contextPath}/resources/images/member-img/search 3.png" alt="">
-                                    </button>
-                                </div>
-                                
-                                <div id="list-igre-area2">
-                                    <button id="selectAll-btn2" onclick="addSelectAll()">모두선택</button>
-                                    <button id="addAll-btn2">추 가</button>
-                                </div>
-                                
-                                <div id="list-title2">
-                                    <span id="add-list-title1" >번호</span>
-                                    <span id="add-list-title2" >식품명</span>
-                                    <span id="add-list-title3" >100g당 칼로리</span>
-                                    <span id="add-list-title4" >소비기한</span>
-                                </div>
-                                <div id="overflow-recipe-area2">
-                                    <table id ="overflow-table">                                           
-                                        <c:forEach begin="1" end="10" varStatus="loop">
-                                            <tr class="overflow-tr">
-                                                <td class="td-checkbox"><input type="checkbox" name="" id="" class="row-checkbox"  onclick="checkBoxStatus(this)"></td>
-                                                <td class="fixed-width1">1</td>
-                                                <td class="fixed-width2">닭가슴살 후추페퍼</td>
-                                                <td class="fixed-width3">100kcal</td>
-                                                <td class="fixed-width4">
-                                                    <span class="direct-input-label" style="display: none;">직접입력 : </span>
-                                                    <input type="text" class="direct-input" style="display: none;">
-                                                </td>
-                                            </tr>
-                                        </c:forEach>
-                                        <c:forEach begin="1" end="10" varStatus="loop">
-                                            <tr class="overflow-tr">
-                                                <td class="td-checkbox"><input type="checkbox" name="" id="" class="row-checkbox"  onclick="checkBoxStatus(this)"></td>
-                                                <td class="fixed-width1">1</td>
-                                                <td class="fixed-width2">오리가슴살 고추페퍼</td>
-                                                <td class="fixed-width3">100kcal</td>
-                                                <td class="fixed-width4">
-                                                    <span class="direct-input-label" style="display: none;">직접입력 : </span>
-                                                    <input type="text" class="direct-input" style="display: none;">
-                                                </td>
-                                            </tr>
-                                        </c:forEach>
-                                        <c:forEach begin="1" end="10" varStatus="loop">
-                                            <tr class="overflow-tr">
-                                                <td class="td-checkbox"><input type="checkbox" name="" id="" class="row-checkbox"  onclick="checkBoxStatus(this)"></td>
-                                                <td class="fixed-width1">1</td>
-                                                <td class="fixed-width2">양가슴살 양파페퍼</td>
-                                                <td class="fixed-width3">100kcal</td>
-                                                <td class="fixed-width4">
-                                                    <span class="direct-input-label" style="display: none;">직접입력 : </span>
-                                                    <input type="text" class="direct-input" style="display: none;">
-                                                </td>
-                                            </tr>
-                                        </c:forEach>
-                                    </table>
-                                </div>
-
-  
-
-
-                                <div id="modal-search-recipe-bottom2">
-                                    <button id="closeModalBtn2" class="close">닫 기</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        
-  
-
-
                     </div>
                 </div>
 
@@ -285,6 +149,135 @@
                    <a href="#">&gt;</a>
                </div>
            </div>
+            
+           <!-- 모달 창 레시피 찾기 -->
+            <div id="myModal" class="modal">
+                <div id="modal-content-recipe-find">
+                    <div id="modal-title-header">
+                        레시피 찾기
+                    </div>
+
+                    <div id="modal-search-igre">
+                        <input id="input-igretext" placeholder=" 식품명 입력"  onkeypress="handleKeyPress(event)"></input> 
+                        <button onclick="findSearch()">
+                        <img src="${pageContext.request.contextPath}/resources/images/member-img/search 3.png" alt="">
+                        </button>
+                    </div>
+                    
+                    <div id="list-igre-area">
+                        <button id="selectAll-btn" onclick="findSelectAll()">모두선택</button>
+                    </div>
+                    
+                    <div id="list-title">
+                        <span id="first-list-title" >식품명</span>
+                        <span id="second-list-title" >소비기한</span>
+                    </div>
+                    <div id="overflow-recipe-area">
+                        <c:forEach begin="1" end="10" varStatus="loop">
+                            <div class="row-igre-area">
+                                <input type="checkbox" name="" id="">
+                                <span>닭가슴살 블랙페퍼</span>
+                                <span>2024.08.05</span>
+                            </div>
+                        </c:forEach>     
+                        <c:forEach begin="1" end="10" varStatus="loop">
+                            <div class="row-igre-area">
+                                <input type="checkbox" name="" id="">
+                                <span>돼지가슴살 블랙페퍼</span>
+                                <span>2024.08.05</span>
+                            </div>
+                        </c:forEach> 
+                        <c:forEach begin="1" end="10" varStatus="loop">
+                            <div class="row-igre-area">
+                                <input type="checkbox" name="" id="">
+                                <span>소가슴살 블랙페퍼</span>
+                                <span>2024.08.05</span>
+                            </div>
+                        </c:forEach>  
+                    </div>
+
+                    <div id="modal-search-recipe-bottom">
+                        <button id="closeModalBtn" class="close">닫 기</button>
+                            <button id="completeModalBtn" class="complete">완 료</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 모달 창 식재료 추가 -->
+            <div id="myModal-two" class="modal-two">
+            <div id="modal-content-recipe-add">
+                <div id="modal-title-recipe-header">
+                    식재료 추가하기
+                </div>
+
+                <div id="modal-search-igre2">
+                    <input id="input-igretext2" placeholder=" 식품명 입력" onkeypress="handleKeyPress2(event)"></input> 
+                    <button onclick="findSearch2()">
+                    <img src="${pageContext.request.contextPath}/resources/images/member-img/search 3.png" alt="">
+                    </button>
+                </div>
+                
+                <div id="list-igre-area2">
+                    <button id="selectAll-btn2" onclick="addSelectAll()">모두선택</button>
+                    <button id="addAll-btn2">추 가</button>
+                </div>
+                
+                <div id="list-title2">
+                    <span id="add-list-title1" >번호</span>
+                    <span id="add-list-title2" >식품명</span>
+                    <span id="add-list-title3" >100g당 칼로리</span>
+                    <span id="add-list-title4" >소비기한</span>
+                </div>
+                <div id="overflow-recipe-area2">
+                    <table id ="overflow-table">                                           
+                        <c:forEach begin="1" end="10" varStatus="loop">
+                            <tr class="overflow-tr">
+                                <td class="td-checkbox"><input type="checkbox" name="" id="" class="row-checkbox"  onclick="checkBoxStatus(this)"></td>
+                                <td class="fixed-width1">1</td>
+                                <td class="fixed-width2">닭가슴살 후추페퍼</td>
+                                <td class="fixed-width3">100kcal</td>
+                                <td class="fixed-width4">
+                                    <span class="direct-input-label" style="display: none;">직접입력 : </span>
+                                    <input type="text" class="direct-input" style="display: none;">
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        <c:forEach begin="1" end="10" varStatus="loop">
+                            <tr class="overflow-tr">
+                                <td class="td-checkbox"><input type="checkbox" name="" id="" class="row-checkbox"  onclick="checkBoxStatus(this)"></td>
+                                <td class="fixed-width1">1</td>
+                                <td class="fixed-width2">오리가슴살 고추페퍼</td>
+                                <td class="fixed-width3">100kcal</td>
+                                <td class="fixed-width4">
+                                    <span class="direct-input-label" style="display: none;">직접입력 : </span>
+                                    <input type="text" class="direct-input" style="display: none;">
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        <c:forEach begin="1" end="10" varStatus="loop">
+                            <tr class="overflow-tr">
+                                <td class="td-checkbox"><input type="checkbox" name="" id="" class="row-checkbox"  onclick="checkBoxStatus(this)"></td>
+                                <td class="fixed-width1">1</td>
+                                <td class="fixed-width2">양가슴살 양파페퍼</td>
+                                <td class="fixed-width3">100kcal</td>
+                                <td class="fixed-width4">
+                                    <span class="direct-input-label" style="display: none;">직접입력 : </span>
+                                    <input type="text" class="direct-input" style="display: none;">
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </div>
+
+
+
+
+                <div id="modal-search-recipe-bottom2">
+                    <button id="closeModalBtn2" class="close">닫 기</button>
+                </div>
+            </div>
+            </div>
+
         </div>
     </div>
     <jsp:include page="../common/footer.jsp" />
