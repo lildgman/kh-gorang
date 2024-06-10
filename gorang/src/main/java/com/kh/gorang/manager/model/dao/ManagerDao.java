@@ -6,7 +6,6 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.board.model.vo.BoardSearchDTO;
 import com.kh.gorang.member.model.vo.Member;
 

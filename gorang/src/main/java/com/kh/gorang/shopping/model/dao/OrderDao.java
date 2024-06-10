@@ -1,5 +1,6 @@
 package com.kh.gorang.shopping.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -22,5 +23,9 @@ public class OrderDao {
 		}
 		return result;
 	}
-
+	
+	// 주문한 옵션 객체 list 조회
+	public ArrayList<OrderPdopt> selectOrderPdOptsByMemberNo(SqlSessionTemplate sqlSession, int memberNo) {
+		return (ArrayList)sqlSession.selectList("orderMapper.selectOrderPdOptsByMemberNo", memberNo);
+	}
 }

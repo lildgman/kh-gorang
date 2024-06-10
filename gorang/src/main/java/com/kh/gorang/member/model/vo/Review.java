@@ -23,6 +23,7 @@ public class Review {
 	private String status;
 	private int refRecipeNo;
 	private int refProductNo;
+	private int refPdOptNo;
 	private int refMemberNo;
 	private String writerNickname;
 	private String writerProfile;
