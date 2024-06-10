@@ -34,6 +34,7 @@
   		<result column="PRODUCT_BRAND" property="orderPdBrand"/>
   		<result column="MAIN_IMG" property="orderPdThumbnail"/>
   		<result column="SHIPMENT_TIME" property="orderPdShipmentTime"/>
+  		<result column="order_pdopt_price" property="orderPdOptPrice"/>
   	</resultMap>
   	
   	 <!-- 상품 -->
@@ -101,13 +102,15 @@
   	(	
   		options_name_no,
   		order_no,
-  		quantity
+  		quantity,
+  		order_pdopt_price
   	)
   	values
   	(	
   		#{optNo},
   		currval('orders_order_no_seq'),
-  		#{optQuantity}
+  		#{optQuantity},
+  		#{orderPdOptPrice}
   	)
   
   </insert>

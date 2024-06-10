@@ -57,12 +57,69 @@
   	</resultMap>
   	
   	
-  	<!-- 레시피 게시글 추가 -->
+	 <!-- 레시피 찾기 -->
+	 <select id="selectRecipe" resultMap="recipeResult">
+	   SELECT rcp_no,
+	         rcp_title,
+	         rcp_content, 
+	         rcp_video,
+	         rcp_main_photo, 
+	         rcp_tag,
+	         cook_amount, 
+	         cook_time, 
+	         cook_kind, 
+	         cook_level, 
+	         member_no
+	  FROM RECIPE
+	  WHERE STATUS = 'Y'
+	    AND rcp_no = #{rcpNo}
+	 </select>
+  	
+  	 <!-- 레시피 분류 찾기 -->
+  	 <select id="selectDivList" resultMap="DivisionResult">
+  	 	SELECT D.*
+  	 	FROM  DIVISION D
+  	 	JOIN RECIPE R ON D.rcp_no = R.rcp_no
+  	 	WHERE D.status= 'Y'
+  	 	AND R.rcp_no = ${rcp_no}
+  	 </select>
+  	
+  	
+  	<!-- 레시피 재료 찾기 -->
+  	<select id="selectIngredientsInfoList" resultMap="ingredientsInfoResult">
+  		SELECT I.*
+  		FROM INGREDIENTS_INFO I
+  		JOIN DIVISION D ON I.div_no = d.div_no 
+  		WHERE I.status = 'Y'
+  		AND D.div_no = ${div_no}
+  	</select>
+  	
+  	 <!-- 레시피 조리순서 찾기 -->
+  	 <select id="selectCookOrderList" resultMap="CookOrderResult">
+  	 	SELECT CO.*
+  	 	FROM  COOK_ORDER CO
+  	 	JOIN RECIPE R ON CO.rcp_no = R.rcp_no
+  	 	WHERE CO.status= 'Y'
+  	 	AND R.rcp_no = ${rcp_no}
+  	 </select>
+  	
+  	 <!-- 레시피 팁 찾기 -->
+  	 <select id="selectCookTipList" resultMap="CookTipResult">
+  	 	SELECT CT.*
+  	 	FROM  COOK_TIP CT
+  	 	JOIN COOK_ORDER CO ON CT.cook_ord_no = CO.cook_ord_no
+  	 	WHERE CT.status= 'Y'
+  	 	AND CO.cook_ord_no = ${rcp_no}
+  	 </select>
+  	
+  	
+  	 <!-- 레시피 게시글 추가 -->
   	 <select id="insertRecipe" parameterType="Recipe" resultMap="recipeResult" >
 	  	INSERT INTO RECIPE (
 		        rcp_title,
 				rcp_content, 
-				rcp_main_photo, 
+				rcp_main_photo,
+				rcp_video, 
 				rcp_tag,
 				cook_amount, 
 				cook_time, 
@@ -74,6 +131,7 @@
 		        #{recipeTitle},
 		        #{recipeContent},
 		        #{recipeMainPhoto},
+		        #{recipeVideo},
 		        #{recipeTag},
 		        #{cookAmount},
 		        #{cookTime},
@@ -138,4 +196,8 @@
   			#{cookOrdNo}
   		)
   	</insert>
+  	
+  	
+  	
+  	
   </mapper>

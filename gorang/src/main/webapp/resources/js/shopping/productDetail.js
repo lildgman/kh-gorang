@@ -578,16 +578,16 @@ function fileInputClick() {
   });
 }
 
-function displaySelectedImage() {
-  const fileInput = document.querySelector('#file-input');
-  let mainImgContainer = document.querySelector('#qna_pic_container');
+function displaySelectedImage(ev) {
+  const fileInput = ev.querySelector('.file-input');
+  let mainImgContainer = ev.querySelector('.qna_pic_container');
 
   fileInput.addEventListener('change', function(e) {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = function (ev) {
-        mainImgContainer.innerHTML = `<img id="qna-img" src="${ev.target.result}" alt="Selected Image">`;
+        mainImgContainer.innerHTML = `<img class="qna-img" src="${ev.target.result}" alt="Selected Image">`;
       };
       reader.readAsDataURL(file);
       console.log(mainImgContainer.style.display);

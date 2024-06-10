@@ -17,7 +17,6 @@ public class OrderPdopt {
 	private int optNo;
 	private int refOrderNo;
 	private int optQuantity;
-	
 	// 구매내역에 뿌려주기 위해 필요한 속성
 	private int orderPdNo;
 	private Date orderPdOptDate;

@@ -30,6 +30,15 @@ function deleteRecipeBoard(element){
     
 }
 
+//레시피 수정하기
+function updateRecipeBoard(element){
+        const recipeContainer = element.closest('.myPage-board-list-block');
+        const recipeNo = parseInt(recipeContainer.querySelector('.myPage-board-img').getAttribute('data-no'));
+        window.location.href = `updateForm.re?recipeNo=${recipeNo}`;
+    
+}
+
+
 function movePage(element) {
     const contentNo = element.getAttribute('data-no');
     window.location.href = "detail.re?recipeNo=" + contentNo;

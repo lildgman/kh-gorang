@@ -176,6 +176,28 @@ public class StoreController {
 		}
 	}
 	
+//	===================================== 리뷰 관련 컨트롤러 ============================================
+	
+	@RequestMapping("insertReview.po")
+	public String insertProductReview(@RequestParam int refMemberNo, @RequestParam int refProductNo,
+								   @RequestParam int refPdoptNo, @RequestParam String qnaPhoto,
+								   @RequestParam String qnaContent, HttpSession session) {
+		Review re = new Review();
+//		re.set
+		
+		
+		int result = productService.insertProductQna(q);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "문의 등록 성공.");
+			return "redirect:/";
+		} else {
+			session.setAttribute("alertMsg", "문의 등록 실패");
+			return "redirect:/";
+		}
+	}
+	
+	
 	// ================================== 장바구니 관련 컨트롤러 =========================================
 	
 	// 로그인한 유저가 장바구니에 담은 목록을 addAttribute 해서 view 에 넘겨주기

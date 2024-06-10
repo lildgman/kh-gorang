@@ -40,7 +40,8 @@ window.onload = function () {
         // JSON
       orderOpts.push({
         optNo: e.querySelector(".input-order-optNo").value,
-        optQuantity: e.querySelector(".order-product-quantity").innerHTML
+        optQuantity: e.querySelector(".order-product-quantity").innerHTML,
+        orderPdOptPrice: e.querySelector(".order-product-saled-price").innerHTML.replace(/,/g, "")
       });
     })
   });

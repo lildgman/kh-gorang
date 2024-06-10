@@ -70,7 +70,7 @@
                                                 <td class="tbody-td-btn">
                                                     <button class="tbody-td-btn-qna" data-toggle="modal"
                                                         data-target="#qna_Modal">문의 하기</button>
-                                                    <button class="tbody-td-btn-write" data-toggle="modal" data-target="#buyList-review_Modal">후기 쓰기</button>
+                                                    <button class="tbody-td-btn-write" data-toggle="modal" data-target="#buyList-review_Modal">후기 작성</button>
                                                     <button class="tbody-td-btn-cancle" onclick="showSweetConfirm()">주문
                                                         취소</button>
                                                 </td>
@@ -82,7 +82,7 @@
                             <!-- 문의하기 modal -->
                             <div class="modal fade" id="qna_Modal" style="display: none;" aria-hidden="true">
                                 <div class="modal-dialog">
-                                    <div class="modal-content" style="height: 600px;">
+                                    <div class="modal-content">
 
                                         <!-- Modal Header -->
                                         <div class="modal-header">
@@ -92,29 +92,30 @@
 
                                         <!-- Modal body -->
                                         <div class="modal-body" style="height: 100%;">
-                                            <form id="modal-qna-content" action="insertQna.po">
+                                            <form class="modal-qna-content" action="insertQna.po">
                                                 <input type="hidden" name="writerNo" id="qna-modal-writerNo" value=${loginUser.memberNo}>
                                                 <input type="hidden" name="refProductNo" id="qna-modal-refProductNo">
-                                                <div id="product_name_container">
-                                                    <div id="qna_product_name_header">
+                                                <div class="product_name_container">
+                                                    <div class="qna_product_name_header">
                                                         상품명
                                                     </div>
-                                                    <select name="refPdoptNo" id="qna_product_name">
+                                                    <span class="qna_product_name"></span>
+                                                    <select name="refPdoptNo" class="qna_pdopt_name">
                                                         <option></option>
                                                     </select>
                                                 </div>
-                                                <div id="product_pic_container">
+                                                <div class="product_pic_container">
                                                     <div style="font-size: 14px; font-weight: bold;">
                                                         사진 첨부(선택)
                                                     </div>
                                                     <div style="font-size: 12px;">
                                                         사진을 첨부해주세요.(최대 1장)
                                                     </div>
-                                                    <div id="qna_pic_container">
+                                                    <div class="qna_pic_container">
 
                                                     </div>
-                                                    <div id="add_qna_product_pic">
-                                                        <div id="pic_svg_container">
+                                                    <div class="add_qna_product_pic">
+                                                        <div class="pic_svg_container">
                                                             <svg width="21" height="16" viewBox="0 0 21 16" fill="none"
                                                                 xmlns="http://www.w3.org/2000/svg">
                                                                 <path
@@ -123,24 +124,24 @@
                                                             </svg>
                                                         </div>
                                                         <span style="color:#1E90FF; font-size: 14px;">사진 첨부하기</span>
-                                                        <input type="file" name="qnaPhoto" id="file-input"
+                                                        <input type="file" name="qnaPhoto" class="file-input"
                                                             accept="image/*">
 
                                                     </div>
                                                 </div>
 
-                                                <div id="product_qna_content_container">
+                                                <div class="product_qna_content_container">
                                                     <div style="font-size: 14px; font-weight: bold;">
                                                         문의내용
                                                     </div>
-                                                    <div id="product_qna_content_textarea">
-                                                        <textarea name="qnaContent" id="product_qna_content"
+                                                    <div class="product_qna_content_textarea">
+                                                        <textarea name="qnaContent" class="product_qna_content"
                                                             placeholder="문의 내용을 입력하세요."></textarea>
                                                     </div>
                                                 </div>
 
-                                                <div id="product_qna_enroll_btn_container">
-                                                    <button type="submit" id="product_qna_enroll_btn">완료</button>
+                                                <div class="product_qna_enroll_btn_container">
+                                                    <button type="submit" class="product_qna_enroll_btn">완료</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -149,11 +150,11 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <!-- 후기작성 modal -->
                             <div class="modal fade" id="buyList-review_Modal" style="display: none;" aria-hidden="true">
                                 <div class="modal-dialog">
-                                    <div class="modal-content" style="height: fit-content;">
+                                    <div class="modal-content">
 
                                         <!-- Modal Header -->
                                         <div class="modal-header">
@@ -164,29 +165,52 @@
                                         <!-- 202406101237 후기 모달 창에 맞게 수정 작업 -->
                                         <!-- Modal body -->
                                         <div class="modal-body" style="height: 100%;">
-                                            <form id="modal-review-content-form" action="insertReview.po">
+                                            <form class="modal-qna-content" action="insertReview.po">
                                                 <input type="hidden" name="refMemberNo" value=${loginUser.memberNo}>
-                                                <input type="hidden" name="refProductNo">
-                                                <div id="product_name_container">
-                                                    <div id="qna_product_name_header">
+                                                <input type="hidden" name="refProductNo" id="review-modal-refProductNo">
+                                                <div class="product_name_container">
+                                                    <div class="qna_product_name_header">
                                                         상품명
                                                     </div>
-                                                    <select name="refPdoptNo" id="qna_product_name">
+                                                    <span class="qna_product_name"></span>
+                                                    <select name="refPdoptNo" class="qna_pdopt_name">
                                                         <option></option>
                                                     </select>
                                                 </div>
-                                                <div id="product_pic_container">
+                                                <div class="modal-review-rating-container">
+                                                    <span>별점 평가</span>
+                                                    <div class="modal-review-rating-content">
+                                                        <!-- data-value 속성 부여 -->
+                                                        <svg class="star" data-value="1" width="37" height="35" viewBox="0 0 37 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M18.3225 30.7001L9.32254 34.5001C7.82254 35.2001 6.72254 34.3001 6.82254 32.7001L7.62254 23.0001L1.32254 15.6001C0.322536 14.3001 0.722536 13.0001 2.32254 12.6001L11.8225 10.4001L16.8225 2.1001C17.8225 0.600098 19.1225 0.600098 19.9225 2.1001L24.9225 10.4001L34.5225 12.6001C36.1225 13.0001 36.5225 14.3001 35.5225 15.6001L29.0225 23.0001L29.8225 32.7001C29.9225 34.3001 28.8225 35.2001 27.3225 34.5001L18.3225 30.7001Z" fill="#DBDBDB"/>
+                                                        </svg>
+                                                        <svg class="star" data-value="2" width="37" height="35" viewBox="0 0 37 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M18.3225 30.7001L9.32254 34.5001C7.82254 35.2001 6.72254 34.3001 6.82254 32.7001L7.62254 23.0001L1.32254 15.6001C0.322536 14.3001 0.722536 13.0001 2.32254 12.6001L11.8225 10.4001L16.8225 2.1001C17.8225 0.600098 19.1225 0.600098 19.9225 2.1001L24.9225 10.4001L34.5225 12.6001C36.1225 13.0001 36.5225 14.3001 35.5225 15.6001L29.0225 23.0001L29.8225 32.7001C29.9225 34.3001 28.8225 35.2001 27.3225 34.5001L18.3225 30.7001Z" fill="#DBDBDB"/>
+                                                        </svg>
+                                                        <svg class="star" data-value="3" width="37" height="35" viewBox="0 0 37 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M18.3225 30.7001L9.32254 34.5001C7.82254 35.2001 6.72254 34.3001 6.82254 32.7001L7.62254 23.0001L1.32254 15.6001C0.322536 14.3001 0.722536 13.0001 2.32254 12.6001L11.8225 10.4001L16.8225 2.1001C17.8225 0.600098 19.1225 0.600098 19.9225 2.1001L24.9225 10.4001L34.5225 12.6001C36.1225 13.0001 36.5225 14.3001 35.5225 15.6001L29.0225 23.0001L29.8225 32.7001C29.9225 34.3001 28.8225 35.2001 27.3225 34.5001L18.3225 30.7001Z" fill="#DBDBDB"/>
+                                                        </svg>
+                                                        <svg class="star" data-value="4" width="37" height="35" viewBox="0 0 37 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M18.3225 30.7001L9.32254 34.5001C7.82254 35.2001 6.72254 34.3001 6.82254 32.7001L7.62254 23.0001L1.32254 15.6001C0.322536 14.3001 0.722536 13.0001 2.32254 12.6001L11.8225 10.4001L16.8225 2.1001C17.8225 0.600098 19.1225 0.600098 19.9225 2.1001L24.9225 10.4001L34.5225 12.6001C36.1225 13.0001 36.5225 14.3001 35.5225 15.6001L29.0225 23.0001L29.8225 32.7001C29.9225 34.3001 28.8225 35.2001 27.3225 34.5001L18.3225 30.7001Z" fill="#DBDBDB"/>
+                                                        </svg>
+                                                        <svg class="star" data-value="5" width="37" height="35" viewBox="0 0 37 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M18.3225 30.7001L9.32254 34.5001C7.82254 35.2001 6.72254 34.3001 6.82254 32.7001L7.62254 23.0001L1.32254 15.6001C0.322536 14.3001 0.722536 13.0001 2.32254 12.6001L11.8225 10.4001L16.8225 2.1001C17.8225 0.600098 19.1225 0.600098 19.9225 2.1001L24.9225 10.4001L34.5225 12.6001C36.1225 13.0001 36.5225 14.3001 35.5225 15.6001L29.0225 23.0001L29.8225 32.7001C29.9225 34.3001 28.8225 35.2001 27.3225 34.5001L18.3225 30.7001Z" fill="#DBDBDB"/>
+                                                        </svg>
+                                                    </div>
+                                                    <input type="hidden" name="rating" id="rating" value="0">
+                                                </div>
+                                                <div class="product_pic_container">
                                                     <div style="font-size: 14px; font-weight: bold;">
                                                         사진 첨부(선택)
                                                     </div>
                                                     <div style="font-size: 12px;">
                                                         사진을 첨부해주세요.(최대 1장)
                                                     </div>
-                                                    <div id="qna_pic_container">
+                                                    <div class="qna_pic_container">
 
                                                     </div>
-                                                    <div id="add_qna_product_pic">
-                                                        <div id="pic_svg_container">
+                                                    <div class="add_qna_product_pic">
+                                                        <div class="pic_svg_container">
                                                             <svg width="21" height="16" viewBox="0 0 21 16" fill="none"
                                                                 xmlns="http://www.w3.org/2000/svg">
                                                                 <path
@@ -195,24 +219,24 @@
                                                             </svg>
                                                         </div>
                                                         <span style="color:#1E90FF; font-size: 14px;">사진 첨부하기</span>
-                                                        <input type="file" name="qnaPhoto" id="file-input"
+                                                        <input type="file" name="qnaPhoto" class="file-input"
                                                             accept="image/*">
 
                                                     </div>
                                                 </div>
 
-                                                <div id="product_qna_content_container">
+                                                <div class="product_qna_content_container">
                                                     <div style="font-size: 14px; font-weight: bold;">
-                                                        문의내용
+                                                        후기 내용
                                                     </div>
-                                                    <div id="product_qna_content_textarea">
-                                                        <textarea name="qnaContent" id="product_qna_content"
-                                                            placeholder="문의 내용을 입력하세요."></textarea>
+                                                    <div class="product_qna_content_textarea">
+                                                        <textarea name="qnaContent" class="product_qna_content"
+                                                            placeholder="후기 내용을 입력하세요."></textarea>
                                                     </div>
                                                 </div>
 
-                                                <div id="product_qna_enroll_btn_container">
-                                                    <button type="submit" id="product_qna_enroll_btn">완료</button>
+                                                <div class="product_qna_enroll_btn_container">
+                                                    <button type="submit" class="product_qna_enroll_btn">완료</button>
                                                 </div>
                                             </form>
                                         </div>

@@ -54,7 +54,7 @@
 												alt="">좋아요 ${recipeDTO.likeCount }
 										</div>
 										<div class="myPage-board-edit">
-											${recipeDTO.recipe.recipeWriteDate } 수정 / <span id="deleteBtn"
+											${recipeDTO.recipe.recipeWriteDate } <span id="updateBtn" onclick="updateRecipeBoard(this)">수정</span> / <span id="deleteBtn"
 												onclick="deleteRecipeBoard(this)">삭제</span>
 										</div>
 									</div>
