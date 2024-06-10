@@ -1,5 +1,6 @@
 package com.kh.gorang.shopping.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -29,6 +30,11 @@ public class OrderServiceImpl implements OrderService {
 			result2 = orderDao.insertOrderPdoptList(sqlSession, orderOpts);
 		}
 		return result1 * result2;
+	}
+	
+	@Override
+	public ArrayList<OrderPdopt> selectOrderPdOptsByMemberNo(int memberNo) {	
+		return orderDao.selectOrderPdOptsByMemberNo(sqlSession, memberNo);
 	}
 
 }

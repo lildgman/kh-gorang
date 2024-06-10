@@ -99,8 +99,6 @@
                                 <div><span>상품 선택</span></div>
                                 <div id="product-opt-form-wrapper">
                                     <form action="order.po" id="product-opt-form" method="post">
-                                        
-
                                         <div class="product-opts">
                                             <div class="product-opt-select">
                                                 <div><span>상품을 선택해주세요</span></div>
@@ -123,11 +121,13 @@
                                                 <button class="myBtn btn_buy" id="product-buy-btn">구매하기</button>
                                             </div>
                                         </div>
+                                        <input type="hidden" id="input-productSeller" value="${p.seller}">
                                         <input type="hidden" id="input-productBrand" value="${p.productBrand}">
                                         <input type="hidden" id="input-productName" value="${p.productName}">
                                         <input type="hidden" id="input-mainImg" value="${p.mainImg}">
                                         <input type="hidden" id="input-shipmentType" value="${p.shipmentType}">
-                                        <input type="hidden" name="selectedOptList" />
+                                        <input type="hidden" id="input-shipmentCost" value="${p.shippingPrice}" >
+                                        <input type="hidden" id="productDetail-input-hidden" name="selectedOptList">
                                     </form>
                                 </div>
                             </div>

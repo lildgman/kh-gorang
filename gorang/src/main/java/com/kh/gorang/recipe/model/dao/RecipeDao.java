@@ -1,21 +1,15 @@
 package com.kh.gorang.recipe.model.dao;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.kh.gorang.recipe.model.vo.Recipe;
-import com.kh.gorang.recipe.model.vo.RecipeInsertDTO;
 import com.kh.gorang.common.vo.Media;
 import com.kh.gorang.recipe.model.vo.CookOrder;
 import com.kh.gorang.recipe.model.vo.CookTip;
 import com.kh.gorang.recipe.model.vo.Division;
 import com.kh.gorang.recipe.model.vo.IngredientsInfo;
+import com.kh.gorang.recipe.model.vo.Recipe;
 
 @Repository
 public class RecipeDao {

@@ -6,7 +6,7 @@
 <mapper namespace="orderMapper">
   	<!-- 주문 정보 -->
   	<resultMap type="Order" id="OrderResult">
-  		<result column="purchase_no" property="orderNo"/>
+  		<result column="order_no" property="orderNo"/>
   		<result column="member_no" property="memberNo"/>
   		<result column="buyer_name" property="buyerName"/>
   		<result column="buyer_email" property="buyerEmail"/>
@@ -24,8 +24,47 @@
   	<!-- 주문한 상품의 옵션 정보 -->
   	<resultMap type="OrderPdopt" id="OrderPdoptResult">
   		<result column="options_name_no" property="optNo"/>
-  		<result column="product_no" property="refProductNo"/>
+  		<result column="order_no" property="refOrderNo"/>
   		<result column="quantity" property="optQuantity"/>
+  		<result column="order_date" property="orderPdOptDate"/>
+  		<result column="OPTIONS_NAME" property="orderPdOptName"/>
+  		<result column="OPTIONS_SALE_PRICE" property="orderPdOptPrice"/>
+  		<result column="product_no" property="orderPdNo"/>
+  		<result column="PRODUCT_NAME" property="orderPdName"/>
+  		<result column="PRODUCT_BRAND" property="orderPdBrand"/>
+  		<result column="MAIN_IMG" property="orderPdThumbnail"/>
+  		<result column="SHIPMENT_TIME" property="orderPdShipmentTime"/>
+  		<result column="order_pdopt_price" property="orderPdOptPrice"/>
+  	</resultMap>
+  	
+  	 <!-- 상품 -->
+  	<resultMap type="Product" id="productResult">
+  		<result column="PRODUCT_NO" property="productNo"/>
+  		<result column="CATEGORY" property="category"/>
+  		<result column="PRODUCT_NAME" property="productName"/>
+  		<result column="PRODUCT_BRAND" property="productBrand"/>
+  		<result column="NORMAL_PRICE" property="normalPrice"/>
+  		<result column="SALE_PRICE" property="salePrice"/>
+  		<result column="DISCOUNT" property="discountPercent"/>
+  		<result column="MAIN_IMG" property="mainImg"/>
+  		<result column="DESCRIPTION" property="description"/>
+  		<result column="SHIPMENT_TYPE" property="shipmentType"/>
+  		<result column="SHIPMENT_TIME" property="shipmentTime"/>
+  		<result column="SHIPPING_PRICE" property="shippingPrice"/>
+  		<result column="STATUS" property="status"/>
+  	</resultMap>
+  	
+  	<!-- 옵션 -->
+  	<resultMap type="ProductDetailOption" id="productDetailOptionResult">
+  		<result column="OPTIONS_NAME_NO" property="detailOptionNo"/>
+  		<result column="OPTIONS_NAME" property="detailOptionName"/>
+  		<result column="MAIN_OPTION" property="mainDetailOption"/>
+  		<result column="OPTIONS_NORMAL_PRICE" property="detailOptionOriginPrice"/>
+  		<result column="OPTIONS_SALE_PRICE" property="detailOptionSaledPrice"/>
+  		<result column="OPTIONS_STOCK" property="detailOptionQuantity"/>
+  		<result column="PRODUCT_NO" property="productNo"/>
+  		<result column="STATUS" property="status"/>
+  		<collection property="pdForOpt" resultMap="productResult"/>
   	</resultMap>
   	
   <!-- 주문 정보 저장 -->
@@ -63,16 +102,43 @@
   	(	
   		options_name_no,
   		order_no,
-  		quantity
+  		quantity,
+  		order_pdopt_price
   	)
   	values
   	(	
   		#{optNo},
   		currval('orders_order_no_seq'),
-  		#{optQuantity}
+  		#{optQuantity},
+  		#{orderPdOptPrice}
   	)
   
   </insert>
+  
+ 
+  <select id="selectOrderPdOptsByMemberNo" resultMap="OrderPdoptResult">
+   	select
+  		op.order_no,
+  		op.options_name_no,
+  		op.quantity,
+  		od.order_date,
+  		o.options_name,
+  		o.options_sale_price,
+  		p.product_no,
+  		p.seller,
+  		p.product_name,
+  		p.product_brand,
+  		p.main_img,
+  		p.shipment_time
+  	from order_pdopt op
+  		 join orders od on op.order_no = od.order_no
+  	left join option_name o on op.options_name_no = o.options_name_no
+  	left join product p on o.product_no = p.product_no
+  	where od.member_no = #{memberNo}
+  	  and od.status = 'Y'
+  	order by od.order_date desc
+  
+  </select>
   
 </mapper>
   

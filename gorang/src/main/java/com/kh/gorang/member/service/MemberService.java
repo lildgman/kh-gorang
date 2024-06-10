@@ -1,6 +1,10 @@
 package com.kh.gorang.member.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.kh.gorang.member.model.vo.Member;
+import com.kh.gorang.member.model.vo.ProductCart;
 
 public interface MemberService {
 	//로그인서비스
@@ -16,6 +20,15 @@ public interface MemberService {
 	int insertMember(Member m);
 
 	Member selectMemberByEmail(String email);
+	
+	// 장바구니 저장
+	int insertProductCart(List<ProductCart> pdCarts);
+	
+	// 장바구니 목록 불러오기 
+	ArrayList<ProductCart> selectProductCartList(Member m);
+	
+	// 장바구니 삭제
+	int deleteProductCart(int memberNo, List<Integer> optListForDelete);
 	
 	
 }

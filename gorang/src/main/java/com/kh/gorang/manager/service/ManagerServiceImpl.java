@@ -8,7 +8,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.board.model.vo.BoardSearchDTO;
 import com.kh.gorang.manager.model.dao.ManagerDao;
 import com.kh.gorang.member.model.vo.Member;
