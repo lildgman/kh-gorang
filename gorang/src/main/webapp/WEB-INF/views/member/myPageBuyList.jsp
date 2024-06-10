@@ -92,7 +92,7 @@
 
                                         <!-- Modal body -->
                                         <div class="modal-body" style="height: 100%;">
-                                            <form class="modal-qna-content" action="insertQna.po" enctype="multipart/form-data">
+                                            <form class="modal-qna-content" action="insertQna.po" enctype="multipart/form-data" method="post">
                                                 <input type="hidden" name="writerNo" id="qna-modal-writerNo" value=${loginUser.memberNo}>
                                                 <input type="hidden" name="refProductNo" id="qna-modal-refProductNo">
                                                 <div class="product_name_container">
@@ -163,7 +163,7 @@
 
                                         <!-- Modal body -->
                                         <div class="modal-body" style="height: 100%;">
-                                            <form class="modal-qna-content" action="insertReview.po" enctype="multipart/form-data">
+                                            <form class="modal-qna-content" action="insertReview.po" enctype="multipart/form-data" method="post">
                                                 <input type="hidden" name="refMemberNo" value=${loginUser.memberNo}>
                                                 <input type="hidden" name="refProductNo" id="review-modal-refProductNo">
                                                 <div class="product_name_container">

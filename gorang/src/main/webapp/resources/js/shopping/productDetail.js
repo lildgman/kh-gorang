@@ -101,7 +101,7 @@ function inputProductInfo(pno, profileLocation){
   ajaxGetProductOpts({pno}, (opts)=>putProductOptsForOrder(opts));
 
   
-  //리뷰 수, 리뷰 내용 가져오기 미완!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 결제 페이지 먼저 구축
+  //리뷰 수, 리뷰 내용 가져오기
   ajaxGetProductReviews({pno}, (reviews)=>putProductReviewList(reviews, profileLocation));
 
   //상품 문의 가져오기
@@ -426,15 +426,17 @@ function putProductReviewList(reviews, contextPath){
       reviewWriterId.setAttribute("class", "review_writer_id");
       reviewWriterIdRate.appendChild(reviewWriterId);
       reviewWriterId.innerHTML = review.writerNickname;
+
       // 작성자 평점
       const reviewRate = document.createElement('div');
       reviewRate.setAttribute("class", "review_rate");
+      reviewWriterIdRate.appendChild(reviewRate);
 
-      const reviewRateStar = document.createElement('i');
-      reviewRateStar.setAttribute("class", "fa-solid fa-star");
-      reviewRateStar.setAttribute("style", "color: #FFD43B;");
       // 리뷰의 평점만큼 반복문 돌려서 별 모양 표시
       for(let i = 0; i < review.rating; i++){
+        const reviewRateStar = document.createElement('i');
+        reviewRateStar.setAttribute("class", "fa-solid fa-star");
+        reviewRateStar.setAttribute("style", "color: #FFD43B;");
         reviewRate.appendChild(reviewRateStar);
       }
 
@@ -456,10 +458,22 @@ function putProductReviewList(reviews, contextPath){
       // 리뷰 내용
       const reviewContent = document.createElement('div');
       reviewContent.setAttribute("class", "review_content");
+      reviewContent.innerHTML = review.reviewContent;
+      productReview.appendChild(reviewContent);
     }
     // 상품 평점 평균
     let ratingAvg = (ratingSum / reviews.length).toFixed(1);
     document.querySelector("#product_grade").innerHTML = ratingAvg;
+
+    const reviewPagenationAreaDiv = document.createElement('div');
+    reviewPagenationAreaDiv.setAttribute("id", "review_pagination_area");
+    reviewPagenationAreaDiv.innerHTML = `<div id="review_pagination">
+                                            <a href="#">&lt;</a>
+                                            <a href="#">1</a>
+                                            <a href="#">2</a>
+                                            <a href="#">&gt;</a>
+                                         </div>`
+    productReviewArea.appendChild(reviewPagenationAreaDiv);
 }
 
 // ============================= QNA 관련 메소드 ====================================
@@ -514,7 +528,9 @@ function putProductQnAList(pno, qnas){
       qnaQuestionTr.appendChild(qnaContentQuestionTd);
       qnaContentQuestionTd.setAttribute("style", "text-align: left");
       qnaContentQuestionTd.setAttribute("colspan", "4");
-      qnaContentQuestionTd.innerHTML = qna.qnaContent;
+      qnaContentQuestionTd.innerHTML = `<span>질문</span> <br>
+                                        <img src="/gorang/resources/uploadfile/qna/product-qna/${qna.qnaPhoto}">
+                                        <p>${qna.qnaContent}</p>`
 
       //만약 답변이 있다면 생성
       if(qna.answerNo != 0){

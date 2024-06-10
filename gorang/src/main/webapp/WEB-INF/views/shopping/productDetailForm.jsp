@@ -157,52 +157,9 @@
                         </div>
 
                         <!-- 상품 후기 -->
-                        <!-- <div id="product_review_area">
+                        <div id="product_review_area">
                             <div class="description_title">상품 후기</div>
-                            <div class="product_review">
-                                <div class="review_writer_area">
-                                    <div class="review_writer_pic_container">
-                                        <img class="review_writer_pic"
-                                            src="${contextPath }/resources/dummyImg/shopping/dog.jpeg" alt="">
-                                    </div>
-                                    <div class="review_writer_id_rate">
-                                        <div class="review_writer_id">user01</div>
-                                        <div class="review_rate">
-                                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="review_product_name">성주 참외 꿀참외 1.5kg</div>
-                                <div class="review_img_container">
-                                    <img class="review_img"
-                                        src="${contextPath }/resources/dummyImg/shopping/dog.jpeg"></img>
-                                    <img class="review_img"
-                                        src="${contextPath }/resources/dummyImg/shopping/dog.jpeg"></img>
-                                    <img class="review_img"
-                                        src="${contextPath }/resources/dummyImg/shopping/dog.jpeg"></img>
-                                </div>
-                                <div class="review_content">
-                                    <p>너무 신선하고 달아서 다음에도 구매하려구요 <br>
-                                        짱짱굿!<br>
-                                        ㅎㅎㅎ<br>
-                                    </p>
-                                </div>
-
-                            </div>
-                            <!-- 상품리뷰 페이지네이션 -->
-                            <div id="review_pagination_area">
-                                <div id="review_pagination">
-                                    <a href="#">&lt;</a>
-                                    <a href="#">1</a>
-                                    <a href="#">2</a>
-                                    <a href="#">&gt;</a>
-                                </div>
-                            </div>
-                        </div> -->
+                        </div>
 
                         <!-- 상품 문의 -->
                         <div id="product_qna_area">
@@ -253,7 +210,7 @@
 
                             <!-- Modal body -->
                             <div class="modal-body" style="height: 100%;">
-                                <form id="modal-qna-content" action="insertQna.po" enctype="multipart/form-data">
+                                <form id="modal-qna-content" action="insertQna.po" enctype="multipart/form-data" method="post">
                                     <input type="hidden" name="writerNo" value=${loginUser.memberNo}>
                                     <input type="hidden" name="refProductNo" value=${p.productNo}>
                                     <div id="product_name_container">
