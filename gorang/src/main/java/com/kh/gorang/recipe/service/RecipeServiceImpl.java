@@ -1,5 +1,9 @@
 package com.kh.gorang.recipe.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -34,7 +38,7 @@ public class RecipeServiceImpl implements RecipeService{
 
 	@Override
 	@Transactional
-	public int insertRecipeInsertDTO(Recipe rcp, RecipeInsertDTO recipeInsertDTO, MultipartFile[] completeImages ,HttpSession session) {
+	public int insertRecipeInsertDTO(Recipe rcp, RecipeInsertDTO recipeInsertDTO ,HttpSession session) {
 		int finalResult = 1; // 최종 반환 값 초기화
 		Recipe result1 = recipeDao.insertRecipe(sqlSession,rcp);
 		System.out.println(result1);
@@ -64,16 +68,14 @@ public class RecipeServiceImpl implements RecipeService{
                 }
 			}		
 		}
+		
 		//레시피완성 사진
-		for (MultipartFile upfile : completeImages) {
-	        if (!upfile.getOriginalFilename().equals("")) {
-	        	Media md = new Media();
-	        	String changeName = SaveFileController.saveFile(upfile,session,"/recipe/recipefinal");
-	        	md.setOriginName(upfile.getOriginalFilename());
-	        	md.setChangeName(changeName);
+		for (Media md : recipeInsertDTO.getCompleteFoodPhoto()) {
+	        if (!md.getOriginName().equals("")) {
+	        	md.setChangeName(md.getOriginName());
+	        	md.setMediaType(1);
 	        	md.setMediaKind(1);
 	        	md.setFilePath("/resources/uploadfile/recipe/recipefinal");
-	        	md.setMediaType(1);
 	        	int result2 = recipeDao.insertRecipeMedia(sqlSession,md,rcpNo);
 	        	if (result2 <= 0) {
                     finalResult = 0; // 삽입 실패 시 -1로 설정
@@ -83,7 +85,44 @@ public class RecipeServiceImpl implements RecipeService{
 
 		return finalResult;
 	}
+
+	//레시피 찾기
+	@Override
+	public Recipe selectRecipe(int recipeNo) {
+		return recipeDao.selectRecipe(sqlSession,recipeNo);
+	}
 	
+	//레시피 분류(재료 정보) 찾기
+	@Override
+	public List<Division> selectDivList(int recipeNo) {
+		 List<Division> divList =  recipeDao.selectDivList(sqlSession,recipeNo);
+		 for(Division div : divList) {
+			 div.setIngredientsInfoList(recipeDao.selectIngredientsInfoList(sqlSession,div.getDivNo()));
+		 }
+		return divList;
+	}
+	
+	//레시피 조리순서(팁) 찾기
+	@Override
+	public List<CookOrder> selectCookOrderList(int recipeNo) {
+		 List<CookOrder> cookOrderList =  recipeDao.selectCookOrderList(sqlSession,recipeNo);
+		 for(CookOrder ord : cookOrderList) {
+			 ord.setCookTipList(recipeDao.selectCookTipList(sqlSession,ord.getCookOrdNo()));
+		 } 
+		return cookOrderList;
+	}
+	
+	//레시피 완성사진 찾기
+	@Override
+	public List<Media> selectCompleteFoodPhotoList(int recipeNo) {
+		return recipeDao.selectCompleteFoodPhoto(sqlSession,recipeNo);
+	}
+	
+	
+	//
+
+
+
 
 	
 
