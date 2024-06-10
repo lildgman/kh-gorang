@@ -1,6 +1,8 @@
-package com.kh.gorang.recipe.model.vo;
+package com.kh.gorang.member.model.vo;
 
 import java.util.ArrayList;
+
+import com.kh.gorang.recipe.model.vo.Recipe;
 
 import lombok.Data;
 

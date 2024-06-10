@@ -8,14 +8,16 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
 import com.kh.gorang.board.model.vo.Board;
-import com.kh.gorang.board.model.vo.MyPageBoardCommentDTO;
-import com.kh.gorang.board.model.vo.MyPageBoardDTO;
-import com.kh.gorang.board.model.vo.MyPageScrapBoardDTO;
 import com.kh.gorang.common.vo.PageInfo;
 import com.kh.gorang.member.model.dao.MyPageDao;
+import com.kh.gorang.member.model.vo.MyPageBoardCommentDTO;
+import com.kh.gorang.member.model.vo.MyPageBoardDTO;
+import com.kh.gorang.member.model.vo.MyPageLikeRecipeDTO;
+import com.kh.gorang.member.model.vo.MyPageRecipeDTO;
+import com.kh.gorang.member.model.vo.MyPageScrapBoardDTO;
+import com.kh.gorang.member.model.vo.MyPageScrapProductDTO;
+import com.kh.gorang.member.model.vo.MyPageScrapRecipeDTO;
 import com.kh.gorang.member.model.vo.Review;
-import com.kh.gorang.recipe.model.vo.MyPageRecipeDTO;
-import com.kh.gorang.recipe.model.vo.MyPageScrapRecipeDTO;
 import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.shopping.model.vo.Product;
 
@@ -243,6 +245,26 @@ public class MyPageServiceImpl implements MyPageService{
 	public int deleteScrapBoard(Map<String, Object> map) {
 		return myPageDao.deleteScrapBoard(sqlSession, map);
 	}
+
+	// 스크랩 상품 조회
+	@Override
+	public ArrayList<MyPageScrapProductDTO> getScrapProduct(int memberNo) {
+		return myPageDao.getScrapProduct(sqlSession, memberNo);
+	}
+	
+	// 스크랩 상품 삭제
+	@Override
+	public int deleteScrapProduct(Map<String, Object> map) {
+		return myPageDao.deleteScrapProduct(sqlSession, map);
+	}
+
+	// 좋아요 레시피 조회
+	@Override
+	public ArrayList<MyPageLikeRecipeDTO> getLikeRecipeList(int memberNo) {
+		return myPageDao.getLikeRecipeList(sqlSession, memberNo);
+	}
+
+	
 
 	
 }
