@@ -80,7 +80,7 @@
                                 </table>
                             </div>
                             <!-- 문의하기 modal -->
-                            <div class="modal fade" id="qna_Modal" style="display: none;" aria-hidden="true">
+                            <div class="modal" id="qna_Modal" style="display: none;" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
 
@@ -124,10 +124,9 @@
                                                             </svg>
                                                         </div>
                                                         <span style="color:#1E90FF; font-size: 14px;">사진 첨부하기</span>
-                                                        <input type="file" name="qnaPhoto" class="file-input"
-                                                            accept="image/*">
-
                                                     </div>
+                                                    <input type="file" name="qnaPhoto" class="file-input"
+                                                            accept="image/*">
                                                 </div>
 
                                                 <div class="product_qna_content_container">
@@ -152,7 +151,7 @@
                             </div>
 
                             <!-- 후기작성 modal -->
-                            <div class="modal fade" id="buyList-review_Modal" style="display: none;" aria-hidden="true">
+                            <div class="modal" id="buyList-review_Modal" style="display: none;" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
 
@@ -219,10 +218,9 @@
                                                             </svg>
                                                         </div>
                                                         <span style="color:#1E90FF; font-size: 14px;">사진 첨부하기</span>
-                                                        <input type="file" name="qnaPhoto" class="file-input"
-                                                            accept="image/*">
-
                                                     </div>
+                                                    <input type="file" name="qnaPhoto" class="file-input"
+                                                    accept="image/*">
                                                 </div>
 
                                                 <div class="product_qna_content_container">
