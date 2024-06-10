@@ -255,7 +255,17 @@ public class MyPageController {
 	
 	
 	@RequestMapping("likeBoard.me")
-	public String myPageLikeBoard(){
+	public String myPageLikeBoard(
+			HttpSession session,
+			Model model){
+		
+		int memberNo = getLoginUserNo(session);
+		addAttributeUserInfo(model, memberNo);
+		
+		
+		
+		
+		
 		return "member/myPageLikeBoard";
 	}
 	
