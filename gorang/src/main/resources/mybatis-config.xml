@@ -37,6 +37,7 @@
  		<typeAlias type="com.kh.gorang.board.model.vo.ScrapBoard" alias="ScrapBoard" />
  		<typeAlias type="com.kh.gorang.member.model.vo.ScrapProduct" alias="ScrapProduct" />
  		<typeAlias type="com.kh.gorang.member.model.vo.LikeRecipe" alias="LikeRecipe" />
+ 		<typeAlias type="com.kh.gorang.member.model.vo.LikeBoard" alias="LikeBoard" />
  		<typeAlias type="com.kh.gorang.member.model.vo.MyPageBoardCommentDTO" alias="MyPageBoardCommentDTO" />
  		<typeAlias type="com.kh.gorang.member.model.vo.MyPageScrapBoardDTO" alias="MyPageScrapBoardDTO"/>
  		<typeAlias type="com.kh.gorang.member.model.vo.MyPageScrapProductDTO" alias="MyPageScrapProductDTO"/>

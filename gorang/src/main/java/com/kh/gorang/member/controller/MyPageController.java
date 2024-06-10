@@ -19,6 +19,7 @@ import com.kh.gorang.common.vo.PageInfo;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.MyPageBoardCommentDTO;
 import com.kh.gorang.member.model.vo.MyPageBoardDTO;
+import com.kh.gorang.member.model.vo.MyPageLikeBoardDTO;
 import com.kh.gorang.member.model.vo.MyPageLikeRecipeDTO;
 import com.kh.gorang.member.model.vo.MyPageRecipeDTO;
 import com.kh.gorang.member.model.vo.MyPageScrapBoardDTO;
@@ -102,6 +103,7 @@ public class MyPageController {
 		return "member/myRecipeBoard";
 	}
 	
+	// 마이페이지 레시피 삭제
 	@PostMapping("remove-recipe.me")
 	@ResponseBody
 	public String removeMyRecipe(int recipeNo) {
@@ -165,7 +167,9 @@ public class MyPageController {
 	
 	//내 정보 수정
 	@RequestMapping("edit.me")
-	public String myPageInfoEdit(){
+	public String myPageInfoEdit(
+			HttpSession session,
+			Model model){
 		return "member/myPageInfoEdit";
 	}
 	
@@ -262,12 +266,34 @@ public class MyPageController {
 		int memberNo = getLoginUserNo(session);
 		addAttributeUserInfo(model, memberNo);
 		
+		ArrayList<MyPageLikeBoardDTO> likeBoardList = myPageService.getLikeBoardList(memberNo);
 		
-		
-		
+		model.addAttribute("likeBoardList", likeBoardList);
 		
 		return "member/myPageLikeBoard";
 	}
+	
+	@PostMapping("delete-like-board.me")
+	@ResponseBody
+	public String deleteLikeBoard(
+			HttpSession session,
+			@RequestParam int boardNo) {
+		
+		int memberNo = getLoginUserNo(session);
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("memberNo", memberNo);
+		map.put("boardNo", boardNo);
+		
+		int result = myPageService.deleteLikeBoard(map);
+		
+		if(result > 0) {
+			return "done";
+		} else {
+			return "undone";
+		}
+	}
+	
 	
 	@RequestMapping("loginForm.me")
 	public String login(){

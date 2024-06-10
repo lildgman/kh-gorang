@@ -12,6 +12,7 @@ import com.kh.gorang.common.vo.PageInfo;
 import com.kh.gorang.member.model.dao.MyPageDao;
 import com.kh.gorang.member.model.vo.MyPageBoardCommentDTO;
 import com.kh.gorang.member.model.vo.MyPageBoardDTO;
+import com.kh.gorang.member.model.vo.MyPageLikeBoardDTO;
 import com.kh.gorang.member.model.vo.MyPageLikeRecipeDTO;
 import com.kh.gorang.member.model.vo.MyPageRecipeDTO;
 import com.kh.gorang.member.model.vo.MyPageScrapBoardDTO;
@@ -268,6 +269,18 @@ public class MyPageServiceImpl implements MyPageService{
 	@Override
 	public int deleteLikeRecipe(Map<String, Object> map) {
 		return myPageDao.deleteLikeRecipe(sqlSession, map);
+	}
+
+	// 좋아요 게시글 조회
+	@Override
+	public ArrayList<MyPageLikeBoardDTO> getLikeBoardList(int memberNo) {
+		return myPageDao.getLikeBoardList(sqlSession, memberNo);
+	}
+
+	// 좋아요 게시글 삭제
+	@Override
+	public int deleteLikeBoard(Map<String, Object> map) {
+		return myPageDao.deleteLikeBoard(sqlSession, map);
 	}
 
 	
