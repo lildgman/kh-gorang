@@ -42,6 +42,7 @@
  		<typeAlias type="com.kh.gorang.member.model.vo.MyPageScrapProductDTO" alias="MyPageScrapProductDTO"/>
  		<typeAlias type="com.kh.gorang.member.model.vo.MyPageScrapRecipeDTO" alias="MyPageScrapRecipeDTO" />
  		<typeAlias type="com.kh.gorang.member.model.vo.MyPageLikeRecipeDTO" alias="MyPageLikeRecipeDTO" />
+ 		<typeAlias type="com.kh.gorang.member.model.vo.ProductCart" alias="ProductCart" />
  		
 	</typeAliases>
 	

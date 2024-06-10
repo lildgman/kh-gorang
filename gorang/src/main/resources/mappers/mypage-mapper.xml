@@ -534,7 +534,7 @@
 	</select>
 	
 	<!-- 좋아요 레시피 삭제 -->
-	<update id="deleteLikeRecipe" parameterType="likeRecipeResult">
+	<update id="deleteLikeRecipe" parameterType="LikeRecipe">
 		UPDATE LIKE_RECIPE
 		SET STATUS = 'N'
 		WHERE MEMBER_NO = #{memberNo} AND RCP_NO = #{recipeNo}
