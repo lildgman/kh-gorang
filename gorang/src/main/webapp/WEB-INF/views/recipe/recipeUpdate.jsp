@@ -114,7 +114,7 @@
                     <span id="ingredient-info-span-bottom">※ 식재료,양념, 양념장, 소스, 드레싱, 토핑, 시럽, 육수 밑간 등으로 구분해서 작성해주세요.</span>
                 </div>
                 <c:forEach var="division" items="${recipeInsertDTO.rcpDivList}" varStatus="divisionIndex">
-                    <div class="recipe-ingredient-info-blocks" id="divisions-0">
+                    <div class="recipe-ingredient-info-blocks" id="divisions-${divisionIndex.index}">
                         <div class="recipe-ingredient-info-top">
                             <div class="location-btn"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Link.png" alt=""></div>
                             <div class="ingre-div-block" > 
@@ -134,53 +134,57 @@
                             </div>
                             </c:forEach>
                             <div class="add-igre-btn">                     
-                                <img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/plus.png" alt="" onclick="addBundle(this,'${divisionIndex.index}','${division.ingredientsInfoList.size() - 1}')">
-                                <button type="button"  onclick="addBundle(this,'${divisionIndex.index}',${division.ingredientsInfoList.size() - 1})">묶음 추가</button>
+                                <img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/plus.png" alt="" onclick="addBundle(this,'${divisionIndex.index}','${division.ingredientsInfoList.size()}' - 1)">
+                                <button type="button"  onclick="addBundle(this,'${divisionIndex.index}','${division.ingredientsInfoList.size()}' - 1)">묶음 추가</button>
                             </div>
                         </div>               
                     </div>
+                    <!-- </div> -->
+                    <div id="add-div-btn">
+                        <button type="button" onclick="addUnit(this,'${recipeInsertDTO.rcpDivList.size()}'-1)">+ 분류 추가</button>
+                    </div>
                 </c:forEach>
-                <!-- </div> -->
-                <div id="add-div-btn">
-                    <button type="button" onclick="addUnit(this,0)">+ 분류 추가</button>
-                </div>
             </div>
 
             <!-- 조리 순서 영역 -->
             <div id="cooking-order-area">
                 <div id="cooking-order-area-title">조리순서</div>
-                <div class="cooking-order-blocks" id="cookOrder-0">
-                    <div class="cooking-order-block" >
-                        <div class="cooking-order-block-top">
-                            <div class="cook-order-number-img">1</div>
-                            <div class="cook-order-write-content"><input name ="cookOrderList[0].cookOrdContent" type="text" placeholder="예) 소고기는 기름을 떼어내고 적당한 크기로 썰어주세요"></div>
-                            <div class="cook-order-hambugerbar"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/SVG.png" alt=""></div>
-                        </div>
-                        <div class="cooking-order-block-bottom" >
-                            <div class="cooking-order-block-bottom-img" onclick="cookIngOrderImg(this,0)">
-                                <img class ="cookingImg" src="${contextPath}/resources/dummyImg/recipe/recipeWrite/camera.png" alt="">
-                                <input type="hidden" name="cookOrderList[0].cookOrdPhoto" id="cookOrdPhoto" value="">
-                                <img class="cookingImg-real" src="" alt="" >
-                                <input type="file"  id="fileInput"  onchange="changeCookIngOrderImg(this,0)">
+                <c:forEach var="cookOrder" items="${recipeInsertDTO.cookOrderList}" varStatus="orderIndex">
+                    <div class="cooking-order-blocks" id="cookOrder-${orderIndex.index}">
+                        <div class="cooking-order-block" >
+                            <div class="cooking-order-block-top">
+                                <div class="cook-order-number-img">${orderIndex.index}+1</div>
+                                <div class="cook-order-write-content"><input name ="cookOrderList[${orderIndex.index}].cookOrdContent" type="text" placeholder="예) 소고기는 기름을 떼어내고 적당한 크기로 썰어주세요"></div>
+                                <div class="cook-order-hambugerbar"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/SVG.png" alt=""></div>
                             </div>
-                            <div class="cooking-order-block-bottom-tips">
-                                <div class="cooking-order-block-bottom-tip" id="cookTip-0">
-                                    <input name ="cookOrderList[0].cookTipList[0].cookTipContent" type="text" placeholder="팁 예) 볶는 시간은 최소로 합니다">
-                                    <button type="button" class="add-tip">
-                                        <img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/plus (2).png" alt="" onclick="addTip(this,0,0)"></button>
-                                    <button type="button" class="delte-tip">
-                                        <img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt=""  onclick="deleteTip(this,0,0)"></button>
+                            <div class="cooking-order-block-bottom" >
+                                <div class="cooking-order-block-bottom-img" onclick="cookIngOrderImg(this,'${orderIndex.index}')">
+                                    <img class ="cookingImg" src="${contextPath}/resources/dummyImg/recipe/recipeWrite/camera.png" alt="">
+                                    <input type="hidden" name="cookOrderList[${orderIndex.index}].cookOrdPhoto" id="cookOrdPhoto" value="">
+                                    <img class="cookingImg-real" src="${contextPath}/resources/uploadfile/recipe/recipeorder/${cookOrder.cookOrdPhoto}" alt="" >
+                                    <input type="file"  id="fileInput"  onchange="changeCookIngOrderImg(this,'${orderIndex.index}')">
                                 </div>
+                                <c:forEach var="cookTip" items="${cookOrder.cookTipList}" varStatus="tipIndex">
+                                    <div class="cooking-order-block-bottom-tips">
+                                        <div class="cooking-order-block-bottom-tip" id="cookTip-0">
+                                            <input name ="cookOrderList[0].cookTipList[0].cookTipContent" type="text" placeholder="팁 예) 볶는 시간은 최소로 합니다">
+                                            <button type="button" class="add-tip">
+                                                <img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/plus (2).png" alt="" onclick="addTip(this,0,0)"></button>
+                                            <button type="button" class="delte-tip">
+                                                <img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt=""  onclick="deleteTip(this,0,0)"></button>
+                                        </div>
+                                    </div>
+                                </c:forEach>
                             </div>
-                        </div>
-                        <div id="recipe-order-delete-btn-area">
-                            <button type="button" id="order-delete-btn" onclick="deleteCookingOrder(this,0)">삭제</button>
+                            <div id="recipe-order-delete-btn-area">
+                                <button type="button" id="order-delete-btn" onclick="deleteCookingOrder(this,0)">삭제</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div id="add-order-btn">
-                    <button type="button" onclick="addCookingOrder(this,0)">+ 순서 추가</button>
-                </div>
+                    <div id="add-order-btn">
+                        <button type="button" onclick="addCookingOrder(this,0)">+ 순서 추가</button>
+                    </div>
+                </c:forEach>
             </div>
             
             <!-- 완성사진영역 -->
