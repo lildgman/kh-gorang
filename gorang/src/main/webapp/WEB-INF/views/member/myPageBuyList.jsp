@@ -92,7 +92,7 @@
 
                                         <!-- Modal body -->
                                         <div class="modal-body" style="height: 100%;">
-                                            <form class="modal-qna-content" action="insertQna.po">
+                                            <form class="modal-qna-content" action="insertQna.po" enctype="multipart/form-data">
                                                 <input type="hidden" name="writerNo" id="qna-modal-writerNo" value=${loginUser.memberNo}>
                                                 <input type="hidden" name="refProductNo" id="qna-modal-refProductNo">
                                                 <div class="product_name_container">
@@ -125,7 +125,7 @@
                                                         </div>
                                                         <span style="color:#1E90FF; font-size: 14px;">사진 첨부하기</span>
                                                     </div>
-                                                    <input type="file" name="qnaPhoto" class="file-input"
+                                                    <input type="file" name="qnaPhotoUpfile" class="file-input"
                                                             accept="image/*">
                                                 </div>
 
@@ -161,10 +161,9 @@
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                                         </div>
 
-                                        <!-- 202406101237 후기 모달 창에 맞게 수정 작업 -->
                                         <!-- Modal body -->
                                         <div class="modal-body" style="height: 100%;">
-                                            <form class="modal-qna-content" action="insertReview.po">
+                                            <form class="modal-qna-content" action="insertReview.po" enctype="multipart/form-data">
                                                 <input type="hidden" name="refMemberNo" value=${loginUser.memberNo}>
                                                 <input type="hidden" name="refProductNo" id="review-modal-refProductNo">
                                                 <div class="product_name_container">
@@ -219,7 +218,7 @@
                                                         </div>
                                                         <span style="color:#1E90FF; font-size: 14px;">사진 첨부하기</span>
                                                     </div>
-                                                    <input type="file" name="qnaPhoto" class="file-input"
+                                                    <input type="file" name="reviewPhotoUpfile" class="file-input"
                                                     accept="image/*">
                                                 </div>
 
@@ -228,7 +227,7 @@
                                                         후기 내용
                                                     </div>
                                                     <div class="product_qna_content_textarea">
-                                                        <textarea name="qnaContent" class="product_qna_content"
+                                                        <textarea name="reviewContent" class="product_qna_content"
                                                             placeholder="후기 내용을 입력하세요."></textarea>
                                                     </div>
                                                 </div>

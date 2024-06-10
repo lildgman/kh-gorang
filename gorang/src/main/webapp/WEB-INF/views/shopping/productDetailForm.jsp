@@ -157,7 +157,7 @@
                         </div>
 
                         <!-- 상품 후기 -->
-                        <div id="product_review_area">
+                        <!-- <div id="product_review_area">
                             <div class="description_title">상품 후기</div>
                             <div class="product_review">
                                 <div class="review_writer_area">
@@ -202,7 +202,7 @@
                                     <a href="#">&gt;</a>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- 상품 문의 -->
                         <div id="product_qna_area">
@@ -243,7 +243,7 @@
                 <!-- 문의하기 modal -->
                 <div class="modal fade" id="qna_Modal">
                     <div class="modal-dialog">
-                        <div class="modal-content" style="height: 600px;">
+                        <div class="modal-content" style="height: fit-content;">
 
                             <!-- Modal Header -->
                             <div class="modal-header">
@@ -253,7 +253,7 @@
 
                             <!-- Modal body -->
                             <div class="modal-body" style="height: 100%;">
-                                <form id="modal-qna-content" action="insertQna.po">
+                                <form id="modal-qna-content" action="insertQna.po" enctype="multipart/form-data">
                                     <input type="hidden" name="writerNo" value=${loginUser.memberNo}>
                                     <input type="hidden" name="refProductNo" value=${p.productNo}>
                                     <div id="product_name_container">
@@ -283,7 +283,7 @@
                                                 </svg>
                                             </div>
                                             <span style="color:#1E90FF; font-size: 14px;">사진 첨부하기</span>
-                                            <input type="file" name="qnaPhoto" id="file-input" accept="image/*">
+                                            <input type="file" name="qnaPhotoUpfile" id="file-input" accept="image/*">
 
                                         </div>
                                     </div>

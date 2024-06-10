@@ -115,6 +115,12 @@ public class ProductServiceImpl implements ProductService{
 		return productDao.insertProductQna(sqlSession, q);
 	}
 
+
+	@Override
+	public int insertProductReview(Review re) {
+		return productDao.insertProductReview(sqlSession, re);
+	}
+
 	
 
 

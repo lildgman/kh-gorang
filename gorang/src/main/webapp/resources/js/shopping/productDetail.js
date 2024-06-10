@@ -2,10 +2,9 @@ document.addEventListener("DOMContentLoaded", function () {
   // 전역 변수 초기화
   const contextPath = getContextPath();
   const pno = getParameterPno();
-  const profileLocation = contextPath + "/resources/uploadfile/memberProfile/";
 
   // 파라미터값으로 뿌려주고 남은 정보창 채우기
-  inputProductInfo(pno, profileLocation);
+  inputProductInfo(pno, contextPath);
 
   // 이벤트 핸들러 등록
   clickZzim();
@@ -385,21 +384,21 @@ document.addEventListener("DOMContentLoaded", function(){
 })
 
 
-
-
 //=========================== review 관련 메소드 ========================================
 
   // 리뷰 부분 구성하는 요소들 구축하는 메소드
   // 리뷰를 위해서는 상품 번호를 바로 참조하는 것이 아니라 유저가 구매한 상품 옵션을 통해 상품 번호를 가져와야함
   // 옵션명이 필요함!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-function putProductReviewList(reviews, profileLocation){
+
+
+
+function putProductReviewList(reviews, contextPath){
     const productReviewArea = document.querySelector("#product_review_area");
     // 리뷰수
     document.querySelector("#product_review_quantity").innerHTML = reviews.length;
     // 평점 평균 변수
     let ratingSum = 0;
     for(let review of reviews){
-
       ratingSum += review.rating;
       //리뷰 내용 담을 div
       const productReview = document.createElement('div');
@@ -417,7 +416,7 @@ function putProductReviewList(reviews, profileLocation){
       const writerPic = document.createElement('img');
       writerPic.setAttribute("class", "review_writer_pic");
       writerPicContainer.appendChild(writerPic);
-      writerPic.src = profileLocation + review.writerProfile;
+      writerPic.src = contextPath + "/resources/uploadfile/memberProfile/" + review.writerProfile;
       // 작성자 id, 평점 영역
       const reviewWriterIdRate = document.createElement('div');
       reviewWriterIdRate.setAttribute("class", "review_writer_id_rate");
@@ -439,12 +438,22 @@ function putProductReviewList(reviews, profileLocation){
         reviewRate.appendChild(reviewRateStar);
       }
 
+      // 유저가 구입한 상품의 옵션명
       const reviewProductName = document.createElement('div');
       reviewProductName.setAttribute("class", "review_product_name");
       productReview.appendChild(reviewProductName);
-      // 유저가 구입한 상품의 옵션명을 가져와야함
-      reviewProductName.innerHTML;
+      reviewProductName.innerHTML = review.refPdOptName;
+      
+      // 리뷰 사진
+      const reviewPhotoWrapper = document.createElement('div');
+      reviewPhotoWrapper.setAttribute("class", "review_img_container");
+      productReview.appendChild(reviewPhotoWrapper);
+      const reviewPhoto = document.createElement('img');
+      reviewPhoto.setAttribute("class", "review_img");
+      reviewPhotoWrapper.appendChild(reviewPhoto);
+      reviewPhoto.setAttribute("src", contextPath + "/resources/uploadfile/review/product-review/" + review.reviewPhoto);
 
+      // 리뷰 내용
       const reviewContent = document.createElement('div');
       reviewContent.setAttribute("class", "review_content");
     }

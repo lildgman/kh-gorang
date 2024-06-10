@@ -354,6 +354,8 @@
   font-size: 18px;
 }
 
+/* review */
+
 #product_review_area{
   width: 100%;
   display: flex;
@@ -439,6 +441,8 @@
   font-size: 14px;
   color : #6D6D6D;
 }
+
+/* qna */
 
 #product_qna_area{
   width: 100%;
