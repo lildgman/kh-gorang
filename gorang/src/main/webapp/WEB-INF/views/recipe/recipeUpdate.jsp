@@ -28,31 +28,31 @@
        <div id="recipe-write-all-area">
         <!-- 썸네일 추가영역 -->
             <div id="recipe-write-imgupload-area" onclick="choiceThumnailImg()">
-                <img id="thumnailImg" src="${contextPath}/resources/dummyImg/recipe/recipeWrite/camerg.png" alt="" >
-                <img id="thumnailImg-real" src="" alt="" >
+                <img id="thumnailImg" src="${contextPath}/resources/dummyImg/recipe/recipeWrite/camerg.png" alt="" style="display: none;">
+                <img id="thumnailImg-real" src="${contextPath}/resources/uploadfile/recipe/recipemain/${rcp.recipeMainPhoto}" alt="" style="display: block;">
                 <input type="hidden" name="recipeMainPhoto" id="recipeMainPhoto" value="">
                 <input type="file" id="recipeMainPhotoFile" onchange="changeThumnailImg(this)">
-                <div id="recipe-write-img-middle-text">Upload recipe photo</div>
-                <div id="recipe-write-img-bottom-text">Show others your finished dish</div>
+                <div id="recipe-write-img-middle-text" style="display: none;">Upload recipe photo</div>
+                <div id="recipe-write-img-bottom-text" style="display: none;">Show others your finished dish</div>
             </div>
 
 
 
             <!-- 제목,소개,동영상, 태그, 카테고리 -->
             <div id="recipe-write-title-area">
-                <input name="recipeTitle" type="text" placeholder="레시피 제목을 입력해주세요." >
+                <input name="recipeTitle" type="text" placeholder="레시피 제목을 입력해주세요." value="${rcp.recipeTitle}">
             </div>
 
             <div id="recipe-introduce-area">
-                <textarea name="recipeContent" id="" maxlength="500" placeholder="여러분의 요리를 소개시켜주세요" ></textarea>
+                <textarea name="recipeContent" id="" maxlength="500" placeholder="여러분의 요리를 소개시켜주세요"  >${rcp.recipeContent}</textarea>
             </div>
 
             <div id="recipe-yotube-area">
-                <textarea name="recipeVideo" id="" maxlength="500" placeholder="동영상이 있다면 주소를 작성해주세요(Youtube 만 가능)" ></textarea>
+                <textarea name="recipeVideo" id="" maxlength="500" placeholder="동영상이 있다면 주소를 작성해주세요(Youtube 만 가능)" value="${rcp.recipeVideo}" ></textarea>
             </div>
 
             <div id="recipe-tage-area">
-                <input type="text" placeholder="태그를 넣어주세요 예)#얼큰 #찌개 #건강식"  name="recipeTag">
+                <input type="text" placeholder="태그를 넣어주세요 예)#얼큰 #찌개 #건강식"  name="recipeTag"  value="${rcp.recipeTag}">
             </div>
 
             <div id="recipe-category-area">
@@ -60,33 +60,25 @@
                 <div class="selectbox-areas" > 
                     <select name="cookKind" id="" class="mySelect" > 
                         <option value="" disabled selected hidden>종류</option>
-                        <option value="한식">한식</option>
-                        <option value="중식">중식</option>
-                        <option value="일식">일식</option>
-                        <option value="양식">양식</option>
-                        <option value="디저트">디저트</option>
-                        <option value="기타">기타</option>
+                        <c:forEach var="kind" items="${['한식', '중식', '일식', '양식', '디저트', '기타']}">
+                            <option value="${kind}" ${kind eq rcp.cookKind ? 'selected' : ''}>${kind}</option>
+                        </c:forEach>
                     </select>
                 </div>
                 <div class="selectbox-areas"> 
                     <select name="cookLevel" id="" class="mySelect" > 
                         <option value="" disabled selected hidden>난이도</option>
-                        <option value="한식">상</option>
-                        <option value="중식">중</option>
-                        <option value="일식">하</option>
-                
+                        <c:forEach var="level" items="${['상','중','하']}">
+                            <option value="${level}" ${level eq rcp.cookLevel ? 'selected' : ''}>${level}</option>
+                        </c:forEach>
                     </select>
                 </div>
                 <div class="selectbox-areas"> 
                     <select name="cookTime" id="" class="mySelect"> 
                         <option value="" disabled selected hidden>시간</option>
-                        <option value="5분 이내">5분 이내</option>
-                        <option value="10분 이내">10분 이내</option>
-                        <option value="15분 이내">15분 이내</option>
-                        <option value="30분 이내">30분 이내</option>
-                        <option value="1시간 이내">1시간 이내</option>
-                        <option value="2시간 이내">2시간 이내</option>
-                        <option value="2시간 이상">2시간 이상</option>
+                        <c:forEach var="time" items="${['5분 이내','10분 이내','15분 이내','30분 이내','1시간 이내','2시간 이내','2시간 이상']}">
+                            <option value="${time}" ${time eq rcp.cookTime ? 'selected' : ''}>${time}</option>
+                        </c:forEach>
                     </select>
                 </div>
                 <div class="selectbox-areas"> 
@@ -99,6 +91,9 @@
                         <option value="5인분">5인분</option>
                         <option value="6인분">6인분</option>
                         <option value="6인분 이상">6인분 이상</option>
+                        <c:forEach var="amount" items="${['1인분','2인분','3인분','4인분','5인분','6인분','6인분 이상']}">
+                            <option value="${amount}" ${amount eq rcp.cookAmount ? 'selected' : ''}>${amount}</option>
+                        </c:forEach>
                     </select>
                 </div>
             </div>
@@ -118,48 +113,33 @@
                     <span id="ingredient-info-span-top">재료 정보</span><br>
                     <span id="ingredient-info-span-bottom">※ 식재료,양념, 양념장, 소스, 드레싱, 토핑, 시럽, 육수 밑간 등으로 구분해서 작성해주세요.</span>
                 </div>
-                
+                <c:forEach var="division" items="${recipeInsertDTO.rcpDivList}" varStatus="divisionIndex">
                     <div class="recipe-ingredient-info-blocks" id="divisions-0">
                         <div class="recipe-ingredient-info-top">
                             <div class="location-btn"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Link.png" alt=""></div>
                             <div class="ingre-div-block" > 
-                                <input name="rcpDivList[0].divName" type="text" placeholder="분류 예)식재료">
+                                <input name="rcpDivList[${divisionIndex.index}].divName" type="text" placeholder="분류 예)식재료" value="${division.divName}">
                             </div> 
-                            <div class="delete-btn" onclick="deleteIngreBlock(this,0)"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt=""></div>
+                            <div class="delete-btn" onclick="deleteIngreBlock(this,'${divisionIndex.index}')"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt=""></div>
                         </div>
                         <div class="recipe-ingredient-info-bottom">
-                            <div class="recipe-smaill-block" id="ingredients-0">
+                            <c:forEach var="ingredient" items="${division.ingredientsInfoList}" varStatus="ingreIndex">
+                            <div class="recipe-smaill-block" id="ingredients-${ingreIndex.index}">
                                 <div class="location-btn"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Link.png" alt=""></div>
-                                <div class="igre-name-block"><input name="rcpDivList[0].ingredientsInfoList[0].ingreName" type="text" placeholder="재료명 예)돼지고기"></div>
-                                <div class="igre-amount-block"><input name="rcpDivList[0].ingredientsInfoList[0].ingreAmount" type="text" placeholder="수량"></div>
-                                <div class="igre-unit-block"><input name="rcpDivList[0].ingredientsInfoList[0].ingreUnit" type="text" placeholder="단위"></div>
-                                <div class="delete-btn"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" onclick="deleteSmaillBlock(this,0,0)"></div>
+                                <div class="igre-name-block"><input name="rcpDivList[${divisionIndex.index}].ingredientsInfoList[${ingreIndex.index}].ingreName" type="text" placeholder="재료명 예)돼지고기" value="${ingredient.ingreName}"></div>
+                                <div class="igre-amount-block"><input name="rcpDivList[${divisionIndex.index}].ingredientsInfoList[${ingreIndex.index}].ingreAmount" type="text" placeholder="수량" value="${ingredient.ingreAmount}"></div>
+                                <div class="igre-unit-block"><input name="rcpDivList[${divisionIndex.index}].ingredientsInfoList[${ingreIndex.index}].ingreUnit" type="text" placeholder="단위" value="${ingredient.ingreUnit}"></div>
+                                <div class="delete-btn"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" onclick="deleteSmaillBlock(this,'${divisionIndex.index}','${ingre.index}')"></div>
                                 <button type="button">태그 +</button>
                             </div>
-                
-                            <div class="recipe-smaill-block" id="ingredients-1">
-                                <div class="location-btn"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Link.png" alt=""></div>
-                                <div class="igre-name-block"><input name="rcpDivList[0].ingredientsInfoList[1].ingreName" type="text" placeholder="재료명 예)돼지고기"></div>
-                                <div class="igre-amount-block"><input name="rcpDivList[0].ingredientsInfoList[1].ingreAmount" type="text" placeholder="수량"></div>
-                                <div class="igre-unit-block"><input name="rcpDivList[0].ingredientsInfoList[1].ingreUnit" type="text" placeholder="단위"></div>
-                                <div class="delete-btn"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" onclick="deleteSmaillBlock(this,0,1)"></div>
-                                <button type="button">태그 +</button>
-                            </div>
-                
-                            <div class="recipe-smaill-block" id="ingredients-2">
-                                <div class="location-btn"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Link.png" alt=""></div>
-                                <div class="igre-name-block"><input name="rcpDivList[0].ingredientsInfoList[2].ingreName" type="text" placeholder="재료명 예)돼지고기"></div>
-                                <div class="igre-amount-block"><input name="rcpDivList[0].ingredientsInfoList[2].ingreAmount" type="text" placeholder="수량"></div>
-                                <div class="igre-unit-block"><input name="rcpDivList[0].ingredientsInfoList[2].ingreUnit" type="text" placeholder="단위"></div>
-                                <div class="delete-btn"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" onclick="deleteSmaillBlock(this,0,2)"></div>
-                                <button type="button">태그 +</button>
-                            </div>
+                            </c:forEach>
                             <div class="add-igre-btn">                     
-                                <img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/plus.png" alt="" onclick="addBundle(this,0,2)">
-                                <button type="button"  onclick="addBundle(this,0,2)">묶음 추가</button>
+                                <img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/plus.png" alt="" onclick="addBundle(this,'${divisionIndex.index}','${division.ingredientsInfoList.size() - 1}')">
+                                <button type="button"  onclick="addBundle(this,'${divisionIndex.index}',${division.ingredientsInfoList.size() - 1})">묶음 추가</button>
                             </div>
                         </div>               
                     </div>
+                </c:forEach>
                 <!-- </div> -->
                 <div id="add-div-btn">
                     <button type="button" onclick="addUnit(this,0)">+ 분류 추가</button>
