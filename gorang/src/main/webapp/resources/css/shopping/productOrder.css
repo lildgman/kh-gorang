@@ -152,8 +152,8 @@ input[type="checkbox"] {
 }
 
 .order-product-img-container {
-  width: 64px;
-  height: 64px;
+  width: 100px;
+  height: 100px;
 }
 
 .order-product-img {
@@ -187,8 +187,6 @@ input[type="checkbox"] {
 
 .won {
   font-weight: bold;
-  border-right: 2px solid #ededed;
-  padding-right: 25px;
 }
 
 .order-product-saled-price {
@@ -198,11 +196,23 @@ input[type="checkbox"] {
 .order-product-quantity-area {
   display: flex;
   flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
 }
 
 .order-product-quantity {
-  padding-left: 25px;
 }
+
+.order-product-additional-info{
+  font-size: 12px;
+  color: #cecece;
+}
+
+.order-product-shipping-cost{
+}
+
+/* 결제 수단 */
 
 .payment-list {
   display: flex;
