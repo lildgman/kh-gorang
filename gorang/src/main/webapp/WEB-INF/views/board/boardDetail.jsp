@@ -147,8 +147,17 @@
                             <img
                                 src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png">
                         </div>
-                        <textarea class="reply-input" rows="3" placeholder="댓글 내용을 적어주세요"></textarea>
-                        <button class="reply-button">댓글 쓰기</button>
+                        
+                        <c:choose>
+                            <c:when test="${empty loginUser}">
+                                <textarea class="reply-input" rows="3" placeholder="로그인 후 이용 가능합니다." disabled style="background-color: transparent;"></textarea>
+                                <button class="reply-button" disabled>댓글 쓰기</button>
+                            </c:when>
+                            <c:otherwise>
+                                <textarea class="reply-input" rows="3" placeholder="댓글 내용을 적어주세요. 적절하지 못한 댓글은 신고 사유가 됩니다."></textarea>
+                                <button class="reply-button">댓글 쓰기</button>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                     <div id="ReplyArea">
                         <div id="userReplyWrap">
@@ -163,7 +172,7 @@
                                         <div id="userReplyWriterDetailDate"><span>2024-04-22</span></div>
                                     </div>
                                     <div id="userReplyContent">
-                                        <span>오늘점심은 제육이에요 </span>
+                                        <span>오늘점심은 제육이에요</span>
                                     </div>
                                 </div>
                             </div>
