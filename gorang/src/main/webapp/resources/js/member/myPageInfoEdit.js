@@ -60,16 +60,19 @@ function submitMemberInfo() {
       // matchPassword가 false일 때 비밀번호가 일치하지 않음을 알림
       if (!matchPassword) {
           alert('비밀번호를 다시 확인해주세요.');
+          return;
       }
 
       // checkNickname가 false일 때 닉네임이 일치하지 않음을 알림
       if (!checkNickname) {
           alert('닉네임이 중복되는지 확인해주세요.');
+          return;
       }
 
       // checkPhoneNumber가 false일 때 전화번호가 일치하지 않음을 알림
       if (!checkPhoneNumber) {
           alert('전화번호가 중복되는지 확인해주세요.  ');
+          return;
       }
   }
 }
@@ -100,7 +103,7 @@ function validNickname() {
 function validPhoneNumber() {
   const newPhoneNumber = document.querySelector('#new-phone-number').value;
 
-  const isValid =  /^\d{4,11}$/.test(newPhoneNumber.trim());
+  const isValid =  /^\d{1,11}$/.test(newPhoneNumber.trim());
 
   if(!isValid) {
     alert("11자리 이하로 숫자만 입력해주세요");

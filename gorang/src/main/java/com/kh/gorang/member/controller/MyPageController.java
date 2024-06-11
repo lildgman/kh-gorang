@@ -392,6 +392,39 @@ public class MyPageController {
 		return "member/myPageWithDraw";
 	}
 	
+	@GetMapping("check-pwd.me")
+	@ResponseBody
+	public String checkPassword(
+			HttpSession session,
+			@RequestParam String validPwd) {
+		
+		String memberPwd = ((Member)session.getAttribute("loginUser")).getMemberPwd();
+		log.info("validPwd={}",validPwd);
+		log.info("memberPwd={}",memberPwd);
+		
+		if(bcryptPasswordEncoder.matches(validPwd, memberPwd)) {
+			return "matched";
+		} else {
+			return "mismatched";
+		}
+	}
+	
+	@PostMapping("delete-member.me")
+	@ResponseBody
+	public String deleteMember(
+			HttpSession session,
+			@RequestParam int loginUserNo) {
+		
+		int result = myPageService.deleteMember(loginUserNo);
+		
+		if(result > 0) {
+			session.removeAttribute("loginUser");
+			return "done";
+		} else {
+			return "undone";
+		}
+		
+	}
 	
 	@RequestMapping("loginForm.me")
 	public String login(){
