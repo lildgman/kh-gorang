@@ -30,6 +30,18 @@ public interface RecipeService {
 
 	int updateRecipeInsertDTO(Recipe rcp, RecipeInsertDTO recipeInsertDTO, HttpSession session);
 
+	int deleteIngre(IngredientsInfo ingredientsInfo);
+
+//	int findDivLen(Recipe rcp, HttpSession session);
+//
+//	int findIngreLen(RecipeInsertDTO recipeInsertDTO, HttpSession session);
+//
+//	int findCoLen(Recipe rcp, HttpSession session);
+//
+//	int findCtLen(RecipeInsertDTO recipeInsertDTO, HttpSession session);
+//
+//	int findCpLen(RecipeInsertDTO recipeInsertDTO, HttpSession session);
+
 
 
 

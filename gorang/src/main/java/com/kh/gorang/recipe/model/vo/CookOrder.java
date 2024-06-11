@@ -22,4 +22,6 @@ public class CookOrder {
 	private char status;
 	private int recipeNo;
 	private List<CookTip> cookTipList;
+	
+	private String updateCoStatus;
 }
