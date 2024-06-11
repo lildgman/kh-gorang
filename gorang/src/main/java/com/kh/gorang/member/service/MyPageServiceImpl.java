@@ -309,6 +309,12 @@ public class MyPageServiceImpl implements MyPageService{
 		return null;
 	}
 
+	// 회원 탈퇴
+	@Override
+	public int deleteMember(int loginUserNo) {
+		return myPageDao.deleteMember(sqlSession, loginUserNo);
+	}
+
 	
 
 	

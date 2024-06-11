@@ -250,8 +250,14 @@ public class MyPageDao {
 		return sqlSession.update("myPageMapper.updateMemberInfo", member);
 	}
 
+	// 회원 조회
 	public Member selectMember(SqlSessionTemplate sqlSession, int memberNo) {
 		return sqlSession.selectOne("myPageMapper.selectMember",memberNo);
+	}
+
+	// 회원 탈퇴
+	public int deleteMember(SqlSessionTemplate sqlSession, int loginUserNo) {
+		return sqlSession.update("myPageMapper.deleteMember", loginUserNo);
 	}
 
 	
