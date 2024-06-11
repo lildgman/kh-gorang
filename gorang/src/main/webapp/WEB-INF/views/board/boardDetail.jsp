@@ -23,7 +23,7 @@
                         <div id="profileImg"><img
                                 src="member.profile"></div>
                         <div id="profileInfo">
-                            <div id="profileId"><span>${member.nickname}</span></div>
+                            <div id="profileId"><span>${board.memberNickname}</span></div>
                             <div id="boardCount">
                                 <div id="viewCount">조회수<span>${board.boardViews}</span></div>
                                 <div id="likeCount">좋아요<span>${board.boardVote}</span></div>
@@ -154,7 +154,7 @@
                                 <button class="reply-button" disabled>댓글 쓰기</button>
                             </c:when>
                             <c:otherwise>
-                                <textarea class="reply-input" rows="3" placeholder="댓글 내용을 적어주세요. 적절하지 못한 댓글은 신고 사유가 됩니다."></textarea>
+                                <textarea id="commentContent" class="reply-input" rows="3" placeholder="댓글 내용을 적어주세요. 적절하지 못한 댓글은 신고 사유가 됩니다."></textarea>
                                 <button class="reply-button">댓글 쓰기</button>
                             </c:otherwise>
                         </c:choose>

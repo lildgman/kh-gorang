@@ -24,4 +24,5 @@ public class Board {
 	private int boardVote;
 	private char status;
 	private int memberNo;
+	private String memberNickname;
 }

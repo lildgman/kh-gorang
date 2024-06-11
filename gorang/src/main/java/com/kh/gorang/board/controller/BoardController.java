@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.gorang.board.model.vo.Board;
+import com.kh.gorang.board.model.vo.Comment;
 import com.kh.gorang.board.service.BoardService;
 import com.kh.gorang.common.template.Pagination;
 import com.kh.gorang.common.vo.PageInfo;
@@ -50,7 +51,10 @@ public class BoardController {
         } else if (sort.equals("methodTag")) {
             list = boardService.selectListByTag(pi, "#보관법");
         }
-
+        for (Board board : list) {
+            String memberNickname = boardService.getMemberNickname(board.getMemberNo());
+            board.setMemberNickname(memberNickname);
+        }
         model.addAttribute("list", list);
         model.addAttribute("pi", pi);
         model.addAttribute("sort", sort);
@@ -76,15 +80,16 @@ public class BoardController {
 	    
 	    if (board != null) {
 	    	boardService.increaseViewCount(boardNo);
+	    	String memberNickname = boardService.getMemberNickname(board.getMemberNo());
+            board.setMemberNickname(memberNickname);
 	        model.addAttribute("board", board);
-	        
 	        return "board/boardDetail";
 	    } else {
 	        model.addAttribute("errorMsg", "게시글 조회 실패");
 	        return "board/boardMain";
 	    }
 	}
-	
+
 	//게시글 추가
 	@PostMapping("insert.bo")
 	public String insertBoard(
@@ -110,5 +115,19 @@ public class BoardController {
 			return "board/write.bo";
 		}
 	}
-
+	//댓글 쓰기
+	@PostMapping("insert.co")
+	public String insertComment(
+			Comment comment,
+			Model model){
+	    int result = boardService.insertComment(comment);
+	    if (result > 0) {
+	        return "redirect:/detail.bo?boardNo=" + comment.getBoardNo();
+	    } else {
+	        model.addAttribute("errorMsg", "댓글 작성 실패");
+	        return "board/boardDetail";
+	    }
+	}
+	
+	
 }

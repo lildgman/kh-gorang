@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.gorang.board.model.dao.BoardDao;
 import com.kh.gorang.board.model.vo.Board;
+import com.kh.gorang.board.model.vo.Comment;
 import com.kh.gorang.common.vo.PageInfo;
 
 @Service
@@ -58,4 +59,13 @@ public class BoardServiceImpl implements BoardService {
     public ArrayList<Board> selectListByTag(PageInfo pi, String tag) {
         return boardDao.selectListByTag(sqlSession, pi, tag);
     }
+    @Override
+    public int insertComment(Comment comment) {
+    	return boardDao.insertComment(sqlSession, comment);
+    }
+    @Override
+    public String getMemberNickname(int memberNo) {
+        return boardDao.getMemberNickname(sqlSession, memberNo);
+    }
+    
 }

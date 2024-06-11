@@ -68,7 +68,7 @@
                                                 <div id="commonContentWriterImg">
                                                     <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png">
                                                 </div>
-                                                <span>${member.memberNo}</span>
+                                                <span>${board.memberNickname}</span>
                                             </div>
                                             <div id="commonContentBoardInfo">
                                                 <div id="commonBoardInfoScrap">스크랩 <span>0</span></div>

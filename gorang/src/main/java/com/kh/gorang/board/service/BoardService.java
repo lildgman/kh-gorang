@@ -3,6 +3,7 @@ package com.kh.gorang.board.service;
 import java.util.ArrayList;
 
 import com.kh.gorang.board.model.vo.Board;
+import com.kh.gorang.board.model.vo.Comment;
 import com.kh.gorang.common.vo.PageInfo;
 
 public interface BoardService{
@@ -29,4 +30,12 @@ public interface BoardService{
 
     // 게시글 조회수 증가
     void increaseViewCount(int boardNo);
+    
+    // 댓글 작성
+    int insertComment(Comment comment);
+    
+
+	String getMemberNickname(int memberNo);
+
+	
 }	
