@@ -8,7 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
 import com.kh.gorang.board.model.vo.Board;
-import com.kh.gorang.common.vo.PageInfo;
+import com.kh.gorang.common.model.vo.PageInfo;
 import com.kh.gorang.member.model.dao.MyPageDao;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.MyPageBoardCommentDTO;
@@ -19,6 +19,9 @@ import com.kh.gorang.member.model.vo.MyPageRecipeDTO;
 import com.kh.gorang.member.model.vo.MyPageScrapBoardDTO;
 import com.kh.gorang.member.model.vo.MyPageScrapProductDTO;
 import com.kh.gorang.member.model.vo.MyPageScrapRecipeDTO;
+import com.kh.gorang.member.model.vo.ProductQnaDTO;
+import com.kh.gorang.member.model.vo.QnA;
+import com.kh.gorang.member.model.vo.RecipeQnaDTO;
 import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.shopping.model.vo.Product;
@@ -308,6 +311,38 @@ public class MyPageServiceImpl implements MyPageService{
 		
 		return null;
 	}
+
+	// 회원 탈퇴
+	@Override
+	public int deleteMember(int loginUserNo) {
+		return myPageDao.deleteMember(sqlSession, loginUserNo);
+	}
+	
+	// 상품 qna 개수 조회
+	@Override
+	public int getProductQnaCount(int memberNo) {
+		return myPageDao.getProductQnaCount(sqlSession, memberNo);
+	}
+	
+	// 상품qna 조회
+	@Override
+	public ArrayList<ProductQnaDTO> getProductQnaList(int memberNo, PageInfo productQnaPi) {	
+		
+		return myPageDao.getProductQnaList(sqlSession, memberNo, productQnaPi);
+	}
+	
+	// 레시피 qna 개수 조회
+	@Override
+	public int getRecipeQnaCount(int memberNo) {
+		return myPageDao.getRecipeQnaCount(sqlSession, memberNo);
+	}
+
+	// 레시피 qna 조회
+	@Override
+	public ArrayList<RecipeQnaDTO> getRecipeQnaList(int memberNo, PageInfo recipeQnaPi) {
+		return myPageDao.getRecipeQnaList(sqlSession,memberNo, recipeQnaPi);
+	}
+	
 
 	
 

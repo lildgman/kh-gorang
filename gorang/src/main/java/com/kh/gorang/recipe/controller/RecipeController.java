@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
+import com.kh.gorang.common.model.vo.Media;
 import com.kh.gorang.common.template.SaveFileController;
-import com.kh.gorang.common.vo.Media;
 import com.kh.gorang.member.model.vo.Member;
+import com.kh.gorang.recipe.model.vo.IngredientsInfo;
 import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.recipe.model.vo.RecipeInsertDTO;
 import com.kh.gorang.recipe.service.RecipeService;
@@ -109,9 +110,10 @@ public class RecipeController {
 	//레시피 수정
 	@RequestMapping("update.re")
 	public String updateRecipe(Recipe rcp, RecipeInsertDTO recipeInsertDTO ,HttpSession session, Model model){
-
-		int result =recipeService.updateRecipeInsertDTO(rcp, recipeInsertDTO, session);
-		if(result>0) {			
+		System.out.println(recipeInsertDTO);
+		
+//		int result =recipeService.updateRecipeInsertDTO(rcp, recipeInsertDTO, session);
+		if(true) {			
 			return "recipe/recipeList";
 		}
 		else {
@@ -119,6 +121,24 @@ public class RecipeController {
 			return "recipe/write.re";
 		}
 	}
+	
+	//레시피 분류삭제
+	@PostMapping("deleteDivision.re")
+	@ResponseBody
+	public int deleteDivision(MultipartFile completeFoodPhoto, HttpSession session) {
+		int result;
+		return 1;
+	}
+	
+	//레시피 재료 행 삭제
+	@PostMapping("deleteIngre.re")
+	@ResponseBody
+	public int deleteIngre(IngredientsInfo ingredientsInfo, HttpSession session) {
+		System.out.println(ingredientsInfo);
+		int result =1;
+		return result;
+	}
+	
 }
 
 

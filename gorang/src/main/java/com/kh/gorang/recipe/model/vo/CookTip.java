@@ -16,4 +16,6 @@ public class CookTip {
 	private String cookTipContent;
 	private char status;
 	private int cookOrdNo;
+	
+	private String updateCtStatus;
 }

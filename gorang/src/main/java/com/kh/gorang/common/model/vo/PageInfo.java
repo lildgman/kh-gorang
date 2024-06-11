@@ -1,4 +1,4 @@
-package com.kh.gorang.common.vo;
+package com.kh.gorang.common.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

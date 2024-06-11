@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.recipe.model.vo.RecipeInsertDTO;
-import com.kh.gorang.common.vo.Media;
+import com.kh.gorang.common.model.vo.Media;
 import com.kh.gorang.recipe.model.vo.CookOrder;
 import com.kh.gorang.recipe.model.vo.CookTip;
 import com.kh.gorang.recipe.model.vo.Division;
@@ -29,6 +29,18 @@ public interface RecipeService {
 	List<Media> selectCompleteFoodPhotoList(int recipeNo);
 
 	int updateRecipeInsertDTO(Recipe rcp, RecipeInsertDTO recipeInsertDTO, HttpSession session);
+
+	int deleteIngre(IngredientsInfo ingredientsInfo);
+
+//	int findDivLen(Recipe rcp, HttpSession session);
+//
+//	int findIngreLen(RecipeInsertDTO recipeInsertDTO, HttpSession session);
+//
+//	int findCoLen(Recipe rcp, HttpSession session);
+//
+//	int findCtLen(RecipeInsertDTO recipeInsertDTO, HttpSession session);
+//
+//	int findCpLen(RecipeInsertDTO recipeInsertDTO, HttpSession session);
 
 
 

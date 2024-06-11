@@ -6,7 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.kh.gorang.common.vo.Media;
+import com.kh.gorang.common.model.vo.Media;
 import com.kh.gorang.recipe.model.vo.CookOrder;
 import com.kh.gorang.recipe.model.vo.CookTip;
 import com.kh.gorang.recipe.model.vo.Division;
@@ -78,13 +78,49 @@ public class RecipeDao {
 	//레시피 팁 찾기
 	public List<CookTip> selectCookTipList(SqlSessionTemplate sqlSession, int cookOrdNo) {
 		return sqlSession.selectList("recipeMapper.selectCookTipList", cookOrdNo);
+	}	
+	
+	//레시피 수정
+	public int updateRecipe(SqlSessionTemplate sqlSession, Recipe rcp) {
+		return sqlSession.update("recipeMapper.updateRecipe",rcp);
+	}
+	//분류 수정
+	public int updateDivision(SqlSessionTemplate sqlSession, int divNo) {
+		return sqlSession.update("recipeMapper.updateDivision",divNo);
+	}
+	
+	//재료(분류) 수정
+	public int updateIngredientsInfo(SqlSessionTemplate sqlSession, int ingreNo) {
+		return sqlSession.update("recipeMapper.updateIngredientsInfo",ingreNo);
+		
 	}
 	
 	
-	//레시피 수정
-	public Recipe updateRecipe(SqlSessionTemplate sqlSession, Recipe rcp) {
+	
+	
+	//분류 길이(개수)
+	public int selectfindDivLen(SqlSessionTemplate sqlSession, int recipeNo) {
+		return sqlSession.selectOne("recipeMapper.selectfindDivLen",recipeNo);
+	}
+
+	public int selectfindIngreLen(SqlSessionTemplate sqlSession) {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
+	}
+
+	public int selectfindCoLen(SqlSessionTemplate sqlSession) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int selectfindCtLen(SqlSessionTemplate sqlSession) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int selectfindCpLen(SqlSessionTemplate sqlSession) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 	

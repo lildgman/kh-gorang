@@ -34,7 +34,10 @@
  		<typeAlias type="com.kh.gorang.shopping.model.vo.Order" alias="Order"/>
  		<typeAlias type="com.kh.gorang.shopping.model.vo.OrderPdopt" alias="OrderPdopt"/>
  
- 		<typeAlias type="com.kh.gorang.common.vo.Media" alias="Media"/>
+ 		<typeAlias type="com.kh.gorang.common.model.vo.Media" alias="Media"/>
+ 		<typeAlias type="com.kh.gorang.common.model.vo.SearchBoardDTO" alias="SearchBoardDTO"/>
+ 		<typeAlias type="com.kh.gorang.common.model.vo.SearchProductDTO" alias="SearchProductDTO"/>
+ 		<typeAlias type="com.kh.gorang.common.model.vo.SearchRecipeDTO" alias="SearchRecipeDTO"/>
  		<typeAlias type="com.kh.gorang.recipe.model.vo.ScrapRecipe" alias="ScrapRecipe" />
  		<typeAlias type="com.kh.gorang.board.model.vo.ScrapBoard" alias="ScrapBoard" />
  		<typeAlias type="com.kh.gorang.member.model.vo.ScrapProduct" alias="ScrapProduct" />
@@ -46,6 +49,8 @@
  		<typeAlias type="com.kh.gorang.member.model.vo.MyPageScrapRecipeDTO" alias="MyPageScrapRecipeDTO" />
  		<typeAlias type="com.kh.gorang.member.model.vo.MyPageLikeRecipeDTO" alias="MyPageLikeRecipeDTO" />
  		<typeAlias type="com.kh.gorang.member.model.vo.MyPageLikeBoardDTO" alias="MyPageLikeBoardDTO" />
+ 		<typeAlias type="com.kh.gorang.member.model.vo.ProductQnaDTO" alias="ProductQnaDTO" />
+ 		<typeAlias type="com.kh.gorang.member.model.vo.RecipeQnaDTO" alias="RecipeQnaDTO" />
  		<typeAlias type="com.kh.gorang.member.model.vo.ProductCart" alias="ProductCart" />
  		
 	</typeAliases>
@@ -66,5 +71,6 @@
 		<mapper resource="/mappers/mypage-mapper.xml" />
 		<mapper resource="/mappers/order-mapper.xml"/>
 		<mapper resource="/mappers/media-mapper.xml"/>
+		<mapper resource="/mappers/search-mapper.xml"/>
 	</mappers>
 </configuration>  

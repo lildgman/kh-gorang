@@ -1,4 +1,4 @@
-package com.kh.gorang.common.vo;
+package com.kh.gorang.common.model.vo;
 
 import java.sql.Date;
 
@@ -25,4 +25,6 @@ public class Media {
 	private int boardNo;
 	private int recipeNo;
 	private int productNo;
+	
+	private String updateMediaStatus;
 }
