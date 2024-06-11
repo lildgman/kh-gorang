@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.gorang.board.model.dao.BoardDao;
 import com.kh.gorang.board.model.vo.Board;
-import com.kh.gorang.common.vo.PageInfo;
+import com.kh.gorang.common.model.vo.PageInfo;
 
 @Service
 public class BoardServiceImpl implements BoardService {
