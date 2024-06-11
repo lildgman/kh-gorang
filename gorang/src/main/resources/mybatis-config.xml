@@ -34,7 +34,7 @@
  		<typeAlias type="com.kh.gorang.shopping.model.vo.Order" alias="Order"/>
  		<typeAlias type="com.kh.gorang.shopping.model.vo.OrderPdopt" alias="OrderPdopt"/>
  
- 		<typeAlias type="com.kh.gorang.common.vo.Media" alias="Media"/>
+ 		<typeAlias type="com.kh.gorang.common.model.vo.Media" alias="Media"/>
  		<typeAlias type="com.kh.gorang.recipe.model.vo.ScrapRecipe" alias="ScrapRecipe" />
  		<typeAlias type="com.kh.gorang.board.model.vo.ScrapBoard" alias="ScrapBoard" />
  		<typeAlias type="com.kh.gorang.member.model.vo.ScrapProduct" alias="ScrapProduct" />
