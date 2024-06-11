@@ -607,4 +607,11 @@
 			AND MEMBER_STATUS = 'Y'
 	</select>
 	
+	<!-- 회월탈퇴 -->
+	<update id="deleteMember" parameterType="Member">
+		UPDATE MEMBER
+		SET MEMBER_STATUS = 'N'
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
 </mapper>

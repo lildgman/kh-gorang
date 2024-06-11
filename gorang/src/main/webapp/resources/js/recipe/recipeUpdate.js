@@ -53,7 +53,6 @@ function changeThumnailImg(inputFile) {
             
             insertFileApi(fd, function(changeName) {
                 document.getElementById("thumnailImg-real").src  = "/gorang/resources/uploadfile/recipe/recipemain/"+changeName;
-                // document.getElementById("recipeMainPhoto").value = "/gorang/resources/uploadfile/recipe/recipemain/"+changeName;
                 document.getElementById("recipeMainPhoto").value = changeName;
             });
 
@@ -181,6 +180,7 @@ function insertFileApi3(data,callback){
 
 
 function deleteSmaillBlock(element, num1,num2) {
+   
     let bottom = element.closest(".recipe-ingredient-info-bottom");
     let ingreList = bottom.querySelectorAll(".recipe-smaill-block");
     let count = 0;
@@ -212,11 +212,43 @@ function deleteSmaillBlock(element, num1,num2) {
         bottom.querySelector('.add-igre-btn img').setAttribute('onclick', `deleteSmaillBlock(this, ${num1}, ${count-2})`);
         bottom.querySelector('.add-igre-btn button').setAttribute('onclick', `addBundle(this, ${num1}, ${count-2})`);
         
+        
+        let recipeNo = document.querySelector("input[name='recipeNo']").value;
+        let divNo = num1;
+        let ingreName = parentBlock.querySelector(".igre-name-block input").value;
+        let ingreAmount = parentBlock.querySelector(".igre-amount-block input").value;
+        let ingreUnit = parentBlock.querySelector(".igre-unit-block input").value;
+        console.log(ingreName);
+        console.log(ingreAmount);
+        console.log(ingreUnit);
+        let ingredientsInfo ={
+            divNo : parseInt(divNo),
+            ingreName :ingreName,
+            ingreAmount :parseInt(ingreAmount),
+            ingreUnit : ingreUnit
+        }
+
+        deleteIngre(ingredientsInfo);
+
         parentBlock.remove();
     }
 
 }
+//재료행 삭제 ajax
+function deleteIngre(data){
+    $.ajax({
+        url: "deleteIngre.re",
+        type: "POST",
+        data: data,
 
+        success: function(){
+            console.log("성공적으로 분류 삭제");
+        },        
+        error: function(){
+            console.log("파일업로드 api요청 실패")
+        }
+    });
+}
 
 //분류 행삭제
 function deleteIngreBlock(element,num1){
@@ -265,6 +297,7 @@ function deleteIngreBlock(element,num1){
 
 function addUnit(element,num) {
     console.log("addUnit num :" + num );
+    num = parseInt(num, 10);
     num += 1;
     let parentBlock = element.closest('#recipe-ingredient-info-area');
     console.log(parentBlock);
@@ -273,6 +306,7 @@ function addUnit(element,num) {
     cloneblock.id=`divisions-${num}`;
     cloneblock.innerHTML=`
     <div class="recipe-ingredient-info-top">
+        <input type="hidden" name="updateDivStatus" value="U">
         <div class="location-btn"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Link.png" alt=""></div>
         <div class="ingre-div-block" > 
             <input name="rcpDivList[${num}].divName" type="text" placeholder="분류 예)식재료">
@@ -281,6 +315,7 @@ function addUnit(element,num) {
     </div>
     <div class="recipe-ingredient-info-bottom" >
         <div class="recipe-smaill-block"  id="ingredients-0">
+            <input type="hidden" name="updateIngreStatus" value="U">
             <div class="location-btn"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Link.png" alt=""></div>
             <div class="igre-name-block"><input name="rcpDivList[${num}].ingredientsInfoList[0].ingreName" type="text" placeholder="재료명 예)돼지고기"></div>
             <div class="igre-amount-block"><input name="rcpDivList[${num}].ingredientsInfoList[0].ingreAmount" type="text" placeholder="수량"></div>
@@ -306,6 +341,7 @@ function addUnit(element,num) {
 }
 
 function addBundle(element,num1,num2) {
+    num2 = parseInt(num2, 10);
     console.log("addBundle num1 :" + num1 +",  num2 : " + num2);
     num2 +=1
     console.log(num2);
@@ -324,6 +360,7 @@ function addBundle(element,num1,num2) {
     newBlock.className = 'recipe-smaill-block';
     newBlock.id =`ingredients-${num2}`;
     newBlock.innerHTML = `
+        <input type="hidden" name="updateIngreStatus" value="U">
         <div class="location-btn"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Link.png" alt=""></div>
         <div class="igre-name-block"><input name="rcpDivList[${num1}].ingredientsInfoList[${num2}].ingreName" type="text" placeholder="재료명 예)돼지고기"></div>
         <div class="igre-amount-block"><input name="rcpDivList[${num1}].ingredientsInfoList[${num2}].ingreAmount" type="text" placeholder="수량"></div>
@@ -342,6 +379,7 @@ function tipInputs(num1,num2) {
     newBlock.className = 'cooking-order-block-bottom-tip';
     newBlock.id = `cookTip-${num2}`;
     newBlock.innerHTML = `
+    <input type="hidden" name="updateCtStatus" value="U">
     <input  name ="cookOrderList[${num1}].cookTipList[${num2}].cookTipContent" type="text" placeholder="팁 예) 볶는 시간은 최소로 합니다">
     <button type="button" class="add-tip"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/plus (2).png" alt="" onclick="addTip(this,${num1},${num2})"></button>
     <button type="button" class="delte-tip"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Icon.png" alt=""  onclick="deleteTip(this,${num1},${num2})"></button>
@@ -356,6 +394,7 @@ function orderInputs(num){
     newBlock.id =`cookOrder-${num}`;
     newBlock.innerHTML = `
     <div class="cooking-order-block">
+    <input type="hidden" name="updateCoStatus" value="U">
     <div class="cooking-order-block-top">
         <div class="cook-order-number-img">1</div>
         <div class="cook-order-write-content"><input name ="cookOrderList[${num}].cookOrdContent" type="text" placeholder="예) 소고기는 기름을 떼어내고 적당한 크기로 썰어주세요"></div>
@@ -364,17 +403,18 @@ function orderInputs(num){
     <div class="cooking-order-block-bottom" >
         <div class="cooking-order-block-bottom-img" onclick="cookIngOrderImg(this,${num})">
             <img class ="cookingImg" src="/gorang/resources/dummyImg/recipe/recipeWrite/camera.png" alt="">
-            <input type="hidden" name="cookOrderList[${num}].cookOrdPhoto" id="cookOrdPhoto" value="">
+            <input type="hidden" name="cookOrderList[${num}].cookOrdPhoto" id="cookOrdPhoto">
             <img class="cookingImg-real" src="" alt="" >
             <input type="file"  id="fileInput"  onchange="changeCookIngOrderImg(this,${num})">
         </div>
         <div class="cooking-order-block-bottom-tips">
             <div class="cooking-order-block-bottom-tip" id="cookTip-0">
+                <input type="hidden" name="updateCtStatus" value="U">
                 <input  name ="cookOrderList[${num}].cookTipList[0].cookTipContent" type="text" placeholder="팁 예) 볶는 시간은 최소로 합니다">
-                <button type="button" class="add-tip">
-                    <img src="/gorang/resources/dummyImg/recipe/recipeWrite/plus (2).png" alt="" onclick="addTip(this,${num},0)"></button>
-                <button type="button" class="delte-tip">
-                    <img src="/gorang/resources/dummyImg/recipe/recipeWrite/Icon.png" alt=""  onclick="deleteTip(this,${num},0)"></button>
+                <button type="button" class="add-tip" onclick="addTip(this,${num},0)">
+                    <img src="/gorang/resources/dummyImg/recipe/recipeWrite/plus (2).png" alt=""></button>
+                <button type="button" class="delte-tip" onclick="deleteTip(this,${num},0)">
+                    <img src="/gorang/resources/dummyImg/recipe/recipeWrite/Icon.png" alt=""  ></button>
             </div>
         </div>
     </div>
@@ -389,46 +429,51 @@ function orderInputs(num){
 
 // 팁 추가 최대 4개
 function addTip(element,num1,num2){
+    num2 = parseInt(num2, 10);
     let parentBlock = element.closest(".cooking-order-block-bottom-tips");
     let insertBlock = element.closest(".cooking-order-block-bottom-tip");
     // let thisBlock =parseInt(element.closest(".cooking-order-block-bottom-tip").id.split('-')[1]); // 0
     let tipListLen =parentBlock.querySelectorAll(".cooking-order-block-bottom-tip"); //0 1
     let checkCount = tipListLen.length;
     if(checkCount<4){ 
-        insertBlock.insertAdjacentElement('afterend', tipInputs(num1,num2));     
-    }
-    let tipList =parentBlock.querySelectorAll(".cooking-order-block-bottom-tip");
-    console.log(tipList);
-    for(let i = 0; i<tipList.length; i++){
-        let num =parseInt(tipList[i].id.split('-')[1]);
-        // console.log(num);
-        if(i<tipList.length-1){
-            let numNext=parseInt(tipList[i+1].id.split('-')[1]);
-            console.log(numNext);
-            if(num === numNext){
-                tipList[i+1].id=`cookTip-${num+1}`;
-                tipList[i+1].querySelector('input').name = tipList[i+1].querySelector('input').name.replace(/.cookTipList\[\d+\]/g, function(match) {
-                    let num = parseInt(match.match(/\d+/)[0])+1;
-                    return `.cookTipList[${num}]`;
-                })
+            insertBlock.insertAdjacentElement('afterend', tipInputs(num1,num2));     
 
-                let addTipButton = tipList[i+1].querySelector('.add-tip img');
-                let deleteTipButton = tipList[i+1].querySelector('.delte-tip img');                        
-                let tipIndex = parseInt(addTipButton.closest('.cooking-order-block-bottom-tip').querySelector('input').name.match(/cookTipList\[(\d+)\]/)[1]);
-                if (addTipButton) {
-                    addTipButton.setAttribute('onclick', `addTip(this, ${num1}, ${tipIndex})`);
+            let tipList =parentBlock.querySelectorAll(".cooking-order-block-bottom-tip");
+            
+            console.log(tipList);
+            for(let i = 0; i<tipList.length; i++){
+                let num =parseInt(tipList[i].id.split('-')[1]);
+                if(i<tipList.length-1){
+                    let numNext=parseInt(tipList[i+1].id.split('-')[1]);
+                    console.log(numNext);
+                    if(num === numNext){
+                        tipList[i+1].id=`cookTip-${num+1}`;
+                        tipList[i+1].querySelector('input[type="text"]').name = tipList[i+1].querySelector('input[type="text"]').name.replace(/.cookTipList\[\d+\]/g, function(match) {
+                            let num = parseInt(match.match(/\d+/)[0])+1;
+                            return `.cookTipList[${num}]`;
+                        })
+        
+                        let addTipButton = tipList[i+1].querySelector('.add-tip img');
+                        let deleteTipButton = tipList[i+1].querySelector('.delte-tip img');                        
+                        let tipIndex = parseInt(addTipButton.closest('.cooking-order-block-bottom-tip').querySelector('input[type="text"]').name.match(/cookTipList\[(\d+)\]/)[1]);
+                        if (addTipButton) {
+                            addTipButton.setAttribute('onclick', `addTip(this, ${num1}, ${tipIndex})`);
+                        }
+                        if (deleteTipButton) {
+                            deleteTipButton.setAttribute('onclick', `deleteTip(this, ${num1}, ${tipIndex})`);
+                        }                
+                    }
                 }
-                if (deleteTipButton) {
-                    deleteTipButton.setAttribute('onclick', `deleteTip(this, ${num1}, ${tipIndex})`);
-                }                
+                
             }
-        }
         
     }
 }
 
 //요리순서 추가
 function addCookingOrder(element,num){
+    console.log(num);
+    num = parseInt(num, 10);
     let parentBlock = element.closest("#cooking-order-area");
     parentBlock.querySelector('#add-order-btn').insertAdjacentElement('beforebegin', orderInputs(num));
    
@@ -454,13 +499,13 @@ function deleteTip(element,num1,num2){
             let deleteId = parseInt(deleteBlock.id.split('-')[1]);
             if(blockId > deleteId ){
                 block.id = `cookTip-${blockId-1}`;
-                block.querySelector('input').name = block.querySelector('input').name.replace(/.cookTipList\[\d+\]/g, function(match) {
+                block.querySelector('input[type="text"]').name = block.querySelector('input[type="text"]').name.replace(/.cookTipList\[\d+\]/g, function(match) {
                     let num = parseInt(match.match(/\d+/)[0])-1;
                     return `.cookTipList[${num}]`;
                 })
                 let addTipButton = block.querySelector('.add-tip img');
                 let deleteTipButton = block.querySelector('.delte-tip img');                        
-                let tipIndex = parseInt(addTipButton.closest('.cooking-order-block-bottom-tip').querySelector('input').name.match(/cookTipList\[(\d+)\]/)[1]);
+                let tipIndex = parseInt(addTipButton.closest('.cooking-order-block-bottom-tip').querySelector('input[type="text"]').name.match(/cookTipList\[(\d+)\]/)[1]);
                 if (addTipButton) {
                     addTipButton.setAttribute('onclick', `addTip(this, ${num1}, ${tipIndex})`);
                 }
@@ -480,6 +525,7 @@ function deleteTip(element,num1,num2){
 function deleteCookingOrder(element,num){
     let parentBlock = element.closest("#cooking-order-area");
     let deletePart=element.closest(".cooking-order-blocks");
+    deletePart.remove();
     let count= parentBlock.querySelectorAll('.cooking-order-blocks').length
     if(count>1){
         // 클릭된 요리순서 번호 찾기
@@ -490,8 +536,8 @@ function deleteCookingOrder(element,num){
                 change.innerHTML =parseInt(change.innerHTML)-1;
            }
         })
-
         let divList =parentBlock.querySelectorAll('.cooking-order-blocks');
+        
         console.log(divList);
         divList.forEach(function(block){ 
             let blockId = parseInt(block.id.split('-')[1]);
@@ -501,30 +547,34 @@ function deleteCookingOrder(element,num){
                 block.querySelector('#recipe-order-delete-btn-area button').setAttribute('onclick', `deleteCookingOrder(this, ${blockId - 1})`);
                 
                 block.id = `cookOrder-${blockId - 1}`;
-                let inputs = block.querySelectorAll('input, img');           
+                let inputs = block.querySelectorAll('input[type="text"], button');           
                 inputs.forEach(function(inputImg) {
                     if (inputImg.tagName.toLowerCase() === 'input' && inputImg.name.includes('cookOrderList')) {
                         inputImg.name = inputImg.name.replace(/cookOrderList\[\d+\]/g, function(match) {
                             let num = parseInt(match.match(/\d+/)[0]) - 1;
                             return `cookOrderList[${num}]`;
                         });
-                    } else if (inputImg.tagName.toLowerCase() === 'img' && inputImg.closest('.cooking-order-block-bottom-tip')) {
+                    } else if (inputImg.tagName.toLowerCase() === 'button' && inputImg.closest('.cooking-order-block-bottom-tip')) {
                         let addTipButton = inputImg.closest('.cooking-order-block-bottom-tip').querySelector('.add-tip');
                         let deleteTipButton = inputImg.closest('.cooking-order-block-bottom-tip').querySelector('.delte-tip');                        
                         if (addTipButton) {
-                            let tipIndex = parseInt(addTipButton.closest('.cooking-order-block-bottom-tip').querySelector('input').name.match(/cookTipList\[(\d+)\]/)[1]);
+                            let tipIndex = parseInt(addTipButton.closest('.cooking-order-block-bottom-tip').querySelector('input[type="text"]').name.match(/cookTipList\[(\d+)\]/)[1]);
                             addTipButton.setAttribute('onclick', `addTip(this, ${blockId - 1}, ${tipIndex})`);
                         }
                         if (deleteTipButton) {
-                            let tipIndex = parseInt(deleteTipButton.closest('.cooking-order-block-bottom-tip').querySelector('input').name.match(/cookTipList\[(\d+)\]/)[1]);
+                            let tipIndex = parseInt(deleteTipButton.closest('.cooking-order-block-bottom-tip').querySelector('input[type="text"]').name.match(/cookTipList\[(\d+)\]/)[1]);
                             deleteTipButton.setAttribute('onclick', `deleteTip(this, ${blockId - 1}, ${tipIndex})`);
                         }
+                        console.log(addTipButton);
+                        console.log(deleteTipButton);
+                        
                     }
                 });
             }
         })
         parentBlock.querySelector('#add-order-btn button').setAttribute('onclick', `addCookingOrder(this, ${count-2})`);
-        deletePart.remove();
+     
+    
     }
 }
 
@@ -561,7 +611,8 @@ function enrollRecipeBtn(){
     console.log("재료"+isEmptyIngre);
     // 조리순서 미입력 확인
     inputFields2.forEach(function(input) {
-        if (input.value.trim() === "") {
+        if (input.type !== 'file' &&input.value.trim() === "") {
+            console.log("id:"+input.id +", name:" +input.name);
             isEmptyIngre2 = true;
             return;
         }

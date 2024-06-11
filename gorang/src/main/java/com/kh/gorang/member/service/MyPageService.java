@@ -111,6 +111,9 @@ public interface MyPageService {
 
 	// 회원 정보 업데이트
 	Member updateMemberInfo(Member member);
+	
+	// 회원 탈퇴
+	int deleteMember(int loginUserNo);
 
 	
 
