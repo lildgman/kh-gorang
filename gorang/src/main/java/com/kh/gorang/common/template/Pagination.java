@@ -1,6 +1,6 @@
 package com.kh.gorang.common.template;
 
-import com.kh.gorang.common.vo.PageInfo;
+import com.kh.gorang.common.model.vo.PageInfo;
 
 public class Pagination {
 

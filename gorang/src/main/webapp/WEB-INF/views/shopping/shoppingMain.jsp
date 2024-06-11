@@ -32,6 +32,15 @@
 		<jsp:include page="../common/sidebar.jsp" />
 		<!--카테고리 시작-->
 			<div id="store-category-area">
+				<div class="store-category" id="category-all">
+					<div class="category-image-area">
+							<img class="category-image" src="${contextPath }/resources/dummyImg/shopping/all.png" alt="모두">
+					</div>
+					<div class="category-name">
+							모두
+					</div>
+				</div>
+
 				<div class="store-category" id="category-veget">
 					<div class="category-image-area">
 						<img class="category-image" src="${contextPath }/resources/dummyImg/shopping/vaget.png" alt="야채">

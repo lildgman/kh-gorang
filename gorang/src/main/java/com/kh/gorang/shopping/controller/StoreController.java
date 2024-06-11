@@ -22,8 +22,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.kh.gorang.common.model.vo.PageInfo;
 import com.kh.gorang.common.template.Pagination;
-import com.kh.gorang.common.vo.PageInfo;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.ProductCart;
 import com.kh.gorang.member.model.vo.QnA;
@@ -97,6 +97,8 @@ public class StoreController {
 		
 		model.addAttribute("list",list);
 		model.addAttribute("pi",pi);
+		model.addAttribute("category",category);
+		model.addAttribute("sort",sort);
 		
 		return "shopping/productList";
 	}

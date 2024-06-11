@@ -8,7 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.board.model.vo.Comment;
-import com.kh.gorang.common.vo.PageInfo;
+import com.kh.gorang.common.model.vo.PageInfo;
+
 
 @Repository
 public class BoardDao{

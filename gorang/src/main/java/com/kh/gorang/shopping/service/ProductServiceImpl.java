@@ -9,7 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.gorang.common.vo.PageInfo;
+import com.kh.gorang.common.model.vo.PageInfo;
 import com.kh.gorang.member.model.vo.QnA;
 import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.shopping.model.dao.ProductDao;
