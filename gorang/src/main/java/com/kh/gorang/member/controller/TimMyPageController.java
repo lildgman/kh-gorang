@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.shopping.model.vo.OrderPdopt;
@@ -34,4 +35,13 @@ public class TimMyPageController {
 		
 		return "member/myPageBuyList";
 	}
+	
+	// 나의 냉장고 식재료 추가하기
+	@ResponseBody
+	@RequestMapping("insertIngre.me")
+	public String insertIngredient() {
+		
+		return null;
+	}
+	
 }
