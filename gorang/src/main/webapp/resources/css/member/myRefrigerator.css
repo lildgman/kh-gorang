@@ -8,6 +8,11 @@ body {
     padding-top: 170px;
 }
 
+table{
+    table-layout:fixed;
+    width: 100%;
+}
+
 /* body전체 영역 */
 #body-area {
     margin: 80px 340px;
@@ -56,7 +61,17 @@ body {
     margin-bottom: 60px;
 }
 
-/*나의 냉장고 전체영역  내부 간격주기(테이블) */
+/*나의 냉장고 전체영역*/
+#myRefrigerator-area{
+    width: 900px;
+}
+
+#myRefrigerator-igre-area{
+    width: 100%;
+}
+
+
+/*내부 간격주기(테이블) */
 #myRefrigerator-igre-table-area {
     padding: 16px;
 }
@@ -508,6 +523,10 @@ td:nth-child(4) {
     text-align: center;
 }
 
+#modal-ingre-tbody{
+    font-size: 12px;
+}
+
 #modal-ingre-checkBox{
     height: 20px;
     width: 20px;
@@ -552,12 +571,7 @@ td:nth-child(4) {
 
 /* 버튼 영역 */
 #modal-search-recipe-bottom2{
-    width: 215px;
     height: 30px;
-    margin-left: 120px;
-    /* padding: 0px 22px;
-    display: flex;
-    justify-content: space-between; */
 }
 
 /* 닫기버튼 */

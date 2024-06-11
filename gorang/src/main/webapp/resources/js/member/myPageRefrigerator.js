@@ -25,11 +25,19 @@ document.addEventListener("DOMContentLoaded", function () {
             const tr = checkbox.closest("tr");
             console.log("체크됨");
             if (checkbox.checked) {
-                tr.querySelector(".direct-input-label").style.display = 'inline';
-                tr.querySelector(".direct-input").style.display = 'inline';
+                tr.querySelectorAll(".direct-input-label").forEach(function(el){
+                    el.style.display = 'inline';
+                })
+                tr.querySelectorAll(".direct-input").forEach(function(el){
+                    el.style.display = 'inline';
+                })
             } else {
-                tr.querySelector(".direct-input-label").style.display = 'none';
-                tr.querySelector(".direct-input").style.display = 'none';
+                tr.querySelectorAll(".direct-input-label").forEach(function(el){
+                    el.style.display = 'none';
+                })
+                tr.querySelectorAll(".direct-input").forEach(function(el){
+                    el.style.display = 'none';
+                })
             }
         }
     });
@@ -178,10 +186,49 @@ document.addEventListener("DOMContentLoaded", function () {
             foodTableTd4.appendChild(foodTd4Input);
             foodTd4Input.setAttribute("class", "direct-input");
             foodTd4Input.setAttribute("type", "text");
+            foodTd4Input.setAttribute("name", "refConsumptionDate");
             foodTd4Input.setAttribute("placeholder", "예시) 20240611");
             foodTd4Input.setAttribute("style", "display: none;");
+            
+            // 입고일
+            const foodTableTd5 = document.createElement('td');
+            foodTableTd5.setAttribute("class", "fixed-width4");
+            foodTableTd5.setAttribute("style", "text-align: left; font-size: 12px");
+            foodTabletr.appendChild(foodTableTd5);
     
+            const foodTd5Span = document.createElement('span');
+            foodTableTd5.appendChild(foodTd5Span);
+            foodTd5Span.setAttribute("class", "direct-input-label");
+            foodTd5Span.setAttribute("style", "display: none;");
+            foodTd5Span.innerHTML = "직접입력 : ";
     
+            const foodTd5Input = document.createElement('input');
+            foodTableTd5.appendChild(foodTd5Input);
+            foodTd5Input.setAttribute("class", "direct-input");
+            foodTd5Input.setAttribute("type", "text");
+            foodTd5Input.setAttribute("name", "refInputDate");
+            foodTd5Input.setAttribute("placeholder", "예시) 20240611");
+            foodTd5Input.setAttribute("style", "display: none;");
+            
+            // 갯수
+            const foodTableTd6 = document.createElement('td');
+            foodTableTd6.setAttribute("class", "fixed-width4");
+            foodTableTd6.setAttribute("style", "text-align: left; font-size: 12px");
+            foodTabletr.appendChild(foodTableTd6);
+    
+            const foodTd6Span = document.createElement('span');
+            foodTableTd6.appendChild(foodTd6Span);
+            foodTd6Span.setAttribute("class", "direct-input-label");
+            foodTd6Span.setAttribute("style", "display: none;");
+            foodTd6Span.innerHTML = "직접입력 : ";
+    
+            const foodTd6Input = document.createElement('input');
+            foodTableTd6.appendChild(foodTd6Input);
+            foodTd6Input.setAttribute("class", "direct-input");
+            foodTd6Input.setAttribute("type", "text");
+            foodTd6Input.setAttribute("name", "refCount");
+            foodTd6Input.setAttribute("style", "display: none;");
+
             nutriBtn.addEventListener("click", function () {
                 constructNutriModal(nutri);
             });
@@ -191,8 +238,6 @@ document.addEventListener("DOMContentLoaded", function () {
         //1일 영양성분 기준치 국가법령정보센터 제6조 제2항 및 제3항 관련 식품 등의 표시, 광고에 관한 시행규칙 참고
         function constructNutriModal(nutri) {
             console.log(nutri);
-    
-    
             const nutriTable = document.querySelector(".nutrition-table");
             if (nutriTable) {
                 nutriTable.innerHTML = `
@@ -255,6 +300,19 @@ document.addEventListener("DOMContentLoaded", function () {
             </tbody>
             `;
             }
+        }
+
+
+        /** 냉장고 db에 식재료 저장하기 위해 컨트롤러로 보내는 ajax */
+        function sendIngreByAjax(){
+            const ingre = {
+
+            }
+
+
+            $.ajax({
+
+            })
         }
 }
 

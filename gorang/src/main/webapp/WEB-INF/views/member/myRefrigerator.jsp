@@ -212,6 +212,8 @@
                                             <th style="width: 100px;">대분류</th>
                                             <th id="add-list-title3" style="width: 120px;">영양성분</th>
                                             <th id="add-list-title4" style="width: 220px;">소비기한</th>
+                                            <th id="add-list-title4" style="width: 220px;">냉장고 입고일</th>
+                                            <th id="add-list-title4" style="width: 60px;">개수</th>
                                         </tr>
                                     </thead>
                                     <tbody id="modal-ingre-tbody">
