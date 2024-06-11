@@ -25,4 +25,6 @@ public class Media {
 	private int boardNo;
 	private int recipeNo;
 	private int productNo;
+	
+	private String updateMediaStatus;
 }

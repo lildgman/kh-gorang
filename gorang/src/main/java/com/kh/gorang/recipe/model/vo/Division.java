@@ -19,5 +19,5 @@ public class Division {
 	private char status;
 	private int recipeNo;
 	private List<IngredientsInfo> ingredientsInfoList;
-
+	private String updateDivStatus;
 }

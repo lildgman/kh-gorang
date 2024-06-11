@@ -18,4 +18,5 @@ public class IngredientsInfo {
 	private String ingreUnit;
 	private char status;
 	private int divNo;
+	private String updateIngreStatus;
 }

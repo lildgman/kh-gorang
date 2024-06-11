@@ -197,7 +197,31 @@
   		)
   	</insert>
   	
+  	<!-- 레시피 수정 -->
+	<update id="updateRecipe"  parameterType="Recipe">
+	  UPDATE RECIPE 
+	    SET
+	        rcp_title = #{recipeTitle},
+	        rcp_content = #{recipeContent},
+	        rcp_main_photo = #{recipeMainPhoto},
+	        rcp_video = #{recipeVideo},
+	        rcp_tag = #{recipeTag},
+	        cook_amount = #{cookAmount},
+	        cook_time = #{cookTime},
+	        cook_kind = #{cookKind},
+	        cook_level = #{cookLevel},
+	        member_no = #{memberNo}
+	    WHERE
+        rcp_no = #{recipeNo}
+	</update>
   	
   	
   	
+  	
+  	<!-- 분류 길이(개수)  -->
+  	<select id="selectfindDivLen" parameterType="int">
+	  	SELECT COUNT(*) 
+	  	FROM DIVISION 
+	  	WHERE rcp_no = #{recipeNo}
+  	</select>
   </mapper>

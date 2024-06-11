@@ -558,10 +558,10 @@ function enrollRecipeBtn(){
             return;
         }
     });
-    console.log("재료"+isEmptyIngre);
     // 조리순서 미입력 확인
     inputFields2.forEach(function(input) {
         if (input.value.trim() === "") {
+            console.log(input.name);
             isEmptyIngre2 = true;
             return;
         }
@@ -572,7 +572,7 @@ function enrollRecipeBtn(){
             return;
         }
     })
-    console.log("순서:"+isEmptyIngre2);
+
     
     if (!thumbnailImg.src || thumbnailImg.src === '' || thumbnailImg.style.display !== 'block') {
         alert('대표 이미지를 입력해주세요.');
