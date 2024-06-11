@@ -1,4 +1,4 @@
-package com.kh.gorang.common;
+package com.kh.gorang.common.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

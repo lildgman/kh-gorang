@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
+import com.kh.gorang.common.model.vo.Media;
 import com.kh.gorang.common.template.SaveFileController;
-import com.kh.gorang.common.vo.Media;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.recipe.model.vo.IngredientsInfo;
 import com.kh.gorang.recipe.model.vo.Recipe;
