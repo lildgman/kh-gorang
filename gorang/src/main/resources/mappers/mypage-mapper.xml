@@ -99,6 +99,42 @@
 		<result column="member_no" property="refMemberNo"/>
 	</resultMap>
 	
+	<!-- 문의 -->
+	<resultMap type="QnA" id="qnaResult">
+		<result column="qna_no" property="qnaNo"/>
+		<result column="qna_content" property="qnaContent"/>
+		<result column="qna_create_date" property="qnaCreateDate"/>
+		<result column="qna_type" property="qnaType"/>
+		<result column="qna_answer_type" property="qnaAnswerType"/>
+		<result column="qna_photo" property="qnaPhoto"/>
+		<result column="status" property="status"/>
+		<result column="ref_qna_no" property="refQnaNo"/>
+		<result column="rcp_no" property="refRecipeNo"/>
+		<result column="product_no" property="refProductNo"/>
+		<result column="PDOPT_NO" property="refPdoptNo"/>
+		<result column="member_no" property="writerNo"/>
+	</resultMap>
+	
+	<!-- 상품 문의 DTO -->
+	<resultMap type="ProductQnaDTO" id="productQnaDTOResult">
+		<result column="QNA_CONTENT" property="qnaContent"/>
+		<result column="QNA_CREATE_DATE" property="qnaCreateDate"/>
+		<result column="STATUS" property="status"/>
+		<result column="PRODUCT_NO" property="productNo"/>
+		<result column="PRODUCT_NAME" property="productName"/>
+		<result column="MAIN_IMG" property="productImg"/>
+	</resultMap>	
+	
+	<!-- 레시피 문의 DTO -->
+	<resultMap type="RecipeQnaDTO" id="recipeQnaDTO">
+		<result column="QNA_CONTENT" property="qnaContent"/>
+		<result column="QNA_CREATE_DATE" property="qnaCreateDate"/>
+		<result column="STATUS" property="status"/>
+		<result column="RCP_NO" property="recipeNo"/>
+		<result column="RCP_TITLE" property="recipeTitle"/>
+		<result column="RCP_MAIN_PHOTO" property="recipeMainImg"/>
+	</resultMap>
+	
 	<!-- 스크랩 레시피 -->
 	<resultMap type="ScrapRecipe" id="scrapRecipeResult">
 		<result column="MEMBER_NO" property="memberNo"/>
@@ -613,5 +649,86 @@
 		SET MEMBER_STATUS = 'N'
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
+	
+	<!-- 상품 qna 개수 조회 -->
+	<select id="selectProductQnaCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM (
+			SELECT 
+				Q.QNA_CONTENT,
+				Q.QNA_CREATE_DATE,
+				Q.STATUS,
+				P.PRODUCT_NO,
+				P.PRODUCT_NAME,
+				P.MAIN_IMG
+			FROM QNA Q
+			JOIN PRODUCT P USING (PRODUCT_NO)
+			WHERE 
+				Q.STATUS = 'Y' AND
+				Q.MEMBER_NO = #{memberNo} AND
+				Q.QNA_TYPE = 1 AND
+				Q.QNA_ANSWER_TYPE = 1
+		)
+	</select>
+			
+	<!-- 상품 qna 조회 -->
+	<select id="selectProductQnaList" resultMap="productQnaDTOResult">
+		SELECT 
+			Q.QNA_CONTENT,
+			Q.QNA_CREATE_DATE,
+			Q.STATUS,
+			P.PRODUCT_NO,
+			P.PRODUCT_NAME,
+			P.MAIN_IMG
+		FROM QNA Q
+		JOIN PRODUCT P USING (PRODUCT_NO)
+		WHERE 
+			Q.STATUS = 'Y' AND
+			Q.MEMBER_NO = #{memberNo} AND
+			Q.QNA_TYPE = 1 AND
+			Q.QNA_ANSWER_TYPE = 1
+		ORDER BY Q.QNA_CREATE_DATE DESC
+	</select>
+	
+	<!-- 레시피 qna 개수 조회 -->
+	<select id="selectRecipeQnaCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM (
+			SELECT 
+				Q.QNA_CONTENT,
+				Q.QNA_CREATE_DATE,
+				Q.STATUS,
+				R.RCP_NO,
+				R.RCP_TITLE,
+				R.RCP_MAIN_PHOTO
+			FROM QNA Q
+			JOIN RECIPE R USING (RCP_NO)
+			WHERE 
+				Q.STATUS = 'Y' AND
+				Q.MEMBER_NO = #{memberNo} AND
+				Q.QNA_TYPE = 1 AND
+				Q.QNA_ANSWER_TYPE = 1
+			ORDER BY Q.QNA_CREATE_DATE DESC
+		)
+	</select>
+	
+	<!-- 레시비 qna 조회 -->
+	<select id="selectRecipeQnaList" resultMap="recipeQnaDTO">
+		SELECT 
+			Q.QNA_CONTENT,
+			Q.QNA_CREATE_DATE,
+			Q.STATUS,
+			R.RCP_NO,
+			R.RCP_TITLE,
+			R.RCP_MAIN_PHOTO
+		FROM QNA Q
+		JOIN RECIPE R USING (RCP_NO)
+		WHERE 
+			Q.STATUS = 'Y' AND
+			Q.MEMBER_NO = #{memberNo} AND
+			Q.QNA_TYPE = 1 AND
+			Q.QNA_ANSWER_TYPE = 1
+		ORDER BY Q.QNA_CREATE_DATE DESC
+	</select>
 	
 </mapper>

@@ -30,7 +30,7 @@
 				<div id="reply-container">
 					<div class="container-top">
 						<span class="container-top-title">나의 댓글</span>
-						<span class="container-top-more"><a href="">더보기</a></span>
+						<!-- <span class="container-top-more"><a href="">더보기</a></span> -->
 					</div>
 					<div id="reply-area" class="content-area">
 						<div id="reply-area-top">
@@ -86,7 +86,7 @@
 				<div id="review-container">
 					<div class="container-top">
 						<span class="container-top-title">나의 후기</span>
-						<span class="container-top-more"><a href="">더보기</a></span>
+						<!-- <span class="container-top-more"><a href="">더보기</a></span> -->
 					</div>
 
 					<div id="reply-area" class="content-area">

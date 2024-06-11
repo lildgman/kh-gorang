@@ -14,6 +14,9 @@ import com.kh.gorang.member.model.vo.MyPageRecipeDTO;
 import com.kh.gorang.member.model.vo.MyPageScrapBoardDTO;
 import com.kh.gorang.member.model.vo.MyPageScrapProductDTO;
 import com.kh.gorang.member.model.vo.MyPageScrapRecipeDTO;
+import com.kh.gorang.member.model.vo.ProductQnaDTO;
+import com.kh.gorang.member.model.vo.QnA;
+import com.kh.gorang.member.model.vo.RecipeQnaDTO;
 import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.recipe.model.vo.Recipe;
 
@@ -114,6 +117,18 @@ public interface MyPageService {
 	
 	// 회원 탈퇴
 	int deleteMember(int loginUserNo);
+
+	// 상품 qna 개수 조회
+	int getProductQnaCount(int memberNo);
+	
+	// 상품 qna List 조회
+	ArrayList<ProductQnaDTO> getProductQnaList(int memberNo, PageInfo productQnaPi);
+	
+	// 레시피 qna 개수 조회
+	int getRecipeQnaCount(int memberNo);
+	
+	// 레시피 qna 조회
+	ArrayList<RecipeQnaDTO> getRecipeQnaList(int memberNo, PageInfo recipeQnaPi);
 
 	
 
