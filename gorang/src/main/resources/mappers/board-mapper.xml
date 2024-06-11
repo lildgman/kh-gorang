@@ -23,17 +23,21 @@
   SELECT COUNT(*)
   FROM BOARD
   WHERE STATUS = 'Y'
+  
   </select>
   
   <select id ="selectList" resultMap="boardResult">
-  SELECT BOARD_NO,
-  			BOARD_TITLE,
-  			MEMBER_NO,
-  			BOARD_VIEWS,
-  			BOARD_THUMBNAIL,
-  			BOARD_VOTE,
+  SELECT B.BOARD_NO,
+  			B.BOARD_TITLE,
+  			B.MEMBER_NO,
+  			B.BOARD_VIEWS,
+  			B.BOARD_THUMBNAIL,
+  			B.BOARD_VOTE,
+  			M.MEMBER_NICKNAME,
   			TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS "BOARD_CREATE_DATE"
-	  		FROM BOARD
+	  		FROM BOARD B
+	  		JOIN MEMBER M ON M.MEMBER_NO = B.MEMBER_NO
+	  		
 	  		WHERE STATUS = 'Y'
 	  		ORDER BY BOARD_NO DESC
   </select>
@@ -41,16 +45,19 @@
 
   
   <select id ="selectBoard" resultMap="boardResult">
-   SELECT BOARD_NO, 
-		   BOARD_TITLE, 
-		   MEMBER_NO, 
-		   BOARD_THUMBNAIL, 
-		   BOARD_TAG,
-		   BOARD_VIEWS,
-		   BOARD_VOTE,
-		   BOARD_CONTENT,
+   SELECT B.BOARD_NO, 
+		   B.BOARD_TITLE, 
+		   B.MEMBER_NO, 
+		   B.BOARD_THUMBNAIL, 
+		   B.BOARD_TAG,
+		   B.BOARD_VIEWS,
+		   B.BOARD_VOTE,
+		   B.BOARD_CONTENT,
+		   M.MEMBER_NICKNAME,
 		   TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS "BOARD_CREATE_DATE"
-    		FROM BOARD
+    		FROM BOARD B
+    		JOIN MEMBER M ON M.MEMBER_NO = B.MEMBER_NO
+    		
     		WHERE STATUS = 'Y'
     		AND BOARD_NO = #{boardNo}
   </select>
@@ -113,81 +120,6 @@
         ORDER BY BOARD_VIEWS DESC
     </select>
     
-    <!-- 일상 태그 게시물 조회 -->
-    <select id="selectListByTagDaily" resultMap="boardResult">
-	SELECT BOARD_NO,
-		   BOARD_TITLE,
-		   MEMBER_NO,
-		   BOARD_VIEWS,
-		   BOARD_THUMBNAIL,
-		   BOARD_VOTE,
-		   BOARD_TAG,
-		   TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS "BOARD_CREATE_DATE"
-	FROM BOARD
-	WHERE STATUS = 'Y'
-	  AND BOARD_TAG = '#일상'
-	ORDER BY BOARD_VIEWS DESC
-</select>
-<!-- 질문 태그 게시물 조회 -->
-    <select id="selectListByTagQuestion" resultMap="boardResult">
-	SELECT BOARD_NO,
-		   BOARD_TITLE,
-		   MEMBER_NO,
-		   BOARD_VIEWS,
-		   BOARD_THUMBNAIL,
-		   BOARD_VOTE,
-		   BOARD_TAG,
-		   TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS "BOARD_CREATE_DATE"
-	FROM BOARD
-	WHERE STATUS = 'Y'
-	  AND BOARD_TAG = '#질문'
-	ORDER BY BOARD_VIEWS DESC
-</select>
-<!-- 노하우 태그 게시물 조회 -->
-    <select id="selectListByTagKnowHow" resultMap="boardResult">
-	SELECT BOARD_NO,
-		   BOARD_TITLE,
-		   MEMBER_NO,
-		   BOARD_VIEWS,
-		   BOARD_THUMBNAIL,
-		   BOARD_VOTE,
-		   BOARD_TAG,
-		   TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS "BOARD_CREATE_DATE"
-	FROM BOARD
-	WHERE STATUS = 'Y'
-	  AND BOARD_TAG = '#노하우'
-	ORDER BY BOARD_VIEWS DESC
-</select>
-<!-- 꿀팁 태그 게시물 조회 -->
-    <select id="selectListByTagTip" resultMap="boardResult">
-	SELECT BOARD_NO,
-		   BOARD_TITLE,
-		   MEMBER_NO,
-		   BOARD_VIEWS,
-		   BOARD_THUMBNAIL,
-		   BOARD_VOTE,
-		   BOARD_TAG,
-		   TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS "BOARD_CREATE_DATE"
-	FROM BOARD
-	WHERE STATUS = 'Y'
-	  AND BOARD_TAG = '#꿀팁'
-	ORDER BY BOARD_VIEWS DESC
-</select>
-<!-- 보관법 태그 게시물 조회 -->
-    <select id="selectListByTagMethod" resultMap="boardResult">
-	SELECT BOARD_NO,
-		   BOARD_TITLE,
-		   MEMBER_NO,
-		   BOARD_VIEWS,
-		   BOARD_THUMBNAIL,
-		   BOARD_VOTE,
-		   BOARD_TAG,
-		   TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS "BOARD_CREATE_DATE"
-	FROM BOARD
-	WHERE STATUS = 'Y'
-	  AND BOARD_TAG = '#보관법'
-	ORDER BY BOARD_VIEWS DESC
-</select>
   
 <!-- 태그별 게시물 리스트 조회 -->
   <select id="selectListByTag" resultMap="boardResult">
@@ -203,6 +135,11 @@
     WHERE STATUS = 'Y'
       AND BOARD_TAG = #{tag}
     ORDER BY BOARD_VIEWS DESC
+  </select>
+   <select id="getMemberNickname" resultType="String" parameterType="int">
+    SELECT MEMBER_NICKNAME
+    FROM MEMBER
+    WHERE MEMBER_NO = #{memberNo}
   </select>
   
   </mapper>

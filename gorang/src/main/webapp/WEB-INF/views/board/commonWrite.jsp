@@ -44,7 +44,7 @@
                             <div id="selectCategory">
                                 <select name="boardTag" id="boardTag">
                                     <option selected disabled hidden>카테고리</option>
-                                    <option value="#일상">#일상</option>
+                                    <option value="#일상" selected>#일상</option>
                                     <option value="#질문">#질문</option>
                                     <option value="#노하우">#노하우</option>
                                     <option value="#꿀팁">#꿀팁</option>

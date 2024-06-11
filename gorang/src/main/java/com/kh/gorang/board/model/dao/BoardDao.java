@@ -7,7 +7,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.gorang.board.model.vo.Board;
+import com.kh.gorang.board.model.vo.Comment;
 import com.kh.gorang.common.model.vo.PageInfo;
+
 
 @Repository
 public class BoardDao{
@@ -22,6 +24,7 @@ public class BoardDao{
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("boardMapper.selectList", null, rowBounds);
 	}
+	
 	public ArrayList<Board> selectListByViewCount(SqlSessionTemplate sqlSession, PageInfo pi) {
         int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
         RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
@@ -33,13 +36,14 @@ public class BoardDao{
         RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
         return (ArrayList)sqlSession.selectList("boardMapper.selectListByLatest", null, rowBounds);
     }
+    
     public ArrayList<Board> selectListByTag(SqlSessionTemplate sqlSession, PageInfo pi, String tag){
         int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
         RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
         return (ArrayList)sqlSession.selectList("boardMapper.selectListByTag", tag, rowBounds);
     }
     
-	public Board selectBoard(SqlSessionTemplate sqlSession, int boardNo) {
+    public Board selectBoard(SqlSessionTemplate sqlSession, int boardNo) {
 	    return sqlSession.selectOne("boardMapper.selectBoard", boardNo);
 	}
 
@@ -51,5 +55,12 @@ public class BoardDao{
         sqlSession.update("boardMapper.increaseViewCount", boardNo);
     }
 	
+	public int insertComment(SqlSessionTemplate sqlSession, Comment comment) {
+		return sqlSession.insert("commentMapper.insertComment", comment);
+	}
 	
+	// MemberNickname을 가져오는 메서드 추가
+	public String getMemberNickname(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("boardMapper.getMemberNickname", memberNo);
+	}
 }
