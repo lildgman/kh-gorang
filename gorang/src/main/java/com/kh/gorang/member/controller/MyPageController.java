@@ -1,17 +1,22 @@
 package com.kh.gorang.member.controller;
 
+import static com.kh.gorang.common.template.SaveFileController.saveFile;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.common.template.Pagination;
@@ -39,6 +44,7 @@ import lombok.extern.slf4j.Slf4j;
 public class MyPageController {
 	
 	private final MyPageService myPageService;
+	private final BCryptPasswordEncoder bcryptPasswordEncoder;
 
 	//마이페이지 메인
 	@RequestMapping("main.me")
@@ -170,10 +176,97 @@ public class MyPageController {
 	public String myPageInfoEdit(
 			HttpSession session,
 			Model model){
+		
+		int memberNo = getLoginUserNo(session);
+		
+		// 팔로잉 수
+		int followingCount = myPageService.getFollowingCount(memberNo);
+		model.addAttribute("followingCount", followingCount);
+		// 팔로워 수
+		int followerCount = myPageService.getFollowerCount(memberNo);
+		model.addAttribute("followerCount", followerCount);
+		
+		
 		return "member/myPageInfoEdit";
 	}
 	
-
+	// 회원 닉네임 체크
+	@ResponseBody
+	@GetMapping("check-nickname.me")
+	public String validMemberNickname(
+			HttpSession session,
+			@RequestParam String nickname) {
+		
+		int memberNo = getLoginUserNo(session);
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("memberNo", memberNo);
+		map.put("nickname", nickname);
+		
+		int result = myPageService.checkMemberNickname(map);
+		
+		if(result > 0) {
+			return "dup";
+		}
+		
+		return "nondup";
+	}
+	
+	// 회원 전화번호 체크
+	@ResponseBody
+	@GetMapping("check-phone.me")
+	public String validMemberPhone(
+			HttpSession session,
+			@RequestParam String memberPhone) {
+		
+		int memberNo = getLoginUserNo(session);
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("memberNo", memberNo);
+		map.put("memberPhone", memberPhone);
+		
+		int result = myPageService.checkMemberPhone(map);
+		
+		if(result > 0) {
+			return "dup";
+		}
+		
+		return "nondup";
+	}
+	
+	// 회원정보 변경
+	@PostMapping("update-member-info.me")
+	public String updateMemberInfo(
+			HttpSession session,
+			@RequestParam MultipartFile upfile,
+			Member member,
+			Model model) {
+		
+		if(!upfile.getOriginalFilename().equals("")) {
+			String changeFileName = saveFile(upfile, session, "/memberProfile/");
+			member.setProfile(changeFileName);
+		}
+		
+		String encPwd = bcryptPasswordEncoder.encode(member.getMemberPwd());
+		member.setMemberPwd(encPwd);
+		
+		log.info("member={}" , member);
+		
+		Member updateMember = myPageService.updateMemberInfo(member);
+		
+		if(updateMember != null) {
+			session.removeAttribute("loginUser");
+			session.setAttribute("loginUser", updateMember);
+			session.setAttribute("alertMsg", "성공적으로 회원정보를 변경하였습니다.");
+			return "redirect:/edit.me";
+		} else {
+			session.setAttribute("alertMsg", "회원정보변경을 실패하였습니다. 다시시도해주세요.");
+			return "redirect:/edit.me";
+		}
+		
+		
+	}
+	
 	
 	//마이 페이지 질의응답
 	@RequestMapping("qna.me")
@@ -292,6 +385,11 @@ public class MyPageController {
 		} else {
 			return "undone";
 		}
+	}
+	
+	@GetMapping("withdrawal.me")
+	public String withdrawalForm() {		
+		return "member/myPageWithDraw";
 	}
 	
 	

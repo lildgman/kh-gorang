@@ -1,41 +1,41 @@
 document.addEventListener("DOMContentLoaded", function(){
 
     // 주문 취소 버튼 클릭 이벤트
-    document.querySelector(".tbody-td-btn-cancle").addEventListener("click", function(){
-        showSweetConfirm();
-    })
+    const cancelButtons = document.querySelectorAll(".tbody-td-btn-cancle");
+    cancelButtons.forEach(function(button) {
+        button.addEventListener("click", function(){
+            showSweetConfirm();
+        });
+    });
+
     // 문의하기 버튼 클릭 이벤트
-    document.querySelector(".tbody-td-btn-qna").addEventListener("click", function(ev){
-        ev.preventDefault();
-        fillQnaModal(ev);
-    })
+    const qnaButtons = document.querySelectorAll(".tbody-td-btn-qna");
+    qnaButtons.forEach(function(button) {
+        button.addEventListener("click", function(ev){
+            ev.preventDefault();
+            fillQnaModal(ev);
+        });
+    });
+
     // 후기작성 버튼 클릭 이벤트
-    document.querySelector(".tbody-td-btn-write").addEventListener("click", function(ev){   
-        ev.preventDefault();
-        fullReviewModal(ev);
-    })
+    const reviewButtons = document.querySelectorAll(".tbody-td-btn-write");
+    reviewButtons.forEach(function(button) {
+        button.addEventListener("click", function(ev){   
+            ev.preventDefault();
+            fullReviewModal(ev);
+        });
+    });
 
     setRatingStar();
-
-    // 문의 모달 열릴 때 이벤트
-    document.querySelector("#qna_Modal").addEventListener("show.bs.modal", function(ev) {
-        resetImage(ev.target);
-    });
-
-    // 리뷰 모달 열릴 때 이벤트
-    document.querySelector("#buyList-review_Modal").addEventListener("show.bs.modal", function(ev) {
-        resetRating();
-        resetImage(ev.target);
-    });
-})
+});
 
 /** QNA 모달 내 유저, 상품 정보 기입하는 함수 */
 function fillQnaModal(ev){
-    console.log("fillQnaModal 함수 호출됨"); // 함수가 호출되었는지 확인하기 위한 로그 출력
     // 문의하기 버튼을 자손으로 둔 tr 요소 찾기
     const trEl = ev.currentTarget.closest(".tbody-buy-list-block");
 
     const qnaModal = document.querySelector("#qna_Modal");
+    resetImage(qnaModal);
     // 모달 내 참조 상품 번호 입력
     qnaModal.querySelector("input[name='refProductNo']").value = trEl.querySelector(".buyList-input-productNo").value;
     // 모달 내 상품명, 상품 옵션번호, 옵션명
@@ -48,12 +48,12 @@ function fillQnaModal(ev){
 
 /** review 모달 내 유저, 상품 정보 기입하는 함수 */
 function fullReviewModal(ev){
-    console.log("fullReviewModal 함수 호출됨"); // 함수가 호출되었는지 확인하기 위한 로그 출력
     // 후기 작성 버튼을 자손으로 둔 tr 요소 찾기
     const trEl = ev.currentTarget.closest(".tbody-buy-list-block");
 
     const reviewModal = document.querySelector("#buyList-review_Modal");
-    
+    resetRating();
+    resetImage(reviewModal);
     // 모달 내 참조 상품 번호 입력
     reviewModal.querySelector("input[name='refProductNo']").value = trEl.querySelector(".buyList-input-productNo").value;
     // 모달 내 상품명, 상품 옵션번호, 옵션명
@@ -92,20 +92,12 @@ function showSweetConfirm() {
 
 /** 이미지 파일 첨부 및 이미지 미리 보기 함수 */
 function setupFileInput(modalElement) {
-    console.log("setupFileInput 함수 호출됨");
     const addPicBtn = modalElement.querySelector('.add_qna_product_pic');
     const fileInput = modalElement.querySelector('.file-input');
     const mainImgContainer = modalElement.querySelector('.qna_pic_container');
 
-    // 클릭 이벤트 핸들러 정의
-    function handleFileInputClick() {
-        console.log("파일 첨부 버튼 클릭됨");
-        fileInput.click();
-    }
-
     // 파일 입력 변경 이벤트 핸들러 정의
     function handleFileInputChange(e) {
-        console.log("파일 입력 변경됨");
         const file = e.target.files[0];
         if (file) {
             const reader = new FileReader();
@@ -115,21 +107,34 @@ function setupFileInput(modalElement) {
             reader.readAsDataURL(file);
             mainImgContainer.style.display = 'block';
         }
+    
     }
 
-    // 파일 첨부 버튼 클릭 이벤트 핸들러 등록
-    addPicBtn.addEventListener("click", function() {
-        // 파일 첨부 이벤트가 이미 등록되어 있는지 확인
-        if (!fileInput._fileInputHandlerAdded) {
-            // 파일 첨부 이벤트가 등록되어 있지 않으면 이벤트 등록
-            fileInput.addEventListener("change", handleFileInputChange);
-            // 파일 첨부 이벤트가 등록되었음을 표시
-            fileInput._fileInputHandlerAdded = true;
-        }
-        // 파일 입력 클릭 실행
+    function handleFileInputClick(e){
+        console.log(e.currentTarget);
         fileInput.click();
-    });
+    }
 
+      // 파일 첨부 버튼 클릭 이벤트 핸들러 등록
+    addPicBtn.addEventListener("click", handleFileInputClick);
+
+    // 파일 입력 변경 이벤트 핸들러 등록 (한 번만 등록하도록 수정)
+    if (!fileInput._fileInputHandlerAdded) {
+        fileInput.addEventListener("change", handleFileInputChange);
+        fileInput._fileInputHandlerAdded = true;
+    }
+
+    // 모달이 화면에 표시될 때 이벤트 핸들러 등록
+    // 제이쿼리를 사용해야 인식!!!!
+    // 모달창 사라질 때 이벤트 핸들러 제거(이벤트 핸들러 중첩 방지)
+    $('.modal').on('hidden.bs.modal', function () {
+        // 모달이 숨겨질 때 수행할 작업을 여기에 작성
+        console.log('모달이 숨겨짐');
+        // 예시: 모달 내용 초기화
+        addPicBtn.removeEventListener("click", handleFileInputClick);
+        fileInput.removeEventListener("change", handleFileInputChange);
+        fileInput._fileInputHandlerAdded = false; // 이벤트 핸들러 등록 여부 초기화
+    });
 }
 
 /** 별점 평가 시 별 색칠하고 평점 값 설정하는 함수 */
@@ -163,8 +168,6 @@ function setRatingStar(){
 
 /** 별점 리셋 */
 function resetRating() {
-    console.log("resetRating 함수 호출됨");
-
     const ratingInput = document.querySelector("input[name='rating']");
     ratingInput.value = 0;
     const stars = document.querySelectorAll(".modal-review-rating-content .star");
@@ -175,8 +178,6 @@ function resetRating() {
 
 /** 이미지 초기화 */
 function resetImage(modalElement) {
-    console.log("resetImage 함수 호출됨"); 
-
     const fileInput = modalElement.querySelector('.file-input');
     fileInput.value = "";
     const mainImgContainer = modalElement.querySelector('.qna_pic_container');

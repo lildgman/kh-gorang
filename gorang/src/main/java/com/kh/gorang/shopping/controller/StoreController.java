@@ -155,11 +155,17 @@ public class StoreController {
 	
 	@RequestMapping("insertQna.po")
 	public String insertProductQna(@RequestParam int writerNo, @RequestParam int refProductNo,
-								   @RequestParam int refPdoptNo, @RequestParam String qnaPhoto,
+								   @RequestParam int refPdoptNo, @RequestParam MultipartFile qnaPhotoUpfile,
 								   @RequestParam String qnaContent, HttpSession session) {
 		QnA q = new QnA();
+		
+		
+		if(!qnaPhotoUpfile.getOriginalFilename().equals("")) {
+			String changeFileName = saveFile(qnaPhotoUpfile, session, "/qna/product-qna/");
+			q.setQnaPhoto(changeFileName);
+		}
+		
 		q.setQnaContent(qnaContent);
-		q.setQnaPhoto(qnaPhoto);
 		q.setWriterNo(writerNo);
 		q.setRefProductNo(refProductNo);
 		q.setRefPdoptNo(refPdoptNo);
@@ -180,19 +186,32 @@ public class StoreController {
 	
 	@RequestMapping("insertReview.po")
 	public String insertProductReview(@RequestParam int refMemberNo, @RequestParam int refProductNo,
-								   @RequestParam int refPdoptNo, @RequestParam String qnaPhoto,
-								   @RequestParam String qnaContent, HttpSession session) {
+								   @RequestParam int refPdoptNo, @RequestParam int rating, @RequestParam MultipartFile reviewPhotoUpfile,
+								   @RequestParam String reviewContent, HttpSession session) {
+		
+		
 		Review re = new Review();
-//		re.set
+		
+		if(!reviewPhotoUpfile.getOriginalFilename().equals("")) {
+			String changeFileName = saveFile(reviewPhotoUpfile, session, "/review/product-review/");
+			re.setReviewPhoto(changeFileName);
+		}
 		
 		
-		int result = productService.insertProductQna(q);
+		re.setRefMemberNo(refMemberNo);
+		re.setRefProductNo(refProductNo);
+		re.setRefPdOptNo(refPdoptNo);
+		re.setRating(rating);
+		re.setReviewContent(reviewContent);
+		
+		
+		int result = productService.insertProductReview(re);
 		
 		if(result > 0) {
-			session.setAttribute("alertMsg", "문의 등록 성공.");
+			session.setAttribute("alertMsg", "후기 등록 성공.");
 			return "redirect:/";
 		} else {
-			session.setAttribute("alertMsg", "문의 등록 실패");
+			session.setAttribute("alertMsg", "후기 등록 실패");
 			return "redirect:/";
 		}
 	}

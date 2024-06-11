@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.common.vo.PageInfo;
 import com.kh.gorang.member.model.dao.MyPageDao;
+import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.MyPageBoardCommentDTO;
 import com.kh.gorang.member.model.vo.MyPageBoardDTO;
 import com.kh.gorang.member.model.vo.MyPageLikeBoardDTO;
@@ -281,6 +282,31 @@ public class MyPageServiceImpl implements MyPageService{
 	@Override
 	public int deleteLikeBoard(Map<String, Object> map) {
 		return myPageDao.deleteLikeBoard(sqlSession, map);
+	}
+
+	// 회원 닉네임 중복체크
+	@Override
+	public int checkMemberNickname(Map<String, Object> map) {
+		return myPageDao.checkMemberNickname(sqlSession, map);
+	}
+
+	// 회원 전화번호 중복체크
+	@Override
+	public int checkMemberPhone(Map<String, Object> map) {
+		return myPageDao.checkMemberPhone(sqlSession, map);
+	}
+
+	// 회원 정보 업데이트
+	@Override
+	public Member updateMemberInfo(Member member) {
+		
+		int result = myPageDao.updateMemberInfo(sqlSession, member);
+		
+		if(result > 0) {
+			return myPageDao.selectMember(sqlSession, member.getMemberNo());
+		}
+		
+		return null;
 	}
 
 	
