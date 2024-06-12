@@ -73,6 +73,10 @@ body{
     height: 350px;
     /* flex: 1;  */
   }
+
+  .item:hover {
+    cursor: pointer;
+  }
   .item-thumbnail-area{
     margin-top: 15px;
     margin-bottom: 15px;
@@ -90,7 +94,7 @@ body{
     height: 115px;
   }
   .item-title{
-    height: 50px;
+    height: 65px;
   }
   .item-brand{
     font-size: 14px;
@@ -158,6 +162,10 @@ body{
     border-radius: 5px;
     overflow: hidden;
     background-color: #fff;
+}
+
+.recipe-item:hover {
+    cursor: pointer;
 }
 
 .recipe-content-item {
@@ -274,6 +282,9 @@ body{
     background-color: #fff;
 }
 
+.common-item:hover {
+    cursor: pointer;
+}
 .common-content-item {
     display: flex;
     flex-direction: column;

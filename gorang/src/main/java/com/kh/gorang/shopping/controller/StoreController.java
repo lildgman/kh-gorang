@@ -101,6 +101,7 @@ public class StoreController {
 		model.addAttribute("pi",pi);
 		model.addAttribute("category",category);
 		model.addAttribute("sort",sort);
+		model.addAttribute("content", content);
 		
 		return "shopping/productList";
 	}
