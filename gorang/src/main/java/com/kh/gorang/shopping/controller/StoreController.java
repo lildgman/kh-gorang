@@ -82,11 +82,13 @@ public class StoreController {
 				@RequestParam(defaultValue="1") int cpage,
 				@RequestParam(defaultValue="all") String category,
 				@RequestParam(defaultValue="default") String sort,
+				@RequestParam(defaultValue="") String content,
 				Model model) {
 		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("category",category);
 		map.put("sort", sort);
+		map.put("content",content);
 		
 		// category와 sort를 가지고 상품들 조회
 		int productCount = productService.selectProductCount(map);

@@ -138,6 +138,9 @@
      		SELECT *
 	    	FROM PRODUCT
 	    	WHERE STATUS = 'Y'
+		    	<if test='content != null'>
+	     			AND PRODUCT_NAME ILIKE '%${content}%'
+	     		</if>
 	    		<if test='category == "야채"'>
 	    			AND CATEGORY LIKE '야채'
 	    		</if>
@@ -184,6 +187,9 @@
      		MAIN_IMG
      	FROM PRODUCT
      	WHERE STATUS = 'Y' 
+     		<if test='content != null'>
+     			AND PRODUCT_NAME ILIKE '%${content}%'
+     		</if>
 	     	<if test='category == "야채"'>
 	   			AND CATEGORY LIKE '야채'
 	   		</if>
