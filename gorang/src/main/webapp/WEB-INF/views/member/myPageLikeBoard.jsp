@@ -26,11 +26,13 @@
                     <span>(${likeBoardList.size() })</span>
                 </div>
 
-                <div id="delete-edit" onclick="editBtn()">편집</div>           
-                <div id="delete-like" onclick="deleteBtn()">삭제</div>
+                <div id="delete-area">
+                    <div id="delete-edit" onclick="editBtn()">편집</div>           
+                    <div id="delete-like" onclick="deleteBtn()">삭제</div>
+                </div>
+                
             
                 <div id="scrap-area-content">
-					
 					<c:choose>
 						<c:when test="${empty likeBoardList }">
 							좋아요를 누른 게시글이 없습니다.

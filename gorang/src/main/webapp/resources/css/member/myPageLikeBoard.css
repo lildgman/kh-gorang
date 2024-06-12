@@ -106,3 +106,8 @@ body {
     width: 280px;
     height: 280px;
 }
+
+#delete-area {
+    display: flex;
+    justify-content: flex-end;
+}

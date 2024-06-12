@@ -32,6 +32,14 @@ public interface RecipeService {
 
 	int deleteIngre(IngredientsInfo ingredientsInfo);
 
+	int deleteDivision(Division division);
+
+	int deleteCookTip(CookTip cookTip);
+
+	int deleteCookOrder(CookOrder cookOrder);
+
+	int deleteCompletePhoto(Media media);
+
 //	int findDivLen(Recipe rcp, HttpSession session);
 //
 //	int findIngreLen(RecipeInsertDTO recipeInsertDTO, HttpSession session);

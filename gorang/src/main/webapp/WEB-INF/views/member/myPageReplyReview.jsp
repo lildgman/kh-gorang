@@ -75,7 +75,7 @@
 							</c:forEach>
 
 							<c:choose>
-								<c:when test="${(commentPI.currentPage ne commentPI.maxPage) or (commentPI.maxPage eq 0) }">
+								<c:when test="${commentPI.currentPage lt commentPI.maxPage}">
 									<a href="review.me?comment_cpage=${commentPI.currentPage +1 }">&gt;</a>
 								</c:when>
 							</c:choose>
@@ -147,7 +147,7 @@
 							</c:forEach>
 
 							<c:choose>
-								<c:when test="${(reviewPI.currentPage ne reviewPI.maxPage) or (reviewPI.maxPage eq 0) }">
+								<c:when test="${reviewPI.currentPage lt reviewPI.maxPage }">
 									<a href="review.me?review_cpage=${reviewPI.currentPage +1 }">&gt;</a>
 								</c:when>
 							</c:choose>

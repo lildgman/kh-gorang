@@ -80,20 +80,10 @@ public class RecipeDao {
 		return sqlSession.selectList("recipeMapper.selectCookTipList", cookOrdNo);
 	}	
 	
-	//레시피 수정
-	public int updateRecipe(SqlSessionTemplate sqlSession, Recipe rcp) {
-		return sqlSession.update("recipeMapper.updateRecipe",rcp);
-	}
-	//분류 수정
-	public int updateDivision(SqlSessionTemplate sqlSession, int divNo) {
-		return sqlSession.update("recipeMapper.updateDivision",divNo);
-	}
 	
-	//재료(분류) 수정
-	public int updateIngredientsInfo(SqlSessionTemplate sqlSession, int ingreNo) {
-		return sqlSession.update("recipeMapper.updateIngredientsInfo",ingreNo);
-		
-	}
+	
+
+
 	
 	
 	
@@ -102,26 +92,86 @@ public class RecipeDao {
 	public int selectfindDivLen(SqlSessionTemplate sqlSession, int recipeNo) {
 		return sqlSession.selectOne("recipeMapper.selectfindDivLen",recipeNo);
 	}
-
-	public int selectfindIngreLen(SqlSessionTemplate sqlSession) {
-		// TODO Auto-generated method stub
-		return 0;
+	//재료 길이(개수)
+	public int selectfindIngreLen(SqlSessionTemplate sqlSession,int divNo) {
+		return sqlSession.selectOne("recipeMapper.selectfindIngreLen",divNo);
 	}
 
-	public int selectfindCoLen(SqlSessionTemplate sqlSession) {
-		// TODO Auto-generated method stub
-		return 0;
+	//조리순서 길이
+	public int selectfindCoLen(SqlSessionTemplate sqlSession, int recipeNo) {
+		return sqlSession.selectOne("recipeMapper.selectfindCoLen",recipeNo);
+	}
+	//팁 길이
+	public int selectfindCtLen(SqlSessionTemplate sqlSession, CookOrder co) {
+		return sqlSession.selectOne("recipeMapper.selectfindCtLen",co);
+	}
+	//요리 완성사진 길이
+	public int selectfindmdLen(SqlSessionTemplate sqlSession, int recipeNo) {
+		return sqlSession.selectOne("mediaMapper.selectfindmdLen",recipeNo);
+	}
+	
+	//Ingre삭제
+	public int deleteIngre(SqlSessionTemplate sqlSession, IngredientsInfo ingredientsInfo) {	
+		return sqlSession.delete("recipeMapper.deleteIngre",ingredientsInfo );
+	}
+	//Division삭제
+	public int deleteDivision(SqlSessionTemplate sqlSession, Division division) {
+		return sqlSession.delete("recipeMapper.deleteDivision",division );
+	}
+	//CookTip삭제
+	public int deleteCookTip(SqlSessionTemplate sqlSession, CookTip cookTip) {
+		return sqlSession.delete("recipeMapper.deleteCookTip",cookTip );
+	}
+	//CookOrder삭제
+	public int deleteCookOrder(SqlSessionTemplate sqlSession, CookOrder cookOrder) {
+		return sqlSession.delete("recipeMapper.deleteCookOrder",cookOrder );
+	}
+	//레시피 완성 사진 삭제
+	public int deleteCompletePhoto(SqlSessionTemplate sqlSession, Media media) {		
+		return sqlSession.delete("mediaMapper.deleteCompletePhoto",media );
 	}
 
-	public int selectfindCtLen(SqlSessionTemplate sqlSession) {
-		// TODO Auto-generated method stub
-		return 0;
+	
+	
+	//레시피 수정
+	public int updateRecipe(SqlSessionTemplate sqlSession, Recipe rcp) {
+		return sqlSession.update("recipeMapper.updateRecipe",rcp);
+	}
+	//레시피 분류 수정
+	public int updateDivision(SqlSessionTemplate sqlSession, Division division) {
+		return sqlSession.update("recipeMapper.updateDivision",division);
+	}
+	//레시피 재료 수정
+	public int updateIngredients(SqlSessionTemplate sqlSession, IngredientsInfo ingre) {
+		return sqlSession.update("recipeMapper.updateIngredients",ingre);
+		
+	}
+	//레시피 조리 순서 수정
+	public int updateCookOrder(SqlSessionTemplate sqlSession, CookOrder co) {
+		return sqlSession.update("recipeMapper.updateCookOrder",co);
+		
+	}
+	//레시피 팁 수정
+	public int updateCooktip(SqlSessionTemplate sqlSession, CookTip ct) {
+		return sqlSession.update("recipeMapper.updateCooktip", ct);
 	}
 
-	public int selectfindCpLen(SqlSessionTemplate sqlSession) {
-		// TODO Auto-generated method stub
-		return 0;
+	//레시피 완성사진 수정
+	public int updateRecipeMedia(SqlSessionTemplate sqlSession, Media md) {
+		return sqlSession.update("mediaMapper.updateRecipeMedia", md);
 	}
+
+	
+
+
+	
+
+	
+	
+	
+
+	
+
 	
 	
 
