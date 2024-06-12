@@ -72,5 +72,6 @@
 		<mapper resource="/mappers/order-mapper.xml"/>
 		<mapper resource="/mappers/media-mapper.xml"/>
 		<mapper resource="/mappers/search-mapper.xml"/>
+		<mapper resource="/mappers/odg-recipe-mapper.xml"/>
 	</mappers>
 </configuration>  
