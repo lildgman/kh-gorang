@@ -53,7 +53,7 @@
     #myPage-board-list-area{
         display: flex;
         flex-wrap: wrap;
-        height: 791px;
+        /* height: 791px; */
         gap: 4px;
     }
 
@@ -70,6 +70,7 @@
     .myPage-board-list-block{
         height: 368px;
         border: 1px solid #efefef;
+        margin-bottom: 30px;
     }
 
     /* 썸네일 영역 크기 */
@@ -143,14 +144,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 25px;
+    /* margin-top: 25px; */
     margin-left: 15px;
   }
   
   #pagination{
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
+    gap: 10px;
     width: 392px;
   }
   
