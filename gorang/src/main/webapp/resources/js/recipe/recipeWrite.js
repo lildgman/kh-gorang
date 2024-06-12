@@ -87,6 +87,7 @@ function insertFileApi(data,callback){
         }
     })
 }
+
 //조리 순서 이미지 넣기
 function changeCookIngOrderImg(inputFile,num){
     let parentBlock = inputFile.closest('.cooking-order-block-bottom-img');
@@ -130,6 +131,7 @@ function insertFileApi2(data,callback){
         }
     })
 }
+
 //요리 완성 이미지 넣기
 function changecompleteImg(inputFile){
     let parentBlock = inputFile.closest('.complete-food-img-block');
