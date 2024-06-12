@@ -32,11 +32,11 @@
 					</div>
 					<div id="see-more-btn">
 						<c:if test="${searchProductResult.size() gt 5}">
-							<input type="button" value="더보기">
+							<input type="button" value="더보기" onclick="location.href='list.po?content=${content}'">
 						</c:if>
 					</div>
 				</div>
-				<div class="container">
+				<div class="product-container">
 					<c:choose>
 						<c:when test="${empty searchProductResult }">
 							검색 결과가 없습니다.
@@ -55,7 +55,7 @@
 												<div class="item-name">${product.productName }</div>
 											</div>
 											<div class="item-price">
-												<div class="item-origin-price">${product.normalPrice } <span>원</span></div>
+												<span class="item-origin-price">${product.normalPrice }</span><span class="origin-won">원</span>
 												<div>
 													<span class="discount-percent">${product.discount }%</span>
 													<span class="discounted-price">${product.salePrice }</span><span>원</span>
@@ -92,7 +92,7 @@
 								<c:if test="${status.index < 8}">
 									<div class="recipe-item" data-no="${recipe.recipeNo}" data-type="recipe" onclick="moveDetailPage(this)">
 										<div class="recipe-content-item">
-											<div id="recipeContentImg">
+											<div class="recipeContentImg">
 												<img
 													src="<%= request.getContextPath() %>/resources/uploadfile/recipe/recipemain/${recipe.recipeImg}">
 											</div>
@@ -140,24 +140,24 @@
 								<c:if test="${status.index < 8}">
 									<div class="common-item" data-no="${board.boardNo}" data-type="board" onclick="moveDetailPage(this)">
 										<div class="common-content-item">
-											<div id="commonContentImg">
+											<div class="commonContentImg">
 												<img
 													src="<%= request.getContextPath() %>/resources/uploadfile/board/boardMainContentFile/${board.boardThumbnail}">
 											</div>
-											<div id="commonContentInfoBox">
-												<div id="commonContentTitle"><span>${board.boardTitle }</span></div>
-												<div id="commonContentWriter">
-													<div id="commonContentWriterImg"><img
+											<div class="commonContentInfoBox">
+												<div class="commonContentTitle"><span>${board.boardTitle }</span></div>
+												<div class="commonContentWriter">
+													<div class="commonContentWriterImg"><img
 															src="<%= request.getContextPath() %>/resources/uploadfile/memberProfile/${memberProfileImg}">
 													</div>
 													<span>${board.memberNickname }</span>
 												</div>
-												<div id="commonContentBoardInfo">
-													<div id="commonBoardInfoScrap">스크랩 <span>${board.scrapCount }</span></div>
-													<div id="commonBoardInfoView">조회수
+												<div class="commonContentBoardInfo">
+													<div class="commonBoardInfoScrap">스크랩 <span>${board.scrapCount }</span></div>
+													<div class="commonBoardInfoView">조회수
 														<span>${board.viewCount }</span>
 													</div>
-													<div id="commonBoardInfoRec">추천수
+													<div class="commonBoardInfoRec">추천수
 														<span>${board.likeCount }</span>
 													</div>
 												</div>
