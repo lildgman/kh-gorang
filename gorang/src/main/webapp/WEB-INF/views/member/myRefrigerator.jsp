@@ -50,6 +50,7 @@
                         <div id="myRefrigerator-text-title-area">
                             <div id="myRefrigerator-texthead">
                                 나의 냉장고
+                                <span>${}</span>
                             </div>
                             <div id="myRefrigerator-modal-btn">
                                 <button id="viewModalBtn-two">
@@ -76,7 +77,7 @@
                                                     <td>개수</td>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody id="myRefrigerator-table-tbody">
                                                <c:forEach var="refriIngre" items="${refriIngres}">
                                                     <tr class=".tr-block">
                                                         <td class="myRefrigerator-tr">
@@ -104,15 +105,24 @@
                     <div id="pagination-area">
                         <div id="pagination">
 								<c:if test="${pi.currentPage ne 1 }">
-									<a href="">&lt;</a>
+									<a data-value="${pi.currentPage - 1}">&lt;</a>
 								</c:if>
 
 							<c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
-								<a href="">${p}</a>
+								<a data-value="${p}">
+                                    <c:choose>
+                                        <c:when test="${p eq 1}">
+                                            <strong>${p}</strong>
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${p}
+                                        </c:otherwise>
+                                    </c:choose>
+                                </a>
 							</c:forEach>
 
 								<c:if test="${pi.currentPage lt pi.maxPage}">
-									<a href="">&gt;</a>
+									<a data-value="${pi.currentPage + 1}">&gt;</a>
 								</c:if>
                         </div>
                     </div>

@@ -652,9 +652,10 @@ td:nth-child(4) {
       
       #pagination{
         display: flex;
-        justify-content: space-around;
+        justify-content: center;
         align-items: center;
         width: 392px;
+        gap: 20px;
       }
       
       #pagination > a {

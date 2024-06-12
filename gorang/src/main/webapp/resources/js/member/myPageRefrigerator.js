@@ -1,20 +1,59 @@
 document.addEventListener("DOMContentLoaded", function () {
+    
+    const ctp = getContextPath();
 
+    setPaginationEventListeners();
 
-    // getRefriInfoByAjax();
+    // ================================== 유틸리티 관련 메소드 =======================
+    
+    /** 헤더에서 세션에 넣은 contextPath 값 리턴하는 함수 */
+    function getContextPath() {
+        return sessionStorage.getItem("contextpath");
+    }
+
 
     // =================================== 나의 냉장고 식재료 테이블 관련 메소드 ================================
-    function getRefriInfoByAjax(data){
-        if(!data){
-            data = 1;
-        }
+    
+    /** 페이지바 a 태그에 클릭 이벤트 넣어주는 메소드 */
+    function setPaginationEventListeners() {
+        document.querySelectorAll("#pagination a").forEach(function(ev){
+            ev.addEventListener("click", function(el){
+                let cpage = el.currentTarget.getAttribute('data-value');
+                getRefriInfoByAjax(parseInt(cpage));
+            });
+        });
+    }
 
+    /** ajax 로 currentPage 보내서 RowBounds 된 List<refrigerator> 값 받아온 후 뿌려주는 메소드*/
+    function getRefriInfoByAjax(data){
         $.ajax({
             url: "selectRefriAjax.me",
-            data: data,
+            data: { cpage: data },
             success: function(res){
-                console.log(res);
-                // callback(res);
+                const refriIngresList = res.refriIngres;
+                const refriTbody = document.querySelector("#myRefrigerator-table-tbody");
+                refriTbody.innerHTML = "";
+
+                for(refriIngre of refriIngresList){
+                    let refriTbodyTr = document.createElement('tr');
+                    refriTbody.appendChild(refriTbodyTr);
+                    refriTbodyTr.setAttribute("class", ".tr-block");
+                    refriTbodyTr.innerHTML = `<td class="myRefrigerator-tr">
+                                                    <img src="${ctp}/resources/images/member-img/Rectangle 18311 (2).png"
+                                                        alt=""> ${refriIngre.refName}
+                                                </td>
+                                                <td class="flesh-area">
+                                                    <div class="flesh-status" style="background-color:#7ADC66 ;"></div>
+                                                    신선
+                                                </td> <!--나중에 class id로 변경-->
+                                                <td>${refriIngre.refConsumptionDate}</td>
+                                                <td>${refriIngre.refInputDate}</td>
+                                                <td>${refriIngre.refCount}</td>
+                                                <td class="myRefrigerator-last-td">삭제</td>`
+                }
+
+                // 페이지네이션 갱신
+                updatePagination(res.pi);
             },
             error: function(){
                 console.log("송신 실패");
@@ -22,51 +61,39 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     }
 
-    function drawRefri(res){
-        const refriIngreArea = document.querySelector("#myRefrigerator-igre-area");
-        refriIngreArea.innerHTML = ""
-        // 데이터가 없을 때 예외 처리
-        if(!res){
-            innerHTML = "냉장고가 비어있습니다.";
-        } else {
-            const pi = res.pi;
-            const ingres = res.refriIngres;
+    /** ajax로 받아온 pi 객체를 이용해 페이지네이션 업데이트 해주는 메소드 */
+    function updatePagination(pi) {
+        const pagination = document.querySelector("#pagination");
+        pagination.innerHTML = "";
 
-            const refriIngreTableArea = document.createElement('div');
-            refriIngreTableArea.setAttribute("id", "myRefrigerator-igre-table-area");
-            refriIngreArea.appendChild(refriIngreTableArea);
-            // 테이블
-            const refriIngreTable = document.createElement('table');
-            refriIngreTableArea.appendChild(refriIngreTable);
-            // thead
-            const refriIngreTableThead = document.createElement('thead');
-            refriIngreTableThead.setAttribute("id", "myRefrigerator-tb");
-            refriIngreTable.appendChild(refriIngreTableThead);
-            // thead > tr
-            const refriIngreTableTheadTr = document.createElement('tr');
-            refriIngreTableTheadTr.setAttribute("class", "myRefrigerator-tr");
-            refriIngreTableThead.appendChild(refriIngreTableTheadTr);
-
-            refriIngreTableTheadTr.innerHTML = `<td style="width: 300px;">상품</td>
-                                                <td>신선도</td>
-                                                <td>소비기한</td>
-                                                <td>냉장고 입고일</td>
-                                                <td>개수</td>`
-            
-            
-
-
-
+        if (pi.currentPage != 1) {
+            const prevLink = document.createElement('a');
+            prevLink.setAttribute('data-value', pi.currentPage - 1);
+            prevLink.innerHTML = '&lt;';
+            pagination.appendChild(prevLink);
         }
 
-        
+        for (let p = pi.startPage; p <= pi.endPage; p++) {
+            const pageLink = document.createElement('a');
+            pageLink.setAttribute('data-value', p);
+            pageLink.innerHTML = p;
+            if(p == parseInt(pi.currentPage)){
+                pageLink.innerHTML = `<strong>${p}</strong>`
+            }
+            pagination.appendChild(pageLink)
+        }
 
+        if (pi.currentPage < pi.maxPage) {
+            const nextLink = document.createElement('a');
+            nextLink.setAttribute('data-value', pi.currentPage + 1);
+            nextLink.innerHTML = '&gt;';
+            pagination.appendChild(nextLink);
+        }
 
-
-
-
+        // 새로 생성된 링크에 이벤트 리스너 추가
+        setPaginationEventListeners();
     }
-    
+
     // =================================== 식재료 추가 모달 관련 메소드 ==========================================
 
     // ======== 이벤트 리스너
