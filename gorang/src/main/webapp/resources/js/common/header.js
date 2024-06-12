@@ -36,3 +36,23 @@ function moveLocation(path){
 // function login  (){
 //     window.location.href=('Login.me')
 // }
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    let searchInput = document.querySelector('#search-input');
+    searchInput.addEventListener("keypress", function(event) {
+        if(event.key === 'Enter') {
+            event.preventDefault();
+            search(searchInput.value);
+        }
+    });
+});
+
+function search(value) {
+    window.location.href = "search.re?content=" + value;
+}
+
+function searchResult() {
+    let searchInput = document.querySelector('#search-input');
+    search(searchInput.value);
+}

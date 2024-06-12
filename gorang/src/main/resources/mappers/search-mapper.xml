@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="searchMapper">
+	<!-- 게시글 검색 DTO -->  	
+	<resultMap type="SearchBoardDTO" id="searchBoardDTOResult">
+		<result column="BOARD_NO" property="boardNo"/>
+		<result column="BOARD_THUMBNAIL" property="boardThumbnail"/>
+		<result column="BOARD_TITLE" property="boardTitle"/>
+		<result column="MEMBER_PROFILE" property="memberProfileImg"/>
+		<result column="MEMBER_NICKNAME" property="memberNickname"/>
+		<result column="SCRAP_COUNT" property="scrapCount"/>
+		<result column="BOARD_VIEWS" property="viewCount"/>
+		<result column="LIKE_COUNT" property="likeCount"/>
+	</resultMap>
+
+	<!-- 상품 검색 DTO -->
+	<resultMap type="SearchProductDTO" id="searchProductDTOResult">
+		<result column="PRODUCT_NO" property="productNo"/>
+		<result column="PRODUCT_NAME" property="productName"/>
+		<result column="PRODUCT_BRAND" property="productBrand"/>
+		<result column="MAIN_IMG" property="productImg"/>
+		<result column="NORMAL_PRICE" property="normalPrice"/>
+		<result column="SALE_PRICE" property="salePrice"/>
+		<result column="DISCOUNT" property="discount"/>
+	</resultMap>
+	
+	<!-- 레시피 검색 DTO -->
+	<resultMap type="SearchRecipeDTO" id="searchRecipeDTOResult">
+		<result column="RCP_NO" property="recipeNo"/>
+		<result column="RCP_MAIN_PHOTO" property="recipeImg"/>
+		<result column="RCP_TITLE" property="recipeTitle"/>
+		<result column="MEMBER_NICKNAME" property="recipeWriter"/>
+		<result column="MEMBER_PROFILE" property="recipeWriterProfileImg"/>
+		<result column="SCRAP_COUNT" property="scrapCount"/>
+	</resultMap>
+	
+	<!-- 게시글 검색 결과 조회 -->
+	<select id="selectSearchBoard" resultMap="searchBoardDTOResult">
+		SELECT 
+			B.BOARD_NO,
+			B.BOARD_THUMBNAIL,
+			B.BOARD_TITLE,
+			M.MEMBER_PROFILE,
+			M.MEMBER_NICKNAME,
+			B.BOARD_VIEWS,
+			COUNT(SB.BOARD_NO) AS SCRAP_COUNT,
+			COUNT(LB.BOARD_NO) AS LIKE_COUNT
+		FROM BOARD B
+		JOIN MEMBER M USING (MEMBER_NO)
+		LEFT JOIN SCRAP_BOARD SB USING (BOARD_NO)
+		LEFT JOIN LIKE_BOARD LB USING (BOARD_NO)
+		WHERE B.STATUS = 'Y'
+			AND B.BOARD_TITLE ILIKE '%${content}%'
+		GROUP BY B.BOARD_NO,
+			B.BOARD_THUMBNAIL,
+			B.BOARD_TITLE,
+			M.MEMBER_PROFILE,
+			M.MEMBER_NICKNAME,
+			B.BOARD_VIEWS
+		ORDER BY B.BOARD_NO DESC
+	</select>
+	
+	<!-- 상품 검색 결과 조회 -->
+	<select id="selectSearchProduct" resultMap="searchProductDTOResult">
+		SELECT
+			PRODUCT_NO,
+			PRODUCT_NAME,
+			PRODUCT_BRAND,
+			MAIN_IMG,
+			NORMAL_PRICE,
+			SALE_PRICE,
+			DISCOUNT
+		FROM PRODUCT P
+		WHERE 
+			PRODUCT_NAME ILIKE '%${content}%'
+			OR PRODUCT_BRAND ILIKE '%${content}%'
+		ORDER BY PRODUCT_NO DESC
+	</select>
+  	
+  	<!-- 레시피 검색 결과 조회 -->
+  	<select id="selectSearchRecipe" resultMap="searchRecipeDTOResult">
+  		SELECT
+			R.RCP_NO,
+			R.RCP_MAIN_PHOTO,
+			R.RCP_TITLE,
+			M.MEMBER_NICKNAME,
+			M.MEMBER_PROFILE,
+			COUNT(SR.RCP_NO)
+		FROM RECIPE R
+		JOIN MEMBER M USING (MEMBER_NO)
+		LEFT JOIN SCRAP_RECIPE SR USING (RCP_NO)
+		WHERE R.STATUS = 'Y'
+			AND R.RCP_TITLE ILIKE '%${content}%'
+		GROUP BY R.RCP_NO,
+			R.RCP_MAIN_PHOTO,
+			R.RCP_CONTENT,
+			M.MEMBER_NICKNAME,
+			M.MEMBER_PROFILE
+		ORDER BY R.RCP_NO DESC
+  	</select>
+  </mapper>

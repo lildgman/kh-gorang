@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
+import com.kh.gorang.common.model.vo.Media;
 import com.kh.gorang.common.template.SaveFileController;
-import com.kh.gorang.common.vo.Media;
 import com.kh.gorang.member.model.vo.Member;
+import com.kh.gorang.recipe.model.vo.CookOrder;
+import com.kh.gorang.recipe.model.vo.CookTip;
+import com.kh.gorang.recipe.model.vo.Division;
 import com.kh.gorang.recipe.model.vo.IngredientsInfo;
 import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.recipe.model.vo.RecipeInsertDTO;
@@ -125,9 +128,14 @@ public class RecipeController {
 	//레시피 분류삭제
 	@PostMapping("deleteDivision.re")
 	@ResponseBody
-	public int deleteDivision(MultipartFile completeFoodPhoto, HttpSession session) {
-		int result;
-		return 1;
+	public int deleteDivision(Division division, HttpSession session) {
+		System.out.println(division);
+		if(!division.getDivName().equals("")) {
+			int result =recipeService.deleteDivision(division);
+			return result;
+		}
+		else
+			return 0;
 	}
 	
 	//레시피 재료 행 삭제
@@ -135,9 +143,55 @@ public class RecipeController {
 	@ResponseBody
 	public int deleteIngre(IngredientsInfo ingredientsInfo, HttpSession session) {
 		System.out.println(ingredientsInfo);
-		int result =1;
-		return result;
+		if(ingredientsInfo.getIngreName().equals("")) {
+		int result =recipeService.deleteIngre(ingredientsInfo);
+			return result;
+		}
+		else {
+			return 0;
+		}
 	}
+	
+	
+	//레시피 조리순서 삭제
+	@PostMapping("deleteCookOrder.re")
+	@ResponseBody
+	public int deleteCookOrder(CookOrder cookOrder, HttpSession session) {
+		System.out.println(cookOrder);
+		if(!cookOrder.getCookOrdContent().equals("")) {
+			int result =recipeService.deleteCookOrder(cookOrder);
+			return result;
+		}
+		else
+			return 0;
+	}
+	
+	//레시피  팁 삭제
+	@PostMapping("deleteCookTip.re")
+	@ResponseBody
+	public int deleteCookTip(CookTip cookTip, HttpSession session) {
+		System.out.println(cookTip);
+		if(!cookTip.getCookTipContent().equals("")) {
+			int result =recipeService.deleteCookTip(cookTip);
+			return result;
+		}
+		else
+			return 0;
+	}
+	
+	//레피시 완성사진 삭제
+	@PostMapping("deleteCompletePhoto.re")
+	@ResponseBody
+	public int deleteCompletePhoto(Media media, HttpSession session) {
+		System.out.println(media);
+		if(!media.getOriginName().equals("")) {
+			int result =recipeService.deleteCompletePhoto(media);
+			return result;
+		}
+		else
+			return 0;
+	}
+
 	
 }
 

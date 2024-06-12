@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.recipe.model.vo.RecipeInsertDTO;
-import com.kh.gorang.common.vo.Media;
+import com.kh.gorang.common.model.vo.Media;
 import com.kh.gorang.recipe.model.vo.CookOrder;
 import com.kh.gorang.recipe.model.vo.CookTip;
 import com.kh.gorang.recipe.model.vo.Division;
@@ -31,6 +31,14 @@ public interface RecipeService {
 	int updateRecipeInsertDTO(Recipe rcp, RecipeInsertDTO recipeInsertDTO, HttpSession session);
 
 	int deleteIngre(IngredientsInfo ingredientsInfo);
+
+	int deleteDivision(Division division);
+
+	int deleteCookTip(CookTip cookTip);
+
+	int deleteCookOrder(CookOrder cookOrder);
+
+	int deleteCompletePhoto(Media media);
 
 //	int findDivLen(Recipe rcp, HttpSession session);
 //

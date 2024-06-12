@@ -10,7 +10,7 @@ body{
 }
 #searchResultContents{
     width: 1240px;
-    height: 2376px;
+    /* height: 2376px; */
     margin-right: 340px;
     margin-left: 340px;
 }
@@ -30,7 +30,7 @@ body{
 }
 #search-item-shopping {
     width: 1240px;
-    height: 477px;
+    /* height: 477px; */
     padding: 30px 0 60px 0;
     border-bottom: solid #D9D9D9 1px;
 }
@@ -62,33 +62,39 @@ body{
     color: #6D6D6D;
     font-weight: 600;
 }
-.container {
+.product-container {
     margin-top: 10px;
     display: flex; 
     flex-direction: row; 
     gap: 15px;
   }
   .item {
+    width: 236px;
     height: 350px;
-    flex: 1; 
+    /* flex: 1;  */
+  }
+
+  .item:hover {
+    cursor: pointer;
   }
   .item-thumbnail-area{
     margin-top: 15px;
     margin-bottom: 15px;
-    width: 200px;
-    height: 200px;
+    width: 100%;
+    height: 190px;
   }
   .item-thumbnail-area img{
-    margin: 0 5px 0 5px;
+    /* margin: 0 5px 0 5px; */
     object-fit: cover;
-    width: 200px;
-    height: 200px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
   }
   .item-text-area{
     height: 115px;
   }
   .item-title{
-    height: 50px;
+    height: 65px;
   }
   .item-brand{
     font-size: 14px;
@@ -101,7 +107,7 @@ body{
   .item-price{
     height: 70px;
   }
-  .item-origin-price{
+  .item-origin-price, .origin-won{
     height: 25px;
     font-weight: 800;
     text-decoration: line-through;
@@ -122,7 +128,7 @@ body{
 
   #search-item-recipe {
     width: 1240px;
-    height: 935px;
+    /* height: 935px; */
     padding: 30px 0 60px 0;
     border-bottom: solid #D9D9D9 1px;
 }
@@ -145,15 +151,21 @@ body{
 .recipeContainer {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 20px;
 }
 
 .recipe-item {
-    width: calc(25% - 10px); 
+    /* width: calc(25% - 10px);  */
+    width: 295px;
+    height: 306px;
     border: 1px solid #eee;
     border-radius: 5px;
     overflow: hidden;
     background-color: #fff;
+}
+
+.recipe-item:hover {
+    cursor: pointer;
 }
 
 .recipe-content-item {
@@ -161,19 +173,26 @@ body{
     flex-direction: column;
 }
 
-#recipeContentImg img {
+.recipeContentImg {
     width: 100%;
-    height: auto;
+    height: 200px;
 }
 
-#recipeContentInfoBox {
+.recipeContentImg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.recipeContentInfoBox {
     padding: 10px;
 }
 
-#recipeContentTitle{
+.recipeContentTitle{
     text-align: center;
 }
-#recipeContentTitle span {
+.recipeContentTitle span {
     font-size: 16px;
     font-weight: bold;
     color: #333;
@@ -183,31 +202,31 @@ body{
     text-overflow: ellipsis; /* 텍스트가 넘칠 때 "..."으로 대체합니다. */
 }
 
-#recipeContentWriter {
+.recipeContentWriter {
     display: flex;
     align-items: center;
     margin: 5px 0 5px 0 ;
     justify-content: center;
 }
 
-#recipeContentWriterImg img {
+.recipeContentWriterImg img {
     width: 18px;
     height: 18px;
     border-radius: 50%;
 }
 
-#recipeContentWriter span {
+.recipeContentWriter span {
     margin-left: 5px;
     font-size: 14px;
     color: #666;
 }
 
-#recipeContentBoardInfo {
+.recipeContentBoardInfo {
     display: flex;
     justify-content: center;
 }
 
-#recipeContentBoardInfo div {
+.recipeContentBoardInfo div {
     font-size: 12px;
     color: #999;
 }
@@ -223,6 +242,7 @@ body{
 #search-item-common {
     width: 100%;
     margin: 20px 0;
+    padding: 30px 0 60px 0;
 }
 
 #search-item-top {
@@ -247,35 +267,48 @@ body{
 .commonContainer {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 20px;
 }
 
 .common-item {
-    width: calc(25% - 10px); 
-    height: 400px;
+    /* width: calc(25% - 10px); 
+    height: 400px; */
+
+    width: 295px;
+    height: 306px;
     border: 1px solid #eee;
     border-radius: 5px;
     overflow: hidden;
     background-color: #fff;
 }
 
+.common-item:hover {
+    cursor: pointer;
+}
 .common-content-item {
     display: flex;
     flex-direction: column;
 }
 
-#commonContentImg img {
+.commonContentImg {
     width: 100%;
-    height: auto;
+    height: 200px;
 }
 
-#commonContentInfoBox {
+.commonContentImg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.commonContentInfoBox {
     padding: 10px;
 }
-#commonContentTitle{
+.commonContentTitle{
     text-align: center;
 }
-#commonContentTitle span {
+.commonContentTitle span {
     font-size: 16px;
     font-weight: bold;
     color: #333;
@@ -285,36 +318,36 @@ body{
     text-overflow: ellipsis; /* 텍스트가 넘칠 때 "..."으로 대체합니다. */
 }
 
-#commonContentWriter {
+.commonContentWriter {
     display: flex;
     align-items: center;
     margin: 5px 0 5px 0 ;
     justify-content: center;
 }
 
-#commonContentWriterImg img {
+.commonContentWriterImg img {
     width: 18px;
     height: 18px;
     border-radius: 50%;
 }
 
-#commonContentWriter span {
+.commonContentWriter span {
     margin-left: 5px;
     font-size: 14px;
     color: #666;
 }
 
-#commonContentBoardInfo {
+.commonContentBoardInfo {
     display: flex;
     justify-content: space-evenly;
 }
 
-#commonContentBoardInfo div {
+.commonContentBoardInfo div {
     font-size: 12px;
     color: #999;
 }
 
-#commonContentUploadDate {
+.commonContentUploadDate {
     font-size: 12px;
     color: #999;
     text-align: right;

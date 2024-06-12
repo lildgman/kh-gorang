@@ -70,20 +70,20 @@
 			<div id="pagination-area">
 				<div id="pagination">
 					<c:choose>
-						<c:when test="${pi.currentPage ne 1 }">
-							<a href="recipe.me?cpage=${pi.currentPage -1 }&sort=${sort}">&lt;</a>
-						</c:when>
-					</c:choose>
+								<c:when test="${pi.currentPage ne 1 }">
+									<a href="recipe.me?cpage=${pi.currentPage -1 }&sort=${sort}">&lt;</a>
+								</c:when>
+							</c:choose>
 
-					<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
-						<a href="recipe.me?cpage=${p}&sort=${sort}">${p}</a>
-					</c:forEach>
+							<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
+								<a href="recipe.me?cpage=${p}&sort=${sort}">${p}</a>
+							</c:forEach>
 
-					<c:choose>
-						<c:when test="${(pi.currentPage ne pi.maxPage) or (pi.maxPage eq 0) }">
-							<a href="recipe.me?cpage=${pi.currentPage +1 }&sort=${sort}">&gt;</a>
-						</c:when>
-					</c:choose>
+							<c:choose>
+								<c:when test="${pi.currentPage lt pi.maxPage}">
+									<a href="recipe.me?cpage=${pi.currentPage +1 }&sort=${sort}">&gt;</a>
+								</c:when>
+							</c:choose>
 				</div>
 			</div>
 		</div>

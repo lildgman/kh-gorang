@@ -3,8 +3,9 @@ package com.kh.gorang.board.service;
 import java.util.ArrayList;
 
 import com.kh.gorang.board.model.vo.Board;
+
 import com.kh.gorang.board.model.vo.Comment;
-import com.kh.gorang.common.vo.PageInfo;
+import com.kh.gorang.common.model.vo.PageInfo;
 
 public interface BoardService{
 	// 게시글 총 갯수 가져오기

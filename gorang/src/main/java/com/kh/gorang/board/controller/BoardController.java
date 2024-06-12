@@ -17,8 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.board.model.vo.Comment;
 import com.kh.gorang.board.service.BoardService;
+import com.kh.gorang.common.model.vo.PageInfo;
 import com.kh.gorang.common.template.Pagination;
-import com.kh.gorang.common.vo.PageInfo;
 
 import lombok.extern.slf4j.Slf4j;
 @Slf4j

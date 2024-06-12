@@ -67,7 +67,7 @@
             </div>
             <div id="header-bottom-right">
                 <div id="header-bottom-right-searchbar">
-                    <input type="text">
+                    <input type="text" id="search-input">
                     <div id="header-bottom-right-searchbar-logo" onclick="searchResult()">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M9.99951 2.9C13.9211 2.9 17.1 6.07945 17.1 10.001C17.1 13.9204 13.9212 17.1 9.99951 17.1C6.07887 17.1 2.9 13.9205 2.9 10.001C2.9 6.07938 6.07901 2.9 9.99951 2.9Z" stroke="black" stroke-width="1.8"/>

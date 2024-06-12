@@ -7,9 +7,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
-    
+
     <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
-	<link rel="stylesheet" href="${contextPath }/resources/css/default.css">
+    <link rel="stylesheet" href="${contextPath }/resources/css/default.css">
     <link rel="stylesheet" href="${contextPath }/resources/css/shopping/storeList.css">
 </head>
 
@@ -20,9 +20,18 @@
     <!-- 컨텐츠 시작 -->
     <div id="productList-container">
         <!-- 사이드바 -->
-		<jsp:include page="../common/sidebar.jsp" />
+        <jsp:include page="../common/sidebar.jsp" />
         <!-- 카테고리 시작 -->
         <div id="category-area">
+            <div class="store-category" id="category-all">
+                <div class="category-image-area">
+                    <img class="category-image" src="${contextPath }/resources/dummyImg/shopping/all.png" alt="모두">
+                </div>
+                <div class="category-name">
+                    모두
+                </div>
+            </div>
+
             <div class="store-category" id="category-veget">
                 <div class="category-image-area">
                     <img class="category-image" src="${contextPath }/resources/dummyImg/shopping/vaget.png" alt="야채">
@@ -93,9 +102,9 @@
             <!-- 정렬 방식 -->
             <div id="product-order-area">
                 <div id="product-order">
-                    <span class="sort" onclick="orderProductList('${contextPath }/list.po?sort=new')">최신순</span> |
-                    <span class="sort" onclick="orderProductList('${contextPath }/list.po?sort=view')">조회수순</span> |
-                    <span class="sort" onclick="orderProductList('${contextPath }/list.po?sort=scrap')">스크랩순</span>
+                    <span class="sort" onclick="orderProductList('${contextPath }/list.po?category=${category}&sort=new')">최신순</span> |
+                    <span class="sort" onclick="orderProductList('${contextPath }/list.po?category=${category}&sort=view')">조회수순</span> |
+                    <span class="sort" onclick="orderProductList('${contextPath }/list.po?category=${category}&sort=scrap')">스크랩순</span>
                 </div>
             </div>
 
@@ -104,24 +113,26 @@
 
                 <!-- 상품 -->
                 <c:forEach var="product" items="${list }">
-                	<div class="item" onclick="location.href='detail.po?pno=${product.productNo}'">
-	                    <div class="item-thumbnail-area">
-	                        <img class="item-thumbnail" src="${contextPath }/resources/uploadfile/product/productimg/${product.mainImg }" alt="상품1">
-	                    </div>
-	                    <div class="item-text-area">
-	                        <div class="item-title">
-	                            <div class="item-brand">${product.productBrand }</div>
-	                            <div class="item-name">${product.productName }</div>
-	                        </div>
-	                        <div class="item-price">
-	                            <div class="item-origin-price">${product.normalPrice }</div>
-	                            <div>
-	                                <span class="discount-percent">${product.discountPercent }%</span>
-	                                <span class="discounted-price">${product.salePrice }</span>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
+                    <div class="item" onclick="location.href='detail.po?pno=${product.productNo}'">
+                        <div class="item-thumbnail-area">
+                            <img class="item-thumbnail"
+                                src="${contextPath }/resources/uploadfile/product/productimg/${product.mainImg }"
+                                alt="상품1">
+                        </div>
+                        <div class="item-text-area">
+                            <div class="item-title">
+                                <div class="item-brand">${product.productBrand }</div>
+                                <div class="item-name">${product.productName }</div>
+                            </div>
+                            <div class="item-price">
+                                <div class="item-origin-price">${product.normalPrice }</div>
+                                <div>
+                                    <span class="discount-percent">${product.discountPercent }%</span>
+                                    <span class="discounted-price">${product.salePrice }</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </c:forEach>
 
             </div>
@@ -130,22 +141,22 @@
 
         <div id="pagination-area">
             <div id="pagination">
-            
-            	<c:choose>
-            		<c:when test="${pi.currentPage ne 1 }">
-            			<a href="list.po?cpage=${pi.currentPage -1 }">&lt;</a>
-            		</c:when>
-            	</c:choose>
-            	
-            	<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
-            		 <a href="list.po?cpage=${p}">${p}</a>
-            	</c:forEach>
-            	
-            	<c:choose>
-            		<c:when test="${(pi.currentPage ne pi.maxPage) or (pi.maxPage eq 0) }">
-            			<a href="list.po?cpage=${pi.currentPage +1 }">&gt;</a>
-            		</c:when>
-            	</c:choose>
+
+                <c:choose>
+                    <c:when test="${pi.currentPage ne 1 }">
+                        <a href="list.po?content=${content}&cpage=${pi.currentPage -1 }&category=${category}&sort=${sort}">&lt;</a>
+                    </c:when>
+                </c:choose>
+
+                <c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
+                    <a href="list.po?content=${content}&cpage=${p}&category=${category}&sort=${sort}">${p}</a>
+                </c:forEach>
+
+                <c:choose>
+                    <c:when test="${pi.currentPage lt pi.maxPage}">
+                        <a href="list.po?content=${content}&cpage=${pi.currentPage +1 }&category=${category}&sort=${sort}">&gt;</a>
+                    </c:when>
+                </c:choose>
             </div>
         </div>
     </div>
@@ -156,4 +167,5 @@
     <script src="${contextPath }/resources/js/shopping/productList.js"></script>
 
 </body>
+
 </html>

@@ -30,7 +30,7 @@
 				<div id="reply-container">
 					<div class="container-top">
 						<span class="container-top-title">나의 댓글</span>
-						<span class="container-top-more"><a href="">더보기</a></span>
+						<!-- <span class="container-top-more"><a href="">더보기</a></span> -->
 					</div>
 					<div id="reply-area" class="content-area">
 						<div id="reply-area-top">
@@ -75,7 +75,7 @@
 							</c:forEach>
 
 							<c:choose>
-								<c:when test="${(commentPI.currentPage ne commentPI.maxPage) or (commentPI.maxPage eq 0) }">
+								<c:when test="${commentPI.currentPage lt commentPI.maxPage}">
 									<a href="review.me?comment_cpage=${commentPI.currentPage +1 }">&gt;</a>
 								</c:when>
 							</c:choose>
@@ -86,7 +86,7 @@
 				<div id="review-container">
 					<div class="container-top">
 						<span class="container-top-title">나의 후기</span>
-						<span class="container-top-more"><a href="">더보기</a></span>
+						<!-- <span class="container-top-more"><a href="">더보기</a></span> -->
 					</div>
 
 					<div id="reply-area" class="content-area">
@@ -147,7 +147,7 @@
 							</c:forEach>
 
 							<c:choose>
-								<c:when test="${(reviewPI.currentPage ne reviewPI.maxPage) or (reviewPI.maxPage eq 0) }">
+								<c:when test="${reviewPI.currentPage lt reviewPI.maxPage }">
 									<a href="review.me?review_cpage=${reviewPI.currentPage +1 }">&gt;</a>
 								</c:when>
 							</c:choose>
