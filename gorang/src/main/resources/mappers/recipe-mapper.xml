@@ -143,7 +143,7 @@
 	</select>
     
   	
-  	<!-- 레시피 재료분류 추가 -->
+  	<!-- 레시피 분류 추가 -->
 	<select id="insertDivision" parameterType="Division" resultMap="DivisionResult">
 		INSERT INTO DIVISION (
 			div_name,
@@ -155,7 +155,7 @@
 		RETURNING *		
 	</select>
   	
-  	<!-- 레시피 재료묶음 추가 -->
+  	<!-- 레시피 재료 추가 -->
   	<insert id="insertIngredientsInfo" parameterType="IngredientsInfo">
   		INSERT INTO INGREDIENTS_INFO(
   			ingre_name,
@@ -171,7 +171,7 @@
   	</insert>
   	
   	
-  	<!-- 레시피순서 추가 -->
+  	<!-- 레시피 순서 추가 -->
 	<select id="insertCookOrder" parameterType="CookOrder" resultMap="CookOrderResult">
 		INSERT INTO COOK_ORDER (
 			cook_ord_content,
@@ -186,7 +186,7 @@
 		RETURNING *		
 	</select>
 	
-	<!-- 레시피순서 팁 추가 -->
+	<!-- 레시피 팁 추가 -->
   	<insert id="insertCookTip" parameterType="CookTip">
   		INSERT INTO COOK_TIP(
   			cook_tip_content,
@@ -197,10 +197,11 @@
   		)
   	</insert>
   	
+<!-- **********  수정     *********-->
   	<!-- 레시피 수정 -->
 	<update id="updateRecipe"  parameterType="Recipe">
 	  UPDATE RECIPE 
-	    SET
+	  SET
 	        rcp_title = #{recipeTitle},
 	        rcp_content = #{recipeContent},
 	        rcp_main_photo = #{recipeMainPhoto},
@@ -214,14 +215,105 @@
 	    WHERE
         rcp_no = #{recipeNo}
 	</update>
+
+	<!-- 분류 수정 -->
+	<update id="updateDivision"  parameterType="Division">
+  	UPDATE DIVISION
+  	SET
+  	  	div_name =#{divName},
+  	WHERE
+  	rcp_no = #{recipeNo}
+  	</update>
+  	
+  	<!-- 재료 수정 -->
+  	<update id="updateIngredients"  parameterType="IngredientsInfo">
+  	UPDATE INGREDIENTS_INFO
+  	SET
+  	  	ingre_name =#{ingreName},
+  	  	ingre_amount=#{ingreAmount},
+  	  	ingre_unit=#{ingreUnit}
+  	WHERE
+  	div_no = #{divNo}
+  	</update>
+  	
+  	 <!-- 조리 순서 수정 -->
+  	<update id="updateCookOrder"  parameterType="CookOrder">
+  	UPDATE COOK_ORDER
+  	SET
+  	  	cook_ord_content = #{cookOrdContent},
+  	  	cook_ord_photo = #{cookOrdPhoto}
+  	WHERE
+  	rcp_no = #{rcpNo}
+  	</update>
+  	
+  	 <!-- 팁 수정 -->
+  	<update id="updateCooktip"  parameterType="CookTip">
+  	UPDATE COOK_TIP
+  	SET
+  	  	cook_tip_content = #{cookTipContent},
+  	WHERE
+  	cook_ord_no = #{cookOrdNo}
+  	</update>
   	
   	
   	
-  	
+  <!--***************  길이    ****************-->	
   	<!-- 분류 길이(개수)  -->
   	<select id="selectfindDivLen" parameterType="int">
 	  	SELECT COUNT(*) 
 	  	FROM DIVISION 
 	  	WHERE rcp_no = #{recipeNo}
   	</select>
+  	
+  	<!-- 재료 길이  -->
+  	<select id="selectfindIngreLen" parameterType="int">
+	  	SELECT COUNT(*) 
+	  	FROM IN INGREDIENTS_INFO
+	  	WHERE div_no = #{divNo}
+  	</select>
+  	
+  	<!-- 조리순서 길이 -->
+  	<select id="selectfindCoLen" parameterType="int">
+	  	SELECT COUNT(*) 
+	  	FROM IN cook_order
+	  	WHERE rcp_no = #{recipeNo}
+  	</select>
+  	
+  	<!-- 팁 길이 -->
+  	<select id="selectfindCtLen" parameterType="int">
+	  	SELECT COUNT(*) 
+	  	FROM IN cook_tip
+	  	WHERE cook_ord_no = #{cookOrdNo}
+  	</select>
+  	
+  <!--***************  삭제    ****************-->	
+  	<!-- ingredients 행 삭제 -->
+  	 <delete id="deleteIngre" parameterType="IngredientsInfo">
+  	 DELETE FROM INGREDIENTS_INFO
+  	 WHERE ingre_name = #{ingreName}
+          AND ingre_amount = #{ingreAmount}
+          AND ingre_unit = #{ingreUnit}
+          AND div_no = #{divNo}
+  	 </delete>
+  	 
+  	 <!-- division 행 삭제 -->
+  	 <delete id="deleteDivision" parameterType="Division">
+  	 DELETE FROM DIVISION
+  	 WHERE div_name = #{divName}
+          AND rcp_no = #{recipeNo}
+  	 </delete>
+  	 
+  	 <!-- cookTip 행 삭제 -->
+  	 <delete id="deleteCookTip" parameterType="CookTip">
+  	 DELETE FROM COOK_TIP
+  	 WHERE cook_tip_content = #{cookTipContent}
+          AND cook_ord_no = #{cookOrdNo}
+  	 </delete>
+  	 
+  	 <!-- cookOrder 행 삭제 -->
+  	 <delete id="deleteCookOrder" parameterType="CookOrder">
+  	 DELETE FROM COOK_ORDER
+  	 WHERE cook_ord_content = #{cookOrdContent}
+          AND rcp_no = #{recipeNo}
+  	 </delete>
   </mapper>
