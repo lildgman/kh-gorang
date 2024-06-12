@@ -46,7 +46,10 @@
 		ORDER BY RCP_WRITE_DATE DESC
 	</select>
 	
-	
+	<!-- 상품 조회 -->
+     <select id="">
      
+     
+     </select>
      
   </mapper>
