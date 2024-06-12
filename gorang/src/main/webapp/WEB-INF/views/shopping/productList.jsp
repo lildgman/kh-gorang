@@ -102,9 +102,9 @@
             <!-- 정렬 방식 -->
             <div id="product-order-area">
                 <div id="product-order">
-                    <span class="sort" onclick="orderProductList('${contextPath }/list.po?category=${category}&sort=new')">최신순</span> |
-                    <span class="sort" onclick="orderProductList('${contextPath }/list.po?category=${category}&sort=view')">조회수순</span> |
-                    <span class="sort" onclick="orderProductList('${contextPath }/list.po?category=${category}&sort=scrap')">스크랩순</span>
+                    <span class="sort" onclick="orderProductList('${contextPath }/list.po?content=${content}&category=${category}&sort=new')">최신순</span> |
+                    <span class="sort" onclick="orderProductList('${contextPath }/list.po?content=${content}&category=${category}&sort=view')">조회수순</span> |
+                    <span class="sort" onclick="orderProductList('${contextPath }/list.po?content=${content}&category=${category}&sort=scrap')">스크랩순</span>
                 </div>
             </div>
 
