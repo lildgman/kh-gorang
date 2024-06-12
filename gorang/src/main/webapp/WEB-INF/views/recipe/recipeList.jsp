@@ -58,7 +58,7 @@
                         </div>
                     </div>
                     <div id="recipeCountSpan">
-                        <span>총 ${list.size()}개의 레시피</span>
+                        <span>총 ${recipeCount}개의 레시피</span>
                     </div>
                     <div id="recipeContents">
                         <div id="recipeSortings">

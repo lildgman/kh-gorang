@@ -91,14 +91,15 @@
 				R.RCP_TITLE,
 				M.MEMBER_NICKNAME,
 				M.MEMBER_PROFILE
+			ORDER BY R.RCP_WRITE_DATE DESC
 			<if test='sort == "new"'>
-				ORDER BY R.RCP_WRITE_DATE DESC
+				,R.RCP_WRITE_DATE DESC
 			</if>
 			<if test='sort == "view"'>
-				ORDER BY R.RCP_VIEW DESC
+				,R.RCP_VIEW DESC
 			</if>
 			<if test='sort == "scrap"'>
-				ORDER BY SCRAP_COUNT DESC
+				,SCRAP_COUNT DESC
 			</if>
 			
 		) AS SUB
@@ -144,14 +145,15 @@
 			R.RCP_TITLE,
 			M.MEMBER_NICKNAME,
 			M.MEMBER_PROFILE
+		ORDER BY R.RCP_WRITE_DATE DESC
 		<if test='sort == "new"'>
-			ORDER BY R.RCP_WRITE_DATE DESC
+			,R.RCP_WRITE_DATE DESC
 		</if>
 		<if test='sort == "view"'>
-			ORDER BY R.RCP_VIEW DESC
+			,R.RCP_VIEW DESC
 		</if>
 		<if test='sort == "scrap"'>
-			ORDER BY SCRAP_COUNT DESC
+			,SCRAP_COUNT DESC
 		</if>
      </select>
 	
