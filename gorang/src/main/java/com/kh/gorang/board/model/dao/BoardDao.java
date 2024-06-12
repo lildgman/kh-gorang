@@ -54,13 +54,22 @@ public class BoardDao{
 	public void increaseViewCount(SqlSessionTemplate sqlSession, int boardNo) {
         sqlSession.update("boardMapper.increaseViewCount", boardNo);
     }
-	
-	public int insertComment(SqlSessionTemplate sqlSession, Comment comment) {
-		return sqlSession.insert("commentMapper.insertComment", comment);
-	}
-	
-	// MemberNickname을 가져오는 메서드 추가
 	public String getMemberNickname(SqlSessionTemplate sqlSession, int memberNo) {
 		return sqlSession.selectOne("boardMapper.getMemberNickname", memberNo);
 	}
+	
+	public ArrayList<Comment> selectCommentList(SqlSessionTemplate sqlSession, int boardNo, PageInfo pi) {
+        int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+        RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+        return (ArrayList) sqlSession.selectList("commentMapper.selectCommentList", boardNo, rowBounds);
+    }
+
+    public int insertComment(SqlSessionTemplate sqlSession, Comment comment) {
+        return sqlSession.insert("commentMapper.insertComment", comment);
+    }
+
+    public int deleteComment(SqlSessionTemplate sqlSession, int commentNo) {
+        return sqlSession.delete("commentMapper.deleteComment", commentNo);
+    }
+	
 }

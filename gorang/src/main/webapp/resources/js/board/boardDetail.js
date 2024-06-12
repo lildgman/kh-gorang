@@ -28,3 +28,22 @@ $(document).ready(function () {
         }
     }
 });
+function writeComment() {
+    var commentContent = document.getElementById("commentContent").value;
+    
+    // AJAX를 이용하여 서버로 댓글 내용을 전송
+    $.ajax({
+        type: "POST",
+        url: "insertComment.bo", // 서버의 컨트롤러 매핑 주소
+        data: { commentContent: commentContent }, // 댓글 내용을 전달
+        success: function(response) {
+            // 서버로부터의 응답 처리
+            // 여기서 필요한 작업을 수행 (예: 댓글 목록 갱신 등)
+        },
+        error: function(xhr, status, error) {
+            // 오류 처리
+            console.error(xhr.responseText);
+        }
+    });
+}
+

@@ -20,8 +20,7 @@
             <main id="board-detail">
                 <div id="boardDetailContents">
                     <div id="writerProfile">
-                        <div id="profileImg"><img
-                                src="member.profile"></div>
+                        <div id="profileImg"><img src="member.profile"></div>
                         <div id="profileInfo">
                             <div id="profileId"><span>${board.memberNickname}</span></div>
                             <div id="boardCount">
@@ -37,7 +36,9 @@
                     <div id="contentDetail">
                         <div id="contentDetailWrite"><span>${board.boardContent}</span></div>
                         <div id="contentDetailImg">
-                            <img src="${pageContext.request.contextPath}/resources/uploadfile/board/boardMainContentFile/${board.boardThumbnail}" alt="썸네일"></div>
+                            <img src="${pageContext.request.contextPath}/resources/uploadfile/board/boardMainContentFile/${board.boardThumbnail}"
+                                alt="썸네일">
+                        </div>
                     </div>
                     <div id="contentService">
                         <div id="tagWrapper">
@@ -105,7 +106,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <script>
                                 // Get the modal
                                 var modal = document.getElementById("myModal");
@@ -134,91 +134,66 @@
                                 }
                             </script>
                         </div>
-
-
                     </div>
                     <div id="replyCountWrap">
                         <div id="replyCount">댓글
                             <span>(2)</span>
                         </div>
                     </div>
-                    <div id="replyWriteWrap">
-                        <div id="replyWriterInfo">
-                            <img
-                                src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png">
+                    <form action="insertComment.bo" method="post">
+                        <div id="replyWriteWrap">
+                            <div id="replyWriterInfo">
+                                <img
+                                    src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png">
+                            </div>
+                            <c:choose>
+                                <c:when test="${empty loginUser}">
+                                    <textarea class="reply-input" rows="3" placeholder="로그인 후 이용 가능합니다." disabled
+                                        style="background-color: transparent;"></textarea>
+                                    <button class="reply-button" disabled>댓글 쓰기</button>
+                                </c:when>
+                                <c:otherwise>
+                                    <textarea id="commentContent" rows="3" placeholder="댓글 내용을 적어주세요."></textarea>
+                                    <button class="reply-button" onclick="writeComment()">댓글 쓰기</button>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
-                        
-                        <c:choose>
-                            <c:when test="${empty loginUser}">
-                                <textarea class="reply-input" rows="3" placeholder="로그인 후 이용 가능합니다." disabled style="background-color: transparent;"></textarea>
-                                <button class="reply-button" disabled>댓글 쓰기</button>
-                            </c:when>
-                            <c:otherwise>
-                                <textarea id="commentContent" class="reply-input" rows="3" placeholder="댓글 내용을 적어주세요. 적절하지 못한 댓글은 신고 사유가 됩니다."></textarea>
-                                <button class="reply-button">댓글 쓰기</button>
-                            </c:otherwise>
-                        </c:choose>
-                    </div>
+                    </form>
                     <div id="ReplyArea">
-                        <div id="userReplyWrap">
-                            <div id="userReplyWriterInfo">
-                                <div id="userReplyWriterImgWrap">
-                                    <img
-                                        src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png">
-                                </div>
-                                <div id="userReplyContentWrap">
-                                    <div id="userReplyWriterDetail">
-                                        <div id="userReplyWriterDetailId">유저아이디</div>
-                                        <div id="userReplyWriterDetailDate"><span>2024-04-22</span></div>
+                        <c:forEach var="comment" items="${list}">
+                            <div id="userReplyWrap">
+                                <div id="userReplyWriterInfo">
+                                    <div id="userReplyWriterImgWrap">
+                                        <img src=${comment.memberProfile}>
                                     </div>
-                                    <div id="userReplyContent">
-                                        <span>오늘점심은 제육이에요</span>
+                                    <div id="userReplyContentWrap">
+                                        <div id="userReplyWriterDetail">
+                                            <div id="userReplyWriterDetailId">${comment.memberNickname}</div>
+                                            <div id="userReplyWriterDetailDate"><span>${comment.commentDate}</span></div>
+                                        </div>
+                                        <div id="userReplyContent">
+                                            <span>${comment.commentContent}</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div id="ReplyService">
-                                <div id="ReplyReport">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
-                                        viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M12 9v3.75m0-10.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.25-8.25-3.286Zm0 13.036h.008v.008H12v-.008Z" />
-                                    </svg>
-                                    <span>신고하기</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="userReplyWrap">
-                            <div id="userReplyWriterInfo">
-                                <div id="userReplyWriterImgWrap">
-                                    <img
-                                        src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png">
-                                </div>
-                                <div id="userReplyContentWrap">
-                                    <div id="userReplyWriterDetail">
-                                        <div id="userReplyWriterDetailId">유저아이디</div>
-                                        <div id="userReplyWriterDetailDate"><span>2024-04-22</span></div>
-                                    </div>
-                                    <div id="userReplyContent">
-                                        <span>오늘점심은 제육이에요 </span>
+                                <div id="ReplyService">
+                                    <div id="ReplyReport">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+                                            viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M12 9v3.75m0-10.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.25-8.25-3.286Zm0 13.036h.008v.008H12v-.008Z" />
+                                        </svg>
+                                        <span>신고하기</span>
                                     </div>
                                 </div>
                             </div>
-                            <div id="ReplyService">
-                                <div id="ReplyReport">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
-                                        viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M12 9v3.75m0-10.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.25-8.25-3.286Zm0 13.036h.008v.008H12v-.008Z" />
-                                    </svg>
-                                    <span>신고하기</span>
-                                </div>
-                            </div>
-                        </div>
+                        </c:forEach>
                     </div>
                 </div>
                 <div id="boardMainReturnWrap">
                     <div id="ReturnBtnWrap">
-                        <button type="button" onclick="moveLocation('${pageContext.request.contextPath}/main.bo')">목록으로</button>
+                        <button type="button"
+                            onclick="moveLocation('${pageContext.request.contextPath}/main.bo')">목록으로</button>
                     </div>
                 </div>
             </main>
