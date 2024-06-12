@@ -126,53 +126,101 @@ public class RecipeServiceImpl implements RecipeService{
 		int rcpNo = rcp.getRecipeNo();
 		finalResult  = recipeDao.updateRecipe(sqlSession,rcp);  //레시피 수정
 		
-		//재료정보
+		int divAfterLen =recipeInsertDTO.getRcpDivList().size(); //새로가져온 division길이
+		
+		int d = 0, i = 0, o = 0, t = 0, c = 0; //반복문 인덱스 (분류,재료,순서,팁,완료사진 순)
+		
+		//분류 및 재료
 		int divBeforeLen=recipeDao.selectfindDivLen(sqlSession,rcp.getRecipeNo()); //recipe에서 분류 수정 전 길이
-		int i=0;
-		if(divBeforeLen>recipeInsertDTO.getRcpDivList().size()) {					
-			for(Division division : recipeInsertDTO.getRcpDivList()) {
-				if(division.getUpdateDivStatus() !="U")  //수정에서 추가가 안된것
-					recipeDao.updateDivision(sqlSession,division.getDivNo());
-				else
-					recipeDao.insertDivision(sqlSession, division, rcp.getRecipeNo()); 
-				//재료 속성
-				for(IngredientsInfo ingre :division.getIngredientsInfoList()) {
-					if(ingre.getUpdateIngreStatus()!="U") //수정에서 추가가 안된것
-						recipeDao.updateIngredientsInfo(sqlSession,ingre.getIngreNo());
-					else 	
-						recipeDao.insertIngredientsInfo(sqlSession, ingre,division.getDivNo()); 
+		for (Division division : recipeInsertDTO.getRcpDivList()) {
+			int divNum = division.getDivNo();
+			if (d <= divBeforeLen) { //가져온 정보들이 길이가 더 작으면 update만 시킴
+				recipeDao.updateDivision(sqlSession, division);
+				int IngreBeforeLen = recipeDao.selectfindIngreLen(sqlSession, divNum); // 그 전 길이
+				int ingreAfterLen = division.getIngredientsInfoList().size(); // 새로 가져온 ingre길이
+				for (IngredientsInfo ingre : division.getIngredientsInfoList()) {
+					if (i <= IngreBeforeLen) {
+						recipeDao.updateIngredients(sqlSession, ingre);
+					}else {
+						recipeDao.insertIngredientsInfo(sqlSession, ingre,divNum);
+					}
+					i++;
+				}
+			}else {  //그 이후는 전부 insert시킴
+				recipeDao.insertDivision(sqlSession, division, rcpNo);
+				for (IngredientsInfo ingre : division.getIngredientsInfoList()) {
+					recipeDao.insertIngredientsInfo(sqlSession, ingre,divNum);
 				}
 			}
+			d++;
+		}
+					
+		//조리순서
+		int ordBeforeLen=recipeDao.selectfindCoLen(sqlSession,rcp.getRecipeNo()); 
+		for (CookOrder co : recipeInsertDTO.getCookOrderList()) {
+			int coNum = co.getCookOrdNo();
+			if (o <= ordBeforeLen) { //가져온 정보들이 길이가 더 작으면 update만 시킴
+				recipeDao.updateCookOrder(sqlSession, co);
+				int tipBeforeLen = recipeDao.selectfindCtLen(sqlSession, co); // 그 전 길이
+				int tipAfterLen = co.getCookTipList().size(); // 새로 가져온 길이
+				for (CookTip ct : co.getCookTipList()) {
+					if (t <= tipBeforeLen) {
+						recipeDao.updateCooktip(sqlSession, ct);
+					}else {
+						recipeDao.insertCookTip(sqlSession, ct,coNum);
+					}
+					t++;
+				}
+			}else {  //그 이후는 전부 insert시킴
+				recipeDao.insertCookOrder(sqlSession, co, rcpNo);
+				for (CookTip ct : co.getCookTipList()) {
+					recipeDao.insertCookTip(sqlSession, ct,coNum);
+				}
+			}
+			t++;
 		}
 		
-			
-		//조리순서
-		for(CookOrder cookOrder : recipeInsertDTO.getCookOrderList()) {	
-			int cookOrderNum =recipeDao.insertCookOrder(sqlSession, cookOrder, rcp.getRecipeNo()).getCookOrdNo();
-			for(CookTip cTip : cookOrder.getCookTipList()) {
-				System.out.println("서비스 null확인:"+cTip);
-				int result2 = recipeDao.insertCookTip(sqlSession, cTip, cookOrderNum);
-				System.out.println("result2:"+result2);
-				if (result2 <= 0) {
-                    finalResult = 0; // 삽입 실패 시 -1로 설정
-                }
-			}		
-		}		
-		//레시피완성 사진
+		// 레시피완성 사진
+		int mdBeforeLen = recipeDao.selectfindmdLen(sqlSession, rcp.getRecipeNo());
 		for (Media md : recipeInsertDTO.getCompleteFoodPhoto()) {
-	        if (!md.getOriginName().equals("")) {
-	        	md.setChangeName(md.getOriginName());
-	        	md.setMediaType(1);
-	        	md.setMediaKind(1);
-	        	md.setFilePath("/resources/uploadfile/recipe/recipefinal");
-	        	int result2 = recipeDao.insertRecipeMedia(sqlSession,md,rcp.getRecipeNo());
-	        	if (result2 <= 0) {
-                    finalResult = 0; // 삽입 실패 시 -1로 설정
-                }        	
-	        }
-	    }
+			md.setChangeName(md.getOriginName());
+			md.setMediaType(1);
+			md.setMediaKind(1);
+			md.setFilePath("/resources/uploadfile/recipe/recipefinal");
+			if (c <= mdBeforeLen) {
+				recipeDao.updateRecipeMedia(sqlSession,md);
+			}else {
+				recipeDao.insertRecipeMedia(sqlSession, md, rcpNo);
+			}
+		}
 
 		return finalResult;
+	}
+	
+	//재료 삭제
+	@Override
+	public int deleteIngre(IngredientsInfo ingredientsInfo) {
+		return recipeDao.deleteIngre(sqlSession,ingredientsInfo);
+	}
+	//분류 삭제
+	@Override
+	public int deleteDivision(Division division) {
+		return recipeDao.deleteDivision(sqlSession,division);
+	}
+	//팁 삭제
+	@Override
+	public int deleteCookTip(CookTip cookTip) {
+		return recipeDao.deleteCookTip(sqlSession,cookTip);
+	}
+	//조리 순서 삭제
+	@Override
+	public int deleteCookOrder(CookOrder cookOrder) {
+		return recipeDao.deleteCookOrder(sqlSession,cookOrder);
+	}
+
+	@Override
+	public int deleteCompletePhoto(Media media) {
+		return recipeDao.deleteCompletePhoto(sqlSession,media);
 	}
 
 
