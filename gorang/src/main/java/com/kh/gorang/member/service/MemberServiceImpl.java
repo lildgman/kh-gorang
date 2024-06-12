@@ -81,7 +81,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	// 장바구니 삭제
-
+	@Transactional(rollbackFor = {Exception.class})
 	@Override
 	public int deleteProductCart(int memberNo, List<Integer> optListForDelete) {
 		// TODO Auto-generated method stub

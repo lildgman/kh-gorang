@@ -18,6 +18,8 @@ public class Refrigerator {
 	private int refNo;
 	// 참조 회원 번호
 	private int refMemberNo;
+	// 냉장고 식재료명
+	private String refName;
 	// 썸네일
 	private String refThumbnail;
 	private int refFresh;

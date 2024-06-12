@@ -41,15 +41,6 @@
                             <div>
                                 <span>레시피를 추천받아보세요!</span>
                             </div>
-                            <!-- <div class="recommend-recipe-best-img">
-                        <img src="${contextPath}/resources/images/member-img/Img (1).png">
-                    </div>
-                    <div class="recommend-recipe-best-img">
-                        <img src="${contextPath}/resources/images/member-img/Img.png">
-                    </div>
-                    <div class="recommend-recipe-best-img">
-                        <img src="${contextPath}/resources/images/member-img/Rectangle 18311.png">
-                    </div> -->
                         </div>
                     </div>
 
@@ -69,77 +60,60 @@
 
                         <!-- 나의 냉장고 식재료내역 -->
                         <div id="myRefrigerator-igre-area">
-                            <div id="myRefrigerator-igre-table-area">
-                                <table>
-                                    <thead id="myRefrigerator-tb">
-                                        <tr class="myRefrigerator-tr">
-                                            <td>상품</td>
-                                            <td>신선도</td>
-                                            <td>소비기한</td>
-                                            <td>냉장고 입고일</td>
-                                            <td>개수</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class=".tr-block">
-                                            <td class="myRefrigerator-tr">
-                                                <img src="${contextPath}/resources/images/member-img/Rectangle 18311 (2).png"
-                                                    alt=""> 참외
-                                            </td>
-                                            <td class="flesh-area">
-                                                <div class="flesh-status" style="background-color:#7ADC66 ;"></div> 신선
-                                            </td> <!--나중에 class id로 변경-->
-                                            <td>2024.08.05</td>
-                                            <td>2024.02.12</td>
-                                            <td>5</td>
-                                            <td class="myRefrigerator-last-td">삭제</td>
-                                        </tr>
-                                        <tr class=".tr-block">
-                                            <td class="myRefrigerator-tr">
-                                                <img src="${contextPath}/resources/images/member-img/Rectangle 18311 (3).png"
-                                                    alt=""> 브로콜리
-                                            </td>
-                                            <td class="flesh-area">
-                                                <div class="flesh-status " style="background-color:#EE6677 ;"> </div>위험
-                                            </td>
-                                            <td>2024.05.10</td>
-                                            <td>2024.03.12</td>
-                                            <td>5</td>
-                                            <td class="myRefrigerator-last-td ">삭제</td>
-                                        </tr>
-                                        <tr class=".tr-block">
-                                            <td class="myRefrigerator-tr">
-                                                <img src="${contextPath}/resources/images/member-img/Rectangle 18311 (4).png"
-                                                    alt=""> 제주 흑돼지 삼겹살
-                                            </td>
-                                            <td class="flesh-area">
-                                                <div class="flesh-status" style="background-color:#FFE188 ;"> </div>보통
-                                            </td>
-                                            <td>2024.05.31</td>
-                                            <td>2024.04.10</td>
-                                            <td>3</td>
-                                            <td class="myRefrigerator-last-td">삭제</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            <c:choose>
+                                <c:when test="${empty refriIngres}">
+                                    <span>냉장고가 비어있습니다.</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <div id="myRefrigerator-igre-table-area">
+                                        <table>
+                                            <thead id="myRefrigerator-tb">
+                                                <tr class="myRefrigerator-tr">
+                                                    <td style="width: 300px;">상품</td>
+                                                    <td>신선도</td>
+                                                    <td>소비기한</td>
+                                                    <td>냉장고 입고일</td>
+                                                    <td>개수</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                               <c:forEach var="refriIngre" items="${refriIngres}">
+                                                    <tr class=".tr-block">
+                                                        <td class="myRefrigerator-tr">
+                                                            <img src="${contextPath}/resources/images/member-img/Rectangle 18311 (2).png"
+                                                                alt=""> ${refriIngre.refName}
+                                                        </td>
+                                                        <td class="flesh-area">
+                                                            <div class="flesh-status" style="background-color:#7ADC66 ;"></div>
+                                                            신선
+                                                        </td> <!--나중에 class id로 변경-->
+                                                        <td>${refriIngre.refConsumptionDate}</td>
+                                                        <td>${refriIngre.refInputDate}</td>
+                                                        <td>${refriIngre.refCount}</td>
+                                                        <td class="myRefrigerator-last-td">삭제</td>
+                                                    </tr>
+                                               </c:forEach>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                     <!-- 페이징 바 -->
                     <div id="pagination-area">
                         <div id="pagination">
-                            <a href="#">&lt;</a>
-                            <a href="#">1</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#">4</a>
-                            <a href="#">5</a>
-                            <a href="#">6</a>
-                            <a href="#">7</a>
-                            <a href="#">8</a>
-                            <a href="#">9</a>
-                            <a href="#">10</a>
-                            <a href="#">&gt;</a>
+								<c:if test="${pi.currentPage ne 1 }">
+									<a href="">&lt;</a>
+								</c:if>
+
+							<c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
+								<a href="">${p}</a>
+							</c:forEach>
+
+								<c:if test="${pi.currentPage lt pi.maxPage}">
+									<a href="">&gt;</a>
+								</c:if>
                         </div>
                     </div>
 
@@ -198,7 +172,7 @@
                             </div>
 
                             <div id="list-igre-area2">
-                                <button id="selectAll-btn2" onclick="addSelectAll()">모두선택</button>
+                                <span>&#8251;입력사항 미기입 시 소비기한은 7일 후, 입고일은 금일, 갯수는 1개로 자동 기입됩니다.</span>
                                 <button id="addAll-btn2">추 가</button>
                             </div>
 
@@ -206,14 +180,15 @@
                                 <table id="overflow-table">
                                     <thead>
                                         <tr id="list-title2">
-                                            <th style="width: 40px; height: 100%;"><input type="checkbox" id="modal-ingre-checkBox"></th>
+                                            <th style="width: 40px; height: 100%;"><input type="checkbox"
+                                                    id="modal-ingre-checkBox"></th>
                                             <th id="add-list-title1" style="width: 60px;">번호</th>
                                             <th id="add-list-title2" style="width: 200px;">식품명</th>
                                             <th style="width: 100px;">대분류</th>
-                                            <th id="add-list-title3" style="width: 120px;">영양성분</th>
-                                            <th id="add-list-title4" style="width: 220px;">소비기한</th>
-                                            <th id="add-list-title4" style="width: 220px;">냉장고 입고일</th>
-                                            <th id="add-list-title4" style="width: 60px;">개수</th>
+                                            <th style="width: 70px;">영양성분</th>
+                                            <th style="width: 160px;">소비기한</th>
+                                            <th style="width: 160px;">냉장고 입고일</th>
+                                            <th style="width: 60px;">갯수</th>
                                         </tr>
                                     </thead>
                                     <tbody id="modal-ingre-tbody">

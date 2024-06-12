@@ -1,12 +1,75 @@
 document.addEventListener("DOMContentLoaded", function () {
 
 
+    // getRefriInfoByAjax();
+
+    // =================================== 나의 냉장고 식재료 테이블 관련 메소드 ================================
+    function getRefriInfoByAjax(data){
+        if(!data){
+            data = 1;
+        }
+
+        $.ajax({
+            url: "selectRefriAjax.me",
+            data: data,
+            success: function(res){
+                console.log(res);
+                // callback(res);
+            },
+            error: function(){
+                console.log("송신 실패");
+            }
+        })
+    }
+
+    function drawRefri(res){
+        const refriIngreArea = document.querySelector("#myRefrigerator-igre-area");
+        refriIngreArea.innerHTML = ""
+        // 데이터가 없을 때 예외 처리
+        if(!res){
+            innerHTML = "냉장고가 비어있습니다.";
+        } else {
+            const pi = res.pi;
+            const ingres = res.refriIngres;
+
+            const refriIngreTableArea = document.createElement('div');
+            refriIngreTableArea.setAttribute("id", "myRefrigerator-igre-table-area");
+            refriIngreArea.appendChild(refriIngreTableArea);
+            // 테이블
+            const refriIngreTable = document.createElement('table');
+            refriIngreTableArea.appendChild(refriIngreTable);
+            // thead
+            const refriIngreTableThead = document.createElement('thead');
+            refriIngreTableThead.setAttribute("id", "myRefrigerator-tb");
+            refriIngreTable.appendChild(refriIngreTableThead);
+            // thead > tr
+            const refriIngreTableTheadTr = document.createElement('tr');
+            refriIngreTableTheadTr.setAttribute("class", "myRefrigerator-tr");
+            refriIngreTableThead.appendChild(refriIngreTableTheadTr);
+
+            refriIngreTableTheadTr.innerHTML = `<td style="width: 300px;">상품</td>
+                                                <td>신선도</td>
+                                                <td>소비기한</td>
+                                                <td>냉장고 입고일</td>
+                                                <td>개수</td>`
+            
+            
+
+
+
+        }
+
+        
+
+
+
+
+
+    }
     
+    // =================================== 식재료 추가 모달 관련 메소드 ==========================================
 
-
-
-    // =================================== 식재료 추가 모달 관련 코드 ==========================================
-    
+    // ======== 이벤트 리스너
 
     document.querySelector("#viewModalBtn-two").addEventListener("click", function () {
         viewModal2();
@@ -18,30 +81,24 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 
 
-        // 이벤트 위임을 사용하여 동적으로 생성된 요소에도 이벤트 리스너를 적용
+    // 이벤트 위임을 사용하여 동적으로 생성된 요소에도 이벤트 리스너를 적용
     document.querySelector("#modal-ingre-tbody").addEventListener("change", function (event) {
         if (event.target.type === 'checkbox') {
             const checkbox = event.target;
             const tr = checkbox.closest("tr");
             console.log("체크됨");
             if (checkbox.checked) {
-                tr.querySelectorAll(".direct-input-label").forEach(function(el){
-                    el.style.display = 'inline';
-                })
-                tr.querySelectorAll(".direct-input").forEach(function(el){
+                tr.querySelectorAll(".direct-input").forEach(function (el) {
                     el.style.display = 'inline';
                 })
             } else {
-                tr.querySelectorAll(".direct-input-label").forEach(function(el){
-                    el.style.display = 'none';
-                })
-                tr.querySelectorAll(".direct-input").forEach(function(el){
+                tr.querySelectorAll(".direct-input").forEach(function (el) {
                     el.style.display = 'none';
                 })
             }
         }
     });
-    
+
     // 모두 체크
     const ingreModalAllCheck = document.querySelector("#modal-ingre-checkBox");
     ingreModalAllCheck.addEventListener("change", function () {
@@ -49,13 +106,20 @@ document.addEventListener("DOMContentLoaded", function () {
             let checkbox = ev.querySelector(".td-checkbox input[type='checkbox']");
             checkbox.checked = ingreModalAllCheck.checked;
             if (checkbox.checked) {
-                ev.querySelector(".direct-input-label").style.display = 'inline';
-                ev.querySelector(".direct-input").style.display = 'inline';
+                ev.querySelectorAll(".direct-input").forEach(function (el) {
+                    el.style.display = 'inline';
+                })
             } else {
-                ev.querySelector(".direct-input-label").style.display = 'none';
-                ev.querySelector(".direct-input").style.display = 'none';
+                ev.querySelectorAll(".direct-input").forEach(function (el) {
+                    el.style.display = 'none';
+                })
             }
         })
+    })
+
+    // 식재료 추가 모달 내 추가하기 버튼 클릭 시 데이터 송신하는 이벤트
+    document.querySelector("#addAll-btn2").addEventListener("click", function () {
+        sendIngreByAjax();
     })
 
     // 식재료 추가하기 모달창
@@ -67,180 +131,163 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-      // 모달 식재료 추가 검색창
-      function findSearch2() {
+    // 모달 식재료 추가 검색창
+    function findSearch2() {
         getFoodAndNutriAjax();
     }
 
 
-        // 공공데이터 가져오는 ajax
-        function getFoodAndNutriAjax() {
-            const foodNameVl = document.querySelector("#refri-input-foodName").value;
-            const makerVl = document.querySelector("#refri-input-maker").value;
-    
-            $.ajax({
-                url: "food.me",
-                data: {
-                    foodName: foodNameVl,
-                    makerName: makerVl
-                },
-                success: function (res) {
-                    console.log(res);
-                    let foodArr = res.body.items
-                    foodArr = foodArr.map(f => {
-                        let food = {}
-                        for (let key in f) {
-                            food[key.trim()] = f[key];
-                        }
-                        return food;
-                    })
-    
-                    console.log(foodArr)
-                    drawFoodAndNutri(foodArr);
-                },
-                error: function () {
-                    console.log("송신 실패");
-                }
-            })
-        }
-    
-        // getFoodAndNutriAjax 로 받아온 데이터를 모달에 뿌려주는 메소드
-        function drawFoodAndNutri(foodArr) {
-            const ingreModalTbody = document.querySelector("#modal-ingre-tbody");
-            ingreModalTbody.innerHTML = "";
-    
-            let num = 0;
-    
-            for (let food of foodArr) {
-                num++;
-                constructFoodModalTable(ingreModalTbody, num, food);
-            }
-        }
-    
-        /** 식재료 추가 모달의 테이블 만들어주는 메소드 */
-        function constructFoodModalTable(ingreModalTbody, num, food) {
-            const nutri = {
-                servingSize: food.SERVING_SIZE,
-                kcal: food.AMT_NUM1,
-                protein: food.AMT_NUM3,
-                fat: food.AMT_NUM4,
-                saluratedFat: food.AMT_NUM23,
-                transFat: food.AMT_NUM24,
-                carb: food.AMT_NUM6,
-                sugar: food.AMT_NUM7,
-                sodium: food.AMT_NUM13,
-                cholesterol: food.AMT_NUM22
-            };
-    
-            const foodTabletr = document.createElement('tr');
-            foodTabletr.setAttribute("class", "overflow-tr");
-            ingreModalTbody.appendChild(foodTabletr);
-            // 체크박스
-            const foodTableTdCk = document.createElement('td');
-            foodTableTdCk.setAttribute("class", "td-checkbox");
-            foodTabletr.appendChild(foodTableTdCk);
-    
-            const foodTableTdCkInput = document.createElement('input');
-            foodTableTdCk.appendChild(foodTableTdCkInput);
-            foodTableTdCkInput.setAttribute("class", "row-checkbox");
-            foodTableTdCkInput.setAttribute("type", "checkbox");
-            // 번호
-            const foodTableTd1 = document.createElement('td');
-            foodTableTd1.setAttribute("class", "fixed-width1");
-            foodTableTd1.innerHTML = num;
-            foodTabletr.appendChild(foodTableTd1);
-            // 식품명
-            const foodTableTd2 = document.createElement('td');
-            foodTableTd2.setAttribute("class", "fixed-width2");
-            foodTableTd2.innerHTML = food.FOOD_NM_KR;
-            foodTabletr.appendChild(foodTableTd2);
-            // 대분류
-            const foodTd5 = document.createElement('td');
-            foodTabletr.appendChild(foodTd5);
-            foodTd5.setAttribute("class", "fixed-width5");
-            foodTd5.innerHTML = food.FOOD_CAT1_NM;
-            // 영양성분
-            const foodTableTd3 = document.createElement('td');
-            foodTableTd3.setAttribute("class", "fixed-width3");
-            foodTabletr.appendChild(foodTableTd3);
-    
-            const nutriBtn = document.createElement('button');
-            foodTableTd3.appendChild(nutriBtn);
-            nutriBtn.setAttribute("class", "seek-ingre-btn");
-            nutriBtn.setAttribute("data-toggle", "modal");
-            nutriBtn.setAttribute("data-target", "#nutritionModal");
-            nutriBtn.innerHTML = "보기";
-            // 소비기한
-            const foodTableTd4 = document.createElement('td');
-            foodTableTd4.setAttribute("class", "fixed-width4");
-            foodTableTd4.setAttribute("style", "text-align: left; font-size: 12px");
-            foodTabletr.appendChild(foodTableTd4);
-    
-            const foodTd4Span = document.createElement('span');
-            foodTableTd4.appendChild(foodTd4Span);
-            foodTd4Span.setAttribute("class", "direct-input-label");
-            foodTd4Span.setAttribute("style", "display: none;");
-            foodTd4Span.innerHTML = "직접입력 : ";
-    
-            const foodTd4Input = document.createElement('input');
-            foodTableTd4.appendChild(foodTd4Input);
-            foodTd4Input.setAttribute("class", "direct-input");
-            foodTd4Input.setAttribute("type", "text");
-            foodTd4Input.setAttribute("name", "refConsumptionDate");
-            foodTd4Input.setAttribute("placeholder", "예시) 20240611");
-            foodTd4Input.setAttribute("style", "display: none;");
-            
-            // 입고일
-            const foodTableTd5 = document.createElement('td');
-            foodTableTd5.setAttribute("class", "fixed-width4");
-            foodTableTd5.setAttribute("style", "text-align: left; font-size: 12px");
-            foodTabletr.appendChild(foodTableTd5);
-    
-            const foodTd5Span = document.createElement('span');
-            foodTableTd5.appendChild(foodTd5Span);
-            foodTd5Span.setAttribute("class", "direct-input-label");
-            foodTd5Span.setAttribute("style", "display: none;");
-            foodTd5Span.innerHTML = "직접입력 : ";
-    
-            const foodTd5Input = document.createElement('input');
-            foodTableTd5.appendChild(foodTd5Input);
-            foodTd5Input.setAttribute("class", "direct-input");
-            foodTd5Input.setAttribute("type", "text");
-            foodTd5Input.setAttribute("name", "refInputDate");
-            foodTd5Input.setAttribute("placeholder", "예시) 20240611");
-            foodTd5Input.setAttribute("style", "display: none;");
-            
-            // 갯수
-            const foodTableTd6 = document.createElement('td');
-            foodTableTd6.setAttribute("class", "fixed-width4");
-            foodTableTd6.setAttribute("style", "text-align: left; font-size: 12px");
-            foodTabletr.appendChild(foodTableTd6);
-    
-            const foodTd6Span = document.createElement('span');
-            foodTableTd6.appendChild(foodTd6Span);
-            foodTd6Span.setAttribute("class", "direct-input-label");
-            foodTd6Span.setAttribute("style", "display: none;");
-            foodTd6Span.innerHTML = "직접입력 : ";
-    
-            const foodTd6Input = document.createElement('input');
-            foodTableTd6.appendChild(foodTd6Input);
-            foodTd6Input.setAttribute("class", "direct-input");
-            foodTd6Input.setAttribute("type", "text");
-            foodTd6Input.setAttribute("name", "refCount");
-            foodTd6Input.setAttribute("style", "display: none;");
+    // 공공데이터 가져오는 ajax
+    function getFoodAndNutriAjax() {
+        const foodNameVl = document.querySelector("#refri-input-foodName").value;
+        const makerVl = document.querySelector("#refri-input-maker").value;
 
-            nutriBtn.addEventListener("click", function () {
-                constructNutriModal(nutri);
-            });
+        $.ajax({
+            url: "food.me",
+            data: {
+                foodName: foodNameVl,
+                makerName: makerVl
+            },
+            success: function (res) {
+                console.log(res);
+                let foodArr = res.body.items
+                foodArr = foodArr.map(f => {
+                    let food = {}
+                    for (let key in f) {
+                        food[key.trim()] = f[key];
+                    }
+                    return food;
+                })
+
+                console.log(foodArr)
+                drawFoodAndNutri(foodArr);
+            },
+            error: function () {
+                console.log("송신 실패");
+            }
+        })
+    }
+
+    // getFoodAndNutriAjax 로 받아온 데이터를 모달에 뿌려주는 메소드
+    function drawFoodAndNutri(foodArr) {
+        const ingreModalTbody = document.querySelector("#modal-ingre-tbody");
+        ingreModalTbody.innerHTML = "";
+
+        let num = 0;
+
+        for (let food of foodArr) {
+            num++;
+            constructFoodModalTable(ingreModalTbody, num, food);
         }
-    
-        /** 식재료 추가 모달 내 영양성분 보기 클릭 시 영양성분표 모달 만들어주는 메소드 */
-        //1일 영양성분 기준치 국가법령정보센터 제6조 제2항 및 제3항 관련 식품 등의 표시, 광고에 관한 시행규칙 참고
-        function constructNutriModal(nutri) {
-            console.log(nutri);
-            const nutriTable = document.querySelector(".nutrition-table");
-            if (nutriTable) {
-                nutriTable.innerHTML = `
+    }
+
+    /** 식재료 추가 모달의 테이블 만들어주는 메소드 */
+    function constructFoodModalTable(ingreModalTbody, num, food) {
+        const nutri = {
+            servingSize: food.SERVING_SIZE,
+            kcal: food.AMT_NUM1,
+            protein: food.AMT_NUM3,
+            fat: food.AMT_NUM4,
+            saluratedFat: food.AMT_NUM23,
+            transFat: food.AMT_NUM24,
+            carb: food.AMT_NUM6,
+            sugar: food.AMT_NUM7,
+            sodium: food.AMT_NUM13,
+            cholesterol: food.AMT_NUM22
+        };
+
+        const foodTabletr = document.createElement('tr');
+        foodTabletr.setAttribute("class", "overflow-tr");
+        ingreModalTbody.appendChild(foodTabletr);
+        // 체크박스
+        const foodTableTdCk = document.createElement('td');
+        foodTableTdCk.setAttribute("class", "td-checkbox");
+        foodTabletr.appendChild(foodTableTdCk);
+
+        const foodTableTdCkInput = document.createElement('input');
+        foodTableTdCk.appendChild(foodTableTdCkInput);
+        foodTableTdCkInput.setAttribute("class", "row-checkbox");
+        foodTableTdCkInput.setAttribute("type", "checkbox");
+        // 번호
+        const foodTableTd1 = document.createElement('td');
+        foodTableTd1.setAttribute("class", "fixed-width1");
+        foodTableTd1.innerHTML = num;
+        foodTabletr.appendChild(foodTableTd1);
+        // 식품명
+        const foodTableTd2 = document.createElement('td');
+        foodTableTd2.setAttribute("class", "fixed-width2");
+        foodTableTd2.innerHTML = food.FOOD_NM_KR;
+        foodTabletr.appendChild(foodTableTd2);
+        // 대분류
+        const foodTd5 = document.createElement('td');
+        foodTabletr.appendChild(foodTd5);
+        foodTd5.setAttribute("class", "fixed-width5");
+        foodTd5.innerHTML = food.FOOD_CAT1_NM;
+        // 영양성분
+        const foodTableTd3 = document.createElement('td');
+        foodTableTd3.setAttribute("class", "fixed-width3");
+        foodTabletr.appendChild(foodTableTd3);
+
+        const nutriBtn = document.createElement('button');
+        foodTableTd3.appendChild(nutriBtn);
+        nutriBtn.setAttribute("class", "seek-ingre-btn");
+        nutriBtn.setAttribute("data-toggle", "modal");
+        nutriBtn.setAttribute("data-target", "#nutritionModal");
+        nutriBtn.innerHTML = "보기";
+        // 소비기한
+        const foodTableTd4 = document.createElement('td');
+        foodTableTd4.setAttribute("class", "fixed-width4");
+        foodTableTd4.setAttribute("style", "text-align: left; font-size: 12px");
+        foodTabletr.appendChild(foodTableTd4);
+
+        const foodTd4Input = document.createElement('input');
+        foodTableTd4.appendChild(foodTd4Input);
+        foodTd4Input.setAttribute("class", "direct-input");
+        foodTd4Input.setAttribute("type", "text");
+        foodTd4Input.setAttribute("name", "refConsumptionDate");
+        foodTd4Input.setAttribute("placeholder", "입력: 예시) 20240611");
+        foodTd4Input.setAttribute("style", "display: none;");
+
+        // 입고일
+        const foodTableTd5 = document.createElement('td');
+        foodTableTd5.setAttribute("class", "fixed-width4");
+        foodTableTd5.setAttribute("style", "text-align: left; font-size: 12px");
+        foodTabletr.appendChild(foodTableTd5);
+
+        const foodTd5Input = document.createElement('input');
+        foodTableTd5.appendChild(foodTd5Input);
+        foodTd5Input.setAttribute("class", "direct-input");
+        foodTd5Input.setAttribute("type", "text");
+        foodTd5Input.setAttribute("name", "refInputDate");
+        foodTd5Input.setAttribute("placeholder", "입력: 예시) 20240611");
+        foodTd5Input.setAttribute("style", "display: none;");
+
+        // 갯수
+        const foodTableTd6 = document.createElement('td');
+        foodTableTd6.setAttribute("class", "fixed-width4");
+        foodTableTd6.setAttribute("style", "text-align: left; font-size: 12px");
+        foodTabletr.appendChild(foodTableTd6);
+
+        const foodTd6Input = document.createElement('input');
+        foodTableTd6.appendChild(foodTd6Input);
+        foodTd6Input.setAttribute("class", "direct-input");
+        foodTd6Input.setAttribute("type", "text");
+        foodTd6Input.setAttribute("name", "refCount");
+        foodTd6Input.setAttribute("placeholder", "입력: 예시) 3");
+        foodTd6Input.setAttribute("style", "display: none;");
+
+        nutriBtn.addEventListener("click", function () {
+            constructNutriModal(nutri);
+        });
+    }
+
+    /** 식재료 추가 모달 내 영양성분 보기 클릭 시 영양성분표 모달 만들어주는 메소드 */
+    //1일 영양성분 기준치 국가법령정보센터 제6조 제2항 및 제3항 관련 식품 등의 표시, 광고에 관한 시행규칙 참고
+    function constructNutriModal(nutri) {
+        console.log(nutri);
+        const nutriTable = document.querySelector(".nutrition-table");
+        if (nutriTable) {
+            nutriTable.innerHTML = `
             <thead>
                 <tr>
                     <th colspan="3" style="text-align: left">영양성분함량기준량 ${nutri.servingSize}</th>
@@ -299,21 +346,92 @@ document.addEventListener("DOMContentLoaded", function () {
                 </tr>
             </tbody>
             `;
-            }
         }
+    }
 
 
-        /** 냉장고 db에 식재료 저장하기 위해 컨트롤러로 보내는 ajax */
-        function sendIngreByAjax(){
-            const ingre = {
+    /** 냉장고 db에 식재료 저장하기 위해 컨트롤러로 보내는 ajax */
+    function sendIngreByAjax() {
+        const ingreData = [];
+        // tbody 요소 가져옴
+        const modalIngrediTbody = document.querySelector("#modal-ingre-tbody");
+        // tbody 내 tr들 가져옴
+        const modalIngrediTrs = modalIngrediTbody.querySelectorAll(".overflow-tr");
+        // tr들을 반복문 돌려서 tr 내 데이터 추출
+        modalIngrediTrs.forEach(function (modalIngrediTr) {
+            // 체크됐을 경우만 가져옴
+            let checkbox = modalIngrediTr.querySelector(".td-checkbox input[type='checkbox']");
+            if (checkbox.checked) {
+                let today = new Date();
 
+                // 두 자리 숫자로 변환하는 함수
+                function padToTwoDigits(num) {
+                    return num.toString().padStart(2, '0');
+                    // padStart(targetLength, padString) 은 문자열의 길이가 targetLength 보다 짧을 시 문자열의 시작 부분에 지정된 padString 추가함
+                }
+
+                // 식품명
+                const refName = modalIngrediTr.querySelector(".fixed-width2").innerHTML;
+
+                // 소비기한
+                let refConsumptionDate = modalIngrediTr.querySelector("input[name='refConsumptionDate']").value;
+
+                // 소비기한 미입력 시 현재 날짜에 7일을 더 해줌
+                let refConsumptionDateFormat;
+                if (!refConsumptionDate) {
+                    today.setDate(today.getDate() + 7);
+                    refConsumptionDateFormat = today.getFullYear() + "-" + padToTwoDigits(today.getMonth() + 1) + "-" + padToTwoDigits(today.getDate());
+                    today = new Date(); // reset today
+                } else {
+                    let tempDate = new Date(refConsumptionDate);
+                    refConsumptionDateFormat = tempDate.getFullYear() + "-" + padToTwoDigits(tempDate.getMonth() + 1) + "-" + padToTwoDigits(tempDate.getDate());
+                }
+
+                // 냉장고 입고일
+                let refInputDate = modalIngrediTr.querySelector("input[name='refInputDate']").value;
+
+                // 냉장고 입고일 미기입 시 현재 날짜로 넣어줌
+                let refInputDateFormat;
+                if (!refInputDate) {
+                    refInputDateFormat = today.getFullYear() + "-" + padToTwoDigits(today.getMonth() + 1) + "-" + padToTwoDigits(today.getDate());
+                } else {
+                    let tempDate = new Date(refInputDate);
+                    refInputDateFormat = tempDate.getFullYear() + "-" + padToTwoDigits(tempDate.getMonth() + 1) + "-" + padToTwoDigits(tempDate.getDate());
+                }
+
+                // 갯수
+                let refCount = modalIngrediTr.querySelector("input[name='refCount']").value;
+                if (!refCount) {
+                    refCount = 1;
+                }
+
+                const ingre = {
+                    refName: refName,
+                    refConsumptionDate: refConsumptionDateFormat,
+                    refInputDate: refInputDateFormat,
+                    refCount: refCount
+                }
+
+                ingreData.push(ingre);
             }
+        })
 
+        console.log("송신할 데이터: ", ingreData);
 
-            $.ajax({
-
-            })
-        }
+        $.ajax({
+            url: "insertRefri.me",
+            method: "POST",
+            data: JSON.stringify(ingreData),
+            contentType: "application/json; charset=UTF-8",
+            success: function (res) {
+                console.log("송신 성공: ", res);
+                window.location.reload();
+            },
+            error: function (xhr, status, error) {
+                console.error("송신 실패 - 상태 코드: " + xhr.status + ", 상태: " + status + ", 에러 메시지: " + error);
+            }
+        });
+    }
 }
 
 
@@ -353,7 +471,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //     })
     // }
 
-    
+
     // 엔터로 쳐도 검색가능
     // function handleKeyPress2(ev) {
     //     if (ev.key === 'Enter') {
@@ -361,7 +479,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //     }
     // }
 
-  
+
 
     // 체크박스 체크시
     // function checkBoxStatus(el) {

@@ -1,7 +1,5 @@
 package com.kh.gorang.member.model.vo;
 
-import java.sql.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,16 +8,15 @@ import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
 @Setter
+@Getter
 @ToString
 public class RefrigeratorInsertDTO {
-	// 참조 회원 번호
+	private int refNo;
 	private int refMemberNo;
-	// 썸네일
+	private String refName;
 	private String refThumbnail;
-	private int refFresh;
-	private Date refConsumptionDate;
+	private String refConsumptionDate;
 	private int refCount;
-	private Date refInputDate;
+	private String refInputDate;
 }

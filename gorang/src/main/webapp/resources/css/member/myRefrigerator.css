@@ -115,6 +115,8 @@ table{
     width: 100%;
 }
 
+.
+
 /* 테이블 텍스트 헤드 색상설정 (상품/신선도/...등) */
 thead td {
     color: #6D6D6D;
@@ -169,7 +171,6 @@ td img {
 
 /* 상품 열의 너비를 설정 */
 .myRefrigerator-tr {
-    width: 300px; 
 }
 
 /* "소비기한"  너비 크기설정 */
@@ -409,7 +410,7 @@ td:nth-child(4) {
     margin: 10% auto; 
     padding: 20px;
     border: 1px solid #888;
-    width: 800px;
+    width: 1000px;
     height: 700px;
   }
   
@@ -463,6 +464,10 @@ td:nth-child(4) {
     justify-content: center;
 }
 
+.refri-input-wrapper input{
+    font-size: large;
+}
+
 /* 식품명 입력란 설정  */
 .refri-foodNutri-input{
     padding: 3px 6px;
@@ -485,7 +490,7 @@ td:nth-child(4) {
     height: 30px;
     display: flex;
     margin: 0px 44px;
-    justify-content: right;
+    justify-content: space-between;
     margin-bottom: 10px;
     font-weight: 300px;
     gap:15px
@@ -516,7 +521,7 @@ td:nth-child(4) {
     height: 40px;
     background-color: #9BCEFF;
     color: white;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 #list-title2 span{
@@ -524,7 +529,7 @@ td:nth-child(4) {
 }
 
 #modal-ingre-tbody{
-    font-size: 12px;
+    font-size: 15px;
 }
 
 #modal-ingre-checkBox{
@@ -564,6 +569,7 @@ td:nth-child(4) {
 /* input 테두리 삭제(클릭포함 */
 .fixed-width4 input{
     border: none;
+    width: 100%;
 }
 .fixed-width4 input:focus{
     outline: none;

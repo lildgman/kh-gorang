@@ -1,6 +1,7 @@
 package com.kh.gorang.member.model.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
@@ -17,16 +18,14 @@ import com.kh.gorang.member.model.vo.MyPageScrapBoardDTO;
 import com.kh.gorang.member.model.vo.MyPageScrapProductDTO;
 import com.kh.gorang.member.model.vo.MyPageScrapRecipeDTO;
 import com.kh.gorang.member.model.vo.ProductQnaDTO;
-import com.kh.gorang.member.model.vo.QnA;
 import com.kh.gorang.member.model.vo.RecipeQnaDTO;
+import com.kh.gorang.member.model.vo.RefrigeratorInsertDTO;
 import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.shopping.model.vo.Product;
 
-import lombok.extern.slf4j.Slf4j;
 
 @Repository
-@Slf4j
 public class MyPageDao {
 
 	// 팔로잉 수 조회
@@ -289,6 +288,22 @@ public class MyPageDao {
 		RowBounds rowBounds = new RowBounds(offset, recipeQnaPi.getBoardLimit());
 		
 		return (ArrayList)sqlSession.selectList("myPageMapper.selectRecipeQnaList", memberNo, rowBounds);
+	}
+
+	public int insertRefrigerator(SqlSessionTemplate sqlSession, RefrigeratorInsertDTO refriIngre) {
+		return sqlSession.insert("myPageMapper.insertRefrigerator", refriIngre);
+	}
+
+	public List<RefrigeratorInsertDTO> selectListRefrigeratorsByMemberNo(SqlSessionTemplate sqlSession, int memberNo, PageInfo refriPi) {
+		int limit = refriPi.getBoardLimit();
+		int offset = (refriPi.getCurrentPage() - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("myPageMapper.selectListRefrigeratorsByMemberNo", memberNo, rowBounds);
+	}
+
+	public int selectRefriCount(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectRefriCount", memberNo);
 	}
 
 }

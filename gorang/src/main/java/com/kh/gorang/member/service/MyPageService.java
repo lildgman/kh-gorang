@@ -1,8 +1,10 @@
 package com.kh.gorang.member.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+import com.google.gson.JsonElement;
 import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.common.model.vo.PageInfo;
 import com.kh.gorang.member.model.vo.Member;
@@ -17,6 +19,7 @@ import com.kh.gorang.member.model.vo.MyPageScrapRecipeDTO;
 import com.kh.gorang.member.model.vo.ProductQnaDTO;
 import com.kh.gorang.member.model.vo.QnA;
 import com.kh.gorang.member.model.vo.RecipeQnaDTO;
+import com.kh.gorang.member.model.vo.RefrigeratorInsertDTO;
 import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.recipe.model.vo.Recipe;
 
@@ -129,6 +132,15 @@ public interface MyPageService {
 	
 	// 레시피 qna 조회
 	ArrayList<RecipeQnaDTO> getRecipeQnaList(int memberNo, PageInfo recipeQnaPi);
+	
+	// 냉장고 식재료 저장
+	int insertRefrigerator(int memberNo, List<RefrigeratorInsertDTO> refriIngres);
+
+	List<RefrigeratorInsertDTO> selectListRefrigeratorsByMemberNo(int memberNo, PageInfo refriPi);
+	
+	// 냉장고 식재료 갯수 조회
+	int selectRefriCount(int userNo);
+
 
 	
 
