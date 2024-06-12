@@ -31,11 +31,15 @@ public interface BoardService{
     // 게시글 조회수 증가
     void increaseViewCount(int boardNo);
     
-    // 댓글 작성
+    // 게시글 글쓴이 이름 가져오기
+	String getMemberNickname(int memberNo);
+	
+	//게시글 댓글 리스트
+	ArrayList<Comment> selectCommentList(int boardNo, PageInfo pi);
+    
+    // 게시글에 댓글 추가
     int insertComment(Comment comment);
     
-
-	String getMemberNickname(int memberNo);
-
-	
+    // 댓글 삭제
+    int deleteComment(int commentNo);
 }	
