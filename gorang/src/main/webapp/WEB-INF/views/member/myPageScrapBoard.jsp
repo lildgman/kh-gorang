@@ -30,8 +30,11 @@
                     <span>스크랩 > 게시글</span>
                     <span>(${scrapBoardList.size() })</span>
                 </div>
-                <div id="delete-edit" onclick="editBtn()">편집</div>           
-                <div id="delete-like" onclick="deleteBtn()">삭제</div>
+                <div id="delete-area">
+                    <div id="delete-edit" onclick="editBtn()">편집</div>           
+                    <div id="delete-like" onclick="deleteBtn()">삭제</div>
+                </div>
+                
             
                 <div id="scrap-area-content">
                 	<c:choose>

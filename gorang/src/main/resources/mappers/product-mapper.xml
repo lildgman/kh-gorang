@@ -140,6 +140,7 @@
 	    	WHERE STATUS = 'Y'
 		    	<if test='content != null'>
 	     			AND PRODUCT_NAME ILIKE '%${content}%'
+	     			OR PRODUCT_BRAND ILIKE '%${content}%'
 	     		</if>
 	    		<if test='category == "야채"'>
 	    			AND CATEGORY LIKE '야채'
@@ -189,6 +190,7 @@
      	WHERE STATUS = 'Y' 
      		<if test='content != null'>
      			AND PRODUCT_NAME ILIKE '%${content}%'
+     			OR PRODUCT_BRAND ILIKE '%${content}%'
      		</if>
 	     	<if test='category == "야채"'>
 	   			AND CATEGORY LIKE '야채'

@@ -9,6 +9,9 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
 <link rel="stylesheet" href="${contextPath}/resources/css/member/myPageMenubar.css">
+
+<script src="${contextPath}/resources/js/member/myPageMenubar.js"></script>
+
 </head>
 <body>
      <!-- 왼쪽 프로필 메뉴바영역 -->
@@ -23,11 +26,11 @@
                 </div>
             </div>
             <div id="user-nickgrade-area">
-                <a href="${contextPath}/myPageInfoEdit.me">${loginUser.nickname }</a> <img src="${contextPath}/resources/images//member-img/Vector 340.png" alt=">" id="bector">
+                <a id="user-nickname" href="${contextPath}/myPageInfoEdit.me">${loginUser.nickname }</a> <img src="${contextPath}/resources/images//member-img/Vector 340.png" alt=">" id="bector">
                 <br>
                 <div id="user-follow">
-                    <div id="user-follower"><a href="">팔로워 ${followerCount }</a></div> | 
-                    <div id="user-following"><a href="">팔로잉 ${followingCount }</a></div>
+                    <div id="user-follower-area">팔로워 <span id="user-follower">${followerCount }</span></div> | 
+                    <div id="user-following-area">팔로잉 <span id="user-following">${followingCount }</span></div>
                 </div>
                 <div id="user-grade">
                 	${loginUser.grade }등급
@@ -38,10 +41,10 @@
             </div>
             <div id="user-profile-area-bottom">
                 <div id="user-scrape">
-                    <a href="">스크랩</a><br><div class="zero">${totalScrapCount }</div>
+                    <a href="">스크랩</a><br><div class="zero" id="user-scrap-count">${totalScrapCount }</div>
                 </div>
                 <div id="user-like">
-                    <a href="">좋아요</a><br><div class="zero">${totalLikeCount }</div>
+                    <a href="">좋아요</a><br><div class="zero" id="user-like-count">${totalLikeCount }</div>
                 </div>
                 <div id="user-alarm">
                     <a href="">알림</a><br><div class="zero">0</div>

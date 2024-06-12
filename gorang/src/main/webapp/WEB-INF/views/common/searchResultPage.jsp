@@ -78,7 +78,7 @@
 					</div>
 					<div id="see-more-btn">
 						<c:if test="${searchRecipeResult.size() gt 8}">
-							<input type="button" value="더보기">
+							<input type="button" value="더보기" onclick="location.href='list.re?content=${content}'">
 						</c:if>
 					</div>
 				</div>
@@ -125,7 +125,7 @@
 					</div>
 					<div id="see-more-btn">
 						<c:if test="${searchBoardResult.size() gt 8 }">
-							<input type="button" value="더보기">
+							<input type="button" value="더보기" onclick="location.href='main.bo?content=${content}'">
 						</c:if>
 
 					</div>

@@ -50,6 +50,10 @@ body {
         position: relative;
     }
 
+    .scrap-content:hover {
+        cursor: pointer;
+    }
+
     .scrap-content img {
         width: 100%;
         height: 100%;
@@ -98,3 +102,7 @@ body {
         display: none;
     }
    
+#delete-area {
+    display: flex;
+    justify-content: flex-end;
+}

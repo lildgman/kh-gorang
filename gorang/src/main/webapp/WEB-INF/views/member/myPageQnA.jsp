@@ -47,7 +47,7 @@
 								</c:when>
 								<c:otherwise>
 									<c:forEach var="productQna" items="${productQnaList }">
-										<div class="product-area-content" data-no="${productQna.productNo}" onclick="moveDetailPage(this)">
+										<div class="product-area-content" data-type="product" data-no="${productQna.productNo}" onclick="moveDetailPage(this)">
 											<div class="content-area-title">
 												<img class="content-img"
 													src="${contextPath }/resources/uploadfile/product/productimg/${productQna.productImg}" alt="">
@@ -116,8 +116,8 @@
 									레시피에 대한 QnA가 없습니다.
 								</c:when>
 								<c:otherwise>
-									<c:forEach var="recipeQna" items="${recipeQnaList }">
-										<div class="recipe-area-content">
+									<c:forEach var="recipeQna" items="${recipeQnaList }" >
+										<div class="recipe-area-content" data-type="recipe" data-no="${recipeQna.recipeNo}" onclick="moveDetailPage(this)">
 											<div class="content-area-title">
 												<img class="content-img"
 													src="${contextPath }/resources/uploadfile/recipe/recipemain/${recipeQna.recipeMainImg}"
@@ -142,22 +142,18 @@
 					<div class="pagination-area">
 						<div id="pagination">
 							<c:choose>
-								<c:when test="${recipeQnaPi.listCount > 0}">
-									<c:choose>
-										<c:when test="${recipeQnaPi.currentPage gt 1}">
-											<a href="qna.me?recipe_qna_cpage=${recipeQnaPi.currentPage - 1}">&lt;</a>
-										</c:when>
-									</c:choose>
+								<c:when test="${recipeQnaPi.currentPage gt 1}">
+									<a href="qna.me?recipe_qna_cpage=${recipeQnaPi.currentPage - 1}">&lt;</a>
+								</c:when>
+							</c:choose>
 
-									<c:forEach var="p" begin="${recipeQnaPi.startPage}" end="${recipeQnaPi.endPage}">
-										<a href="qna.me?recipe_qna_cpage=${p}">${p}</a>
-									</c:forEach>
+							<c:forEach var="p" begin="${recipeQnaPi.startPage}" end="${recipeQnaPi.endPage}">
+								<a href="qna.me?recipe_qna_cpage=${p}">${p}</a>
+							</c:forEach>
 
-									<c:choose>
-										<c:when test="${recipeQnaPi.currentPage lt recipeQnaPi.maxPage}">
-											<a href="qna.me?recipe_qna_cpage=${recipeQnaPi.currentPage + 1}">&gt;</a>
-										</c:when>
-									</c:choose>
+							<c:choose>
+								<c:when test="${recipeQnaPi.currentPage lt recipeQnaPi.maxPage}">
+									<a href="qna.me?recipe_qna_cpage=${recipeQnaPi.currentPage + 1}">&gt;</a>
 								</c:when>
 							</c:choose>
 						</div>

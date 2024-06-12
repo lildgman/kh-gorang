@@ -96,3 +96,7 @@ body {
         display: none;
     }
    
+#delete-area {
+    display: flex;
+    justify-content: flex-start;
+}
