@@ -21,8 +21,18 @@
   		<result column="STATUS" property="status"/>
   		<result column="MEMBER_NO" property="memberNo"/>
   	</resultMap>
-  	
-  	<!-- 상품 -->
+
+	<!-- 레시피 리스트 DTO -->
+	<resultMap type="RecipeListDto" id="recipeListDtoResult">
+		<result column="RCP_NO" property="recipeNo"/>
+		<result column="RCP_TITLE" property="recipeTitle"/>
+		<result column="RCP_MAIN_PHOTO" property="recipeImg"/>
+		<result column="MEMBER_NICKNAME" property="recipeWriterNickname"/>
+		<result column="MEMBER_PROFILE" property="recipeWriterProfileImg"/>
+		<result column="SCRAP_COUNT" property="scrapCount"/>
+	</resultMap>
+	
+	
   	<resultMap type="Product" id="productResult">
   		<result column="PRODUCT_NO" property="productNo"/>
   		<result column="CATEGORY" property="category"/>
@@ -39,17 +49,111 @@
   		<result column="STATUS" property="status"/>
   	</resultMap>
      
-    <!-- 최근 레시피 조회 -->
-	<select id="selectRecentRecipe" resultMap="recipeResult">
-		SELECT *
-		FROM RECIPE
-		ORDER BY RCP_WRITE_DATE DESC
-	</select>
-	
-	<!-- 상품 조회 -->
-     <select id="">
-     
-     
+     <!-- 레시피 개수 조회 -->
+     <select id="selectRecipeCount" resultType="_int">
+     	SELECT COUNT(*)
+		FROM (
+			SELECT 
+				R.RCP_NO,
+				R.RCP_TITLE,
+				R.RCP_MAIN_PHOTO,
+				M.MEMBER_NICKNAME,
+				M.MEMBER_PROFILE,
+				COUNT(SR.RCP_NO) AS SCRAP_COUNT
+			FROM RECIPE R
+			JOIN MEMBER M USING (MEMBER_NO)
+			LEFT JOIN SCRAP_RECIPE SR USING (RCP_NO)
+			WHERE R.STATUS = 'Y'
+				<if test='content != null and content != ""'>
+	     			AND R.RCP_TITLE ILIKE '%' || #{content} || '%'
+	     			OR R.RCP_CONTENT ILIKE '%' || #{content} || '%'
+	     		</if>
+	     		<if test='category == "한식"'>
+					AND R.COOK_KIND LIKE '한식'	     		
+	     		</if>
+	     		<if test='category == "중식"'>
+					AND R.COOK_KIND LIKE '중식'	     		
+	     		</if>
+	     		<if test='category == "일식"'>
+					AND R.COOK_KIND LIKE '일식'	     		
+	     		</if>
+	     		<if test='category == "양식"'>
+					AND R.COOK_KIND LIKE '양식'	     		
+	     		</if>
+	     		<if test='category == "디저트"'>
+					AND R.COOK_KIND LIKE '디저트'	     		
+	     		</if>
+	     		<if test='category == "기타"'>
+					AND R.COOK_KIND LIKE '기타'	     		
+	     		</if>
+			GROUP BY 
+				R.RCP_NO,
+				R.RCP_TITLE,
+				M.MEMBER_NICKNAME,
+				M.MEMBER_PROFILE
+			<if test='sort == "new"'>
+				ORDER BY R.RCP_WRITE_DATE DESC
+			</if>
+			<if test='sort == "view"'>
+				ORDER BY R.RCP_VIEW DESC
+			</if>
+			<if test='sort == "scrap"'>
+				ORDER BY SCRAP_COUNT DESC
+			</if>
+			
+		) AS SUB
      </select>
+     
+     <!-- 레시피 조회 -->
+     <select id="selectRecipe" resultMap="recipeListDtoResult">
+     	SELECT 
+			R.RCP_NO,
+			R.RCP_TITLE,
+			R.RCP_MAIN_PHOTO,
+			M.MEMBER_NICKNAME,
+			M.MEMBER_PROFILE,
+			COUNT(SR.RCP_NO) AS SCRAP_COUNT
+		FROM RECIPE R
+		JOIN MEMBER M USING (MEMBER_NO)
+		LEFT JOIN SCRAP_RECIPE SR USING (RCP_NO)
+		WHERE R.STATUS = 'Y'
+			<if test='content != null and content != ""'>
+     			AND R.RCP_TITLE ILIKE '%' || #{content} || '%'
+     			OR R.RCP_CONTENT ILIKE '%' || #{content} || '%'
+     		</if>
+     		<if test='category == "한식"'>
+				AND R.COOK_KIND LIKE '한식'	     		
+     		</if>
+     		<if test='category == "중식"'>
+				AND R.COOK_KIND LIKE '중식'	     		
+     		</if>
+     		<if test='category == "일식"'>
+				AND R.COOK_KIND LIKE '일식'	     		
+     		</if>
+     		<if test='category == "양식"'>
+				AND R.COOK_KIND LIKE '양식'	     		
+     		</if>
+     		<if test='category == "디저트"'>
+				AND R.COOK_KIND LIKE '디저트'	     		
+     		</if>
+     		<if test='category == "기타"'>
+				AND R.COOK_KIND LIKE '기타'	     		
+     		</if>
+		GROUP BY 
+			R.RCP_NO,
+			R.RCP_TITLE,
+			M.MEMBER_NICKNAME,
+			M.MEMBER_PROFILE
+		<if test='sort == "new"'>
+			ORDER BY R.RCP_WRITE_DATE DESC
+		</if>
+		<if test='sort == "view"'>
+			ORDER BY R.RCP_VIEW DESC
+		</if>
+		<if test='sort == "scrap"'>
+			ORDER BY SCRAP_COUNT DESC
+		</if>
+     </select>
+	
      
   </mapper>

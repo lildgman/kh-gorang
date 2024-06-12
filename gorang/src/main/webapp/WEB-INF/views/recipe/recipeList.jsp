@@ -11,8 +11,9 @@
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
             <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
             <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recipe/recipeList.css">
-            <!-- recipeMain
-            <script src="${pageContext.request.contextPath}/resources/js/recipe/recipeList.js"></script> -->
+            <script src="${pageContext.request.contextPath}/resources/js/recipe/recipeList.js"></script>
+            
+            <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
         </head>
 
         <body>
@@ -32,56 +33,59 @@
                         </div>
                         <div id="BoardTagBoxBottom">
                             <div id="PapularTagBox">
-                                <div id="PapularTags">
+                                <div class="PapularTags" data-category="all" onclick="searchToCategory(this)">
+                                    <span>#전체</span>
+                                </div>
+                                <div class="PapularTags" data-category="한식" onclick="searchToCategory(this)">
                                     <span>#한식</span>
                                 </div>
-                                <div id="PapularTags">
+                                <div class="PapularTags" data-category="중식" onclick="searchToCategory(this)">
                                     <span>#중식</span>
                                 </div>
-                                <div id="PapularTags">
+                                <div class="PapularTags" data-category="일식" onclick="searchToCategory(this)">
                                     <span>#일식</span>
                                 </div>
-                                <div id="PapularTags">
+                                <div class="PapularTags" data-category="양식" onclick="searchToCategory(this)">
                                     <span>#양식</span>
                                 </div>
-                                <div id="PapularTags">
+                                <div class="PapularTags" data-category="디저트" onclick="searchToCategory(this)">
                                     <span>#디저트</span>
                                 </div>
-                                <div id="PapularTags">
+                                <div class="PapularTags" data-category="기타" onclick="searchToCategory(this)">
                                     <span>#기타</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div id="recipeCountSpan">
-                        <span>총 10,000개의 레시피</span>
+                        <span>총 ${list.size()}개의 레시피</span>
                     </div>
                     <div id="recipeContents">
                         <div id="recipeSortings">
                             <div id="recipeSortingsBox">
-                                <div id="recipeSortingsLatest">최신순</div>
-                                <div id="recipeSortingsNums">조회수순</div>
-                                <div id="recupeSortingsScrap">스크랩순</div>
+                                <div id="recipeSortingsLatest" onclick="location.href='${contextPath}/list.re?content=${content}&category=${category}&sort=new'">최신순</div>
+                                <div id="recipeSortingsNums" onclick="location.href='${contextPath}/list.re?content=${content}&category=${category}&sort=view'">조회수순</div>
+                                <div id="recupeSortingsScrap" onclick="location.href='${contextPath}/list.re?content=${content}&category=${category}&sort=scrap'">스크랩순</div>
                             </div>
                         </div>
                         <div id="recipeContentsBox">
-                            <c:forEach var="a" begin="1" end="4">
-                                <div class="recipe-content-box" onclick="location.href='detail.re?rno=${a}'">
+                            <c:forEach var="recipe" items="${list }">
+                                <div class="recipe-content-box" onclick="location.href='detail.re?recipeNo=${recipe.recipeNo}'">
                                     <div class="recipe-content-item">
                                         <div id="recipeContentImg">
-                                            <img src="${pageContext.request.contextPath}/resources/dummyImg/recipe/recipeMain/newRecipeThumbnail${a}.png">
+                                            <img src="${pageContext.request.contextPath}/resources/uploadfile/recipe/recipemain/${recipe.recipeImg}">
                                         </div>
                                         <div id="recipeContentInfoBox">
-                                            <div id="recipeContentTitle"><span>녹즙 그만먹을래요</span></div>
+                                            <div id="recipeContentTitle"><span>${recipe.recipeTitle}</span></div>
                                             <div id="recipeContentWriter">
                                                 <div id="recipeContentWriterImg"><img
-                                                        src="${pageContext.request.contextPath}/resources/uploadfile/boardMainContentUserProfile/user1.png">
+                                                        src="${pageContext.request.contextPath}/resources/uploadfile/memberProfile/${recipe.recipeWriterProfileImg}">
                                                 </div>
-                                                <span>abcdefg</span>
+                                                <span>${recipe.recipeWriterNickname}</span>
                                             </div>
                                             <div id="recipeContentBoardInfo">
                                                 <div id="recipeBoardInfoScrap">스크랩
-                                                    <span>18</span>
+                                                    <span>${recipe.scrapCount}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -90,30 +94,25 @@
                             </c:forEach>
                         </div>
                         <div id="recipeBoardPageBarBox">
-                            <div id="pagingArea">
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination">
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Previous">
-                                                <span aria-hidden="true">&laquo;</span>
-                                            </a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">6</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">7</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">8</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">9</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
+                            <div id="pagination-area">
+                                <div id="pagination">
+                    
+                                    <c:choose>
+                                        <c:when test="${pi.currentPage ne 1 }">
+                                            <a href="list.re?content=${content}&cpage=${pi.currentPage -1 }&category=${category}&sort=${sort}">&lt;</a>
+                                        </c:when>
+                                    </c:choose>
+                    
+                                    <c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
+                                        <a href="list.re?content=${content}&cpage=${p}&category=${category}&sort=${sort}">${p}</a>
+                                    </c:forEach>
+                    
+                                    <c:choose>
+                                        <c:when test="${pi.currentPage lt pi.maxPage}">
+                                            <a href="list.re?content=${content}&cpage=${pi.currentPage +1 }&category=${category}&sort=${sort}">&gt;</a>
+                                        </c:when>
+                                    </c:choose>
+                                </div>
                             </div>
                         </div>
                     </div>

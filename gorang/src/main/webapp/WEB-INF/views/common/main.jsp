@@ -11,6 +11,7 @@
     <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
     <link rel="stylesheet" href="${contextPath }/resources/css/common/main.css">
+	<script src="${pageContext.request.contextPath}/resources/js/common/main.js"></script>
     
 </head>
 <body>
@@ -21,19 +22,39 @@
     <div id="main-container">
         <!-- 배너 -->
         <div id="main-banner-area">
-        
-        	<c:forEach begin="1" end="3" step="1">
-        		<div class="main-banner">
-                <img class="main-banner-img" src="${contextPath}/resources/dummyImg/common/main/banner2.png" alt="">
+            <div class="main-banner" data-type="recipe" data-no="5" onclick="moveDetailPage(this)">
+                <img class="main-banner-img" src="${contextPath}/resources/uploadfile/recipe/recipemain/recipeBoardImg(5).jpg" alt="">
                 <div class="main-banner-comment">
                     <div class="main-comment">
-			                        심플한 재료, 풍부한 맛<br>
-			                        진정한 집밥의 매력
+                                    자작~하게 졸여 즐기는<br>
+                                    짜글짜글 짜글이
                     </div>
-                    <div class="sub-comment">편안함과 따뜻함을 담은 요리</div>
+                    <div class="sub-comment">감자 짜글이</div>
                 </div>
-            	</div>
-        	</c:forEach>
+            </div>
+
+            <div class="main-banner" data-type="recipe" data-no="3" onclick="moveDetailPage(this)">
+                <img class="main-banner-img" src="${contextPath}/resources/uploadfile/recipe/recipemain/recipeBoardImg(3).jpg" alt="">
+                <div class="main-banner-comment">
+                    <div class="main-comment">
+                                    떠오르고 있는<br>
+                                    신흥 밥도둑
+                    </div>
+                    <div class="sub-comment">창녕갈릭 삼치 조림</div>
+                </div>
+            </div>
+
+            <div class="main-banner" data-type="recipe" data-no="1" onclick="moveDetailPage(this)">
+                <img class="main-banner-img" src="${contextPath}/resources/uploadfile/recipe/recipemain/recipeBoardImg(1).jpg" alt="">
+                <div class="main-banner-comment">
+                    <div class="main-comment">
+                                    크레이프와 카라멜의<br>
+                                    환상적인 조합
+                    </div>
+                    <div class="sub-comment">솔티드 딸바 크레페</div>
+                </div>
+            </div>
+
         	
         </div>
 
@@ -43,22 +64,50 @@
             <div id="weekly-best-recipe-container"  class="weekly-best-list-container">
                 <div class="list-top">
                     <span class="list-title">금주의 레시피</span>
-                    <span class="show-more-span"><a href="${pageContext.request.contextPath}/main.re">더보기</a></span>
+                    <span class="show-more-span"><a href="${pageContext.request.contextPath}/list.re">더보기</a></span>
                 </div>
     
                 <div class="weekly-best-list">
                 <!-- 레시피 리스트 -->
-                <c:forEach begin="1" end="4">
-                	<div class="weekly-recipe">
-                        <div class="weekly-item-img-container">
-                            <img class="weekly-item-img" src="${contextPath}/resources/dummyImg/shopping/recipe1.png" alt="">
+                    <div class="weekly-recipe">
+                        <div class="weekly-item-img-container" data-type="recipe" data-no="4" onclick="moveDetailPage(this)">
+                            <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/recipe/recipemain/recipeBoardImg(4).jpg" alt="">
                         </div>
                         <div class="weekly-item-info-container">
-                            <div class="info_1">해독주스로 딱인</div>
-                            <div class="info_2">ABC주스</div>
+                            <div class="info_1">돈까스를 넣고 잘 말아준 인기만점 김밥!</div>
+                            <div class="info_2">돈까스 김밥</div>
                         </div>
                     </div>
-                </c:forEach>
+
+                    <div class="weekly-recipe">
+                        <div class="weekly-item-img-container" data-type="recipe" data-no="2" onclick="moveDetailPage(this)">
+                            <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/recipe/recipemain/recipeBoardImg(2).jpg" alt="">
+                        </div>
+                        <div class="weekly-item-info-container">
+                            <div class="info_1">통삼겹살과 차슈요리양념이면 충분해요</div>
+                            <div class="info_2">차슈덮밥</div>
+                        </div>
+                    </div>
+
+                    <div class="weekly-recipe">
+                        <div class="weekly-item-img-container" data-type="recipe" data-no="" onclick="moveDetailPage(this)">
+                            <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/recipe/recipemain/recipeBoardImg(3).jpg" alt="">
+                        </div>
+                        <div class="weekly-item-info-container">
+                            <div class="info_1">밥도둑 생선 조림 레시피를 소개합니다.</div>
+                            <div class="info_2">창녕갈릭 삼치 조림</div>
+                        </div>
+                    </div>
+
+                    <div class="weekly-recipe">
+                        <div class="weekly-item-img-container" data-type="recipe" data-no="1" onclick="moveDetailPage(this)">
+                            <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/recipe/recipemain/recipeBoardImg(1).jpg" alt="">
+                        </div>
+                        <div class="weekly-item-info-container">
+                            <div class="info_1">크레이프케이크에 환상적인 카라멜과의 조합</div>
+                            <div class="info_2">솔티드 딸바 크라페</div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
@@ -66,31 +115,86 @@
             <div id="weekly-best-product-container" class="weekly-best-list-container">
                 <div class="list-top">
                     <span class="list-title">금주의 베스트 상품</span>
-                    <span class="show-more-span"><a href="${pageContext.request.contextPath}/main.po">더보기</a></span>
+                    <span class="show-more-span"><a href="${pageContext.request.contextPath}/list.po">더보기</a></span>
                 </div>
 
                 <!-- 상품 리스트 -->
-                <div class="weekly-best-list">                           
-                	<c:forEach begin="1" end="4">
-                		<div class="weekly-product">
-	                        <div class="weekly-item-img-container">
-	                            <img class="weekly-item-img" src="${contextPath}/resources/dummyImg/shopping/recipe1.png" alt="">
-	                        </div>
-	                        <div class="weekly-item-info-container">
-	                            <div class="info_title">
-	                                <div class="product-brand">성주</div>
-	                                <div class="product-name">당도선별 성주 꿀참외 1.5kg</div>
-	                            </div>
-	                            <div class="info_price">
-	                                <div class="product-origin-price">26,200</div>
-	                                <div class="product-sale-info">
-	                                    <span class="product-discount-percent">20%</span>
-	                                    <span class="product-saled-price">16,900</span>
-	                                </div>
-	                            </div>
-	                        </div>
-                    	</div>
-                	</c:forEach>                 
+                <div class="weekly-best-list">     
+                    <div class="weekly-product">
+                        <div class="weekly-item-img-container" data-type="product" data-no="2" onclick="moveDetailPage(this)">
+                            <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/product/productimg/과일1.jpeg" alt="">
+                        </div>
+                        <div class="weekly-item-info-container">
+                            <div class="info_title">
+                                <div class="product-brand">고랭지</div>
+                                <div class="product-name">고랭지 부사 사과 1.3kg(4~5입)</div>
+                            </div>
+                            <div class="info_price">
+                                <div class="product-origin-price">24,900원</div>
+                                <div class="product-sale-info">
+                                    <span class="product-discount-percent">5%</span>
+                                    <span class="product-saled-price">22,900원</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="weekly-product">
+                        <div class="weekly-item-img-container" data-type="product" data-no="48" onclick="moveDetailPage(this)">
+                            <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/product/productimg/육류11.jpeg" alt="">
+                        </div>
+                        <div class="weekly-item-info-container">
+                            <div class="info_title">
+                                <div class="product-brand">조인</div>
+                                <div class="product-name">[조인] 동물복지 유정 구운란 20구</div>
+                            </div>
+                            <div class="info_price">
+                                <div class="product-origin-price">13,500원</div>
+                                <div class="product-sale-info">
+                                    <span class="product-discount-percent">18%</span>
+                                    <span class="product-saled-price">12,250원</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="weekly-product">
+                        <div class="weekly-item-img-container" data-type="product" data-no="71" onclick="moveDetailPage(this)">
+                            <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/product/productimg/빵8.jpg" alt="">
+                        </div>
+                        <div class="weekly-item-info-container">
+                            <div class="info_title">
+                                <div class="product-brand">사층빵집</div>
+                                <div class="product-name">[사층빵집] 마카롱 10종 (택1)</div>
+                            </div>
+                            <div class="info_price">
+                                <div class="product-origin-price">6,500원</div>
+                                <div class="product-sale-info">
+                                    <span class="product-discount-percent">5%</span>
+                                    <span class="product-saled-price">6,175원</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="weekly-product">
+                        <div class="weekly-item-img-container" data-type="product" data-no="86" onclick="moveDetailPage(this)">
+                            <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/product/productimg/유제품4.jpg" alt="">
+                        </div>
+                        <div class="weekly-item-info-container">
+                            <div class="info_title">
+                                <div class="product-brand">Fage</div>
+                                <div class="product-name">[Fage] 파예 플레이버 요거트 150g 3종 (택1)</div>
+                            </div>
+                            <div class="info_price">
+                                <div class="product-origin-price">6,400</div>
+                                <div class="product-sale-info">
+                                    <span class="product-discount-percent">14%</span>
+                                    <span class="product-saled-price">5,500</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                                     
                 </div>
             </div>
 
@@ -98,22 +202,55 @@
             <div id="weekly-best-board-container" class="weekly-best-list-container">
                 <div class="list-top">
                     <span class="list-title">금주의 노하우</span>
-                    <span class="show-more-span"><a href="${pageContext.request.contextPath}/main.bo">더보기</a></span>
+                    <span class="show-more-span"><a href="${pageContext.request.contextPath}/main.bo?sort=knowHowTag">더보기</a></span>
                 </div>
 
                 <!-- 노하우 리스트 -->
                 <div class="weekly-best-list flex-gap-20">
-                
-                	<c:forEach begin="1" end="5">
-                		<div class="weekly-board flex-gap-16px">
-	                        <div class="board-img-container">
-	                            <img class="weekly-item-img" src="${contextPath}/resources/dummyImg/common/main/board1.png" alt="">
-	                        </div>
-	                        <div class="board-title-container">
-	                            <div>글 제목</div>
-	                        </div>
-                    	</div>
-                	</c:forEach>
+                    <div class="weekly-board flex-gap-16px">
+                        <div class="board-img-container" data-type="board" data-no="7" onclick="moveDetailPage(this)">
+                            <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/board/boardMainContentFile/2024052819230192378.jpeg" alt="">
+                        </div>
+                        <div class="board-title-container">
+                            <div>일곱번째 게시글입니다 여러분 반가워요</div>
+                        </div>
+                    </div>
+
+                    <div class="weekly-board flex-gap-16px">
+                        <div class="board-img-container" data-type="board" data-no="6" onclick="moveDetailPage(this)">
+                            <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/board/boardMainContentFile/2024052819230192378.jpeg" alt="">
+                        </div>
+                        <div class="board-title-container">
+                            <div>여섯번째 게시글입니다 여러분 반가워요</div>
+                        </div>
+                    </div>
+
+                    <div class="weekly-board flex-gap-16px">
+                        <div class="board-img-container" data-type="board" data-no="5" onclick="moveDetailPage(this)">
+                            <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/board/boardMainContentFile/2024052819230192378.jpeg" alt="">
+                        </div>
+                        <div class="board-title-container">
+                            <div>다섯번째 게시글입니다 여러분 반가워요</div>
+                        </div>
+                    </div>
+
+                    <div class="weekly-board flex-gap-16px">
+                        <div class="board-img-container" data-type="board" data-no="3" onclick="moveDetailPage(this)">
+                            <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/board/boardMainContentFile/2024052819230192378.jpeg" alt="">
+                        </div>
+                        <div class="board-title-container">
+                            <div>세번째 게시글입니다 여러분 반가워요</div>
+                        </div>
+                    </div>
+
+                    <div class="weekly-board flex-gap-16px">
+                        <div class="board-img-container" data-type="board" data-no="2" onclick="moveDetailPage(this)">
+                            <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/board/boardMainContentFile/2024052819230192378.jpeg" alt="">
+                        </div>
+                        <div class="board-title-container">
+                            <div>두번째 게시글입니다 여러분 반가워요</div>
+                        </div>
+                    </div>
                     
                 </div>
             </div>
