@@ -16,7 +16,7 @@ public class OdgRecipeDao {
 	
 	// 레시피 개수 조회
 	public int getRecipeCount(SqlSessionTemplate sqlSession, Map<String, Object> map) {
-		return sqlSession.selectOne("odgRecipeMapper.selectRecipeCount");
+		return sqlSession.selectOne("odgRecipeMapper.selectRecipeCount",map);
 	}
 	
 	// 레시피 조회
@@ -27,8 +27,5 @@ public class OdgRecipeDao {
 		
 		return (ArrayList)sqlSession.selectList("odgRecipeMapper.selectRecipe", map, rowBounds);
 	}
-
-	
-
 
 }

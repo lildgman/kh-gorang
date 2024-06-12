@@ -43,6 +43,7 @@ public class OdgRecipeController {
 		
 		ArrayList<RecipeListDto> list = odgRecipeService.getRecipeList(pi, map);
 		
+		model.addAttribute("recipeCount",recipeCount);
 		model.addAttribute("category", category);
 		model.addAttribute("sort", sort);
 		model.addAttribute("content", content);
