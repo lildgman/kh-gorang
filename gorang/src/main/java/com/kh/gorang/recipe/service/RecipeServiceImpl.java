@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.gorang.common.model.vo.Media;
 import com.kh.gorang.common.template.SaveFileController;
-import com.kh.gorang.common.vo.Media;
 import com.kh.gorang.recipe.model.dao.RecipeDao;
 import com.kh.gorang.recipe.model.vo.CookOrder;
 import com.kh.gorang.recipe.model.vo.CookTip;

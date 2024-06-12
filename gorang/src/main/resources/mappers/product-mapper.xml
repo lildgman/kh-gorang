@@ -206,13 +206,13 @@
 	   			AND CATEGORY LIKE '유제품'
 	   		</if>
 	   	<if test='sort == "new"'>
-	   		ORDER BY PRODUCT_DATE
+	   		ORDER BY PRODUCT_DATE DESC
 	   	</if>
 	   	<if test='sort == "view"'>
-	   		ORDER BY PRODUCT_VIEW
+	   		ORDER BY PRODUCT_VIEW DESC
 	   	</if>
 	   	<if test='sort == "scrap"'>
-	   		ORDER BY SCRAP_COUNT
+	   		ORDER BY SCRAP_COUNT DESC
 	   	</if>
      </select>
     

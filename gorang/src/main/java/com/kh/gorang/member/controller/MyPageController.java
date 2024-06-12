@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.gorang.board.model.vo.Board;
+import com.kh.gorang.common.model.vo.PageInfo;
 import com.kh.gorang.common.template.Pagination;
-import com.kh.gorang.common.vo.PageInfo;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.MyPageBoardCommentDTO;
 import com.kh.gorang.member.model.vo.MyPageBoardDTO;
@@ -30,6 +30,8 @@ import com.kh.gorang.member.model.vo.MyPageRecipeDTO;
 import com.kh.gorang.member.model.vo.MyPageScrapBoardDTO;
 import com.kh.gorang.member.model.vo.MyPageScrapProductDTO;
 import com.kh.gorang.member.model.vo.MyPageScrapRecipeDTO;
+import com.kh.gorang.member.model.vo.ProductQnaDTO;
+import com.kh.gorang.member.model.vo.RecipeQnaDTO;
 import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.member.service.MyPageService;
 import com.kh.gorang.recipe.model.vo.Recipe;
@@ -250,8 +252,6 @@ public class MyPageController {
 		String encPwd = bcryptPasswordEncoder.encode(member.getMemberPwd());
 		member.setMemberPwd(encPwd);
 		
-		log.info("member={}" , member);
-		
 		Member updateMember = myPageService.updateMemberInfo(member);
 		
 		if(updateMember != null) {
@@ -270,7 +270,37 @@ public class MyPageController {
 	
 	//마이 페이지 질의응답
 	@RequestMapping("qna.me")
-	public String myPageQnAView(){
+	public String myPageQnAView(
+			@RequestParam(defaultValue = "1") int product_qna_cpage,
+			@RequestParam(defaultValue = "1") int recipe_qna_cpage,
+			HttpSession session,
+			Model model){
+		
+		int memberNo = getLoginUserNo(session);
+		addAttributeUserInfo(model, memberNo);
+		
+		// 상품 qna 부분
+		int productQnaCount = myPageService.getProductQnaCount(memberNo);
+		PageInfo productQnaPi = Pagination.getPageInfo(productQnaCount, product_qna_cpage, 10, 5);
+		
+		ArrayList<ProductQnaDTO> productQnaList = myPageService.getProductQnaList(memberNo, productQnaPi);
+		
+		// 레시피 qna 부분
+		int recipeQnaCount = myPageService.getRecipeQnaCount(memberNo);
+		PageInfo recipeQnaPi = Pagination.getPageInfo(recipeQnaCount, recipe_qna_cpage, 10, 5);
+		
+		ArrayList<RecipeQnaDTO> recipeQnaList = myPageService.getRecipeQnaList(memberNo, recipeQnaPi);
+
+		log.info("productQnaList={}",productQnaList);
+		log.info("productQnaPi={}",productQnaPi);
+		log.info("recipeQnaList={}",recipeQnaList);
+		log.info("recipeQnaPi={}",recipeQnaPi);
+		
+		model.addAttribute("productQnaList", productQnaList);
+		model.addAttribute("productQnaPi", productQnaPi);
+		model.addAttribute("recipeQnaList", recipeQnaList);
+		model.addAttribute("recipeQnaPi", recipeQnaPi);
+		
 		return "member/myPageQnA";
 	}
 	
@@ -392,6 +422,39 @@ public class MyPageController {
 		return "member/myPageWithDraw";
 	}
 	
+	@GetMapping("check-pwd.me")
+	@ResponseBody
+	public String checkPassword(
+			HttpSession session,
+			@RequestParam String validPwd) {
+		
+		String memberPwd = ((Member)session.getAttribute("loginUser")).getMemberPwd();
+		log.info("validPwd={}",validPwd);
+		log.info("memberPwd={}",memberPwd);
+		
+		if(bcryptPasswordEncoder.matches(validPwd, memberPwd)) {
+			return "matched";
+		} else {
+			return "mismatched";
+		}
+	}
+	
+	@PostMapping("delete-member.me")
+	@ResponseBody
+	public String deleteMember(
+			HttpSession session,
+			@RequestParam int loginUserNo) {
+		
+		int result = myPageService.deleteMember(loginUserNo);
+		
+		if(result > 0) {
+			session.removeAttribute("loginUser");
+			return "done";
+		} else {
+			return "undone";
+		}
+		
+	}
 	
 	@RequestMapping("loginForm.me")
 	public String login(){

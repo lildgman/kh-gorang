@@ -3,7 +3,7 @@ package com.kh.gorang.recipe.model.vo;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.kh.gorang.common.vo.Media;
+import com.kh.gorang.common.model.vo.Media;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

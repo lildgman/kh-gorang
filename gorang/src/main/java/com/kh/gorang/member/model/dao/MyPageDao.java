@@ -8,7 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.gorang.board.model.vo.Board;
-import com.kh.gorang.common.vo.PageInfo;
+import com.kh.gorang.common.model.vo.PageInfo;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.MyPageBoardCommentDTO;
 import com.kh.gorang.member.model.vo.MyPageLikeBoardDTO;
@@ -16,6 +16,9 @@ import com.kh.gorang.member.model.vo.MyPageLikeRecipeDTO;
 import com.kh.gorang.member.model.vo.MyPageScrapBoardDTO;
 import com.kh.gorang.member.model.vo.MyPageScrapProductDTO;
 import com.kh.gorang.member.model.vo.MyPageScrapRecipeDTO;
+import com.kh.gorang.member.model.vo.ProductQnaDTO;
+import com.kh.gorang.member.model.vo.QnA;
+import com.kh.gorang.member.model.vo.RecipeQnaDTO;
 import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.shopping.model.vo.Product;
@@ -250,11 +253,42 @@ public class MyPageDao {
 		return sqlSession.update("myPageMapper.updateMemberInfo", member);
 	}
 
+	// 회원 조회
 	public Member selectMember(SqlSessionTemplate sqlSession, int memberNo) {
 		return sqlSession.selectOne("myPageMapper.selectMember",memberNo);
 	}
 
+	// 회원 탈퇴
+	public int deleteMember(SqlSessionTemplate sqlSession, int loginUserNo) {
+		return sqlSession.update("myPageMapper.deleteMember", loginUserNo);
+	}
+
+	// 상품 qna 개수 조회
+	public int getProductQnaCount(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectProductQnaCount", memberNo);
+	}
 	
-	
+	// 상품 qna 조회
+	public ArrayList<ProductQnaDTO> getProductQnaList(SqlSessionTemplate sqlSession, int memberNo, PageInfo productQnaPi) {
+		
+		int offset = (productQnaPi.getCurrentPage() - 1) * productQnaPi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, productQnaPi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("myPageMapper.selectProductQnaList", memberNo, rowBounds);
+	}
+
+	// 레시피 qna 개수 조회
+	public int getRecipeQnaCount(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectRecipeQnaCount", memberNo);	
+	}
+
+	// 레시피 qna 조회
+	public ArrayList<RecipeQnaDTO> getRecipeQnaList(SqlSessionTemplate sqlSession, int memberNo, PageInfo recipeQnaPi) {
+		
+		int offset = (recipeQnaPi.getCurrentPage() - 1) * recipeQnaPi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, recipeQnaPi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("myPageMapper.selectRecipeQnaList", memberNo, rowBounds);
+	}
 
 }
