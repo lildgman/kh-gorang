@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="odgRecipeMapper">
+  
+  	<!-- 레시피 -->
+  	<resultMap type="Recipe" id="recipeResult">
+  		<result column="RCP_NO" property="recipeNo"/>
+  		<result column="RCP_TITLE" property="recipeTitle"/>
+  		<result column="RCP_CONTENT" property="recipeContent"/>
+  		<result column="RCP_VIDEO" property="recipeVideo"/>
+  		<result column="RCP_MAIN_PHOTO" property="recipeMainPhoto"/>
+  		<result column="RCP_TAG" property="recipeTag"/>
+  		<result column="RCP_WRITE_DATE" property="recipeWriteDate"/>
+  		<result column="COOK_AMOUNT" property="cookAmount"/>
+  		<result column="COOK_TIME" property="cookTime"/>
+  		<result column="COOK_KIND" property="cookKind"/>
+  		<result column="COOK_LEVEL" property="cookLevel"/>
+  		<result column="STATUS" property="status"/>
+  		<result column="MEMBER_NO" property="memberNo"/>
+  	</resultMap>
+  	
+  	<!-- 상품 -->
+  	<resultMap type="Product" id="productResult">
+  		<result column="PRODUCT_NO" property="productNo"/>
+  		<result column="CATEGORY" property="category"/>
+  		<result column="PRODUCT_NAME" property="productName"/>
+  		<result column="PRODUCT_BRAND" property="productBrand"/>
+  		<result column="NORMAL_PRICE" property="normalPrice"/>
+  		<result column="SALE_PRICE" property="salePrice"/>
+  		<result column="DISCOUNT" property="discountPercent"/>
+  		<result column="MAIN_IMG" property="mainImg"/>
+  		<result column="DESCRIPTION" property="description"/>
+  		<result column="SHIPMENT_TYPE" property="shipmentType"/>
+  		<result column="SHIPMENT_TIME" property="shipmentTime"/>
+  		<result column="SHIPPING_PRICE" property="shippingPrice"/>
+  		<result column="STATUS" property="status"/>
+  	</resultMap>
+     
+    <!-- 최근 레시피 조회 -->
+	<select id="selectRecentRecipe" resultMap="recipeResult">
+		SELECT *
+		FROM RECIPE
+		ORDER BY RCP_WRITE_DATE DESC
+	</select>
+	
+	
+     
+     
+  </mapper>

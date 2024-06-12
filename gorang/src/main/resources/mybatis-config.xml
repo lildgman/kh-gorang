@@ -71,11 +71,12 @@
 		<mapper resource="/mappers/manager-mapper.xml" />
 		<mapper resource="/mappers/mypage-mapper.xml" />
 		<mapper resource="/mappers/order-mapper.xml"/>
-		<mapper resource="/mappers/media-mapper.xml"/>
-<<<<<<< HEAD
+
 		<mapper resource="/mappers/comment-mapper.xml"/>
-=======
+
 		<mapper resource="/mappers/search-mapper.xml"/>
->>>>>>> ef803fd769df99228d458cd5791132cbe8dbfc9a
+
+		<mapper resource="/mappers/odg-recipe-mapper.xml"/>
+
 	</mappers>
 </configuration>  
