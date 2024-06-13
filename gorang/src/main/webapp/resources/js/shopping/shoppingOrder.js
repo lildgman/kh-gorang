@@ -1,9 +1,4 @@
-window.onload = function () {
 
-  calculateTotalProductPrice();
-  calculateTotalPrice();
- 
-}
 
 
  document.addEventListener("DOMContentLoaded", function(){
@@ -58,25 +53,39 @@ window.onload = function () {
   // 제출
   document.querySelector("#buy_btn_container").submit();
   });
+
+  calculateTotalProductPrice();
+
+  calculateTotalPrice();
+
  })
 
-// 상품 총 금액 계산
+// 상품 총 금액, 배송비 계산
 function calculateTotalProductPrice() {
   const orderContainerElements = document.querySelectorAll('.order-product-container');
   const totalProductPriceEl = document.querySelector('#total-product-price');
   let totalPrice = 0;
+  let totalShipmentCost = 0;
   orderContainerElements.forEach(function(orderContainerElement) {
-    const productPrice = parseInt(orderContainerElement.querySelector('.order-product-saled-price').innerText.replace(/,/g, ''));
-    totalPrice += productPrice;
+    totalShipmentCost += parseInt(orderContainerElement.querySelector(".shipping-cost").innerText.replace(/,/g, ''));
+    const pdoptContainerEl = orderContainerElement.querySelectorAll(".order-productOpt-container");
+    pdoptContainerEl.forEach(function(ev){
+      const productPrice = parseInt(ev.querySelector('.order-product-saled-price').innerText.replace(/,/g, ''));
+      totalPrice += productPrice;
+    })
   })
   totalProductPriceEl.innerText = totalPrice.toLocaleString();
+  document.querySelector("#total-delivery-charge").innerText = totalShipmentCost.toLocaleString();
+
 }
+
+
 // 결제해야 할 총 금액 계산
 function calculateTotalPrice() {
   const totalProductPrice = parseInt(document.querySelector('#total-product-price').innerText.replace(/,/g, ''));
   const totalDeliveryCharge = parseInt(document.querySelector('#total-delivery-charge').innerText.replace(/,/g, ''));
   const totalPriceElements = document.querySelectorAll('.totalPrice');
-  const totalPrice = totalProductPrice - totalDeliveryCharge;
+  const totalPrice = totalProductPrice + totalDeliveryCharge;
 
   totalPriceElements.forEach(function(totalPriceElement) {
     totalPriceElement.innerText = totalPrice.toLocaleString();

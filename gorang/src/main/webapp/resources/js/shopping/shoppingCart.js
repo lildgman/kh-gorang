@@ -224,8 +224,8 @@ document.addEventListener("DOMContentLoaded", function(){
     const productName = ev.querySelector(".cart-product-name").innerHTML;
     const mainImg = ev.querySelector(".cart-input-mainImg").value;
     const shipmentType = ev.querySelector(".product-delivery-method").innerHTML;
-    const shippingPrice = ev.querySelector(".product-delivery-cost").innerHTML;
-
+    const shippingPrice = ev.querySelector(".product-delivery-cost").innerText.replace(/,/g, "");
+    
     const selectProductInfo = {
       productNo: selectedPno,
       seller: productSeller,

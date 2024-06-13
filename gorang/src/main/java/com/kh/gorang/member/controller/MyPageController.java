@@ -168,11 +168,7 @@ public class MyPageController {
 		
 	}
 
-	//마이페이지 나의냉장고
-	@RequestMapping("myRefrigerator.me")
-	public String myRefrigerator(){
-		return "member/myRefrigerator";
-	}
+	
 	
 	//내 정보 수정
 	@RequestMapping("edit.me")
