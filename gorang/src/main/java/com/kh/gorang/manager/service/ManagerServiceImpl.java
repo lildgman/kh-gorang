@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.gorang.board.model.vo.BoardSearchDTO;
+import com.kh.gorang.common.model.vo.PageInfo;
 import com.kh.gorang.manager.model.dao.ManagerDao;
 import com.kh.gorang.member.model.vo.Member;
 
@@ -26,9 +27,9 @@ public class ManagerServiceImpl implements ManagerService{
 	// ajax 게시글 검색
 	@Override
 	@Transactional
-	public ArrayList<BoardSearchDTO> ajaxSearchBoard(String searchBoardTitle) {
+	public ArrayList<BoardSearchDTO> ajaxSearchBoard(PageInfo pi, String searchBoardTitle) {
  
-		ArrayList<BoardSearchDTO> resultList = managerDao.ajaxSearchBoard(sqlSession, searchBoardTitle);
+		ArrayList<BoardSearchDTO> resultList = managerDao.ajaxSearchBoard(sqlSession, pi, searchBoardTitle);
 		
 		for(BoardSearchDTO b : resultList) {
 			int reportCount = managerDao.getReportCount(sqlSession, b.getBoard().getBoardNo());
@@ -90,6 +91,12 @@ public class ManagerServiceImpl implements ManagerService{
 		}
 		
 		return result;
+	}
+
+	// 검색한 상품 개수 조회
+	@Override
+	public int searchBoardCount(String searchBoardTitle) {
+		return managerDao.searchBoardCount(sqlSession, searchBoardTitle);
 	}
 
 }

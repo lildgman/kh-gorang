@@ -3,19 +3,25 @@ package com.kh.gorang.manager.model.dao;
 import java.util.ArrayList;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.gorang.board.model.vo.BoardSearchDTO;
+import com.kh.gorang.common.model.vo.PageInfo;
 import com.kh.gorang.member.model.vo.Member;
 
 @Repository
 public class ManagerDao {
 
 	// ajax 게시글 조회
-	public ArrayList<BoardSearchDTO> ajaxSearchBoard(SqlSessionTemplate sqlSession, String searchBoardTitle) {
+	public ArrayList<BoardSearchDTO> ajaxSearchBoard(SqlSessionTemplate sqlSession, PageInfo pi, String searchBoardTitle) {
+		
+		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
 		// TODO Auto-generated method stub
-		return (ArrayList)sqlSession.selectList("managerMapper.ajaxSearchBoard", searchBoardTitle);
+		return (ArrayList)sqlSession.selectList("managerMapper.ajaxSearchBoard", searchBoardTitle, rowBounds);
 	}
 	
 	// ajax 회원 조회
@@ -52,6 +58,13 @@ public class ManagerDao {
 	public int ajaxUpdateBoardStatus(SqlSessionTemplate sqlSession, Map<String, Object> map) {
 		return sqlSession.update("managerMapper.ajaxUpdateBoardStatus", map);
 	}
+
+	// 검색한 게시글 개수 조회
+	public int searchBoardCount(SqlSessionTemplate sqlSession, String searchBoardTitle) {
+		return sqlSession.selectOne("managerMapper.selectBoardCount",searchBoardTitle);
+	}
+	
+	
 
 	
 

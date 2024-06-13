@@ -1,6 +1,8 @@
 package com.kh.gorang.manager.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,9 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.gorang.board.model.vo.BoardSearchDTO;
+import com.kh.gorang.common.model.vo.PageInfo;
+import com.kh.gorang.common.template.Pagination;
 import com.kh.gorang.manager.service.ManagerService;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.shopping.service.ODGProductService;
@@ -65,11 +70,22 @@ public class ManagerController {
 	
 	@GetMapping("search-board.ma")
 	@ResponseBody
-	public ArrayList<BoardSearchDTO> ajaxSearchBoard(String searchBoardTitle) {
+	public Map<String, Object> ajaxSearchBoard(
+			@RequestParam(defaultValue = "1") int cpage,
+			String searchBoardTitle) {
 		
-		ArrayList<BoardSearchDTO> boardList = managerService.ajaxSearchBoard(searchBoardTitle);
+		int searchBoardCount = managerService.searchBoardCount(searchBoardTitle);
 		
-		return boardList;
+		PageInfo pi = Pagination.getPageInfo(searchBoardCount, cpage, 10, 10);
+		
+		
+		ArrayList<BoardSearchDTO> boardList = managerService.ajaxSearchBoard(pi, searchBoardTitle);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("boardList", boardList);
+		map.put("pi", pi);
+		
+		return map;
 	}
 	
 	@GetMapping("search-member.ma")
