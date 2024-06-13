@@ -110,9 +110,18 @@
 		SELECT *
 		FROM MEMBER
 		WHERE
-			MEMBER_EMAIL LIKE '%${searchMember}%'
-			OR MEMBER_NICKNAME LIKE '%${searchMember}%'
+			MEMBER_EMAIL LIKE '%'|| #{searchMember} ||'%'
+			OR MEMBER_NICKNAME LIKE '%'|| #{searchMember} ||'%'
 		ORDER BY MEMBER_NO
+	</select>
+	
+	<!-- 검색한 회원 결과 개수 조회 -->
+	<select id="selectMemberCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE
+			MEMBER_EMAIL LIKE '%'|| #{searchMember} ||'%'
+			OR MEMBER_NICKNAME LIKE '%'|| #{searchMember} ||'%'
 	</select>
 	
 	<!-- 회원번호로 회원 조회 -->

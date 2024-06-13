@@ -186,3 +186,14 @@
   #search-board-name-input {
     width: 100%;
   }
+
+  #pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  #pagination>span:hover {
+    cursor: pointer;
+  }

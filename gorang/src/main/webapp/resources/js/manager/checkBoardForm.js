@@ -1,25 +1,71 @@
 function searchBoard() {
   const searchBoardTitle = document.querySelector('#search-board-name-input').value;
 
+  if(searchBoardTitle) {
+    $.ajax({
+      url: 'search-board.ma',
+      type: 'get',
+      data: {
+        searchBoardTitle: searchBoardTitle
+      },
+      success: function(res) {
+        drawBoardTable(res.pi, res.boardList);
+        drawPagination(res.pi, searchBoardTitle);
+      }, 
+      error: function() {
+        console.log("상품 검색 api 호출 실패")
+      }
+    })
+  }
+  
+}
+
+function drawPagination(pi, searchBoardTitle) {
+  const paginationDiv = document.querySelector('#pagination');
+  paginationDiv.innerHTML = "";
+
+  if(pi.currentPage !== 1) {
+    paginationDiv.innerHTML += `<span data-cpage="${pi.currentPage - 1 }" data-searchBoardTitle="${searchBoardTitle}" onclick="movePage(this)">&lt;</span>`;
+  }
+
+  for(let p = pi.startPage; p <= pi.endPage; p++) {
+    if(p === pi.currentPage) {
+      paginationDiv.innerHTML += `<span data-cpage="${p}" data-searchBoardTitle="${searchBoardTitle}" onclick="movePage(this)"><strong>${p}</strong></span>`;
+    } else {
+      paginationDiv.innerHTML += `<span data-cpage="${p}" data-searchBoardTitle="${searchBoardTitle}" onclick="movePage(this)">${p}</span>`;
+
+    }
+  }
+
+  if(pi.currentPage < pi.maxPage) {
+    paginationDiv.innerHTML += `<span data-cpage="${pi.currentPage + 1 }" data-searchBoardTitle="${searchBoardTitle}" onclick="movePage(this)">&gt;</span>`;
+  }
+}
+
+function movePage(element) {
+  const cpage = element.getAttribute('data-cpage');
+  const searchBoardTitle = element.getAttribute('data-searchBoardTitle');
+
+  ajaxSearchBoard(cpage,searchBoardTitle);
+
+}
+
+function ajaxSearchBoard(cpage,searchBoardTitle) {
   $.ajax({
     url: 'search-board.ma',
     type: 'get',
     data: {
+      cpage:cpage,
       searchBoardTitle: searchBoardTitle
     },
     success: function(res) {
-      console.log(res);
       drawBoardTable(res.pi, res.boardList);
-      drawPagination(res.pi);
+      drawPagination(res.pi, searchBoardTitle);
     }, 
     error: function() {
       console.log("상품 검색 api 호출 실패")
     }
   })
-}
-
-function drawPagination(pi) {
-  
 }
 
 function drawBoardTable(pi, boardList) {
@@ -73,7 +119,13 @@ function formattingDate(dateString) {
 }
 
 function updateBoardStatus() {
+  
   const boardNoList = getCheckedBoard();
+
+  if(boardNoList.length === 0) {
+    alert("게시글을 선택해주세요.");
+    return;
+  }
 
   const result = confirm("정말로 게시물의 상태를 변경하시겠습니까?");
 
@@ -110,3 +162,14 @@ function getCheckedBoard() {
   return boardNoList;
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+  const searchInput = document.querySelector('#search-board-name-input');
+  searchInput.addEventListener("keypress",function(event) {
+    if(event.key == 'Enter') {
+      event.preventDefault();
+      if(searchInput.value) {
+        searchBoard();
+      }
+    }
+  })
+})

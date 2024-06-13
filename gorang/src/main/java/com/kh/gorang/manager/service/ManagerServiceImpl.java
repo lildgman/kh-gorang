@@ -45,9 +45,9 @@ public class ManagerServiceImpl implements ManagerService{
 
 	// ajax 회원 검색
 	@Override
-	public ArrayList<Member> ajaxSearchMember(String searchMember) {
+	public ArrayList<Member> ajaxSearchMember(PageInfo pi, String searchMember) {
 		
-		return managerDao.ajaxSearchMember(sqlSession, searchMember);
+		return managerDao.ajaxSearchMember(sqlSession, pi, searchMember);
 	}
 
 	// ajax 회원 상태 변경
@@ -97,6 +97,11 @@ public class ManagerServiceImpl implements ManagerService{
 	@Override
 	public int searchBoardCount(String searchBoardTitle) {
 		return managerDao.searchBoardCount(sqlSession, searchBoardTitle);
+	}
+
+	@Override
+	public int getSearchMemberCount(String searchMember) {
+		return managerDao.searchMemberCount(sqlSession, searchMember);
 	}
 
 }
