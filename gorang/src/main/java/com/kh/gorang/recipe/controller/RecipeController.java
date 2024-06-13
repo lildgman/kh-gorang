@@ -116,8 +116,8 @@ public class RecipeController {
 		System.out.println(recipeInsertDTO);
 		int deleteAllResult =recipeService.deleteAllRecipe(rcp,session);
 		System.out.println("deleteAllResult:"+deleteAllResult);
-//		int updateAllResult =recipeService.insertRecipeInsertDTO(rcp, recipeInsertDTO, session);
-		if(deleteAllResult >0) {			
+		int updateAllResult =recipeService.updateRecipeInsertDTO(rcp, recipeInsertDTO, session);
+		if(deleteAllResult*updateAllResult >0) {			
 			return "recipe/recipeList";
 		}
 		else {

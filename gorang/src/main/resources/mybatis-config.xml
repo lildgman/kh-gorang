@@ -71,7 +71,7 @@
 		<mapper resource="/mappers/manager-mapper.xml" />
 		<mapper resource="/mappers/mypage-mapper.xml" />
 		<mapper resource="/mappers/order-mapper.xml"/>
-
+		<mapper resource="/mappers/media-mapper.xml"/>
 		<mapper resource="/mappers/comment-mapper.xml"/>
 
 		<mapper resource="/mappers/search-mapper.xml"/>

@@ -18,7 +18,7 @@
        <!-- 헤더 -->
        <jsp:include page="../common/header.jsp" />
        
-       <form action="${contextPath}/update.re" method="post">  
+       <form id="update-form"action="${contextPath}/update.re" method="post">  
         <div id="head-btn-area">
             <button id="save-recipe">임시 저장</button>
             <button type="submit"  id="register-rcipe" onclick="return enrollRecipeBtn()">등록 하기</button>
@@ -50,7 +50,7 @@
             </div>
 
             <div id="recipe-yotube-area">
-                <textarea name="recipeVideo" id="" maxlength="500" placeholder="동영상이 있다면 주소를 작성해주세요(Youtube 만 가능)" value="${rcp.recipeVideo}" ></textarea>
+                <textarea name="recipeVideo" id="" maxlength="500" placeholder="동영상이 있다면 주소를 작성해주세요(Youtube 만 가능)" value="${rcp.recipeVideo}" >${rcp.recipeVideo}</textarea>
             </div>
 
             <div id="recipe-tage-area">

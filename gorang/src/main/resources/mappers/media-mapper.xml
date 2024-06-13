@@ -65,5 +65,6 @@
   	<delete id="deleteCompletePhoto" parameterType="Media">
   	DELETE FROM MEDIA
   	WHERE rcp_no=#{recipeNo}
+  	AND media_no =#{mediaNo}
 	</delete>
  </mapper>

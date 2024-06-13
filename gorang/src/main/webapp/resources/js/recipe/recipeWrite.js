@@ -1,29 +1,5 @@
 // 외부 함수(alert)
-function showSweetConfirm() {
-    // Swal.fire({
-    //     title: '정말 탈퇴하시겠습니까?',
-    //     text: "이 작업은 되돌릴 수 없습니다!",
-    //     icon: 'warning',
-    //     showCancelButton: true,
-    //     confirmButtonText: '확인',
-    //     cancelButtonText: '취소'
-    // }).then((result) => {
-    //     if (result.isConfirmed) {
-    //         Swal.fire(
-    //             '탈퇴 완료!',
-    //             '탈퇴가 완료되었습니다.',
-    //             'success'
-    //         );
-    //         // 탈퇴 처리 코드 여기에 추가
-    //     } else if (result.dismiss === Swal.DismissReason.cancel) {
-    //         Swal.fire(
-    //             '취소됨',
-    //             '탈퇴가 취소되었습니다.',
-    //             'error'
-    //         );
-    //     }
-    // });
-}
+
 
 // -----------------------------사진 넣기 영역---------------------------
 function choiceThumnailImg() {
@@ -134,10 +110,11 @@ function insertFileApi2(data,callback){
 
 //요리 완성 이미지 넣기
 function changecompleteImg(inputFile){
-    let parentBlock = inputFile.closest('.complete-food-img-block');
+    let parentBlock = inputFile.closest('.cfiBlock');
     if (inputFile.files.length === 1) {
+        parentBlock.querySelector(".btn-delete").style.visibility="visible";
         parentBlock.querySelector(".completeImg").style.display = "none";
-        parentBlock.querySelector(".completeImg-real").style.display = "block";
+        parentBlock.querySelector(".completeImg-real").style.display = "inline";
         const reader = new FileReader();
         // FileReader의 onload 이벤트 핸들러 정의
         reader.onload = function(event) {
@@ -157,6 +134,10 @@ function changecompleteImg(inputFile){
     } else {
         parentBlock.querySelector(".completeImg").style.display = "inline";
         parentBlock.querySelector(".completeImg-real").style.display = "none";
+        parentBlock.querySelector(".btn-delete").style.visibility="hidden";
+        parent.querySelector(".completeImg-real").src="";
+        parent.querySelector(".completeImg-real").value="";
+        parent.querySelector("input[type='hidden']").value="";
     }
 }
 
@@ -177,7 +158,20 @@ function insertFileApi3(data,callback){
     })
 }
 
+function deleteCPhoto(element){
+    console.log("하이");
+    let parent=element.closest(".cfiBlock");
+    let originName =parent.querySelector("input[type='hidden']").value;
+    console.log(originName);
 
+    parent.querySelector(".completeImg").style.display = "inline";
+    parent.querySelector(".completeImg-real").style.display = "none";
+    parent.querySelector(".btn-delete").style.visibility="hidden";
+    parent.querySelector(".completeImg-real").src="";
+    parent.querySelector(".completeImg-real").value="";
+    parent.querySelector("input[type='hidden']").value="";
+
+}
 //--------------------------------재료정보-------------------------------
 // 재료명 행삭제
 
@@ -644,7 +638,14 @@ function enrollRecipeBtn(){
         completeImgReals.focus;
         return false;
     }
-    // showSweetConfirm();
+    if(confirm('작성한 레시피를 등록하시겠습니까?')) {
+        document.getElementById("insert-form").submit();
+        return true;
+    }
+    else{
+        thumbnailImg.focus;
+        return false;
+    }
 }
 
 //--------------------------------- 예외처리 ------------------------------------------

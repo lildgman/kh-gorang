@@ -336,7 +336,8 @@
 
 <delete id="deleteCookOrder" parameterType="CookOrder">
 	DELETE FROM COOK_ORDER
-	WHERE rcp_no=#{recipeNo};
+	WHERE rcp_no=#{recipeNo}
+	AND cook_ord_no =#{cookOrdNo};
 	
 </delete>
 <delete id="deleteCookTip" parameterType="CookTip">

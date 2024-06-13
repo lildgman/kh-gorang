@@ -126,13 +126,45 @@ public class RecipeServiceImpl implements RecipeService{
 		int rcpNo = rcp.getRecipeNo();
 		finalResult  = recipeDao.updateRecipe(sqlSession,rcp);  //레시피 수정
 		
-		int divAfterLen =recipeInsertDTO.getRcpDivList().size(); //새로가져온 division길이
-		
-		int d = 0, i = 0, o = 0, t = 0, c = 0; //반복문 인덱스 (분류,재료,순서,팁,완료사진 순)
-		// 분류 및 재료
-		
+		for(Division division : recipeInsertDTO.getRcpDivList()) {	
+			int divNum =recipeDao.insertDivision(sqlSession, division, rcpNo).getDivNo();
+			for(IngredientsInfo ingre :division.getIngredientsInfoList()) {
+				System.out.println("서비스 null확인:"+ingre);
+				int result2 = recipeDao.insertIngredientsInfo(sqlSession, ingre, divNum);
+				System.out.println("result2:"+result2);
+				if (result2 <= 0) {
+                    finalResult = 0; // 삽입 실패 시 -1로 설정
+                }
+			}
+		}
+		//조리순서
+		for(CookOrder cookOrder : recipeInsertDTO.getCookOrderList()) {	
+			int cookOrderNum =recipeDao.insertCookOrder(sqlSession, cookOrder, rcpNo).getCookOrdNo();
+			for(CookTip cTip : cookOrder.getCookTipList()) {
+				System.out.println("서비스 null확인:"+cTip);
+				int result2 = recipeDao.insertCookTip(sqlSession, cTip, cookOrderNum);
+				System.out.println("result2:"+result2);
+				if (result2 <= 0) {
+                    finalResult = 0; // 삽입 실패 시 -1로 설정
+                }
+			}		
+		}		
+		//레시피완성 사진
+		for (Media md : recipeInsertDTO.getCompleteFoodPhoto()) {
+	        if (!md.getOriginName().equals("")) {
+	        	md.setChangeName(md.getOriginName());
+	        	md.setMediaType(1);
+	        	md.setMediaKind(1);
+	        	md.setFilePath("/resources/uploadfile/recipe/recipefinal");
+	        	int result2 = recipeDao.insertRecipeMedia(sqlSession,md,rcpNo);
+	        	if (result2 <= 0) {
+                    finalResult = 0; // 삽입 실패 시 -1로 설정
+                }        	
+	        }
+	    }
 
 		return finalResult;
+		
 	}
 	
 	//재료 삭제
@@ -175,26 +207,35 @@ public class RecipeServiceImpl implements RecipeService{
 		for(Division division : recipeInsertDTO.getRcpDivList()) {
 			for(IngredientsInfo ingre : division.getIngredientsInfoList()) {
 				finalResult *=recipeDao.deleteIngre(sqlSession, ingre);
+				System.out.println("finalResult deleteIngre :" + finalResult);
 			}
-			recipeDao.deleteDivision(sqlSession, division);
+			finalResult *= recipeDao.deleteDivision(sqlSession, division);
+			System.out.println("finalResult deleteDivision :" + finalResult);
 		}
 		
 		recipeInsertDTO.setCookOrderList(recipeDao.selectCookOrderList(sqlSession, rcpNo));	
 		for(CookOrder cookOrder : recipeInsertDTO.getCookOrderList()) {
 			cookOrder.setCookTipList(recipeDao.selectCookTipList(sqlSession, cookOrder.getCookOrdNo()));
+			System.out.println("finalResult selectCookTipList :" + finalResult);
 		}
 		
 		for(CookOrder cookOrder : recipeInsertDTO.getCookOrderList()) {
+			System.out.println(cookOrder);
 			for(CookTip cookTip : cookOrder.getCookTipList()) {
+				System.out.println(cookTip);
 				finalResult *=recipeDao.deleteCookTip(sqlSession, cookTip);
+				System.out.println("finalResult deleteCookTip :" + finalResult);
 			}
 			finalResult *=recipeDao.deleteCookOrder(sqlSession, cookOrder);
+			System.out.println("finalResult deleteCookOrder :" + finalResult);
 		}
 		recipeInsertDTO.setCompleteFoodPhoto(recipeDao.selectCompleteFoodPhoto(sqlSession, rcpNo));
 		for(Media media :recipeInsertDTO.getCompleteFoodPhoto()) {
-			finalResult *=recipeDao.deleteCompletePhoto(sqlSession,media );
+			finalResult *=recipeDao.deleteCompletePhoto(sqlSession,media);
+			System.out.println("finalResult deleteCompletePhoto :" + finalResult);
 		}
 		finalResult *=recipeDao.deleteRecipe(sqlSession, rcpNo);
+		System.out.println("finalResult deleteRecipe :" + finalResult);
 		return finalResult;
 	}
 

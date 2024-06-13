@@ -19,13 +19,6 @@ function cookIngOrderImg(element) {
 }
 function completeImg(element) {
     element.querySelector("input[type='file']").click();
-    if(element.querySelector("input[type='hidden']").value !==""){
-        // console.log( element.querySelector("input[type='file']").files[0])
-        // element.querySelector(".completeImg").style.display = "inline";
-        // element.querySelector(".completeImg-real").style.display = "none";
-        // element.querySelector(".completeImg-real").src="";
-        // element.querySelector("input[type='hidden']").value="";
-    } 
 }
 //썸네일 이미지 넣기
 function changeThumnailImg(inputFile) {
@@ -562,11 +555,11 @@ function deleteCookingOrder(element, num) {
             let blockId = parseInt(block.id.split('-')[1]);
             if (blockId > num) {
                 block.querySelector('.cooking-order-block-bottom-img').setAttribute('onclick', `cookIngOrderImg(this, ${blockId - 1})`);
-                block.querySelector('.cooking-order-block-bottom-img input').setAttribute('onchange', `changeCookIngOrderImg(this, ${blockId - 1})`);
+                block.querySelector('.cooking-order-block-bottom-img input[type="file"]').setAttribute('onchange', `changeCookIngOrderImg(this, ${blockId - 1})`);
                 block.querySelector('#recipe-order-delete-btn-area button').setAttribute('onclick', `deleteCookingOrder(this, ${blockId - 1})`);
 
                 block.id = `cookOrder-${blockId - 1}`;
-                let inputs = block.querySelectorAll('input[type="text"], button');
+                let inputs = block.querySelectorAll('input, button');
                 inputs.forEach(function (inputImg) {
                     if (inputImg.tagName.toLowerCase() === 'input' && inputImg.name.includes('cookOrderList')) {
                         inputImg.name = inputImg.name.replace(/cookOrderList\[\d+\]/g, function (match) {
@@ -721,7 +714,15 @@ function enrollRecipeBtn() {
         completeImgReals.focus;
         return false;
     }
-    // showSweetConfirm();
+
+     if(confirm('작성한 레시피를 수정하시겠습니까?')) {
+        document.getElementById("update-form").submit();
+        return true;
+    }
+    else{
+        thumbnailImg.focus;
+        return false;
+    }
 }
 
 //--------------------------------- 예외처리 -----------------------------------------

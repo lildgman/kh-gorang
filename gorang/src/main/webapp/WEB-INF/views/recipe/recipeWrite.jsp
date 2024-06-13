@@ -18,7 +18,7 @@
        <!-- 헤더 -->
        <jsp:include page="../common/header.jsp" />
        
-       <form action="${contextPath}/insert.re" method="post">  
+       <form id ="insert-form" action="${contextPath}/insert.re" method="post">  
         <div id="head-btn-area">
             <button id="save-recipe">임시 저장</button>
             <button type="submit"  id="register-rcipe" onclick="return enrollRecipeBtn()">등록 하기</button>
@@ -207,30 +207,42 @@
             <div id="complete-food-img-area">
                 <div id="complete-food-img-title">완성사진</div>
                 <div id="complete-food-img-blocks" >
+                    <div class="cfiBlock">    
+                        <input type="button" class="btn-delete" value="x" onclick="deleteCPhoto(this)">
                     <div class="complete-food-img-block"  onclick="completeImg(this)">
                         <img class="completeImg" src="${contextPath}/resources/dummyImg/recipe/recipeWrite/camera.png" alt="">
                         <input type="hidden" name="completeFoodPhoto[0].originName" id="completeFoodPhoto" value="">
                         <img class="completeImg-real"src="" alt="" >
                         <input type="file"  class="completeImages" id="" onchange="changecompleteImg(this)">
                     </div>
+                </div>
+                    <div class="cfiBlock">    
+                        <input type="button" class="btn-delete" value="x" onclick="deleteCPhoto(this)">
                     <div class="complete-food-img-block"  onclick="completeImg(this)">
                         <img class="completeImg" src="${contextPath}/resources/dummyImg/recipe/recipeWrite/camera.png" alt="">
                         <input type="hidden" name="completeFoodPhoto[1].originName" id="completeFoodPhoto" value="">
                         <img class="completeImg-real" src="" alt="" >
                         <input type="file" class="completeImages" id="" onchange="changecompleteImg(this)">
                     </div>
+                </div>
+                    <div class="cfiBlock">    
+                        <input type="button" class="btn-delete" value="x" onclick="deleteCPhoto(this)">
                     <div class="complete-food-img-block"  onclick="completeImg(this)">
                         <img class="completeImg" src="${contextPath}/resources/dummyImg/recipe/recipeWrite/camera.png" alt="">
                         <input type="hidden" name="completeFoodPhoto[2].originName" id="completeFoodPhoto" value="">
                         <img class="completeImg-real" src="" alt="" >
                         <input type="file"  class="completeImages" id="" onchange="changecompleteImg(this)">
                     </div>
+                </div>
+                    <div class="cfiBlock">    
+                        <input type="button" class="btn-delete" value="x" onclick="deleteCPhoto(this)">
                     <div class="complete-food-img-block"  onclick="completeImg(this)">
                         <img class="completeImg" src="${contextPath}/resources/dummyImg/recipe/recipeWrite/camera.png" alt="">
                         <input type="hidden" name="ompleteFoodPhoto[3].originName" id="completeFoodPhoto" value="">
                         <img class="completeImg-real" src="" alt="" >
                         <input type="file"  class="completeImages" id="" onchange="changecompleteImg(this)">
                     </div>
+                </div>
                 </div>
             </div>
         </div>

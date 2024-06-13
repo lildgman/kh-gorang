@@ -113,23 +113,28 @@ public class RecipeDao {
 	
 	//Ingre삭제
 	public int deleteIngre(SqlSessionTemplate sqlSession, IngredientsInfo ingredientsInfo) {	
+		System.out.println("Dao updateDivision null확인:"+ingredientsInfo);
 		return sqlSession.update("recipeMapper.deleteIngre",ingredientsInfo );
 	}
 	//Division삭제
 	public int deleteDivision(SqlSessionTemplate sqlSession, Division division) {
+		System.out.println("Dao updateDivision null확인:"+division);
 		return sqlSession.update("recipeMapper.deleteDivision",division );
 	}
 	//CookTip삭제
 	public int deleteCookTip(SqlSessionTemplate sqlSession, CookTip cookTip) {
+		System.out.println("Dao updateDivision null확인:"+cookTip);
 		return sqlSession.update("recipeMapper.deleteCookTip",cookTip );
 	}
 	//CookOrder삭제
 	public int deleteCookOrder(SqlSessionTemplate sqlSession, CookOrder cookOrder) {
+		System.out.println("Dao updateDivision null확인:"+cookOrder);
 		return sqlSession.update("recipeMapper.deleteCookOrder",cookOrder );
 		
 	}
 	//레시피 완성 사진 삭제
-	public int deleteCompletePhoto(SqlSessionTemplate sqlSession, Media media) {		
+	public int deleteCompletePhoto(SqlSessionTemplate sqlSession, Media media) {	
+		System.out.println("Dao updateDivision null확인:"+media);
 		return sqlSession.delete("mediaMapper.deleteCompletePhoto",media );
 	}
 	//레시피 삭제
@@ -146,25 +151,30 @@ public class RecipeDao {
 	}
 	//레시피 분류 수정
 	public int updateDivision(SqlSessionTemplate sqlSession, Division division) {
+		System.out.println("Dao updateDivision null확인:"+division);
 		return sqlSession.update("recipeMapper.updateDivision",division);
 	}
 	//레시피 재료 수정
 	public int updateIngredients(SqlSessionTemplate sqlSession, IngredientsInfo ingre) {
+		System.out.println("Dao updateDivision null확인:"+ingre);
 		return sqlSession.update("recipeMapper.updateIngredients",ingre);
 		
 	}
 	//레시피 조리 순서 수정
 	public int updateCookOrder(SqlSessionTemplate sqlSession, CookOrder co) {
+		System.out.println("Dao updateDivision null확인:"+co);
 		return sqlSession.update("recipeMapper.updateCookOrder",co);
 		
 	}
 	//레시피 팁 수정
 	public int updateCooktip(SqlSessionTemplate sqlSession, CookTip ct) {
+		System.out.println("Dao updateDivision null확인:"+ct);
 		return sqlSession.update("recipeMapper.updateCooktip", ct);
 	}
 
 	//레시피 완성사진 수정
 	public int updateRecipeMedia(SqlSessionTemplate sqlSession, Media md) {
+		System.out.println("Dao updateDivision null확인:"+md);
 		return sqlSession.update("mediaMapper.updateRecipeMedia", md);
 	}
 	
