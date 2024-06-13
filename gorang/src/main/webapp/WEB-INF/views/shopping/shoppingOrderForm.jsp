@@ -131,13 +131,11 @@
                                     <div class="order-product-container">
                                         <div class="order-product-container-top">
                                             <span class="brandName">${entry.key.productBrand}</span>
-                                            <span class="shipping-method">${entry.key.shipmentType}</span>
-                                            <span class="shipping-cost">${entry.key.shippingPrice}</span>
                                         </div>
                                         <div class="order-product-container-content">
                                             <div class="order-product-img-container">
                                                 <img class="order-product-img"
-                                                    src="${contextPath }/resources/dummyImg/shopping/${entry.key.mainImg}"
+                                                    src="${contextPath }/resources/uploadfile/product/productimg/${entry.key.mainImg}"
                                                     alt="">
                                             </div>
                                             <div class="order-product-info">
@@ -159,14 +157,27 @@
                                                                         type="number" />
                                                                 </span><span class="won">원</span>
                                                             </div>
+                                                            <span style="color: #ededed;">|</span>
                                                             <div>
                                                                 <span
                                                                     class="order-product-quantity">${opt.detailOptionQuantity}</span><span>개</span>
-
                                                             </div>
                                                         </div>
+
                                                     </div>
                                                 </c:forEach>
+                                                <div class="order-product-delivery-info order-product-quantity-area">
+                                                    <div class="order-product-shipping-cost">
+                                                        <span class="order-product-additional-info">배송비</span>
+                                                        <span class="shipping-cost order-product-additional-info">
+                                                            ${entry.key.shippingPrice}
+                                                        </span>
+                                                    </div>
+                                                    
+                                                    <span style="color: #ededed;">|</span>
+                                                    <span
+                                                        class="shipping-method order-product-additional-info">${entry.key.shipmentType}</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

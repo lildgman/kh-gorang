@@ -18,7 +18,7 @@
        <!-- 헤더 -->
        <jsp:include page="../common/header.jsp" />
        
-       <form action="${contextPath}/update.re" method="post">  
+       <form id="update-form"action="${contextPath}/update.re" method="post">  
         <div id="head-btn-area">
             <button id="save-recipe">임시 저장</button>
             <button type="submit"  id="register-rcipe" onclick="return enrollRecipeBtn()">등록 하기</button>
@@ -32,7 +32,7 @@
             <div id="recipe-write-imgupload-area" onclick="choiceThumnailImg()">
                 <img id="thumnailImg" src="${contextPath}/resources/dummyImg/recipe/recipeWrite/camerg.png" alt="" style="display: none;">
                 <img id="thumnailImg-real" src="${contextPath}/resources/uploadfile/recipe/recipemain/${rcp.recipeMainPhoto}" alt="" style="display: block;">
-                <input type="hidden" name="recipeMainPhoto" id="recipeMainPhoto" value="">
+                <input type="hidden" name="recipeMainPhoto" id="recipeMainPhoto" value="${rcp.recipeMainPhoto}">
                 <input type="file" id="recipeMainPhotoFile" onchange="changeThumnailImg(this)">
                 <div id="recipe-write-img-middle-text" style="display: none;">Upload recipe photo</div>
                 <div id="recipe-write-img-bottom-text" style="display: none;">Show others your finished dish</div>
@@ -50,7 +50,7 @@
             </div>
 
             <div id="recipe-yotube-area">
-                <textarea name="recipeVideo" id="" maxlength="500" placeholder="동영상이 있다면 주소를 작성해주세요(Youtube 만 가능)" value="${rcp.recipeVideo}" ></textarea>
+                <textarea name="recipeVideo" id="" maxlength="500" placeholder="동영상이 있다면 주소를 작성해주세요(Youtube 만 가능)" value="${rcp.recipeVideo}" >${rcp.recipeVideo}</textarea>
             </div>
 
             <div id="recipe-tage-area">
@@ -86,13 +86,6 @@
                 <div class="selectbox-areas"> 
                     <select name="cookAmount" id="" class="mySelect"> 
                         <option value="" disabled selected hidden>인원</option>
-                        <option value="1인분">1인분</option>
-                        <option value="2인분">2인분</option>
-                        <option value="3인분">3인분</option>
-                        <option value="4인분">4인분</option>
-                        <option value="5인분">5인분</option>
-                        <option value="6인분">6인분</option>
-                        <option value="6인분 이상">6인분 이상</option>
                         <c:forEach var="amount" items="${['1인분','2인분','3인분','4인분','5인분','6인분','6인분 이상']}">
                             <option value="${amount}" ${amount eq rcp.cookAmount ? 'selected' : ''}>${amount}</option>
                         </c:forEach>
@@ -118,6 +111,7 @@
                 <c:forEach var="division" items="${recipeInsertDTO.rcpDivList}" varStatus="divisionIndex">
                     <div class="recipe-ingredient-info-blocks" id="divisions-${divisionIndex.index}">
                         <div class="recipe-ingredient-info-top">
+                            <input class ="divNocl" name="rcpDivList[${divisionIndex.index}].divNo" type="hidden" value="${division.divNo}">
                             <div class="location-btn"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Link.png" alt=""></div>
                             <div class="ingre-div-block" > 
                                 <input name="rcpDivList[${divisionIndex.index}].divName" type="text" placeholder="분류 예)식재료" value="${division.divName}">
@@ -127,12 +121,11 @@
                         <div class="recipe-ingredient-info-bottom">
                             <c:forEach var="ingredient" items="${division.ingredientsInfoList}" varStatus="ingreIndex">
                                 <div class="recipe-smaill-block" id="ingredients-${ingreIndex.index}">
-                                <input name="rcpDivList[${divisionIndex.index}].divNo" type="hidden" value="${division.divNo}">
                                 <div class="location-btn"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Link.png" alt=""></div>
                                 <div class="igre-name-block"><input name="rcpDivList[${divisionIndex.index}].ingredientsInfoList[${ingreIndex.index}].ingreName" type="text" placeholder="재료명 예)돼지고기" value="${ingredient.ingreName}"></div>
                                 <div class="igre-amount-block"><input name="rcpDivList[${divisionIndex.index}].ingredientsInfoList[${ingreIndex.index}].ingreAmount" type="text" placeholder="수량" value="${ingredient.ingreAmount}"></div>
                                 <div class="igre-unit-block"><input name="rcpDivList[${divisionIndex.index}].ingredientsInfoList[${ingreIndex.index}].ingreUnit" type="text" placeholder="단위" value="${ingredient.ingreUnit}"></div>
-                                <div class="delete-btn"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" onclick="deleteSmaillBlock(this,'${divisionIndex.index}','${ingreIndex.index}')"></div>
+                                <div class="delete-btn2" onclick="deleteSmaillBlock(this,'${divisionIndex.index}','${ingreIndex.index}')"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" ></div>
                                 <button type="button">태그 +</button>
                             </div>
                             </c:forEach>
@@ -170,7 +163,6 @@
                                     <div class="cooking-order-block-bottom-tips">
                                         <c:forEach var="cookTip" items="${cookOrder.cookTipList}" varStatus="tipIndex">
                                                 <div class="cooking-order-block-bottom-tip" id="cookTip-${tipIndex.index}">
-                                                    <input name="cookOrderList[${orderIndex.index}].cookOrdNo" type="hidden" value="${cookOrder.cookOrdNo}">
                                                     <input name ="cookOrderList[${orderIndex.index}].cookTipList[${tipIndex.index}].cookTipContent" type="text" placeholder="팁 예) 볶는 시간은 최소로 합니다" value="${cookTip.cookTipContent}">
                                                     <button type="button" class="add-tip"  onclick="addTip(this,'${orderIndex.index}','${tipIndex.index}')">
                                                         <img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/plus (2).png" alt=""></button>

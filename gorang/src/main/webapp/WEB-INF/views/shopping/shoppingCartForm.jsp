@@ -51,13 +51,16 @@
                                             <input type="checkbox" class="select-checkbox"
                                                 onclick="changeAllCheckBox()">
                                         </div>
-                                        <input type="hidden" class="cart-input-productNo" value="${entry.key.productNo}">
+                                        <input type="hidden" class="cart-input-productNo"
+                                            value="${entry.key.productNo}">
                                         <input type="hidden" class="cart-input-seller" value="${entry.key.seller}">
-                                        <input type="hidden" class="cart-input-productBrand" value="${entry.key.productBrand}">
+                                        <input type="hidden" class="cart-input-productBrand"
+                                            value="${entry.key.productBrand}">
                                         <div class="product-img-container">
-                                            <input type="hidden" class="cart-input-mainImg" value="${entry.key.mainImg}">
+                                            <input type="hidden" class="cart-input-mainImg"
+                                                value="${entry.key.mainImg}">
                                             <img class="product-img"
-                                                src="${contextPath }/resources/dummyImg/shopping/${entry.key.mainImg}"
+                                                src="${contextPath }/resources/uploadfile/product/productimg/${entry.key.mainImg}"
                                                 alt="">
                                         </div>
                                         <div class="cart-product-info-container">
@@ -65,15 +68,23 @@
                                                 <span class="cart-product-name">${entry.key.productName}</span>
                                             </div>
                                             <div class="product-delivery-method">${entry.key.shipmentType}</div>
-                                            <div class="product-delivery-cost">${entry.key.shippingPrice}</div>
+                                            <div>
+                                                <span>배송비</span>
+                                                <span class="product-delivery-cost">
+                                                    ${entry.key.shippingPrice}
+                                                </span>
+                                            </div>
                                             <c:forEach var="cart" items="${entry.value}">
                                                 <div class="cart-pdopt-container">
-                                                    <input type="hidden" class="cart-input-optNo" value="${cart.pdOptNo}">
-                                                    <span class="cart-productOpt-name">${cart.pdOptForCart.detailOptionName}</span>
+                                                    <input type="hidden" class="cart-input-optNo"
+                                                        value="${cart.pdOptNo}">
+                                                    <span
+                                                        class="cart-productOpt-name">${cart.pdOptForCart.detailOptionName}</span>
                                                     <div class="product-quantity-price-container">
                                                         <div class="product-quantity">
                                                             <div class="pbtn minus_quantity" id="minus_quantity">-</div>
-                                                            <div class="pbtn quantity" id="quantity">${cart.pdOptQuantity}</div>
+                                                            <div class="pbtn quantity" id="quantity">
+                                                                ${cart.pdOptQuantity}</div>
                                                             <div class="pbtn plus_quantity" id="plus_quantity">+</div>
                                                         </div>
                                                         <div class="product-price">
@@ -94,7 +105,7 @@
                                                     </div>
                                                 </div>
                                             </c:forEach>
-                                            
+
                                         </div>
                                     </div>
                                 </c:forEach>

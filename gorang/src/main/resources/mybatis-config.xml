@@ -52,8 +52,9 @@
  		<typeAlias type="com.kh.gorang.member.model.vo.MyPageLikeBoardDTO" alias="MyPageLikeBoardDTO" />
  		<typeAlias type="com.kh.gorang.member.model.vo.ProductQnaDTO" alias="ProductQnaDTO" />
  		<typeAlias type="com.kh.gorang.member.model.vo.RecipeQnaDTO" alias="RecipeQnaDTO" />
- 		<typeAlias type="com.kh.gorang.member.model.vo.ProductCart" alias="ProductCart" />
- 		<typeAlias type="com.kh.gorang.recipe.model.dto.RecipeListDto" alias="RecipeListDto"/>
+ 		
+ 		<typeAlias type="com.kh.gorang.member.model.vo.RefrigeratorInsertDTO" alias="RefrigeratorInsertDTO"/>
+ 		
 	</typeAliases>
 	
 	<!-- 
@@ -71,7 +72,7 @@
 		<mapper resource="/mappers/manager-mapper.xml" />
 		<mapper resource="/mappers/mypage-mapper.xml" />
 		<mapper resource="/mappers/order-mapper.xml"/>
-
+		<mapper resource="/mappers/media-mapper.xml"/>
 		<mapper resource="/mappers/comment-mapper.xml"/>
 
 		<mapper resource="/mappers/search-mapper.xml"/>

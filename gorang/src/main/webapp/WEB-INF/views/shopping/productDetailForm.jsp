@@ -182,14 +182,6 @@
                                 <tbody>
                                 </tbody>
                             </table>
-                            <div id="qna_pagination_area" style="margin-top: 10px;">
-                                <div id="qna_pagination">
-                                    <a href="#">&lt;</a>
-                                    <a href="#">1</a>
-                                    <a href="#">2</a>
-                                    <a href="#">&gt;</a>
-                                </div>
-                            </div>
                         </div>
                     </div>
 

@@ -8,6 +8,11 @@ body {
     padding-top: 170px;
 }
 
+table{
+    table-layout:fixed;
+    width: 100%;
+}
+
 /* body전체 영역 */
 #body-area {
     margin: 80px 340px;
@@ -49,11 +54,24 @@ body {
 #recommend-recipe-imgs {
     height: 240px;
     display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     gap: 20px;
     margin-bottom: 60px;
 }
 
-/*나의 냉장고 전체영역  내부 간격주기(테이블) */
+/*나의 냉장고 전체영역*/
+#myRefrigerator-area{
+    width: 900px;
+}
+
+#myRefrigerator-igre-area{
+    width: 100%;
+}
+
+
+/*내부 간격주기(테이블) */
 #myRefrigerator-igre-table-area {
     padding: 16px;
 }
@@ -97,6 +115,8 @@ body {
     width: 100%;
 }
 
+.
+
 /* 테이블 텍스트 헤드 색상설정 (상품/신선도/...등) */
 thead td {
     color: #6D6D6D;
@@ -127,11 +147,6 @@ tbody td:not(:first-child ) {
     font-weight: 300;
 }
 
-/* 식재료 이미지와 식재료명 간격주기 */
-td img {
-    margin-right: 5px;
-}
-
 /* 신선도 영역*/
 .flesh-area {
     display: flex;
@@ -149,26 +164,7 @@ td img {
     border-radius: 50%;
 }
 
-/* 상품 열의 너비를 설정 */
-.myRefrigerator-tr {
-    width: 300px; 
-}
-
-/* "소비기한"  너비 크기설정 */
-td:nth-child(3) {
-    width: 120px;
-}
-/* "냉장고 입고날짜" 너비 크기설정 */
-td:nth-child(4) {
-   width: 120px;
-}
-
 /* "삭제" 너비 크기설정 */
-.myRefrigerator-last-td {
-    width: 80px; 
-    text-align: right;
-    padding-left: 35px;
-}
 
 /* 직접레시피 찾기 모달창--------------------------------- */
 
@@ -359,11 +355,10 @@ td:nth-child(4) {
 }
 
 
-
 /* 식재료 추가 모달창------------------------------------ */
 /* 모달 스타일 */
 .modal-two {
-    display: none; 
+    display: none;
     position: fixed;
     z-index: 100;
     left: 0;
@@ -383,11 +378,16 @@ td:nth-child(4) {
 
   /* 모달 콘텐츠 스타일 */
   #modal-content-recipe-add {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background-color: #fefefe;
-    margin: 10% auto; /* 중앙 정렬 */
+    /* 중앙 정렬 */
+    margin: 10% auto; 
     padding: 20px;
     border: 1px solid #888;
-    width: 635px;
+    width: 1000px;
     height: 700px;
   }
   
@@ -405,7 +405,6 @@ td:nth-child(4) {
     height: 40px;
     width: 160px;
     margin-top: 20px;
-    margin-left: 230px;
     font-size:25px;
     text-align: center;
     margin-bottom: 13px;
@@ -417,26 +416,45 @@ td:nth-child(4) {
 #modal-search-igre2{
     border: 1px solid #C5C5C5;
     border-radius: 5px;
-    width: 550px;
-    height: 35px; 
+    width: 100%;
     display: flex;
     font-size:12px ;
     color:#ABABAB ;
     margin-bottom: 15px;
-    margin-left: 25px;
     justify-content: space-between;
   
 }
+/* 식재료 추가 검색 버튼 */
+#modal-search-igre2 > button{
+    width: 10%;
+    border-left: 1px solid #C5C5C5;
+}
 
 #modal-search-igre2 img{
-    margin-right: 10px;
+}
+
+.refri-input-wrapper{
+    width: 90%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.refri-input-wrapper input{
+    font-size: large;
 }
 
 /* 식품명 입력란 설정  */
-#input-igretext2{
-    margin: 3px 6px;
+.refri-foodNutri-input{
+    padding: 3px 6px;
     border: none;
-    width: 350px;
+    width: 100%;
+    height: 50px;
+}
+
+#refri-input-foodName{
+    border-bottom: 1px solid #C5C5C5;
 }
 
 /* 검색 클릭시 테두리 지움 */
@@ -445,11 +463,11 @@ td:nth-child(4) {
 }
 
 #list-igre-area2{
-    width: 530px;
+    width: 100%;
     height: 30px;
     display: flex;
     margin: 0px 44px;
-    justify-content: right;
+    justify-content: space-between;
     margin-bottom: 10px;
     font-weight: 300px;
     gap:15px
@@ -476,45 +494,35 @@ td:nth-child(4) {
 
 /* 리스트 제목 영역 */
 #list-title2{
-    width: 550px;
+    width: 100%;
     height: 40px;
     background-color: #9BCEFF;
     color: white;
-    margin-left: 25px;
-    display: flex;
-    align-items: center;
-    font-size: 14px;
+    font-size: 16px;
 }
 
-/* 번호 위치 */
-#add-list-title1{
-    margin-left:72px;
+#list-title2 span{
+    text-align: center;
 }
 
-/* 식품명 */
-#add-list-title2{
-    margin-left:72px ;
+#modal-ingre-tbody{
+    font-size: 15px;
 }
-/* 100g당 칼로리 */
-#add-list-title3{
-    margin-left:65px ;
-}
-/* 소비기한 */
-#add-list-title4{
-    margin-left:65px ;
+
+#modal-ingre-checkBox{
+    height: 20px;
+    width: 20px;
 }
 
 .direct-input input[type="text"] {
     width: 50px;
-    margin-left: 3px;
 }
 
 /* 식재료 스크롤바 */
 #overflow-recipe-area2{
     overflow:auto; 
-    width:550px; 
+    width: 100%; 
     height:400px;
-    margin-left: 25px;
     margin-bottom: 19px;
     font-size: 14px;
 }
@@ -537,8 +545,8 @@ td:nth-child(4) {
 
 /* input 테두리 삭제(클릭포함 */
 .fixed-width4 input{
-    width: 80px;
     border: none;
+    width: 100%;
 }
 .fixed-width4 input:focus{
     outline: none;
@@ -546,12 +554,14 @@ td:nth-child(4) {
 
 /* 버튼 영역 */
 #modal-search-recipe-bottom2{
-    width: 215px;
     height: 30px;
-    margin-left: 120px;
-    /* padding: 0px 22px;
-    display: flex;
-    justify-content: space-between; */
+}
+
+/* 식재료 추가 모달 페이지네이션 */
+#ingre-modal-pagination{
+    width: 100%;
+    height: 30px;
+    padding-right: 20px;
 }
 
 /* 닫기버튼 */
@@ -564,24 +574,23 @@ td:nth-child(4) {
 }
 
 #overflow-table{
-    width: 530px;
+    width: 100%;
 }
 
 #overflow-table td{
     padding: 16px 0px;
+    text-align: center;
 }
 
 #overflow-table td:first-child {
-    padding: 10px; /* 첫 번째 td에 대한 패딩 제거 */
-    padding-left: 16px;
-    padding-top: 16px;
+    text-align: center;
 }
 
 
 
 /* 체크박스 너비 */
 .td-checkbox{
-    width: 46px;
+    width: 40px;
 }
 .td-checkbox > input{
     width: 20px;
@@ -591,7 +600,7 @@ td:nth-child(4) {
 
 /* 번호너비 */
 .fixed-width1{
-    width: 76px;
+    width: 60px;
 }
 
 /* 식품너비 */
@@ -608,32 +617,98 @@ td:nth-child(4) {
 .fixed-width4{
     color:#B7B7B7;
     /* width: 100%; */
-    display: flex;
     font-weight: 400;
 }
 
 .overflow-tr{
-    width: 526px;
+    width: 100%;
 }
 
-    /* 페이징 바 */
+    /* 냉장고 하단 페이징 바 */
 
-    #pagination-area{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 25px;
-        margin-left: 15px;
-      }
-      
-      #pagination{
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        width: 392px;
-      }
-      
-      #pagination > a {
-        font-size: 14px;
-        color : #6D6D6D;
-      }
+#pagination-area{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    }
+    
+    /* 모든 페이지바 공통 */
+
+.pagination{
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 20px;
+}
+
+.pagination > a {
+font-size: 14px;
+color : #6D6D6D;
+}
+
+
+      /* 식품 영양 정보 모달 */
+      .nutrition-modal .modal-header {
+        background-color: #000;
+        color: #fff;
+        text-align: left;
+        padding: 10px 20px;
+    }
+
+    .nutrition-modal-container{
+        position: fixed;
+        top: 20%;
+        left: 40%;
+        width: 330px;
+    }
+
+    .nutrition-modal .modal-body {
+        background-color: #fff;
+        color: #000;
+        padding: 20px;
+    }
+    .nutrition-modal .nutrition-table {
+        width: 100%;
+        border: 1px solid #000;
+        border-collapse: collapse;
+        margin-bottom: 10px;
+    }
+    .nutrition-modal .nutrition-table th, .nutrition-modal .nutrition-table td {
+        border: 1px solid #000;
+        padding: 5px;
+        text-align: left;
+        font-weight: normal;
+    }
+    .nutrition-modal .nutrition-table th {
+        background-color: #f8f9fa;
+        font-weight: bold;
+    }
+    .nutrition-modal .nutrition-table th:first-child, .nutrition-modal .nutrition-table td:first-child {
+        width: 50%;
+    }
+    .nutrition-modal .nutrition-table th:last-child, .nutrition-modal .nutrition-table td:last-child {
+        width: 20%;
+        text-align: right;
+    }
+    .nutrition-modal .modal-footer {
+        background-color: #f8f9fa;
+        text-align: center;
+        border-top: 1px solid #e9ecef;
+    }
+    .nutrition-modal .disclaimer {
+        font-size: 0.8em;
+        margin-top: 10px;
+        text-align: left;
+    }
+
+
+.center{
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+
+.text-align-center{
+    text-align: center;
+}

@@ -19,18 +19,11 @@ function cookIngOrderImg(element) {
 }
 function completeImg(element) {
     element.querySelector("input[type='file']").click();
-    if(element.querySelector("input[type='hidden']").value !==""){
-        // console.log( element.querySelector("input[type='file']").files[0])
-        // element.querySelector(".completeImg").style.display = "inline";
-        // element.querySelector(".completeImg-real").style.display = "none";
-        // element.querySelector(".completeImg-real").src="";
-        // element.querySelector("input[type='hidden']").value="";
-    } 
 }
 //썸네일 이미지 넣기
 function changeThumnailImg(inputFile) {
     let parent =inputFile.closest(".complete-food-img-block");
-    if (inputFile.files.length === 0) {
+    if (inputFile.files.length === 1) {
         document.getElementById("thumnailImg").style.display = "none";
         document.getElementById("recipe-write-img-middle-text").style.display = "none";
         document.getElementById("recipe-write-img-bottom-text").style.display = "none";
@@ -146,16 +139,7 @@ function changecompleteImg(inputFile) {
             reader.readAsDataURL(inputFile.files[0]);
 
     } else {
-        if(parentBlock.querySelector(".completeImg-real").src !== ""){
-            let originName =parentBlock.querySelector("input[type='hidden']").value;
-            console.log(originName);
-            let recipeNo=document.querySelector("input[name='recipeNo']").value;
-            let media ={
-                originName: originName,
-                recipeNo:recipeNo
-            }
-            deleteCompletePhoto(media);
-        }
+       
         parentBlock.querySelector(".completeImg").style.display = "inline";
         parentBlock.querySelector(".completeImg-real").style.display = "none";
         parentBlock.querySelector(".btn-delete").style.visibility="hidden";
@@ -185,21 +169,7 @@ function insertFileApi3(data, callback) {
     })
 }
 
-//완성사진 삭제 ajax
-function deleteCompletePhoto(data) {
-    $.ajax({
-        url: "deleteCompletePhoto.re",
-        type: "POST",
-        data: data,
 
-        success: function () {
-            console.log("성공적으로 완성사진 삭제");
-        },
-        error: function () {
-            console.log("파일업로드 api요청 실패")
-        }
-    });
-}
 
 function deleteCPhoto(element){
     console.log("하이");
@@ -234,8 +204,6 @@ function deleteSmaillBlock(element, num1, num2) {
     });
 
     if (count > 1) {
-        // num2 -= 1;
-        // let getNum = parseInt(element.closest('.recipe-smaill-block').id.split('-')[1]);
         ingreList.forEach(function (block) {
             let blockId = parseInt(block.id.split('-')[1]);
             if (num2 < blockId) {
@@ -248,49 +216,17 @@ function deleteSmaillBlock(element, num1, num2) {
                     });
                 });
 
-                let deleteBtn = block.querySelector('.delete-btn img');
+                let deleteBtn = block.querySelector('.delete-btn2');
                 deleteBtn.setAttribute('onclick', `deleteSmaillBlock(this, ${num1}, ${blockId - 1})`);
             }
         });
-
-        bottom.querySelector('.add-igre-btn img').setAttribute('onclick', `deleteSmaillBlock(this, ${num1}, ${count - 2})`);
         bottom.querySelector('.add-igre-btn button').setAttribute('onclick', `addBundle(this, ${num1}, ${count - 2})`);
 
-        if (parentBlock.querySelector("input[name^='rcpDivList'][type='hidden']") !== null) {
-            let divNo = parentBlock.querySelector("input[name^='rcpDivList'][type='hidden']").value;
-            let ingreName = parentBlock.querySelector(".igre-name-block input").value;
-            let ingreAmount = parentBlock.querySelector(".igre-amount-block input").value;
-            let ingreUnit = parentBlock.querySelector(".igre-unit-block input").value;
-            console.log(ingreName);
-            console.log(ingreAmount);
-            console.log(ingreUnit);
-            let ingredientsInfo = {
-                divNo: parseInt(divNo),
-                ingreName: ingreName,
-                ingreAmount: parseInt(ingreAmount),
-                ingreUnit: ingreUnit
-            }
-            deleteIngre(ingredientsInfo);
-        }
         parentBlock.remove();
     }
 
 }
-//재료행 삭제 ajax
-function deleteIngre(data) {
-    $.ajax({
-        url: "deleteIngre.re",
-        type: "POST",
-        data: data,
 
-        success: function () {
-            console.log("성공적으로 재료 삭제");
-        },
-        error: function () {
-            console.log("파일업로드 api요청 실패")
-        }
-    });
-}
 
 //분류 행삭제
 function deleteIngreBlock(element, num1) {
@@ -318,7 +254,6 @@ function deleteIngreBlock(element, num1) {
                         return `rcpDivList[${num}]`;
                     });
                     if (input.getAttribute('name').startsWith('rcpDivList') && input.getAttribute('type') === 'hidden') {
-                        // console.log("value"+input.value);
                         let originalValue = parseInt(input.value);
                         input.value = originalValue - 1;
                     }
@@ -327,35 +262,17 @@ function deleteIngreBlock(element, num1) {
                 let leningre = block.querySelectorAll('.recipe-smaill-block').length;
                 block.querySelector('.add-igre-btn img').setAttribute('onclick', `addBundle(this, ${blockId - 1}, ${leningre - 1})`);
                 block.querySelector('.add-igre-btn button').setAttribute('onclick', `addBundle(this, ${blockId - 1}, ${leningre - 1})`);
+                
+                block.querySelectorAll('.delete-btn2').forEach(function(deleteBtn2, index) {
+                    deleteBtn2.setAttribute('onclick', `deleteSmaillBlock(this, ${blockId - 1}, ${index})`);
+                });
             }
         })
-        parentBlock.querySelector("#add-div-btn button").setAttribute('onclick', `addUnit(this,${count - 2})`)
-        let recipeNo = document.querySelector("input[name='recipeNo']").value;
-        let divName = element.closest(".recipe-ingredient-info-top").querySelector("input[type='text']").value;
-        let division = {
-            recipeNo: recipeNo,
-            divName: divName
-        }
-        deleteDivision(division);
+        parentBlock.querySelector("#add-div-btn button").setAttribute('onclick',`addUnit(this,${count-2})`)
         deletePart.remove();
     }
 }
 
-//분류행 삭제 ajax
-function deleteDivision(data) {
-    $.ajax({
-        url: "deleteDivision.re",
-        type: "POST",
-        data: data,
-
-        success: function () {
-            console.log("성공적으로 분류 삭제");
-        },
-        error: function () {
-            console.log("파일업로드 api요청 실패")
-        }
-    });
-}
 
 
 // 기존 분류 추가
@@ -385,7 +302,7 @@ function addUnit(element, num) {
             <div class="igre-name-block"><input name="rcpDivList[${num}].ingredientsInfoList[0].ingreName" type="text" placeholder="재료명 예)돼지고기"></div>
             <div class="igre-amount-block"><input name="rcpDivList[${num}].ingredientsInfoList[0].ingreAmount" type="text" placeholder="수량"></div>
             <div class="igre-unit-block"><input name="rcpDivList[${num}].ingredientsInfoList[0].ingreUnit" type="text" placeholder="단위"></div>
-            <div class="delete-btn"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" onclick="deleteSmaillBlock(this,${num},0)"></div>
+            <div class="delete-btn2"  onclick="deleteSmaillBlock(this,${num},0)"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Icon.png" alt=""></div>
             <button type="button">태그 +</button>
         </div>
         <div class="add-igre-btn">                     
@@ -401,8 +318,6 @@ function addUnit(element, num) {
             <button type="button" onclick="addUnit(this,${num})">+ 분류 추가</button>
       
     `;
-
-
 }
 
 //재료행 추가
@@ -431,7 +346,7 @@ function Inputs(num1, num2) {
         <div class="igre-name-block"><input name="rcpDivList[${num1}].ingredientsInfoList[${num2}].ingreName" type="text" placeholder="재료명 예)돼지고기"></div>
         <div class="igre-amount-block"><input name="rcpDivList[${num1}].ingredientsInfoList[${num2}].ingreAmount" type="text" placeholder="수량"></div>
         <div class="igre-unit-block"><input name="rcpDivList[${num1}].ingredientsInfoList[${num2}].ingreUnit" type="text" placeholder="단위"></div>
-        <div class="delete-btn"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" onclick="deleteSmaillBlock(this,${num1},${num2})"></div>
+        <div class="delete-btn2" onclick="deleteSmaillBlock(this,${num1},${num2})"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" ></div>
         <button type="button">태그 +</button>
     </div>`;
     return newBlock;
@@ -578,34 +493,34 @@ function deleteTip(element, num1, num2) {
                 }
             }
         })
-        if (deleteBlock.querySelector("input[name^='cookOrderList'][type='hidden']") !== null) {
+        // if (deleteBlock.querySelector("input[name^='cookOrderList'][type='hidden']") !== null) {
 
-            let cookOrdNo = deleteBlock.querySelector("input[name^='cookOrderList'][type='hidden']").value;
-            let cookTipContent = deleteBlock.querySelector("input[name^='cookOrderList'][type='text']").value;
-            let cookTip = {
-                cookOrdNo: cookOrdNo,
-                cookTipContent: cookTipContent
-            }
-            deleteCookTip(cookTip);
-        }
+        //     let cookOrdNo = deleteBlock.querySelector("input[name^='cookOrderList'][type='hidden']").value;
+        //     let cookTipContent = deleteBlock.querySelector("input[name^='cookOrderList'][type='text']").value;
+        //     let cookTip = {
+        //         cookOrdNo: cookOrdNo,
+        //         cookTipContent: cookTipContent
+        //     }
+        //     deleteCookTip(cookTip);
+        // }
         deleteBlock.remove();
     }
 }
 //팁행 삭제 ajax
-function deleteCookTip(data) {
-    $.ajax({
-        url: "deleteCookTip.re",
-        type: "POST",
-        data: data,
+// function deleteCookTip(data) {
+//     $.ajax({
+//         url: "deleteCookTip.re",
+//         type: "POST",
+//         data: data,
 
-        success: function () {
-            console.log("성공적으로 분류 삭제");
-        },
-        error: function () {
-            console.log("파일업로드 api요청 실패")
-        }
-    });
-}
+//         success: function () {
+//             console.log("성공적으로 분류 삭제");
+//         },
+//         error: function () {
+//             console.log("파일업로드 api요청 실패")
+//         }
+//     });
+// }
 
 //요리순서 삭제 (1개만 있을시 삭제x)
 function deleteCookingOrder(element, num) {
@@ -620,7 +535,7 @@ function deleteCookingOrder(element, num) {
         recipeNo: recipeNo,
         cookOrdContent: cookOrdContent
     }
-    deleteCookOrder(cookOrder);
+    // deleteCookOrder(cookOrder);
     
     deletePart.remove();
     if (count > 1) {
@@ -640,11 +555,11 @@ function deleteCookingOrder(element, num) {
             let blockId = parseInt(block.id.split('-')[1]);
             if (blockId > num) {
                 block.querySelector('.cooking-order-block-bottom-img').setAttribute('onclick', `cookIngOrderImg(this, ${blockId - 1})`);
-                block.querySelector('.cooking-order-block-bottom-img input').setAttribute('onchange', `changeCookIngOrderImg(this, ${blockId - 1})`);
+                block.querySelector('.cooking-order-block-bottom-img input[type="file"]').setAttribute('onchange', `changeCookIngOrderImg(this, ${blockId - 1})`);
                 block.querySelector('#recipe-order-delete-btn-area button').setAttribute('onclick', `deleteCookingOrder(this, ${blockId - 1})`);
 
                 block.id = `cookOrder-${blockId - 1}`;
-                let inputs = block.querySelectorAll('input[type="text"], button');
+                let inputs = block.querySelectorAll('input, button');
                 inputs.forEach(function (inputImg) {
                     if (inputImg.tagName.toLowerCase() === 'input' && inputImg.name.includes('cookOrderList')) {
                         inputImg.name = inputImg.name.replace(/cookOrderList\[\d+\]/g, function (match) {
@@ -675,20 +590,20 @@ function deleteCookingOrder(element, num) {
     }
 }
 //요리순서 행 삭제 ajax
-function deleteCookOrder(data) {
-    $.ajax({
-        url: "deleteCookOrder.re",
-        type: "POST",
-        data: data,
+// function deleteCookOrder(data) {
+//     $.ajax({
+//         url: "deleteCookOrder.re",
+//         type: "POST",
+//         data: data,
 
-        success: function () {
-            console.log("성공적으로 분류 삭제");
-        },
-        error: function () {
-            console.log("파일업로드 api요청 실패")
-        }
-    });
-}
+//         success: function () {
+//             console.log("성공적으로 분류 삭제");
+//         },
+//         error: function () {
+//             console.log("파일업로드 api요청 실패")
+//         }
+//     });
+// }
 //-------------------------------------상단 버튼-----------------
 
 // 등록하기 버튼
@@ -799,7 +714,15 @@ function enrollRecipeBtn() {
         completeImgReals.focus;
         return false;
     }
-    // showSweetConfirm();
+
+     if(confirm('작성한 레시피를 수정하시겠습니까?')) {
+        document.getElementById("update-form").submit();
+        return true;
+    }
+    else{
+        thumbnailImg.focus;
+        return false;
+    }
 }
 
 //--------------------------------- 예외처리 -----------------------------------------

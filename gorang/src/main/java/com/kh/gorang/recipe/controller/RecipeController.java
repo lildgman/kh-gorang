@@ -114,9 +114,10 @@ public class RecipeController {
 	@RequestMapping("update.re")
 	public String updateRecipe(Recipe rcp, RecipeInsertDTO recipeInsertDTO ,HttpSession session, Model model){
 		System.out.println(recipeInsertDTO);
-		
-//		int result =recipeService.updateRecipeInsertDTO(rcp, recipeInsertDTO, session);
-		if(true) {			
+		int deleteAllResult =recipeService.deleteAllRecipe(rcp,session);
+		System.out.println("deleteAllResult:"+deleteAllResult);
+		int updateAllResult =recipeService.updateRecipeInsertDTO(rcp, recipeInsertDTO, session);
+		if(deleteAllResult*updateAllResult >0) {			
 			return "recipe/recipeList";
 		}
 		else {
@@ -130,12 +131,8 @@ public class RecipeController {
 	@ResponseBody
 	public int deleteDivision(Division division, HttpSession session) {
 		System.out.println(division);
-		if(!division.getDivName().equals("")) {
 			int result =recipeService.deleteDivision(division);
 			return result;
-		}
-		else
-			return 0;
 	}
 	
 	//레시피 재료 행 삭제
@@ -143,13 +140,11 @@ public class RecipeController {
 	@ResponseBody
 	public int deleteIngre(IngredientsInfo ingredientsInfo, HttpSession session) {
 		System.out.println(ingredientsInfo);
-		if(ingredientsInfo.getIngreName().equals("")) {
-		int result =recipeService.deleteIngre(ingredientsInfo);
-			return result;
-		}
-		else {
-			return 0;
-		}
+			
+		int result =recipeService.deleteIngre(ingredientsInfo);			
+		System.out.println("result:"+result);
+		return result;
+		
 	}
 	
 	

@@ -204,7 +204,17 @@
 		<result column="BOARD_NO" property="boardNo"/>
 		<result column="BOARD_THUMBNAIL" property="boardThumbnail"/>
 	</resultMap>
+	
+	<resultMap type="RefrigeratorInsertDTO" id="RefrigeratorInsertDTOResult">
+		<result column="member_no" property="refMemberNo" />
+		<result column="ref_name" property="refName" />
+		<result column="ref_thumbnail" property="refThumbnail" />
+		<result column="ref_consumption_date" property="refConsumptionDate" />
+		<result column="ref_input_date" property="refInputDate" />
+		<result column="ref_count" property="refCount" />
+	</resultMap>
 
+<!-- ===================================== 쿼리문 =============================== -->
 	<!-- 팔로잉 수 조회 -->
 	<select id="selectFollowingCount" resultType="_int">
 		SELECT COUNT(FOLLOWING_NO)
@@ -469,6 +479,7 @@
 		WHERE BOARD_NO = #{boardNo}
 	</update>
 	
+	
 	<!-- 댓글 개수 조회 -->
 	<select id="selectCommentCount" resultType="_int">
 		SELECT COUNT(*)
@@ -494,6 +505,7 @@
 			AND C.MEMBER_NO = #{memberNo}
 		ORDER BY C.COMMENT_DATE DESC
 	</select>
+	
 	
 	<!-- 리뷰 개수 조회 -->
 	<select id="selectReviewCount" resultType="_int">
@@ -568,6 +580,7 @@
 		SET STATUS = 'N'
 		WHERE MEMBER_NO = #{memberNo} AND PRODUCT_NO = #{productNo}
 	</update>
+
 	
 	<!-- 좋아요 레시피 조회 -->
 	<select id="selectLikeRecipe" resultMap="myPageLikeRecipeDTOResult">
@@ -729,6 +742,45 @@
 			Q.QNA_TYPE = 1 AND
 			Q.QNA_ANSWER_TYPE = 1
 		ORDER BY Q.QNA_CREATE_DATE DESC
+	</select>
+	
+	<insert id="insertRefrigerator">
+		insert into refrigerator
+			(
+			member_no,
+			ref_name,
+			ref_consumption_date,
+			ref_input_date,
+			ref_count
+			)
+		values
+			(
+			#{refMemberNo},
+			#{refName},
+			TO_DATE(#{refConsumptionDate}, 'YYYY-MM-DD'),
+        	TO_DATE(#{refInputDate}, 'YYYY-MM-DD'),
+			#{refCount}
+			)
+	</insert>
+	
+	<select id="selectListRefrigeratorsByMemberNo" resultMap="RefrigeratorInsertDTOResult">
+		select
+			ref_name,
+			ref_thumbnail,
+			ref_consumption_date,
+			ref_input_date,
+			ref_count
+		from refrigerator
+		where member_no = #{memberNo}
+		order by ref_consumption_date
+	
+	</select>
+	
+	<!-- 냉장고 식재료 전체 갯수 조회 -->
+	<select id="selectRefriCount" resultType="_int">
+		select count(ref_no)
+		from refrigerator
+		where member_no = #{memberNo}
 	</select>
 	
 </mapper>

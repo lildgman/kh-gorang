@@ -9,6 +9,10 @@ input::placeholder{
     color: #CECECD;
 }
 
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px #F8F6F2 inset !important; /* 배경색 */
+    -webkit-text-fill-color: black !important; /* 텍스트 색 */
+}
 
 textarea {
     resize: none; /* 크기 조절 핸들을 숨깁니다. */
@@ -581,3 +585,15 @@ option:hover{
     color: white;
 }
 
+.btn-delete{
+    width: 30px;
+    border: 1px;
+    color: white;
+    background-color: rgb(130 130 130);
+    visibility: hidden;
+    
+}
+.btn-delete:hover{
+    cursor: pointer;
+    background-color: rgb(255, 92, 92)
+}

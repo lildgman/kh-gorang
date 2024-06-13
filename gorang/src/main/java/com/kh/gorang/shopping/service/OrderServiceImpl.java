@@ -31,7 +31,7 @@ public class OrderServiceImpl implements OrderService {
 		}
 		return result1 * result2;
 	}
-	
+	@Transactional(readOnly = true)
 	@Override
 	public ArrayList<OrderPdopt> selectOrderPdOptsByMemberNo(int memberNo) {	
 		return orderDao.selectOrderPdOptsByMemberNo(sqlSession, memberNo);

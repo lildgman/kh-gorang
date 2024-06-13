@@ -2,10 +2,13 @@ package com.kh.gorang.member.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.common.model.vo.PageInfo;
@@ -20,8 +23,8 @@ import com.kh.gorang.member.model.vo.MyPageScrapBoardDTO;
 import com.kh.gorang.member.model.vo.MyPageScrapProductDTO;
 import com.kh.gorang.member.model.vo.MyPageScrapRecipeDTO;
 import com.kh.gorang.member.model.vo.ProductQnaDTO;
-import com.kh.gorang.member.model.vo.QnA;
 import com.kh.gorang.member.model.vo.RecipeQnaDTO;
+import com.kh.gorang.member.model.vo.RefrigeratorInsertDTO;
 import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.shopping.model.vo.Product;
@@ -33,9 +36,12 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @RequiredArgsConstructor
 public class MyPageServiceImpl implements MyPageService{
-
-	private final MyPageDao myPageDao;
-	private final SqlSessionTemplate sqlSession;
+	
+	@Autowired
+    private MyPageDao myPageDao;
+	
+	@Autowired
+	private SqlSessionTemplate sqlSession;
 	
 	// 팔로잉 수 구하기
 	@Override
@@ -341,6 +347,33 @@ public class MyPageServiceImpl implements MyPageService{
 	@Override
 	public ArrayList<RecipeQnaDTO> getRecipeQnaList(int memberNo, PageInfo recipeQnaPi) {
 		return myPageDao.getRecipeQnaList(sqlSession,memberNo, recipeQnaPi);
+	}
+
+	// 냉장고 식재료 저장
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	 public int insertRefrigerator(int memberNo, List<RefrigeratorInsertDTO> refriIngres) {
+        int result = 1;
+        
+        for (RefrigeratorInsertDTO refriIngre : refriIngres) {
+            refriIngre.setRefMemberNo(memberNo);
+            result *= myPageDao.insertRefrigerator(sqlSession, refriIngre);
+        }
+        return result;
+    }
+	
+	// 냉장고 식재료 리스트 조회
+	@Transactional(readOnly = true)
+	@Override
+	public List<RefrigeratorInsertDTO> selectListRefrigeratorsByMemberNo(int memberNo, PageInfo refriPi) {
+		return myPageDao.selectListRefrigeratorsByMemberNo(sqlSession, memberNo, refriPi);
+	}
+	
+	// 냉장고 식재료 갯수 조회
+	@Transactional(readOnly = true)
+	@Override
+	public int selectRefriCount(int memberNo) {
+		return myPageDao.selectRefriCount(sqlSession, memberNo);
 	}
 	
 
