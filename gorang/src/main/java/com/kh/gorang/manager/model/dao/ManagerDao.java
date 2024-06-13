@@ -25,8 +25,12 @@ public class ManagerDao {
 	}
 	
 	// ajax 회원 조회
-	public ArrayList<Member> ajaxSearchMember(SqlSessionTemplate sqlSession, String searchMember) {
-		return (ArrayList)sqlSession.selectList("managerMapper.ajaxSearchMember", searchMember);
+	public ArrayList<Member> ajaxSearchMember(SqlSessionTemplate sqlSession, PageInfo pi, String searchMember) {
+		
+		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("managerMapper.ajaxSearchMember", searchMember, rowBounds);
 	}
 
 	// 회원번호로 회원 조회
@@ -62,6 +66,11 @@ public class ManagerDao {
 	// 검색한 게시글 개수 조회
 	public int searchBoardCount(SqlSessionTemplate sqlSession, String searchBoardTitle) {
 		return sqlSession.selectOne("managerMapper.selectBoardCount",searchBoardTitle);
+	}
+
+	// 검색한 회원 결과 개수
+	public int searchMemberCount(SqlSessionTemplate sqlSession, String searchMember) {
+		return sqlSession.selectOne("managerMapper.selectMemberCount", searchMember);
 	}
 	
 	

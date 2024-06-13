@@ -1,15 +1,78 @@
+document.addEventListener("DOMContentLoaded", function() {
+  const searchInput = document.querySelector('#search-member-input');
+  searchInput.addEventListener("keypress",function(event) {
+    if(event.key == 'Enter') {
+      event.preventDefault();
+      if(searchInput.value) {
+        searchBoard();
+      }
+    }
+  })
+})
+
 // 검색한 회원 조회 함수
 function searchMember() {
   const searchMemberValue = document.querySelector('#search-member-input').value;
 
+  if(searchMemberValue) {
+    $.ajax({
+      url: 'search-member.ma',
+      type: 'get',
+      data: {
+        searchMember: searchMemberValue
+      },
+      success: function(res) {
+        drawMemberTable(res.memberList);
+        drawPagination(res.pi, searchMemberValue);
+      }, 
+      error: function() {
+        console.log("회원 검색 api 호출 실패");
+      }
+  
+    })
+  }
+}
+
+function drawPagination(pi, searchMember){
+  const paginationDiv = document.querySelector('#pagination');
+  paginationDiv.innerHTML = "";
+
+  if(pi.currentPage !== 1) {
+    paginationDiv.innerHTML += `<span data-cpage="${pi.currentPage - 1 }" data-searchMember="${searchMember}" onclick="movePage(this)">&lt;</span>`;
+  }
+
+  for(let p = pi.startPage; p <= pi.endPage; p++) {
+    if(p === pi.currentPage) {
+      paginationDiv.innerHTML += `<span data-cpage="${p}" data-searchMember="${searchMember}" onclick="movePage(this)"><strong>${p}</strong></span>`;
+    } else {
+      paginationDiv.innerHTML += `<span data-cpage="${p}" data-searchMember="${searchMember}" onclick="movePage(this)">${p}</span>`;
+
+    }
+  }
+
+  if(pi.currentPage < pi.maxPage) {
+    paginationDiv.innerHTML += `<span data-cpage="${pi.currentPage + 1 }" data-searchMember="${searchMember}" onclick="movePage(this)">&gt;</span>`;
+  }
+}
+
+function movePage(element) {
+  const cpage = element.getAttribute('data-cpage');
+  const searchMember = element.getAttribute('data-searchMember');
+
+  ajaxSearchBoard(cpage,searchMember);
+}
+
+function ajaxSearchBoard(cpage,searchMember) {
   $.ajax({
     url: 'search-member.ma',
     type: 'get',
     data: {
-      searchMember: searchMemberValue
+      cpage : cpage,
+      searchMember: searchMember
     },
     success: function(res) {
-      drawMemberTable(res);
+      drawMemberTable(res.memberList);
+      drawPagination(res.pi, searchMember);
     }, 
     error: function() {
       console.log("회원 검색 api 호출 실패");
@@ -17,6 +80,7 @@ function searchMember() {
 
   })
 }
+
 
 // 회원테이블 그려주는 함수
 function drawMemberTable(res) {
@@ -72,6 +136,11 @@ function formattingDate(dateString) {
 // 회원 삭제 함수
 function updateMember() {
   let memberNoList = getMemberNo();
+
+  if(memberNoList.length === 0) {
+    alert("회원을 선택해주세요.");
+    return;
+  }
 
   const result = confirm("정말로 회원상태를 변경하시겠습니까?");
 
