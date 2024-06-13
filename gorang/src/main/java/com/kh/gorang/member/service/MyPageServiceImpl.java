@@ -1,6 +1,7 @@
 package com.kh.gorang.member.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -380,8 +381,9 @@ public class MyPageServiceImpl implements MyPageService{
 	// 냉장고 식재료로 레시피 조회
 	@Transactional(readOnly = true)
 	@Override
-	public List<RecipeListDto> selectRecipeListByRefri(String[] ingres) {
-		return myPageDao.selectRecipeListByRefri(sqlSession, ingres);
+	public List<RecipeListDto> selectRecipeListByRefri(String[] ingresArray) {
+				
+		return myPageDao.selectRecipeListByRefri(sqlSession, ingresArray);
 	}
 	
 

@@ -143,7 +143,7 @@ public interface MyPageService {
 	int selectRefriCount(int userNo);
 	
 	// 냉장고 식재료를 바탕으로 레시피 조회
-	List<RecipeListDto> selectRecipeListByRefri(String[] ingres);
+	List<RecipeListDto> selectRecipeListByRefri(String[] ingresArray);
 
 
 	

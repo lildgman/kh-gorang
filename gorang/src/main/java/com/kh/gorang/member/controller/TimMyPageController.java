@@ -145,12 +145,9 @@ public class TimMyPageController {
 	@RequestMapping("selectRecipeListByRefri.me")
 	public List<RecipeListDto> selectRecipeListByRefri(String ingreList){
 		
-		String[] ingres = ingreList.split(",");
+		String[] ingresArray = ingreList.split(",");
 		
-		System.out.println(Arrays.toString(ingres));
-		
-		
-		return myPageService.selectRecipeListByRefri(ingres);
+		return myPageService.selectRecipeListByRefri(ingresArray);
 	}
 }
 	

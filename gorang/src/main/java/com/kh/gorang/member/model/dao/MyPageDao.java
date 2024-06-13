@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -308,8 +309,8 @@ public class MyPageDao {
 	}
 	
 	//식재료로 레시피 조회
-	public List<RecipeListDto> selectRecipeListByRefri(SqlSessionTemplate sqlSession, String[] ingres) {
-		return sqlSession.selectList("myPageMapper.selectRecipeListByRefri", ingres);
+	public List<RecipeListDto> selectRecipeListByRefri(SqlSessionTemplate sqlSession, String[] ingresArray) {
+		return sqlSession.selectList("myPageMapper.selectRecipeListByRefri", ingresArray);
 	}
 
 }
