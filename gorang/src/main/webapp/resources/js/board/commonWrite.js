@@ -3,10 +3,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // const enrollContentBtn = document.getElementById('enrollContentBtn'); // 수정: enrollContentBtn 변수 삭제
     const boardCategory = document.getElementById('boardCategory');
     const boardTitle = document.getElementById('boardTitle');
-    const boardThumbnail = document.getElementById('boardThumbnail');
+    const boardThumbnail = document.getElementById('file');
     const boardContent = document.getElementById('boardContent');
     const form = document.querySelector('form');
     const writeUploadThumbnail = document.getElementById('writeUploadThumbnail');
+
+    console.log(boardThumbnail);
 
     // 임시 저장 버튼 클릭 이벤트
     saveContentBtn.addEventListener('click', function() {
@@ -99,11 +101,8 @@ function displayThumbnail(event) {
         }
         reader.readAsDataURL(file);
         // 이미지를 업로드하는 경우 썸네일 값을 파일 이름으로 설정
-        boardThumbnail.value = file.name;
-    } else {
-        // 이미지를 선택하지 않은 경우 썸네일 값을 빈 문자열("")로 설정
-        boardThumbnail.value = '';
-    }
+        // boardThumbnail.value = file.name;
+    } 
 }
 
 });

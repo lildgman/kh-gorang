@@ -1,25 +1,27 @@
 package com.kh.gorang.board.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.gorang.board.model.dao.BoardDao;
+import com.kh.gorang.board.model.dto.BoardListDTO;
 import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.board.model.vo.Comment;
 import com.kh.gorang.common.model.vo.PageInfo;
 
+import lombok.RequiredArgsConstructor;
 
+
+@RequiredArgsConstructor
 @Service
 public class BoardServiceImpl implements BoardService {
 
-    @Autowired
-    private SqlSessionTemplate sqlSession;
-
-    @Autowired
-    private BoardDao boardDao;
+    private final SqlSessionTemplate sqlSession;
+    private final BoardDao boardDao;
 
     @Override
     public int selectListCount() {
@@ -79,4 +81,14 @@ public class BoardServiceImpl implements BoardService {
     public int deleteComment(int commentNo) {
         return boardDao.deleteComment(sqlSession, commentNo);
     }
+
+	@Override
+	public int getBoardCount(Map<String, Object> map) {
+		return boardDao.getBoardCount(sqlSession, map);
+	}
+
+	@Override
+	public ArrayList<BoardListDTO> getBoardList(PageInfo pi, Map<String, Object> map) {
+		return boardDao.getBoardList(sqlSession, pi, map);
+	}
 }
