@@ -18,7 +18,7 @@
        <!-- 헤더 -->
        <jsp:include page="../common/header.jsp" />
        
-       <form action="${contextPath}/insert.re" method="post">  
+       <form id ="insert-form" action="${contextPath}/insert.re" method="post">  
         <div id="head-btn-area">
             <button id="save-recipe">임시 저장</button>
             <button type="submit"  id="register-rcipe" onclick="return enrollRecipeBtn()">등록 하기</button>
@@ -133,7 +133,7 @@
                                 <div class="igre-name-block"><input name="rcpDivList[0].ingredientsInfoList[0].ingreName" type="text" placeholder="재료명 예)돼지고기"></div>
                                 <div class="igre-amount-block"><input name="rcpDivList[0].ingredientsInfoList[0].ingreAmount" type="text" placeholder="수량"></div>
                                 <div class="igre-unit-block"><input name="rcpDivList[0].ingredientsInfoList[0].ingreUnit" type="text" placeholder="단위"></div>
-                                <div class="delete-btn"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" onclick="deleteSmaillBlock(this,0,0)"></div>
+                                <div class="delete-btn2" onclick="deleteSmaillBlock(this,0,0)"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" ></div>
                                 <button type="button">태그 +</button>
                             </div>
                 
@@ -142,7 +142,7 @@
                                 <div class="igre-name-block"><input name="rcpDivList[0].ingredientsInfoList[1].ingreName" type="text" placeholder="재료명 예)돼지고기"></div>
                                 <div class="igre-amount-block"><input name="rcpDivList[0].ingredientsInfoList[1].ingreAmount" type="text" placeholder="수량"></div>
                                 <div class="igre-unit-block"><input name="rcpDivList[0].ingredientsInfoList[1].ingreUnit" type="text" placeholder="단위"></div>
-                                <div class="delete-btn"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" onclick="deleteSmaillBlock(this,0,1)"></div>
+                                <div class="delete-btn2" onclick="deleteSmaillBlock(this,0,0)"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" ></div>
                                 <button type="button">태그 +</button>
                             </div>
                 
@@ -151,7 +151,7 @@
                                 <div class="igre-name-block"><input name="rcpDivList[0].ingredientsInfoList[2].ingreName" type="text" placeholder="재료명 예)돼지고기"></div>
                                 <div class="igre-amount-block"><input name="rcpDivList[0].ingredientsInfoList[2].ingreAmount" type="text" placeholder="수량"></div>
                                 <div class="igre-unit-block"><input name="rcpDivList[0].ingredientsInfoList[2].ingreUnit" type="text" placeholder="단위"></div>
-                                <div class="delete-btn"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" onclick="deleteSmaillBlock(this,0,2)"></div>
+                                <div class="delete-btn2" onclick="deleteSmaillBlock(this,0,0)"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" ></div>
                                 <button type="button">태그 +</button>
                             </div>
                             <div class="add-igre-btn">                     
@@ -207,30 +207,42 @@
             <div id="complete-food-img-area">
                 <div id="complete-food-img-title">완성사진</div>
                 <div id="complete-food-img-blocks" >
+                    <div class="cfiBlock">    
+                        <input type="button" class="btn-delete" value="x" onclick="deleteCPhoto(this)">
                     <div class="complete-food-img-block"  onclick="completeImg(this)">
                         <img class="completeImg" src="${contextPath}/resources/dummyImg/recipe/recipeWrite/camera.png" alt="">
                         <input type="hidden" name="completeFoodPhoto[0].originName" id="completeFoodPhoto" value="">
                         <img class="completeImg-real"src="" alt="" >
                         <input type="file"  class="completeImages" id="" onchange="changecompleteImg(this)">
                     </div>
+                </div>
+                    <div class="cfiBlock">    
+                        <input type="button" class="btn-delete" value="x" onclick="deleteCPhoto(this)">
                     <div class="complete-food-img-block"  onclick="completeImg(this)">
                         <img class="completeImg" src="${contextPath}/resources/dummyImg/recipe/recipeWrite/camera.png" alt="">
                         <input type="hidden" name="completeFoodPhoto[1].originName" id="completeFoodPhoto" value="">
                         <img class="completeImg-real" src="" alt="" >
                         <input type="file" class="completeImages" id="" onchange="changecompleteImg(this)">
                     </div>
+                </div>
+                    <div class="cfiBlock">    
+                        <input type="button" class="btn-delete" value="x" onclick="deleteCPhoto(this)">
                     <div class="complete-food-img-block"  onclick="completeImg(this)">
                         <img class="completeImg" src="${contextPath}/resources/dummyImg/recipe/recipeWrite/camera.png" alt="">
                         <input type="hidden" name="completeFoodPhoto[2].originName" id="completeFoodPhoto" value="">
                         <img class="completeImg-real" src="" alt="" >
                         <input type="file"  class="completeImages" id="" onchange="changecompleteImg(this)">
                     </div>
+                </div>
+                    <div class="cfiBlock">    
+                        <input type="button" class="btn-delete" value="x" onclick="deleteCPhoto(this)">
                     <div class="complete-food-img-block"  onclick="completeImg(this)">
                         <img class="completeImg" src="${contextPath}/resources/dummyImg/recipe/recipeWrite/camera.png" alt="">
                         <input type="hidden" name="ompleteFoodPhoto[3].originName" id="completeFoodPhoto" value="">
                         <img class="completeImg-real" src="" alt="" >
                         <input type="file"  class="completeImages" id="" onchange="changecompleteImg(this)">
                     </div>
+                </div>
                 </div>
             </div>
         </div>
