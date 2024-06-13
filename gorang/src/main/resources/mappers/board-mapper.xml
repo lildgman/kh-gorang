@@ -2,144 +2,271 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="boardMapper">
-  
-  <!-- 게시판 -->
-  <resultMap type ="Board" id="boardResult">	
-  	<result column="BOARD_NO" property="boardNo"></result>
-  	<result column="BOARD_TITLE" property="boardTitle"></result>
-  	<result column="BOARD_CONTENT" property="boardContent"></result>
-  	<result column="BOARD_THUMBNAIL" property="boardThumbnail"></result>
-  	<result column="BOARD_CREATE_DATE" property="boardCreateDate"></result>
-  	<result column="BOARD_VIEWS" property="boardViews"></result>
-  	<result column="BOARD_TAG" property="boardTag"></result>
-  	<result column="BOARD_VOTE" property="boardVote"></result>
-  	<result column="STATUS" property="status"></result>
-  	<result column="MEMBER_NO" property="memberNo"></result>
-  </resultMap>
-  
-  <!-- 게시글 총 갯수 조회 -->
-  <select id ="selectListCount" resultType="_int">
-  SELECT COUNT(*)
-  FROM BOARD
-  WHERE STATUS = 'Y'
-  
-  </select>
-  
-  <select id ="selectList" resultMap="boardResult">
-  SELECT B.BOARD_NO,
-  			B.BOARD_TITLE,
-  			B.MEMBER_NO,
-  			B.BOARD_VIEWS,
-  			B.BOARD_THUMBNAIL,
-  			B.BOARD_VOTE,
-  			M.MEMBER_NICKNAME,
-  			TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS "BOARD_CREATE_DATE"
-	  		FROM BOARD B
-	  		JOIN MEMBER M ON M.MEMBER_NO = B.MEMBER_NO
-	  		
-	  		WHERE STATUS = 'Y'
-	  		ORDER BY BOARD_NO DESC
-  </select>
-  
+<mapper namespace="boardMapper">
 
-  
-  <select id ="selectBoard" resultMap="boardResult">
-   SELECT B.BOARD_NO, 
-		   B.BOARD_TITLE, 
-		   B.MEMBER_NO, 
-		   B.BOARD_THUMBNAIL, 
-		   B.BOARD_TAG,
-		   B.BOARD_VIEWS,
-		   B.BOARD_VOTE,
-		   B.BOARD_CONTENT,
-		   M.MEMBER_NICKNAME,
-		   TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS "BOARD_CREATE_DATE"
-    		FROM BOARD B
-    		JOIN MEMBER M ON M.MEMBER_NO = B.MEMBER_NO
-    		
-    		WHERE STATUS = 'Y'
-    		AND BOARD_NO = #{boardNo}
-  </select>
-  
-  <!-- 게시판 게시글 추가  -->
-  <insert id = "insertBoard" parameterType="Board">
-  	INSERT INTO BOARD(
-  		BOARD_TITLE,
-  		BOARD_CONTENT,
-  		BOARD_THUMBNAIL,
-  		BOARD_TAG,
-  		MEMBER_NO
-  	) VALUES (
-  		#{boardTitle},
-  		#{boardContent},
-  		#{boardThumbnail},
-  		#{boardTag},
-  		#{memberNo}
-  	)
-  </insert>
-  
-  <!-- 상세 게시글 조회 -->
-  <select id="getBoardByNo" resultMap="boardResult" parameterType="int">
-    SELECT * FROM BOARD
-    WHERE BOARD_NO = #{boardNo}
-  </select>
-  
-  <!-- 게시글 조회수 증가 -->
-  <update id="increaseViewCount" parameterType="int">
-    UPDATE BOARD
-    SET BOARD_VIEWS = BOARD_VIEWS + 1
-    WHERE BOARD_NO = #{boardNo}
- </update>
- 
+	<!-- 게시판 -->
+	<resultMap type="Board" id="boardResult">
+		<result column="BOARD_NO" property="boardNo"></result>
+		<result column="BOARD_TITLE" property="boardTitle"></result>
+		<result column="BOARD_CONTENT" property="boardContent"></result>
+		<result column="BOARD_THUMBNAIL" property="boardThumbnail"></result>
+		<result column="BOARD_CREATE_DATE" property="boardCreateDate"></result>
+		<result column="BOARD_VIEWS" property="boardViews"></result>
+		<result column="BOARD_TAG" property="boardTag"></result>
+		<result column="BOARD_VOTE" property="boardVote"></result>
+		<result column="STATUS" property="status"></result>
+		<result column="MEMBER_NO" property="memberNo"></result>
+	</resultMap>
+	
+	<!-- 게시판 리스트 DTO -->
+	<resultMap type="BoardListDTO" id="boardListDTOResult">
+		<result column="BOARD_NO" property="boardNo"/>
+		<result column="BOARD_THUMBNAIL" property="boardThumbnail"/>
+		<result column="BOARD_TITLE" property="boardTitle"/>
+		<result column="MEMBER_PROFILE" property="boardWriterProfileImg"/>
+		<result column="MEMBER_NICKNAME" property="boardWriterNickname"/>
+		<result column="SCRAP_COUNT" property="scrapCount"/>
+		<result column="BOARD_VIEWS" property="viewCount"/>
+		<result column="LIKE_COUNT" property="likeCount"/>
+	</resultMap>
+
+	<!-- 게시글 총 갯수 조회 -->
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE STATUS = 'Y'
+	</select>
+
+
+	<select id="selectList" resultMap="boardResult">
+		SELECT B.BOARD_NO,
+		B.BOARD_TITLE,
+		B.MEMBER_NO,
+		B.BOARD_VIEWS,
+		B.BOARD_THUMBNAIL,
+		B.BOARD_VOTE,
+		M.MEMBER_NICKNAME,
+		TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS "BOARD_CREATE_DATE"
+		FROM BOARD B
+		JOIN MEMBER M ON M.MEMBER_NO = B.MEMBER_NO
+
+		WHERE STATUS = 'Y'
+		ORDER BY BOARD_NO DESC
+	</select>
+
+
+
+	<select id="selectBoard" resultMap="boardResult">
+		SELECT B.BOARD_NO,
+		B.BOARD_TITLE,
+		B.MEMBER_NO,
+		B.BOARD_THUMBNAIL,
+		B.BOARD_TAG,
+		B.BOARD_VIEWS,
+		B.BOARD_VOTE,
+		B.BOARD_CONTENT,
+		M.MEMBER_NICKNAME,
+		TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS "BOARD_CREATE_DATE"
+		FROM BOARD B
+		JOIN MEMBER M ON M.MEMBER_NO = B.MEMBER_NO
+
+		WHERE STATUS = 'Y'
+		AND BOARD_NO = #{boardNo}
+	</select>
+
+	<!-- 게시판 게시글 추가 -->
+	<insert id="insertBoard" parameterType="Board">
+		INSERT INTO BOARD(
+		BOARD_TITLE,
+		BOARD_CONTENT,
+		BOARD_THUMBNAIL,
+		BOARD_TAG,
+		MEMBER_NO
+		) VALUES (
+		#{boardTitle},
+		#{boardContent},
+		#{boardThumbnail},
+		#{boardTag},
+		#{memberNo}
+		)
+	</insert>
+
+	<!-- 상세 게시글 조회 -->
+	<select id="getBoardByNo" resultMap="boardResult"
+		parameterType="int">
+		SELECT * FROM BOARD
+		WHERE BOARD_NO = #{boardNo}
+	</select>
+
+	<!-- 게시글 조회수 증가 -->
+	<update id="increaseViewCount" parameterType="int">
+		UPDATE BOARD
+		SET BOARD_VIEWS = BOARD_VIEWS + 1
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+
 	<!-- 최신순으로 게시글 리스트 조회 -->
-    <select id="selectListByLatest" resultMap="boardResult">
-        SELECT BOARD_NO,
-               BOARD_TITLE,
-               MEMBER_NO,
-               BOARD_VIEWS,
-               BOARD_THUMBNAIL,
-               BOARD_VOTE,
-               TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS "BOARD_CREATE_DATE"
-        FROM BOARD
-        WHERE STATUS = 'Y'
-        ORDER BY BOARD_NO DESC
-    </select>
-    
-    <!-- 조회수순으로 게시글 리스트 조회 -->
-    <select id="selectListByViewCount" resultMap="boardResult">
-        SELECT BOARD_NO,
-               BOARD_TITLE,
-               MEMBER_NO,
-               BOARD_VIEWS,
-               BOARD_THUMBNAIL,
-               BOARD_VOTE,
-               TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS "BOARD_CREATE_DATE"
-        FROM BOARD
-        WHERE STATUS = 'Y'
-        ORDER BY BOARD_VIEWS DESC
-    </select>
-    
-  
-<!-- 태그별 게시물 리스트 조회 -->
-  <select id="selectListByTag" resultMap="boardResult">
-    SELECT BOARD_NO,
-           BOARD_TITLE,
-           MEMBER_NO,
-           BOARD_VIEWS,
-           BOARD_THUMBNAIL,
-           BOARD_VOTE,
-           BOARD_TAG,
-           TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS BOARD_CREATE_DATE
-    FROM BOARD
-    WHERE STATUS = 'Y'
-      AND BOARD_TAG = #{tag}
-    ORDER BY BOARD_VIEWS DESC
-  </select>
-   <select id="getMemberNickname" resultType="String" parameterType="int">
-    SELECT MEMBER_NICKNAME
-    FROM MEMBER
-    WHERE MEMBER_NO = #{memberNo}
-  </select>
-  
-  </mapper>
+	<select id="selectListByLatest" resultMap="boardResult">
+		SELECT BOARD_NO,
+		BOARD_TITLE,
+		MEMBER_NO,
+		BOARD_VIEWS,
+		BOARD_THUMBNAIL,
+		BOARD_VOTE,
+		TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS "BOARD_CREATE_DATE"
+		FROM BOARD
+		WHERE STATUS = 'Y'
+		ORDER BY BOARD_NO DESC
+	</select>
+
+	<!-- 조회수순으로 게시글 리스트 조회 -->
+	<select id="selectListByViewCount" resultMap="boardResult">
+		SELECT BOARD_NO,
+		BOARD_TITLE,
+		MEMBER_NO,
+		BOARD_VIEWS,
+		BOARD_THUMBNAIL,
+		BOARD_VOTE,
+		TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS "BOARD_CREATE_DATE"
+		FROM BOARD
+		WHERE STATUS = 'Y'
+		ORDER BY BOARD_VIEWS DESC
+	</select>
+
+
+	<!-- 태그별 게시물 리스트 조회 -->
+	<select id="selectListByTag" resultMap="boardResult">
+		SELECT BOARD_NO,
+		BOARD_TITLE,
+		MEMBER_NO,
+		BOARD_VIEWS,
+		BOARD_THUMBNAIL,
+		BOARD_VOTE,
+		BOARD_TAG,
+		TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS BOARD_CREATE_DATE
+		FROM BOARD
+		WHERE STATUS = 'Y'
+		AND BOARD_TAG = #{tag}
+		ORDER BY BOARD_VIEWS DESC
+	</select>
+	<select id="getMemberNickname" resultType="String"
+		parameterType="int">
+		SELECT MEMBER_NICKNAME
+		FROM MEMBER
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+
+
+
+
+	<!-- ============================================================================= -->
+	<select id="selectBoardCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM (
+			SELECT 
+			B.BOARD_NO,
+			B.BOARD_THUMBNAIL,
+			B.BOARD_TITLE,
+			B.BOARD_VIEWS,
+			M.MEMBER_PROFILE,
+			M.MEMBER_NICKNAME,
+			COUNT(SB.BOARD_NO) AS SCRAP_COUNT,
+			COUNT(LB.BOARD_NO) AS LIKE_COUNT
+		FROM BOARD B
+		JOIN MEMBER M USING (MEMBER_NO)
+		LEFT JOIN SCRAP_BOARD SB USING (BOARD_NO)
+		LEFT JOIN LIKE_BOARD LB USING (BOARD_NO)
+		WHERE 
+			B.STATUS = 'Y'
+			<if test='content != null and content != ""'>
+				AND B.BOARD_TITLE LIKE '%'|| #{content} ||'%'
+				OR B.BOARD_CONTENT LIKE '%'|| #{content} ||'%'
+		   		</if>
+			<if test='category == "일상"'>
+				AND B.BOARD_TAG LIKE '#일상'
+			</if>
+			<if test='category == "질문"'>
+				AND B.BOARD_TAG LIKE '#질문'
+			</if>
+			<if test='category == "노하우"'>
+				AND B.BOARD_TAG LIKE '#노하우'
+			</if>
+			<if test='category == "꿀팁"'>
+				AND B.BOARD_TAG LIKE '#꿀팁'
+			</if>
+			<if test='category == "보관법"'>
+				AND B.BOARD_TAG LIKE '#보관법'
+			</if>
+		<if test='sort == latest'>
+			ORDER BY B.BOARD_CREATE_DATE DESC, BOARD_NO DESC
+		</if>
+		<if test='sort == view'>
+			ORDER BY B.BOARD_VIEWS DESC, BOARD_NO DESC
+		</if>
+		<if test='sort == scrap'>
+			ORDER BY SCRAP_COUNT DESC, BOARD_NO DESC
+		</if>
+		GROUP BY 
+			B.BOARD_NO,
+			B.BOARD_THUMBNAIL,	
+			B.BOARD_TITLE,
+			B.BOARD_VIEWS,
+			M.MEMBER_PROFILE,
+			M.MEMBER_NICKNAME		
+		)
+	</select>
+	
+	<select id="selectBoardList" resultMap="boardListDTOResult">
+		SELECT 
+			B.BOARD_NO,
+			B.BOARD_THUMBNAIL,
+			B.BOARD_TITLE,
+			B.BOARD_VIEWS,
+			M.MEMBER_PROFILE,
+			M.MEMBER_NICKNAME,
+			COUNT(SB.BOARD_NO) AS SCRAP_COUNT,
+			COUNT(LB.BOARD_NO) AS LIKE_COUNT
+		FROM BOARD B
+		JOIN MEMBER M USING (MEMBER_NO)
+		LEFT JOIN SCRAP_BOARD SB USING (BOARD_NO)
+		LEFT JOIN LIKE_BOARD LB USING (BOARD_NO)
+		WHERE 
+			B.STATUS = 'Y'
+			<if test='content != null and content != ""'>
+				AND B.BOARD_TITLE LIKE '%'|| #{content} ||'%'
+				OR B.BOARD_CONTENT LIKE '%'|| #{content} ||'%'
+		   		</if>
+			<if test='category == "일상"'>
+				AND B.BOARD_TAG LIKE '#일상'
+			</if>
+			<if test='category == "질문"'>
+				AND B.BOARD_TAG LIKE '#질문'
+			</if>
+			<if test='category == "노하우"'>
+				AND B.BOARD_TAG LIKE '#노하우'
+			</if>
+			<if test='category == "꿀팁"'>
+				AND B.BOARD_TAG LIKE '#꿀팁'
+			</if>
+			<if test='category == "보관법"'>
+				AND B.BOARD_TAG LIKE '#보관법'
+			</if>
+		<if test='sort == latest'>
+			ORDER BY B.BOARD_CREATE_DATE DESC, BOARD_NO DESC
+		</if>
+		<if test='sort == view'>
+			ORDER BY B.BOARD_VIEWS DESC, BOARD_NO DESC
+		</if>
+		<if test='sort == scrap'>
+			ORDER BY SCRAP_COUNT DESC, BOARD_NO DESC
+		</if>
+		GROUP BY 
+			B.BOARD_NO,
+			B.BOARD_THUMBNAIL,	
+			B.BOARD_TITLE,
+			B.BOARD_VIEWS,
+			M.MEMBER_PROFILE,
+			M.MEMBER_NICKNAME
+	</select>
+
+</mapper>

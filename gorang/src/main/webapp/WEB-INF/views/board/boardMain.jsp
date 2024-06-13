@@ -30,19 +30,22 @@
                         <div id="BoardTagBoxBottom">
                             <div id="PapularTagBox">
                                 <div id="PapularTags">
-                                    <a id="TagDaily" href="${pageContext.request.contextPath}/main.bo?sort=dailyTag">#일상</a>
+                                    <a id="TagDaily" href="${pageContext.request.contextPath}/main.bo?category=all">#전체</a>
                                 </div>
                                 <div id="PapularTags">
-                                    <a id="TagQuestion" href="${pageContext.request.contextPath}/main.bo?sort=questionTag">#질문</a>
+                                    <a id="TagDaily" href="${pageContext.request.contextPath}/main.bo?category=일상">#일상</a>
                                 </div>
                                 <div id="PapularTags">
-                                    <a id="TagKnowHow" href="${pageContext.request.contextPath}/main.bo?sort=knowHowTag">#노하우</a>
+                                    <a id="TagQuestion" href="${pageContext.request.contextPath}/main.bo?category=질문">#질문</a>
                                 </div>
                                 <div id="PapularTags">
-                                    <a id="TagTip" href="${pageContext.request.contextPath}/main.bo?sort=tipTag">#꿀팁</a>
+                                    <a id="TagKnowHow" href="${pageContext.request.contextPath}/main.bo?category=노하우">#노하우</a>
                                 </div>
                                 <div id="PapularTags">
-                                    <a id="TagMethod" href="${pageContext.request.contextPath}/main.bo?sort=methodTag">#보관법</a>
+                                    <a id="TagTip" href="${pageContext.request.contextPath}/main.bo?category=꿀팁">#꿀팁</a>
+                                </div>
+                                <div id="PapularTags">
+                                    <a id="TagMethod" href="${pageContext.request.contextPath}/main.bo?category=보관법">#보관법</a>
                                 </div>
                             </div>
                         </div>
@@ -50,13 +53,13 @@
                     <div id="BoardContents">
                         <div id="BoardSortings">
                             <div id="BoardSortingsBox">
-                                <a id="SortingsLatest" href="${pageContext.request.contextPath}/main.bo?sort=latest">최신순</a>
-                                <a id="SortingsViews" href="${pageContext.request.contextPath}/main.bo?sort=viewCount">조회수순</a>
-                                <a id="SortingsScrap" href="">스크랩순</a>
+                                <a id="SortingsLatest" href="${pageContext.request.contextPath}/main.bo?category=${category}&sort=latest">최신순</a>
+                                <a id="SortingsViews" href="${pageContext.request.contextPath}/main.bo?category=${category}&sort=view">조회수순</a>
+                                <a id="SortingsScrap" href="${pageContext.request.contextPath}/main.bo?category=${category}&sort=scrap">스크랩순</a>
                             </div>
                         </div>
                         <div class="commonContainer">
-                            <c:forEach var="board" items="${list}">
+                            <c:forEach var="board" items="${boardList}">
                                 <div class="common-item" data-board-no="${board.boardNo}">
                                     <div class="common-content-item">
                                         <div id="boardThumbnail">
@@ -66,14 +69,14 @@
                                             <div id="boardTitle"><span>${board.boardTitle}</span></div>
                                             <div id="commonContentWriter">
                                                 <div id="commonContentWriterImg">
-                                                    <img src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png">
+                                                    <img src="<%= request.getContextPath() %>/resources/uploadfile/memberProfile/${board.boardWriterProfileImg}">
                                                 </div>
-                                                <span>${board.memberNickname}</span>
+                                                <span>${board.boardWriterNickname}</span>
                                             </div>
                                             <div id="commonContentBoardInfo">
-                                                <div id="commonBoardInfoScrap">스크랩 <span>0</span></div>
-                                                <div id="boardCount">조회수 <span>${board.boardViews}</span></div>
-                                                <div id="commonBoardInfoRec">추천수 <span>${board.boardVote}</span></div>
+                                                <div id="commonBoardInfoScrap">스크랩 <span>${board.scrapCount}</span></div>
+                                                <div id="boardCount">조회수 <span>${board.viewCount}</span></div>
+                                                <div id="commonBoardInfoRec">추천수 <span>${board.likeCount}</span></div>
                                             </div>
                                         </div>
                                     </div>
@@ -92,14 +95,14 @@
                                             </c:when>
                                             <c:otherwise>
                                                 <li class="page-item">
-                                                    <a class="page-link" href="main.bo?cpage=${pi.currentPage - 1}">Previous</a>
+                                                    <a class="page-link" href="main.bo?cpage=${pi.currentPage - 1}&category=${category}&sort=${sort}&content=${content}">Previous</a>
                                                 </li>
                                             </c:otherwise>
                                         </c:choose>
                         
                                         <c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
                                             <li class="page-item">
-                                                <a class="page-link" href="main.bo?cpage=${p}">${p}</a>
+                                                <a class="page-link" href="main.bo?cpage=${p}&category=${category}&sort=${sort}&content=${content}">${p}</a>
                                             </li>
                                         </c:forEach>
                         
@@ -111,7 +114,7 @@
                                             </c:when>
                                             <c:otherwise>
                                                 <li class="page-item">
-                                                    <a class="page-link" href="main.bo?cpage=${pi.currentPage + 1}">Next</a>
+                                                    <a class="page-link" href="main.bo?cpage=${pi.currentPage + 1}&category=${category}&sort=${sort}&content=${content}">Next</a>
                                                 </li>
                                             </c:otherwise>
                                         </c:choose>

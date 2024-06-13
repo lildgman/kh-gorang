@@ -1,7 +1,9 @@
 package com.kh.gorang.board.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
+import com.kh.gorang.board.model.dto.BoardListDTO;
 import com.kh.gorang.board.model.vo.Board;
 
 import com.kh.gorang.board.model.vo.Comment;
@@ -43,4 +45,13 @@ public interface BoardService{
     
     // 댓글 삭제
     int deleteComment(int commentNo);
+
+    
+    //===================================================================
+    
+    
+    // 게시글 개수 조회
+	int getBoardCount(Map<String, Object> map);
+
+	ArrayList<BoardListDTO> getBoardList(PageInfo pi, Map<String, Object> map);
 }	
