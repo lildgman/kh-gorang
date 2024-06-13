@@ -101,7 +101,7 @@
 	<select id="ajaxSearchBoard" resultMap="boardSearchDTOResult">
 		SELECT *
 		FROM BOARD
-		WHERE BOARD_TITLE LIKE '%${searchBoardTitle}%'
+		WHERE BOARD_TITLE LIKE '%' || #{searchBoardTitle} || '%'
 		ORDER BY BOARD_NO
 	</select>
 	
@@ -168,4 +168,12 @@
 		</if>
 		WHERE BOARD_NO = #{boardNo}
 	</update>
+	
+	<!-- 검색한 게시글 개수 조회 -->
+	<select id="selectBoardCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE 
+			BOARD_TITLE LIKE '%' || #{searchBoardTitle} || '%' 
+	</select>
 </mapper>

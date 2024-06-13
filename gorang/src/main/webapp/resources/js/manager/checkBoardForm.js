@@ -8,23 +8,27 @@ function searchBoard() {
       searchBoardTitle: searchBoardTitle
     },
     success: function(res) {
-      drawBoardTable(res);
+      console.log(res);
+      drawBoardTable(res.pi, res.boardList);
+      drawPagination(res.pi);
     }, 
     error: function() {
       console.log("상품 검색 api 호출 실패")
     }
-
   })
 }
 
-function drawBoardTable(res) {
-  const boardDTOList = res;
+function drawPagination(pi) {
+  
+}
+
+function drawBoardTable(pi, boardList) {
   const boardTableTbody = document.querySelector("#admin-board-list tbody");
   
   const boardCount = document.querySelector('#board-count');
-  boardCount.innerText = boardDTOList.length;
+  boardCount.innerText = pi.listCount;
   boardTableTbody.innerHTML = "";
-  boardDTOList.forEach(boardDTO => {
+  boardList.forEach(boardDTO => {
     const newRow = $('<tr class="admin-tbody-tr"></tr>');
 
     newRow.append('<td class="tbody-checkbox"><input type="checkbox" name="check" class="check-board"></td>');
