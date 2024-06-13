@@ -1,11 +1,13 @@
 package com.kh.gorang.board.model.dao;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.gorang.board.model.dto.BoardListDTO;
 import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.board.model.vo.Comment;
 import com.kh.gorang.common.model.vo.PageInfo;
@@ -71,5 +73,18 @@ public class BoardDao{
     public int deleteComment(SqlSessionTemplate sqlSession, int commentNo) {
         return sqlSession.delete("commentMapper.deleteComment", commentNo);
     }
+
+// =====================================================================================================
+	public int getBoardCount(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.selectOne("boardMapper.selectBoardCount", map);
+	}
+
+	public ArrayList<BoardListDTO> getBoardList(SqlSessionTemplate sqlSession, PageInfo pi, Map<String, Object> map) {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+        RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("boardMapper.selectBoardList", map, rowBounds);
+	}
 	
 }

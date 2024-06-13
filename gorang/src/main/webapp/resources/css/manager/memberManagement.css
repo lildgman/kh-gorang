@@ -27,7 +27,7 @@
 }
 
 #right-container {
-  width: 1073px;
+  width: 680px;
   display: flex;
   flex-direction: column;
   gap: 50px;
@@ -112,6 +112,7 @@
 }
 
 .search-member-result-table{
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -128,7 +129,7 @@
 }
 
 #member-table {
-  width: 480px;
+  width: 100%;
   border-collapse: collapse;
 }
 
@@ -176,3 +177,13 @@
   color: white;
 }
 
+#pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+#pagination>span:hover {
+  cursor: pointer;
+}

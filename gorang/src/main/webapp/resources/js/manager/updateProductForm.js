@@ -110,8 +110,6 @@ function movePage(element) {
 
   ajaxSearchProduct(cpage,searchProductName);
 
-  console.log(cpage);
-  console.log(searchProductName);
 }
 
 function ajaxSearchProduct(cpage,searchProductName) {

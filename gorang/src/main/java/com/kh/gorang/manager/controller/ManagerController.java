@@ -90,10 +90,20 @@ public class ManagerController {
 	
 	@GetMapping("search-member.ma")
 	@ResponseBody
-	public ArrayList<Member> ajaxSearchMember(String searchMember) {
+	public Map<String, Object> ajaxSearchMember(
+			@RequestParam(defaultValue = "1") int cpage,
+			String searchMember) {
 		
-		ArrayList<Member> memberList = managerService.ajaxSearchMember(searchMember);
-		return memberList;
+		int searchMemberCount = managerService.getSearchMemberCount(searchMember);
+		PageInfo pi = Pagination.getPageInfo(searchMemberCount, cpage, 10, 10);
+		
+		ArrayList<Member> memberList = managerService.ajaxSearchMember(pi, searchMember);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("memberList", memberList);
+		map.put("pi", pi);
+		
+		return map;
 	}
 	
 	@PostMapping("update-status.me")

@@ -217,7 +217,7 @@
                             <img src="${contextPath }/resources/dummyImg/manage/camera.png"  alt="">
                         </div>
                     </div>
-                    <input type="file" id="file-input" accept="image/*" name="upfile" >
+                    <input type="file" id="file-input" accept="image/*" name="upfile" required>
                 </div>
 
                 <div class="enroll-div-container">
