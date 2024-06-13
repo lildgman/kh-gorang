@@ -27,7 +27,6 @@ public class SearchResultPageController {
 			@RequestParam String content,
 			Model model) {
 		
-		log.info("content={}", content);
 		// 검색한 내용이 포함된 게시글 조회
 		ArrayList<SearchBoardDTO> searchBoardResult = searchResultService.getSearchBoard(content);
 		
@@ -36,10 +35,6 @@ public class SearchResultPageController {
 		
 		// 검색 내용이 포함된 레시피 조회
 		ArrayList<SearchRecipeDTO> searchRecipeResult = searchResultService.getSearchRecipe(content);
-		
-		log.info("searchBoardResult={}",searchBoardResult);
-		log.info("searchProductResult={}",searchProductResult);
-		log.info("searchRecipeResult={}",searchRecipeResult);
 		
 		model.addAttribute("content", content);
 		model.addAttribute("searchBoardResult", searchBoardResult);

@@ -208,6 +208,10 @@
   height: 292px;
 }
 
+.board-img-container:hover {
+  cursor: pointer;
+}
+
 .flex-gap-16px {
   gap: 16px;
 }

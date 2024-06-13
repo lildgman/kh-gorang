@@ -129,19 +129,11 @@
                             <div class="searchbar-container">
                                 <div class="searchbar">
                                     <div class="search-input-container">
-                                        <div class="i-container">
-                                            <i class="fa-solid fa-magnifying-glass"></i>
-                                        </div>
                                         <input id="search-brand-input" class="search-input" type="text"
                                             placeholder="브랜드명 입력" name="productBrand" required>
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- add-btn -->
-                            <!-- <div class="add-brand-btn-container">
-                                <button class="add-brand-btn">브랜드 추가</button>
-                            </div> -->
                         </div>
                     </div>
                 </div>

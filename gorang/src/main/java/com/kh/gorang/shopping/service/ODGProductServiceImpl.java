@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.gorang.common.model.vo.PageInfo;
 import com.kh.gorang.shopping.model.dao.ODGProductDao;
 import com.kh.gorang.shopping.model.vo.Product;
 import com.kh.gorang.shopping.model.vo.ProductDetailOption;
@@ -66,8 +67,8 @@ public class ODGProductServiceImpl implements ODGProductService {
 
 	// ajax 상품 조회 
 	@Override
-	public ArrayList<Product> ajaxSearchProduct(String searchProductName) {
-		return odgProductDao.ajaxSearchProduct(sqlSession, searchProductName);
+	public ArrayList<Product> ajaxSearchProduct(PageInfo pi, String searchProductName) {
+		return odgProductDao.ajaxSearchProduct(sqlSession, pi, searchProductName);
 	}
 
 	// ajax 상품 옵션 조회 
@@ -100,5 +101,11 @@ public class ODGProductServiceImpl implements ODGProductService {
 		}
 		
 		return result;
+	}
+
+	// 검색한 상품 개수 조회
+	@Override
+	public int getSearchProductResultCount(String searchProductName) {
+		return odgProductDao.getSearchProductResultCount(sqlSession, searchProductName);
 	}
 }
