@@ -22,9 +22,11 @@ public class APIController {
 	
 	@ResponseBody
 	@RequestMapping(value="food.me", produces="application/json; charset=UTF-8")
-	public String getFoodNutriInfo(String foodName, String makerName) throws IOException{
+	public String getFoodNutriInfo(String foodName, String makerName, int cpage) throws IOException{
 		String url = "http://apis.data.go.kr/1471000/FoodNtrCpntDbInfo/getFoodNtrCpntDbInq";
 		url += "?serviceKey=" + foodServiceKey;
+		url += "&pageNo=" + cpage;
+		url += "&numOfRows=10";
 		url += "&type=json";
 		url += "&FOOD_NM_KR=" + URLEncoder.encode(foodName, "UTF-8");
 		url += "&MAKER_NM=" + URLEncoder.encode(makerName, "UTF-8");

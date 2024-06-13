@@ -147,11 +147,6 @@ tbody td:not(:first-child ) {
     font-weight: 300;
 }
 
-/* 식재료 이미지와 식재료명 간격주기 */
-td img {
-    margin-right: 5px;
-}
-
 /* 신선도 영역*/
 .flesh-area {
     display: flex;
@@ -169,25 +164,7 @@ td img {
     border-radius: 50%;
 }
 
-/* 상품 열의 너비를 설정 */
-.myRefrigerator-tr {
-}
-
-/* "소비기한"  너비 크기설정 */
-td:nth-child(3) {
-    width: 200px;
-}
-/* "냉장고 입고날짜" 너비 크기설정 */
-td:nth-child(4) {
-   width: 120px;
-}
-
 /* "삭제" 너비 크기설정 */
-.myRefrigerator-last-td {
-    width: 80px; 
-    text-align: right;
-    padding-left: 35px;
-}
 
 /* 직접레시피 찾기 모달창--------------------------------- */
 
@@ -580,6 +557,13 @@ td:nth-child(4) {
     height: 30px;
 }
 
+/* 식재료 추가 모달 페이지네이션 */
+#ingre-modal-pagination{
+    width: 100%;
+    height: 30px;
+    padding-right: 20px;
+}
+
 /* 닫기버튼 */
 #closeModalBtn2{
     height: 100%;
@@ -640,28 +624,28 @@ td:nth-child(4) {
     width: 100%;
 }
 
-    /* 페이징 바 */
+    /* 냉장고 하단 페이징 바 */
 
-    #pagination-area{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 25px;
-        margin-left: 15px;
-      }
-      
-      #pagination{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 392px;
-        gap: 20px;
-      }
-      
-      #pagination > a {
-        font-size: 14px;
-        color : #6D6D6D;
-      }
+#pagination-area{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    }
+    
+    /* 모든 페이지바 공통 */
+
+.pagination{
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 20px;
+}
+
+.pagination > a {
+font-size: 14px;
+color : #6D6D6D;
+}
 
 
       /* 식품 영양 정보 모달 */

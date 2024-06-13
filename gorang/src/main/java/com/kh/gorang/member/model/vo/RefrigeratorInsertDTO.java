@@ -19,4 +19,6 @@ public class RefrigeratorInsertDTO {
 	private String refConsumptionDate;
 	private int refCount;
 	private String refInputDate;
+	// 소비기한과 현 일시와의 차이를 저장하는 변수
+	private long daysDifference;
 }

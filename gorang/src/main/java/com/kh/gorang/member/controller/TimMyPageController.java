@@ -1,6 +1,9 @@
 package com.kh.gorang.member.controller;
 
 import java.lang.reflect.Type;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +14,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,14 +66,22 @@ public class TimMyPageController {
 		
 		PageInfo pi = Pagination.getPageInfo(refriIngreCount, 1, 10, 5);
 		
-		
 		List<RefrigeratorInsertDTO> refriIngres = myPageService.selectListRefrigeratorsByMemberNo(userNo, pi);
+		
+		// 현재 날짜 계산
+		LocalDate currentDate = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		
+		// 각 DTO에 날짜 차이를 계산하여 추가
+	    for (RefrigeratorInsertDTO dto : refriIngres) {
+	        LocalDate consumptionDate = LocalDate.parse(dto.getRefConsumptionDate(), formatter);
+	        long daysDifference = ChronoUnit.DAYS.between(currentDate, consumptionDate);
+	        dto.setDaysDifference(daysDifference);
+	    }
 		
 		model.addAttribute("refriIngres", refriIngres);
 		model.addAttribute("pi", pi);
-		
-		System.out.println(refriIngres);
-		
+				
 		return "member/myRefrigerator";
 	}
 	
@@ -92,6 +102,17 @@ public class TimMyPageController {
 		PageInfo pi = Pagination.getPageInfo(refriIngreCount, cpage, 10, 5);
 		
 		List<RefrigeratorInsertDTO> refriIngres = myPageService.selectListRefrigeratorsByMemberNo(userNo, pi);
+		
+		// 현재 날짜 계산
+		LocalDate currentDate = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		
+		// 각 DTO에 날짜 차이를 계산하여 추가
+	    for (RefrigeratorInsertDTO dto : refriIngres) {
+	        LocalDate consumptionDate = LocalDate.parse(dto.getRefConsumptionDate(), formatter);
+	        long daysDifference = ChronoUnit.DAYS.between(currentDate, consumptionDate);
+	        dto.setDaysDifference(daysDifference);
+	    }
 		
 		result.put("refriIngres", refriIngres);
 		result.put("pi", pi);

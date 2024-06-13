@@ -50,7 +50,6 @@
                         <div id="myRefrigerator-text-title-area">
                             <div id="myRefrigerator-texthead">
                                 나의 냉장고
-                                <span>${}</span>
                             </div>
                             <div id="myRefrigerator-modal-btn">
                                 <button id="viewModalBtn-two">
@@ -70,30 +69,50 @@
                                         <table>
                                             <thead id="myRefrigerator-tb">
                                                 <tr class="myRefrigerator-tr">
-                                                    <td style="width: 300px;">상품</td>
+                                                    <td style="width: 80px;">분류</td>
+                                                    <td style="width: 200px;">상품</td>
                                                     <td>신선도</td>
                                                     <td>소비기한</td>
                                                     <td>냉장고 입고일</td>
-                                                    <td>개수</td>
+                                                    <td style="width: 80px;">개수</td>
                                                 </tr>
                                             </thead>
                                             <tbody id="myRefrigerator-table-tbody">
-                                               <c:forEach var="refriIngre" items="${refriIngres}">
+                                                <c:forEach var="refriIngre" items="${refriIngres}">
                                                     <tr class=".tr-block">
                                                         <td class="myRefrigerator-tr">
                                                             <img src="${contextPath}/resources/images/member-img/Rectangle 18311 (2).png"
-                                                                alt=""> ${refriIngre.refName}
+                                                                alt="">
+                                                        </td>
+                                                        <td style=" overflow: hidden; text-overflow: ellipsis;">
+                                                            ${refriIngre.refName}
                                                         </td>
                                                         <td class="flesh-area">
-                                                            <div class="flesh-status" style="background-color:#7ADC66 ;"></div>
-                                                            신선
+                                                            <c:choose>
+                                                                <c:when test="${refriIngre.daysDifference <= 3}">
+                                                                    <div class="flesh-status"
+                                                                        style="background-color:#F20E2B;"></div>
+                                                                    위험
+                                                                </c:when>
+                                                                <c:when
+                                                                    test="${refriIngre.daysDifference > 3 && refriIngre.daysDifference <= 7}">
+                                                                    <div class="flesh-status"
+                                                                        style="background-color:#FFE28A;"></div>
+                                                                    보통
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <div class="flesh-status"
+                                                                        style="background-color:#7ADC66;"></div>
+                                                                    신선
+                                                                </c:otherwise>
+                                                            </c:choose>
                                                         </td> <!--나중에 class id로 변경-->
                                                         <td>${refriIngre.refConsumptionDate}</td>
                                                         <td>${refriIngre.refInputDate}</td>
                                                         <td>${refriIngre.refCount}</td>
                                                         <td class="myRefrigerator-last-td">삭제</td>
                                                     </tr>
-                                               </c:forEach>
+                                                </c:forEach>
                                             </tbody>
                                         </table>
                                     </div>
@@ -103,13 +122,13 @@
                     </div>
                     <!-- 페이징 바 -->
                     <div id="pagination-area">
-                        <div id="pagination">
-								<c:if test="${pi.currentPage ne 1 }">
-									<a data-value="${pi.currentPage - 1}">&lt;</a>
-								</c:if>
+                        <div class="pagination">
+                            <c:if test="${pi.currentPage ne 1 }">
+                                <a data-value="${pi.currentPage - 1}">&lt;</a>
+                            </c:if>
 
-							<c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
-								<a data-value="${p}">
+                            <c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
+                                <a data-value="${p}">
                                     <c:choose>
                                         <c:when test="${p eq 1}">
                                             <strong>${p}</strong>
@@ -119,11 +138,11 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </a>
-							</c:forEach>
+                            </c:forEach>
 
-								<c:if test="${pi.currentPage lt pi.maxPage}">
-									<a data-value="${pi.currentPage + 1}">&gt;</a>
-								</c:if>
+                            <c:if test="${pi.currentPage lt pi.maxPage}">
+                                <a data-value="${pi.currentPage + 1}">&gt;</a>
+                            </c:if>
                         </div>
                     </div>
 
@@ -205,6 +224,11 @@
 
                                     </tbody>
                                 </table>
+                            </div>
+                            <div id="ingre-modal-pagination">
+                                <div class="pagination">
+
+                                </div>
                             </div>
                             <div id="modal-search-recipe-bottom2">
                                 <button id="closeModalBtn2" class="close">닫 기</button>

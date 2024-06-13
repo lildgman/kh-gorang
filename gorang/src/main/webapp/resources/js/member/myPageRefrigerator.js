@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setPaginationEventListeners();
 
-    // ================================== 유틸리티 관련 메소드 =======================
+    // ================================== 유틸리티, 공통  메소드 =======================
     
     /** 헤더에서 세션에 넣은 contextPath 값 리턴하는 함수 */
     function getContextPath() {
@@ -12,61 +12,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // =================================== 나의 냉장고 식재료 테이블 관련 메소드 ================================
-    
-    /** 페이지바 a 태그에 클릭 이벤트 넣어주는 메소드 */
-    function setPaginationEventListeners() {
-        document.querySelectorAll("#pagination a").forEach(function(ev){
-            ev.addEventListener("click", function(el){
-                let cpage = el.currentTarget.getAttribute('data-value');
-                getRefriInfoByAjax(parseInt(cpage));
-            });
-        });
-    }
-
-    /** ajax 로 currentPage 보내서 RowBounds 된 List<refrigerator> 값 받아온 후 뿌려주는 메소드*/
-    function getRefriInfoByAjax(data){
-        $.ajax({
-            url: "selectRefriAjax.me",
-            data: { cpage: data },
-            success: function(res){
-                const refriIngresList = res.refriIngres;
-                const refriTbody = document.querySelector("#myRefrigerator-table-tbody");
-                refriTbody.innerHTML = "";
-
-                for(refriIngre of refriIngresList){
-                    let refriTbodyTr = document.createElement('tr');
-                    refriTbody.appendChild(refriTbodyTr);
-                    refriTbodyTr.setAttribute("class", ".tr-block");
-                    refriTbodyTr.innerHTML = `<td class="myRefrigerator-tr">
-                                                    <img src="${ctp}/resources/images/member-img/Rectangle 18311 (2).png"
-                                                        alt=""> ${refriIngre.refName}
-                                                </td>
-                                                <td class="flesh-area">
-                                                    <div class="flesh-status" style="background-color:#7ADC66 ;"></div>
-                                                    신선
-                                                </td> <!--나중에 class id로 변경-->
-                                                <td>${refriIngre.refConsumptionDate}</td>
-                                                <td>${refriIngre.refInputDate}</td>
-                                                <td>${refriIngre.refCount}</td>
-                                                <td class="myRefrigerator-last-td">삭제</td>`
-                }
-
-                // 페이지네이션 갱신
-                updatePagination(res.pi);
-            },
-            error: function(){
-                console.log("송신 실패");
-            }
-        })
-    }
-
-    /** ajax로 받아온 pi 객체를 이용해 페이지네이션 업데이트 해주는 메소드 */
-    function updatePagination(pi) {
-        const pagination = document.querySelector("#pagination");
+     /** ajax로 받아온 pi 객체를 이용해 페이지네이션 업데이트 해주는 메소드 */
+     function updatePagination(ev, pi) {
+        const pagination = ev.querySelector(".pagination");
         pagination.innerHTML = "";
 
-        if (pi.currentPage != 1) {
+        if (pi.currentPage > 1) {
             const prevLink = document.createElement('a');
             prevLink.setAttribute('data-value', pi.currentPage - 1);
             prevLink.innerHTML = '&lt;';
@@ -91,7 +42,99 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // 새로 생성된 링크에 이벤트 리스너 추가
-        setPaginationEventListeners();
+        switch(ev){
+            case document.querySelector("#pagination-area"):
+                setPaginationEventListeners();
+                break;
+            case document.querySelector("#ingre-modal-pagination"):
+                setIngreModalPaginationEventListeners();
+        }        
+    }       
+
+
+    // =================================== 나의 냉장고 식재료 테이블 관련 메소드 ================================
+    
+    /** 냉장고 페이지바 a 태그에 클릭 이벤트 넣어주는 메소드 */
+    function setPaginationEventListeners() {
+        const refriPaginationArea = document.querySelector("#pagination-area");
+        refriPaginationArea.querySelectorAll(".pagination a").forEach(function(ev){
+            ev.addEventListener("click", function(el){
+                let cpage = el.currentTarget.getAttribute('data-value');
+                getRefriInfoByAjax(parseInt(cpage));
+            });
+        });
+    }
+
+    /** ajax 로 currentPage 보내서 RowBounds 된 List<refrigerator> 값 받아온 후 뿌려주는 메소드*/
+    function getRefriInfoByAjax(data){
+        $.ajax({
+            url: "selectRefriAjax.me",
+            data: { cpage: data },
+            success: function(res){
+                const refriIngresList = res.refriIngres;
+                const refriTbody = document.querySelector("#myRefrigerator-table-tbody");
+                refriTbody.innerHTML = "";
+
+                for(let refriIngre of refriIngresList){
+                    console.log(refriIngre.daysDifference);
+                    let refriTbodyTr = document.createElement('tr');
+                    refriTbody.appendChild(refriTbodyTr);
+                    refriTbodyTr.setAttribute("class", ".tr-block");
+                    // 이미지 td
+                    const refriIngreTd1 = document.createElement('td');
+                    refriIngreTd1.setAttribute("class", "myRefrigerator-tr");
+                    refriTbodyTr.appendChild(refriIngreTd1);
+                    const refriIngreImg = document.createElement('img');
+                    refriIngreImg.setAttribute("src", ctp + "/resources/images/member-img/Rectangle 18311 (2).png");
+                    refriIngreTd1.appendChild(refriIngreImg);
+                    // 식재료명 td
+                    const refriIngreTd2 = document.createElement('td');
+                    refriIngreTd2.innerHTML = refriIngre.refName;
+                    refriTbodyTr.appendChild(refriIngreTd2);
+                    // 신선도 td
+                    const refriIngreTd3 = document.createElement('td');
+                    refriIngreTd3.setAttribute("class", "flesh-area");
+                    refriTbodyTr.appendChild(refriIngreTd3);
+                    // 신선도 div
+                    const freshDiv = document.createElement('div');
+                    freshDiv.setAttribute("class", "flesh-status");
+                    if(refriIngre.daysDifference <= 3){ // 위험
+                        freshDiv.setAttribute("style", "background-color:#F20E2B;");
+                        refriIngreTd3.innerHTML = "위험"
+                    } else if(refriIngre.daysDifference > 3 && refriIngre.daysDifference <= 7){ // 보통
+                        freshDiv.setAttribute("style", "background-color:#FFE28A;");
+                        refriIngreTd3.innerHTML = "보통"
+                    } else { // 신선
+                        freshDiv.setAttribute("style", "background-color:#7ADC66;");
+                        refriIngreTd3.innerHTML = "신선"
+                    }
+                    refriIngreTd3.appendChild(freshDiv);
+                    // 소비기한 td
+                    const refriIngreTd4 = document.createElement('td');
+                    refriIngreTd4.innerHTML = refriIngre.refConsumptionDate;
+                    refriTbodyTr.appendChild(refriIngreTd4);
+                    // 입고일 td
+                    const refriIngreTd5 = document.createElement('td');
+                    refriIngreTd5.innerHTML = refriIngre.refInputDate;
+                    refriTbodyTr.appendChild(refriIngreTd5);
+                    // 갯수 td
+                    const refriIngreTd6 = document.createElement('td');
+                    refriIngreTd6.innerHTML = refriIngre.refCount;
+                    refriTbodyTr.appendChild(refriIngreTd6);
+                    // 삭제 td
+                    const refriIngreTd7 = document.createElement('td');
+                    refriIngreTd7.setAttribute("class", "myRefrigerator-last-td");
+                    refriIngreTd7.innerHTML = "삭제";
+                    refriTbodyTr.appendChild(refriIngreTd7);
+                }
+                const paginationArea = document.querySelector("#pagination-area");
+                // 페이지네이션 갱신
+                updatePagination(paginationArea, res.pi);
+            },
+            error: function(){
+                console.log("송신 실패");
+            }
+        })
     }
 
     // =================================== 식재료 추가 모달 관련 메소드 ==========================================
@@ -160,12 +203,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 모달 식재료 추가 검색창
     function findSearch2() {
-        getFoodAndNutriAjax();
+        getFoodAndNutriAjax(1);
     }
 
 
     // 공공데이터 가져오는 ajax
-    function getFoodAndNutriAjax() {
+    function getFoodAndNutriAjax(cpage) {
         const foodNameVl = document.querySelector("#refri-input-foodName").value;
         const makerVl = document.querySelector("#refri-input-maker").value;
 
@@ -173,11 +216,13 @@ document.addEventListener("DOMContentLoaded", function () {
             url: "food.me",
             data: {
                 foodName: foodNameVl,
-                makerName: makerVl
+                makerName: makerVl,
+                cpage: cpage
             },
             success: function (res) {
-                console.log(res);
-                let foodArr = res.body.items
+                // 가져온 식품 데이터 가공
+                let foodArr = res.body.items;
+
                 foodArr = foodArr.map(f => {
                     let food = {}
                     for (let key in f) {
@@ -185,9 +230,36 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                     return food;
                 })
+                let currentPage = res.body.pageNo;
 
-                console.log(foodArr)
-                drawFoodAndNutri(foodArr);
+                drawFoodAndNutri(currentPage, foodArr);
+                
+                // 페이지 처리 위한 pi 변수 생성
+                let listCount = res.body.totalCount;
+                
+
+                let boardLimit = 10;
+                let pageLimit = 10;
+                let maxPage = Math.ceil(listCount / boardLimit); // 총 페이지 수
+                let startPage = Math.floor((currentPage -1) / pageLimit) * pageLimit + 1; // 페이징바의 시작 
+                let endPage = startPage + pageLimit -1; // 페이징 바의 끝 수
+                endPage = endPage > maxPage ? maxPage : endPage;
+
+                let pi = {
+                    listCount: listCount,
+                    currentPage: currentPage,
+                    pageLimit: pageLimit,
+                    boardLimit: boardLimit,
+                    maxPage: maxPage,
+                    startPage: startPage,
+                    endPage: endPage
+                }
+
+                // 페이지바 요소를 담은 상위 요소 호출
+                const ingreModalPagination = document.querySelector("#ingre-modal-pagination");
+                updatePagination(ingreModalPagination, pi);
+
+
             },
             error: function () {
                 console.log("송신 실패");
@@ -195,18 +267,20 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     }
 
-    // getFoodAndNutriAjax 로 받아온 데이터를 모달에 뿌려주는 메소드
-    function drawFoodAndNutri(foodArr) {
+    /**getFoodAndNutriAjax 로 받아온 데이터를 모달에 뿌려주는 메소드 */ 
+    function drawFoodAndNutri(currentPage, foodArr) {
         const ingreModalTbody = document.querySelector("#modal-ingre-tbody");
         ingreModalTbody.innerHTML = "";
 
-        let num = 0;
+        let temp = 1;
 
         for (let food of foodArr) {
-            num++;
+            let num = ((currentPage - 1) * 10) + temp;
             constructFoodModalTable(ingreModalTbody, num, food);
+            temp++;
         }
     }
+
 
     /** 식재료 추가 모달의 테이블 만들어주는 메소드 */
     function constructFoodModalTable(ingreModalTbody, num, food) {
@@ -459,6 +533,20 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
+
+
+    /** 식재료 추가 모달 페이지바 a 태그에 클릭 이벤트 넣어주는 메소드 */
+    function setIngreModalPaginationEventListeners() {
+        const pagination = document.querySelector("#ingre-modal-pagination .pagination");
+        const pageLinks = pagination.querySelectorAll('a');
+        pageLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                const page = parseInt(e.target.getAttribute('data-value'));
+                getFoodAndNutriAjax(page);
+            });
+        });
+    }
+
 }
 
 
