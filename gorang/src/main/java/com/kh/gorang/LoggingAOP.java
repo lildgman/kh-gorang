@@ -31,17 +31,17 @@ public class LoggingAOP {
 		
 		Object[] args = joinPoint.getArgs();
 		
-		log.info("=============================START=================================");
-		log.info("------------------------API Controller-----------------------------");
-		log.info("Information     :  " + methodSignature);
-		log.info("Method Name     :  " + method);
-		log.info("Parameter     :  " + Arrays.toString(args));
+		log.error("=============================START=================================");
+		log.error("------------------------API Controller-----------------------------");
+		log.error("Information     :  " + methodSignature);
+		log.error("Method Name     :  " + method);
+		log.error("Parameter     :  " + Arrays.toString(args));
 	}
 	
 	@AfterReturning(value = "cut()", returning = "obj")
 	public void afterReturn(JoinPoint joinPoint, Object obj) {
-		log.info("=============================END=================================");
-		log.info("Object     :  " + obj);
+		log.error("=============================END=================================");
+		log.error("Object     :  " + obj);
 	}
 	
 	@Around("cut()")
@@ -54,9 +54,9 @@ public class LoggingAOP {
 		
 		long pTime = end - start;
 		
-		log.info("-----------------------------------------------------------------");
-		log.info("Information      : " + pJoinPoint.getSignature());
-		log.info("Processing Time  : " + pTime + "ms");
+		log.error("-----------------------------------------------------------------");
+		log.error("Information      : " + pJoinPoint.getSignature());
+		log.error("Processing Time  : " + pTime + "ms");
 		
 		return result;
 	}

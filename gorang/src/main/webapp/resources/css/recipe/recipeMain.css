@@ -67,6 +67,17 @@ body{
         background-color: #f8f8f8;
     }
 
+    #recommend-box-recipe-thumbnail:hover {
+        cursor: pointer;
+    }
+
+    #recommend-box-recipe-thumbnail img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        overflow: hidden;
+    }
+
     #recommend-box-textbox{
         width: 100%;
         height: 100%;
@@ -110,10 +121,21 @@ body{
 
     .recipe-main-listBox-grid{
         width: 292px;
-        height: 100%;
+        height: 367px;
         display: flex;
         flex-direction: column;
         gap: 16px;
+    }
+
+    .recipe-img-div img {
+        width: 292px;
+        height: 292px;
+        object-fit: cover;
+        overflow: hidden;
+    }
+
+    .recipe-img-div:hover {
+        cursor: pointer;
     }
 
     .recipe-main-listBox-grid-textBox{
@@ -241,4 +263,20 @@ body{
 
     .recipe-main-discount{
         color: #1E90FF;
+    }
+
+    .recipe-main-product {
+        width: 292px;
+        height: 292px;
+    }
+
+    .recipe-main-product:hover {
+        cursor: pointer;
+    }
+
+    .recipe-main-product img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        overflow: hidden;
     }

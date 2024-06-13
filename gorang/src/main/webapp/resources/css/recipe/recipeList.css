@@ -40,7 +40,7 @@ body {
     justify-content: center;
     
 }
-#PapularTags{
+.PapularTags{
     width: 92px;
     height: 37px;
     border-style: solid;
@@ -50,9 +50,13 @@ body {
     justify-content: center;
     margin: 0 15px 0px 15px; 
 }
-#PapularTags span {
+.PapularTags span {
     font-size: 16px;
     margin-top: 8px;
+}
+
+.PapularTags:hover {
+    cursor: pointer;
 }
 
 #recipeCountSpan span{

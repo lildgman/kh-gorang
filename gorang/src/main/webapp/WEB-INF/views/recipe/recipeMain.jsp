@@ -11,6 +11,9 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recipe/recipeMain.css">
+
+
+
 </head>
 <body>
 	<jsp:include page="../common/header.jsp" />
@@ -25,12 +28,12 @@
 					<span>오늘은 이 메뉴 어떠세요?</span>
 				</div>
 				<div id="recommend-box-recipe">
-					<div id="recommend-box-recipe-thumbnail">
-						<img src="${pageContext.request.contextPath}/resources/dummyImg/recipe/recipeMain/recommendRecipeThumbnail.png" alt="">
+					<div id="recommend-box-recipe-thumbnail" data-type="recipe" data-no="1" onclick="moveDetailPage(this)">
+						<img src="${pageContext.request.contextPath}/resources/uploadfile/recipe/recipemain/recipeBoardImg(1).jpg" alt="">
 					</div>
 					<div id="recommend-box-textbox">
-						<span>연어월남쌈</span>
-						<span>누구나 자신만의 쌈을 만들어 즐길 수 있어 여러 날에 잘 어울리는 레시피</span>
+						<span>솔티드 딸바 크라페</span>
+						<span>크레이프케이크에 환상적인 카라멜과의 조합으로 달콤한 디저트 시간을 보내요!</span>
 					</div>
 				</div>
 			</div>
@@ -40,40 +43,40 @@
 					<span onclick="goRecipeList()">더보기</span>
 				</div>
 				<div class="recipe-main-listBox">
-					<div class="recipe-main-listBox-grid">
-						<div style="height: 292px;">
-							<img src="${pageContext.request.contextPath}/resources/dummyImg/recipe/recipeMain/newRecipeThumbnail1.png" alt="">
+					<div class="recipe-main-listBox-grid" >
+						<div class="recipe-img-div" data-type="recipe" data-no="2" onclick="moveDetailPage(this)">
+							<img src="${pageContext.request.contextPath}/resources/uploadfile/recipe/recipemain/recipeBoardImg(2).jpg" alt="">
 						</div>
 						<div class="recipe-main-listBox-grid-textBox">
-							<span>해독주스로 딱인</span>
-							<span>ABC주스</span>
+							<span>통삼겹살과 차슈요리양념이면 충분해요</span>
+							<span>차슈덮밥</span>
 						</div>
 					</div>
-					<div class="recipe-main-listBox-grid">
-						<div style="height: 292px;">
-							<img src="${pageContext.request.contextPath}/resources/dummyImg/recipe/recipeMain/newRecipeThumbnail2.png" alt="">
+					<div class="recipe-main-listBox-grid" >
+						<div class="recipe-img-div" data-type="recipe" data-no="3" onclick="moveDetailPage(this)">
+							<img src="${pageContext.request.contextPath}/resources/uploadfile/recipe/recipemain/recipeBoardImg(3).jpg" alt="">
 						</div>
 						<div class="recipe-main-listBox-grid-textBox">
-							<span>이탈리아의 여름을 담은</span>
-							<span>콜드 파스타</span>
+							<span>밥도둑 생선 조림 레시피를 소개합니다.</span>
+							<span>창녕갈릭 삼치 조림</span>
 						</div>
 					</div>
-					<div class="recipe-main-listBox-grid">
-						<div style="height: 292px;">
-							<img src="${pageContext.request.contextPath}/resources/dummyImg/recipe/recipeMain/newRecipeThumbnail3.png" alt="">
+					<div class="recipe-main-listBox-grid" >
+						<div class="recipe-img-div" data-type="recipe" data-no="4" onclick="moveDetailPage(this)">
+							<img src="${pageContext.request.contextPath}/resources/uploadfile/recipe/recipemain/recipeBoardImg(4).jpg" alt="">
 						</div>
 						<div class="recipe-main-listBox-grid-textBox">
-							<span>야외에서 즐기는</span>
-							<span>돼지 바비큐</span>
+							<span>돈까스를 넣고 잘 말아준 인기만점 김밥!</span>
+							<span>돈까스 김밥</span>
 						</div>
 					</div>
-					<div class="recipe-main-listBox-grid">
-						<div style="height: 292px;">
-							<img src="${pageContext.request.contextPath}/resources/dummyImg/recipe/recipeMain/newRecipeThumbnail4.png" alt="">
+					<div class="recipe-main-listBox-grid" >
+						<div class="recipe-img-div" data-type="recipe" data-no="5" onclick="moveDetailPage(this)">
+							<img src="${pageContext.request.contextPath}/resources/uploadfile/recipe/recipemain/recipeBoardImg(5).jpg" alt="">
 						</div>
 						<div class="recipe-main-listBox-grid-textBox">
-							<span>신선한 맛</span>
-							<span>아보카도 오픈 샌드위치</span>
+							<span>국물 자작하게 졸여 즐기는 짜글이의 매력!</span>
+							<span>감자 짜글이</span>
 						</div>
 					</div>
 				</div>
@@ -85,71 +88,81 @@
 					<span onclick="goShoppingList()">더보기</span>
 				</div>
 				<div id="recipe-main-shopping-list">
-					<div class="recipe-main-shopping-list-product">
-						<div style="height: 292px;"><img src="${pageContext.request.contextPath}/resources/dummyImg/recipe/recipeMain/productThumbnail1.png" alt=""></div>
+					<div class="recipe-main-shopping-list-product"  >
+						<div class="recipe-main-product" data-type="product" data-no="39" onclick="moveDetailPage(this)">
+							<img src="${pageContext.request.contextPath}/resources/uploadfile/product/productimg/육류2.jpg" alt="">
+						</div>
 						<div class="recipe-main-shopping-list-product-textBox">
 							<div class="recipe-main-shopping-list-product-textBox-title">
-								<span>성주</span>
-								<span>당도선별 성주 꿀참외 1.5kg (4~7입)</span>
+								<span>Kims Butcher</span>
+								<span>[Kims Butcher] 돌돌말이 대패 삼겹살 1kg(냉동)</span>
 							</div>
 							<div class="recipe-main-shopping-list-product-textBox-price">
-								<span> <del>2,620,000</del> </span>
+								<span> <del>16,900원</del> </span>
 								<div class="recipe-main-shopping-list-product-textBox-price-box">
 									<div class="recipe-main-shopping-list-product-textBox-price-box-discount">
-										<span class="recipe-main-discount">20%</span>
-										<span>16,900</span>
+										<span class="recipe-main-discount">24%</span>
+										<span>12,900원</span>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="recipe-main-shopping-list-product">
-						<div style="height: 292px;"><img src="${pageContext.request.contextPath}/resources/dummyImg/recipe/recipeMain/productThumbnail2.png" alt=""></div>
+					<div class="recipe-main-shopping-list-product" >
+						<div class="recipe-main-product" data-type="product" data-no="3" onclick="moveDetailPage(this)">
+							<img src="${pageContext.request.contextPath}/resources/uploadfile/product/productimg/과일2.jpg" alt="">
+						</div>
 						<div class="recipe-main-shopping-list-product-textBox">
 							<div class="recipe-main-shopping-list-product-textBox-title">
-								<span>성수동 분식</span>
-								<span>콘치즈 김치볶음밥 (2개입)</span>
+								<span>제스프리</span>
+								<span>[제스프리] 뉴질랜드 골드키위 1.1kg (8~10입) (후숙필요)</span>
 							</div>
 							<div class="recipe-main-shopping-list-product-textBox-price">
-								<span> <del>9,900</del> </span>
+								<span> <del>14,900원</del> </span>
 								<div class="recipe-main-shopping-list-product-textBox-price-box">
 									<div class="recipe-main-shopping-list-product-textBox-price-box-discount">
-										<span class="recipe-main-discount">12%</span>
-										<span>8,712</span>
+										<span class="recipe-main-discount">10%</span>
+										<span>13,410원</span>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="recipe-main-shopping-list-product">
-						<div style="height: 292px;"><img src="${pageContext.request.contextPath}/resources/dummyImg/recipe/recipeMain/productThumbnail3.png" alt=""></div>
+					<div class="recipe-main-shopping-list-product" >
+						<div class="recipe-main-product" data-type="product" data-no="78" onclick="moveDetailPage(this)">
+							<img src="${pageContext.request.contextPath}/resources/uploadfile/product/productimg/면4.jpg" alt="">
+						</div>
 						<div class="recipe-main-shopping-list-product-textBox">
 							<div class="recipe-main-shopping-list-product-textBox-title">
-								<span>양양</span>
-								<span>친환경 브로콜리 1개</span>
+								<span>테이블마크</span>
+								<span>[테이블마크] 사누끼 우동</span>
 							</div>
 							<div class="recipe-main-shopping-list-product-textBox-price">
+								<span> <del>7,380원</del> </span>
 								<div class="recipe-main-shopping-list-product-textBox-price-box">
 									<div class="recipe-main-shopping-list-product-textBox-price-box-discount">
-										<span>4,990</span>
+										<span class="recipe-main-discount">0%</span>
+										<span>7,380원</span>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="recipe-main-shopping-list-product">
-						<div style="height: 292px;"><img src="${pageContext.request.contextPath}/resources/dummyImg/recipe/recipeMain/productThumbnail4.png" alt=""></div>
+					<div class="recipe-main-shopping-list-product" >
+						<div class="recipe-main-product" data-type="product" data-no="62" onclick="moveDetailPage(this)">
+							<img src="${pageContext.request.contextPath}/resources/uploadfile/product/productimg/어류10.jpg" alt="">
+						</div>
 						<div class="recipe-main-shopping-list-product-textBox">
 							<div class="recipe-main-shopping-list-product-textBox-title">
-								<span>제주도니</span>
-								<span>제주 1등급 암퇘지 삼겹살 300g(냉장)</span>
+								<span>만전김</span>
+								<span>[만전김] 만지도 무산김(곱창김) 2종 (택1)</span>
 							</div>
 							<div class="recipe-main-shopping-list-product-textBox-price">
-								<span> <del>15,800</del> </span>
+								<span> <del>15,860원</del> </span>
 								<div class="recipe-main-shopping-list-product-textBox-price-box">
 									<div class="recipe-main-shopping-list-product-textBox-price-box-discount">
-										<span class="recipe-main-discount">20%</span>
-										<span>12,640</span>
+										<span class="recipe-main-discount">10%</span>
+										<span>14,260원</span>
 									</div>
 								</div>
 							</div>

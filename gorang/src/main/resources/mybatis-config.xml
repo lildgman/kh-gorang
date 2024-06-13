@@ -27,6 +27,7 @@
 
  		<typeAlias type="com.kh.gorang.board.model.vo.Board" alias="Board"/>
 		<typeAlias type="com.kh.gorang.board.model.vo.Report" alias="Report"/>
+		<typeAlias type="com.kh.gorang.board.model.vo.Comment" alias="Comment"/>
 		
  		<typeAlias type="com.kh.gorang.shopping.model.vo.ProductInsertDTO" alias="ProductInsertDTO" />
  		<typeAlias type="com.kh.gorang.board.model.vo.BoardSearchDTO" alias="BoardSearchDTO" />
@@ -52,7 +53,7 @@
  		<typeAlias type="com.kh.gorang.member.model.vo.ProductQnaDTO" alias="ProductQnaDTO" />
  		<typeAlias type="com.kh.gorang.member.model.vo.RecipeQnaDTO" alias="RecipeQnaDTO" />
  		<typeAlias type="com.kh.gorang.member.model.vo.ProductCart" alias="ProductCart" />
- 		
+ 		<typeAlias type="com.kh.gorang.recipe.model.dto.RecipeListDto" alias="RecipeListDto"/>
 	</typeAliases>
 	
 	<!-- 
@@ -70,7 +71,12 @@
 		<mapper resource="/mappers/manager-mapper.xml" />
 		<mapper resource="/mappers/mypage-mapper.xml" />
 		<mapper resource="/mappers/order-mapper.xml"/>
-		<mapper resource="/mappers/media-mapper.xml"/>
+
+		<mapper resource="/mappers/comment-mapper.xml"/>
+
 		<mapper resource="/mappers/search-mapper.xml"/>
+
+		<mapper resource="/mappers/odg-recipe-mapper.xml"/>
+
 	</mappers>
 </configuration>  

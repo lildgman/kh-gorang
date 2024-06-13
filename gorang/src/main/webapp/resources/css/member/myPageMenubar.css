@@ -71,12 +71,12 @@
 }
 
 /* 팔로워 0 */
-#user-follower {
+#user-follower-area {
     margin-right: 10px;
 }
 
 /* 팔로잉 0 */
-#user-following {
+#user-following-area {
     margin-left: 10px;
 }
 

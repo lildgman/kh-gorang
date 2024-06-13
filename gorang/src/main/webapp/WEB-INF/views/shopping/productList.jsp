@@ -102,9 +102,9 @@
             <!-- 정렬 방식 -->
             <div id="product-order-area">
                 <div id="product-order">
-                    <span class="sort" onclick="orderProductList('${contextPath }/list.po?category=${category}&sort=new')">최신순</span> |
-                    <span class="sort" onclick="orderProductList('${contextPath }/list.po?category=${category}&sort=view')">조회수순</span> |
-                    <span class="sort" onclick="orderProductList('${contextPath }/list.po?category=${category}&sort=scrap')">스크랩순</span>
+                    <span class="sort" onclick="orderProductList('${contextPath }/list.po?content=${content}&category=${category}&sort=new')">최신순</span> |
+                    <span class="sort" onclick="orderProductList('${contextPath }/list.po?content=${content}&category=${category}&sort=view')">조회수순</span> |
+                    <span class="sort" onclick="orderProductList('${contextPath }/list.po?content=${content}&category=${category}&sort=scrap')">스크랩순</span>
                 </div>
             </div>
 
@@ -144,17 +144,17 @@
 
                 <c:choose>
                     <c:when test="${pi.currentPage ne 1 }">
-                        <a href="list.po?cpage=${pi.currentPage -1 }&category=${category}&sort=${sort}">&lt;</a>
+                        <a href="list.po?content=${content}&cpage=${pi.currentPage -1 }&category=${category}&sort=${sort}">&lt;</a>
                     </c:when>
                 </c:choose>
 
                 <c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
-                    <a href="list.po?cpage=${p}&category=${category}&sort=${sort}">${p}</a>
+                    <a href="list.po?content=${content}&cpage=${p}&category=${category}&sort=${sort}">${p}</a>
                 </c:forEach>
 
                 <c:choose>
-                    <c:when test="${(pi.currentPage ne pi.maxPage) or (pi.maxPage eq 0) }">
-                        <a href="list.po?cpage=${pi.currentPage +1 }&category=${category}&sort=${sort}">&gt;</a>
+                    <c:when test="${pi.currentPage lt pi.maxPage}">
+                        <a href="list.po?content=${content}&cpage=${pi.currentPage +1 }&category=${category}&sort=${sort}">&gt;</a>
                     </c:when>
                 </c:choose>
             </div>

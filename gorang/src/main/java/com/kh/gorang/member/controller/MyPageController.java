@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.common.model.vo.PageInfo;
 import com.kh.gorang.common.template.Pagination;
+import com.kh.gorang.member.model.dto.MemberInfoDTO;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.MyPageBoardCommentDTO;
 import com.kh.gorang.member.model.vo.MyPageBoardDTO;
@@ -569,8 +570,28 @@ public class MyPageController {
 		} else {
 			return "undone";
 		}
-		
 	}
+	
+	@ResponseBody
+	@GetMapping("info.me")
+	public MemberInfoDTO getMemberInfo(
+			HttpSession session){
+		
+		int memberNo = getLoginUserNo(session);
+		int followingCount = myPageService.getFollowingCount(memberNo);
+		// 팔로워 수
+		int followerCount = myPageService.getFollowerCount(memberNo);
+		// 총 스크랩 수
+		int totalScrapCount = myPageService.getTotalScrapCount(memberNo);
+		// 총 좋아요 개수
+		int totalLikeCount = myPageService.getTotalLikeCount(memberNo);
+		
+		MemberInfoDTO memberInfo = new MemberInfoDTO(followingCount,followerCount,totalScrapCount,totalLikeCount);
+	
+		return memberInfo;
+	}
+	
+	
 	
 	private void addAttributeUserInfo(Model model, int memberNo) {
 		// 팔로잉 수

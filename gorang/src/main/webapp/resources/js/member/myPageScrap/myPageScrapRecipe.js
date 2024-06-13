@@ -70,5 +70,5 @@ function toggleDelete() {
 
 function movePage(element) {
     const recipeNo = element.getAttribute('data-no');
-    window.location.href = "detail.re?rno=" + recipeNo;
+    window.location.href = "detail.re?recipeNo=" + recipeNo;
 }
