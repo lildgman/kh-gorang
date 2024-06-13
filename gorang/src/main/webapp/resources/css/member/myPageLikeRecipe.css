@@ -106,3 +106,8 @@ body {
     display: flex;
     justify-content: flex-end;
 }
+
+.scrap-img {
+    width: 280px;
+    height: 280px;
+}

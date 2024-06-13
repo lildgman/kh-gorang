@@ -19,7 +19,7 @@
 
 .main-banner {
   width: 640px;
-  height: 100%;
+  height: 760px;
   position: relative;
 }
 
@@ -34,7 +34,12 @@
 .main-banner-img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.main-banner-img:hover {
+  cursor: pointer;
 }
 
 .main-banner-comment {
@@ -86,7 +91,7 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 24px;
 }
@@ -111,6 +116,19 @@
   width: 100%;
   height: 292px;
 }
+
+.weekly-item-img-container:hover {
+  cursor: pointer;
+}
+
+.weekly-item-img {
+  width: 100%;
+  height: 292px;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+
 
 .weekly-item-info-container {
   width: 100%;
@@ -188,6 +206,10 @@
 .board-img-container {
   width: 100%;
   height: 292px;
+}
+
+.board-img-container:hover {
+  cursor: pointer;
 }
 
 .flex-gap-16px {

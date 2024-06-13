@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.gorang.common.model.vo.PageInfo;
 import com.kh.gorang.shopping.model.vo.Product;
 import com.kh.gorang.shopping.model.vo.ProductDetailOption;
 import com.kh.gorang.shopping.model.vo.ProductInsertDTO;
@@ -44,15 +46,22 @@ public class ODGProductDao {
 		return sqlSession.selectOne("odgProductMapper.selectSuspendedProductQuantity");
 	}
 
-	public ArrayList<Product> ajaxSearchProduct(SqlSessionTemplate sqlSession, String searchProductName) {
-		return (ArrayList)sqlSession.selectList("odgProductMapper.ajaxSearchProduct", searchProductName);
+	// 상품 검색
+	public ArrayList<Product> ajaxSearchProduct(SqlSessionTemplate sqlSession, PageInfo pi, String searchProductName) {
+		
+		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("odgProductMapper.ajaxSearchProduct", searchProductName, rowBounds);
 	}
 
+	// 상품 옵션 조회
 	public ArrayList<ProductDetailOption> ajaxSearchProductOption(SqlSessionTemplate sqlSession, int productNo) {
 		return (ArrayList)sqlSession.selectList("odgProductMapper.ajaxSearchProductOption",productNo);
 		
 	}
 
+	// 상품 상태 변경
 	public int ajaxUpdateProductStatus(SqlSessionTemplate sqlSession, Map<String, Object> map) {
 		return sqlSession.update("odgProductMapper.ajaxUpdateProductStatus", map);
 	}
@@ -63,6 +72,11 @@ public class ODGProductDao {
 
 	public int ajaxUpdateProductOption(SqlSessionTemplate sqlSession, ProductDetailOption option) {
 		return sqlSession.update("odgProductMapper.ajaxUpdateProductOptions", option);
+	}
+
+	// 상품 검색 결과 개수 조회
+	public int getSearchProductResultCount(SqlSessionTemplate sqlSession, String searchProductName) {
+		return sqlSession.selectOne("odgProductMapper.selectSearchProductCount", searchProductName);
 	}
 
 }

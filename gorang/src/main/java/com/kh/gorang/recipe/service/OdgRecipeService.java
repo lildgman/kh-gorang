@@ -1,14 +1,17 @@
 package com.kh.gorang.recipe.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
-import com.kh.gorang.recipe.model.vo.Recipe;
+import com.kh.gorang.common.model.vo.PageInfo;
+import com.kh.gorang.recipe.model.dto.RecipeListDto;
 import com.kh.gorang.shopping.model.vo.Product;
 
 public interface OdgRecipeService {
+	
 
-	ArrayList<Recipe> getRecentRecipe();
+	int getRecipeCount(Map<String, Object> map);
 
-	ArrayList<Product> getRandomProduct();
-
+	
+	ArrayList<RecipeListDto> getRecipeList(PageInfo pi, Map<String, Object> map);
 }

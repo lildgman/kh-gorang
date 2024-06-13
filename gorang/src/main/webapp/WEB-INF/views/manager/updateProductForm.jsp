@@ -116,6 +116,10 @@
                         </tbody>
                     </table> 
                 </div>
+                <div id="pagination-area" align="center">
+                    <div id="pagination">
+                    </div>
+                </div>
                 <div class="detail-search-btn-container">
                     <button id="detail-search-btn" class="delete-btn" onclick="updateProductStatus()">상태변경</button>
                     <button id="detail-search-btn" class="myBtn" onclick="searchProductOption()">상세조회</button>

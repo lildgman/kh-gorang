@@ -2,6 +2,7 @@ package com.kh.gorang.shopping.service;
 
 import java.util.ArrayList;
 
+import com.kh.gorang.common.model.vo.PageInfo;
 import com.kh.gorang.shopping.model.vo.Product;
 import com.kh.gorang.shopping.model.vo.ProductDetailOption;
 import com.kh.gorang.shopping.model.vo.ProductInsertDTO;
@@ -24,7 +25,7 @@ public interface ODGProductService {
 	int selectSuspendedProductQuantity();
 
 	// 상품검색
-	ArrayList<Product> ajaxSearchProduct(String searchProductName);
+	ArrayList<Product> ajaxSearchProduct(PageInfo pi, String searchProductName);
 
 	// 상품 옵션 검색
 	ArrayList<ProductDetailOption> ajaxSearchProductOption(int productNo);
@@ -34,5 +35,8 @@ public interface ODGProductService {
 
 	// 상품 옵션 변경 
 	int ajaxUpdateProductOptions(ArrayList<ProductDetailOption> productDetailOptions);
+
+	// 검색한 상품 개수 조회
+	int getSearchProductResultCount(String searchProductName);
 
 }

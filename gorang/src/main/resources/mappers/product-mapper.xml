@@ -138,9 +138,9 @@
      		SELECT *
 	    	FROM PRODUCT
 	    	WHERE STATUS = 'Y'
-		    	<if test='content != null'>
-	     			AND PRODUCT_NAME ILIKE '%${content}%'
-	     			OR PRODUCT_BRAND ILIKE '%${content}%'
+		    	<if test='content != null and content != ""'>
+	     			AND PRODUCT_NAME ILIKE '%' || #{content} || '%'
+	     			OR PRODUCT_BRAND ILIKE '%' || #{content} || '%'
 	     		</if>
 	    		<if test='category == "야채"'>
 	    			AND CATEGORY LIKE '야채'
@@ -164,13 +164,13 @@
 	    			AND CATEGORY LIKE '유제품'
 	    		</if>
 	    	<if test='sort == "new"'>
-	    		ORDER BY PRODUCT_DATE
+	    		ORDER BY PRODUCT_DATE DESC
 	    	</if>
 	    	<if test='sort == "view"'>
-	    		ORDER BY PRODUCT_VIEW
+	    		ORDER BY PRODUCT_VIEW DESC
 	    	</if>
 	    	<if test='sort == "scrap"'>
-	    		ORDER BY SCRAP_COUNT
+	    		ORDER BY SCRAP_COUNT DESC
 	    	</if>
      	)
      </select>
@@ -188,30 +188,30 @@
      		MAIN_IMG
      	FROM PRODUCT
      	WHERE STATUS = 'Y' 
-     		<if test='content != null'>
-     			AND PRODUCT_NAME ILIKE '%${content}%'
-     			OR PRODUCT_BRAND ILIKE '%${content}%'
+     		<if test='content != null and content != ""'>
+     			AND PRODUCT_NAME ILIKE '%' || #{content} || '%'
+     			OR PRODUCT_BRAND ILIKE '%' || #{content} || '%'
      		</if>
 	     	<if test='category == "야채"'>
-	   			AND CATEGORY LIKE '야채'
+	   			AND CATEGORY LIKE '%야채%'
 	   		</if>
 	   		<if test='category == "과일"'>
-	   			AND CATEGORY LIKE '과일'
+	   			AND CATEGORY LIKE '%과일%'
 	   		</if>
 	   		<if test='category == "어류"'>
-	   			AND CATEGORY LIKE '어류'
+	   			AND CATEGORY LIKE '%어류%'
 	   		</if>
 	   		<if test='category == "육류"'>
-	   			AND CATEGORY LIKE '육류'
+	   			AND CATEGORY LIKE '%육류%'
 	   		</if>
 	   		<if test='category == "빵"'>
-	   			AND CATEGORY LIKE '빵'
+	   			AND CATEGORY LIKE '%빵%'
 	   		</if>
 	   		<if test='category == "면"'>
-	   			AND CATEGORY LIKE '면'
+	   			AND CATEGORY LIKE '%면%'
 	   		</if>
 	   		<if test='category == "유제품"'>
-	   			AND CATEGORY LIKE '유제품'
+	   			AND CATEGORY LIKE '%유제품%'
 	   		</if>
 	   	<if test='sort == "new"'>
 	   		ORDER BY PRODUCT_DATE DESC
