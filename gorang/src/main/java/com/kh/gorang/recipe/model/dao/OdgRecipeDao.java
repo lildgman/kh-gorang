@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.gorang.common.model.vo.PageInfo;
 import com.kh.gorang.recipe.model.dto.RecipeListDto;
-import com.kh.gorang.recipe.model.vo.Recipe;
 
 @Repository
 public class OdgRecipeDao {

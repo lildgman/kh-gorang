@@ -14,12 +14,9 @@ function searchProductOption() {
         productNo: productNo 
       },
       success: function(res) {
-        const optionList = res;
-        const optionTbody = document.querySelector('#product-option-tbody');
-        optionTbody.innerHTML="";
-        
+    
         displayProductOptions();
-        drawProductOptions(optionList, optionTbody);
+        drawProductOptions(res);
       
       },
       error: function() {
@@ -30,7 +27,9 @@ function searchProductOption() {
 }
 
 // 찾은 옵션들을 토대로 table을 그려주는 함수
-function drawProductOptions(optionList, optionTbody) {
+function drawProductOptions(optionList) {
+  const optionTbody = document.querySelector('#product-option-tbody');
+  optionTbody.innerHTML="";
   optionList.forEach(option => {
 
     const newRow = $('<tr class="product-option-tr"></tr>');
@@ -57,21 +56,79 @@ function displayProductOptions() {
   productOption.classList.add('displayFlex');
 }
 
+// 상품 조회 시 상세 옵션부분 숨기기
+function hideProductOptions() {
+  const productOption = document.querySelector('.ds-none');
+  productOption.style.display = "none";
+}
+
+// 상품 검색 시 엔터 누르면 검색하게
+document.addEventListener("DOMContentLoaded", function() {
+  const searchInput = document.querySelector('#search-product-name-input');
+  searchInput.addEventListener("keypress",function(event) {
+    if(event.key == 'Enter') {
+      event.preventDefault();
+      if(searchInput.value) {
+        searchProduct();
+      }
+    }
+  })
+})
+
+
 // 상품조회 함수
 function searchProduct() {
+
+  const searchInput = document.querySelector('#search-product-name-input');
+
+  if(searchInput.value) {
+    const tbody = $('.product-table tbody');
+    const searchProductName = document.querySelector("#search-product-name-input").value;
+    tbody.empty();
+    $.ajax({
+      url: 'search.po',
+      type: 'get',
+      data: {
+        searchProductName: searchProductName
+      },
+      dataType:"json",
+      success: function(res) {
+        hideProductOptions();
+        drawProductInfo(res.pi, res.resultList, tbody);
+        drawResultPagination(res.pi,searchProductName); 
+      },
+      error: function() {
+        console.log("상품조회 ajax 실패")
+      }
+    })
+  }
+}
+
+function movePage(element) {
+  const cpage = element.getAttribute('data-cpage');
+  const searchProductName = element.getAttribute('data-searchProductName');
+
+  ajaxSearchProduct(cpage,searchProductName);
+
+  console.log(cpage);
+  console.log(searchProductName);
+}
+
+function ajaxSearchProduct(cpage,searchProductName) {
   const tbody = $('.product-table tbody');
-  const searchProductName = document.querySelector("#search-product-name-input").value;
   tbody.empty();
   $.ajax({
     url: 'search.po',
     type: 'get',
     data: {
+      cpage : cpage,
       searchProductName: searchProductName
     },
+    dataType:"json",
     success: function(res) {
-      const productList = res;
-      drawProductInfo(productList, tbody);
-      
+      hideProductOptions();
+      drawProductInfo(res.pi, res.resultList, tbody);
+      drawResultPagination(res.pi, searchProductName); 
     },
     error: function() {
       console.log("상품조회 ajax 실패")
@@ -79,9 +136,31 @@ function searchProduct() {
   })
 }
 
+function drawResultPagination(pi,searchProductName) {
+  const paginationDiv = document.querySelector('#pagination');
+  paginationDiv.innerHTML = "";
+
+  if(pi.currentPage !== 1) {
+    paginationDiv.innerHTML += `<span data-cpage="${pi.currentPage - 1 }" data-searchProductName="${searchProductName}" onclick="movePage(this)">&lt;</span>`;
+  }
+
+  for(let p = pi.startPage; p <= pi.endPage; p++) {
+    if(p === pi.currentPage) {
+      paginationDiv.innerHTML += `<span data-cpage="${p}" data-searchProductName="${searchProductName}" onclick="movePage(this)"><strong>${p}</strong></span>`;
+    } else {
+      paginationDiv.innerHTML += `<span data-cpage="${p}" data-searchProductName="${searchProductName}" onclick="movePage(this)">${p}</span>`;
+
+    }
+  }
+
+  if(pi.currentPage < pi.maxPage) {
+    paginationDiv.innerHTML += `<span data-cpage="${pi.currentPage + 1 }" data-searchProductName="${searchProductName}" onclick="movePage(this)">&gt;</span>`;
+  }
+}
+
 // 조회된 상품을 토대로 table 그려주는 함수
-function drawProductInfo(productList, tbody) {
-  $('#search-result-count').text(productList.length);
+function drawProductInfo(pi, productList, tbody) {
+  $('#search-result-count').text(pi.listCount);
   productList.forEach(product => {
     const newRow = $('<tr class="option-tr"></tr>');
 
