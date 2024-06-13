@@ -49,6 +49,11 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function search(value) {
+    // alert(value);
+    if(value=== "") {
+        return;
+    }
+
     window.location.href = "search.re?content=" + value;
 }
 

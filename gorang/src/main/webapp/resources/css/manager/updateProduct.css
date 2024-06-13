@@ -243,5 +243,9 @@ input[type="number"]::-webkit-inner-spin-button {
   width: 100%;
 }
 
-
-
+#pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}

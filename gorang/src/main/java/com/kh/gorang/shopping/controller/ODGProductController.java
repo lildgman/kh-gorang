@@ -3,6 +3,8 @@ package com.kh.gorang.shopping.controller;
 import static com.kh.gorang.common.template.SaveFileController.saveFile;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.gorang.common.model.vo.PageInfo;
+import com.kh.gorang.common.template.Pagination;
 import com.kh.gorang.shopping.model.vo.Product;
 import com.kh.gorang.shopping.model.vo.ProductDetailOption;
 import com.kh.gorang.shopping.model.vo.ProductInsertDTO;
@@ -59,10 +63,23 @@ public class ODGProductController {
 	// 상품 검색
 	@GetMapping("search.po")
 	@ResponseBody
-	public ArrayList<Product> ajaxSearchProduct(String searchProductName) {
-		ArrayList<Product> resultList = odgProductService.ajaxSearchProduct(searchProductName);
+	public Map<String, Object> ajaxSearchProduct(
+			@RequestParam(defaultValue = "1") int cpage,
+			String searchProductName) {
 		
-		return resultList;
+		int searchProductResultCount = odgProductService.getSearchProductResultCount(searchProductName);
+		
+		log.info("searchProductResultCount={}",searchProductResultCount);
+		PageInfo pi = Pagination.getPageInfo(searchProductResultCount, cpage, 10, 20);
+		
+		ArrayList<Product> resultList = odgProductService.ajaxSearchProduct(pi, searchProductName);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("resultList", resultList);
+		map.put("pi", pi);
+		
+		
+		return map;
 	}
 	
 	//상품 옵션 조
