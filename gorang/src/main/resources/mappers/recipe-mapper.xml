@@ -217,103 +217,132 @@
 	</update>
 
 	<!-- 분류 수정 -->
-	<update id="updateDivision"  parameterType="Division">
-  	UPDATE DIVISION
-  	SET
-  	  	div_name =#{divName},
-  	WHERE
-  	rcp_no = #{recipeNo}
-  	</update>
-  	
-  	<!-- 재료 수정 -->
-  	<update id="updateIngredients"  parameterType="IngredientsInfo">
-  	UPDATE INGREDIENTS_INFO
-  	SET
-  	  	ingre_name =#{ingreName},
-  	  	ingre_amount=#{ingreAmount},
-  	  	ingre_unit=#{ingreUnit}
-  	WHERE
-  	div_no = #{divNo}
-  	</update>
-  	
-  	 <!-- 조리 순서 수정 -->
-  	<update id="updateCookOrder"  parameterType="CookOrder">
-  	UPDATE COOK_ORDER
-  	SET
-  	  	cook_ord_content = #{cookOrdContent},
-  	  	cook_ord_photo = #{cookOrdPhoto}
-  	WHERE
-  	rcp_no = #{rcpNo}
-  	</update>
-  	
-  	 <!-- 팁 수정 -->
-  	<update id="updateCooktip"  parameterType="CookTip">
-  	UPDATE COOK_TIP
-  	SET
-  	  	cook_tip_content = #{cookTipContent},
-  	WHERE
-  	cook_ord_no = #{cookOrdNo}
-  	</update>
+	<update id="updateDivision" parameterType="Division">
+	    UPDATE DIVISION
+	    SET
+	        div_name = #{divName},
+	        status ='Y'
+	    WHERE
+	        rcp_no = #{recipeNo}
+	        AND div_no = #{divNo}
+	</update>
+	
+	<!-- 재료 수정 -->
+	<update id="updateIngredients" parameterType="IngredientsInfo">
+    UPDATE INGREDIENTS_INFO
+    SET
+        ingre_name = #{ingreName},
+        ingre_amount = #{ingreAmount},
+        ingre_unit = #{ingreUnit},
+        status ='Y'
+    WHERE
+        div_no = #{divNo}
+        AND div_no IN (
+            SELECT div_no
+            FROM DIVISION
+            WHERE status = 'Y' 
+        )
+	</update>
+	
+	<!-- 조리 순서 수정 -->
+	<update id="updateCookOrder" parameterType="CookOrder">
+	    UPDATE COOK_ORDER
+	    SET
+	        cook_ord_content = #{cookOrdContent},
+	        cook_ord_photo = #{cookOrdPhoto}
+	    WHERE
+	        rcp_no = #{rcpNo}
+	        AND status = 'Y'
+	</update>
+	
+	<!-- 팁 수정 -->
+	<update id="updateCooktip" parameterType="CookTip">
+	    UPDATE COOK_TIP
+	    SET
+	        cook_tip_content = #{cookTipContent}
+	    WHERE
+	        cook_ord_no = #{cookOrdNo}
+	        AND cook_ord_no IN (
+	            SELECT cook_ord_no
+	            FROM COOK_ORDER
+	            WHERE status = 'Y' 
+	        )
+	        AND status = 'Y' 
+	</update>
   	
   	
   	
   <!--***************  길이    ****************-->	
-  	<!-- 분류 길이(개수)  -->
-  	<select id="selectfindDivLen" parameterType="int">
-	  	SELECT COUNT(*) 
-	  	FROM DIVISION 
-	  	WHERE rcp_no = #{recipeNo}
-  	</select>
+  <!-- 분류 길이(개수) -->
+<select id="selectfindDivLen" resultType="int">
+    SELECT COUNT(*) 
+    FROM DIVISION 
+    WHERE rcp_no = #{recipeNo}
+    AND status = 'Y'
+</select>
+
+<!-- 재료 길이 -->
+<select id="selectfindIngreLen" resultType="int">
+    SELECT COUNT(*) 
+    FROM INGREDIENTS_INFO
+    WHERE div_no = #{divNo}
+    AND status = 'Y'
+</select>
+
+<!-- 조리순서 길이 -->
+<select id="selectfindCoLen" resultType="int">
+    SELECT COUNT(*) 
+    FROM cook_order
+    WHERE rcp_no = #{recipeNo}
+    AND status = 'Y'
+</select>
+
+<!-- 팁 길이 -->
+<select id="selectfindCtLen" resultType="int">
+    SELECT COUNT(*) 
+    FROM cook_tip
+    WHERE cook_ord_no = #{cookOrdNo}
+    AND status = 'Y'
+</select>
   	
-  	<!-- 재료 길이  -->
-  	<select id="selectfindIngreLen" parameterType="int">
-	  	SELECT COUNT(*) 
-	  	FROM IN INGREDIENTS_INFO
-	  	WHERE div_no = #{divNo}
-  	</select>
-  	
-  	<!-- 조리순서 길이 -->
-  	<select id="selectfindCoLen" parameterType="int">
-	  	SELECT COUNT(*) 
-	  	FROM IN cook_order
-	  	WHERE rcp_no = #{recipeNo}
-  	</select>
-  	
-  	<!-- 팁 길이 -->
-  	<select id="selectfindCtLen" parameterType="int">
-	  	SELECT COUNT(*) 
-	  	FROM IN cook_tip
-	  	WHERE cook_ord_no = #{cookOrdNo}
-  	</select>
-  	
-  <!--***************  삭제    ****************-->	
-  	<!-- ingredients 행 삭제 -->
-  	 <delete id="deleteIngre" parameterType="IngredientsInfo">
-  	 DELETE FROM INGREDIENTS_INFO
-  	 WHERE ingre_name = #{ingreName}
-          AND ingre_amount = #{ingreAmount}
-          AND ingre_unit = #{ingreUnit}
-          AND div_no = #{divNo}
-  	 </delete>
-  	 
-  	 <!-- division 행 삭제 -->
-  	 <delete id="deleteDivision" parameterType="Division">
-  	 DELETE FROM DIVISION
-  	 WHERE div_name = #{divName}
-          AND rcp_no = #{recipeNo}
-  	 </delete>
-  	 
-  	 <!-- cookTip 행 삭제 -->
-  	 <delete id="deleteCookTip" parameterType="CookTip">
-  	 DELETE FROM COOK_TIP
-  	 WHERE cook_tip_content = #{cookTipContent}
-          AND cook_ord_no = #{cookOrdNo}
-  	 </delete>
-  	 
-  	 <!-- cookOrder 행 삭제 -->
-  	 <delete id="deleteCookOrder" parameterType="CookOrder">
-  	 DELETE FROM COOK_ORDER
-  	 WHERE cook_ord_content = #{cookOrdContent}
-          AND rcp_no = #{recipeNo}
-  	 </delete>
-  </mapper>
+  <!--***************  삭제(업데이트)  ****************-->	
+ 
+  
+ <update id="deleteRecipe" parameterType="Recipe">
+ 	UPDATE RECIPE
+ 	SET
+ 		 rcp_title =NULL,
+         rcp_content =NULL, 
+         rcp_video =NULL,
+         rcp_main_photo =NULL, 
+         rcp_tag =NULL,
+         cook_amount =NULL, 
+         cook_time =NULL, 
+         cook_kind =NULL, 
+         cook_level =NULL
+ 	WHERE rcp_no = #{recipeNo}
+ </update>
+ 
+<delete id="deleteIngre" parameterType="IngredientsInfo">
+    DELETE FROM INGREDIENTS_INFO
+    WHERE ingre_no = #{ingreNo}
+</delete>
+
+<delete id="deleteDivision" parameterType="Division">
+    DELETE FROM DIVISION
+    WHERE div_no = #{divNo}
+    AND rcp_no = #{recipeNo};
+</delete>
+
+<delete id="deleteCookOrder" parameterType="CookOrder">
+	DELETE FROM COOK_ORDER
+	WHERE rcp_no=#{recipeNo}
+	AND cook_ord_no =#{cookOrdNo};
+	
+</delete>
+<delete id="deleteCookTip" parameterType="CookTip">
+    DELETE FROM COOK_TIP
+    WHERE cook_tip_no = #{cookTipNo}
+</delete>
+
+ </mapper>

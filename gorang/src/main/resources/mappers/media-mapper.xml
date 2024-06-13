@@ -53,10 +53,18 @@
   	AND M.rcp_no = ${rcp_no}
   	</select>
   	
+  	<!-- 요리완성 사진 길이 -->
+  	<select id="selectfindmdLen" resultType="int">
+    SELECT COUNT(*) 
+    FROM MEDIA
+    WHERE rcp_no = #{recipeNo}
+    AND status = 'Y'
+	</select> 
+	 
   	 <!-- 요리완성 사진 삭제 -->
-  	 <delete id="deleteCompletePhoto" parameterType="Media">
-  	 DELETE FROM MEDIA
-  	 WHERE origin_name = #{originName}
-          AND rcp_no = #{recipeNo}
-  	 </delete>
+  	<delete id="deleteCompletePhoto" parameterType="Media">
+  	DELETE FROM MEDIA
+  	WHERE rcp_no=#{recipeNo}
+  	AND media_no =#{mediaNo}
+	</delete>
  </mapper>
