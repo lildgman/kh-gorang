@@ -21,6 +21,7 @@ import com.kh.gorang.member.model.vo.ProductQnaDTO;
 import com.kh.gorang.member.model.vo.RecipeQnaDTO;
 import com.kh.gorang.member.model.vo.RefrigeratorInsertDTO;
 import com.kh.gorang.member.model.vo.Review;
+import com.kh.gorang.recipe.model.dto.RecipeListDto;
 import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.shopping.model.vo.Product;
 
@@ -304,6 +305,11 @@ public class MyPageDao {
 
 	public int selectRefriCount(SqlSessionTemplate sqlSession, int memberNo) {
 		return sqlSession.selectOne("myPageMapper.selectRefriCount", memberNo);
+	}
+	
+	//식재료로 레시피 조회
+	public List<RecipeListDto> selectRecipeListByRefri(SqlSessionTemplate sqlSession, String[] ingres) {
+		return sqlSession.selectList("myPageMapper.selectRecipeListByRefri", ingres);
 	}
 
 }

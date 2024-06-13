@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setPaginationEventListeners();
 
+    setRecipeModalPaginationEventListeners();
+
     // ================================== 유틸리티, 공통  메소드 =======================
     
     /** 헤더에서 세션에 넣은 contextPath 값 리턴하는 함수 */
@@ -48,6 +50,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 break;
             case document.querySelector("#ingre-modal-pagination"):
                 setIngreModalPaginationEventListeners();
+                break;
+            case document.querySelector("#modal-recipe-pagination"):
+                setRecipeModalPaginationEventListeners();
         }        
     }       
 
@@ -60,74 +65,88 @@ document.addEventListener("DOMContentLoaded", function () {
         refriPaginationArea.querySelectorAll(".pagination a").forEach(function(ev){
             ev.addEventListener("click", function(el){
                 let cpage = el.currentTarget.getAttribute('data-value');
-                getRefriInfoByAjax(parseInt(cpage));
+                // 나의 냉장고 페이지의 냉장고 식재료 테이블일 경우 mid 숫자 1 함께 보냄
+                getRefriInfoByAjax(parseInt(cpage), 1);
             });
         });
     }
 
+    /** 데이터를 받아서 나의 냉장고 식재료 테이블 구축해주는  메소드*/
+    function constructRefriTable(refriIngresList, refriTbody){
+        refriTbody.innerHTML = "";
+        for(let refriIngre of refriIngresList){
+            let refriTbodyTr = document.createElement('tr');
+            refriTbody.appendChild(refriTbodyTr);
+            refriTbodyTr.setAttribute("class", ".tr-block");
+            // 이미지 td
+            const refriIngreTd1 = document.createElement('td');
+            refriIngreTd1.setAttribute("class", "myRefrigerator-tr");
+            refriTbodyTr.appendChild(refriIngreTd1);
+            const refriIngreImg = document.createElement('img');
+            refriIngreImg.setAttribute("style", "height: 50px;");
+            refriIngreImg.setAttribute("src", ctp + "/resources/images/member-img/Rectangle 18311 (2).png");
+            refriIngreTd1.appendChild(refriIngreImg);
+            // 식재료명 td
+            const refriIngreTd2 = document.createElement('td');
+            refriIngreTd2.innerHTML = refriIngre.refName;
+            refriTbodyTr.appendChild(refriIngreTd2);
+            // 신선도 td
+            const refriIngreTd3 = document.createElement('td');
+            refriIngreTd3.setAttribute("class", "flesh-area");
+            refriTbodyTr.appendChild(refriIngreTd3);
+            // 신선도 div
+            const freshDiv = document.createElement('div');
+            freshDiv.setAttribute("class", "flesh-status");
+            if(refriIngre.daysDifference <= 3){ // 위험
+                freshDiv.setAttribute("style", "background-color:#F20E2B;");
+                refriIngreTd3.innerHTML = "위험"
+            } else if(refriIngre.daysDifference > 3 && refriIngre.daysDifference <= 7){ // 보통
+                freshDiv.setAttribute("style", "background-color:#FFE28A;");
+                refriIngreTd3.innerHTML = "보통"
+            } else { // 신선
+                freshDiv.setAttribute("style", "background-color:#7ADC66;");
+                refriIngreTd3.innerHTML = "신선"
+            }
+            refriIngreTd3.appendChild(freshDiv);
+            // 소비기한 td
+            const refriIngreTd4 = document.createElement('td');
+            refriIngreTd4.innerHTML = refriIngre.refConsumptionDate;
+            refriTbodyTr.appendChild(refriIngreTd4);
+            // 입고일 td
+            const refriIngreTd5 = document.createElement('td');
+            refriIngreTd5.innerHTML = refriIngre.refInputDate;
+            refriTbodyTr.appendChild(refriIngreTd5);
+            // 갯수 td
+            const refriIngreTd6 = document.createElement('td');
+            refriIngreTd6.innerHTML = refriIngre.refCount;
+            refriTbodyTr.appendChild(refriIngreTd6);
+            // 삭제 td
+            const refriIngreTd7 = document.createElement('td');
+            refriIngreTd7.setAttribute("class", "myRefrigerator-last-td");
+            refriIngreTd7.innerHTML = "삭제";
+            refriTbodyTr.appendChild(refriIngreTd7);
+        }
+    }
+
     /** ajax 로 currentPage 보내서 RowBounds 된 List<refrigerator> 값 받아온 후 뿌려주는 메소드*/
-    function getRefriInfoByAjax(data){
+    function getRefriInfoByAjax(data, mid){
         $.ajax({
             url: "selectRefriAjax.me",
             data: { cpage: data },
             success: function(res){
                 const refriIngresList = res.refriIngres;
-                const refriTbody = document.querySelector("#myRefrigerator-table-tbody");
-                refriTbody.innerHTML = "";
+                let paginationArea = "";
 
-                for(let refriIngre of refriIngresList){
-                    console.log(refriIngre.daysDifference);
-                    let refriTbodyTr = document.createElement('tr');
-                    refriTbody.appendChild(refriTbodyTr);
-                    refriTbodyTr.setAttribute("class", ".tr-block");
-                    // 이미지 td
-                    const refriIngreTd1 = document.createElement('td');
-                    refriIngreTd1.setAttribute("class", "myRefrigerator-tr");
-                    refriTbodyTr.appendChild(refriIngreTd1);
-                    const refriIngreImg = document.createElement('img');
-                    refriIngreImg.setAttribute("src", ctp + "/resources/images/member-img/Rectangle 18311 (2).png");
-                    refriIngreTd1.appendChild(refriIngreImg);
-                    // 식재료명 td
-                    const refriIngreTd2 = document.createElement('td');
-                    refriIngreTd2.innerHTML = refriIngre.refName;
-                    refriTbodyTr.appendChild(refriIngreTd2);
-                    // 신선도 td
-                    const refriIngreTd3 = document.createElement('td');
-                    refriIngreTd3.setAttribute("class", "flesh-area");
-                    refriTbodyTr.appendChild(refriIngreTd3);
-                    // 신선도 div
-                    const freshDiv = document.createElement('div');
-                    freshDiv.setAttribute("class", "flesh-status");
-                    if(refriIngre.daysDifference <= 3){ // 위험
-                        freshDiv.setAttribute("style", "background-color:#F20E2B;");
-                        refriIngreTd3.innerHTML = "위험"
-                    } else if(refriIngre.daysDifference > 3 && refriIngre.daysDifference <= 7){ // 보통
-                        freshDiv.setAttribute("style", "background-color:#FFE28A;");
-                        refriIngreTd3.innerHTML = "보통"
-                    } else { // 신선
-                        freshDiv.setAttribute("style", "background-color:#7ADC66;");
-                        refriIngreTd3.innerHTML = "신선"
-                    }
-                    refriIngreTd3.appendChild(freshDiv);
-                    // 소비기한 td
-                    const refriIngreTd4 = document.createElement('td');
-                    refriIngreTd4.innerHTML = refriIngre.refConsumptionDate;
-                    refriTbodyTr.appendChild(refriIngreTd4);
-                    // 입고일 td
-                    const refriIngreTd5 = document.createElement('td');
-                    refriIngreTd5.innerHTML = refriIngre.refInputDate;
-                    refriTbodyTr.appendChild(refriIngreTd5);
-                    // 갯수 td
-                    const refriIngreTd6 = document.createElement('td');
-                    refriIngreTd6.innerHTML = refriIngre.refCount;
-                    refriTbodyTr.appendChild(refriIngreTd6);
-                    // 삭제 td
-                    const refriIngreTd7 = document.createElement('td');
-                    refriIngreTd7.setAttribute("class", "myRefrigerator-last-td");
-                    refriIngreTd7.innerHTML = "삭제";
-                    refriTbodyTr.appendChild(refriIngreTd7);
+                if(mid == 1){ // 나의 냉장고 식재료 테이블 관련 요청일 경우
+                    const refriTbody = document.querySelector("#myRefrigerator-table-tbody");
+                    constructRefriTable(refriIngresList, refriTbody)
+                    paginationArea = document.querySelector("#pagination-area");
+                } else if(mid == 2){
+                    const modalRecipeTbody = document.querySelector("#modal-recipe-tbody");
+                    constructModalRecipeTable(refriIngresList, modalRecipeTbody);
+                    paginationArea = document.querySelector("#modal-recipe-pagination");
                 }
-                const paginationArea = document.querySelector("#pagination-area");
+
                 // 페이지네이션 갱신
                 updatePagination(paginationArea, res.pi);
             },
@@ -136,6 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         })
     }
+
 
     // =================================== 식재료 추가 모달 관련 메소드 ==========================================
 
@@ -192,7 +212,7 @@ document.addEventListener("DOMContentLoaded", function () {
         sendIngreByAjax();
     })
 
-    // 식재료 추가하기 모달창
+    // 식재료 추가하기 모달창 표시 / 숨김
     function viewModal2() {
         document.getElementById("myModal-two").style.display = "block";
         // 식재료 추가 모달창 => 체크 박스 클릭시 소비기한표시
@@ -547,21 +567,112 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+
+    // =============================================== 추천 레시피 찾기 관련 메소드 ================================================
+   
+    // 레시피 찾기 모달 div 요소
+    const recipeModal = document.querySelector("#myModal");
+
+    // 식재료 추가시 #modal-recipe-selectedIngre 에 저장하기 위한 배열 생성
+    let tempForModalRecipeselectedIngre = [];
+
+    /** 직접 레시피 찾기 모달 표시 메소드 */ 
+    document.querySelector("#viewModalBtn").addEventListener('click', function(){
+        getRefriInfoByAjax(1, 2);
+        document.getElementById("myModal").style.display = "block";
+    })
+
+    // 직접 레시피 찾기 모달 숨김 메소드
+    document.getElementById("closeModalBtn").addEventListener("click", function () {
+        document.getElementById("myModal").style.display = "none";
+        tempForModalRecipeselectedIngre = []; // 배열 초기화
+        // 식재료를 넣는 div 초기화 수행
+        recipeModal.querySelector("#modal-recipe-selectedIngre").innerHTML = tempForModalRecipeselectedIngre;
+    });
+
+     // 레시피 찾기 모달 모두 체크 버튼 이벤트
+    const recipeModalAllCheck = document.querySelector("#modal-recipe-allCheckBox");
+    recipeModalAllCheck.addEventListener("change", function(){
+        recipeModal.querySelectorAll(".modal-recipe-tbody-tr").forEach(tr => {
+            let checkbox = tr.querySelector("td input[type='checkbox']");
+            checkbox.checked = recipeModalAllCheck.checked;
+        })
+    })
+
+    /** ajax 데이터 받아서 레시피 모달 구축하는 메소드 */
+    function constructModalRecipeTable(refriIngresList, modalRecipeTbody){
+        modalRecipeTbody.innerHTML = "";
+        for( let refriIngre of refriIngresList ){
+            //tr 생성
+            let recipeTbodyTr = document.createElement('tr');
+            modalRecipeTbody.appendChild(recipeTbodyTr);
+            recipeTbodyTr.setAttribute("class", "modal-recipe-tbody-tr");
+            // 체크박스
+            const recipeTableTdCk = document.createElement('td');
+            recipeTableTdCk.setAttribute("class", "modal-recipe-td-checkBox");
+            recipeTbodyTr.appendChild(recipeTableTdCk);
+            const recipeCheckBox = document.createElement('input');
+            recipeCheckBox.setAttribute("type", "checkbox");
+            recipeTableTdCk.appendChild(recipeCheckBox);
+            // 식재료명 td
+            const recipeTbodyTd1 = document.createElement('td');
+            recipeTbodyTd1.setAttribute("class", "modal-recipe-refName");
+            recipeTbodyTd1.innerHTML = refriIngre.refName;
+            recipeTbodyTr.appendChild(recipeTbodyTd1);
+            // 소비기한 td
+            const recipeTbodyTd2 = document.createElement('td');
+            recipeTbodyTd2.innerHTML = refriIngre.refConsumptionDate;
+            recipeTbodyTr.appendChild(recipeTbodyTd2);
+            // 입고일 td
+            const refriIngreTd3 = document.createElement('td');
+            refriIngreTd3.innerHTML = refriIngre.refInputDate;
+            recipeTbodyTr.appendChild(refriIngreTd3);
+        }
+    }
+
+    /** 레시피 찾기 모달 페이지바 클릭 이벤트 */
+    function setRecipeModalPaginationEventListeners() {
+        const recipeModalPagination = document.querySelector("#modal-recipe-pagination .pagination");
+        const recipePageLinks = recipeModalPagination.querySelectorAll("a");
+        recipePageLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                const recipePage = parseInt(e.target.getAttribute('data-value'));
+                getRefriInfoByAjax(recipePage, 2);
+            });
+        });
+    }
+
+    /**추가하기 버튼 클릭 시 선택한 항목들을 위에 뿌리기 */
+    const completeModalBtn = recipeModal.querySelector("#completeModalBtn");
+    completeModalBtn.addEventListener('click', function(){
+        recipeModal.querySelectorAll(".modal-recipe-tbody-tr").forEach(tr => {
+            let checkbox = tr.querySelector("td input[type='checkbox']");
+            if(checkbox.checked){
+                let refName = tr.querySelector(".modal-recipe-refName").innerHTML;
+                tempForModalRecipeselectedIngre.push(refName);
+            }
+        })
+        recipeModal.querySelector("#modal-recipe-selectedIngre").innerHTML = tempForModalRecipeselectedIngre;
+    })
+
+    /** 레시피 찾기 버튼 클릭 시 ajax 로 식재료 보내서 레시피 데이터 받는 메소드 */
+    recipeModal.querySelector("#findOutRecipeBtn").addEventListener('click', function(){
+        const selectedIngreList = recipeModal.querySelector("#modal-recipe-selectedIngre").innerHTML;
+
+        $.ajax({
+            url: "selectRecipeListByRefri.me",
+            data: {ingreList: selectedIngreList},
+            contentType: "application/json; charset-utf-8",
+            success: function(res){
+                console.log(res);
+                console.log("송신 성공");
+            },
+            error: function(){
+                console.log("송신 실패");
+            }
+        })
+    })
 }
-
-
-
-
-    // //레시피 직접 찾기 모달창
-    // function viewModal() {
-    //     document.getElementById("myModal").style.display = "block";
-    //     // let h= document.querySelector(".header jsp");
-    //     // console.log(h);
-    //     document.getElementById("closeModalBtn").addEventListener("click", function () {
-    //         document.getElementById("myModal").style.display = "none";
-    //     });
-    // }
-
     // 엔터로 쳐도 검색가능
     // function handleKeyPress(ev) {
     //     if (ev.key === 'Enter') {
@@ -569,50 +680,10 @@ document.addEventListener("DOMContentLoaded", function () {
     //     }
     // }
 
-    // 모달 레시피 검색창
-    // function findSearch() {
-    //     let result = document.getElementById('input-igretext').value;
-    //     let igreList = document.querySelectorAll(".row-igre-area");
-    //     igreList.forEach(function (igre) {
-    //         let igreName = igre.querySelectorAll('span')[0];
-    //         let partIgre = igreName.parentElement;
-    //         if (igreName.innerHTML.includes(result)) {
-    //             // console.log(partIgre);
-    //             partIgre.style.display = 'flex';
-    //         }
-    //         else {
-    //             partIgre.style.display = 'none';
-    //         }
-    //     })
-    // }
-
-
     // 엔터로 쳐도 검색가능
     // function handleKeyPress2(ev) {
     //     if (ev.key === 'Enter') {
     //         findSearch2();
     //     }
     // }
-
-
-
-    // 체크박스 체크시
-    // function checkBoxStatus(el) {
-    //     if (el.checked === true) {
-    //         el.querySelector('.direct-input-label').style.display = 'inline';
-    //         el.querySelector('.direct-input').style.display = 'inline';
-    //     }
-    //     else {
-    //         el.querySelector('.direct-input-label').style.display = 'none';
-    //         el.querySelector('.direct-input').style.display = 'none';
-    //     }
-    // }
-
-
-    // 식재료 삭제 
-    // function delteIngre(el) {
-    //     document.querySelector("tr-block").remove();
-    // }
-
-
 )

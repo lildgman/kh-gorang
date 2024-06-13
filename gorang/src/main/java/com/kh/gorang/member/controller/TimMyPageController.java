@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,7 @@ import com.kh.gorang.common.template.Pagination;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.RefrigeratorInsertDTO;
 import com.kh.gorang.member.service.MyPageService;
+import com.kh.gorang.recipe.model.dto.RecipeListDto;
 import com.kh.gorang.shopping.model.vo.OrderPdopt;
 import com.kh.gorang.shopping.service.OrderService;
 
@@ -64,7 +66,7 @@ public class TimMyPageController {
 		// 페이지네이션 
 		int refriIngreCount = myPageService.selectRefriCount(userNo);
 		
-		PageInfo pi = Pagination.getPageInfo(refriIngreCount, 1, 10, 5);
+		PageInfo pi = Pagination.getPageInfo(refriIngreCount, 1, 10, 7);
 		
 		List<RefrigeratorInsertDTO> refriIngres = myPageService.selectListRefrigeratorsByMemberNo(userNo, pi);
 		
@@ -99,7 +101,7 @@ public class TimMyPageController {
 		// 페이지네이션 
 		int refriIngreCount = myPageService.selectRefriCount(userNo);
 		
-		PageInfo pi = Pagination.getPageInfo(refriIngreCount, cpage, 10, 5);
+		PageInfo pi = Pagination.getPageInfo(refriIngreCount, cpage, 10, 7);
 		
 		List<RefrigeratorInsertDTO> refriIngres = myPageService.selectListRefrigeratorsByMemberNo(userNo, pi);
 		
@@ -136,6 +138,19 @@ public class TimMyPageController {
 		Member m = (Member)session.getAttribute("loginUser");
 		
 		return new Gson().toJson(myPageService.insertRefrigerator(m.getMemberNo(), refriIngres) > 0 ? "success" : "fail");
+	}
+	
+	// 나의 냉장고 선택한 식재료를 바탕으로 레시피 가져오기
+	@ResponseBody
+	@RequestMapping("selectRecipeListByRefri.me")
+	public List<RecipeListDto> selectRecipeListByRefri(String ingreList){
+		
+		String[] ingres = ingreList.split(",");
+		
+		System.out.println(Arrays.toString(ingres));
+		
+		
+		return myPageService.selectRecipeListByRefri(ingres);
 	}
 }
 	

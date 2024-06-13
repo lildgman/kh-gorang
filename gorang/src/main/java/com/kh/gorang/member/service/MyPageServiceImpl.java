@@ -26,6 +26,7 @@ import com.kh.gorang.member.model.vo.ProductQnaDTO;
 import com.kh.gorang.member.model.vo.RecipeQnaDTO;
 import com.kh.gorang.member.model.vo.RefrigeratorInsertDTO;
 import com.kh.gorang.member.model.vo.Review;
+import com.kh.gorang.recipe.model.dto.RecipeListDto;
 import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.shopping.model.vo.Product;
 
@@ -374,6 +375,13 @@ public class MyPageServiceImpl implements MyPageService{
 	@Override
 	public int selectRefriCount(int memberNo) {
 		return myPageDao.selectRefriCount(sqlSession, memberNo);
+	}
+	
+	// 냉장고 식재료로 레시피 조회
+	@Transactional(readOnly = true)
+	@Override
+	public List<RecipeListDto> selectRecipeListByRefri(String[] ingres) {
+		return myPageDao.selectRecipeListByRefri(sqlSession, ingres);
 	}
 	
 
