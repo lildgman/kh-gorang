@@ -133,7 +133,7 @@
                                 <div class="igre-name-block"><input name="rcpDivList[0].ingredientsInfoList[0].ingreName" type="text" placeholder="재료명 예)돼지고기"></div>
                                 <div class="igre-amount-block"><input name="rcpDivList[0].ingredientsInfoList[0].ingreAmount" type="text" placeholder="수량"></div>
                                 <div class="igre-unit-block"><input name="rcpDivList[0].ingredientsInfoList[0].ingreUnit" type="text" placeholder="단위"></div>
-                                <div class="delete-btn"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" onclick="deleteSmaillBlock(this,0,0)"></div>
+                                <div class="delete-btn2" onclick="deleteSmaillBlock(this,0,0)"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" ></div>
                                 <button type="button">태그 +</button>
                             </div>
                 
@@ -142,7 +142,7 @@
                                 <div class="igre-name-block"><input name="rcpDivList[0].ingredientsInfoList[1].ingreName" type="text" placeholder="재료명 예)돼지고기"></div>
                                 <div class="igre-amount-block"><input name="rcpDivList[0].ingredientsInfoList[1].ingreAmount" type="text" placeholder="수량"></div>
                                 <div class="igre-unit-block"><input name="rcpDivList[0].ingredientsInfoList[1].ingreUnit" type="text" placeholder="단위"></div>
-                                <div class="delete-btn"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" onclick="deleteSmaillBlock(this,0,1)"></div>
+                                <div class="delete-btn2" onclick="deleteSmaillBlock(this,0,0)"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" ></div>
                                 <button type="button">태그 +</button>
                             </div>
                 
@@ -151,7 +151,7 @@
                                 <div class="igre-name-block"><input name="rcpDivList[0].ingredientsInfoList[2].ingreName" type="text" placeholder="재료명 예)돼지고기"></div>
                                 <div class="igre-amount-block"><input name="rcpDivList[0].ingredientsInfoList[2].ingreAmount" type="text" placeholder="수량"></div>
                                 <div class="igre-unit-block"><input name="rcpDivList[0].ingredientsInfoList[2].ingreUnit" type="text" placeholder="단위"></div>
-                                <div class="delete-btn"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" onclick="deleteSmaillBlock(this,0,2)"></div>
+                                <div class="delete-btn2" onclick="deleteSmaillBlock(this,0,0)"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" ></div>
                                 <button type="button">태그 +</button>
                             </div>
                             <div class="add-igre-btn">                     

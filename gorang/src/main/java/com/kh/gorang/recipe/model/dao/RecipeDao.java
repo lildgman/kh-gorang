@@ -12,6 +12,7 @@ import com.kh.gorang.recipe.model.vo.CookTip;
 import com.kh.gorang.recipe.model.vo.Division;
 import com.kh.gorang.recipe.model.vo.IngredientsInfo;
 import com.kh.gorang.recipe.model.vo.Recipe;
+import com.kh.gorang.recipe.model.vo.RecipeInsertDTO;
 
 @Repository
 public class RecipeDao {
@@ -112,23 +113,29 @@ public class RecipeDao {
 	
 	//Ingre삭제
 	public int deleteIngre(SqlSessionTemplate sqlSession, IngredientsInfo ingredientsInfo) {	
-		return sqlSession.delete("recipeMapper.deleteIngre",ingredientsInfo );
+		return sqlSession.update("recipeMapper.deleteIngre",ingredientsInfo );
 	}
 	//Division삭제
 	public int deleteDivision(SqlSessionTemplate sqlSession, Division division) {
-		return sqlSession.delete("recipeMapper.deleteDivision",division );
+		return sqlSession.update("recipeMapper.deleteDivision",division );
 	}
 	//CookTip삭제
 	public int deleteCookTip(SqlSessionTemplate sqlSession, CookTip cookTip) {
-		return sqlSession.delete("recipeMapper.deleteCookTip",cookTip );
+		return sqlSession.update("recipeMapper.deleteCookTip",cookTip );
 	}
 	//CookOrder삭제
 	public int deleteCookOrder(SqlSessionTemplate sqlSession, CookOrder cookOrder) {
-		return sqlSession.delete("recipeMapper.deleteCookOrder",cookOrder );
+		return sqlSession.update("recipeMapper.deleteCookOrder",cookOrder );
+		
 	}
 	//레시피 완성 사진 삭제
 	public int deleteCompletePhoto(SqlSessionTemplate sqlSession, Media media) {		
 		return sqlSession.delete("mediaMapper.deleteCompletePhoto",media );
+	}
+	//레시피 삭제
+	public int deleteRecipe(SqlSessionTemplate sqlSession, int rcpNo) {
+		return sqlSession.delete("recipeMapper.deleteRecipe",rcpNo );
+		
 	}
 
 	
@@ -160,7 +167,9 @@ public class RecipeDao {
 	public int updateRecipeMedia(SqlSessionTemplate sqlSession, Media md) {
 		return sqlSession.update("mediaMapper.updateRecipeMedia", md);
 	}
+	
 
+	
 	
 
 

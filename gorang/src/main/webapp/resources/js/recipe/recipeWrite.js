@@ -206,12 +206,12 @@ function deleteSmaillBlock(element, num1,num2) {
                     });
                 });
                 
-                let deleteBtn = block.querySelector('.delete-btn img');
+                let deleteBtn = block.querySelector('.delete-btn2');
                 deleteBtn.setAttribute('onclick', `deleteSmaillBlock(this, ${num1}, ${blockId - 1})`);
             }
         });
      
-        bottom.querySelector('.add-igre-btn img').setAttribute('onclick', `deleteSmaillBlock(this, ${num1}, ${count-2})`);
+        // bottom.querySelector('.delete-btn').setAttribute('onclick', `deleteSmaillBlock(this, ${num1}, ${count-2})`);
         bottom.querySelector('.add-igre-btn button').setAttribute('onclick', `addBundle(this, ${num1}, ${count-2})`);
         
         parentBlock.remove();
@@ -248,9 +248,14 @@ function deleteIngreBlock(element,num1){
 
                     
                 });
+                // block.querySelector('.delete-btn2').setAttribute('onclick',`deleteSmaillBlock(this,${blockId-1},${leningre}))`);
                 let leningre = block.querySelectorAll('.recipe-smaill-block').length;
                 block.querySelector('.add-igre-btn img').setAttribute('onclick', `addBundle(this, ${blockId - 1}, ${leningre - 1})`);
                 block.querySelector('.add-igre-btn button').setAttribute('onclick', `addBundle(this, ${blockId - 1}, ${leningre - 1})`);
+
+                block.querySelectorAll('.delete-btn2').forEach(function(deleteBtn2, index) {
+                    deleteBtn2.setAttribute('onclick', `deleteSmaillBlock(this, ${blockId - 1}, ${index})`);
+                });
             }
         })
         parentBlock.querySelector("#add-div-btn button").setAttribute('onclick',`addUnit(this,${count-2})`)
@@ -287,7 +292,7 @@ function addUnit(element,num) {
             <div class="igre-name-block"><input name="rcpDivList[${num}].ingredientsInfoList[0].ingreName" type="text" placeholder="재료명 예)돼지고기"></div>
             <div class="igre-amount-block"><input name="rcpDivList[${num}].ingredientsInfoList[0].ingreAmount" type="text" placeholder="수량"></div>
             <div class="igre-unit-block"><input name="rcpDivList[${num}].ingredientsInfoList[0].ingreUnit" type="text" placeholder="단위"></div>
-            <div class="delete-btn"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" onclick="deleteSmaillBlock(this,${num},0)"></div>
+            <div class="delete-btn2" onclick="deleteSmaillBlock(this,${num},0)"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" ></div>
             <button type="button">태그 +</button>
         </div>
         <div class="add-igre-btn">                     
@@ -330,7 +335,7 @@ function addBundle(element,num1,num2) {
         <div class="igre-name-block"><input name="rcpDivList[${num1}].ingredientsInfoList[${num2}].ingreName" type="text" placeholder="재료명 예)돼지고기"></div>
         <div class="igre-amount-block"><input name="rcpDivList[${num1}].ingredientsInfoList[${num2}].ingreAmount" type="text" placeholder="수량"></div>
         <div class="igre-unit-block"><input name="rcpDivList[${num1}].ingredientsInfoList[${num2}].ingreUnit" type="text" placeholder="단위"></div>
-        <div class="delete-btn"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" onclick="deleteSmaillBlock(this,${num1},${num2})"></div>
+        <div class="delete-btn2"  onclick="deleteSmaillBlock(this,${num1},${num2})"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Icon.png" alt=""></div>
         <button type="button">태그 +</button>
     </div>`;
     return newBlock;

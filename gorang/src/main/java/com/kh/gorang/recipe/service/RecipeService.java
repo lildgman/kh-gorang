@@ -40,6 +40,8 @@ public interface RecipeService {
 
 	int deleteCompletePhoto(Media media);
 
+	int deleteAllRecipe(Recipe rcp,  HttpSession session);
+
 //	int findDivLen(Recipe rcp, HttpSession session);
 //
 //	int findIngreLen(RecipeInsertDTO recipeInsertDTO, HttpSession session);
