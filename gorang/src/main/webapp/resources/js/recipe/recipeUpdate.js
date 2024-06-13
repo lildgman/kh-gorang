@@ -493,34 +493,11 @@ function deleteTip(element, num1, num2) {
                 }
             }
         })
-        // if (deleteBlock.querySelector("input[name^='cookOrderList'][type='hidden']") !== null) {
 
-        //     let cookOrdNo = deleteBlock.querySelector("input[name^='cookOrderList'][type='hidden']").value;
-        //     let cookTipContent = deleteBlock.querySelector("input[name^='cookOrderList'][type='text']").value;
-        //     let cookTip = {
-        //         cookOrdNo: cookOrdNo,
-        //         cookTipContent: cookTipContent
-        //     }
-        //     deleteCookTip(cookTip);
-        // }
         deleteBlock.remove();
     }
 }
-//팁행 삭제 ajax
-// function deleteCookTip(data) {
-//     $.ajax({
-//         url: "deleteCookTip.re",
-//         type: "POST",
-//         data: data,
 
-//         success: function () {
-//             console.log("성공적으로 분류 삭제");
-//         },
-//         error: function () {
-//             console.log("파일업로드 api요청 실패")
-//         }
-//     });
-// }
 
 //요리순서 삭제 (1개만 있을시 삭제x)
 function deleteCookingOrder(element, num) {
@@ -577,8 +554,7 @@ function deleteCookingOrder(element, num) {
                             let tipIndex = parseInt(deleteTipButton.closest('.cooking-order-block-bottom-tip').querySelector('input[type="text"]').name.match(/cookTipList\[(\d+)\]/)[1]);
                             deleteTipButton.setAttribute('onclick', `deleteTip(this, ${blockId - 1}, ${tipIndex})`);
                         }
-                        console.log(addTipButton);
-                        console.log(deleteTipButton);
+                     
 
                     }
                 });

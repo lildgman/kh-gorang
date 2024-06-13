@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.gorang.common.model.vo.Media;
+import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.recipe.model.vo.CookOrder;
 import com.kh.gorang.recipe.model.vo.CookTip;
 import com.kh.gorang.recipe.model.vo.Division;
@@ -176,6 +177,11 @@ public class RecipeDao {
 	public int updateRecipeMedia(SqlSessionTemplate sqlSession, Media md) {
 		System.out.println("Dao updateDivision null확인:"+md);
 		return sqlSession.update("mediaMapper.updateRecipeMedia", md);
+	}
+
+	public Member selectRecipeMember(SqlSessionTemplate sqlSession, int recipeNo) {
+	
+		return sqlSession.selectOne("recipeMapper.selectRecipeMember",recipeNo);
 	}
 	
 

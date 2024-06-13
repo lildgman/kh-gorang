@@ -11,6 +11,7 @@
   		<result column="RCP_CONTENT" property="recipeContent"/>
   		<result column="RCP_VIDEO" property="recipeVideo"/>
   		<result column="RCP_MAIN_PHOTO" property="recipeMainPhoto"/>
+  		<result column="RCP_VIEW" property ="recipeView"/>
   		<result column="RCP_TAG" property="recipeTag"/>
   		<result column="RCP_WRITE_DATE" property="recipeWriteDate"/>
   		<result column="COOK_AMOUNT" property="cookAmount"/>
@@ -54,7 +55,27 @@
   		<result column="COOK_TIP_CONTENT" property="cookTipContent"/>
   		<result column="STATUS" property="status"/>
   		<result column="COOK_ORD_NO" property="cookOrdNo"/>
+  
   	</resultMap>
+  <!-- 회원 정보 -->
+  <resultMap type="Member" id="memberResult">
+    <result column="MEMBER_NO" property="memberNo"/>
+    <result column="MEMBER_EMAIL" property="memberEmail"/>
+    <result column="MEMBER_PWD" property="memberPwd"/>
+    <result column="MEMBER_NICKNAME" property="nickname"/>
+    <result column="MEMBER_PHONE" property="memberPhone"/>
+    <result column="MEMBER_GENDER" property="gender"/>
+    <result column="MEMBER_ADDRESS" property="memberAddress"/>
+    <result column="MEMBER_BIRTH" property="birth"/>
+    <result column="MEMBER_PROFILE" property="profile"/>
+    <result column="MEMBER_GRADE" property="grade"/>
+    <result column="MEMBER_ENROLL_DATE" property="memberEnrollDate"/>
+    <result column="MEMBER_MODIFY_DATE" property="memberModifyDate"/>
+    <result column="MEMBER_STATUS" property="memberStatus"/>
+    <result column="ALARM_STATUS" property="alarm"/>
+    <result column="LOGIN_SIGN_PATH" property="loginPath"/>
+  </resultMap>
+  	
   	
   	
 	 <!-- 레시피 찾기 -->
@@ -69,11 +90,13 @@
 	         cook_time, 
 	         cook_kind, 
 	         cook_level, 
+	         rcp_view,
 	         member_no
 	  FROM RECIPE
 	  WHERE STATUS = 'Y'
 	    AND rcp_no = #{rcpNo}
 	 </select>
+  	
   	
   	 <!-- 레시피 분류 찾기 -->
   	 <select id="selectDivList" resultMap="DivisionResult">
@@ -142,7 +165,6 @@
 	     RETURNING *
 	</select>
     
-  	
   	<!-- 레시피 분류 추가 -->
 	<select id="insertDivision" parameterType="Division" resultMap="DivisionResult">
 		INSERT INTO DIVISION (
@@ -196,6 +218,31 @@
   			#{cookOrdNo}
   		)
   	</insert>
+  	
+  	
+  	<select id="selectRecipeMember" parameterType="Recipe" resultMap="memberResult">
+  		SELECT 
+    		M.MEMBER_NO,
+    	   M.MEMBER_EMAIL,
+          M.MEMBER_PWD,
+           M.MEMBER_NICKNAME,
+           M.MEMBER_PHONE,
+           M.MEMBER_GENDER,
+           M.MEMBER_ADDRESS,
+           M.MEMBER_BIRTH,
+           M.MEMBER_PROFILE,
+           M.MEMBER_GRADE,
+           M.MEMBER_ENROLL_DATE,
+           M.MEMBER_MODIFY_DATE,
+           M.MEMBER_STATUS,
+           M.ALARM_STATUS,
+           M.LOGIN_SIGN_PATH
+      FROM RECIPE R
+      JOIN MEMBER M ON M.member_no = R.member_no
+     WHERE R.rcp_no = #{recipeNo}
+       AND M.MEMBER_STATUS = 'Y'
+       
+  	</select>
   	
 <!-- **********  수정     *********-->
   	<!-- 레시피 수정 -->
