@@ -88,6 +88,12 @@ body{
     height: 209px;
     padding: 10px;
 }
+
+#uploadThumbnailSection img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 #uploadThumbnailSpan{
     width: 268px;
     height: 40px;
