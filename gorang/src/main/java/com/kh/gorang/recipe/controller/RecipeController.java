@@ -35,9 +35,24 @@ public class RecipeController {
 		return "recipe/recipeMain";
 	}
 	
-	@RequestMapping("detail.re")
-	public String recipDetailPage(){
+	//레시피 상세페이지로 이동
+	@RequestMapping("detailForm.re")
+	public String recipDetailPage(@RequestParam("recipeNo") int recipeNo,Model model){
+		System.out.println("도착" + recipeNo);
+		Member m =  recipeService.selectRecipeMember(recipeNo);
+		Recipe rcp = recipeService.selectRecipe(recipeNo);
+		String[] tagArr = rcp.getRecipeTag().split(",");
+		RecipeInsertDTO recipeInsertDTO = new RecipeInsertDTO();
+		recipeInsertDTO.setRcpDivList(recipeService.selectDivList(recipeNo));
+		recipeInsertDTO.setCookOrderList(recipeService.selectCookOrderList(recipeNo));
+		recipeInsertDTO.setCompleteFoodPhoto(recipeService.selectCompleteFoodPhotoList(recipeNo));
+		
+		model.addAttribute("member",m);
+		model.addAttribute("rcp",rcp);
+		model.addAttribute("recipeInsertDTO",recipeInsertDTO);
+		model.addAttribute("tagArr",tagArr);
 		return "recipe/recipeDetail";
+
 	}
 	
 	@RequestMapping("write.re")
@@ -54,9 +69,7 @@ public class RecipeController {
 	public String insertRecipe(Recipe rcp, RecipeInsertDTO recipeInsertDTO ,HttpSession session, Model model){
 		System.out.println("\n Recipe:" +  rcp +"\n");
 		System.out.println("\n"+recipeInsertDTO+"\n");
-		
-		
-		
+			
 		int result =recipeService.insertRecipeInsertDTO(rcp, recipeInsertDTO, session);
 		if(result>0) {			
 			return "recipe/recipeList";
@@ -67,31 +80,7 @@ public class RecipeController {
 		}
 	}
 	
-	//레시피 작성 썸네일(이미지)
-	@PostMapping("upload")
-	@ResponseBody
-	public String upload(MultipartFile recipeMainPhoto, HttpSession session) {
-		System.out.println("recipeMainPhoto: "+recipeMainPhoto.getOriginalFilename());
-		String changeName = SaveFileController.saveFile(recipeMainPhoto, session,"/recipe/recipemain/");		
-		return new Gson().toJson(changeName);
-	}
-	//레시피 작성 레시피 순서(이미지)
-	@PostMapping("upload2")
-	@ResponseBody
-	public String upload2(MultipartFile cookOrdPhoto, HttpSession session) {
-		System.out.println("cookOrdPhoto: "+cookOrdPhoto.getOriginalFilename());
-		String changeName = SaveFileController.saveFile(cookOrdPhoto, session,"/recipe/recipeorder/");
-		return new Gson().toJson(changeName);
-	}	
-	//레시피 작성 레시피 순서(완성사진)
-	@PostMapping("upload3")
-	@ResponseBody
-	public String upload3(MultipartFile completeFoodPhoto, HttpSession session) {
-		System.out.println("completeFoodPhoto: "+completeFoodPhoto.getOriginalFilename());
-		String changeName = SaveFileController.saveFile(completeFoodPhoto, session,"/recipe/recipefinal/");
-		return new Gson().toJson(changeName);
-	}
-	
+
 	
 	//레시피 수정창으로 이동
 	@RequestMapping("updateForm.re")
@@ -186,7 +175,31 @@ public class RecipeController {
 		else
 			return 0;
 	}
-
+	
+	//레시피 작성 썸네일(이미지)
+	@PostMapping("upload")
+	@ResponseBody
+	public String upload(MultipartFile recipeMainPhoto, HttpSession session) {
+		System.out.println("recipeMainPhoto: "+recipeMainPhoto.getOriginalFilename());
+		String changeName = SaveFileController.saveFile(recipeMainPhoto, session,"/recipe/recipemain/");		
+		return new Gson().toJson(changeName);
+	}
+	//레시피 작성 레시피 순서(이미지)
+	@PostMapping("upload2")
+	@ResponseBody
+	public String upload2(MultipartFile cookOrdPhoto, HttpSession session) {
+		System.out.println("cookOrdPhoto: "+cookOrdPhoto.getOriginalFilename());
+		String changeName = SaveFileController.saveFile(cookOrdPhoto, session,"/recipe/recipeorder/");
+		return new Gson().toJson(changeName);
+	}	
+	//레시피 작성 레시피 순서(완성사진)
+	@PostMapping("upload3")
+	@ResponseBody
+	public String upload3(MultipartFile completeFoodPhoto, HttpSession session) {
+		System.out.println("completeFoodPhoto: "+completeFoodPhoto.getOriginalFilename());
+		String changeName = SaveFileController.saveFile(completeFoodPhoto, session,"/recipe/recipefinal/");
+		return new Gson().toJson(changeName);
+	}
 	
 }
 

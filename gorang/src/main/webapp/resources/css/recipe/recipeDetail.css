@@ -21,6 +21,12 @@ body {
     width: 800px;
 }
 
+/* 썸네일 요리 이미지 크기 */
+#recipe-thumnail-food-img img{
+    height: 100%;
+    width: 100%;
+}
+
 /* 유저 이미지 영역 */
 #recipe-thumnail-user-img-area {
     width: 200px;
@@ -53,6 +59,7 @@ body {
     bottom: 170px;
     height: 15px;
     width: 100px;
+    justify-content: center;
 }
 
 #recipe-thumnail-views-count span {
@@ -76,7 +83,7 @@ body {
 #recipe-total-first-area {
     height: 74px;
     width: 1237p;
-    margin-bottom: 500px;
+    margin-bottom: 400px;
   
 }
 
@@ -113,19 +120,21 @@ body {
 
 /* 태그 */
 #recipe-tage {
-    height: 60px;
     display: flex;
-    padding: 8px 0;
+    padding: 10px 0;
     gap: 29px;
+    flex-wrap: wrap;
 }
 
 .tag-content {
+    /* display: flex; */
     border: 1px solid #D9D9D9;
     width: 88px;
     height: 40px;
     text-align: center;
     align-content: center;
-    font-size: 18px;
+    justify-content: center;
+    font-size: 0.8vmax;
     border-radius: 6px;
 }
 
@@ -152,11 +161,12 @@ body {
     height: 34px;
     font-size: 17px;
     align-content: center;
+    font-weight: 500;
 }
 
 .recipe-smaill-bottom {
     height: 76px;
-    font-size: 34px;
+    font-size: 21px;
     font-weight: bold;
     align-content: center;
     padding-bottom: 20px;
@@ -168,17 +178,18 @@ body {
 }
 
 #nutt-info-area {
-    width: 257px;
+    width: 310px;
     height: 70px;
     display: flex;
     border-radius: 5px;
     background-color: #E9F4FF;
-    margin: 18px 0px;
+    margin: 6px 0px;
     margin-left: 14px;
     align-content: center;
-    padding-left: 12px;
+    padding: 0px 17px;
     font-size: 18px;
     font-weight: 500;
+    justify-content: space-between;
 }
 
 #bugerbarimg {
@@ -186,8 +197,8 @@ body {
 }
 
 #nutt-info-text {
-    margin-top: 25px;
-    margin-left: 15px;
+    margin-top: 21px;
+    margin-left: -18px;
 }
 
 #downimg {
@@ -247,7 +258,6 @@ body {
 /*---------------------재료 영역------------------------ */
 
 #igre-total-area {
-    height: 253px;
     padding: 20px 0px;
     margin-bottom: 18px;
 }
@@ -268,24 +278,13 @@ body {
     font-size: 20px;
     padding-left: 175px;
     padding-top: 10px;
+    flex-wrap: wrap;
+    row-gap: 25px;
 }
 
-
-.igre-type-area-left {
-    width: 50%;
-}
-
-.igre-type-area-left>table {
-    width: 100%;
-}
-
-
-.igre-type-area-right {
-    width: 50%;
-}
-
-.igre-type-area-right>table {
-    width: 100%;
+.igre-type-area table{
+    border-bottom: 1px solid rgb(179, 205, 253);
+    width: 40%;
 }
 
 
@@ -351,6 +350,7 @@ tbody tr>td {
     font-size: 20px;
     margin-bottom: 20px;
     display: flex;
+    font-weight: 500;
 }
 
 .number-circle {
@@ -372,14 +372,16 @@ tbody tr>td {
     color: #df87bb;
     /* font-weight: bold; */
     padding-bottom: 10px;
-    border-bottom: 1px solid #dddddd;
+    border-bottom: 2px solid #dddddd;
+    border-bottom-style: dashed;
     margin-bottom: 20px;
 }
 
 /*----------------------------- 요리 완성 사진-------------------  */
 
 #complete-cook-image-area {
-    padding: 0px 265px;
+    padding: 0px 210px;
+    margin-bottom: 110px;
 }
 
 #complete-cook-image-area>span {
@@ -455,16 +457,18 @@ tbody tr>td {
     justify-content: flex-start;
     align-items: center;
     gap: 34px;
-    margin-bottom: 10px;
+    margin: 20px 0px;
 }
 
 .review_img {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
 }
 
 #review_content {
     font-size: 16px;
+    width: 500px;
+    font-weight: 500;
 }
 
 #review_pagination_area,
@@ -480,6 +484,7 @@ tbody tr>td {
     justify-content: flex-start;
     align-items: center;
     gap: 20px;
+    
 }
 
 #review_pagination>a,
@@ -776,4 +781,121 @@ tbody tr>td {
   #deleteBtn:hover{
     cursor: pointer;
     color:#F20606;
+  }
+
+
+  /* -------완성 사진 목록(클릭)----- */
+
+  .w-100 {
+    margin-top: 15px;
+    width: 100% !important;
+    height: 600px;
+}
+
+/* 별점 레이팅 바 */
+.star_rating {
+    width: 100%; 
+    box-sizing: border-box; 
+    display: inline-flex; 
+    float: left;
+    flex-direction: row; 
+    justify-content: flex-start;
+  }
+  .star_rating .star {
+    width: 25px; 
+    height: 25px; 
+    margin-right: 10px;
+    display: inline-block; 
+    background: url('https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FE2bww%2FbtsviSSBz4Q%2F5UYnwSWgTlFt6CEFZ1L3Q0%2Fimg.png') no-repeat; 
+    background-size: 100%; 
+    box-sizing: border-box; 
+  }
+  .star_rating .star.on {
+    width: 25px; 
+    height: 25px;
+    margin-right: 10px;
+    display: inline-block; 
+    background: url('https://blog.kakaocdn.net/dn/b2d6gV/btsvbDoal87/XH5b17uLeEJcBP3RV3FyDk/img.png') no-repeat;
+    background-size: 100%; 
+    box-sizing: border-box; 
+  }
+  
+  .star_box {
+    width: 400px;
+    box-sizing: border-box;
+    display: inline-block;
+    margin: 15px 0;
+    background: #F3F4F8;
+    border: 0;
+    border-radius: 10px;
+    height: 100px;
+    resize: none;
+    padding: 15px;
+    font-size: 13px;
+    font-family: sans-serif;
+  }
+
+  /* -------------------------------댓글----------------------- */
+
+  .userName{
+    font-size: 23px;
+    font-weight: 600;
+    margin-right: 20px;
+  }
+  .commentDates{
+    color:#999; 
+    margin-right: 5px;
+  }
+
+  .updateComments:hover{
+    color: #1E90FF;
+    font-weight: 700;
+  }
+  .deleteComents:hover{
+    color:rgb(250, 70, 70);
+    font-weight: 700;
+  }
+  
+/* 댓글 모달영역 */
+ .write_review_area{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    border: 1px solid;
+ }
+
+ .modal {
+    display: none; /* 모달창 초기에는 숨김 */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5); /* 배경 어둡게 */
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
   }
