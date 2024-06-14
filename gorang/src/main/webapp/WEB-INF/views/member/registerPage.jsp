@@ -89,7 +89,7 @@
                             <input type="tel" class="register-input" name="memberPhone" placeholder="전화번호를 입력해주세요." required>
                         </div>
                         <div class="registerCheck">
-                            <input type="button" value="본인인증">
+                            <input type="button" id="memberPhoneAu" value="본인인증">
                         </div>
                     </div>
                     <div id="registAddressSection" class="registerSection">

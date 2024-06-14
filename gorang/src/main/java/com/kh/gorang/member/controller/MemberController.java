@@ -88,6 +88,19 @@ public class MemberController {
 			return "member/register.me";
 		}
 	}
+	
+	@ResponseBody
+	@RequestMapping("authPhone.me")
+	public String authorizationPhone(String phone) {
+		
+		System.out.println(phone);
+		
+		CoolSmsController coolSms = new CoolSmsController();
+		
+		coolSms.sms(phone, "1111");
+		
+		return "테스트중";
+	}
 }
 
 

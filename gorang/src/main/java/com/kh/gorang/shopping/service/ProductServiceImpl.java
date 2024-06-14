@@ -20,7 +20,6 @@ import com.kh.gorang.shopping.model.vo.ProductInsertDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService{
@@ -70,7 +69,6 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public ArrayList<Product> selectResultProductList(PageInfo pi, Map<String, String> map) {
-		log.info("----------------------------------------------------------}");
 		return productDao.selectResultProductList(sqlSession, pi, map);
 	}
 

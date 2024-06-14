@@ -28,6 +28,24 @@ window.onload = function(){
         inputAddress();
     });
 
+    // 본인인증 버튼 클릭 시 핸드폰 번호 ajax로 보내는 이벤트
+    document.querySelector("#memberPhoneAu").addEventListener('click', function(){
+        const userPhone = document.querySelector("input[name='memberPhone']").value;
+        console.log(userPhone);
+        $.ajax({
+            url: "authPhone.me",
+            data: {phone: userPhone},
+            type: "post",
+            success:function(res){
+                console.log(res);
+                console.log("송신 성공");
+            },
+            error: function(){
+                console.log("송신 실패");
+            }
+        })
+    })
+
     //전체 동의
     const selectAllCheckbox = document.getElementById("select-all");
     selectAllCheckbox.addEventListener("change", function() {

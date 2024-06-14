@@ -144,6 +144,12 @@ public interface MyPageService {
 	
 	// 냉장고 식재료를 바탕으로 레시피 조회
 	List<RecipeListDto> selectRecipeListByRefri(String[] ingresArray);
+	
+	// 냉장고 식재료 삭제
+	int deleteRefrigerator(int memberNo, String refriNums);
+	
+	// 레시피 리스트 조회
+	ArrayList<RecipeListDto> selectRecipeListByRecipeNo(String recipeNums);
 
 
 	

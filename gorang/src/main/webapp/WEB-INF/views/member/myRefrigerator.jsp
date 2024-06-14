@@ -52,8 +52,11 @@
                                 나의 냉장고
                             </div>
                             <div id="myRefrigerator-modal-btn">
-                                <button id="viewModalBtn-two">
+                                <button id="viewModalBtn-two" class="refreMainBtn">
                                     + 추가하기
+                                </button>
+                                <button id="refreDeleteBtn" class="refreMainBtn">
+                                    - 삭제하기
                                 </button>
                             </div>
                         </div>
@@ -75,16 +78,17 @@
                                                     <td>소비기한</td>
                                                     <td>냉장고 입고일</td>
                                                     <td style="width: 80px;">개수</td>
+                                                    <td style="width: 50px;"><input type="checkbox" id="refri-main-delete-allCheckBox"></td>
                                                 </tr>
                                             </thead>
                                             <tbody id="myRefrigerator-table-tbody">
                                                 <c:forEach var="refriIngre" items="${refriIngres}">
-                                                    <tr class=".tr-block">
+                                                    <tr class="tr-block">
                                                         <td class="myRefrigerator-tr">
                                                             <img style="height: 50px;" src="${contextPath}/resources/images/member-img/Rectangle 18311 (2).png"
                                                                 alt="">
                                                         </td>
-                                                        <td>
+                                                        <td class="refri-main-td-refName" data-value="${refriIngre.refNo}">
                                                             ${refriIngre.refName}
                                                         </td>
                                                         <td class="flesh-area">
@@ -110,7 +114,7 @@
                                                         <td>${refriIngre.refConsumptionDate}</td>
                                                         <td>${refriIngre.refInputDate}</td>
                                                         <td>${refriIngre.refCount}</td>
-                                                        <td class="myRefrigerator-last-td">삭제</td>
+                                                        <td><input type="checkbox" class="refri-main-delete-checkBox"></td>
                                                     </tr>
                                                 </c:forEach>
                                             </tbody>
@@ -165,8 +169,11 @@
 
                             </div>
                             <div id="list-igre-area">
-                                <button id="findOutRecipeBtn">레시피 찾기</button>
-                                <button id="completeModalBtn" class="complete">추가하기</button>
+                                <button id="findOutRecipeBtn" class="modalBtn">레시피 찾기</button>
+                                <div>
+                                    <button id="completeModalBtn" class="complete modalBtn modalBtnBorder">추가하기</button>
+                                    <button id="deleteModaLBtn" class="modalBtn modalBtnDeleteBorder">삭제하기</button>
+                                </div>
                             </div>
                             <table>
                                 <thead>
@@ -223,18 +230,66 @@
                         <div id="modal-title-recipe-header">
                             식재료 추가하기
                         </div>
-
+                        <div class="modal-ingre-input-howTo">
+                            <span>식품영양정보 공공데이터 이용하기(공산품일 경우)</span>
+                            <span>직접 입력하기(공산품이 아닐 경우)</span>
+                        </div>
+                        <!-- input 창 감싸는 div-->
                         <div id="modal-search-igre2">
-                            <div class="refri-input-wrapper">
-                                <input id="refri-input-foodName" class="refri-foodNutri-input" placeholder=" 식품명 입력"
-                                    onkeypress="handleKeyPress2(event)">
-                                <input id="refri-input-maker" class="refri-foodNutri-input" placeholder="제조사명 입력"
-                                    onkeypress="handleKeyPress2(event)">
+                            <div class="modal-ingre-search-wrapper">
+                                <div class="refri-input-wrapper">
+                                    <input id="refri-input-foodName" class="refri-foodNutri-input" placeholder=" 식품명 입력"
+                                        onkeypress="handleKeyPress2(event)">
+                                    <input id="refri-input-maker" class="refri-foodNutri-input" placeholder="제조사명 입력"
+                                        onkeypress="handleKeyPress2(event)">
+                                </div>
+                                <button id="find-nutri-btn">
+                                    <img src="${pageContext.request.contextPath}/resources/images/member-img/search 3.png"
+                                        alt="">
+                                </button>
                             </div>
-                            <button id="find-nutri-btn">
-                                <img src="${pageContext.request.contextPath}/resources/images/member-img/search 3.png"
-                                    alt="">
-                            </button>
+                            <!-- 유저가 공공데이터 이용하지 않고 직접 입력하기 위한 input 요소 포함한 div -->
+                            <div class="modal-ingre-search-wrapper">
+                                <div class="refri-input-wrapper">
+                                    <input id="refri-input-foodName-user" class="refri-foodNutri-input" placeholder=" 식품명 입력"
+                                        onkeypress="handleKeyPress2(event)" style="border-bottom: 1px solid #C5C5C5;"/>
+                                    <select id="refri-select-foodClassification" class="refri-foodNutri-input" style="font-size: large;">
+                                        <option value="">분류를 선택해주세요</option>
+                                        <option value="1">밥류</option>
+                                        <option value="2">빵 및 과자류</option>
+                                        <option value="3">면 및 만두류</option>
+                                        <option value="4">죽 및 스프류</option>
+                                        <option value="5">국 및 탕류</option>
+                                        <option value="6">찌개 및 전골류</option>
+                                        <option value="7">찜류</option>
+                                        <option value="8">구이류</option>
+                                        <option value="9">전, 적 및 부침류</option>
+                                        <option value="10">볶음류</option>
+                                        <option value="11">조림류</option>
+                                        <option value="12">튀김류</option>
+                                        <option value="13">나물 및 숙채류</option>
+                                        <option value="14">생채 및 무침류</option>
+                                        <option value="15">김치류</option>
+                                        <option value="16">젓갈류</option>
+                                        <option value="17">장아찌 및 절임류</option>
+                                        <option value="18">장류 및 양념류</option>
+                                        <option value="19">유제품류 및 빙과류</option>
+                                        <option value="20">음료 및 차류</option>
+                                        <option value="21">주류</option>
+                                        <option value="22">과일류</option>
+                                        <option value="23">당류</option>
+                                        <option value="24">곡류 및 서류 제품</option>
+                                        <option value="25">두류, 견과 및 종실류</option>
+                                        <option value="26">채소 및 해조류</option>
+                                        <option value="27">수, 조, 어, 육류</option>
+                                        <option value="28">유지류</option>
+                                        <option value="29">기타</option>
+                                    </select>
+                                </div>
+                                <button id="input-nutri-btn" style="border-right: none;">
+                                    입력
+                                </button>
+                            </div>
                         </div>
 
                         <div id="list-igre-area2">

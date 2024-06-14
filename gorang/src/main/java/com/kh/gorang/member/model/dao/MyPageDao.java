@@ -313,4 +313,12 @@ public class MyPageDao {
 		return sqlSession.selectList("myPageMapper.selectRecipeListByRefri", ingresArray);
 	}
 
+	public int deleteRefrigerator(SqlSessionTemplate sqlSession, ArrayList<RefrigeratorInsertDTO> refriListforDelete) {
+		return sqlSession.delete("myPageMapper.deleteRefrigerator", refriListforDelete);
+	}
+
+	public ArrayList<RecipeListDto> selectRecipeListByRecipeNo(SqlSessionTemplate sqlSession, Integer[] recipeNoArray) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.selectRecipeListByRecipeNo", recipeNoArray);
+	}
+
 }

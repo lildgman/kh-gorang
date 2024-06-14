@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setRecipeModalPaginationEventListeners();
 
+    constructRecommendedRecipeDiv();
+
     // ================================== 유틸리티, 공통  메소드 =======================
     
     /** 헤더에서 세션에 넣은 contextPath 값 리턴하는 함수 */
@@ -59,6 +61,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // =================================== 나의 냉장고 식재료 테이블 관련 메소드 ================================
     
+    const refriMainTbody = document.querySelector("#myRefrigerator-table-tbody");
+    
     /** 냉장고 페이지바 a 태그에 클릭 이벤트 넣어주는 메소드 */
     function setPaginationEventListeners() {
         const refriPaginationArea = document.querySelector("#pagination-area");
@@ -77,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
         for(let refriIngre of refriIngresList){
             let refriTbodyTr = document.createElement('tr');
             refriTbody.appendChild(refriTbodyTr);
-            refriTbodyTr.setAttribute("class", ".tr-block");
+            refriTbodyTr.setAttribute("class", "tr-block");
             // 이미지 td
             const refriIngreTd1 = document.createElement('td');
             refriIngreTd1.setAttribute("class", "myRefrigerator-tr");
@@ -88,6 +92,8 @@ document.addEventListener("DOMContentLoaded", function () {
             refriIngreTd1.appendChild(refriIngreImg);
             // 식재료명 td
             const refriIngreTd2 = document.createElement('td');
+            refriIngreTd2.setAttribute("class", "refri-main-td-refName");
+            refriIngreTd2.setAttribute("data-value", refriIngre.refNo);
             refriIngreTd2.innerHTML = refriIngre.refName;
             refriTbodyTr.appendChild(refriIngreTd2);
             // 신선도 td
@@ -122,8 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
             refriTbodyTr.appendChild(refriIngreTd6);
             // 삭제 td
             const refriIngreTd7 = document.createElement('td');
-            refriIngreTd7.setAttribute("class", "myRefrigerator-last-td");
-            refriIngreTd7.innerHTML = "삭제";
+            refriIngreTd7.innerHTML = `<input type="checkbox" class="refri-main-delete-checkBox">`
             refriTbodyTr.appendChild(refriIngreTd7);
         }
     }
@@ -156,10 +161,55 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     }
 
+    const refriMainAllCheckBox = document.querySelector("#refri-main-delete-allCheckBox");
+     /** th 체크 버튼 클릭 시 모든 td 체크되는 이벤트 */
+    if(refriMainAllCheckBox){
+        refriMainAllCheckBox.addEventListener('change', function(){
+            refriMainTbody.querySelectorAll(".tr-block").forEach(tr => {
+                let checkBox = tr.querySelector("td input[type='checkbox']");
+                checkBox.checked = refriMainAllCheckBox.checked;
+            })
+        })
+    }
+   
+
+    /** 삭제하기 버튼 클릭 시 ajax 통해 db에서 식재료 삭제하는 이벤트 */
+    document.querySelector("#refreDeleteBtn").addEventListener('click', function(){
+        // 삭제할 식재료 데이터 담을 배열 선언
+        const ingresFordelete = [];
+        // td 체크 박스에 체크된 데이터 파악
+        refriMainTbody.querySelectorAll(".tr-block").forEach(tr => {
+            let checkBox = tr.querySelector("td input[type='checkbox']");
+            if(checkBox.checked){
+                const refNo = parseInt(tr.querySelector(".refri-main-td-refName").getAttribute("data-value"));
+                ingresFordelete.push(refNo);
+            }
+        })
+
+        console.log(ingresFordelete);
+
+        $.ajax({
+            url: "deleteRefriIngre.me",
+            data: {refriNums: JSON.stringify(ingresFordelete)},
+            success: function(res){
+                console.log("송신 성공");
+                if(res == "success"){
+                    location.reload();
+                }
+            },
+            error: function(){
+                console.log("송신 실패");
+            }
+        })
+    })
+
 
     // =================================== 식재료 추가 모달 관련 메소드 ==========================================
 
-    // ======== 이벤트 리스너
+    // 모달 요소
+    const modalIngre = document.querySelector("#myModal-two");
+    // 테이블 tbody
+    const ingreModalTbody = document.querySelector("#modal-ingre-tbody");
 
     document.querySelector("#viewModalBtn-two").addEventListener("click", function () {
         viewModal2();
@@ -217,6 +267,8 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("myModal-two").style.display = "block";
         // 식재료 추가 모달창 => 체크 박스 클릭시 소비기한표시
         document.getElementById("closeModalBtn2").addEventListener("click", function () {
+            ingreModalTbody.innerHTML = "";
+            numForInput = 0;
             document.getElementById("myModal-two").style.display = "none";
         });
     }
@@ -229,8 +281,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 공공데이터 가져오는 ajax
     function getFoodAndNutriAjax(cpage) {
-        const foodNameVl = document.querySelector("#refri-input-foodName").value;
-        const makerVl = document.querySelector("#refri-input-maker").value;
+        // 공백제거
+        const foodNameVl = document.querySelector("#refri-input-foodName").value.replace(/\s+/g, '');;
+        const makerVl = document.querySelector("#refri-input-maker").value.replace(/\s+/g, '');;
+
+        console.log("식품명: ", foodNameVl);
 
         $.ajax({
             url: "food.me",
@@ -289,7 +344,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /**getFoodAndNutriAjax 로 받아온 데이터를 모달에 뿌려주는 메소드 */ 
     function drawFoodAndNutri(currentPage, foodArr) {
-        const ingreModalTbody = document.querySelector("#modal-ingre-tbody");
         ingreModalTbody.innerHTML = "";
 
         let temp = 1;
@@ -567,6 +621,27 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    // 직접 입력 시 번호 부여하기 위한 변수 선언
+    let numForInput = 0;
+
+    /** 유저가 직접 입력 시 테이블 만들어주는 메소드 */
+    modalIngre.querySelector("#input-nutri-btn").addEventListener('click', function(){
+        numForInput++;
+        //유저가 직접 입력한 식품명
+        const foodNameByUser = modalIngre.querySelector("#refri-input-foodName-user").value;
+        //유저가 셀렉트한 대분류
+        const foodSelectBox = modalIngre.querySelector("#refri-select-foodClassification");
+        const foodClassNameByUser = foodSelectBox.options[foodSelectBox.selectedIndex].innerHTML;
+        const foodClassByUser = foodSelectBox.options[foodSelectBox.selectedIndex].value;
+
+        let food = {
+            FOOD_NM_KR: foodNameByUser,
+            FOOD_CAT1_NM: foodClassNameByUser
+        }
+
+        constructFoodModalTable(ingreModalTbody, numForInput, food)
+    })
+
 
     // =============================================== 추천 레시피 찾기 관련 메소드 ================================================
    
@@ -666,12 +741,93 @@ document.addEventListener("DOMContentLoaded", function () {
             success: function(res){
                 console.log(res);
                 console.log("송신 성공");
+
+                saveRecipeNoInLocalStorage(res);
+                       
+                location.reload();
             },
             error: function(){
                 console.log("송신 실패");
             }
         })
     })
+
+    /** localStorage에서 최근 본 목록을 가져오는 함수 */ 
+    function getRecommendedRecipeList(key) {
+        let recipeList = localStorage.getItem(key);
+
+        // 최근 본 목록이 없는 경우, 빈 배열로 초기화
+        return recipeList ? JSON.parse(recipeList) : [];
+    }
+
+    /** 받아 온 레시피들을 로컬 스토리지에 저장하는 메소드 */
+    function saveRecipeNoInLocalStorage(recipes){
+        // 로컬스토리지의 키값
+        let key = "recommendedRecipe";
+        // 로컬 스토리지 불러오기
+        let localRecipeNoList = getRecommendedRecipeList(key);
+        // 해당 키에 저장할 최대 데이터 갯수
+        let maxCount = 10;
+        // 받아온 추천 레시피 반복문 돌리기
+        for(let recipe of recipes){
+            console.log(recipe.recipeNo);
+            // 로컬 스토리지에 저장 전에 이미 존재하는 데이터인지 여부 체크
+            let index = localRecipeNoList.indexOf(recipe.recipeNo);
+            // 없다면 리스트에 넣기
+            if(index === -1){
+                localRecipeNoList.push(recipe.recipeNo);
+                // 10개가 넘어가면 가장 앞의 데이터 삭제
+                if(localRecipeNoList.length > maxCount){
+                    localRecipeNoList.shift();
+                }
+            }
+            // 로컬 스토리지에 저장
+            localStorage.setItem(key, recipe.recipeNo);
+        }
+    }
+
+    /** 로컬 스토리지에 저장된 추천 레시피 no 들로  div 요소 채우는 메소드 */
+    function constructRecommendedRecipeDiv(){
+
+        const recipeNums = localStorage.getItem("recommendedRecipe");
+
+        console.log(recipeNums);
+
+        $.ajax({
+            url: "selectRecipeListByRecipeNo.me",
+            type: "post",
+            data: {recipeNums: recipeNums},
+            success: function(res){
+                console.log(res);
+                console.log("송신 성공");
+                // 추천 레시피 div
+                const recommendRecipeDiv = document.querySelector("#recommend-recipe-imgs");
+                recommendRecipeDiv.innerHTML = "";
+                for(let recipe of res){
+        
+                    const divForRecoRecipe = document.createElement('div');
+                    recommendRecipeDiv.appendChild(divForRecoRecipe);
+        
+                    const recoRecipe = document.createElement('img');
+                    recoRecipe.src = ctp + "/resources/uploadfile/recipe/recipemain/" + recipe.recipeImg
+                    recoRecipe.setAttribute("style", "width: 295px; height: 240px; cursor: pointer");
+                    divForRecoRecipe.appendChild(recoRecipe);
+        
+                    
+                    recoRecipe.addEventListener('click', function(){
+                        location.href = ctp + "/detail.re?recipeNo=" + recipe.recipeNo;
+                    })
+                }
+            },
+            error: function(){
+                console.log("송신 실패");
+            }
+        })
+        // 이미지 클릭 시 해당하는 url 로 넘어갈 수 있도록 클릭 이벤트 추가
+
+    }
+
+
 }
     // 엔터로 쳐도 검색가능
     // function handleKeyPress(ev) {

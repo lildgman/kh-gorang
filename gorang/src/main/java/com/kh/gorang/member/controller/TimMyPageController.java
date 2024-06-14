@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,6 +68,8 @@ public class TimMyPageController {
 		PageInfo pi = Pagination.getPageInfo(refriIngreCount, 1, 10, 7);
 		
 		List<RefrigeratorInsertDTO> refriIngres = myPageService.selectListRefrigeratorsByMemberNo(userNo, pi);
+		
+		System.out.println(refriIngres);
 		
 		// 현재 날짜 계산
 		LocalDate currentDate = LocalDate.now();
@@ -148,6 +149,28 @@ public class TimMyPageController {
 		String[] ingresArray = ingreList.split(",");
 		
 		return myPageService.selectRecipeListByRefri(ingresArray);
+	}
+	
+	// 나의 냉장고 선택한 식재료 삭제하기
+	@ResponseBody
+	@RequestMapping("deleteRefriIngre.me")
+	public String deleteRefrigerator(String refriNums, HttpSession session) {
+		
+		
+		
+		Member m = (Member)session.getAttribute("loginUser");
+		
+		return myPageService.deleteRefrigerator(m.getMemberNo(), refriNums) > 0 ? "success" : "fail";
+	}
+	
+	// 로컬 스토리지의 레시피 번호를 바탕으로 레시피 가져오기
+	@ResponseBody
+	@RequestMapping("selectRecipeListByRecipeNo.me")
+	public ArrayList<RecipeListDto> selectRecipeListByRecipeNo(String recipeNums){
+		
+		System.out.println(recipeNums);
+		
+		return myPageService.selectRecipeListByRecipeNo(recipeNums);
 	}
 }
 	

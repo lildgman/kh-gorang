@@ -207,6 +207,7 @@
 	
 	<!-- 냉장고 식재료  -->
 	<resultMap type="RefrigeratorInsertDTO" id="RefrigeratorInsertDTOResult">
+		<result column="ref_no" property="refNo" />
 		<result column="member_no" property="refMemberNo" />
 		<result column="ref_name" property="refName" />
 		<result column="ref_thumbnail" property="refThumbnail" />
@@ -778,6 +779,7 @@
 	
 	<select id="selectListRefrigeratorsByMemberNo" resultMap="RefrigeratorInsertDTOResult">
 		select
+			ref_no,
 			ref_name,
 			ref_thumbnail,
 			ref_consumption_date,
@@ -804,10 +806,33 @@
 		from recipe r
 		join division d using (rcp_no) 
 		join ingredients_info i using (div_no) 
-		where r.status = 'y'
+		where r.status = 'Y'
 		and i.ingre_name in
 		<foreach collection="array" item="ingredi" open="(" close=")" separator=", ">
 			#{ingredi}			
+		</foreach>
+		LIMIT 10
+	</select>
+	
+	<delete id="deleteRefrigerator">
+		delete
+		from refrigerator
+		where ref_no in 
+		<foreach collection="list" item="ingre" open="(" close=")" separator=", ">
+			#{ingre.refNo}			
+		</foreach>
+	</delete>
+	
+	<select id="selectRecipeListByRecipeNo" resultMap="recipeListDtoResult">
+		select 
+			RCP_NO,
+			RCP_TITLE,
+			RCP_MAIN_PHOTO
+		from recipe
+		where status = 'Y'
+		and RCP_NO in
+		<foreach collection="array" item="recipeNo" open="(" close=")" separator=", ">
+			#{recipeNo}			
 		</foreach>
 		LIMIT 10
 	</select>

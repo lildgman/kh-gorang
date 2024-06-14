@@ -77,7 +77,7 @@ function getParameter(pageType) {
 
     // 레시피 게시글일 때와 상품 게시글일 때를 구분하여 가져옴
     if(pageType === 'recipe') {
-        num = param.get('rno');
+        num = param.get('recipeNo');
         isRecipe = true;
     } else if(pageType === 'product') {
         num = param.get('pno');
