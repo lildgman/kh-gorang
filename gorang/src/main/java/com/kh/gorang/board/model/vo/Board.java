@@ -25,4 +25,5 @@ public class Board {
 	private char status;
 	private int memberNo;
 	private String memberNickname;
+	private String memberThumbnail;
 }
