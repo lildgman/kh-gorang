@@ -167,7 +167,8 @@
 }
 
 .product-name {
-  font-size: 18px;
+  font-size: 16px;
+  
 }
 
 .info_price {
@@ -227,4 +228,11 @@
 
 .board-title-container {
   font-size: 20px;
+}
+.board-title-container div{
+    font-size: 15px;
+    font-weight: bold;
+    color: #333;
+    display: block;
+   
 }
