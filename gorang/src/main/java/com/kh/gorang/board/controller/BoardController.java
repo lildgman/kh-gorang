@@ -1,7 +1,5 @@
 package com.kh.gorang.board.controller;
 
-import static com.kh.gorang.common.template.SaveFileController.saveFile;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,10 +8,10 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.gorang.board.model.dto.BoardListDTO;
@@ -122,27 +120,28 @@ public class BoardController {
 	//게시글 추가
 	@PostMapping("insert.bo")
 	public String insertBoard(
-			Board board, 
+			@ModelAttribute Board board, 
 			HttpSession session, 
 			Model model, 
-			MultipartFile file) {
+			@RequestParam(value="upfile", required= false) MultipartFile upfile) {
 		
-		log.info("file={}",file);
-		if(!file.getOriginalFilename().equals("")) {
-			String changeFileName = saveFile(file, session, "/board/boardMainContentFile/");
-			board.setBoardThumbnail(changeFileName);
-		}
-		
-		log.info("file={}",file);
-		log.info("board={}", board);
-		int result = boardService.insertBoard(board);
-		if(result>0) {
-			return "redirect:/main.bo";
-		}
-		else {
-			model.addAttribute("errorMsg", "게시글 작성 실패");
-			return "board/write.bo";
-		}
+		log.info("file={}",upfile);
+//		if(!file.getOriginalFilename().equals("")) {
+//			String changeFileName = saveFile(file, session, "/board/boardMainContentFile/");
+//			board.setBoardThumbnail(changeFileName);
+//		}
+//		
+//		log.info("file={}",file);
+//		log.info("board={}", board);
+//		int result = boardService.insertBoard(board);
+//		if(result>0) {
+//			return "redirect:/main.bo";
+//		}
+//		else {
+//			model.addAttribute("errorMsg", "게시글 작성 실패");
+//			return "board/write.bo";
+//		}
+		return "redirect:/main.bo";
 	}
 	//댓글 쓰기
 	@PostMapping("insert.co")
