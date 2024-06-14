@@ -71,6 +71,9 @@
             letter-spacing: -0.025rem;
             cursor: pointer;
         }
+        #header-bottom-left-category span:hover{
+            color: #1E90FF;
+        }
 
     
     #header-bottom-right{

@@ -32,8 +32,8 @@
 						<img src="${pageContext.request.contextPath}/resources/uploadfile/recipe/recipemain/recipeBoardImg(1).jpg" alt="">
 					</div>
 					<div id="recommend-box-textbox">
-						<span>솔티드 딸바 크라페</span>
-						<span>크레이프케이크에 환상적인 카라멜과의 조합으로 달콤한 디저트 시간을 보내요!</span>
+						<span>솔티드 딸바 크레페</span>
+						<span>크레이프 케이크에 환상적인 카라멜과의 조합으로 달콤한 디저트 시간을 보내요!</span>
 					</div>
 				</div>
 			</div>

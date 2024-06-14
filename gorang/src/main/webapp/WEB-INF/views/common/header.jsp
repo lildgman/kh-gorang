@@ -45,7 +45,10 @@
      </c:if>
     <div id="header">
         <div id="header-top">
-            <span>신규가입 시 1만원 쿠폰을 지급해드려요!</span>
+            <c:choose>
+                <c:when test="${empty loginUser}"><span>신규가입 시 1만원 쿠폰을 지급해드려요!</span></c:when>
+                <c:otherwise><span>${loginUser.nickname}님만을 위한 쿠폰 확인하러가기!</span></c:otherwise>
+            </c:choose>
         </div>
         <div id="header-bottom">
             <div id="header-bottom-left">

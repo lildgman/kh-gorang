@@ -43,17 +43,22 @@ body {
     width: 92px;
     height: 37px;
     border-style: solid;
-    border-width: 1px;
+    border-width: 2px;
     border-radius: 20px;
     display: flex;
     justify-content: center;
     margin: 0 15px 0px 15px; 
 }
+
 #PapularTags a {
     color: black;
     text-decoration: none;
     font-size: 16px;
-    margin-top: 8px;
+    margin-top: 6px;
+    font-weight: bold;
+}
+#PapularTags a:hover{
+    color: #1E90FF;
 }
 #BoardContents{
     margin: 80px 0 0 0;
