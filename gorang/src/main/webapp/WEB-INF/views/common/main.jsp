@@ -74,7 +74,7 @@
                             <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/recipe/recipemain/recipeBoardImg(4).jpg" alt="">
                         </div>
                         <div class="weekly-item-info-container">
-                            <div class="info_1">돈까스를 넣고 잘 말아준 인기만점 김밥!</div>
+                            <div class="info_1">돈까스를 넣고 잘 말아준 인기만점 김밥</div>
                             <div class="info_2">돈까스 김밥</div>
                         </div>
                     </div>
@@ -84,7 +84,7 @@
                             <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/recipe/recipemain/recipeBoardImg(2).jpg" alt="">
                         </div>
                         <div class="weekly-item-info-container">
-                            <div class="info_1">통삼겹살과 차슈요리양념이면 충분해요</div>
+                            <div class="info_1">통삼겹살과 차슈양념이면 충분해요.</div>
                             <div class="info_2">차슈덮밥</div>
                         </div>
                     </div>
@@ -104,8 +104,8 @@
                             <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/recipe/recipemain/recipeBoardImg(1).jpg" alt="">
                         </div>
                         <div class="weekly-item-info-container">
-                            <div class="info_1">크레이프케이크에 환상적인 카라멜과의 조합</div>
-                            <div class="info_2">솔티드 딸바 크라페</div>
+                            <div class="info_1">크레이프와 솔티드 카라멜의 단짠 조합</div>
+                            <div class="info_2">솔티드 딸바 크레페</div>
                         </div>
                     </div>
                 </div>
