@@ -8,6 +8,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.gorang.board.model.dto.BoardListDTO;
+import com.kh.gorang.board.model.dto.CommentListDTO;
+import com.kh.gorang.board.model.dto.InsertCommentDTO;
 import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.board.model.vo.Comment;
 import com.kh.gorang.common.model.vo.PageInfo;
@@ -85,6 +87,27 @@ public class BoardDao{
         RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
 		return (ArrayList)sqlSession.selectList("boardMapper.selectBoardList", map, rowBounds);
+	}
+
+	// 댓글 조회
+	public ArrayList<CommentListDTO> getCommentList(SqlSessionTemplate sqlSession, Integer boardNo) {
+		return (ArrayList)sqlSession.selectList("commentMapper.selectCommentList", boardNo);
+	}
+
+	
+	public int insertReReply(SqlSessionTemplate sqlSession, InsertCommentDTO insertCommentDTO) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("commentMapper.insertReReply", insertCommentDTO);
+	}
+
+	
+	public String getExBoardThumbnail(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.selectOne("boardMapper.selectExBoardThumbnail", boardNo);
+	}
+
+	public int updateBoard(SqlSessionTemplate sqlSession, Board board) {
+		return sqlSession.update("boardMapper.updateBoard", board);
+		
 	}
 	
 }

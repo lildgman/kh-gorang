@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.kh.gorang.board.model.dao.BoardDao;
 import com.kh.gorang.board.model.dto.BoardListDTO;
+import com.kh.gorang.board.model.dto.CommentListDTO;
+import com.kh.gorang.board.model.dto.InsertCommentDTO;
 import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.board.model.vo.Comment;
 import com.kh.gorang.common.model.vo.PageInfo;
@@ -90,5 +92,26 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public ArrayList<BoardListDTO> getBoardList(PageInfo pi, Map<String, Object> map) {
 		return boardDao.getBoardList(sqlSession, pi, map);
+	}
+
+	// 댓글 리스트 조회
+	@Override
+	public ArrayList<CommentListDTO> getCommentList(Integer boardNo) {
+		return boardDao.getCommentList(sqlSession, boardNo);
+	}
+
+	@Override
+	public int insertReReply(InsertCommentDTO insertCommentDTO) {
+		return boardDao.insertReReply(sqlSession, insertCommentDTO);
+	}
+
+	@Override
+	public String getExBoardThumbnail(int boardNo) {
+		return boardDao.getExBoardThumbnail(sqlSession, boardNo);
+	}
+
+	@Override
+	public int updateBoard(Board board) {
+		return boardDao.updateBoard(sqlSession, board);
 	}
 }

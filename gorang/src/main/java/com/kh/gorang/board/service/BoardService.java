@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.kh.gorang.board.model.dto.BoardListDTO;
+import com.kh.gorang.board.model.dto.CommentListDTO;
+import com.kh.gorang.board.model.dto.InsertCommentDTO;
 import com.kh.gorang.board.model.vo.Board;
 
 import com.kh.gorang.board.model.vo.Comment;
@@ -54,4 +56,13 @@ public interface BoardService{
 	int getBoardCount(Map<String, Object> map);
 
 	ArrayList<BoardListDTO> getBoardList(PageInfo pi, Map<String, Object> map);
+
+	ArrayList<CommentListDTO> getCommentList(Integer boardNo);
+
+	int insertReReply(InsertCommentDTO insertCommentDTO);
+
+	String getExBoardThumbnail(int boardNo);
+
+	int updateBoard(Board board);
+	
 }	

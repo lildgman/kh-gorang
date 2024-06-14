@@ -17,10 +17,16 @@
 
         <body>
             <jsp:include page="../common/header.jsp" />
+            <c:if test="${not empty msg }">
+                <script>
+                    alert("${msg }");
+                </script>
+                <c:remove var="msg" scope="session"/>
+            </c:if>
             <main id="board-detail">
                 <div id="boardDetailContents">
                     <div id="writerProfile">
-                        <div id="profileImg"><img src="member.profile"></div>
+                        <div id="profileImg"><img src="${contextPath}/resources/uploadfile/memberProfile/${board.memberThumbnail}"></div>
                         <div id="profileInfo">
                             <div id="profileId"><span>${board.memberNickname}</span></div>
                             <div id="boardCount">
@@ -34,11 +40,12 @@
                         <span>${board.boardTitle}</span>
                     </div>
                     <div id="contentDetail">
-                        <div id="contentDetailWrite"><span>${board.boardContent}</span></div>
-                        <div id="contentDetailImg">
+                    	<div id="contentDetailImg">
                             <img src="${pageContext.request.contextPath}/resources/uploadfile/board/boardMainContentFile/${board.boardThumbnail}"
                                 alt="썸네일">
                         </div>
+                        <div id="contentDetailWrite"><span>${board.boardContent}</span></div>
+                        
                     </div>
                     <div id="contentService">
                         <div id="tagWrapper">
@@ -136,15 +143,20 @@
                         </div>
                     </div>
                     <div id="replyCountWrap">
-                        <div id="replyCount">댓글
-                            <span>(2)</span>
+                        <div id="replyCount-area">댓글
+                            <span id="reply-count">(${commentList.size()})</span>
                         </div>
                     </div>
-                    <form action="insertComment.bo" method="post">
+                    <form action="insert.co" method="post">
+                        <input type="hidden" name="boardNo" value="${board.boardNo}">
+                        <input type="hidden" name="memberNo" value="${loginUser.memberNo}">
                         <div id="replyWriteWrap">
                             <div id="replyWriterInfo">
-                                <img
-                                    src="<%= request.getContextPath() %>/resources/uploadfile/boardMainContentUserProfile/user1.png">
+                            	<c:if test="${not empty loginUser }">
+                            		<img
+                                    src="<%= request.getContextPath() %>/resources/uploadfile/memberProfile/${loginUser.profile}">
+                            	</c:if>
+               
                             </div>
                             <c:choose>
                                 <c:when test="${empty loginUser}">
@@ -153,44 +165,106 @@
                                     <button class="reply-button" disabled>댓글 쓰기</button>
                                 </c:when>
                                 <c:otherwise>
-                                    <textarea id="commentContent" rows="3" placeholder="댓글 내용을 적어주세요."></textarea>
-                                    <button class="reply-button" onclick="writeComment()">댓글 쓰기</button>
+                                    <textarea id="commentContent" rows="3" placeholder="댓글 내용을 적어주세요." name="commentContent"></textarea>
+                                    <button class="reply-button" type="submit">댓글 쓰기</button>
                                 </c:otherwise>
                             </c:choose>
                         </div>
                     </form>
                     <div id="ReplyArea">
-                        <c:forEach var="comment" items="${list}">
-                            <div id="userReplyWrap">
-                                <div id="userReplyWriterInfo">
-                                    <div id="userReplyWriterImgWrap">
-                                        <img src=${comment.memberProfile}>
-                                    </div>
-                                    <div id="userReplyContentWrap">
-                                        <div id="userReplyWriterDetail">
-                                            <div id="userReplyWriterDetailId">${comment.memberNickname}</div>
-                                            <div id="userReplyWriterDetailDate"><span>${comment.commentDate}</span></div>
+                        <c:forEach var="comment" items="${commentList}">
+                            <c:if test="${comment.refCommentNo == 0}">
+                                <div class="userReplyWrap">
+                                    <div class="userReplyWriterInfo">
+                                        <div class="userReplyWriterImgWrap">
+                                            <img src="<%= request.getContextPath() %>/resources/uploadfile/memberProfile/${comment.commentWriterImg}">
                                         </div>
-                                        <div id="userReplyContent">
-                                            <span>${comment.commentContent}</span>
+                                        <div class="userReplyContentWrap">
+                                            <div class="userReplyWriterDetail">
+                                                <input type="hidden" name="" value="${comment.commentNo}" class="comment-no">
+                                                <input type="hidden" name="boardNo" value="${board.boardNo}" class="board-no">
+                                                <div class="userReplyWriterDetailId">${comment.commentWriter}</div>
+                                                <div class="userReplyWriterDetailDate"><span>${comment.commentDate}</span></div>
+                                                
+                                                <c:if test="${not empty loginUser}">
+                                                    <div class="add-reply-btn" onclick="addReply(this)">댓글 달기</div>
+                                                    <c:if test="${loginUser.nickname eq comment.commentWriter}">
+                                                        <div data-index="${status.index}" class="delete-reply-btn">
+                                                            댓글 삭제
+                                                        </div>    
+                                                    </c:if>
+                                                </c:if>
+                                            </div>
+                                            <div class="userReplyContent">
+                                                <span>${comment.commentContent}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ReplyService">
+                                        <div class="ReplyReport">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+                                                viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M12 9v3.75m0-10.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.25-8.25-3.286Zm0 13.036h.008v.008H12v-.008Z" />
+                                            </svg>
+                                            <span>신고하기</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div id="ReplyService">
-                                    <div id="ReplyReport">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
-                                            viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M12 9v3.75m0-10.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.25-8.25-3.286Zm0 13.036h.008v.008H12v-.008Z" />
-                                        </svg>
-                                        <span>신고하기</span>
+
+                                <c:forEach var="reply" items="${commentList}">
+                                <c:if test="${reply.refCommentNo == comment.commentNo}">
+                                    <div class="userReplyWrap nested-reply">
+                                        <div class="userReplyWriterInfo">
+                                            <div class="userReplyWriterImgWrap">
+                                                <img src="<%= request.getContextPath() %>/resources/uploadfile/memberProfile/${reply.commentWriterImg}">
+                                            </div>
+                                            <div class="userReplyContentWrap">
+                                                <div class="userReplyWriterDetail">
+                                                    <!-- <input type="hidden" name="" value="${reply.commentNo}" class="comment-no">
+                                                    <input type="hidden" name="boardNo" value="${board.boardNo}" class="board-no"> -->
+                                                    <div class="userReplyWriterDetailId">${reply.commentWriter}</div>
+                                                    <div class="userReplyWriterDetailDate"><span>${reply.commentDate}</span></div>
+                                                    
+                                                    <!-- <c:if test="${not empty loginUser}">
+                                                        <div class="add-reply-btn" data-index="${replyStatus.index}" onclick="addReply(this)">댓글 달기</div>
+                                                        <c:if test="${loginUser.nickname eq reply.commentWriter}">
+                                                            <div data-index="${replyStatus.index}" class="delete-reply-btn">
+                                                                댓글 삭제
+                                                            </div>    
+                                                        </c:if>
+                                                    </c:if> -->
+                                                </div>
+                                                <div class="userReplyContent">
+                                                    <span>${reply.commentContent}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ReplyService">
+                                            <div class="ReplyReport">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+                                                    viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-6 h-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M12 9v3.75m0-10.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.25-8.25-3.286Zm0 13.036h.008v.008H12v-.008Z" />
+                                                </svg>
+                                                <span>신고하기</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
+                                </c:if>
+                            </c:forEach>
+                            </c:if>
                         </c:forEach>
                     </div>
                 </div>
                 <div id="boardMainReturnWrap">
+                    <c:if test="${board.memberNo eq loginUser.memberNo}">
+                        <div id="update-btn-area">
+                            <button type="button"
+                            onclick="moveLocation('${pageContext.request.contextPath}/update-form.bo?boardNo=${board.boardNo}')">수정하기</button>
+                        </div>
+                    </c:if>
+
                     <div id="ReturnBtnWrap">
                         <button type="button"
                             onclick="moveLocation('${pageContext.request.contextPath}/main.bo')">목록으로</button>

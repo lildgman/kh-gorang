@@ -5,7 +5,7 @@ $(document).ready(function () {
     function increaseViewCount() {
         var boardNo = '${board.boardNo}'; // 현재 게시글 번호
         var visitedBoards = JSON.parse(localStorage.getItem('visitedBoards')) || [];
-        
+
         // 이미 조회한 게시글인지 확인
         if (!visitedBoards.includes(boardNo)) {
             $.ajax({
@@ -28,22 +28,80 @@ $(document).ready(function () {
         }
     }
 });
-function writeComment() {
-    var commentContent = document.getElementById("commentContent").value;
-    
-    // AJAX를 이용하여 서버로 댓글 내용을 전송
-    $.ajax({
-        type: "POST",
-        url: "insertComment.bo", // 서버의 컨트롤러 매핑 주소
-        data: { commentContent: commentContent }, // 댓글 내용을 전달
-        success: function(response) {
-            // 서버로부터의 응답 처리
-            // 여기서 필요한 작업을 수행 (예: 댓글 목록 갱신 등)
-        },
-        error: function(xhr, status, error) {
-            // 오류 처리
-            console.error(xhr.responseText);
-        }
-    });
+// function writeComment() {
+//     var commentContent = document.getElementById("commentContent").value;
+
+//     // AJAX를 이용하여 서버로 댓글 내용을 전송
+//     $.ajax({
+//         type: "POST",
+//         url: "insertComment.bo", // 서버의 컨트롤러 매핑 주소
+//         data: { commentContent: commentContent }, // 댓글 내용을 전달
+//         success: function(response) {
+//             // 서버로부터의 응답 처리
+//             // 여기서 필요한 작업을 수행 (예: 댓글 목록 갱신 등)
+//         },
+//         error: function(xhr, status, error) {
+//             // 오류 처리
+//             console.error(xhr.responseText);
+//         }
+//     });
+// }
+
+function addReply(element) {
+    const replyTargetDiv = element.closest('.userReplyWrap');
+    const commentNo = replyTargetDiv.querySelector('.comment-no').value;
+    const boardNo = replyTargetDiv.querySelector('.board-no').value;
+    const replyArea = document.querySelector('#ReplyArea');
+    const existReplyDiv = replyArea.querySelector('.reply-input');
+
+    console.log(commentNo);
+    console.log(replyTargetDiv.querySelector('.comment-no'));
+
+
+    if(!existReplyDiv) {
+        drawReReply(replyTargetDiv, commentNo, boardNo);
+    } else {
+        existReplyDiv.remove();
+        drawReReply(replyTargetDiv, commentNo, boardNo);
+    }
 }
 
+function drawReReply(replyTarget, commentNo, boardNo) {
+    const replyInputDiv = document.createElement('div');
+    replyInputDiv.classList.add('reply-input');
+    replyInputDiv.innerHTML = `
+            <input type="text" placeholder="댓글을 입력하세요"></input>
+            <button type="button" class="submit-reply" data-refNo="`+commentNo+`" data-boardNo="`+boardNo+`" onclick="ajaxAddReply(this)">등록</button>
+        `;
+
+    replyTarget.insertAdjacentElement('afterend', replyInputDiv);
+}
+
+function ajaxAddReply(element) {
+    const commentContent = element.closest('.reply-input');
+
+    const refCommentNo = element.getAttribute('data-refNo');
+    const boardNo = element.getAttribute('data-boardNo');
+    const commentContentValue = commentContent.querySelector('input[type="text"]').value;
+
+    $.ajax({
+        url: 'insert.re',
+        type: 'post',
+        data: {
+            commentContent:commentContentValue,
+            boardNo : boardNo,
+            refCommentNo: refCommentNo
+        },
+        success: function(res) {
+            if(res === "done") {
+                window.location.href = window.location.href;
+            }
+        },
+        error: function() {
+            console.log("댓글 달기 api 호출 실패");
+        }
+    })
+    console.log(refCommentNo);
+    console.log(boardNo);
+    console.log(commentContentValue);
+}

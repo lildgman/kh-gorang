@@ -16,6 +16,8 @@
 		<result column="BOARD_VOTE" property="boardVote"></result>
 		<result column="STATUS" property="status"></result>
 		<result column="MEMBER_NO" property="memberNo"></result>
+		<result column="MEMBER_PROFILE" property="memberThumbnail"></result>
+		<result column="MEMBER_NICKNAME" property="memberNickname"></result>
 	</resultMap>
 	
 	<!-- 게시판 리스트 DTO -->
@@ -66,6 +68,7 @@
 		B.BOARD_VOTE,
 		B.BOARD_CONTENT,
 		M.MEMBER_NICKNAME,
+		M.MEMBER_PROFILE,
 		TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS "BOARD_CREATE_DATE"
 		FROM BOARD B
 		JOIN MEMBER M ON M.MEMBER_NO = B.MEMBER_NO
@@ -197,22 +200,23 @@
 			<if test='category == "보관법"'>
 				AND B.BOARD_TAG LIKE '#보관법'
 			</if>
-		<if test='sort == latest'>
-			ORDER BY B.BOARD_CREATE_DATE DESC, BOARD_NO DESC
-		</if>
-		<if test='sort == view'>
-			ORDER BY B.BOARD_VIEWS DESC, BOARD_NO DESC
-		</if>
-		<if test='sort == scrap'>
-			ORDER BY SCRAP_COUNT DESC, BOARD_NO DESC
-		</if>
-		GROUP BY 
+			GROUP BY 
 			B.BOARD_NO,
 			B.BOARD_THUMBNAIL,	
 			B.BOARD_TITLE,
 			B.BOARD_VIEWS,
 			M.MEMBER_PROFILE,
-			M.MEMBER_NICKNAME		
+			M.MEMBER_NICKNAME
+		<if test='sort == "latest"'>
+			ORDER BY B.BOARD_CREATE_DATE DESC, BOARD_NO DESC
+		</if>
+		<if test='sort == "view"'>
+			ORDER BY B.BOARD_VIEWS DESC, BOARD_NO DESC
+		</if>
+		<if test='sort == "scrap"'>
+			ORDER BY SCRAP_COUNT DESC, BOARD_NO DESC
+		</if>
+			
 		)
 	</select>
 	
@@ -251,22 +255,41 @@
 			<if test='category == "보관법"'>
 				AND B.BOARD_TAG LIKE '#보관법'
 			</if>
-		<if test='sort == latest'>
-			ORDER BY B.BOARD_CREATE_DATE DESC, BOARD_NO DESC
-		</if>
-		<if test='sort == view'>
-			ORDER BY B.BOARD_VIEWS DESC, BOARD_NO DESC
-		</if>
-		<if test='sort == scrap'>
-			ORDER BY SCRAP_COUNT DESC, BOARD_NO DESC
-		</if>
-		GROUP BY 
+			GROUP BY 
 			B.BOARD_NO,
 			B.BOARD_THUMBNAIL,	
 			B.BOARD_TITLE,
 			B.BOARD_VIEWS,
 			M.MEMBER_PROFILE,
 			M.MEMBER_NICKNAME
+		<if test='sort == "latest"'>
+			ORDER BY B.BOARD_CREATE_DATE DESC, BOARD_NO DESC
+		</if>
+		<if test='sort == "view"'>
+			ORDER BY B.BOARD_VIEWS DESC, BOARD_NO DESC
+		</if>
+		<if test='sort == "scrap"'>
+			ORDER BY SCRAP_COUNT DESC, BOARD_NO DESC
+		</if>
 	</select>
+	
+	<select id="selectExBoardThumbnail" resultType="string">
+		SELECT BOARD_THUMBNAIL
+		FROM BOARD
+		WHERE
+			BOARD_NO = #{boardNo}
+	</select>
+	
+	<update id="updateBoard" parameterType="Board">
+		UPDATE BOARD
+		SET 
+			BOARD_TITLE = #{boardTitle},
+			BOARD_CONTENT = #{boardContent},
+			BOARD_THUMBNAIL = #{boardThumbnail},
+			BOARD_TAG = #{boardTag},
+			BOARD_CREATE_DATE = CURRENT_DATE
+		WHERE
+			BOARD_NO = #{boardNo}
+	</update>
 
 </mapper>

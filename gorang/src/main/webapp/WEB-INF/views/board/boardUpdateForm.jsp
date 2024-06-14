@@ -19,15 +19,16 @@
             <script src="${pageContext.request.contextPath}/resources/summernote/lang/summernote-ko-KR.js"></script>
             <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/customsummernote.css">
 
-            <script src="${contextPath}/resources/js/board/commonWrite.js"></script>
+            <script src="${contextPath}/resources/js/board/updateBoard.js"></script>
         </head>
 
         <body>
             <c:if test="${not empty errorMsg}">
                 <div class="error">${errorMsg}</div>
             </c:if>
-            <form action="insert.bo" method="post" enctype="multipart/form-data">
+            <form action="update.bo" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="memberNo" value="${loginUser.memberNo}">
+                <input type="hidden" name="boardNo" value="${board.boardNo}">
                 <main id="common-write">
                     <div id="write-top">
                         <div id="writeBtnSection">
@@ -36,7 +37,7 @@
                                 <!-- <input type="button" value="임시저장" id="saveContentBtn"> -->
                             </div>
                             <div id="writeSubmitBtn">
-                                <button type="submit">등록하기</button>
+                                <button type="submit">수정하기</button>
                                 <!-- <input type="submit" value="등록하기"> -->
                             </div>
                         </div>
@@ -45,41 +46,32 @@
                         <div id="writeTitleSection">
                             <div id="selectCategory">
                                 <select name="boardTag" id="boardTag">
-                                    <option selected disabled hidden>카테고리</option>
-                                    <option value="#일상" selected>#일상</option>
-                                    <option value="#질문">#질문</option>
-                                    <option value="#노하우">#노하우</option>
-                                    <option value="#꿀팁">#꿀팁</option>
-                                    <option value="#보관법">#보관법</option>
+                                    <option value="#일상" ${board.boardTag == '#일상' ? 'selected' : ''}>#일상</option>
+                                    <option value="#질문" ${board.boardTag == '#질문' ? 'selected' : ''}>#질문</option>
+                                    <option value="#노하우" ${board.boardTag == '#노하우' ? 'selected' : ''}>#노하우</option>
+                                    <option value="#꿀팁" ${board.boardTag == '#꿀팁' ? 'selected' : ''}>#꿀팁</option>
+                                    <option value="#보관법" ${board.boardTag == '#보관법' ? 'selected' : ''}>#보관법</option>
                                 </select>
                             </div>
                             <div id="writeTitle">
-                                <input type="text" placeholder="제목을 입력해주세요." id="boardTitle" name="boardTitle">
+                                <input type="text" placeholder="제목을 입력해주세요." id="boardTitle" name="boardTitle" value="${board.boardTitle }">
                             </div>
                         </div>
                         <div id="writeUploadThumbnail">
                             <div id="uploadThumbnailSection">
                                 <div id="thumbnail-container">
-                                    <div id="uploadThumbnailSpan">
-                                        <span>대표이미지를 업로드 해주세요.</span>
-                                    </div>
-                                    <div id="uploadThumbSizeSpan">
-                                        <span>*권장 사이즈</span><br>
-                                        <span>모바일: 1920 x 1920, 최소 1400 x 1400(1:1 비율)</span><br>
-                                        <span>PC: 1920 x 1080, 최소 1400 x 787(16:9
-                                            비율)</span>
-                                    </div>
+                                    <img src="${contextPath }/resources/uploadfile/board/boardMainContentFile/${board.boardThumbnail}">
                                 </div>
                                 
                                 <div id="uploadThumbBtn">
                                     <button type="button" class="boardThumbnail-button" onclick="fileInputClick()">
-                                        대표이미지 넣기
+                                       	 대표이미지 넣기
                                     </button>
                                     <input type="file" id="file-input" accept="image/*" name="upfile" onchange="displaySelectedImg(event)">                                    
                                 </div>
                             </div>
                         </div>
-                        <textarea class="summernote" name="boardContent" id="boardContent"></textarea>
+                        <textarea class="summernote" name="boardContent" id="boardContent" >${board.boardContent }</textarea>
                     </div>
                 </main>
             </form>
