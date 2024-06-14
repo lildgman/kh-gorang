@@ -269,6 +269,14 @@
                         <button type="button"
                             onclick="moveLocation('${pageContext.request.contextPath}/main.bo')">목록으로</button>
                     </div>
+
+                    <c:if test="${board.memberNo eq loginUser.memberNo}">
+                        <div id="delete-btn-area">
+                            <button type="button"
+                                data-boardNo="${board.boardNo}"
+                                onclick="deleteBoard(this)">삭제하기</button>
+                        </div>
+                    </c:if>
                 </div>
             </main>
             <jsp:include page="../common/footer.jsp" />

@@ -101,7 +101,35 @@ function ajaxAddReply(element) {
             console.log("댓글 달기 api 호출 실패");
         }
     })
-    console.log(refCommentNo);
-    console.log(boardNo);
-    console.log(commentContentValue);
+}
+
+function deleteBoard(element) {
+
+    const result = confirm("게시글을 삭제하시겠습니까?");
+
+    if(result) {
+        const boardNo = element.getAttribute('data-boardNo');
+
+        $.ajax({
+            url: 'delete.bo',
+            type: 'post',
+            data: {
+                boardNo: boardNo
+            },
+            success: function(res) {
+                console.log(res);
+                if(res === 'done') {
+                    alert("게시글을 삭제하였습니다.");
+                    window.location.href = "main.bo";
+                } else {
+                    alert("게시글 삭제를 실패하였습니다.");
+                }
+            },
+            error: function() {
+                console.log("게시글 삭제 api 호출 실패");
+            }
+        })
+    }
+
+    
 }

@@ -508,6 +508,14 @@ body {
     border-radius: 10px;
 }
 
+#delete-btn-area button {
+    width: 175px;
+    height: 57px;
+    background-color: #eb0808;
+    color: #ffff;
+    border-radius: 10px;
+}
+
 .reply-input {
     border: 1px solid black;
     border-radius: 5px;

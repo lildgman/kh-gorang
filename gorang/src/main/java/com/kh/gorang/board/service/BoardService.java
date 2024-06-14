@@ -64,5 +64,7 @@ public interface BoardService{
 	String getExBoardThumbnail(int boardNo);
 
 	int updateBoard(Board board);
+
+	int deleteBoard(int boardNo);
 	
 }	

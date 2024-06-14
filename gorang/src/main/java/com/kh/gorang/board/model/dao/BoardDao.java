@@ -109,5 +109,9 @@ public class BoardDao{
 		return sqlSession.update("boardMapper.updateBoard", board);
 		
 	}
+
+	public int deleteBoard(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.update("boardMapper.deleteBoard", boardNo);
+	}
 	
 }

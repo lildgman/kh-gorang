@@ -292,4 +292,9 @@
 			BOARD_NO = #{boardNo}
 	</update>
 
+	<update id="deleteBoard" parameterType="int">
+		UPDATE BOARD
+		SET STATUS = 'N'
+		WHERE BOARD_NO = #{boardNo}
+	</update>
 </mapper>

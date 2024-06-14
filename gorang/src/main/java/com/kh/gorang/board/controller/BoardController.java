@@ -214,8 +214,14 @@ public class BoardController {
 		
 	}
 	
-	
-	
-	
+	@PostMapping("delete.bo")
+	@ResponseBody
+	public String deleteBoard(
+			@RequestParam int boardNo) {
+		
+		int result = boardService.deleteBoard(boardNo);
+		
+		return result > 0 ? "done" : "undone";
+	}
 	
 }
