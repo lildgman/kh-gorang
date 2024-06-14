@@ -12,7 +12,7 @@ public interface ManagerService {
 	ArrayList<BoardSearchDTO> ajaxSearchBoard(PageInfo pi, String searchBoardTitle);
 
 	// ajax 회원 검색
-	ArrayList<Member> ajaxSearchMember(String searchMember);
+	ArrayList<Member> ajaxSearchMember(PageInfo pi, String searchMember);
 
 	// ajax 회원 상태 변경
 	int ajaxUpdateMemberStatus(ArrayList<Integer> memberNoList);
@@ -22,5 +22,8 @@ public interface ManagerService {
 
 	// 검색한 게시글 개수
 	int searchBoardCount(String searchBoardTitle);
+
+	// 검색한 회원 결과 개수
+	int getSearchMemberCount(String searchMember);
 
 }

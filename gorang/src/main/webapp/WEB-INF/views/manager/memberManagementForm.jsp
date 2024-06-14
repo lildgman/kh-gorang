@@ -100,6 +100,10 @@
                         </tbody>
                     </table> 
                 </div>
+                <div id="pagination-area" align="center">
+                    <div id="pagination">
+                    </div>
+                </div>
                 <div class="delete-member-btn-container">
                     <button id="delete-member-btn" class="myBtn" onclick="updateMember()">상태변경</button>
                 </div>

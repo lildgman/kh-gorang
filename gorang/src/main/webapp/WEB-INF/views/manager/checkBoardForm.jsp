@@ -87,6 +87,10 @@
                         </tbody>
                     </table>
                 </div>
+                <div id="pagination-area" align="center">
+                    <div id="pagination">
+                    </div>
+                </div>
             </div>
             <!-- 페이징 바 영역(미정) -->
             <!-- <div></div> -->
