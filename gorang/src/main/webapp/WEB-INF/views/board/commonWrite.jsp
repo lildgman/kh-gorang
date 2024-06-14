@@ -32,10 +32,12 @@
                     <div id="write-top">
                         <div id="writeBtnSection">
                             <div id="tempStorageBtn">
-                                <input type="button" value="임시저장" id="saveContentBtn">
+                                <button type="button" id="saveContentBtn">임시저장</button>
+                                <!-- <input type="button" value="임시저장" id="saveContentBtn"> -->
                             </div>
                             <div id="writeSubmitBtn">
-                                <input type="submit" value="등록하기">
+                                <button type="submit">등록하기</button>
+                                <!-- <input type="submit" value="등록하기"> -->
                             </div>
                         </div>
                     </div>
@@ -57,20 +59,23 @@
                         </div>
                         <div id="writeUploadThumbnail">
                             <div id="uploadThumbnailSection">
-                                <div id="uploadThumbnailSpan">
-                                    <span>대표이미지를 업로드 해주세요.</span>
+                                <div>
+                                    <div id="uploadThumbnailSpan">
+                                        <span>대표이미지를 업로드 해주세요.</span>
+                                    </div>
+                                    <div id="uploadThumbSizeSpan">
+                                        <span>*권장 사이즈</span><br>
+                                        <span>모바일: 1920 x 1920, 최소 1400 x 1400(1:1 비율)</span><br>
+                                        <span>PC: 1920 x 1080, 최소 1400 x 787(16:9
+                                            비율)</span>
+                                    </div>
                                 </div>
-                                <div id="uploadThumbSizeSpan">
-                                    <span>*권장 사이즈</span><br>
-                                    <span>모바일: 1920 x 1920, 최소 1400 x 1400(1:1 비율)</span><br>
-                                    <span>PC: 1920 x 1080, 최소 1400 x 787(16:9
-                                        비율)</span>
-                                </div>
+                                
                                 <div id="uploadThumbBtn">
-                                    <label class="boardThumbnail-button" for="file">
+                                    <button type="button" class="boardThumbnail-button" onclick="fileInputClick()">
                                         대표이미지 넣기
-                                    </label>
-                                    <input type="file" id="file" accept="image/*" name="file">                                    
+                                    </button>
+                                    <input type="file" id="file-input" accept="image/*" name="upfile" onchange="displaySelectedImg(event)">                                    
                                 </div>
                             </div>
                         </div>
