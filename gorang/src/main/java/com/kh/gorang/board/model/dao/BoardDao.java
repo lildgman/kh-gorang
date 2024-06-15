@@ -73,7 +73,7 @@ public class BoardDao{
     }
 
     public int deleteComment(SqlSessionTemplate sqlSession, int commentNo) {
-        return sqlSession.delete("commentMapper.deleteComment", commentNo);
+        return sqlSession.update("commentMapper.deleteComment", commentNo);
     }
 
 // =====================================================================================================

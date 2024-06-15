@@ -26,17 +26,22 @@
             <c:if test="${not empty errorMsg}">
                 <div class="error">${errorMsg}</div>
             </c:if>
+            
             <form action="insert.bo" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="memberNo" value="${loginUser.memberNo}">
                 <main id="common-write">
                     <div id="write-top">
+                        <div>
+                            <button type="button" class="write-btn" id="back-btn" onclick="turnBack()">뒤로가기</button>
+                        </div>
+
                         <div id="writeBtnSection">
                             <div id="tempStorageBtn">
-                                <button type="button" id="saveContentBtn">임시저장</button>
+                                <button type="button" class="write-btn" id="saveContentBtn" >임시저장</button>
                                 <!-- <input type="button" value="임시저장" id="saveContentBtn"> -->
                             </div>
                             <div id="writeSubmitBtn">
-                                <button type="submit">등록하기</button>
+                                <button type="submit" class="write-btn" id="enroll-btn">등록하기</button>
                                 <!-- <input type="submit" value="등록하기"> -->
                             </div>
                         </div>

@@ -122,9 +122,6 @@ function insertFileApi(data, callback) {
     })
 }
 
-
-
-
 function fileInputClick() {
     const fileInput = document.querySelector('#file-input');
     fileInput.click();
@@ -144,4 +141,12 @@ function displaySelectedImg(event) {
         reader.readAsDataURL(file);
     }
 
+}
+
+function turnBack() {
+    const result = confirm('글쓰기를 취소하시겠습니까? 저장되지 않은 내용은 삭제됩니다.');
+
+    if(result) {
+        window.history.back();
+    }
 }

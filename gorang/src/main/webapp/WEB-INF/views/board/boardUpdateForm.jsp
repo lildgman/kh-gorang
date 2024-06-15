@@ -9,7 +9,7 @@
 
             <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
             <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
-            <link rel="stylesheet" href="${contextPath }/resources/css/board/commonWrite.css">
+            <link rel="stylesheet" href="${contextPath }/resources/css/board/updateBoardForm.css">
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
             <!-- 서머노트를 위해 추가해야할 부분 -->
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -31,13 +31,19 @@
                 <input type="hidden" name="boardNo" value="${board.boardNo}">
                 <main id="common-write">
                     <div id="write-top">
+
+                        <div>
+                            <button type="button" class="write-btn" id="back-btn" onclick="turnBack()">뒤로가기</button>
+                        </div>
+
+
                         <div id="writeBtnSection">
                             <div id="tempStorageBtn">
-                                <button type="button" id="saveContentBtn">임시저장</button>
+                                <button type="button" class="write-btn" id="saveContentBtn">임시저장</button>
                                 <!-- <input type="button" value="임시저장" id="saveContentBtn"> -->
                             </div>
                             <div id="writeSubmitBtn">
-                                <button type="submit">수정하기</button>
+                                <button type="submit" class="write-btn" id="enroll-btn">수정하기</button>
                                 <!-- <input type="submit" value="등록하기"> -->
                             </div>
                         </div>
