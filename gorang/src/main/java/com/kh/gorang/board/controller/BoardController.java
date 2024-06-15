@@ -103,8 +103,11 @@ public class BoardController {
 	public String insertBoard(
 			@ModelAttribute Board board, 
 			HttpSession session, 
-			Model model, 
+			Model model,
 			@RequestParam(value="upfile", required= false) MultipartFile upfile) {
+		
+		log.info("upfile={}", upfile.getOriginalFilename());
+		
 		
 		if(!upfile.getOriginalFilename().equals("")) {
 			String changeFileName = saveFile(upfile, session, "/board/boardMainContentFile/");
@@ -220,6 +223,16 @@ public class BoardController {
 			@RequestParam int boardNo) {
 		
 		int result = boardService.deleteBoard(boardNo);
+		
+		return result > 0 ? "done" : "undone";
+	}
+	
+	@PostMapping("delete.co")
+	@ResponseBody
+	public String deleteComment(
+			@RequestParam int commentNo) {
+		
+		int result = boardService.deleteComment(commentNo);
 		
 		return result > 0 ? "done" : "undone";
 	}

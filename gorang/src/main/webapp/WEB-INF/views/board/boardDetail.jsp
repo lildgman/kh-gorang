@@ -189,7 +189,7 @@
                                                 <c:if test="${not empty loginUser}">
                                                     <div class="add-reply-btn" onclick="addReply(this)">댓글 달기</div>
                                                     <c:if test="${loginUser.nickname eq comment.commentWriter}">
-                                                        <div data-index="${status.index}" class="delete-reply-btn">
+                                                        <div data-index="${status.index}" data-commentNo="${comment.commentNo}" class="delete-reply-btn" onclick="removeReply(this)">
                                                             댓글 삭제
                                                         </div>    
                                                     </c:if>
@@ -226,14 +226,14 @@
                                                     <div class="userReplyWriterDetailId">${reply.commentWriter}</div>
                                                     <div class="userReplyWriterDetailDate"><span>${reply.commentDate}</span></div>
                                                     
-                                                    <!-- <c:if test="${not empty loginUser}">
-                                                        <div class="add-reply-btn" data-index="${replyStatus.index}" onclick="addReply(this)">댓글 달기</div>
+                                                    <c:if test="${not empty loginUser}">
+
                                                         <c:if test="${loginUser.nickname eq reply.commentWriter}">
-                                                            <div data-index="${replyStatus.index}" class="delete-reply-btn">
+                                                            <div data-index="${replyStatus.index}" class="delete-reply-btn" data-commentNo="${reply.commentNo}" onclick="removeReply(this)">
                                                                 댓글 삭제
                                                             </div>    
                                                         </c:if>
-                                                    </c:if> -->
+                                                    </c:if>
                                                 </div>
                                                 <div class="userReplyContent">
                                                     <span>${reply.commentContent}</span>

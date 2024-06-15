@@ -94,7 +94,7 @@ function ajaxAddReply(element) {
         },
         success: function(res) {
             if(res === "done") {
-                window.location.href = window.location.href;
+                window.location.reload();
             }
         },
         error: function() {
@@ -132,4 +132,27 @@ function deleteBoard(element) {
     }
 
     
+}
+
+function removeReply(element) {
+    const commentNo = element.getAttribute('data-commentNo');
+    
+    $.ajax({
+        url:'delete.co',
+        type:'post',
+        data: {
+            commentNo : commentNo
+        },
+        success: function(res) {
+            if(res === 'done') {
+                alert('댓글을 삭제하였습니다.');
+                window.location.reload();
+            }
+        },
+        error: function() {
+            console.log("댓글 삭제 api 호출 실패");
+        }
+
+
+    })
 }

@@ -10,7 +10,15 @@ function requireLogin() {
 
 // 페이지 이동 함수
 function moveLocation(path){
+
+    if(path === '/gorang/logout.me') {
+        localStorage.removeItem("uploadFile");
+        localStorage.removeItem("tempBoardContent");
+    }
+
     window.location.href =(path)
+
+    
 }
 
 // function logo(){

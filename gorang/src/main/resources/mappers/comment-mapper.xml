@@ -67,10 +67,11 @@
     )
 </insert>
 <!-- 게시글 댓글 삭제 -->
-<delete id="deleteComment" parameterType="int">
-    DELETE FROM COMMENTS
-    WHERE COMMENT_NO = #{commentNo}
-</delete>
+<update id="deleteComment" parameterType="int">
+    UPDATE COMMENTS
+    SET STATUS = 'N'
+    WHERE COMMENT_NO = #{commentNo} OR REF_COMMENT_NO = #{commentNo}
+</update>
 
 <insert id="insertReReply" parameterType="InsertCommentDTO">
 	INSERT INTO COMMENTS (
