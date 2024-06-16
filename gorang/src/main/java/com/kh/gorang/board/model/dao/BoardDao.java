@@ -113,5 +113,38 @@ public class BoardDao{
 	public int deleteBoard(SqlSessionTemplate sqlSession, int boardNo) {
 		return sqlSession.update("boardMapper.deleteBoard", boardNo);
 	}
+
+	public int checkLikeBoard(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.selectOne("boardMapper.selectLikeBoard", map);
+	}
+
+	public int insertLikeBoard(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.insert("boardMapper.insertLikeBoard", map);
+	}
+
+	public int plusBoardVote(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.update("boardMapper.plusBoardVote", map);
+	}
+
+	public int updateLikeBoard(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.update("boardMapper.updateLikeBoard",map);
+	}
+
+	public int minusBoardVote(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.update("boardMapper.minusBoardVote",map);
+	}
+
+	public int isLikedBoard(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.selectOne("boardMapper.selectLikedBoard", map);
+	}
+
+	public int checkLikedBoardStatusN(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.selectOne("boardMapper.selectLikedBoardStatusN",map);
+	}
+
+	public int updateLikedBoardStatus(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.update("boardMapper.updateLikedBoardStatus", map);
+	}
+
 	
 }

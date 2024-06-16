@@ -156,3 +156,39 @@ function removeReply(element) {
 
     })
 }
+
+function toggleLikeBoard(element) {
+    const loginUser = element.getAttribute('data-user');
+    const boardNo = element.getAttribute('data-boardNo');
+
+    if(loginUser) {
+        console.log(loginUser);
+        $.ajax({
+            url: 'like.bo',
+            type: 'post',
+            data: {
+                boardNo : boardNo
+            },
+            success: function(res) {
+                console.log(res);
+                if(res === 'cancle_like') {
+                    alert("좋아요 취소하셨습니다.");
+                } else if (res === 'do_like') {
+                    alert("좋아요를 누르셨습니다.")
+                } else {
+                    alert("좋아요를 실패하였습니다.");
+                }
+
+                window.location.reload();
+            },
+            error: function() {
+                console.log('좋아요 기능 api 호출 실패');
+            }
+
+
+        })
+    } else {
+        alert("로그인이 필요한 기능입니다.");
+    }
+
+}
