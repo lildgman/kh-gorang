@@ -84,7 +84,7 @@
                             <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/recipe/recipemain/recipeBoardImg(2).jpg" alt="">
                         </div>
                         <div class="weekly-item-info-container">
-                            <div class="info_1">통삼겹살과 차슈요리양념이면 충분해요</div>
+                            <div class="info_1">통삼겹살과 차슈양념이면 충분해요.</div>
                             <div class="info_2">차슈덮밥</div>
                         </div>
                     </div>
@@ -104,8 +104,8 @@
                             <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/recipe/recipemain/recipeBoardImg(1).jpg" alt="">
                         </div>
                         <div class="weekly-item-info-container">
-                            <div class="info_1">크레이프케이크에 환상적인 카라멜과의 조합</div>
-                            <div class="info_2">솔티드 딸바 크라페</div>
+                            <div class="info_1">크레이프와 솔티드 카라멜의 단짠 조합!</div>
+                            <div class="info_2">솔티드 딸바 크레페</div>
                         </div>
                     </div>
                 </div>
@@ -187,10 +187,10 @@
                                 <div class="product-name">[Fage] 파예 플레이버 요거트 150g 3종 (택1)</div>
                             </div>
                             <div class="info_price">
-                                <div class="product-origin-price">6,400</div>
+                                <div class="product-origin-price">6,400원</div>
                                 <div class="product-sale-info">
                                     <span class="product-discount-percent">14%</span>
-                                    <span class="product-saled-price">5,500</span>
+                                    <span class="product-saled-price">5,500원</span>
                                 </div>
                             </div>
                         </div>

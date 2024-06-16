@@ -19,6 +19,14 @@
 
         <body>
             <jsp:include page="../common/header.jsp" />
+
+            <c:if test="${not empty alertMsg }">
+                <script>
+                    alert("${alertMsg }");
+                </script>
+                <c:remove var="alertMsg" scope="session"/>
+            </c:if>
+
             <main id="board-main">
                 <div id="CommonBoardContents">
                     <div id="BoardTagBox">

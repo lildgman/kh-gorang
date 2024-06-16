@@ -36,7 +36,7 @@ function movePage(element) {
     if(contentType === 'board') {
         window.location.href = "detail.bo?boardNo=" + contentNo;
     } else if(contentType === 'recipe') {
-        window.location.href = "detail.re?recipeNo=" + contentNo;
+        window.location.href = "detailForm.re?recipeNo=" + contentNo;
     } else if (contentType === 'product') {
         window.location.href = "detail.po?pno=" + contentNo;
     }
