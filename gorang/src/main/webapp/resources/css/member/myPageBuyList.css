@@ -112,6 +112,7 @@ tbody td {
     #head-status{
         width: 188px;
         padding-left: 20px;
+        text-align: left;
     }
 
     .tbody-td-amount{
@@ -133,7 +134,7 @@ tbody td {
         font-size: 18px;
         font-weight: bold;
         text-align: center;
-        width: 70px;
+        width: 100px;
     }
 
     .status-font{
@@ -143,11 +144,11 @@ tbody td {
 
     .tbody-td-btn{
         display: flex;
-        height: 77px;
-        flex-direction: column; 
-        text-align: center;
+        height: 120px;
+        flex-direction: column;
         padding-top: 10px;
-        /* align-content: center; */
+        justify-content: center;
+        align-items: center;
     }
 
     .tbody-td-img{
@@ -168,7 +169,6 @@ tbody td {
         border: 1px solid;
         width: 75px;
         height: 23px;
-        margin: auto;
         font-size: 12px;
     }
 

@@ -29,11 +29,11 @@ public interface ProductService {
 	Product selectProductByProductNo(int productNo);
 	
 	// 상품 번호로 상품의 리뷰들 조회
-	ArrayList<Review> selectProductReviewsByPno(int productNo);
+	ArrayList<Review> selectProductReviewsByPno(int productNo, PageInfo pi);
 
 
 	// 상품 번호로 상품 문의들 조회
-	ArrayList<QnA> selectProductQnAsByPno(int productNo);
+	ArrayList<QnA> selectProductQnAsByPno(int productNo, PageInfo pi);
 
 	// 상품 전체 조회
 	int selectAllProductQuantity();
@@ -48,4 +48,10 @@ public interface ProductService {
 	
 	//상품 후기 등록
 	int insertProductReview(Review re);
+	
+	// 상품 후기 총 갯수 조회
+	int selectReviewsCount(int productNo);
+	
+	// 상품 문의 총갯수
+	int selectQnasCount(int productNo);
 }

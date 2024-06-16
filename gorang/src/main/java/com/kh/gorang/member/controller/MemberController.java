@@ -3,6 +3,7 @@ package com.kh.gorang.member.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,13 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.service.MemberService;
 
+import net.nurigo.sdk.NurigoApp;
+import net.nurigo.sdk.message.exception.NurigoEmptyResponseException;
+import net.nurigo.sdk.message.exception.NurigoMessageNotReceivedException;
+import net.nurigo.sdk.message.exception.NurigoUnknownException;
+import net.nurigo.sdk.message.model.Message;
+import net.nurigo.sdk.message.service.DefaultMessageService;
+
 @Controller
 public class MemberController {
 	
@@ -21,6 +29,13 @@ public class MemberController {
 	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	
+	@Value("${coolsms.clientId}")
+	private String apiKey;
+	@Value("${coolsms.clientSecret}")
+	private String apiSecret;
+	@Value("${admin.phone}")
+	private String adminPhone;
 	
 	@RequestMapping("login.me")
 	public ModelAndView loginMember(Member m, ModelAndView mv, HttpSession session) {	
@@ -91,15 +106,27 @@ public class MemberController {
 	
 	@ResponseBody
 	@RequestMapping("authPhone.me")
-	public String authorizationPhone(String phone) {
-		
-		System.out.println(phone);
-		
-		CoolSmsController coolSms = new CoolSmsController();
-		
-		coolSms.sms(phone, "1111");
-		
-		return "테스트중";
+	public String authorizationPhone(String authNo, String phone) {
+		DefaultMessageService messageService = NurigoApp.INSTANCE.initialize(apiKey, apiSecret, "https://api.coolsms.co.kr");
+		// Message 패키지가 중복될 경우 net.nurigo.sdk.message.model.Message로 치환하여 주세요
+		Message message = new Message();
+		message.setFrom(adminPhone); //계정에서 등록한 발신번호 입력
+		message.setTo(phone);
+		message.setText("고랭GORANG 인증번호는 [" + authNo + "] 입니다.");
+		String str = "";
+		try {
+			messageService.send(message);
+			str = "success";
+		} catch (NurigoMessageNotReceivedException exception) {
+			  // 발송에 실패한 메시지 목록을 확인할 수 있습니다!
+			  System.out.println(exception.getFailedMessageList());
+			  System.out.println(exception.getMessage());
+			  str = "fail";
+			} catch (Exception exception) {
+			  System.out.println(exception.getMessage());
+			  str = "fail";
+			}
+		return str;
 	}
 }
 

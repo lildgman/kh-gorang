@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   // 전역 변수 초기화
   const contextPath = getContextPath();
-  const pno = getParameterPno();
 
   // 파라미터값으로 뿌려주고 남은 정보창 채우기
   inputProductInfo(pno, contextPath);
@@ -11,6 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
   fileInputClick();
   displaySelectedImage();
 });
+
+const pno = getParameterPno();
 
 // ======================== 유틸리티 함수 ===========================
 // contextPath 저장
@@ -26,15 +27,75 @@ function getParameterPno() {
   return pno;
 }
 
+ /** ajax로 받아온 pi 객체를 이용해 페이지네이션 업데이트 해주는 메소드 */
+ function updatePagination(ev, pi) {
+  const pagination = ev.querySelector(".pagination");
+  pagination.innerHTML = "";
+
+  if (pi.currentPage > 1) {
+      const prevLink = document.createElement('a');
+      prevLink.setAttribute('data-value', pi.currentPage - 1);
+      prevLink.innerHTML = '&lt;';
+      pagination.appendChild(prevLink);
+  }
+
+  for (let p = pi.startPage; p <= pi.endPage; p++) {
+      const pageLink = document.createElement('a');
+      pageLink.setAttribute('data-value', p);
+      pageLink.innerHTML = p;
+      if(p == parseInt(pi.currentPage)){
+          pageLink.innerHTML = `<strong>${p}</strong>`
+      }
+      pagination.appendChild(pageLink)
+  }
+
+  if (pi.currentPage < pi.maxPage) {
+      const nextLink = document.createElement('a');
+      nextLink.setAttribute('data-value', pi.currentPage + 1);
+      nextLink.innerHTML = '&gt;';
+      pagination.appendChild(nextLink);
+  }
+
+  // 새로 생성된 링크에 이벤트 리스너 추가
+  switch(ev){
+      case document.querySelector("#pagination-area"):
+          setPaginationEventListeners();
+          break;
+      case document.querySelector("#ingre-modal-pagination"):
+          setIngreModalPaginationEventListeners();
+          break;
+      case document.querySelector("#modal-recipe-pagination"):
+          setRecipeModalPaginationEventListeners();
+  }        
+}
+
+ /** 냉장고 페이지바 a 태그에 클릭 이벤트 넣어주는 메소드 */
+ function setPaginationEventListeners(paginationArea) {
+  paginationArea.querySelectorAll(".pagination a").forEach(function(ev){
+      ev.addEventListener("click", function(el){
+          let cpage = el.currentTarget.getAttribute('data-value');
+          switch(paginationArea){
+            case document.querySelector("#review-pagination-area"):
+              ajaxGetProductReviews({pno: pno , cpage: cpage});
+                break;
+            case document.querySelector("#qna-pagination-area"):
+              ajaxGetProductQnAs({pno: pno ,cpage: cpage});
+                break;
+        }    
+      });
+  });
+}
+
 // =================================== ajax 함수 =========================
 
 //ajax 통신으로 pno 넘겨주고 해당 상품 번호 참조하는 리뷰들 호출
   function ajaxGetProductReviews(data, callback){
   $.ajax({
     url: "ajaxReview.po",
-    data: data,
-    success: function(result){
-      callback(result);
+    data,
+    success: function(res){
+      console.log(res);
+      callback(res);
     },
     error: function(){
       console.log("불러오기 실패")
@@ -46,13 +107,14 @@ function getParameterPno() {
 function ajaxGetProductQnAs(data, callback){
   $.ajax({
     url: "ajaxQnA.po",
-    data: data,
-    success: function(result){
-      callback(result);
+    data,
+    success: function(res){
+      console.log(res);
+      callback(res);
     },
-    error: function(){
+    error: (function(){
       console.log("불러오기 실패")
-    }
+    })
   });
 }
 
@@ -102,10 +164,10 @@ function inputProductInfo(pno, profileLocation){
 
   
   //리뷰 수, 리뷰 내용 가져오기
-  ajaxGetProductReviews({pno}, (reviews)=>putProductReviewList(reviews, profileLocation));
+  ajaxGetProductReviews({pno: pno, cpage: 1}, (res)=> putProductReviewList(res, profileLocation));
 
   //상품 문의 가져오기
-  ajaxGetProductQnAs({pno}, (qnas)=>putProductQnAList(pno, qnas));
+  ajaxGetProductQnAs({pno: pno, cpage: 1}, (res)=>putProductQnAList(pno, res));
 }
 
 // =========================== 제품 옵션 및 수량 조절 메소드 ======================
@@ -392,8 +454,12 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
 
-function putProductReviewList(reviews, contextPath){
-    const productReviewArea = document.querySelector("#product_review_area");
+function putProductReviewList(res, contextPath){
+  
+  const reviews = res.reviews;
+
+  if(reviews.length > 0){
+    const productReviewContainer = document.querySelector("#product-review-container");
     // 리뷰수
     document.querySelector("#product_review_quantity").innerHTML = reviews.length;
     // 평점 평균 변수
@@ -403,7 +469,7 @@ function putProductReviewList(reviews, contextPath){
       //리뷰 내용 담을 div
       const productReview = document.createElement('div');
       productReview.setAttribute("class", "product_review");
-      productReviewArea.appendChild(productReview);
+      productReviewContainer.appendChild(productReview);
       //작성자 정보 담은 div
       const reviewWriterArea = document.createElement('div');
       reviewWriterArea.setAttribute("class", "review_writer_area");
@@ -426,12 +492,12 @@ function putProductReviewList(reviews, contextPath){
       reviewWriterId.setAttribute("class", "review_writer_id");
       reviewWriterIdRate.appendChild(reviewWriterId);
       reviewWriterId.innerHTML = review.writerNickname;
-
+  
       // 작성자 평점
       const reviewRate = document.createElement('div');
       reviewRate.setAttribute("class", "review_rate");
       reviewWriterIdRate.appendChild(reviewRate);
-
+  
       // 리뷰의 평점만큼 반복문 돌려서 별 모양 표시
       for(let i = 0; i < review.rating; i++){
         const reviewRateStar = document.createElement('i');
@@ -439,7 +505,7 @@ function putProductReviewList(reviews, contextPath){
         reviewRateStar.setAttribute("style", "color: #FFD43B;");
         reviewRate.appendChild(reviewRateStar);
       }
-
+  
       // 유저가 구입한 상품의 옵션명
       const reviewProductName = document.createElement('div');
       reviewProductName.setAttribute("class", "review_product_name");
@@ -454,7 +520,7 @@ function putProductReviewList(reviews, contextPath){
       reviewPhoto.setAttribute("class", "review_img");
       reviewPhotoWrapper.appendChild(reviewPhoto);
       reviewPhoto.setAttribute("src", contextPath + "/resources/uploadfile/review/product-review/" + review.reviewPhoto);
-
+  
       // 리뷰 내용
       const reviewContent = document.createElement('div');
       reviewContent.setAttribute("class", "review_content");
@@ -464,22 +530,18 @@ function putProductReviewList(reviews, contextPath){
     // 상품 평점 평균
     let ratingAvg = (ratingSum / reviews.length).toFixed(1);
     document.querySelector("#product_grade").innerHTML = ratingAvg;
-
-    const reviewPagenationAreaDiv = document.createElement('div');
-    reviewPagenationAreaDiv.setAttribute("id", "review_pagination_area");
-    reviewPagenationAreaDiv.innerHTML = `<div id="review_pagination">
-                                            <a href="#">&lt;</a>
-                                            <a href="#">1</a>
-                                            <a href="#">2</a>
-                                            <a href="#">&gt;</a>
-                                         </div>`
-    productReviewArea.appendChild(reviewPagenationAreaDiv);
+  
+    // 페이지네이션 처리
+    const reviewPaginationArea = document.querySelector("#review-pagination-area");
+    
+    updatePagination(reviewPaginationArea, res.pi)
+  }
 }
 
 // ============================= QNA 관련 메소드 ====================================
   // 문의 구축하는 메소드
-function putProductQnAList(pno, qnas){
-
+function putProductQnAList(pno, res){
+  const qnas = res.qnas;
   // 상품 문의 모달
     // 문의하기 버튼
     const qnaModalBtn = document.querySelector("#qna_top > button");
@@ -488,7 +550,8 @@ function putProductQnAList(pno, qnas){
       ajaxGetProductOpts({pno},(opts)=>inquireQuestion(opts));
     })
 
-  // 문의 내용
+    if(qnas.length > 0){
+      // 문의 내용
     const qnaContentTbody = document.querySelector('#qna_content > tbody');
 
     let qnaStatus = "답변대기";
@@ -555,6 +618,10 @@ function putProductQnAList(pno, qnas){
     $(this).next().removeClass("qna_content_tr_display_none").addClass("qna_content_tr_display");
   });
       //페이지 처리!!!!!!!!!!!!!!!!!!!!!!!
+      const qnaPaginationArea = document.querySelector("#qna-pagination-area");
+
+      updatePagination(qnaPaginationArea, res.pi);
+    }
 }
 
  // 문의하기 모달창 구축하는 메소드
@@ -603,9 +670,9 @@ function fileInputClick() {
   });
 }
 
-function displaySelectedImage(ev) {
-  const fileInput = ev.querySelector('.file-input');
-  let mainImgContainer = ev.querySelector('.qna_pic_container');
+function displaySelectedImage() {
+  const fileInput = document.querySelector('#file-input');
+  let mainImgContainer = document.querySelector('#qna_pic_container');
 
   fileInput.addEventListener('change', function(e) {
     const file = e.target.files[0];

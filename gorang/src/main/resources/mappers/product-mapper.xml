@@ -269,6 +269,13 @@
     )
     </insert>
     
+    <select id="selectReviewCount" resultType="_int">
+    	select count(review_no)
+    	from review
+    	where status = 'Y'
+    	  and product_no =#{productNo}
+    </select>
+    
     <!-- ===================================== 문의 ======================= -->
     <!-- 상품 문의 등록 -->
     <insert id="insertProductQna">
@@ -348,6 +355,11 @@
 			  o.status = 'Y'
 	</select>
     
-
+	<select id="selectQnasCount" resultType="_int">
+		select count(qna_no)
+		from QNA
+		where status = 'Y'
+		and product_no = #{productNo}
+	</select>
   
   </mapper>
