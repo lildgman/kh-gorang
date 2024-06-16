@@ -213,7 +213,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="ReplyService">
+                                    <!-- <div class="ReplyService">
                                         <div class="ReplyReport">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
                                                 viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-6 h-6">
@@ -222,7 +222,7 @@
                                             </svg>
                                             <span>신고하기</span>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
 
                                 <c:forEach var="reply" items="${commentList}">
@@ -234,8 +234,6 @@
                                             </div>
                                             <div class="userReplyContentWrap">
                                                 <div class="userReplyWriterDetail">
-                                                    <!-- <input type="hidden" name="" value="${reply.commentNo}" class="comment-no">
-                                                    <input type="hidden" name="boardNo" value="${board.boardNo}" class="board-no"> -->
                                                     <div class="userReplyWriterDetailId">${reply.commentWriter}</div>
                                                     <div class="userReplyWriterDetailDate"><span>${reply.commentDate}</span></div>
                                                     
@@ -253,7 +251,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="ReplyService">
+                                        <!-- <div class="ReplyService">
                                             <div class="ReplyReport">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
                                                     viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-6 h-6">
@@ -262,7 +260,7 @@
                                                 </svg>
                                                 <span>신고하기</span>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </c:if>
                             </c:forEach>
