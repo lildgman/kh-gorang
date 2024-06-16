@@ -12,6 +12,7 @@ import com.kh.gorang.board.model.dto.CommentListDTO;
 import com.kh.gorang.board.model.dto.InsertCommentDTO;
 import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.board.model.vo.Comment;
+import com.kh.gorang.board.model.vo.Report;
 import com.kh.gorang.common.model.vo.PageInfo;
 
 import lombok.RequiredArgsConstructor;
@@ -181,6 +182,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int isLikedBoard(Map<String, Object> map) {
 		return boardDao.isLikedBoard(sqlSession, map);
+	}
+
+	@Override
+	public int insertReport(Report report) {
+		return boardDao.insertReport(sqlSession, report);
 	}
 
 }
