@@ -20,6 +20,17 @@
 		<result column="MEMBER_NICKNAME" property="memberNickname"></result>
 	</resultMap>
 	
+	<!-- 신고 -->
+	<resultMap type="Report" id="reportResult">
+		<result column="REPORT_NO" property="reportNo"/>
+		<result column="REPORT_WHY" property="reportReason"/>
+		<result column="REPORT_CONTENT" property="reportContent"/>
+		<result column="BOARD_NO" property="boardNo"/>
+		<result column="MEMBER_NO" property="boardNo"/>
+	
+	
+	</resultMap>
+	
 	<!-- 게시판 리스트 DTO -->
 	<resultMap type="BoardListDTO" id="boardListDTOResult">
 		<result column="BOARD_NO" property="boardNo"/>
@@ -32,7 +43,7 @@
 		<result column="LIKE_COUNT" property="likeCount"/>
 	</resultMap>
 
-	<!-- 게시글 좋아 -->
+	<!-- 게시글 좋아요 -->
 	<resultMap type="LikeBoard" id="likeBoardResult">
 		<result column="BOARD_NO" property="boardNo"/>
 		<result column="MEMBER_NO" property="memberNo"/>
@@ -374,5 +385,18 @@
 			AND MEMBER_NO = #{memberNo}
 	</update>
 	
+	<insert id="insertReport" parameterType="Report">
+		INSERT INTO REPORT (
+			REPORT_WHY,
+			REPORT_CONTENT,
+			BOARD_NO,
+			MEMBER_NO
+		) VALUES (
+			#{reportReason},
+			#{reportContent},
+			#{boardNo},
+			#{memberNo}
+		)
+	</insert>
 	
 </mapper>

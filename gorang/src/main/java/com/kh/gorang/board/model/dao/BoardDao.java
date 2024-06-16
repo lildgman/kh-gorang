@@ -12,6 +12,7 @@ import com.kh.gorang.board.model.dto.CommentListDTO;
 import com.kh.gorang.board.model.dto.InsertCommentDTO;
 import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.board.model.vo.Comment;
+import com.kh.gorang.board.model.vo.Report;
 import com.kh.gorang.common.model.vo.PageInfo;
 
 
@@ -144,6 +145,10 @@ public class BoardDao{
 
 	public int updateLikedBoardStatus(SqlSessionTemplate sqlSession, Map<String, Object> map) {
 		return sqlSession.update("boardMapper.updateLikedBoardStatus", map);
+	}
+
+	public int insertReport(SqlSessionTemplate sqlSession, Report report) {
+		return sqlSession.insert("boardMapper.insertReport", report);
 	}
 
 	

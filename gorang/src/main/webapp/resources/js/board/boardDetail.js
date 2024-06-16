@@ -58,7 +58,7 @@ function addReply(element) {
     console.log(replyTargetDiv.querySelector('.comment-no'));
 
 
-    if(!existReplyDiv) {
+    if (!existReplyDiv) {
         drawReReply(replyTargetDiv, commentNo, boardNo);
     } else {
         existReplyDiv.remove();
@@ -71,7 +71,7 @@ function drawReReply(replyTarget, commentNo, boardNo) {
     replyInputDiv.classList.add('reply-input');
     replyInputDiv.innerHTML = `
             <input type="text" placeholder="댓글을 입력하세요"></input>
-            <button type="button" class="submit-reply" data-refNo="`+commentNo+`" data-boardNo="`+boardNo+`" onclick="ajaxAddReply(this)">등록</button>
+            <button type="button" class="submit-reply" data-refNo="`+ commentNo + `" data-boardNo="` + boardNo + `" onclick="ajaxAddReply(this)">등록</button>
         `;
 
     replyTarget.insertAdjacentElement('afterend', replyInputDiv);
@@ -88,16 +88,16 @@ function ajaxAddReply(element) {
         url: 'insert.re',
         type: 'post',
         data: {
-            commentContent:commentContentValue,
-            boardNo : boardNo,
+            commentContent: commentContentValue,
+            boardNo: boardNo,
             refCommentNo: refCommentNo
         },
-        success: function(res) {
-            if(res === "done") {
+        success: function (res) {
+            if (res === "done") {
                 window.location.reload();
             }
         },
-        error: function() {
+        error: function () {
             console.log("댓글 달기 api 호출 실패");
         }
     })
@@ -107,7 +107,7 @@ function deleteBoard(element) {
 
     const result = confirm("게시글을 삭제하시겠습니까?");
 
-    if(result) {
+    if (result) {
         const boardNo = element.getAttribute('data-boardNo');
 
         $.ajax({
@@ -116,40 +116,40 @@ function deleteBoard(element) {
             data: {
                 boardNo: boardNo
             },
-            success: function(res) {
+            success: function (res) {
                 console.log(res);
-                if(res === 'done') {
+                if (res === 'done') {
                     alert("게시글을 삭제하였습니다.");
                     window.location.href = "main.bo";
                 } else {
                     alert("게시글 삭제를 실패하였습니다.");
                 }
             },
-            error: function() {
+            error: function () {
                 console.log("게시글 삭제 api 호출 실패");
             }
         })
     }
 
-    
+
 }
 
 function removeReply(element) {
     const commentNo = element.getAttribute('data-commentNo');
-    
+
     $.ajax({
-        url:'delete.co',
-        type:'post',
+        url: 'delete.co',
+        type: 'post',
         data: {
-            commentNo : commentNo
+            commentNo: commentNo
         },
-        success: function(res) {
-            if(res === 'done') {
+        success: function (res) {
+            if (res === 'done') {
                 alert('댓글을 삭제하였습니다.');
                 window.location.reload();
             }
         },
-        error: function() {
+        error: function () {
             console.log("댓글 삭제 api 호출 실패");
         }
 
@@ -158,20 +158,20 @@ function removeReply(element) {
 }
 
 function toggleLikeBoard(element) {
-    const loginUser = element.getAttribute('data-user');
+    const loginUserNo = element.getAttribute('data-userNo');
     const boardNo = element.getAttribute('data-boardNo');
 
-    if(loginUser) {
-        console.log(loginUser);
+    if (loginUserNo) {
+        console.log(loginUserNo);
         $.ajax({
             url: 'like.bo',
             type: 'post',
             data: {
-                boardNo : boardNo
+                boardNo: boardNo
             },
-            success: function(res) {
+            success: function (res) {
                 console.log(res);
-                if(res === 'cancle_like') {
+                if (res === 'cancle_like') {
                     alert("좋아요 취소하셨습니다.");
                 } else if (res === 'do_like') {
                     alert("좋아요를 누르셨습니다.")
@@ -181,7 +181,7 @@ function toggleLikeBoard(element) {
 
                 window.location.reload();
             },
-            error: function() {
+            error: function () {
                 console.log('좋아요 기능 api 호출 실패');
             }
 
@@ -191,4 +191,52 @@ function toggleLikeBoard(element) {
         alert("로그인이 필요한 기능입니다.");
     }
 
+}
+
+function checkSelectedOneOption(event) {
+    const checkBoxes = document.querySelectorAll('.reason');
+
+    checkBoxes.forEach(function (checkBox) {
+        checkBox.checked = false;
+    })
+
+    event.target.checked = true;
+}
+
+function reportBoard(element) {
+    const boardNo = element.getAttribute('data-boardNo');
+
+    const checkedReasonDiv = document.querySelector('.reason:checked');
+    const reportContentDiv = document.querySelector('#report-content');
+    
+    if(!checkedReasonDiv) {
+        alert("신고사유를 골라주세요.");
+        return;
+    } 
+
+    const reason = checkedReasonDiv.closest('.reason-div').querySelector('label').innerText;
+    const reportContent = reportContentDiv.value;
+
+    $.ajax({
+        url: 'report.bo',
+        type: 'post',
+        data: {
+            boardNo: boardNo,
+            reportReason : reason,
+            reportContent : reportContent
+        },
+        success: function(res) {
+            if(res === "done") {
+                alert("신고가 성공적으로 완료되었습니다.");
+                window.location.reload();
+            } else {
+                alert("신고를 실패하였습니다.");
+            }
+        },
+        error : function() {
+            console.log("게시글 신고 api 호출 실패");
+        }
+
+    })
+    
 }

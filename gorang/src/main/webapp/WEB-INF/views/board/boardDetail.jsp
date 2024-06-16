@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <div id="contentTitle">
-                        <span>${board.boardTitle}</span>
+                        <span id="board-title">${board.boardTitle}</span>
                     </div>
                     <div id="contentDetail">
                     	<div id="contentDetailImg">
@@ -53,7 +53,7 @@
                             <div id="contentTag"><span>${board.boardTag}</span></div>
                         </div>
                         <div id="contentBtnWrapper">
-                            <button id="contentLike" data-boardNo="${board.boardNo}" data-user="${loginUser}" onclick="toggleLikeBoard(this)">
+                            <button id="contentLike" data-boardNo="${board.boardNo}" data-userNo="${loginUser.memberNo}" onclick="toggleLikeBoard(this)">
                                 <c:if test="${isLikedBoard == 0}">
                                     <i class="fa-regular fa-heart"></i>
                                 </c:if>
@@ -62,13 +62,13 @@
                                 </c:if>
                                 <span>${board.boardVote}</span>
                             </button>
-                            <button id="contentReport">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none"
+                            <button id="contentReport" data-userNo="${loginUser.memberNo}">
+                                <svg xmlns="http://www.w3.org/2000/svg" data-userNo="${loginUser.memberNo}" width="30" height="30" fill="none"
                                     viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-6 h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M12 9v3.75m0-10.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.25-8.25-3.286Zm0 13.036h.008v.008H12v-.008Z" />
                                 </svg>
-                                <span>신고하기</span>
+                                <span data-userNo="${loginUser.memberNo}">신고하기</span>
                             </button>
                             <!-- The Modal -->
                             <div id="myModal" class="modal">
@@ -79,39 +79,39 @@
                                     <div class="modal-content-top">
                                         <span>신고 게시글</span>
                                         <br>
-                                        <input type="text" class="contentTitleInput" placeholder="게시글 제목">
+                                        <input type="text" class="contentTitleInput" id="report-board-title" placeholder="게시글 제목" readonly>
                                     </div>
                                     <div class="modal-content-body">
                                         <span>신고 사유</span>
                                         <br>
                                         <div class="reportReasonSelectBox">
-                                            <div>
-                                                <input type="checkbox" id="reason">
-                                                <label for="reason">스팸/홍보 도배 게시글입니다.</label><br>
+                                            <div class="reason-div">
+                                                <input type="checkbox" id="spam" class="reason" onclick="checkSelectedOneOption(event)">
+                                                <label for="spam">스팸/홍보 도배 게시글입니다.</label><br>
                                             </div>
-                                            <div><input type="checkbox" id="reason">
-                                                <label for="reason">음란물입니다.</label><br>
+                                            <div class="reason-div"><input type="checkbox" id="19" class="reason" onclick="checkSelectedOneOption(event)">
+                                                <label for="19">음란물입니다.</label><br>
                                             </div>
-                                            <div>
-                                                <input type="checkbox" id="reason">
-                                                <label for="reason">불법 정보를 포함하고 있습니다.</label><br>
+                                            <div class="reason-div">
+                                                <input type="checkbox" id="illegal" class="reason" onclick="checkSelectedOneOption(event)">
+                                                <label for="illegal">불법 정보를 포함하고 있습니다.</label><br>
                                             </div>
 
-                                            <div><input type="checkbox" id="reason">
-                                                <label for="reason">청소년에 유해한 내용을 포함하고 있습니다.</label><br>
+                                            <div class="reason-div"><input type="checkbox" id="teen" class="reason" onclick="checkSelectedOneOption(event)">
+                                                <label for="teen">청소년에 유해한 내용을 포함하고 있습니다.</label><br>
                                             </div>
-                                            <div><input type="checkbox" id="reason">
-                                                <label for="reason">욕설/혐오/차별적 표현을 포함하고 있습니다.</label>
+                                            <div class="reason-div"><input type="checkbox" id="blame" class="reason" onclick="checkSelectedOneOption(event)">
+                                                <label for="blame">욕설/혐오/차별적 표현을 포함하고 있습니다.</label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="modal-content-bottom">
                                         <span>상세 내용</span>
                                         <br>
-                                        <input type="text" class="contentReasonDetail" placeholder="상세 내용을 입력해주세요">
+                                        <input type="text" class="contentReasonDetail" id="report-content" placeholder="상세 내용을 입력해주세요">
                                     </div>
                                     <div class="modal-content-reportBtn">
-                                        <input type="button" value="신고하기">
+                                        <button type="button" data-boardNo="${board.boardNo}" onclick="reportBoard(this)">신고하기</button>
                                     </div>
                                 </div>
                             </div>
@@ -126,8 +126,19 @@
                                 var span = document.getElementsByClassName("close")[0];
 
                                 // When the user clicks the button, open the modal 
-                                btn.onclick = function () {
+                                btn.onclick = function (event) {
+                                    
+                                    const loginUser = event.target;
+                                    const loginUserNo = loginUser.getAttribute('data-userNo');
+                                    if(!loginUserNo){
+                                        alert("로그인이 필요한 기능입니다.");
+                                        return;
+                                    }
+
                                     modal.style.display = "block";
+                                    const boardTitle = document.querySelector('#board-title').innerText;
+                                    const reportBoardTitle = document.querySelector('#report-board-title');
+                                    reportBoardTitle.value=boardTitle;
                                 }
 
                                 // When the user clicks on <span> (x), close the modal

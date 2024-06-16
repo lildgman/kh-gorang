@@ -9,6 +9,7 @@ import com.kh.gorang.board.model.dto.InsertCommentDTO;
 import com.kh.gorang.board.model.vo.Board;
 
 import com.kh.gorang.board.model.vo.Comment;
+import com.kh.gorang.board.model.vo.Report;
 import com.kh.gorang.common.model.vo.PageInfo;
 
 public interface BoardService{
@@ -70,6 +71,8 @@ public interface BoardService{
 	int insertLikeBoard(Map<String, Object> map);
 
 	int isLikedBoard(Map<String, Object> map);
+
+	int insertReport(Report report);
 
 	
 	

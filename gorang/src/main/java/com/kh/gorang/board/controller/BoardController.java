@@ -25,6 +25,7 @@ import com.kh.gorang.board.model.dto.CommentListDTO;
 import com.kh.gorang.board.model.dto.InsertCommentDTO;
 import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.board.model.vo.Comment;
+import com.kh.gorang.board.model.vo.Report;
 import com.kh.gorang.board.service.BoardService;
 import com.kh.gorang.common.model.vo.PageInfo;
 import com.kh.gorang.common.template.Pagination;
@@ -85,13 +86,19 @@ public class BoardController {
 
 	    Board board = boardService.selectBoard(boardNo);
 	    
-	    int memberNo = ((Member)session.getAttribute("loginUser")).getMemberNo();
-	    Map<String, Object> map = new HashMap<String, Object>();
-		map.put("memberNo", memberNo);
-		map.put("boardNo", boardNo);
-	   
-	    int isLikedBoard = boardService.isLikedBoard(map);
-	    model.addAttribute("isLikedBoard", isLikedBoard);
+	    if(session.getAttribute("loginUser") != null) {
+	    	int memberNo = ((Member)session.getAttribute("loginUser")).getMemberNo();
+		    Map<String, Object> map = new HashMap<String, Object>();
+			map.put("memberNo", memberNo);
+			map.put("boardNo", boardNo);
+		   
+		    int isLikedBoard = boardService.isLikedBoard(map);
+		    model.addAttribute("isLikedBoard", isLikedBoard);
+	    } else {
+	    	model.addAttribute("isLikedBoard", 0);
+	    }
+	    
+	    
 	    
 	    ArrayList<CommentListDTO> commentList = boardService.getCommentList(boardNo);
 	    	    
@@ -270,7 +277,21 @@ public class BoardController {
 			return "ok";
 		}
 		
-		
 	}
+	
+	@PostMapping("report.bo")
+	@ResponseBody
+	public String reportBoard(
+			HttpSession session,
+			@ModelAttribute Report report){
+		
+		int memberNo = ((Member)session.getAttribute("loginUser")).getMemberNo();
+		report.setMemberNo(memberNo);
+		
+		int result = boardService.insertReport(report);
+		
+		return result > 0 ? "done" : "undone";
+	}
+	
 	
 }
