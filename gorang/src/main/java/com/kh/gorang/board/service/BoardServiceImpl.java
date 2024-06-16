@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.gorang.board.model.dao.BoardDao;
@@ -16,8 +15,9 @@ import com.kh.gorang.board.model.vo.Comment;
 import com.kh.gorang.common.model.vo.PageInfo;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
-
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -119,4 +119,68 @@ public class BoardServiceImpl implements BoardService {
 	public int deleteBoard(int boardNo) {
 		return boardDao.deleteBoard(sqlSession, boardNo);
 	}
+
+	@Override
+	public int insertLikeBoard(Map<String, Object> map) {
+
+		//like_board에 memberNo와 boardNo를 갖고 있는 컬럼이 있는지 확인 후
+		// 없다면 Insert, 있다면 update해주자.;
+		// return이 0이면 실
+		// return이 1이면 좋아요 취소
+		// return이 2이면 좋아요 
+		
+		int insertLikeBoardResult = 0;
+		int updateLikeBoardResult = 0;
+		
+		int checkLikeBoardCount = boardDao.checkLikeBoard(sqlSession, map);
+		
+		// 좋아요 테이블에 memberNo 와 boardNo를 갖고 있는 컬럼이 있을 
+		if(checkLikeBoardCount > 0) {
+			updateLikeBoardResult = boardDao.updateLikeBoard(sqlSession, map);
+			
+			if(updateLikeBoardResult > 0) {
+				int minusBoardVote = boardDao.minusBoardVote(sqlSession, map);
+				
+				if(minusBoardVote > 0) {
+					return 1;
+				}
+			}
+			// 좋아요 테이블에 memberNo 와 boardNo를 갖고 있는 컬럼이 없을 때 
+		} else {
+			// 좋아요 테이블에 memberNo 와 boardNo를 갖고 있는 컬럼이 있지만 상태가 N일 
+			int checkLikedBoardStatusN = boardDao.checkLikedBoardStatusN(sqlSession, map);
+			
+			if (checkLikedBoardStatusN > 0) {
+				int updateLikedBoardStatus = boardDao.updateLikedBoardStatus(sqlSession, map);
+				
+				if(updateLikedBoardStatus > 0) {
+					int plusBoardVote = boardDao.plusBoardVote(sqlSession, map);
+					if(plusBoardVote > 0) {
+						return 2;
+					}
+				}
+				
+			} else {
+				insertLikeBoardResult = boardDao.insertLikeBoard(sqlSession, map);
+				
+				if(insertLikeBoardResult > 0) {
+					int plusBoardVote = boardDao.plusBoardVote(sqlSession, map);
+					
+					if(plusBoardVote > 0) {
+						return 2;
+					}
+					
+				}
+			}
+			
+		}
+		
+		return 0;
+	}
+
+	@Override
+	public int isLikedBoard(Map<String, Object> map) {
+		return boardDao.isLikedBoard(sqlSession, map);
+	}
+
 }

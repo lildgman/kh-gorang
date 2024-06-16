@@ -77,7 +77,7 @@ public class BoardController {
 	
 	//게시글 상세
 	@RequestMapping("detail.bo")
-	public String selectBoard(@RequestParam("boardNo") Integer boardNo, Model model) {
+	public String selectBoard(@RequestParam("boardNo") Integer boardNo,HttpSession session ,Model model) {
 	    if (boardNo == null) {
 	        model.addAttribute("errorMsg", "게시글 번호가 유효하지 않습니다.");
 	        return "board/boardMain";
@@ -85,7 +85,16 @@ public class BoardController {
 
 	    Board board = boardService.selectBoard(boardNo);
 	    
+	    int memberNo = ((Member)session.getAttribute("loginUser")).getMemberNo();
+	    Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("boardNo", boardNo);
+	   
+	    int isLikedBoard = boardService.isLikedBoard(map);
+	    model.addAttribute("isLikedBoard", isLikedBoard);
+	    
 	    ArrayList<CommentListDTO> commentList = boardService.getCommentList(boardNo);
+	    	    
 
 	    model.addAttribute("commentList", commentList);
 	    if (board != null) {
@@ -235,6 +244,33 @@ public class BoardController {
 		int result = boardService.deleteComment(commentNo);
 		
 		return result > 0 ? "done" : "undone";
+	}
+	
+	
+	@PostMapping("like.bo")
+	@ResponseBody
+	public String likeBoard(
+			HttpSession session,
+			@RequestParam int boardNo) {
+		
+		int memberNo = ((Member)session.getAttribute("loginUser")).getMemberNo();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("boardNo", boardNo);
+		
+		
+		int result = boardService.insertLikeBoard(map);
+		
+		if(result == 1) {
+			return "cancle_like";
+		} else if (result == 2) {
+			return "do_like";
+		} else {
+			return "ok";
+		}
+		
+		
 	}
 	
 }

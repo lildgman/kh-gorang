@@ -66,5 +66,11 @@ public interface BoardService{
 	int updateBoard(Board board);
 
 	int deleteBoard(int boardNo);
+
+	int insertLikeBoard(Map<String, Object> map);
+
+	int isLikedBoard(Map<String, Object> map);
+
+	
 	
 }	
