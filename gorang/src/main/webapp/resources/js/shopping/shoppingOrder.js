@@ -62,16 +62,26 @@
 
 // 상품 총 금액, 배송비 계산
 function calculateTotalProductPrice() {
+  // 상품 div 요소
   const orderContainerElements = document.querySelectorAll('.order-product-container');
+  // 총 금액 div 요소
   const totalProductPriceEl = document.querySelector('#total-product-price');
+
   let totalPrice = 0;
   let totalShipmentCost = 0;
-  orderContainerElements.forEach(function(orderContainerElement) {
+
+  orderContainerElements.forEach(orderContainerElement => {
     totalShipmentCost += parseInt(orderContainerElement.querySelector(".shipping-cost").innerText.replace(/,/g, ''));
-    const pdoptContainerEl = orderContainerElement.querySelectorAll(".order-productOpt-container");
-    pdoptContainerEl.forEach(function(ev){
-      const productPrice = parseInt(ev.querySelector('.order-product-saled-price').innerText.replace(/,/g, ''));
-      totalPrice += productPrice;
+    // 옵션 div 요소
+    const pdoptContainersEl = orderContainerElement.querySelectorAll(".order-productOpt-container");
+
+    pdoptContainersEl.forEach(pdoptContainerEl => {
+      const optPrice = parseInt(pdoptContainerEl.querySelector('.order-product-saled-price').innerText.replace(/,/g, ''));
+      const optNum = document.querySelector(".order-product-quantity").innerHTML;
+      // 상품 옵션 총 가격
+      const productOptPrice = optPrice * optNum;
+
+      totalPrice += productOptPrice;
     })
   })
   totalProductPriceEl.innerText = totalPrice.toLocaleString();
@@ -90,8 +100,8 @@ function calculateTotalPrice() {
   totalPriceElements.forEach(function(totalPriceElement) {
     totalPriceElement.innerText = totalPrice.toLocaleString();
   })
-
 }
+
 // 클릭한 결제수단 경계 색칠 및 카드 결제 클릭 시 동적 요소 생성 위한 메소드
 function clickPayment(element, type) {
 
