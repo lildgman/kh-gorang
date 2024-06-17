@@ -134,3 +134,13 @@ body {
     color : #6D6D6D;
   }
 
+.product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.product-qna-brand {
+    color: #4B76E2;
+    font-weight: bold;
+}

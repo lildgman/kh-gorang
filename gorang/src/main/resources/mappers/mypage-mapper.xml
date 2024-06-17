@@ -122,17 +122,21 @@
 		<result column="STATUS" property="status"/>
 		<result column="PRODUCT_NO" property="productNo"/>
 		<result column="PRODUCT_NAME" property="productName"/>
+		<result column="PRODUCT_BRAND" property="productBrand"/>
 		<result column="MAIN_IMG" property="productImg"/>
+		<result column="REF_QNA_NO" property="refQnaNo"/>
+		<result column="OPTIONS_NAME" property="optionName"/>
 	</resultMap>	
 	
 	<!-- 레시피 문의 DTO -->
-	<resultMap type="RecipeQnaDTO" id="recipeQnaDTO">
+	<resultMap type="RecipeQnaDTO" id="recipeQnaDTOResult">
 		<result column="QNA_CONTENT" property="qnaContent"/>
 		<result column="QNA_CREATE_DATE" property="qnaCreateDate"/>
 		<result column="STATUS" property="status"/>
 		<result column="RCP_NO" property="recipeNo"/>
 		<result column="RCP_TITLE" property="recipeTitle"/>
 		<result column="RCP_MAIN_PHOTO" property="recipeMainImg"/>
+		<result column="REF_QNA_NO" property="refQnaNo"/>
 	</resultMap>
 	
 	<!-- 스크랩 레시피 -->
@@ -685,14 +689,20 @@
 				Q.STATUS,
 				P.PRODUCT_NO,
 				P.PRODUCT_NAME,
-				P.MAIN_IMG
+				P.PRODUCT_BRAND,
+				P.MAIN_IMG,
+				A.QNA_NO as ref_qna_no,
+				O.OPTIONS_NAME
 			FROM QNA Q
 			JOIN PRODUCT P USING (PRODUCT_NO)
+			LEFT JOIN OPTION_NAME O ON q.pdopt_no = options_name_no
+			LEFT JOIN QNA A ON Q.QNA_NO = A.REF_QNA_NO
 			WHERE 
 				Q.STATUS = 'Y' AND
 				Q.MEMBER_NO = #{memberNo} AND
 				Q.QNA_TYPE = 1 AND
 				Q.QNA_ANSWER_TYPE = 1
+			ORDER BY Q.QNA_CREATE_DATE DESC
 		)
 	</select>
 			
@@ -704,9 +714,14 @@
 			Q.STATUS,
 			P.PRODUCT_NO,
 			P.PRODUCT_NAME,
-			P.MAIN_IMG
+			P.PRODUCT_BRAND,
+			P.MAIN_IMG,
+			A.QNA_NO as ref_qna_no,
+			O.OPTIONS_NAME
 		FROM QNA Q
 		JOIN PRODUCT P USING (PRODUCT_NO)
+		LEFT JOIN OPTION_NAME O ON q.pdopt_no = options_name_no
+		LEFT JOIN QNA A ON Q.QNA_NO = A.REF_QNA_NO
 		WHERE 
 			Q.STATUS = 'Y' AND
 			Q.MEMBER_NO = #{memberNo} AND
@@ -725,33 +740,37 @@
 				Q.STATUS,
 				R.RCP_NO,
 				R.RCP_TITLE,
-				R.RCP_MAIN_PHOTO
+				R.RCP_MAIN_PHOTO,
+				A.QNA_NO as ref_qna_no
 			FROM QNA Q
 			JOIN RECIPE R USING (RCP_NO)
+			LEFT JOIN QNA A ON Q.QNA_NO = A.REF_QNA_NO
 			WHERE 
 				Q.STATUS = 'Y' AND
-				Q.MEMBER_NO = #{memberNo} AND
-				Q.QNA_TYPE = 1 AND
+				Q.MEMBER_NO = 5 AND
+				Q.QNA_TYPE = 2 AND
 				Q.QNA_ANSWER_TYPE = 1
 			ORDER BY Q.QNA_CREATE_DATE DESC
 		)
 	</select>
 	
 	<!-- 레시비 qna 조회 -->
-	<select id="selectRecipeQnaList" resultMap="recipeQnaDTO">
+	<select id="selectRecipeQnaList" resultMap="recipeQnaDTOResult">
 		SELECT 
 			Q.QNA_CONTENT,
 			Q.QNA_CREATE_DATE,
 			Q.STATUS,
 			R.RCP_NO,
 			R.RCP_TITLE,
-			R.RCP_MAIN_PHOTO
+			R.RCP_MAIN_PHOTO,
+			A.QNA_NO as ref_qna_no
 		FROM QNA Q
 		JOIN RECIPE R USING (RCP_NO)
+		LEFT JOIN QNA A ON Q.QNA_NO = A.REF_QNA_NO
 		WHERE 
 			Q.STATUS = 'Y' AND
-			Q.MEMBER_NO = #{memberNo} AND
-			Q.QNA_TYPE = 1 AND
+			Q.MEMBER_NO = 5 AND
+			Q.QNA_TYPE = 2 AND
 			Q.QNA_ANSWER_TYPE = 1
 		ORDER BY Q.QNA_CREATE_DATE DESC
 	</select>

@@ -289,9 +289,7 @@ public class MyPageController {
 		ArrayList<RecipeQnaDTO> recipeQnaList = myPageService.getRecipeQnaList(memberNo, recipeQnaPi);
 
 		log.info("productQnaList={}",productQnaList);
-		log.info("productQnaPi={}",productQnaPi);
-		log.info("recipeQnaList={}",recipeQnaList);
-		log.info("recipeQnaPi={}",recipeQnaPi);
+		
 		
 		model.addAttribute("productQnaList", productQnaList);
 		model.addAttribute("productQnaPi", productQnaPi);

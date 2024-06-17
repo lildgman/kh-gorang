@@ -124,6 +124,10 @@ body {
     object-fit: cover;
 }
 
+#boardThumbnail:hover {
+    cursor: pointer;
+}
+
 #commonContentInfoBox {
     padding: 10px;
 }
