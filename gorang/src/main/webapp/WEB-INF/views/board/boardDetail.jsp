@@ -24,6 +24,7 @@
                 </script>
                 <c:remove var="msg" scope="session"/>
             </c:if>
+            
             <main id="board-detail">
                 <div id="boardDetailContents">
                     <div id="writerProfile">
