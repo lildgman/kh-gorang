@@ -1,5 +1,6 @@
 package com.kh.gorang.recipe.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +19,7 @@ import com.google.gson.Gson;
 import com.kh.gorang.common.model.vo.Media;
 import com.kh.gorang.common.template.SaveFileController;
 import com.kh.gorang.member.model.vo.Member;
+import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.recipe.model.vo.CookOrder;
 import com.kh.gorang.recipe.model.vo.CookTip;
 import com.kh.gorang.recipe.model.vo.Division;
@@ -46,14 +49,15 @@ public class RecipeController {
 		recipeInsertDTO.setRcpDivList(recipeService.selectDivList(recipeNo));
 		recipeInsertDTO.setCookOrderList(recipeService.selectCookOrderList(recipeNo));
 		recipeInsertDTO.setCompleteFoodPhoto(recipeService.selectCompleteFoodPhotoList(recipeNo));
-		
+		recipeInsertDTO.setRwList(recipeService.selectRecipeReviewList(recipeNo));
+		System.out.println(recipeInsertDTO);
 		model.addAttribute("member",m);
 		model.addAttribute("rcp",rcp);
 		model.addAttribute("recipeInsertDTO",recipeInsertDTO);
 		model.addAttribute("tagArr",tagArr);
 		return "recipe/recipeDetail";
-
 	}
+	
 	
 	@RequestMapping("write.re")
 	public String recipWritePage(){
@@ -91,7 +95,7 @@ public class RecipeController {
 		recipeInsertDTO.setRcpDivList(recipeService.selectDivList(recipeNo));
 		recipeInsertDTO.setCookOrderList(recipeService.selectCookOrderList(recipeNo));
 		recipeInsertDTO.setCompleteFoodPhoto(recipeService.selectCompleteFoodPhotoList(recipeNo));
-		
+//		
 		model.addAttribute("rcp",rcp);
 		model.addAttribute("recipeInsertDTO",recipeInsertDTO);
 		
@@ -200,6 +204,47 @@ public class RecipeController {
 		String changeName = SaveFileController.saveFile(completeFoodPhoto, session,"/recipe/recipefinal/");
 		return new Gson().toJson(changeName);
 	}
+	
+	
+	//레시피 리뷰조회(상세 페이지)
+//	@PostMapping("ajaxRecipeReview.re")
+//	@ResponseBody
+//	public String ajaxRecipeReview(@RequestParam("recipeNo") String recipeNo ,HttpSession session) {
+//		int rcpNo = Integer.parseInt(recipeNo);
+//		ArrayList<Review> reviewList = (ArrayList<Review>) recipeService.selectRecipeReviewList(rcpNo);
+//		return new Gson().toJson(reviewList);
+//	}
+	
+	
+	
+	
+	
+	
+	
+
+	//레시피 후기 작성
+	@PostMapping("insertReview.re")
+	@ResponseBody
+//	@GetMapping(value = "insertReview.re", produces = "application/json; charset=utf-8")
+	public Review ajaxrecipeReview(@RequestParam("refMemberNo") int refMemberNo,
+						            @RequestParam("refRecipeNo") int refRecipeNo,
+						            @RequestParam("rating") int rating,
+						            @RequestParam("reviewContent") String reviewContent,
+						            @RequestParam(value = "reviewPhoto", required = false) MultipartFile reviewPhoto,
+						            HttpSession session) {
+		Review review = new Review();
+		review.setRefMemberNo(refMemberNo);
+		review.setRefRecipeNo(refRecipeNo);
+		review.setRating(rating);
+		review.setReviewContent(reviewContent);
+		System.out.println("reviewPhoto:"+reviewPhoto);
+		String changeName = SaveFileController.saveFile(reviewPhoto, session, "/recipe/recipeReview/");
+		review.setReviewPhoto(changeName);
+		System.out.println("review: "+review);
+		return recipeService.insertReview(review) > 0 ? review : null;
+	}
+		
+	
 	
 }
 

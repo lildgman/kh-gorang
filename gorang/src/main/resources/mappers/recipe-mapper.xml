@@ -76,7 +76,39 @@
     <result column="LOGIN_SIGN_PATH" property="loginPath"/>
   </resultMap>
   	
-  	
+  	<!-- 리뷰 -->
+	<resultMap type="Review" id="reviewResult">
+		<result column="review_no" property="reviewNo"/>
+		<result column="review_content" property="reviewContent"/>
+		<result column="review_create_date" property="reviewCreateDate"/>
+		<result column="rating" property="rating"/>
+		<result column="review_photo" property="reviewPhoto"/>
+		<result column="review_type" property="reviewType"/>
+		<result column="status" property="status"/>
+		<result column="rcp_no" property="refRecipeNo"/>
+		<result column="pdopt_no" property="refPdOptNo"/>
+		<result column="product_no" property="refProductNo"/>
+		<result column="member_no" property="refMemberNo"/>
+		<result column="member_nickname" property="writerNickname"/>
+		<result column="member_profile" property="writerProfile"/>
+		<result column="options_name" property="refPdOptName"/>
+	</resultMap>
+	
+	<!-- 문의 -->
+	<resultMap type="QnA" id="qnaResult">
+		<result column="qna_no" property="qnaNo"/>
+		<result column="qna_content" property="qnaContent"/>
+		<result column="qna_create_date" property="qnaCreateDate"/>
+		<result column="qna_type" property="qnaType"/>
+		<result column="qna_answer_type" property="qnaAnswerType"/>
+		<result column="qna_photo" property="qnaPhoto"/>
+		<result column="status" property="status"/>
+		<result column="ref_qna_no" property="refQnaNo"/>
+		<result column="rcp_no" property="refRecipeNo"/>
+		<result column="product_no" property="refProductNo"/>
+		<result column="PDOPT_NO" property="refPdoptNo"/>
+		<result column="member_no" property="writerNo"/>
+	</resultMap>
   	
 	 <!-- 레시피 찾기 -->
 	 <select id="selectRecipe" resultMap="recipeResult">
@@ -104,7 +136,7 @@
   	 	FROM  DIVISION D
   	 	JOIN RECIPE R ON D.rcp_no = R.rcp_no
   	 	WHERE D.status= 'Y'
-  	 	AND R.rcp_no = ${rcp_no}
+  	 	AND D.rcp_no = ${rcp_no}
   	 </select>
   	
   	
@@ -123,7 +155,7 @@
   	 	FROM  COOK_ORDER CO
   	 	JOIN RECIPE R ON CO.rcp_no = R.rcp_no
   	 	WHERE CO.status= 'Y'
-  	 	AND R.rcp_no = ${rcp_no}
+  	 	AND CO.rcp_no = ${rcp_no}
   	 </select>
   	
   	 <!-- 레시피 팁 찾기 -->
@@ -132,8 +164,31 @@
   	 	FROM  COOK_TIP CT
   	 	JOIN COOK_ORDER CO ON CT.cook_ord_no = CO.cook_ord_no
   	 	WHERE CT.status= 'Y'
-  	 	AND CO.cook_ord_no = ${rcp_no}
+  	 	AND CT.cook_ord_no = ${cook_ord_no}
   	 </select>
+  	
+  	<!-- 레시피 리뷰 찾기 -->
+
+  	 <select id="selectRecipeReviewList" resultMap="reviewResult">
+  		SELECT RV.review_content,
+  			 RV.review_create_date,
+  			 RV.rating,
+  			 RV.review_photo,
+  			 RV.review_type,
+  			 RV.member_no,
+  			 M.member_nickname,
+  			 RV.rcp_no,
+  			 M.member_profile
+  		FROM REVIEW RV
+  		JOIN RECIPE R ON RV.rcp_no = R.rcp_no
+  		JOIN MEMBER M ON RV.member_no = M.member_no
+  		WHERE RV.status ='Y'
+  		AND RV.review_type='2'
+  		ORDER BY RV.review_no DESC
+  	</select>	
+  	
+  	
+  	
   	
   	
   	 <!-- 레시피 게시글 추가 -->
@@ -220,6 +275,24 @@
   	</insert>
   	
   	
+
+  	<insert id="insertReview" parameterType="Review">
+    INSERT INTO review (
+        review_content,
+        rating,
+        review_photo,
+        review_type,
+        rcp_no,
+        member_no
+    ) VALUES (
+        #{reviewContent},
+        #{rating},
+        #{reviewPhoto},
+        2,
+        #{refRecipeNo},
+        #{refMemberNo}
+    )
+</insert>
   	<select id="selectRecipeMember" parameterType="Recipe" resultMap="memberResult">
   		SELECT 
     		M.MEMBER_NO,

@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.gorang.common.model.vo.Media;
 import com.kh.gorang.common.template.SaveFileController;
 import com.kh.gorang.member.model.vo.Member;
+import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.recipe.model.dao.RecipeDao;
 import com.kh.gorang.recipe.model.vo.CookOrder;
 import com.kh.gorang.recipe.model.vo.CookTip;
@@ -99,6 +100,7 @@ public class RecipeServiceImpl implements RecipeService{
 		 for(Division div : divList) {
 			 div.setIngredientsInfoList(recipeDao.selectIngredientsInfoList(sqlSession,div.getDivNo()));
 		 }
+		
 		return divList;
 	}
 	
@@ -106,6 +108,7 @@ public class RecipeServiceImpl implements RecipeService{
 	@Override
 	public List<CookOrder> selectCookOrderList(int recipeNo) {
 		 List<CookOrder> cookOrderList =  recipeDao.selectCookOrderList(sqlSession,recipeNo);
+		 System.out.println("cookOrderList:"+cookOrderList);
 		 for(CookOrder ord : cookOrderList) {
 			 ord.setCookTipList(recipeDao.selectCookTipList(sqlSession,ord.getCookOrdNo()));
 		 } 
@@ -229,10 +232,23 @@ public class RecipeServiceImpl implements RecipeService{
 		return finalResult;
 	}
 
-	
+	//레시피 회원 찾기
 	@Override
 	public Member selectRecipeMember(int recipeNo) {
 		return recipeDao.selectRecipeMember(sqlSession,recipeNo);
+	}
+
+	//레시피 리뷰 작성
+	@Override
+	public int insertReview(Review review) {
+		return recipeDao.insertReview(sqlSession,review);
+	}
+	
+	
+	//레시피 리뷰 찾기
+	@Override
+	public List<Review> selectRecipeReviewList(int recipeNo) {
+		return recipeDao.selectRecipeReviewList(sqlSession,recipeNo);
 	}
 
 

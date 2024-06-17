@@ -30,4 +30,6 @@ public class Review {
 	private String writerProfile;
 	private String refPdOptName;
 	
+	
+	
 }
