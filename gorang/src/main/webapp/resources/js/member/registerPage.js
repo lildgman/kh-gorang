@@ -2,137 +2,160 @@ $(function(){
     new PhoneAuthentication();
 })
 
- // ============== 핸드폰 번호 입력 ==========================
-    // 휴대폰 인증 class
-
-    class PhoneAuthentication{
-        constructor(){
-            this.isSend = false; // 인증번호 전송 여부
-            this.authNo = ''; // 인증번호
-            this.timerId = null; //타이머
-            this.timer = $('.timer>h4'); // 타이머 ui
-            // input 창 한 쪽에 나타나게 하면 어떨까?
-
-            this.input = $("input[name='phone-authNo']");// 인증번호 input
-
-            this.sendBtn = $('#member-auth-btn'); // 인증번호 전송 버튼
-            this.authBtn = $('#member-phone-auth-btn'); // 인증번호 체크 버튼
-
-            this.sendBtn.on('click',()=>{
-                console.log("클릭");
-                this.sendAuthNum();
-            });
-
-            this.authBtn.on('click', ()=>{
-                this.checkAuthNum();
-            });
-        }
-
-        sendAuthNum(){
-            if(this.isSend){
-                const result = confirm('재전송 하시겠습니까?');
-                if(!result){ // 재전송 거절 시
-                    return;
-                } else {
-                    clearInterval(this.timerId); // 호출 스케쥴링(일정 시간 간격 두고 함수 실행)
-                }
-            }
-
-
-            // 랜덤번호 생성
-            this.authNo = Math.floor(Math.random() * 100000).toString().padStart(6, '0');
-            const phone = document.querySelector("input[name='memberPhone']").value;
-
-            $('#phoneAuthSection').css('display','flex');
-
-            sendPhoneAuthNoAjax({authNo: this.authNo, phone: phone}, res => {
-                if(res === "success"){
-                    console.log("전송 성공");
-                    console.log("인증번호 : " + this.authNo);
-                    console.log("전송한 휴대폰 번호 : " + phone);
-
-                    this.timer.css("color", "red");
-                    this.authBtn.prop('disabled', false);
-                    this.input.prop('readonly', false).val('').focus();
-
-                    this.isSend = true;
-                    this.startTimer(181); // 3분 타이머 시작
-                } else {
-                    alert('전송 실패');
-                    this.authNo = '';
-                }
-            });
-
-        };
-
-        checkAuthNum(){
-            const inputCode = this.input.val();
-            if(this.authNo !== inputCode){
-                alert("잘못된 인증번호입니다.");
-            }else {
-                this.sendBtn.prop('disabled', true);
-                $('#phone1').prop('readonly', true);
-                $('#phone2').prop('readonly', true);
-
-                alert('인증성공');
-                clearInterval(this.timerId);
-
-                this.input.prop('readonly', true);            
-                this.timer.css("color", "#4aa500");
-                this.isSend = false;
-                this.authBtn.prop('disabled', true);
-            };
-        };
-
-        startTimer(duration){
-            let timeLeft = duration;
-            this.timerId =  setInterval(() => {
-                if(timeLeft <= 0){
-                    clearInterval(this.timerId);
-                    alert("인증시간 초과. 다시 인증해주세요.");
-                    this.timer.text("3:01");
-                    this.authBtn.prop('disabled', true);
-                    this.authNo = "";
-                } else {
-                    timeLeft --;
-                    let minutes = Math.floor(timeLeft/60);
-                    let seconds = timeLeft % 60;
-                    this.timer.text(minutes + ":" + (seconds < 10 ? '0' : '') + seconds);
-                }
-            }, 1000); // 1초마다
-        }
-    };
-
-    // 휴대폰 인증 관련 ajax 함수
-    function sendPhoneAuthNoAjax(data, callback){
-        $.ajax({
-            url:'authPhone.me',
-            type: 'post',
-            data,
-            success: res => callback(res),
-            error: () => {
-                alert('휴대폰 인증번호 전송 실패');
-            }
-        });
-    };
-
-    const ctx = getContextPath();
-
-    function getContextPath() {
-        return sessionStorage.getItem("contextpath");
-    };
-
-window.onload = function(){
- 
+document.addEventListener('DOMContentLoaded', function(){
+    // 로고 클릭 시 메인페이지로 이동
     document.querySelector("#gorang-logo").addEventListener("click", function(){
         location.href = (ctx);
     })
+    // 이용약관 관련 메소드들 실행
+    setTermSection();
+
+    document.querySelector("input[name='memberEmail']").addEventListener('blur', validateEmail);
+})
+
+// ==================== 공통, 유틸리티 =========================
+const ctx = sessionStorage.getItem("contextpath");
+
+
+// ============== 핸드폰 번호 입력 ==========================
+// 휴대폰 인증 class
+class PhoneAuthentication{
+    constructor(){
+        this.isSend = false; // 인증번호 전송 여부
+        this.authNo = ''; // 인증번호
+        this.timerId = null; //타이머
+        this.timer = $('.timer>h4'); // 타이머 ui
+        // input 창 한 쪽에 나타나게 하면 어떨까?
+
+        this.input = $("input[name='phone-authNo']");// 인증번호 input
+
+        this.sendBtn = $('#member-auth-btn'); // 인증번호 전송 버튼
+        this.authBtn = $('#member-phone-auth-btn'); // 인증번호 체크 버튼
+
+        this.sendBtn.on('click',()=>{
+            console.log("클릭");
+            this.sendAuthNum();
+        });
+
+        this.authBtn.on('click', ()=>{
+            this.checkAuthNum();
+        });
+    }
+
+    sendAuthNum(){
+        if(this.isSend){
+            const result = confirm('재전송 하시겠습니까?');
+            if(!result){ // 재전송 거절 시
+                return;
+            } else {
+                clearInterval(this.timerId); // 호출 스케쥴링(일정 시간 간격 두고 함수 실행)
+            }
+        }
+
+
+        // 랜덤번호 생성
+        this.authNo = Math.floor(Math.random() * 100000).toString().padStart(6, '0');
+        const phone = document.querySelector("input[name='memberPhone']").value;
+
+        $('#phoneAuthSection').css('display','flex');
+
+        sendPhoneAuthNoAjax({authNo: this.authNo, phone: phone}, res => {
+            if(res === "success"){
+                console.log("전송 성공");
+                console.log("인증번호 : " + this.authNo);
+                console.log("전송한 휴대폰 번호 : " + phone);
+
+                this.timer.css("color", "red");
+                this.authBtn.prop('disabled', false);
+                this.input.prop('readonly', false).val('').focus();
+
+                this.isSend = true;
+                this.startTimer(181); // 3분 타이머 시작
+            } else {
+                alert('전송 실패');
+                this.authNo = '';
+            }
+        });
+
+    };
+
+    checkAuthNum(){
+        const inputCode = this.input.val();
+        if(this.authNo !== inputCode){
+            alert("잘못된 인증번호입니다.");
+        }else {
+            this.sendBtn.prop('disabled', true);
+            $('#phone1').prop('readonly', true);
+            $('#phone2').prop('readonly', true);
+
+            alert('인증성공');
+            clearInterval(this.timerId);
+
+            this.input.prop('readonly', true);            
+            this.timer.css("color", "#4aa500");
+            this.isSend = false;
+            this.authBtn.prop('disabled', true);
+        };
+    };
+
+    startTimer(duration){
+        let timeLeft = duration;
+        this.timerId =  setInterval(() => {
+            if(timeLeft <= 0){
+                clearInterval(this.timerId);
+                alert("인증시간 초과. 다시 인증해주세요.");
+                this.timer.text("3:01");
+                this.authBtn.prop('disabled', true);
+                this.authNo = "";
+            } else {
+                timeLeft --;
+                let minutes = Math.floor(timeLeft/60);
+                let seconds = timeLeft % 60;
+                this.timer.text(minutes + ":" + (seconds < 10 ? '0' : '') + seconds);
+            }
+        }, 1000); // 1초마다
+    }
+};
+
+// 휴대폰 인증 관련 ajax 함수
+function sendPhoneAuthNoAjax(data, callback){
+    $.ajax({
+        url:'authPhone.me',
+        type: 'post',
+        data,
+        success: res => callback(res),
+        error: () => {
+            alert('휴대폰 인증번호 전송 실패');
+        }
+    });
+};
+
+
+// ==================================== 이용약관 ====================================
+
+function setTermSection(){
+    ////전체 동의
+    document.getElementById("select-all").addEventListener('change', handlerAllCheckboxChange);
+}
+
+/** 전체 동의 체크 시 전체 체크박스 체크해주는 메소드 */
+function handlerAllCheckboxChange(){
+    const allChecked = this.checked;
+    document.querySelectorAll(".list input[type='checkbox']").forEach(checkbox => {
+        checkbox.checked = allChecked;
+    })
+}
+
+
+
+
+window.onload = function(){
+ 
 
     const form = document.getElementById("register-form");
     form.addEventListener("submit", function(event) {
         // Prevent the form from submitting until validation is done
         event.preventDefault();
-
         // Check all validation rules
         if (validateForm()) {
             form.submit();
@@ -142,17 +165,6 @@ window.onload = function(){
     const addressSearchPostcode = document.querySelector("#addressSearch > button");
     addressSearchPostcode.addEventListener("click", function(){
         inputAddress();
-    });
-
-
-
-    //전체 동의
-    const selectAllCheckbox = document.getElementById("select-all");
-    selectAllCheckbox.addEventListener("change", function() {
-        const checkboxes = document.querySelectorAll("input[type='checkbox']:not(#select-all)");
-        checkboxes.forEach(checkbox => {
-            checkbox.checked = selectAllCheckbox.checked;
-        });
     });
 
     const idCheckBtn = document.querySelector("#idCheck");
@@ -208,7 +220,7 @@ window.onload = function(){
 }
 
 function validateForm() {
-    const email = document.querySelector("input[type='email']");
+    const emailInput = document.querySelector("input[type='email']");
     const password = document.querySelector("input[type='password'][placeholder='비밀번호를 입력해주세요.']");
     const confirmPassword = document.querySelector("input[type='password'][placeholder='비밀번호를 한번 더 입력해주세요.']");
     const nickname = document.querySelector("input[type='text'][placeholder='닉네임을 입력해주세요.']");
@@ -216,11 +228,11 @@ function validateForm() {
     const birthdate = document.querySelector("input[type='date'][placeholder='YYYYMMDD']");
     const terms = document.querySelector("input[type='checkbox']:not(#select-all)");
 
+    const isTrue =  false;
+
     // Validate email
-    if (!validateEmail(email.value)) {
-        alert("올바른 이메일을 입력해주세요.");
-        email.focus();
-        return false;
+    if (validateEmail(emailInput.value)) {
+        isTrue = true;
     }
 
     // Validate password
@@ -269,10 +281,60 @@ function validateForm() {
     return true;
 }
 
-function validateEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
+// 이메일 유효성 검증
+function validateEmail() {
+    let email = this.value;
+    const isTrue = false;
+    const emailNotice = document.querySelector("#register-input-email > .regi-notice-wrapper");
+    if(email.trim() !== ""){
+        console.log("통과1");
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if(re.test(email)){
+            console.log("통과3");
+            emailNotice.innerHTML = "";
+            checkEmail(emailNotice);
+        } else {
+            console.log("통과2");
+            emailNotice.innerHTML = `<span class="regi-notice email-form">잘못된 이메일 형식입니다.</span>`;
+        }
+    } else {
+        emailNotice.innerHTML = `<span class="regi-notice email-empty">이메일을 입력해주세요.</span>`;
+    }
+    return isTrue;
 }
+
+/** 이메일 중복확인 검증하는 메소드 */
+function checkEmail(emailNotice){
+    // 중복확인 버튼 활성화
+    const emailCheckBtn = document.querySelector("#idCheck");
+    emailCheckBtn.style.pointerEvents = "auto";
+    emailCheckBtn.addEventListener('click', ev => handlercheckEmailClick(ev));
+}
+
+/** 중복확인 버튼 클릭 시 메소드 실행 */
+function handlercheckEmailClick(ev){
+    const idEmail = document.querySelector("input[name='memberEmail']").value;
+    if(ev.target.value !== "사용 가능"){
+        $.ajax({
+            url: "idCheck.me",
+            data: {checkId : idEmail},
+            success: function(result){
+                if(result === "NNNNN"){ // 중복 시
+                    emailNotice.innerHTML = `<span class="regi-notice email-id">이미 가입한 이메일입니다.</span>`; 
+                }else{ //사용 가능 시
+                    ev.target.value = "사용 가능";
+                    ev.target.style.pointerEvents = "none";
+                    ev.target.style.background = "#1e90ff";
+                    ev.target.style.color = "#ffffff";
+                }
+            },
+            error: function(){
+                console.log("아이디 중복체크 실패");
+            }
+        });
+    }
+}
+
 
 function validatePhoneNumber(phoneNumber) {
     const re = /^[0-9]{10,11}$/;
@@ -328,6 +390,11 @@ function inputAddress(){
     searchResultAddressDetail.setAttribute("type", "text");
     searchResultAddressDetail.setAttribute("placeholder", "상세 주소를 입력해주세요");
 
+    searchResult.innerHTML += `<div class="regi-notice-wrapper">
+                                    <span class="regi-notice address-empty">상세주소를 입력해주세요.</span>
+                              </div>`
+
+
     let totalAddress = document.createElement('input');
     searchResult.appendChild(totalAddress);
     totalAddress.setAttribute("type", "hidden");
@@ -371,29 +438,6 @@ function sample6_execDaumPostcode() {
     }).open();
 }
 
-// 중복확인 버튼 클릭 시 메소드 실행
-function checkEmail(ev){
-    const idEmail = document.querySelector("input[name='memberEmail']").value;
-    if(ev.target.value !== "사용 가능"){
-        $.ajax({
-            url: "idCheck.me",
-            data: {checkId : idEmail},
-            success: function(result){
-                if(result === "NNNNN"){ // 중복 시
-                    alert("이미 사용중인 아이디입니다.");   
-                }else{ //사용 가능 시
-                    ev.target.value = "사용 가능";
-                    ev.target.style.pointerEvents = "none";
-                    ev.target.style.background = "#1e90ff";
-                    ev.target.style.color = "#ffffff";
-                }
-            },
-            error: function(){
-                console.log("아이디 중복체크 실패");
-            }
-        });
-    }
-}
 
 function checkNickname(ev){
     const nickname = document.querySelector("input[name='nickname']").value;
