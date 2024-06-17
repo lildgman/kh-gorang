@@ -343,25 +343,27 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="qna_title" style="text-align: left;">유통기한은 어느정도 인가요?</td>
-                                    <td class="qna_writer">작성자ID</td>
-                                    <td class="qna_create_date">2024-04-21</td>
-                                    <td class="qna_status">답변완료</td>
-                                </tr>
-                                <tr>
-                                    <td id="qna_answer" colspan="4" style="text-align: left;">
-                                        <div id="qna_q">
-                                            <span class="span_q_a">Q</span><span>유통기한은 어느정도 인가요?</span>
-                                        </div>
-                                        <div id="qna_a">
-                                            <span class="span_q_a">A</span><span>정해진 소비기한은 없지만 2~3일 내로 섭취하는 것을
-                                                권장드립니다.</span>
-                                        </div>
-                                        <div id="qna_a_date">2024-04-22</div>
-                                    </td>
-                                </tr>
-                                <tr>
+                                <div class="qna-blocks">
+                                    <tr class="qna-area" onclick="showQ(this)">
+                                        <td class="qna_title" style="text-align: left;">유통기한은 어느정도 인가요?</td>
+                                        <td class="qna_writer">작성자ID</td>
+                                        <td class="qna_create_date">2024-04-21</td>
+                                        <td class="qna_status">답변완료</td>
+                                    </tr>
+                                    <tr id ="answer_area">
+                                        <td id="qna_answer" colspan="4" style="text-align: left;">
+                                            <div id="qna_q">
+                                                <span class="span_q_a">Q</span><span>유통기한은 어느정도 인가요?</span>
+                                            </div>
+                                            <div id="qna_a">
+                                                <span class="span_q_a">A</span><span>정해진 소비기한은 없지만 2~3일 내로 섭취하는 것을
+                                                    권장드립니다.</span>
+                                            </div>
+                                            <div id="qna_a_date">2024-04-22</div>
+                                        </td>
+                                    </tr>
+                                </div>
+                                <tr class="qna-area">
                                     <td class="qna_title" style="text-align: left;">유통기한은 어느정도 인가요?</td>
                                     <td class="qna_writer">작성자ID</td>
                                     <td class="qna_create_date">2024-04-21</td>
@@ -604,7 +606,7 @@
                                     </div>
 
                                     <div class="product_qna_enroll_btn_container">
-                                        <button type="submit" class="product_qna_enroll_btn" onclick="insertReviewRecipe()">완료</button>
+                                        <button type="submit" class="product_qna_enroll_btn" onclick="insertReviewRecipe();" >완료</button>
                                     </div>
                                 </form>
                             </div>

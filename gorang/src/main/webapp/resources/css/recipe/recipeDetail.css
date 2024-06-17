@@ -973,3 +973,12 @@ tbody tr>td {
     height: 100%;
     overflow: hidden;
   }
+
+
+  #answer_area{
+    display:none;
+  }
+
+  .qna-area:hover{
+    cursor: pointer;
+  }

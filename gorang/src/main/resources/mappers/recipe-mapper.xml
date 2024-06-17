@@ -184,6 +184,7 @@
   		JOIN MEMBER M ON RV.member_no = M.member_no
   		WHERE RV.status ='Y'
   		AND RV.review_type='2'
+  		ORDER BY RV.review_no DESC
   	</select>	
   	
   	

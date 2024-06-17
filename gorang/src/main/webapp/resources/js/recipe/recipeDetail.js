@@ -238,41 +238,42 @@ function resetImage(modalElement) {
         formData.append("reviewPhoto", reviewPhotoElement.files[0]);
     }
 
-    // ajaxinsertReview(formData, function(reviewData) {
-    //     console.log("리뷰 추가 성공:", reviewData);
-    //     resetRating();
-    //     document.querySelector('.review_description_title').innerHTML = `
-    //       <div id="product_review">
-    //           <div id="review_writer_area">
-    //               <div id="review_writer_pic_container">
-    //                   <img id="review_writer_pic"
-    //                       src="/gorang/resources/uploadfile/memberProfile/${reviewData.writerProfile}" alt="">
-    //               </div>
-    //               <div id="review_writer_id_rate">
-    //                   <div id="review_writer_id"><span class="userName">
-    //                       ${reviewData.writerNickname}
-    //                   </span> <span class="commentDates">  
-    //                           ${reviewData.reviewCreateDate}
-    //                           <!-- |
-    //                           <span class="updateComments"> 수정</span> |
-    //                           <span class="deleteComents">삭제</span> </span></div> -->
-    //                   <div class="star_rating">
-    //                       ${Array(reviewData.rating).fill('<i class="fa-solid fa-star" style="color: #FFD43B;" aria-hidden="true"></i>').join('')}
-    //                   </div>
-    //               </div>
-    //           </div>
-    //           ${reviewData.reviewPhoto ? `
-    //           <div id="review_img_container">
-    //               <img class="review_img" src="/gorang/resources/uploadfile/recipe/recipeReview/${reviewData.reviewPhoto}"></img>
-    //           </div>
-    //           ` : ''}
-    //           <div id="review_content">
-    //               ${reviewData.reviewContent}
-    //           </div>
-    //       </div>
-    //     `;
-    // });
-
+    ajaxinsertReview(formData, function(reviewData) {
+        console.log("리뷰 추가 성공:", reviewData);
+        resetRating();
+        document.querySelector('#review_description_title').innerHTML += `
+          <div id="product_review">
+              <div id="review_writer_area">
+                  <div id="review_writer_pic_container">
+                      <img id="review_writer_pic"
+                          src="/gorang/resources/uploadfile/memberProfile/${reviewData.writerProfile}" alt="">
+                  </div>
+                  <div id="review_writer_id_rate">
+                      <div id="review_writer_id"><span class="userName">
+                          ${reviewData.writerNickname}
+                      </span> <span class="commentDates">  
+                              ${reviewData.reviewCreateDate}
+                              <!-- |
+                              <span class="updateComments"> 수정</span> |
+                              <span class="deleteComents">삭제</span> </span></div> -->
+                      <div class="star_rating">
+                          ${Array(reviewData.rating).fill('<i class="fa-solid fa-star" style="color: #FFD43B;" aria-hidden="true"></i>').join('')}
+                      </div>
+                  </div>
+              </div>
+              ${reviewData.reviewPhoto ? `
+              <div id="review_img_container">
+                  <img class="review_img" src="/gorang/resources/uploadfile/recipe/recipeReview/${reviewData.reviewPhoto}"></img>
+              </div>
+              ` : ''}
+              <div id="review_content">
+                  ${reviewData.reviewContent}
+              </div>
+          </div>
+        `;
+      });
+      
+    
 }
 
 function ajaxinsertReview(data, callback) {
@@ -284,9 +285,10 @@ function ajaxinsertReview(data, callback) {
         processData: false,
         success: function(reviewData) {
             callback(reviewData);
+            location.reload();
         },
         error: function() {
-            console.log("리뷰 추가 실패");
+            alert("후기 작성에 실패했습니다.")
         }
     });
 }
@@ -404,5 +406,17 @@ function inquireQuestion(opts){
      optnameSelect.appendChild(optnames);
      optnames.setAttribute('value', opt.detailOptionNo);
      optnames.innerHTML = opt.detailOptionName;
+  }
+}
+
+
+function showQ(element){
+  let parent =element.closest(".qna-blocks");
+  console.log(parent);
+  let showDiv = parent.querySelector("#answer_area");
+  if(showDiv.style.display==="none"){
+    showDiv.style.display="block";
+  }else{
+    showDiv.style.display="none";
   }
 }
