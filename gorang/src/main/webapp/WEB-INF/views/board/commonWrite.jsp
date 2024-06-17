@@ -27,7 +27,7 @@
                 <div class="error">${errorMsg}</div>
             </c:if>
             
-            <form action="insert.bo" method="post" enctype="multipart/form-data">
+            <form action="insert.bo" method="post" enctype="multipart/form-data"> 
                 <input type="hidden" name="memberNo" value="${loginUser.memberNo}">
                 <main id="common-write">
                     <div id="write-top">

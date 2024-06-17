@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 폼 제출 이벤트
     form.addEventListener('submit', function (event) {
+
         if (!validateForm()) {
             event.preventDefault(); // 유효성 검사 실패 시 폼 제출 방지   
         }
@@ -49,17 +50,15 @@ document.addEventListener('DOMContentLoaded', function () {
         const file = uploadFileInput.files[0];
 
         if(file) {
-            const uploadFileData = {
-                name: file.name,
-                type: file.type,
-                size: file.size,
-                lastModified: file.lastModified
-            }
 
-            localStorage.setItem('uploadFile', JSON.stringify(uploadFileData));
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const fileContent = event.target.result;
+                localStorage.setItem('uploadFile', fileContent);
+            };
+            reader.readAsDataURL(file);
 
-        }
-        
+        };
 
         const tempData = {
             category: boardCategory.value,
@@ -101,6 +100,30 @@ document.addEventListener('DOMContentLoaded', function () {
         const uploadFile = localStorage.getItem('uploadFile');
         const tempData = localStorage.getItem('tempBoardContent');
 
+        if(uploadFile) {
+
+            const base64Parts = uploadFile.split(',');
+            const mimeType = base64Parts[0].match(/:(.*?);/)[1];
+            const base64Data = base64Parts[1];
+
+            const byteCharacters = atob(base64Data);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+            const fileBlob = new Blob([byteArray], { type: mimeType });
+
+            const file = new File([fileBlob], 'stored_img.png', { type: mimeType });
+
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+
+            uploadFileInput.files = dataTransfer.files;
+
+        }
+
+
         if (tempData) {
             const { category, title, thumbnail, content } = JSON.parse(tempData);
             if (category) {
@@ -118,19 +141,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         }
 
-        if(uploadFile) {
-            fileData = JSON.parse(uploadFile);
-            let file = new File([null], fileData.name, {type: fileData.type, lastModified: fileData.lastModified, size: fileData.size});
-
-            let dataTransfer = new DataTransfer();
-            dataTransfer.items.add(file);
-
-            uploadFileInput.files = dataTransfer.files;
-
-
-            console.log(file);
-            console.log(uploadFileInput.files[0]);
-        }
     }
 
     if(localStorage.getItem('tempBoardContent') || localStorage.getItem('uploadFile')) {
@@ -203,3 +213,4 @@ function turnBack() {
         window.history.back();
     }
 }
+
