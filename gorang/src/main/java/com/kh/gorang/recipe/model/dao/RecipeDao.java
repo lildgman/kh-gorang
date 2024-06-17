@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.gorang.common.model.vo.Media;
 import com.kh.gorang.member.model.vo.Member;
+import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.recipe.model.vo.CookOrder;
 import com.kh.gorang.recipe.model.vo.CookTip;
 import com.kh.gorang.recipe.model.vo.Division;
@@ -79,6 +80,7 @@ public class RecipeDao {
 	
 	//레시피 팁 찾기
 	public List<CookTip> selectCookTipList(SqlSessionTemplate sqlSession, int cookOrdNo) {
+		System.out.println("cookOrdNo:"+cookOrdNo);
 		return sqlSession.selectList("recipeMapper.selectCookTipList", cookOrdNo);
 	}	
 	
@@ -182,6 +184,16 @@ public class RecipeDao {
 	public Member selectRecipeMember(SqlSessionTemplate sqlSession, int recipeNo) {
 	
 		return sqlSession.selectOne("recipeMapper.selectRecipeMember",recipeNo);
+	}
+	
+	
+	//레시피 후기 작성
+	public int insertReview(SqlSessionTemplate sqlSession, Review review) {
+		return sqlSession.insert("recipeMapper.insertReview",review);
+	}
+
+	public List<Review> selectRecipeReviewList(SqlSessionTemplate sqlSession, int recipeNo) {
+		return sqlSession.selectList("recipeMapper.selectRecipeReviewList",recipeNo);
 	}
 	
 

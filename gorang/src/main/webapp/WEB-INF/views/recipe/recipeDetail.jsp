@@ -12,15 +12,19 @@
                 <!-- Latest compiled and minified CSS -->
                 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
                 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recipe/recipeDetail.css">
-                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+                <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
                     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-                    crossorigin="anonymous">
+                    crossorigin="anonymous"> -->
+                      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
                 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
                     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
                     crossorigin="anonymous"></script>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
                     integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
                     crossorigin="anonymous"></script>
+                        <!-- font awesome kit -->
+            <script src="https://kit.fontawesome.com/68309de260.js" crossorigin="anonymous"></script>
                 <script src="${contextPath}/resources/js/recipe/recipeDetail.js"></script>
             </head>
 
@@ -190,6 +194,7 @@
                             </c:forEach>
                         </div>
                     </div>
+                
                     <!-- igre-type-area영역에서  igre-type-area-right로 끝나면 다시
                         igre-type-area영역을 생성해서 left, right생성을 만드는 것을 반복 (2열 종대) -->
 
@@ -239,131 +244,134 @@
                             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade"
                                 data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
+                                <span class="visually-hidden"></span>
                             </button>
                             <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade"
                                 data-bs-slide="next">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
+                                <span class="visually-hidden"></span>
                             </button>
                         </div>
                     </div>
-                    <!-- <c:forEach var="media" items="${recipeInsertDTO.completeFoodPhoto}" varStatus="status">
-                <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
-                    <img src="${contextPath}/resources/uploadfile/recipe/recipefinal/${media.changeName}"
-                         class="d-block w-100" alt="...">
-                </div>
-            </c:forEach>
-             -->
-                    <!-- 상품 후기 -->
+
+
+
+                    <!-- 레시피 후기 -->
                     <div id="product_review_area">
-                        <div class="description_title">레시피 후기</div>
-                        <div id="product_review">
-                            <div id="review_writer_area">
-                                <div id="review_writer_pic_container">
-                                    <img id="review_writer_pic"
-                                        src="${contextPath}/resources/dummyImg/shopping/dog.jpeg" alt="">
-                                </div>
-                                <div id="review_writer_id_rate">
-                                    <div id="review_writer_id"><span class="userName">user01</span> <span class="commentDates">2021-08-27 |<span class="updateComments"> 수정</span> | <span class="deleteComents">삭제</span> </span></div>
-                                    <div class="star_rating">
-                                        <span class="star on" value="1"> </span>
-                                        <span class="star" value="2"> </span>
-                                        <span class="star" value="3"> </span>
-                                        <span class="star" value="4"> </span>
-                                        <span class="star" value="5"> </span>
+                        <div class="description_title" id="review_description_title">레시피 후기</div>
+                        <c:forEach var="rv" items="${recipeInsertDTO.rwList}">
+                            <div id="product_review">
+                                <div id="review_writer_area">
+                                    <div id="review_writer_pic_container">
+                                        <img id="review_writer_pic"
+                                            src="${contextPath}/resources/uploadfile/memberProfile/${rv.writerProfile}" alt="">
+                                    </div>
+                                    <div id="review_writer_id_rate">
+                                        <div id="review_writer_id"><span class="userName">
+                                            ${rv.writerNickname}
+                                        </span> <span class="commentDates">  
+                                                ${rv.reviewCreateDate}
+                                                <!-- |
+                                                <span class="updateComments"> 수정</span> |
+                                                <span class="deleteComents">삭제</span> </span></div> -->
+                                                </span></div>
+                                        <div class="star_rating">
+                                            <c:forEach var="i" begin="1" end="${rv.rating}">
+                                                <i class="fa-solid fa-star" style="color: #FFD43B;" aria-hidden="true"></i>
+                                            </c:forEach>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div id="review_product_name"></div>
-                            <div id="review_img_container">
-                                <img class="review_img" src="${contextPath}/resources/dummyImg/shopping/dog.jpeg"></img>
-                            </div>
-                            <div id="review_content">
-                                너무 신선하고 달아서 다음에도 구매하려구요 짱짱굿! ㅎㅎㅎ                            
-                              </div>
-                        </div>
-                        <div class="write_review_area">
-                            <button id="openModalBtn">Open Modal</button>
-                            <div id="myModal" class="modal">
-                                <div class="modal-content">
-                                    <span class="close">&times;</span>
-                                    <p>This is a modal window. Click the button to close.</p>
+                                <c:if test="${not empty rv.reviewPhoto}">
+                                    <div id="review_img_container">
+                                        <img class="review_img" src="${contextPath}/resources/uploadfile/recipe/recipeReview/${rv.reviewPhoto}"></img>
+                                    </div>
+                                </c:if>
+                                <div id="review_content">
+                                    ${rv.reviewContent}
                                 </div>
                             </div>
+                        </c:forEach>
+                        <div id=write_review_area>
+
+                            <button class="tbody-td-btn-write" data-toggle="modal" data-target="#buyList-review_Modal">후기 작성</button>
+
                         </div>
-                    </div>
-                    <script>
-                        $('.star_rating > .star').click(function () {
-                            $(this).parent().children('span').removeClass('on');
-                            $(this).addClass('on').prevAll('span').addClass('on');
-                        })
-                    </script>
-
-                    <div id="pagination-area">
-                        <div id="pagination">
-                            <a href="#">&lt;</a>
-                            <a href="#">1</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#">4</a>
-                            <a href="#">5</a>
-                            <a href="#">6</a>
-                            <a href="#">7</a>
-                            <a href="#">8</a>
-                            <a href="#">9</a>
-                            <a href="#">10</a>
-                            <a href="#">&gt;</a>
+                        <div id="pagination-area">
+                            <div id="pagination">
+                                <a href="#">&lt;</a>
+                                <a href="#">1</a>
+                                <a href="#">2</a>
+                                <a href="#">3</a>
+                                <a href="#">4</a>
+                                <a href="#">5</a>
+                                <a href="#">6</a>
+                                <a href="#">7</a>
+                                <a href="#">8</a>
+                                <a href="#">9</a>
+                                <a href="#">10</a>
+                                <a href="#">&gt;</a>
+                            </div>
                         </div>
+                        
+                            
                     </div>
-                </div>
+                 
 
-                <!-- 상품 문의 -->
-                <div id="product_qna_area">
-                    <div id="qna_top">
-                        <div class="description_title">레시피 문의</div>
-                        <button id="btn_qna" class="btn btn-primary"
-                            style="background-color: #1E90FF; width: 123px; height: 53px; font-size: 20px;"
-                            data-toggle="modal" data-target="#qna_Modal">문의하기</button>
-                    </div>
 
-                    <table id="qna_content">
-                        <thead>
-                            <tr>
-                                <td class="qna_title">제목</td>
-                                <td class="qna_writer">작성자</td>
-                                <td class="qna_create_date">작성일</td>
-                                <td class="qna_status">답변상태</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="qna_title" style="text-align: left;">유통기한은 어느정도 인가요?</td>
-                                <td class="qna_writer">작성자ID</td>
-                                <td class="qna_create_date">2024-04-21</td>
-                                <td class="qna_status">답변완료</td>
-                            </tr>
-                            <tr>
-                                <td id="qna_answer" colspan="4" style="text-align: left;">
-                                    <div id="qna_q">
-                                        <span class="span_q_a">Q</span><span>유통기한은 어느정도 인가요?</span>
-                                    </div>
-                                    <div id="qna_a">
-                                        <span class="span_q_a">A</span><span>정해진 소비기한은 없지만 2~3일 내로 섭취하는 것을
-                                            권장드립니다.</span>
-                                    </div>
-                                    <div id="qna_a_date">2024-04-22</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="qna_title" style="text-align: left;">유통기한은 어느정도 인가요?</td>
-                                <td class="qna_writer">작성자ID</td>
-                                <td class="qna_create_date">2024-04-21</td>
-                                <td class="qna_status">답변완료</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <!-- <div id="qna_pagination_area" style="margin-top: 10px;">
+
+
+
+                    <!-- 상품 문의 -->
+                    <div id="product_qna_area">
+                        <div id="qna_top">
+                            <div class="description_title">레시피 문의</div>
+
+                            <button id="btn_qna" class="btn btn-primary"
+                                style="background-color: #1E90FF; width: 123px; height: 53px; font-size: 20px;"
+                                data-toggle="modal" data-target="#qna_Modal">문의하기</button>
+                                
+                        </div>
+
+                        <table id="qna_content">
+                            <thead>
+                                <tr>
+                                    <td class="qna_title">제목</td>
+                                    <td class="qna_writer">작성자</td>
+                                    <td class="qna_create_date">작성일</td>
+                                    <td class="qna_status">답변상태</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <div class="qna-blocks">
+                                    <tr class="qna-area" onclick="showQ(this)">
+                                        <td class="qna_title" style="text-align: left;">유통기한은 어느정도 인가요?</td>
+                                        <td class="qna_writer">작성자ID</td>
+                                        <td class="qna_create_date">2024-04-21</td>
+                                        <td class="qna_status">답변완료</td>
+                                    </tr>
+                                    <tr id ="answer_area">
+                                        <td id="qna_answer" colspan="4" style="text-align: left;">
+                                            <div id="qna_q">
+                                                <span class="span_q_a">Q</span><span>유통기한은 어느정도 인가요?</span>
+                                            </div>
+                                            <div id="qna_a">
+                                                <span class="span_q_a">A</span><span>정해진 소비기한은 없지만 2~3일 내로 섭취하는 것을
+                                                    권장드립니다.</span>
+                                            </div>
+                                            <div id="qna_a_date">2024-04-22</div>
+                                        </td>
+                                    </tr>
+                                </div>
+                                <tr class="qna-area">
+                                    <td class="qna_title" style="text-align: left;">유통기한은 어느정도 인가요?</td>
+                                    <td class="qna_writer">작성자ID</td>
+                                    <td class="qna_create_date">2024-04-21</td>
+                                    <td class="qna_status">답변완료</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- <div id="qna_pagination_area" style="margin-top: 10px;">
                         <div id="qna_pagination">
                             <a href="#">&lt;</a>
                             <a href="#">1</a>
@@ -371,96 +379,97 @@
                             <a href="#">&gt;</a>
                         </div>
                     </div> -->
-                    <!-- 페이징 바 -->
-                    <div id="pagination-area">
-                        <div id="pagination">
-                            <a href="#">&lt;</a>
-                            <a href="#">1</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#">4</a>
-                            <a href="#">5</a>
-                            <a href="#">6</a>
-                            <a href="#">7</a>
-                            <a href="#">8</a>
-                            <a href="#">9</a>
-                            <a href="#">10</a>
-                            <a href="#">&gt;</a>
-                        </div>
-                    </div>
-                </div>
-
-
-                <!-- 연관 상품 영역  -->
-                <div id="relation-product-total-area">
-                    <div id="relation-product-head">
-                        연관 상품
-                    </div>
-                    <div id="relation-product-list">
-                        <div class="relation-product-list-block">
-                            <div class="relation-product-image">
-                                <img src="${contextPath}/resources/dummyImg/recipe/recipeDetail/pig(2).png" alt="">
+                        <!-- 페이징 바 -->
+                        <div id="pagination-area">
+                            <div id="pagination">
+                                <a href="#">&lt;</a>
+                                <a href="#">1</a>
+                                <a href="#">2</a>
+                                <a href="#">3</a>
+                                <a href="#">4</a>
+                                <a href="#">5</a>
+                                <a href="#">6</a>
+                                <a href="#">7</a>
+                                <a href="#">8</a>
+                                <a href="#">9</a>
+                                <a href="#">10</a>
+                                <a href="#">&gt;</a>
                             </div>
-                            <div class="relation-product-brand">성주</div>
-                            <div class="relation-product-title">당도선별 성주 꿀참외 1.5kg(4~7입)</div>
-                            <div class="relation-product-ps-size"><span class="relation-product-sale">20%</span> <span
-                                    class="relation-product-price">16,900</span></div>
-                        </div>
-
-                        <div class="relation-product-list-block">
-                            <div class="relation-product-image">
-                                <img src="${contextPath}/resources/dummyImg/recipe/recipeDetail/pig(2).png" alt="">
-                            </div>
-                            <div class="relation-product-brand">성주</div>
-                            <div class="relation-product-title">당도선별 성주 꿀참외1.5kg(4~7입)</div>
-                            <div class="relation-product-ps-size"><span class="relation-product-sale">20%</span> <span
-                                    class="relation-product-price">16,900</span></div>
-                        </div>
-
-                        <div class="relation-product-list-block">
-                            <div class="relation-product-image">
-                                <img src="${contextPath}/resources/dummyImg/recipe/recipeDetail/pig(2).png" alt="">
-                            </div>
-                            <div class="relation-product-brand">성주</div>
-                            <div class="relation-product-title">당도선별 성주 꿀참외 1.5kg(4~7입)</div>
-                            <div class="relation-product-ps-size"><span class="relation-product-sale">20%</span> <span
-                                    class="relation-product-price">16,900</span></div>
-                        </div>
-
-                        <div class="relation-product-list-block">
-                            <div class="relation-product-image">
-                                <img src="${contextPath}/resources/dummyImg/recipe/recipeDetail/pig(2).png" alt="">
-                            </div>
-                            <div class="relation-product-brand">성주</div>
-                            <div class="relation-product-title">당도선별 성주 꿀참외 1.5kg(4~7입)</div>
-                            <div class="relation-product-ps-size"><span class="relation-product-sale">20%</span> <span
-                                    class="relation-product-price">16,900</span></div>
-                        </div>
-
-                        <div class="relation-product-list-block">
-                            <div class="relation-product-image">
-                                <img src="${contextPath}/resources/dummyImg/recipe/recipeDetail/pig(2).png" alt="">
-                            </div>
-                            <div class="relation-product-brand">성주</div>
-                            <div class="relation-product-title">당도선별 성주 꿀참외 1.5kg(4~7입)</div>
-                            <div class="relation-product-ps-size"><span class="relation-product-sale">20%</span> <span
-                                    class="relation-product-price">16,900</span></div>
                         </div>
                     </div>
 
-                    <div id="goto-list-area">
-                        <button id="goto-list-btn">목록으로</button>
+
+
+
+                    <!-- 연관 상품 영역  -->
+                    <div id="relation-product-total-area">
+                        <div id="relation-product-head">
+                            연관 상품
+                        </div>
+                        <div id="relation-product-list">
+                            <div class="relation-product-list-block">
+                                <div class="relation-product-image">
+                                    <img src="${contextPath}/resources/dummyImg/recipe/recipeDetail/pig(2).png" alt="">
+                                </div>
+                                <div class="relation-product-brand">성주</div>
+                                <div class="relation-product-title">당도선별 성주 꿀참외 1.5kg(4~7입)</div>
+                                <div class="relation-product-ps-size"><span class="relation-product-sale">20%</span>
+                                    <span class="relation-product-price">16,900</span></div>
+                            </div>
+
+                            <div class="relation-product-list-block">
+                                <div class="relation-product-image">
+                                    <img src="${contextPath}/resources/dummyImg/recipe/recipeDetail/pig(2).png" alt="">
+                                </div>
+                                <div class="relation-product-brand">성주</div>
+                                <div class="relation-product-title">당도선별 성주 꿀참외1.5kg(4~7입)</div>
+                                <div class="relation-product-ps-size"><span class="relation-product-sale">20%</span>
+                                    <span class="relation-product-price">16,900</span></div>
+                            </div>
+
+                            <div class="relation-product-list-block">
+                                <div class="relation-product-image">
+                                    <img src="${contextPath}/resources/dummyImg/recipe/recipeDetail/pig(2).png" alt="">
+                                </div>
+                                <div class="relation-product-brand">성주</div>
+                                <div class="relation-product-title">당도선별 성주 꿀참외 1.5kg(4~7입)</div>
+                                <div class="relation-product-ps-size"><span class="relation-product-sale">20%</span>
+                                    <span class="relation-product-price">16,900</span></div>
+                            </div>
+
+                            <div class="relation-product-list-block">
+                                <div class="relation-product-image">
+                                    <img src="${contextPath}/resources/dummyImg/recipe/recipeDetail/pig(2).png" alt="">
+                                </div>
+                                <div class="relation-product-brand">성주</div>
+                                <div class="relation-product-title">당도선별 성주 꿀참외 1.5kg(4~7입)</div>
+                                <div class="relation-product-ps-size"><span class="relation-product-sale">20%</span>
+                                    <span class="relation-product-price">16,900</span></div>
+                            </div>
+
+                            <div class="relation-product-list-block">
+                                <div class="relation-product-image">
+                                    <img src="${contextPath}/resources/dummyImg/recipe/recipeDetail/pig(2).png" alt="">
+                                </div>
+                                <div class="relation-product-brand">성주</div>
+                                <div class="relation-product-title">당도선별 성주 꿀참외 1.5kg(4~7입)</div>
+                                <div class="relation-product-ps-size"><span class="relation-product-sale">20%</span>
+                                    <span class="relation-product-price">16,900</span></div>
+                            </div>
+                        </div>
+
+                        <div id="goto-list-area">
+                            <button id="goto-list-btn">목록으로</button>
+                        </div>
                     </div>
-                </div>
-                </div>
+                  
 
 
                 </div>
-
-                <!-- 문의하기 modal -->
-                <div class="modal fade" id="qna_Modal">
+                 <!-- 문의하기 modal -->
+                 <div class="modal" id="qna_Modal" style="display: none;" aria-hidden="true">
                     <div class="modal-dialog">
-                        <div class="modal-content" style="height: 510px;">
+                        <div class="modal-content">
 
                             <!-- Modal Header -->
                             <div class="modal-header">
@@ -470,25 +479,22 @@
 
                             <!-- Modal body -->
                             <div class="modal-body" style="height: 100%;">
-                                <div id="modal-qna-content">
-                                    <div id="product_name_container">
-                                        <div id="qna_product_name_header">
-                                            상품명
-                                        </div>
-                                        <div id="qna_product_name">
-                                            상품이름
-                                        </div>
-                                    </div>
-
-                                    <div id="product_pic_container">
+                                <form class="modal-qna-content" action="insertQna.re" enctype="multipart/form-data" method="post">
+                                    <input type="hidden" name="writerNo" id="qna-modal-writerNo" value=${loginUser.memberNo}>
+                                    <input type="hidden" name="refProductNo" id="qna-modal-refProductNo">
+                                  
+                                    <div class="product_pic_container">
                                         <div style="font-size: 14px; font-weight: bold;">
                                             사진 첨부(선택)
                                         </div>
                                         <div style="font-size: 12px;">
                                             사진을 첨부해주세요.(최대 1장)
                                         </div>
-                                        <div id="qna_product_pic">
-                                            <div id="pic_svg_container">
+                                        <div class="qna_pic_container">
+
+                                        </div>
+                                        <div class="add_qna_product_pic">
+                                            <div class="pic_svg_container">
                                                 <svg width="21" height="16" viewBox="0 0 21 16" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
                                                     <path
@@ -498,22 +504,24 @@
                                             </div>
                                             <span style="color:#1E90FF; font-size: 14px;">사진 첨부하기</span>
                                         </div>
+                                        <input type="file" name="qnaPhotoUpfile" class="file-input"
+                                                accept="image/*">
                                     </div>
 
-                                    <div id="product_qna_content_container">
+                                    <div class="product_qna_content_container">
                                         <div style="font-size: 14px; font-weight: bold;">
                                             문의내용
                                         </div>
-                                        <div id="product_qna_content_textarea">
-                                            <textarea name="" id="product_qna_content"
+                                        <div class="product_qna_content_textarea">
+                                            <textarea name="qnaContent" class="product_qna_content"
                                                 placeholder="문의 내용을 입력하세요."></textarea>
                                         </div>
                                     </div>
 
-                                    <div id="produt_qna_enroll_btn_container">
-                                        <button id="produt_qna_enroll_btn">완료</button>
+                                    <div class="product_qna_enroll_btn_container">
+                                        <button  class="product_qna_enroll_btn">완료</button>
                                     </div>
-                                </div>
+                                </form>
                             </div>
 
 
@@ -521,9 +529,93 @@
                     </div>
                 </div>
 
+                <!-- 후기작성 modal -->
+                <div class="modal" id="buyList-review_Modal" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 style="font-size: 16px; margin-bottom: 0px;">레시피 후기 작성하기</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body" style="height: 100%;">
+                                <!-- <form class="modal-qna-content" action="insertReview.re" enctype="multipart/form-data" method="post"> -->
+                                    <input type="hidden" name="refMemberNo" value=${loginUser.memberNo}>
+                                    <input type="hidden" name="refRecipeNo" value=${rcp.recipeNo} id="review-modal-refProductNo">
+        
+                                    <div class="modal-review-rating-container">
+                                        <span>별점 평가</span>
+                                        <div class="modal-review-rating-content">
+                                            <!-- data-value 속성 부여 -->
+                                            <svg class="star" data-value="1" width="37" height="35" viewBox="0 0 37 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M18.3225 30.7001L9.32254 34.5001C7.82254 35.2001 6.72254 34.3001 6.82254 32.7001L7.62254 23.0001L1.32254 15.6001C0.322536 14.3001 0.722536 13.0001 2.32254 12.6001L11.8225 10.4001L16.8225 2.1001C17.8225 0.600098 19.1225 0.600098 19.9225 2.1001L24.9225 10.4001L34.5225 12.6001C36.1225 13.0001 36.5225 14.3001 35.5225 15.6001L29.0225 23.0001L29.8225 32.7001C29.9225 34.3001 28.8225 35.2001 27.3225 34.5001L18.3225 30.7001Z" fill="#DBDBDB"/>
+                                            </svg>
+                                            <svg class="star" data-value="2" width="37" height="35" viewBox="0 0 37 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M18.3225 30.7001L9.32254 34.5001C7.82254 35.2001 6.72254 34.3001 6.82254 32.7001L7.62254 23.0001L1.32254 15.6001C0.322536 14.3001 0.722536 13.0001 2.32254 12.6001L11.8225 10.4001L16.8225 2.1001C17.8225 0.600098 19.1225 0.600098 19.9225 2.1001L24.9225 10.4001L34.5225 12.6001C36.1225 13.0001 36.5225 14.3001 35.5225 15.6001L29.0225 23.0001L29.8225 32.7001C29.9225 34.3001 28.8225 35.2001 27.3225 34.5001L18.3225 30.7001Z" fill="#DBDBDB"/>
+                                            </svg>
+                                            <svg class="star" data-value="3" width="37" height="35" viewBox="0 0 37 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M18.3225 30.7001L9.32254 34.5001C7.82254 35.2001 6.72254 34.3001 6.82254 32.7001L7.62254 23.0001L1.32254 15.6001C0.322536 14.3001 0.722536 13.0001 2.32254 12.6001L11.8225 10.4001L16.8225 2.1001C17.8225 0.600098 19.1225 0.600098 19.9225 2.1001L24.9225 10.4001L34.5225 12.6001C36.1225 13.0001 36.5225 14.3001 35.5225 15.6001L29.0225 23.0001L29.8225 32.7001C29.9225 34.3001 28.8225 35.2001 27.3225 34.5001L18.3225 30.7001Z" fill="#DBDBDB"/>
+                                            </svg>
+                                            <svg class="star" data-value="4" width="37" height="35" viewBox="0 0 37 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M18.3225 30.7001L9.32254 34.5001C7.82254 35.2001 6.72254 34.3001 6.82254 32.7001L7.62254 23.0001L1.32254 15.6001C0.322536 14.3001 0.722536 13.0001 2.32254 12.6001L11.8225 10.4001L16.8225 2.1001C17.8225 0.600098 19.1225 0.600098 19.9225 2.1001L24.9225 10.4001L34.5225 12.6001C36.1225 13.0001 36.5225 14.3001 35.5225 15.6001L29.0225 23.0001L29.8225 32.7001C29.9225 34.3001 28.8225 35.2001 27.3225 34.5001L18.3225 30.7001Z" fill="#DBDBDB"/>
+                                            </svg>
+                                            <svg class="star" data-value="5" width="37" height="35" viewBox="0 0 37 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M18.3225 30.7001L9.32254 34.5001C7.82254 35.2001 6.72254 34.3001 6.82254 32.7001L7.62254 23.0001L1.32254 15.6001C0.322536 14.3001 0.722536 13.0001 2.32254 12.6001L11.8225 10.4001L16.8225 2.1001C17.8225 0.600098 19.1225 0.600098 19.9225 2.1001L24.9225 10.4001L34.5225 12.6001C36.1225 13.0001 36.5225 14.3001 35.5225 15.6001L29.0225 23.0001L29.8225 32.7001C29.9225 34.3001 28.8225 35.2001 27.3225 34.5001L18.3225 30.7001Z" fill="#DBDBDB"/>
+                                            </svg>
+                                        </div>
+                                        <input type="hidden" name="rating" id="rating" value="0">
+                                    </div>
+                                    <!-- recipe_pic_container -->
+                                    <div class="product_pic_container"> 
+                                        <div style="font-size: 14px; font-weight: bold;">
+                                            사진 첨부(선택)
+                                        </div>
+                                        <div style="font-size: 12px;">
+                                            사진을 첨부해주세요.(최대 1장)
+                                        </div>
+                                        <div class="qna_pic_container">
+
+                                        </div>
+                                        <!--add_qna_recipe_pic  -->
+                                        <div class="add_qna_product_pic">
+                                            <div class="pic_svg_container">
+                                                <svg width="21" height="16" viewBox="0 0 21 16" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M19.6059 0C20.1059 0 20.5059 0.4 20.5059 0.9V15.1C20.5059 15.6 20.1059 16 19.6059 16H1.40586C1.16716 16 0.938246 15.9052 0.769463 15.7364C0.600681 15.5676 0.505859 15.3387 0.505859 15.1V0.9C0.505859 0.4 0.905859 0 1.40586 0H19.6059ZM18.6959 1.8H2.30586V12.65L7.84586 6.38C7.96586 6.21 8.22586 6.21 8.36586 6.38L11.4659 9.92C11.5259 9.98 11.5459 10.06 11.5259 10.12L11.1259 11.96C11.1059 12.1 11.2759 12.19 11.3559 12.08L14.5159 8.65C14.5664 8.59992 14.6347 8.57183 14.7059 8.57183C14.777 8.57183 14.8453 8.59992 14.8959 8.65L18.6859 12.77V1.8H18.6959ZM15.3259 6.6C14.9394 6.60004 14.5685 6.44791 14.2934 6.17654C14.0183 5.90517 13.8611 5.53639 13.8559 5.15C13.8559 4.34 14.5159 3.69 15.3259 3.69C16.1359 3.69 16.8059 4.34 16.8059 5.15C16.8059 5.95 16.1459 6.6 15.3259 6.6Z"
+                                                        fill="#1E90FF" />
+                                                </svg>
+                                            </div>
+                                            <span style="color:#1E90FF; font-size: 14px;">사진 첨부하기</span>
+                                        </div>
+                                        <input type="file" name="reviewPhotoUpfile" class="file-input"
+                                        accept="image/*">
+                                    </div>
+
+                                    <div class="product_qna_content_container">
+                                        <div style="font-size: 14px; font-weight: bold;">
+                                            후기 내용
+                                        </div>
+                                        <div class="product_qna_content_textarea">
+                                            <textarea name="reviewContent" class="product_qna_content"
+                                                placeholder="후기 내용을 입력하세요."></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="product_qna_enroll_btn_container">
+                                        <button type="submit" class="product_qna_enroll_btn" onclick="insertReviewRecipe();" >완료</button>
+                                    </div>
+                                </form>
+                            </div>
 
 
+                        </div>
+                    </div>
                 </div>
+              
                 <jsp:include page="../common/footer.jsp" />
             </body>
 

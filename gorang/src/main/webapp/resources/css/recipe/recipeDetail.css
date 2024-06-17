@@ -419,7 +419,7 @@ tbody tr>td {
 }
 
 #review_writer_area {
-    display: flex;
+    /* display: flex; */
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
@@ -461,14 +461,15 @@ tbody tr>td {
 }
 
 .review_img {
-    width: 200px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
 }
 
 #review_content {
     font-size: 16px;
     width: 500px;
     font-weight: 500;
+    margin-bottom: 50px;
 }
 
 #review_pagination_area,
@@ -857,45 +858,127 @@ tbody tr>td {
   }
   
 /* 댓글 모달영역 */
- .write_review_area{
+ #write_review_area{
     width: 100%;
     height: 100px;
     display: flex;
     align-items: center;
-    justify-self: center;
-    border: 1px solid;
+    justify-content: center;
  }
 
- .modal {
-    display: none; /* 모달창 초기에는 숨김 */
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
+
+
+
+ .tbody-td-btn-write {
+    width: 100px;
+    height: 50px;
+    border-radius: 5px;
+    background-color: gray;
+    color: white;
+}
+.tbody-td-btn-write:hover{
+    opacity: 0.8;
+}
+  /* --------------------문의하기 모달 관련 css--------------------- */
+   /* 문의하기 모달 관련 css */
+   .modal-qna-content {
     width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.5); /* 배경 어둡게 */
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
   
-  .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
+  .product_name_container, 
+  .product_pic_container, 
+  .product_qna_content_container {
+    width: 100%;
+    height: fit-content;
   }
   
-  .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
+  .product_name_container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .qna_product_name_header{
+    font-size: 15px;
     font-weight: bold;
   }
   
-  .close:hover,
-  .close:focus {
-    color: black;
-    text-decoration: none;
+  .qna_pdopt_name {
+    border: 1px solid #dbdbdb;
+    color: #424242;
+    padding: 8px 16px;
+    border-radius: 4px;
+  }
+  
+  .add_qna_product_pic{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid #1E90FF;
+    padding: 10px;
+    border-radius: 4px;
+  }
+  
+  .add_qna_product_pic:hover {
+    cursor: pointer;
+  }
+  
+  .product_qna_content_container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 10px;
+  }
+  
+  .product_qna_content {
+    padding: 16px;
+    width: 100%;
+    height: 100%;
+    height: 110px;
+    resize: none;
+    border: 1px solid #dbdbdb;
+    border-radius: 4px;
+  }
+  
+  .product_qna_enroll_btn_container {
+    width: 100%;
+  }
+  
+  .product_qna_enroll_btn {
+    width: 100%;
+    height: 50px;
+    background-color: #1E90FF;
+    color: white;
+    border-radius: 4px;
+  }
+
+  .file-input {
+    display: none;
+  }
+  
+  .qna_pic_container {
+    width: 100px;
+    height: 100px;
+    display: none;
+  }
+  
+  .qna-img {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+
+  #answer_area{
+    display:none;
+  }
+
+  .qna-area:hover{
     cursor: pointer;
   }
