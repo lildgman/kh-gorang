@@ -176,14 +176,6 @@
   padding: 0 10px;
 }
 
-.product-opt-select-name{
-
-}
-
-.product-opt-select-price{
-
-}
-
 #product_quantity_area {
   width: 100%;
 }
@@ -354,6 +346,19 @@
   font-size: 18px;
 }
 
+/* 페이지네이션 */
+.pagination{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  }
+  
+  .pagination > a {
+  font-size: 14px;
+  color : #6D6D6D;
+  }
+
 /* review */
 
 #product_review_area{
@@ -449,13 +454,13 @@
   display: flex;
   flex-direction: column;
   margin-top: 45px;
+  gap: 30px;
 }
 
 #qna_top{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 10px;
 }
 
 #qna_content{

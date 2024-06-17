@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.common.model.vo.PageInfo;
@@ -26,13 +27,13 @@ import com.kh.gorang.member.model.vo.ProductQnaDTO;
 import com.kh.gorang.member.model.vo.RecipeQnaDTO;
 import com.kh.gorang.member.model.vo.RefrigeratorInsertDTO;
 import com.kh.gorang.member.model.vo.Review;
+import com.kh.gorang.recipe.model.dto.RecipeListDto;
 import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.shopping.model.vo.Product;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class MyPageServiceImpl implements MyPageService{
@@ -199,7 +200,6 @@ public class MyPageServiceImpl implements MyPageService{
 			result.add(boardInfo);
 		}
 		
-		log.info("result={}",result);
 		return result;
 	}
 
@@ -376,8 +376,53 @@ public class MyPageServiceImpl implements MyPageService{
 		return myPageDao.selectRefriCount(sqlSession, memberNo);
 	}
 	
+	// 냉장고 식재료로 레시피 조회
+	@Transactional(readOnly = true)
+	@Override
+	public List<RecipeListDto> selectRecipeListByRefri(String[] ingresArray) {
+				
+		return myPageDao.selectRecipeListByRefri(sqlSession, ingresArray);
+	}
+	
+	// 냉장고 식재료 삭제
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public int deleteRefrigerator(int memberNo, String refriNums) {
+		// 정규식 사용해서 대괄호 제거 후 쉼표 기준으로 숫자 분리하기
+		String[] refriNumsArray = refriNums.replaceAll("\\[|\\]", "").split(",");	
+		
+		ArrayList<RefrigeratorInsertDTO> refriListforDelete = new ArrayList<>();
+		
+		for(String refriNum : refriNumsArray) {
+			RefrigeratorInsertDTO refri = new RefrigeratorInsertDTO();
+			refri.setRefNo(Integer.parseInt(refriNum));
+			refri.setRefMemberNo(memberNo);
+			refriListforDelete.add(refri);
+		}
+		
+		System.out.println(refriListforDelete);
+		
+		return myPageDao.deleteRefrigerator(sqlSession, refriListforDelete);
+	}
 
+	@Override
+	public ArrayList<RecipeListDto> selectRecipeListByRecipeNo(String recipeNums) {
+		
+		// 숫자 하나만 들어오는 경우 처리
+		 String[] recipeNoStrArray;
+		    if (recipeNums.matches("^\\d+$")) { // 숫자 하나만 들어오는 경우
+		        recipeNoStrArray = new String[] { recipeNums };
+		    } else {
+		        recipeNoStrArray = recipeNums.replaceAll("\\[|\\]", "").split(",");
+		    }
+
+	    Integer[] recipeNoArray = new Integer[recipeNoStrArray.length];
+	    for (int i = 0; i < recipeNoStrArray.length; i++) {
+	        recipeNoArray[i] = Integer.parseInt(recipeNoStrArray[i].trim());
+	    }
+		
+		return myPageDao.selectRecipeListByRecipeNo(sqlSession, recipeNoArray);
+	}
 	
 
-	
 }

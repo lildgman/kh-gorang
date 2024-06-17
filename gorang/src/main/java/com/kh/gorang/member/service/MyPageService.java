@@ -21,6 +21,7 @@ import com.kh.gorang.member.model.vo.QnA;
 import com.kh.gorang.member.model.vo.RecipeQnaDTO;
 import com.kh.gorang.member.model.vo.RefrigeratorInsertDTO;
 import com.kh.gorang.member.model.vo.Review;
+import com.kh.gorang.recipe.model.dto.RecipeListDto;
 import com.kh.gorang.recipe.model.vo.Recipe;
 
 public interface MyPageService {
@@ -140,6 +141,15 @@ public interface MyPageService {
 	
 	// 냉장고 식재료 갯수 조회
 	int selectRefriCount(int userNo);
+	
+	// 냉장고 식재료를 바탕으로 레시피 조회
+	List<RecipeListDto> selectRecipeListByRefri(String[] ingresArray);
+	
+	// 냉장고 식재료 삭제
+	int deleteRefrigerator(int memberNo, String refriNums);
+	
+	// 레시피 리스트 조회
+	ArrayList<RecipeListDto> selectRecipeListByRecipeNo(String recipeNums);
 
 
 	

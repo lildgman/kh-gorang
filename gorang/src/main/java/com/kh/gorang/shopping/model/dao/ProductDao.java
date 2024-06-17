@@ -65,19 +65,24 @@ public class ProductDao {
 	}
 
 
-	public ArrayList<QnA> selectProductQnAsByPno(SqlSessionTemplate sqlSession, int productNo) {
-		return (ArrayList)sqlSession.selectList("productMapper.selectProductQnAsByPno", productNo);
-	}
-
-
-
-	public int selectAllProductQuanity(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("productMapper.selectAllProductQuantity");
-		
+	public ArrayList<QnA> selectProductQnAsByPno(SqlSessionTemplate sqlSession, int productNo, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("productMapper.selectProductQnAsByPno", productNo, rowBounds);
 	}
 
 	public ArrayList<ProductDetailOption> selectProductOptsByPno(SqlSessionTemplate sqlSession, int productNo) {
-		return (ArrayList)sqlSession.selectList("productMapper.selectProductOptsByPno", productNo);
+        return (ArrayList)sqlSession.selectList("productMapper.selectProductOptsByPno", productNo);	
+    }
+
+	public int selectAllProductQuanity(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("productMapper.selectAllProductQuantity");
+	}
+
+	public ArrayList<Review> selectProductReviewsByPno(SqlSessionTemplate sqlSession, int productNo, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("productMapper.selectProductReviewsByPno", productNo, rowBounds);
 	}
 
 
@@ -88,4 +93,14 @@ public class ProductDao {
 	public int insertProductReview(SqlSessionTemplate sqlSession, Review re) {
 		return sqlSession.insert("productMapper.insertProductReview", re);
 	}
+	// 리뷰 갯수 조회
+	public int selectReviewCount(SqlSessionTemplate sqlSession, int productNo) {
+		return sqlSession.selectOne("productMapper.selectReviewCount", productNo);
+	}
+
+	public int selectQnasCount(SqlSessionTemplate sqlSession, int productNo) {
+		return sqlSession.selectOne("productMapper.selectQnasCount", productNo);
+	}
+
+
 }

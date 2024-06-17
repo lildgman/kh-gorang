@@ -205,13 +205,25 @@
 		<result column="BOARD_THUMBNAIL" property="boardThumbnail"/>
 	</resultMap>
 	
+	<!-- 냉장고 식재료  -->
 	<resultMap type="RefrigeratorInsertDTO" id="RefrigeratorInsertDTOResult">
+		<result column="ref_no" property="refNo" />
 		<result column="member_no" property="refMemberNo" />
 		<result column="ref_name" property="refName" />
 		<result column="ref_thumbnail" property="refThumbnail" />
 		<result column="ref_consumption_date" property="refConsumptionDate" />
 		<result column="ref_input_date" property="refInputDate" />
 		<result column="ref_count" property="refCount" />
+	</resultMap>
+	
+	<!-- 레시피 리스트 DTO -->
+	<resultMap type="RecipeListDto" id="recipeListDtoResult">
+		<result column="RCP_NO" property="recipeNo"/>
+		<result column="RCP_TITLE" property="recipeTitle"/>
+		<result column="RCP_MAIN_PHOTO" property="recipeImg"/>
+		<result column="MEMBER_NICKNAME" property="recipeWriterNickname"/>
+		<result column="MEMBER_PROFILE" property="recipeWriterProfileImg"/>
+		<result column="SCRAP_COUNT" property="scrapCount"/>
 	</resultMap>
 
 <!-- ===================================== 쿼리문 =============================== -->
@@ -744,6 +756,8 @@
 		ORDER BY Q.QNA_CREATE_DATE DESC
 	</select>
 	
+	<!-- ================ 나의 냉장고 관련 매퍼 =========================== -->
+	
 	<insert id="insertRefrigerator">
 		insert into refrigerator
 			(
@@ -765,6 +779,7 @@
 	
 	<select id="selectListRefrigeratorsByMemberNo" resultMap="RefrigeratorInsertDTOResult">
 		select
+			ref_no,
 			ref_name,
 			ref_thumbnail,
 			ref_consumption_date,
@@ -781,6 +796,45 @@
 		select count(ref_no)
 		from refrigerator
 		where member_no = #{memberNo}
+	</select>
+	
+	<select id="selectRecipeListByRefri" resultMap="recipeListDtoResult">
+		select 
+			r.RCP_NO,
+			r.RCP_TITLE,
+			r.RCP_MAIN_PHOTO
+		from recipe r
+		join division d using (rcp_no) 
+		join ingredients_info i using (div_no) 
+		where r.status = 'Y'
+		and i.ingre_name in
+		<foreach collection="array" item="ingredi" open="(" close=")" separator=", ">
+			#{ingredi}			
+		</foreach>
+		LIMIT 10
+	</select>
+	
+	<delete id="deleteRefrigerator">
+		delete
+		from refrigerator
+		where ref_no in 
+		<foreach collection="list" item="ingre" open="(" close=")" separator=", ">
+			#{ingre.refNo}			
+		</foreach>
+	</delete>
+	
+	<select id="selectRecipeListByRecipeNo" resultMap="recipeListDtoResult">
+		select 
+			RCP_NO,
+			RCP_TITLE,
+			RCP_MAIN_PHOTO
+		from recipe
+		where status = 'Y'
+		and RCP_NO in
+		<foreach collection="array" item="recipeNo" open="(" close=")" separator=", ">
+			#{recipeNo}			
+		</foreach>
+		LIMIT 10
 	</select>
 	
 </mapper>
