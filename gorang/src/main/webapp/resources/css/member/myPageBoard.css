@@ -168,3 +168,8 @@
     cursor: pointer;
     color:#F20606;
   }
+
+
+#update-btn:hover {
+    cursor: pointer;
+}

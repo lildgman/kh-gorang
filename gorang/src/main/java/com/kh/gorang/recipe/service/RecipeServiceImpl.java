@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.gorang.common.model.vo.Media;
 import com.kh.gorang.common.template.SaveFileController;
+import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.recipe.model.dao.RecipeDao;
 import com.kh.gorang.recipe.model.vo.CookOrder;
 import com.kh.gorang.recipe.model.vo.CookTip;
@@ -193,50 +194,45 @@ public class RecipeServiceImpl implements RecipeService{
 		return recipeDao.deleteCompletePhoto(sqlSession,media);
 	}
 
-	//레시피 글 전체 삭제
+	// 레시피 글 전체 삭제
 	@Override
 	public int deleteAllRecipe(Recipe rcp, HttpSession session) {
 		int finalResult = 1; // 최종 반환 값 초기화
-		int rcpNo=rcp.getRecipeNo();
+		int rcpNo = rcp.getRecipeNo();
 		RecipeInsertDTO recipeInsertDTO = new RecipeInsertDTO();
-		recipeInsertDTO.setRcpDivList(recipeDao.selectDivList(sqlSession,rcpNo));
-		for(Division division : recipeInsertDTO.getRcpDivList()) {
+		recipeInsertDTO.setRcpDivList(recipeDao.selectDivList(sqlSession, rcpNo));
+		for (Division division : recipeInsertDTO.getRcpDivList()) {
 			division.setIngredientsInfoList(recipeDao.selectIngredientsInfoList(sqlSession, division.getDivNo()));
 		}
-	
-		for(Division division : recipeInsertDTO.getRcpDivList()) {
-			for(IngredientsInfo ingre : division.getIngredientsInfoList()) {
-				finalResult *=recipeDao.deleteIngre(sqlSession, ingre);
-				System.out.println("finalResult deleteIngre :" + finalResult);
+		for (Division division : recipeInsertDTO.getRcpDivList()) {
+			for (IngredientsInfo ingre : division.getIngredientsInfoList()) {
+				finalResult *= recipeDao.deleteIngre(sqlSession, ingre);
 			}
 			finalResult *= recipeDao.deleteDivision(sqlSession, division);
-			System.out.println("finalResult deleteDivision :" + finalResult);
 		}
-		
-		recipeInsertDTO.setCookOrderList(recipeDao.selectCookOrderList(sqlSession, rcpNo));	
-		for(CookOrder cookOrder : recipeInsertDTO.getCookOrderList()) {
+		recipeInsertDTO.setCookOrderList(recipeDao.selectCookOrderList(sqlSession, rcpNo));
+		for (CookOrder cookOrder : recipeInsertDTO.getCookOrderList()) {
 			cookOrder.setCookTipList(recipeDao.selectCookTipList(sqlSession, cookOrder.getCookOrdNo()));
-			System.out.println("finalResult selectCookTipList :" + finalResult);
 		}
-		
-		for(CookOrder cookOrder : recipeInsertDTO.getCookOrderList()) {
-			System.out.println(cookOrder);
-			for(CookTip cookTip : cookOrder.getCookTipList()) {
-				System.out.println(cookTip);
-				finalResult *=recipeDao.deleteCookTip(sqlSession, cookTip);
-				System.out.println("finalResult deleteCookTip :" + finalResult);
+		for (CookOrder cookOrder : recipeInsertDTO.getCookOrderList()) {
+			for (CookTip cookTip : cookOrder.getCookTipList()) {
+				finalResult *= recipeDao.deleteCookTip(sqlSession, cookTip);
 			}
-			finalResult *=recipeDao.deleteCookOrder(sqlSession, cookOrder);
-			System.out.println("finalResult deleteCookOrder :" + finalResult);
-		}
+			finalResult *= recipeDao.deleteCookOrder(sqlSession, cookOrder);
+		}		
 		recipeInsertDTO.setCompleteFoodPhoto(recipeDao.selectCompleteFoodPhoto(sqlSession, rcpNo));
-		for(Media media :recipeInsertDTO.getCompleteFoodPhoto()) {
-			finalResult *=recipeDao.deleteCompletePhoto(sqlSession,media);
-			System.out.println("finalResult deleteCompletePhoto :" + finalResult);
+		for (Media media : recipeInsertDTO.getCompleteFoodPhoto()) {
+			finalResult *= recipeDao.deleteCompletePhoto(sqlSession, media);
 		}
-		finalResult *=recipeDao.deleteRecipe(sqlSession, rcpNo);
-		System.out.println("finalResult deleteRecipe :" + finalResult);
+		finalResult *= recipeDao.deleteRecipe(sqlSession, rcpNo);
+
 		return finalResult;
+	}
+
+	
+	@Override
+	public Member selectRecipeMember(int recipeNo) {
+		return recipeDao.selectRecipeMember(sqlSession,recipeNo);
 	}
 
 

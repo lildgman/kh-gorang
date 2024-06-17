@@ -40,8 +40,9 @@ function updateRecipeBoard(element){
 
 
 function movePage(element) {
-    const contentNo = element.getAttribute('data-no');
-    window.location.href = "detail.re?recipeNo=" + contentNo;
+    const contentNo = element.closest('.myPage-board-list-block');
+    const recipeNo = parseInt(contentNo.querySelector('.myPage-board-img').getAttribute('data-no'));
+    window.location.href = `detailForm.re?recipeNo=${recipeNo}`;
 }
 
 function sortRecipe(element) {

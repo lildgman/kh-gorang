@@ -41,7 +41,7 @@
                     <c:otherwise>
                         <c:forEach var="boardDTO" items="${boardList }">
                             <div class="myPage-board-list-block">
-                                <div class="myPage-board-img" data-no="${boardDTO.board.boardNo}" onclick="movePage(this)">
+                                <div class="myPage-board-img" data-no="${boardDTO.board.boardNo}" onclick="moveDetailPage(this)">
                                     <img src="${contextPath}/resources/uploadfile/board/boardMainContentFile/${boardDTO.board.boardThumbnail}"
                                         alt="사진">
                                 </div>
@@ -54,8 +54,8 @@
                                                 alt="">추천 ${boardDTO.likeCount }
                                         </div>
                                         <div class="myPage-board-edit">
-                                            ${boardDTO.board.boardCreateDate } 수정 /<span id="deleteBtn"
-                                                onclick="deleteRecipeBoard(this)">삭제</span>
+                                            ${boardDTO.board.boardCreateDate } <span id="update-btn" data-no="${boardDTO.board.boardNo}" onclick="updateBoard(this)">수정</span> /<span id="deleteBtn"
+                                                onclick="deleteBoard(this)">삭제</span>
                                         </div>
                                     </div>
                                 </div>

@@ -1,25 +1,35 @@
 package com.kh.gorang.board.controller;
 
+import static com.kh.gorang.common.template.SaveFileController.saveFile;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
 import com.kh.gorang.board.model.dto.BoardListDTO;
+import com.kh.gorang.board.model.dto.CommentListDTO;
+import com.kh.gorang.board.model.dto.InsertCommentDTO;
 import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.board.model.vo.Comment;
+import com.kh.gorang.board.model.vo.Report;
 import com.kh.gorang.board.service.BoardService;
 import com.kh.gorang.common.model.vo.PageInfo;
 import com.kh.gorang.common.template.Pagination;
+import com.kh.gorang.member.model.vo.Member;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,41 +60,12 @@ public class BoardController {
 		
 		ArrayList<BoardListDTO> boardList = boardService.getBoardList(pi, map);
 		
-		log.info("boardList={}",boardList);
 		
 		model.addAttribute("category", category);
 		model.addAttribute("sort", sort);
 		model.addAttribute("content", content);
 		model.addAttribute("pi", pi);
 		model.addAttribute("boardList", boardList);
-		
-		
-//        int boardNo = boardService.selectListCount();
-//        PageInfo pi = Pagination.getPageInfo(boardNo, currentPage, 16, 16);
-//
-//        ArrayList<Board> list = new ArrayList<>();
-//        if (sort.equals("latest")) {
-//            list = boardService.selectListByLatest(pi);
-//        } else if (sort.equals("viewCount")) {
-//            list = boardService.selectListByViewCount(pi);
-//        } else if (sort.equals("dailyTag")) {
-//            list = boardService.selectListByTag(pi, "#일상");
-//        } else if (sort.equals("questionTag")) {
-//            list = boardService.selectListByTag(pi, "#질문");
-//        } else if (sort.equals("knowHowTag")) {
-//            list = boardService.selectListByTag(pi, "#노하우");
-//        } else if (sort.equals("tipTag")) {
-//            list = boardService.selectListByTag(pi, "#꿀팁");
-//        } else if (sort.equals("methodTag")) {
-//            list = boardService.selectListByTag(pi, "#보관법");
-//        }
-//        for (Board board : list) {
-//            String memberNickname = boardService.getMemberNickname(board.getMemberNo());
-//            board.setMemberNickname(memberNickname);
-//        }
-//        model.addAttribute("list", list);
-//        model.addAttribute("pi", pi);
-//        model.addAttribute("sort", sort);
 
         return "board/boardMain";
     }
@@ -97,7 +78,7 @@ public class BoardController {
 	
 	//게시글 상세
 	@RequestMapping("detail.bo")
-	public String selectBoard(@RequestParam("boardNo") Integer boardNo, Model model) {
+	public String selectBoard(@RequestParam("boardNo") Integer boardNo,HttpSession session ,Model model) {
 	    if (boardNo == null) {
 	        model.addAttribute("errorMsg", "게시글 번호가 유효하지 않습니다.");
 	        return "board/boardMain";
@@ -105,10 +86,26 @@ public class BoardController {
 
 	    Board board = boardService.selectBoard(boardNo);
 	    
+	    if(session.getAttribute("loginUser") != null) {
+	    	int memberNo = ((Member)session.getAttribute("loginUser")).getMemberNo();
+		    Map<String, Object> map = new HashMap<String, Object>();
+			map.put("memberNo", memberNo);
+			map.put("boardNo", boardNo);
+		   
+		    int isLikedBoard = boardService.isLikedBoard(map);
+		    model.addAttribute("isLikedBoard", isLikedBoard);
+	    } else {
+	    	model.addAttribute("isLikedBoard", 0);
+	    }
+	    
+	    
+	    
+	    ArrayList<CommentListDTO> commentList = boardService.getCommentList(boardNo);
+	    	    
+
+	    model.addAttribute("commentList", commentList);
 	    if (board != null) {
 	    	boardService.increaseViewCount(boardNo);
-	    	String memberNickname = boardService.getMemberNickname(board.getMemberNo());
-            board.setMemberNickname(memberNickname);
 	        model.addAttribute("board", board);
 	        return "board/boardDetail";
 	    } else {
@@ -122,39 +119,178 @@ public class BoardController {
 	public String insertBoard(
 			@ModelAttribute Board board, 
 			HttpSession session, 
-			Model model, 
+			Model model,
 			@RequestParam(value="upfile", required= false) MultipartFile upfile) {
 		
-		log.info("file={}",upfile);
-//		if(!file.getOriginalFilename().equals("")) {
-//			String changeFileName = saveFile(file, session, "/board/boardMainContentFile/");
-//			board.setBoardThumbnail(changeFileName);
-//		}
+		log.info("upfile={}", upfile.getOriginalFilename());
+		
+		
+		if(!upfile.getOriginalFilename().equals("")) {
+			String changeFileName = saveFile(upfile, session, "/board/boardMainContentFile/");
+			board.setBoardThumbnail(changeFileName);
+		}
 //		
-//		log.info("file={}",file);
-//		log.info("board={}", board);
-//		int result = boardService.insertBoard(board);
-//		if(result>0) {
-//			return "redirect:/main.bo";
-//		}
-//		else {
-//			model.addAttribute("errorMsg", "게시글 작성 실패");
-//			return "board/write.bo";
-//		}
-		return "redirect:/main.bo";
+		int result = boardService.insertBoard(board);
+		if(result>0) {
+			session.setAttribute("alertMsg", "게시글을 작성하셨습니다.");
+			return "redirect:/main.bo";
+		}
+		else {
+			model.addAttribute("errorMsg", "게시글 작성 실패");
+			return "board/write.bo";
+		}
+
 	}
 	//댓글 쓰기
 	@PostMapping("insert.co")
 	public String insertComment(
 			Comment comment,
 			Model model){
+		
+		
 	    int result = boardService.insertComment(comment);
 	    if (result > 0) {
 	        return "redirect:/detail.bo?boardNo=" + comment.getBoardNo();
 	    } else {
 	        model.addAttribute("errorMsg", "댓글 작성 실패");
-	        return "board/boardDetail";
+	        return "redirect:/detail.bo?boardNo=" + comment.getBoardNo();
 	    }
+	    
+//	    return "redirect:/detail.bo?boardNo=" + comment.getBoardNo();
+	}
+	
+	@PostMapping("content.bo")
+	@ResponseBody
+	public String uploadDetailDesc(List<MultipartFile> fileList, HttpSession session) {
+		
+		List<String> changeNameList = new ArrayList<String>();
+		for(MultipartFile mf : fileList) {
+			String changeName = saveFile(mf,session,"/board/boardMainContentFile/");
+			changeNameList.add("/board/boardMainContentFile/"+changeName);
+		}
+		return new Gson().toJson(changeNameList);
+	}
+	
+	@PostMapping("insert.re")
+	@ResponseBody
+	public String insertReReply(
+			HttpSession session,
+			InsertCommentDTO insertCommentDTO) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		insertCommentDTO.setMemberNo(loginUser.getMemberNo());		
+		
+		int result = boardService.insertReReply(insertCommentDTO);
+		
+		
+		if(result > 0) {
+			return "done";
+		} else {
+			return "undone";
+		}
+		
+	}
+	
+	@GetMapping("update-form.bo") 
+	public String updateBoardForm(
+			int boardNo,
+			Model model) {
+		
+		Board board = boardService.selectBoard(boardNo);
+		
+		model.addAttribute("board", board);
+			
+		return "board/boardUpdateForm";
+	}
+	
+	@PostMapping("update.bo")
+	public String updateBoard(
+			HttpSession session,
+			@ModelAttribute Board board,
+			@RequestParam(value="upfile", required= false) MultipartFile upfile) {
+		
+		
+		if(!upfile.getOriginalFilename().equals("")) {
+			String changeFileName = saveFile(upfile, session, "/board/boardMainContentFile/");
+			board.setBoardThumbnail(changeFileName);
+		} else {
+			String exBoardThumbnail = boardService.getExBoardThumbnail(board.getBoardNo());
+			board.setBoardThumbnail(exBoardThumbnail);
+		}
+		
+		
+		int result = boardService.updateBoard(board);
+		
+		if(result > 0) {
+			
+			session.setAttribute("msg","게시글을 수정하였습니다");
+			return "redirect:/detail.bo?boardNo="+ board.getBoardNo();
+		} else {
+			session.setAttribute("msg", "게시글 수정을 실패하였습니다.");
+			return "redirect:/detail.bo?boardNo="+ board.getBoardNo();
+		}
+		
+		
+	}
+	
+	@PostMapping("delete.bo")
+	@ResponseBody
+	public String deleteBoard(
+			@RequestParam int boardNo) {
+		
+		int result = boardService.deleteBoard(boardNo);
+		
+		return result > 0 ? "done" : "undone";
+	}
+	
+	@PostMapping("delete.co")
+	@ResponseBody
+	public String deleteComment(
+			@RequestParam int commentNo) {
+		
+		int result = boardService.deleteComment(commentNo);
+		
+		return result > 0 ? "done" : "undone";
+	}
+	
+	
+	@PostMapping("like.bo")
+	@ResponseBody
+	public String likeBoard(
+			HttpSession session,
+			@RequestParam int boardNo) {
+		
+		int memberNo = ((Member)session.getAttribute("loginUser")).getMemberNo();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("boardNo", boardNo);
+		
+		
+		int result = boardService.insertLikeBoard(map);
+		
+		if(result == 1) {
+			return "cancle_like";
+		} else if (result == 2) {
+			return "do_like";
+		} else {
+			return "ok";
+		}
+		
+	}
+	
+	@PostMapping("report.bo")
+	@ResponseBody
+	public String reportBoard(
+			HttpSession session,
+			@ModelAttribute Report report){
+		
+		int memberNo = ((Member)session.getAttribute("loginUser")).getMemberNo();
+		report.setMemberNo(memberNo);
+		
+		int result = boardService.insertReport(report);
+		
+		return result > 0 ? "done" : "undone";
 	}
 	
 	

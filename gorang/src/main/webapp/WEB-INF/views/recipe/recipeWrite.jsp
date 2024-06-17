@@ -186,10 +186,10 @@
                             <div class="cooking-order-block-bottom-tips">
                                 <div class="cooking-order-block-bottom-tip" id="cookTip-0">
                                     <input name ="cookOrderList[0].cookTipList[0].cookTipContent" type="text" placeholder="팁 예) 볶는 시간은 최소로 합니다">
-                                    <button type="button" class="add-tip">
-                                        <img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/plus (2).png" alt="" onclick="addTip(this,0,0)"></button>
-                                    <button type="button" class="delte-tip">
-                                        <img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt=""  onclick="deleteTip(this,0,0)"></button>
+                                    <button type="button" class="add-tip"  onclick="addTip(this,0,0)">
+                                        <img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/plus (2).png" alt=""></button>
+                                    <button type="button" class="delte-tip"  onclick="deleteTip(this,0,0)">
+                                        <img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" ></button>
                                 </div>
                             </div>
                         </div>
