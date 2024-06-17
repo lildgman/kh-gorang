@@ -11,5 +11,8 @@ public class ProductQnaDTO {
 	private final String status;
 	private final int productNo;
 	private final String productName;
+	private final String productBrand;
 	private final String productImg;
+	private final int refQnaNo;
+	private final String optionName;
 }

@@ -51,14 +51,18 @@
 											<div class="content-area-title">
 												<img class="content-img"
 													src="${contextPath }/resources/uploadfile/product/productimg/${productQna.productImg}" alt="">
-												<span>${productQna.productName }</span>
+													<div class="product-info">
+														<span class="product-qna-brand">${productQna.productBrand}</span>
+														<span class="product-qna-name">${productQna.productName }</span>
+														<span class="product-qna-option">${productQna.optionName }</span>
+													</div>
 											</div>
 											<div class="content-area-comment">${productQna.qnaContent }</div>
 											<div class="content-area-date">${productQna.qnaCreateDate }</div>
-											<c:if test="${productQna.status == 'Y' }">
+											<c:if test="${productQna.refQnaNo > 0 }">
 												<div class="content-area-answer" style="color: #237805;">응답 완료</div>
 											</c:if>
-											<c:if test="${productQna.status == 'N' }">
+											<c:if test="${productQna.refQnaNo == 0 }">
 												<div class="content-area-answer" style="color: #ed6666;">응답 대기</div>
 											</c:if>
 										</div>
@@ -126,10 +130,10 @@
 											</div>
 											<div class="content-area-comment">${recipeQna.qnaContent }</div>
 											<div class="content-area-date">${recipeQna.qnaCreateDate }</div>
-											<c:if test="${recipeQna.status == 'Y' }">
+											<c:if test="${recipeQna.refQnaNo > 0 }">
 												<div class="content-area-answer" style="color: #237805;">응답 완료</div>
 											</c:if>
-											<c:if test="${recipeQna.status == 'N' }">
+											<c:if test="${recipeQna.refQnaNo == 0 }">
 												<div class="content-area-answer" style="color: #ed6666;">응답 대기</div>
 											</c:if>
 										</div>
