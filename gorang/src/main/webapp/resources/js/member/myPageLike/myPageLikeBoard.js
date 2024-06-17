@@ -15,7 +15,7 @@ function deleteBtn(){
     let scraplist = document.querySelectorAll("#scrap-area-content .scrap-content");
     console.log(scraplist);
     scraplist.forEach(function(scrap){
-        checkbox=scrap.querySelector("#delete-check");
+        const checkbox=scrap.querySelector("#delete-check");
         if(checkbox.checked){
             scrap.remove();
         }
