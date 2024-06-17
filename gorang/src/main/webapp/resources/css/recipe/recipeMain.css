@@ -59,15 +59,18 @@ body{
         align-items: center;
         justify-content: center;
         gap: 20px;
+        overflow: hidden;
     }
 
     #recommend-box-recipe-thumbnail{
         width: 1240px;
         height: 500px;
         background-color: #f8f8f8;
+        transition: transform 0.5s ease; 
     }
 
     #recommend-box-recipe-thumbnail:hover {
+        transform: scale(1.02);
         cursor: pointer;
     }
 
@@ -132,9 +135,11 @@ body{
         height: 292px;
         object-fit: cover;
         overflow: hidden;
+        transition: transform 0.5s ease; 
     }
 
     .recipe-img-div:hover {
+        transform: scale(1.02);
         cursor: pointer;
     }
 
@@ -268,9 +273,12 @@ body{
     .recipe-main-product {
         width: 292px;
         height: 292px;
+        transition: transform 0.5s ease; 
+        overflow: hidden;
     }
 
     .recipe-main-product:hover {
+        transform: scale(1.02);
         cursor: pointer;
     }
 
