@@ -11,6 +11,7 @@ import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.recipe.model.vo.RecipeInsertDTO;
 import com.kh.gorang.common.model.vo.Media;
 import com.kh.gorang.member.model.vo.Member;
+import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.recipe.model.vo.CookOrder;
 import com.kh.gorang.recipe.model.vo.CookTip;
 import com.kh.gorang.recipe.model.vo.Division;
@@ -44,6 +45,10 @@ public interface RecipeService {
 	int deleteAllRecipe(Recipe rcp,  HttpSession session);
 
 	Member selectRecipeMember(int recipeNo);
+
+	int insertReview(Review review);
+
+	List<Review> selectRecipeReviewList(int recipeNo);
 
 //	int findDivLen(Recipe rcp, HttpSession session);
 //
