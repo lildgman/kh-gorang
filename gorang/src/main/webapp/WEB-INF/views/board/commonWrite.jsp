@@ -32,7 +32,7 @@
                 <main id="common-write">
                     <div id="write-top">
                         <div>
-                            <button type="button" class="write-btn" id="back-btn" onclick="turnBack()">뒤로가기</button>
+                            <button type="button" class="write-btn" id="back-btn" onclick="turnMainPage()">메인으로</button>
                         </div>
 
                         <div id="writeBtnSection">
