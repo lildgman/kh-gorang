@@ -89,7 +89,16 @@
                             <input type="tel" class="register-input" name="memberPhone" placeholder="전화번호를 입력해주세요." required>
                         </div>
                         <div class="registerCheck">
-                            <input type="button" value="본인인증">
+                            <input type="button" id="member-auth-btn" value="본인인증">
+                        </div>
+                    </div>
+                    <div class="registerSection" id="phoneAuthSection" style="justify-content: center; display: none;">
+                        <div class="registerSpan timer"><h4></h4></div>
+                        <div class="register-inputForm">
+                            <input type="text" class="register-input" name="phone-authNo" placeholder="인증번호를 입력해주세요." required>
+                        </div>
+                        <div class="registerCheck">
+                            <input type="button" id="member-phone-auth-btn" value="인증하기">
                         </div>
                     </div>
                     <div id="registAddressSection" class="registerSection">

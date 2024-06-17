@@ -65,6 +65,21 @@
                                                 <td class="tbody-td-buyDate">${orderPdopt.orderPdOptDate}</td>
                                                 <td class="tbody-td-status">
                                                     <span style="color:#068E3D;">배송 완료</span><br>
+                                                    <form action="https://info.sweettracker.co.kr/tracking/5" method="post">
+                                                        <div class="form-group" style="display: none;">
+                                                          <label for="t_key">API key</label>
+                                                          <input type="hidden" class="form-control" id="t_key" name="t_key" placeholder="제공받은 APIKEY" value="ln0430YYI1g2THuT7m4Atg">
+                                                        </div>
+                                                        <div class="form-group" style="display: none;">
+                                                          <label for="t_code">택배사 코드</label>
+                                                          <input type="text" class="form-control" name="t_code" id="t_code" placeholder="택배사 코드">
+                                                        </div>
+                                                        <div class="form-group" style="display: none;">
+                                                          <label for="t_invoice">운송장 번호</label>
+                                                          <input type="hidden" class="form-control" name="t_invoice" id="t_invoice" placeholder="운송장 번호" value="04">
+                                                        </div>
+                                                        <button type="submit" class="btn btn-default" style="width: 85px;">조회하기</button>
+                                                    </form>
                                                     <!-- <span class="status-font">도착 예정일<br>2024.01.02</span>  -->
                                                 </td>
                                                 <td class="tbody-td-btn">

@@ -62,5 +62,5 @@ function deleteBtn() {
 
 function moveDetailPage(element) {
     const recipeNo = element.getAttribute('data-no');
-    window.location.href = "detail.re?recipeNo=" + recipeNo;
+    window.location.href = "detailForm.re?recipeNo=" + recipeNo;
 }

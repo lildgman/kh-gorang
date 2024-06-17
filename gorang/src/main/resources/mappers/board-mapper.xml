@@ -16,6 +16,19 @@
 		<result column="BOARD_VOTE" property="boardVote"></result>
 		<result column="STATUS" property="status"></result>
 		<result column="MEMBER_NO" property="memberNo"></result>
+		<result column="MEMBER_PROFILE" property="memberThumbnail"></result>
+		<result column="MEMBER_NICKNAME" property="memberNickname"></result>
+	</resultMap>
+	
+	<!-- 신고 -->
+	<resultMap type="Report" id="reportResult">
+		<result column="REPORT_NO" property="reportNo"/>
+		<result column="REPORT_WHY" property="reportReason"/>
+		<result column="REPORT_CONTENT" property="reportContent"/>
+		<result column="BOARD_NO" property="boardNo"/>
+		<result column="MEMBER_NO" property="boardNo"/>
+	
+	
 	</resultMap>
 	
 	<!-- 게시판 리스트 DTO -->
@@ -30,6 +43,16 @@
 		<result column="LIKE_COUNT" property="likeCount"/>
 	</resultMap>
 
+	<!-- 게시글 좋아요 -->
+	<resultMap type="LikeBoard" id="likeBoardResult">
+		<result column="BOARD_NO" property="boardNo"/>
+		<result column="MEMBER_NO" property="memberNo"/>
+		<result column="STATUS" property="status"/>
+		<result column="LIKE_BOARD_DATE" property="likeDate"/>
+	</resultMap>
+	
+	
+	
 	<!-- 게시글 총 갯수 조회 -->
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*)
@@ -66,6 +89,7 @@
 		B.BOARD_VOTE,
 		B.BOARD_CONTENT,
 		M.MEMBER_NICKNAME,
+		M.MEMBER_PROFILE,
 		TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS "BOARD_CREATE_DATE"
 		FROM BOARD B
 		JOIN MEMBER M ON M.MEMBER_NO = B.MEMBER_NO
@@ -197,22 +221,23 @@
 			<if test='category == "보관법"'>
 				AND B.BOARD_TAG LIKE '#보관법'
 			</if>
-		<if test='sort == latest'>
-			ORDER BY B.BOARD_CREATE_DATE DESC, BOARD_NO DESC
-		</if>
-		<if test='sort == view'>
-			ORDER BY B.BOARD_VIEWS DESC, BOARD_NO DESC
-		</if>
-		<if test='sort == scrap'>
-			ORDER BY SCRAP_COUNT DESC, BOARD_NO DESC
-		</if>
-		GROUP BY 
+			GROUP BY 
 			B.BOARD_NO,
 			B.BOARD_THUMBNAIL,	
 			B.BOARD_TITLE,
 			B.BOARD_VIEWS,
 			M.MEMBER_PROFILE,
-			M.MEMBER_NICKNAME		
+			M.MEMBER_NICKNAME
+		<if test='sort == "latest"'>
+			ORDER BY B.BOARD_CREATE_DATE DESC, BOARD_NO DESC
+		</if>
+		<if test='sort == "view"'>
+			ORDER BY B.BOARD_VIEWS DESC, BOARD_NO DESC
+		</if>
+		<if test='sort == "scrap"'>
+			ORDER BY SCRAP_COUNT DESC, BOARD_NO DESC
+		</if>
+			
 		)
 	</select>
 	
@@ -251,22 +276,127 @@
 			<if test='category == "보관법"'>
 				AND B.BOARD_TAG LIKE '#보관법'
 			</if>
-		<if test='sort == latest'>
-			ORDER BY B.BOARD_CREATE_DATE DESC, BOARD_NO DESC
-		</if>
-		<if test='sort == view'>
-			ORDER BY B.BOARD_VIEWS DESC, BOARD_NO DESC
-		</if>
-		<if test='sort == scrap'>
-			ORDER BY SCRAP_COUNT DESC, BOARD_NO DESC
-		</if>
-		GROUP BY 
+			GROUP BY 
 			B.BOARD_NO,
 			B.BOARD_THUMBNAIL,	
 			B.BOARD_TITLE,
 			B.BOARD_VIEWS,
 			M.MEMBER_PROFILE,
 			M.MEMBER_NICKNAME
+		<if test='sort == "latest"'>
+			ORDER BY B.BOARD_CREATE_DATE DESC, BOARD_NO DESC
+		</if>
+		<if test='sort == "view"'>
+			ORDER BY B.BOARD_VIEWS DESC, BOARD_NO DESC
+		</if>
+		<if test='sort == "scrap"'>
+			ORDER BY SCRAP_COUNT DESC, BOARD_NO DESC
+		</if>
 	</select>
+	
+	<select id="selectExBoardThumbnail" resultType="string">
+		SELECT BOARD_THUMBNAIL
+		FROM BOARD
+		WHERE
+			BOARD_NO = #{boardNo}
+	</select>
+	
+	<update id="updateBoard" parameterType="Board">
+		UPDATE BOARD
+		SET 
+			BOARD_TITLE = #{boardTitle},
+			BOARD_CONTENT = #{boardContent},
+			BOARD_THUMBNAIL = #{boardThumbnail},
+			BOARD_TAG = #{boardTag},
+			BOARD_CREATE_DATE = CURRENT_DATE
+		WHERE
+			BOARD_NO = #{boardNo}
+	</update>
 
+	<update id="deleteBoard" parameterType="int">
+		UPDATE BOARD
+		SET STATUS = 'N'
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+	
+	<select id="selectLikeBoard" resultType="_int">
+		SELECT COUNT(*)
+		FROM LIKE_BOARD
+		WHERE 
+			BOARD_NO = #{boardNo}
+			AND MEMBER_NO = #{memberNo}
+			AND STATUS = 'Y'
+	</select>
+	
+	<insert id="insertLikeBoard">
+		INSERT INTO LIKE_BOARD(
+			BOARD_NO,
+			MEMBER_NO
+		) VALUES (
+			#{boardNo},
+			#{memberNo}
+		)
+	</insert>
+	
+	<update id="plusBoardVote">
+		UPDATE BOARD
+		SET BOARD_VOTE = BOARD_VOTE +1
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+	
+	<update id="updateLikeBoard">
+		UPDATE LIKE_BOARD
+		SET STATUS = 'N'
+		WHERE 
+			BOARD_NO = #{boardNo}
+			AND MEMBER_NO = #{memberNo} 
+	</update>
+	
+	<update id="minusBoardVote">
+		UPDATE BOARD
+		SET BOARD_VOTE = BOARD_VOTE - 1
+		WHERE BOARD_NO = #{boardNo}
+	
+	
+	</update>
+	
+	<select id="selectLikedBoard" resultType="_int">
+		SELECT COUNT(*)
+		FROM LIKE_BOARD
+		WHERE 
+			MEMBER_NO = #{memberNo}
+			AND BOARD_NO = #{boardNo}
+			AND STATUS = 'Y'
+	</select>
+	
+	<select id="selectLikedBoardStatusN" resultType="_int">
+		SELECT COUNT(*)
+		FROM LIKE_BOARD
+		WHERE 
+			MEMBER_NO = #{memberNo}
+			AND BOARD_NO = #{boardNo}
+	</select>
+	
+	<update id="updateLikedBoardStatus">
+		UPDATE LIKE_BOARD
+		SET STATUS = 'Y'
+		WHERE 
+			BOARD_NO = #{boardNo}
+			AND MEMBER_NO = #{memberNo}
+	</update>
+	
+	<insert id="insertReport" parameterType="Report">
+		INSERT INTO REPORT (
+			REPORT_WHY,
+			REPORT_CONTENT,
+			BOARD_NO,
+			MEMBER_NO
+		) VALUES (
+			#{reportReason},
+			#{reportContent},
+			#{boardNo},
+			#{memberNo}
+		)
+	</insert>
+	
 </mapper>

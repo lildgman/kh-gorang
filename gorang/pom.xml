@@ -246,6 +246,12 @@
 		    <version>1.2</version>
 		</dependency>
 		
+		<!-- coolSMS 위한 의존성 추가 -->
+		<dependency>
+		    <groupId>net.nurigo</groupId>
+		    <artifactId>sdk</artifactId>
+		    <version>4.3.0</version>
+		</dependency>
 		
 	</dependencies>
 	

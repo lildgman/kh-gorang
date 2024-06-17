@@ -30,8 +30,8 @@
                                 추천 레시피
                             </div>
                             <div id="recommend-recipe-modal-btn">
-                                <button id="viewModalBtn" onclick="viewModal()">
-                                    직접레시피 찾기
+                                <button id="viewModalBtn">
+                                    레시피 추천 받기
                                 </button>
                             </div>
                         </div>
@@ -52,8 +52,11 @@
                                 나의 냉장고
                             </div>
                             <div id="myRefrigerator-modal-btn">
-                                <button id="viewModalBtn-two">
+                                <button id="viewModalBtn-two" class="refreMainBtn">
                                     + 추가하기
+                                </button>
+                                <button id="refreDeleteBtn" class="refreMainBtn">
+                                    - 삭제하기
                                 </button>
                             </div>
                         </div>
@@ -69,48 +72,49 @@
                                         <table>
                                             <thead id="myRefrigerator-tb">
                                                 <tr class="myRefrigerator-tr">
-                                                    <td style="width: 80px;">분류</td>
+                                                    <td style="width: 50px;">분류</td>
                                                     <td style="width: 200px;">상품</td>
                                                     <td>신선도</td>
                                                     <td>소비기한</td>
                                                     <td>냉장고 입고일</td>
                                                     <td style="width: 80px;">개수</td>
+                                                    <td style="width: 50px;"><input type="checkbox" id="refri-main-delete-allCheckBox"></td>
                                                 </tr>
                                             </thead>
                                             <tbody id="myRefrigerator-table-tbody">
                                                 <c:forEach var="refriIngre" items="${refriIngres}">
-                                                    <tr class=".tr-block">
+                                                    <tr class="tr-block">
                                                         <td class="myRefrigerator-tr">
-                                                            <img src="${contextPath}/resources/images/member-img/Rectangle 18311 (2).png"
+                                                            <img style="height: 50px;" src="${contextPath}/resources/images/member-img/Rectangle 18311 (2).png"
                                                                 alt="">
                                                         </td>
-                                                        <td style=" overflow: hidden; text-overflow: ellipsis;">
+                                                        <td class="refri-main-td-refName" data-value="${refriIngre.refNo}">
                                                             ${refriIngre.refName}
                                                         </td>
                                                         <td class="flesh-area">
                                                             <c:choose>
                                                                 <c:when test="${refriIngre.daysDifference <= 3}">
+                                                                    <span>위험</span> 
                                                                     <div class="flesh-status"
                                                                         style="background-color:#F20E2B;"></div>
-                                                                    위험
                                                                 </c:when>
                                                                 <c:when
                                                                     test="${refriIngre.daysDifference > 3 && refriIngre.daysDifference <= 7}">
+                                                                    <span>보통</span> 
                                                                     <div class="flesh-status"
                                                                         style="background-color:#FFE28A;"></div>
-                                                                    보통
                                                                 </c:when>
                                                                 <c:otherwise>
+                                                                    <span>신선</span> 
                                                                     <div class="flesh-status"
                                                                         style="background-color:#7ADC66;"></div>
-                                                                    신선
                                                                 </c:otherwise>
                                                             </c:choose>
                                                         </td> <!--나중에 class id로 변경-->
                                                         <td>${refriIngre.refConsumptionDate}</td>
                                                         <td>${refriIngre.refInputDate}</td>
                                                         <td>${refriIngre.refCount}</td>
-                                                        <td class="myRefrigerator-last-td">삭제</td>
+                                                        <td><input type="checkbox" class="refri-main-delete-checkBox"></td>
                                                     </tr>
                                                 </c:forEach>
                                             </tbody>
@@ -161,33 +165,78 @@
                                         alt="">
                                 </button>
                             </div>
+                            <div id="modal-recipe-selectedIngre">
 
+                            </div>
                             <div id="list-igre-area">
-                                <button id="selectAll-btn" onclick="findSelectAll()">모두선택</button>
+                                <button id="findOutRecipeBtn" class="modalBtn">레시피 찾기</button>
+                                <div>
+                                    <button id="completeModalBtn" class="complete modalBtn modalBtnBorder">추가하기</button>
+                                    <button id="deleteModaLBtn" class="modalBtn modalBtnDeleteBorder">삭제하기</button>
+                                </div>
                             </div>
-
-                            <div id="list-title">
-                                <span id="first-list-title">식품명</span>
-                                <span id="second-list-title">소비기한</span>
+                            <table>
+                                <thead>
+                                    <tr class="modal-thead-tr">
+                                        <th style="width: 40px;"><input type="checkbox" id="modal-recipe-allCheckBox"></th>
+                                        <th style="width: 200px;">식품명</th>
+                                        <th style="width: 160px;">소비기한</th>
+                                        <th style="width: 160px;">입고일</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="modal-recipe-tbody">
+                                    <c:forEach var="refriIngre" items="${refriIngres}">
+                                        <tr class="modal-recipe-tbody-tr">
+                                            <td class="modal-recipe-td-checkBox"><input type="checkbox"></td>
+                                            <td class="modal-recipe-refName">${refriIngre.refName}</td>
+                                            <td>${refriIngre.refConsumptionDate}</td>
+                                            <td>${refriIngre.refInputDate}</td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                            <div id="modal-recipe-pagination">
+                                <div class="pagination">
+                                    <c:if test="${pi.currentPage ne 1 }">
+                                        <a data-value="${pi.currentPage - 1}">&lt;</a>
+                                    </c:if>
+                                    <c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
+                                        <a data-value="${p}">
+                                            <c:choose>
+                                                <c:when test="${p eq 1}">
+                                                    <strong>${p}</strong>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    ${p}
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </a>
+                                    </c:forEach>
+                                    <c:if test="${pi.currentPage lt pi.maxPage}">
+                                        <a data-value="${pi.currentPage + 1}">&gt;</a>
+                                    </c:if>
+                                </div>
                             </div>
-                            <div id="overflow-recipe-area">
-                            </div>
-
                             <div id="modal-search-recipe-bottom">
                                 <button id="closeModalBtn" class="close">닫 기</button>
-                                <button id="completeModalBtn" class="complete">완 료</button>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- 모달 창 식재료 추가 -->
-                    <div id="myModal-two" class="modal-two">
-                        <div id="modal-content-recipe-add">
-                            <div id="modal-title-recipe-header">
-                                식재료 추가하기
-                            </div>
-
-                            <div id="modal-search-igre2">
+                <!-- 모달 창 식재료 추가 -->
+                <div id="myModal-two" class="modal-two">
+                    <div id="modal-content-recipe-add">
+                        <div id="modal-title-recipe-header">
+                            식재료 추가하기
+                        </div>
+                        <div class="modal-ingre-input-howTo">
+                            <span>식품영양정보 공공데이터 이용하기(공산품일 경우)</span>
+                            <span>직접 입력하기(공산품이 아닐 경우)</span>
+                        </div>
+                        <!-- input 창 감싸는 div-->
+                        <div id="modal-search-igre2">
+                            <div class="modal-ingre-search-wrapper">
                                 <div class="refri-input-wrapper">
                                     <input id="refri-input-foodName" class="refri-foodNutri-input" placeholder=" 식품명 입력"
                                         onkeypress="handleKeyPress2(event)">
@@ -199,67 +248,110 @@
                                         alt="">
                                 </button>
                             </div>
-
-                            <div id="list-igre-area2">
-                                <span>&#8251;입력사항 미기입 시 소비기한은 7일 후, 입고일은 금일, 갯수는 1개로 자동 기입됩니다.</span>
-                                <button id="addAll-btn2">추 가</button>
-                            </div>
-
-                            <div id="overflow-recipe-area2">
-                                <table id="overflow-table">
-                                    <thead>
-                                        <tr id="list-title2">
-                                            <th style="width: 40px; height: 100%;"><input type="checkbox"
-                                                    id="modal-ingre-checkBox"></th>
-                                            <th id="add-list-title1" style="width: 60px;">번호</th>
-                                            <th id="add-list-title2" style="width: 200px;">식품명</th>
-                                            <th style="width: 100px;">대분류</th>
-                                            <th style="width: 70px;">영양성분</th>
-                                            <th style="width: 160px;">소비기한</th>
-                                            <th style="width: 160px;">냉장고 입고일</th>
-                                            <th style="width: 60px;">갯수</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="modal-ingre-tbody">
-
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div id="ingre-modal-pagination">
-                                <div class="pagination">
-
+                            <!-- 유저가 공공데이터 이용하지 않고 직접 입력하기 위한 input 요소 포함한 div -->
+                            <div class="modal-ingre-search-wrapper">
+                                <div class="refri-input-wrapper">
+                                    <input id="refri-input-foodName-user" class="refri-foodNutri-input" placeholder=" 식품명 입력"
+                                        onkeypress="handleKeyPress2(event)" style="border-bottom: 1px solid #C5C5C5;"/>
+                                    <select id="refri-select-foodClassification" class="refri-foodNutri-input" style="font-size: large;">
+                                        <option value="">분류를 선택해주세요</option>
+                                        <option value="1">밥류</option>
+                                        <option value="2">빵 및 과자류</option>
+                                        <option value="3">면 및 만두류</option>
+                                        <option value="4">죽 및 스프류</option>
+                                        <option value="5">국 및 탕류</option>
+                                        <option value="6">찌개 및 전골류</option>
+                                        <option value="7">찜류</option>
+                                        <option value="8">구이류</option>
+                                        <option value="9">전, 적 및 부침류</option>
+                                        <option value="10">볶음류</option>
+                                        <option value="11">조림류</option>
+                                        <option value="12">튀김류</option>
+                                        <option value="13">나물 및 숙채류</option>
+                                        <option value="14">생채 및 무침류</option>
+                                        <option value="15">김치류</option>
+                                        <option value="16">젓갈류</option>
+                                        <option value="17">장아찌 및 절임류</option>
+                                        <option value="18">장류 및 양념류</option>
+                                        <option value="19">유제품류 및 빙과류</option>
+                                        <option value="20">음료 및 차류</option>
+                                        <option value="21">주류</option>
+                                        <option value="22">과일류</option>
+                                        <option value="23">당류</option>
+                                        <option value="24">곡류 및 서류 제품</option>
+                                        <option value="25">두류, 견과 및 종실류</option>
+                                        <option value="26">채소 및 해조류</option>
+                                        <option value="27">수, 조, 어, 육류</option>
+                                        <option value="28">유지류</option>
+                                        <option value="29">기타</option>
+                                    </select>
                                 </div>
-                            </div>
-                            <div id="modal-search-recipe-bottom2">
-                                <button id="closeModalBtn2" class="close">닫 기</button>
+                                <button id="input-nutri-btn" style="border-right: none;">
+                                    입력
+                                </button>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- 영양성분표 모달 -->
-                    <div class="modal fade nutrition-modal" id="nutritionModal" tabindex="-1" role="dialog"
-                        aria-labelledby="nutritionModalLabel" aria-hidden="true">
-                        <div class="modal-dialog nutrition-modal-container" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="nutritionModalLabel">영양정보</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <table class="nutrition-table">
-                                    </table>
-                                    <p class="disclaimer">1일 영양성분 기준치에 대한 비율(%)은 2000kcal 기준이며, 개인의 필요 열량에 따라 다를
-                                        수 있습니다.</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                                </div>
+                        <div id="list-igre-area2">
+                            <span>&#8251;입력사항 미기입 시 소비기한은 7일 후, 입고일은 금일, 갯수는 1개로 자동 기입됩니다.</span>
+                            <button id="addAll-btn2">추 가</button>
+                        </div>
+
+                        <div id="overflow-recipe-area2">
+                            <table id="overflow-table">
+                                <thead>
+                                    <tr id="list-title2" class="modal-thead-tr">
+                                        <th style="width: 40px; height: 100%;"><input type="checkbox"
+                                                id="modal-ingre-checkBox"></th>
+                                        <th id="add-list-title1" style="width: 60px;">번호</th>
+                                        <th id="add-list-title2" style="width: 200px;">식품명</th>
+                                        <th style="width: 100px;">대분류</th>
+                                        <th style="width: 70px;">영양성분</th>
+                                        <th style="width: 160px;">소비기한</th>
+                                        <th style="width: 160px;">냉장고 입고일</th>
+                                        <th style="width: 60px;">갯수</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="modal-ingre-tbody">
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="ingre-modal-pagination">
+                            <div class="pagination">
+
+                            </div>
+                        </div>
+                        <div id="modal-search-recipe-bottom2">
+                            <button id="closeModalBtn2" class="close">닫 기</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 영양성분표 모달 -->
+                <div class="modal fade nutrition-modal" id="nutritionModal" tabindex="-1" role="dialog"
+                    aria-labelledby="nutritionModalLabel" aria-hidden="true">
+                    <div class="modal-dialog nutrition-modal-container" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="nutritionModalLabel">영양정보</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <table class="nutrition-table">
+                                </table>
+                                <p class="disclaimer">1일 영양성분 기준치에 대한 비율(%)은 2000kcal 기준이며, 개인의 필요 열량에 따라 다를
+                                    수 있습니다.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
             <jsp:include page="../common/footer.jsp" />
             <!-- js -->

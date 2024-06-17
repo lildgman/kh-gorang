@@ -18,7 +18,6 @@ import com.kh.gorang.shopping.model.vo.ProductInsertDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RequiredArgsConstructor
 @Service
 public class ODGProductServiceImpl implements ODGProductService {

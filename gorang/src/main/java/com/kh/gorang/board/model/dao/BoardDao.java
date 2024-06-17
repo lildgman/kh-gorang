@@ -8,8 +8,11 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.gorang.board.model.dto.BoardListDTO;
+import com.kh.gorang.board.model.dto.CommentListDTO;
+import com.kh.gorang.board.model.dto.InsertCommentDTO;
 import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.board.model.vo.Comment;
+import com.kh.gorang.board.model.vo.Report;
 import com.kh.gorang.common.model.vo.PageInfo;
 
 
@@ -71,7 +74,7 @@ public class BoardDao{
     }
 
     public int deleteComment(SqlSessionTemplate sqlSession, int commentNo) {
-        return sqlSession.delete("commentMapper.deleteComment", commentNo);
+        return sqlSession.update("commentMapper.deleteComment", commentNo);
     }
 
 // =====================================================================================================
@@ -86,5 +89,67 @@ public class BoardDao{
 		
 		return (ArrayList)sqlSession.selectList("boardMapper.selectBoardList", map, rowBounds);
 	}
+
+	// 댓글 조회
+	public ArrayList<CommentListDTO> getCommentList(SqlSessionTemplate sqlSession, Integer boardNo) {
+		return (ArrayList)sqlSession.selectList("commentMapper.selectCommentList", boardNo);
+	}
+
+	
+	public int insertReReply(SqlSessionTemplate sqlSession, InsertCommentDTO insertCommentDTO) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("commentMapper.insertReReply", insertCommentDTO);
+	}
+
+	
+	public String getExBoardThumbnail(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.selectOne("boardMapper.selectExBoardThumbnail", boardNo);
+	}
+
+	public int updateBoard(SqlSessionTemplate sqlSession, Board board) {
+		return sqlSession.update("boardMapper.updateBoard", board);
+		
+	}
+
+	public int deleteBoard(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.update("boardMapper.deleteBoard", boardNo);
+	}
+
+	public int checkLikeBoard(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.selectOne("boardMapper.selectLikeBoard", map);
+	}
+
+	public int insertLikeBoard(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.insert("boardMapper.insertLikeBoard", map);
+	}
+
+	public int plusBoardVote(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.update("boardMapper.plusBoardVote", map);
+	}
+
+	public int updateLikeBoard(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.update("boardMapper.updateLikeBoard",map);
+	}
+
+	public int minusBoardVote(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.update("boardMapper.minusBoardVote",map);
+	}
+
+	public int isLikedBoard(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.selectOne("boardMapper.selectLikedBoard", map);
+	}
+
+	public int checkLikedBoardStatusN(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.selectOne("boardMapper.selectLikedBoardStatusN",map);
+	}
+
+	public int updateLikedBoardStatus(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.update("boardMapper.updateLikedBoardStatus", map);
+	}
+
+	public int insertReport(SqlSessionTemplate sqlSession, Report report) {
+		return sqlSession.insert("boardMapper.insertReport", report);
+	}
+
 	
 }

@@ -26,17 +26,22 @@
             <c:if test="${not empty errorMsg}">
                 <div class="error">${errorMsg}</div>
             </c:if>
-            <form action="insert.bo" method="post" enctype="multipart/form-data">
+            
+            <form action="insert.bo" method="post" enctype="multipart/form-data"> 
                 <input type="hidden" name="memberNo" value="${loginUser.memberNo}">
                 <main id="common-write">
                     <div id="write-top">
+                        <div>
+                            <button type="button" class="write-btn" id="back-btn" onclick="turnBack()">뒤로가기</button>
+                        </div>
+
                         <div id="writeBtnSection">
                             <div id="tempStorageBtn">
-                                <button type="button" id="saveContentBtn">임시저장</button>
+                                <button type="button" class="write-btn" id="saveContentBtn" >임시저장</button>
                                 <!-- <input type="button" value="임시저장" id="saveContentBtn"> -->
                             </div>
                             <div id="writeSubmitBtn">
-                                <button type="submit">등록하기</button>
+                                <button type="submit" class="write-btn" id="enroll-btn">등록하기</button>
                                 <!-- <input type="submit" value="등록하기"> -->
                             </div>
                         </div>
@@ -59,7 +64,7 @@
                         </div>
                         <div id="writeUploadThumbnail">
                             <div id="uploadThumbnailSection">
-                                <div>
+                                <div id="thumbnail-container">
                                     <div id="uploadThumbnailSpan">
                                         <span>대표이미지를 업로드 해주세요.</span>
                                     </div>
@@ -84,23 +89,6 @@
                 </main>
             </form>
             <jsp:include page="../common/footer.jsp" />
-            <script>
-                $('.summernote').summernote({
-                    height: 329,
-                    lang: "ko-KR",
-                    toolbar: [
-                        ['insert', ['link', 'picture']],
-                        ['style', ['bold', 'italic', 'underline', 'clear']],
-                        ['font', ['strikethrough']],
-                        ['fontsize', ['fontsize']],
-                        ['color', ['color']],
-                        ['para', ['ul', 'ol', 'paragraph']],
-                        ['height', ['height']],
-
-                    ]
-                });
-
-            </script>
         </body>
 
         </html>

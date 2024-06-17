@@ -8,6 +8,9 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 30px;
 }
 
 #boardDetailContents {
@@ -32,6 +35,11 @@ body {
 #profileImg {
     width: 112px;
     height: 112px;
+}
+
+#profileImg img {
+    width: 100%;
+    height: 100%;
 }
 
 #profileInfo {
@@ -90,23 +98,23 @@ body {
 
 #contentDetail {
     width: 1162px;
-    height: 1000px;
+    /* height: 1000px; */
     padding: 5px;
 
 }
     #contentDetailWrite{
-        width:1152px;
-        height: 100px;
+        /* width:1152px;
+        height: 100px; */
     }
        
     #contentDetailImg{
-        width: 1152px;
-        height:860px;
+        /* width: 1152px;
+        height:860px; */
     }
     #contentDetailImg img{
-        width:100%;
+        /* width:100%;
         height:100%;
-        object-fit:cover;
+        object-fit:cover; */
     }
    
 
@@ -290,7 +298,7 @@ body {
     height: 50px;
     margin-top: 30px;
 }
-.modal-content-reportBtn input{
+.modal-content-reportBtn button{
     width: 544px;
     height: 50px;
     background-color: #1E90FF;
@@ -326,7 +334,7 @@ body {
     font-size: 20px;
 }
 
-#replyCount {
+#replyCount-area {
     width: fit-content;
     height: 63px;
     padding: 15px;
@@ -394,16 +402,20 @@ body {
     margin-top:10px;
     width: 1162px;
     height: fit-content;
+    display: flex;
+    flex-direction: column;
+    /* gap: 40px; */
 }
 
-#userReplyWrap {
+.userReplyWrap {
     padding: 2px;
     width: 1162px;
     height: 100px;
     display:flex;   
 }
 
-#userReplyWriterInfo {
+
+.userReplyWriterInfo {
     width: 1020px;
     height: 90px;
     padding: 10px;
@@ -412,20 +424,20 @@ body {
     padding-left: 20px;
 }
 
-#userReplyWriterImgWrap {
+.userReplyWriterImgWrap {
     width: 85px;
 }
 
-#userReplyWriterInfo img {
+.userReplyWriterInfo img {
     width: 50px;
     height: 50px;
     border-radius: 50%;
     margin-top: 10px;
 }
 
-#userReplyContentWrap {
+.userReplyContentWrap {
     width: 100%;
-    height: 80px;
+    /* height: 80px; */
     padding: 10px;
     border-style: solid;
     border-color:#838383;
@@ -433,36 +445,40 @@ body {
     border-width:1px;
 }
 
-#userReplyWriterDetail {
+.userReplyWriterDetail {
     display: flex;
+    justify-content: flex-start;
+    gap:20px;
 }
 
-#userReplyWriterDetailId {
-    margin-right: 20px;
+.userReplyWriterDetailId {
+    /* margin-right: 20px; */
     font-size: 15px;
     font-weight: 800;
 }
 
-#userReplyWriterDetailDate {
+.userReplyWriterDetailDate {
     font-size: 14px;
     font-weight: 500;
 }
 
-#userReplyContent {
+.userReplyContent {
     padding: 5px 0 5px 0;
     font-weight: 500;
-    height: 50px;
+    /* height: 50px; */
 }
 
-#ReplyService {
+.ReplyService {
     margin-left:20px;
     height:20px;
     margin-top:35px;
 
 }
 
-#ReplyReport {
+.ReplyReport {
+    display: flex;
     cursor: pointer;
+    width: 76px;
 }
 
 #ReplyReport span {
@@ -470,11 +486,13 @@ body {
 }
 
 #boardMainReturnWrap {
-    width: 1240px;
+    /* width: 1240px;
     height: 200px;
     margin-left: 340px;
     margin-right: 340px;
-    padding: 70px 533px 70px 533px;
+    padding: 70px 533px 70px 533px; */
+    display: flex;
+    gap: 35px;
 }
 
 #ReturnBtnWrap {
@@ -482,10 +500,45 @@ body {
     height: 57px;
 }
 
-#ReturnBtnWrap button {
+#ReturnBtnWrap button, #update-btn-area button {
     width: 175px;
     height: 57px;
     background-color: #1E90FF;
     color: #ffff;
     border-radius: 10px;
+}
+
+#delete-btn-area button {
+    width: 175px;
+    height: 57px;
+    background-color: #eb0808;
+    color: #ffff;
+    border-radius: 10px;
+}
+
+.reply-input {
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 911px;
+    height: 50px;
+    margin-left: 101px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding: 0px 10px;
+}
+
+.reply-input input[type="text"] {
+    border: none; 
+    resize: none; 
+    box-sizing: border-box;
+}
+
+.reply-input input[type="text"]:focus {
+    outline: none;
+}
+
+.nested-reply {
+    margin-left: 100px;
+    width: 1020px;
 }

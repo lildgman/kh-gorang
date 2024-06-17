@@ -27,6 +27,7 @@ import com.kh.gorang.common.template.Pagination;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.ProductCart;
 import com.kh.gorang.member.model.vo.QnA;
+import com.kh.gorang.member.model.vo.RefrigeratorInsertDTO;
 import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.member.service.MemberService;
 import com.kh.gorang.shopping.model.vo.Order;
@@ -132,20 +133,47 @@ public class StoreController {
 	
 	// ajax로 상품 리뷰 가져오는 메소드
 	@ResponseBody
-	@GetMapping(value = "ajaxReview.po", produces = "application/json; charset=utf-8")
-	public String ajaxSelectProductReviews(@RequestParam("pno") String pno) {
+	@GetMapping(value = "ajaxReview.po")
+	public Map<String, Object> ajaxSelectProductReviews(@RequestParam("pno") String pno, @RequestParam(value="cpage", defaultValue= "1") String cpage) {
+		int cp = Integer.parseInt(cpage);
+		
 		int productNo = Integer.parseInt(pno);
-		ArrayList<Review> reviews = productService.selectProductReviewsByPno(productNo);
-		return new Gson().toJson(reviews);
+		
+		// 해당 상품에 대한 리뷰 총 갯수
+		int reviewsCount = productService.selectReviewsCount(productNo);
+		
+		PageInfo pi = Pagination.getPageInfo(reviewsCount, cp, 10, 10);
+		
+		ArrayList<Review> reviews = productService.selectProductReviewsByPno(productNo, pi);
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result.put("reviews", reviews);
+		result.put("pi", pi);
+		
+		return result;
 	}
 	
 	//ajax로 상품 문의 가져오는 메소드
 	@ResponseBody
-	@GetMapping(value = "ajaxQnA.po", produces = "application/json; charset=utf-8")
-	public String ajaxSelectProductQnAs(@RequestParam("pno") String pno) {
+	@GetMapping(value = "ajaxQnA.po")
+	public Map<String, Object> ajaxSelectProductQnAs(@RequestParam("pno") String pno, @RequestParam(value="cpage", defaultValue= "1") String cpage) {
+		int cp = Integer.parseInt(cpage);
+		
 		int productNo = Integer.parseInt(pno);
-		ArrayList<QnA> qnas = productService.selectProductQnAsByPno(productNo);
-		return new Gson().toJson(qnas);
+		
+		int qnasCount = productService.selectQnasCount(productNo);
+		
+		PageInfo pi = Pagination.getPageInfo(qnasCount, cp, 10, 10);
+		
+		ArrayList<QnA> qnas = productService.selectProductQnAsByPno(productNo, pi);
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result.put("qnas", qnas);
+		result.put("pi", pi);
+		
+		return result;
 	}
 	
 	// ajax 로 상품 옵션 가져오는 메소드

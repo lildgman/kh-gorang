@@ -26,6 +26,7 @@ import com.kh.gorang.common.template.Pagination;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.RefrigeratorInsertDTO;
 import com.kh.gorang.member.service.MyPageService;
+import com.kh.gorang.recipe.model.dto.RecipeListDto;
 import com.kh.gorang.shopping.model.vo.OrderPdopt;
 import com.kh.gorang.shopping.service.OrderService;
 
@@ -64,9 +65,11 @@ public class TimMyPageController {
 		// 페이지네이션 
 		int refriIngreCount = myPageService.selectRefriCount(userNo);
 		
-		PageInfo pi = Pagination.getPageInfo(refriIngreCount, 1, 10, 5);
+		PageInfo pi = Pagination.getPageInfo(refriIngreCount, 1, 10, 7);
 		
 		List<RefrigeratorInsertDTO> refriIngres = myPageService.selectListRefrigeratorsByMemberNo(userNo, pi);
+		
+		System.out.println(refriIngres);
 		
 		// 현재 날짜 계산
 		LocalDate currentDate = LocalDate.now();
@@ -99,7 +102,7 @@ public class TimMyPageController {
 		// 페이지네이션 
 		int refriIngreCount = myPageService.selectRefriCount(userNo);
 		
-		PageInfo pi = Pagination.getPageInfo(refriIngreCount, cpage, 10, 5);
+		PageInfo pi = Pagination.getPageInfo(refriIngreCount, cpage, 10, 7);
 		
 		List<RefrigeratorInsertDTO> refriIngres = myPageService.selectListRefrigeratorsByMemberNo(userNo, pi);
 		
@@ -136,6 +139,38 @@ public class TimMyPageController {
 		Member m = (Member)session.getAttribute("loginUser");
 		
 		return new Gson().toJson(myPageService.insertRefrigerator(m.getMemberNo(), refriIngres) > 0 ? "success" : "fail");
+	}
+	
+	// 나의 냉장고 선택한 식재료를 바탕으로 레시피 가져오기
+	@ResponseBody
+	@RequestMapping("selectRecipeListByRefri.me")
+	public List<RecipeListDto> selectRecipeListByRefri(String ingreList){
+		
+		String[] ingresArray = ingreList.split(",");
+		
+		return myPageService.selectRecipeListByRefri(ingresArray);
+	}
+	
+	// 나의 냉장고 선택한 식재료 삭제하기
+	@ResponseBody
+	@RequestMapping("deleteRefriIngre.me")
+	public String deleteRefrigerator(String refriNums, HttpSession session) {
+		
+		
+		
+		Member m = (Member)session.getAttribute("loginUser");
+		
+		return myPageService.deleteRefrigerator(m.getMemberNo(), refriNums) > 0 ? "success" : "fail";
+	}
+	
+	// 로컬 스토리지의 레시피 번호를 바탕으로 레시피 가져오기
+	@ResponseBody
+	@RequestMapping("selectRecipeListByRecipeNo.me")
+	public ArrayList<RecipeListDto> selectRecipeListByRecipeNo(String recipeNums){
+		
+		System.out.println(recipeNums);
+		
+		return myPageService.selectRecipeListByRecipeNo(recipeNums);
 	}
 }
 	

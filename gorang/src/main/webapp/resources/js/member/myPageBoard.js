@@ -1,9 +1,9 @@
-function movePage(element) {
+function moveDetailPage(element) {
   const contentNo = element.getAttribute('data-no');
   window.location.href = "detail.bo?boardNo=" + contentNo;
 }
 
-function deleteRecipeBoard(element){
+function deleteBoard(element){
 
   const result = confirm('정말 게시글을 삭제하시겠습니까?');
   
@@ -22,6 +22,7 @@ function deleteRecipeBoard(element){
               if(res === 'done') {
                   alert("게시글을 삭제하였습니다.");
                   boardContainer.remove();
+                  window.location.href = window.location.href;
               } else {
                   alert("게시글 삭제를 실패하였습니다.");
               }
@@ -33,8 +34,13 @@ function deleteRecipeBoard(element){
       })
       
   }
-  
 }
+
+function updateBoard(element) {
+  const boardNo = element.getAttribute('data-no');
+  window.location.href = "update-form.bo?boardNo=" + boardNo;
+}
+
 
 function sortRecipe(element) {
   const sortingMethod = element.getAttribute('data-sort');

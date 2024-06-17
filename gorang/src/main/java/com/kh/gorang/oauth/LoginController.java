@@ -29,7 +29,6 @@ public class LoginController {
 	@Autowired
 	private MemberService memberService;
 	
-	
 	//naver
 	@Value("${naver.clientId}")
 	private String naverClientId;
@@ -329,5 +328,4 @@ public class LoginController {
 			e.printStackTrace();
 		} return "member/loginPage";
 	}
-	
 }

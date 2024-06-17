@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -21,6 +22,7 @@ import com.kh.gorang.member.model.vo.ProductQnaDTO;
 import com.kh.gorang.member.model.vo.RecipeQnaDTO;
 import com.kh.gorang.member.model.vo.RefrigeratorInsertDTO;
 import com.kh.gorang.member.model.vo.Review;
+import com.kh.gorang.recipe.model.dto.RecipeListDto;
 import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.shopping.model.vo.Product;
 
@@ -304,6 +306,19 @@ public class MyPageDao {
 
 	public int selectRefriCount(SqlSessionTemplate sqlSession, int memberNo) {
 		return sqlSession.selectOne("myPageMapper.selectRefriCount", memberNo);
+	}
+	
+	//식재료로 레시피 조회
+	public List<RecipeListDto> selectRecipeListByRefri(SqlSessionTemplate sqlSession, String[] ingresArray) {
+		return sqlSession.selectList("myPageMapper.selectRecipeListByRefri", ingresArray);
+	}
+
+	public int deleteRefrigerator(SqlSessionTemplate sqlSession, ArrayList<RefrigeratorInsertDTO> refriListforDelete) {
+		return sqlSession.delete("myPageMapper.deleteRefrigerator", refriListforDelete);
+	}
+
+	public ArrayList<RecipeListDto> selectRecipeListByRecipeNo(SqlSessionTemplate sqlSession, Integer[] recipeNoArray) {
+		return (ArrayList)sqlSession.selectList("myPageMapper.selectRecipeListByRecipeNo", recipeNoArray);
 	}
 
 }

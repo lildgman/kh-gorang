@@ -5,9 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.gorang.common.model.vo.PageInfo;
 import com.kh.gorang.member.model.vo.QnA;
@@ -20,7 +22,6 @@ import com.kh.gorang.shopping.model.vo.ProductInsertDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService{
@@ -70,7 +71,6 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public ArrayList<Product> selectResultProductList(PageInfo pi, Map<String, String> map) {
-		log.info("----------------------------------------------------------}");
 		return productDao.selectResultProductList(sqlSession, pi, map);
 	}
 
@@ -80,35 +80,24 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public ArrayList<Review> selectProductReviewsByPno(int productNo) {
-		return productDao.selectProductReviewsByPno(sqlSession, productNo);
+	public ArrayList<QnA> selectProductQnAsByPno(int productNo, PageInfo pi) {
+		return productDao.selectProductQnAsByPno(sqlSession, productNo, pi);
 	}
-
-
-	@Override
-	public ArrayList<QnA> selectProductQnAsByPno(int productNo) {
-		return productDao.selectProductQnAsByPno(sqlSession, productNo);
-	}
-
 
 
 	public int selectAllProductQuantity() {
 		return productDao.selectAllProductQuanity(sqlSession);
 	}
 
-
+	@Override
+	public ArrayList<ProductDetailOption> selectProductOptsByPno(int productNo) {
+        return productDao.selectProductOptsByPno(sqlSession, productNo);
+    }
 
 	@Override
 	public int selectSaleProductQuantity() {
 		return 0;
 	}
-
-
-	@Override
-	public ArrayList<ProductDetailOption> selectProductOptsByPno(int productNo) {
-		return productDao.selectProductOptsByPno(sqlSession, productNo);
-	}
-
 
 	@Override
 	public int insertProductQna(QnA q) {
@@ -121,7 +110,23 @@ public class ProductServiceImpl implements ProductService{
 		return productDao.insertProductReview(sqlSession, re);
 	}
 
+	@Transactional(readOnly = true)
+	@Override
+	public int selectReviewsCount(int productNo) {
+		return productDao.selectReviewCount(sqlSession, productNo);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public ArrayList<Review> selectProductReviewsByPno(int productNo, PageInfo pi) {
+		return productDao.selectProductReviewsByPno(sqlSession, productNo, pi);
+	}
 	
+	@Transactional(readOnly = true)
+	@Override
+	public int selectQnasCount(int productNo) {
+		return productDao.selectQnasCount(sqlSession, productNo);
+	}
 
 
 }

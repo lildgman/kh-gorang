@@ -56,9 +56,9 @@
                             </span>
                         </div>
                         <div id="product_grade_area">
-                            <span id="product_grade">평점</span>
+                            <span id="product_grade">0.0</span>
                             <div>
-                                <span id="product_review_quantity">리뷰수</span><span class="review_quantity">개 상품평</span>
+                                <span id="product_review_quantity">0</span><span class="review_quantity">개 상품평</span>
                             </div>
                         </div>
                         <div>
@@ -159,6 +159,12 @@
                         <!-- 상품 후기 -->
                         <div id="product_review_area">
                             <div class="description_title">상품 후기</div>
+                            <div id="product-review-container"></div>
+                             <!-- 페이징 바 -->
+                            <div id="review-pagination-area">
+                                <div class="pagination">
+                                </div>
+                            </div>
                         </div>
 
                         <!-- 상품 문의 -->
@@ -182,6 +188,10 @@
                                 <tbody>
                                 </tbody>
                             </table>
+                            <div id="qna-pagination-area">
+                                <div class="pagination">
+                                </div>
+                            </div>
                         </div>
                     </div>
 
