@@ -33,15 +33,14 @@
                     <div id="write-top">
 
                         <div>
-                            <button type="button" class="write-btn" id="back-btn" onclick="turnBack()">뒤로가기</button>
+                            <button type="button" class="write-btn" id="back-btn" onclick="turnMainPage()">뒤로가기</button>
                         </div>
 
 
                         <div id="writeBtnSection">
-                            <div id="tempStorageBtn">
+                            <!-- <div id="tempStorageBtn">
                                 <button type="button" class="write-btn" id="saveContentBtn">임시저장</button>
-                                <!-- <input type="button" value="임시저장" id="saveContentBtn"> -->
-                            </div>
+                            </div> -->
                             <div id="writeSubmitBtn">
                                 <button type="submit" class="write-btn" id="enroll-btn">수정하기</button>
                                 <!-- <input type="submit" value="등록하기"> -->

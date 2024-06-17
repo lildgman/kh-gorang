@@ -156,7 +156,6 @@ public class BoardController {
 	        return "redirect:/detail.bo?boardNo=" + comment.getBoardNo();
 	    }
 	    
-//	    return "redirect:/detail.bo?boardNo=" + comment.getBoardNo();
 	}
 	
 	@PostMapping("content.bo")

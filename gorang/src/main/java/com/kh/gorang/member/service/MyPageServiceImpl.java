@@ -9,8 +9,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
 
+import com.kh.gorang.board.model.dao.BoardDao;
 import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.common.model.vo.PageInfo;
 import com.kh.gorang.member.model.dao.MyPageDao;
@@ -32,7 +32,6 @@ import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.shopping.model.vo.Product;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
@@ -40,6 +39,9 @@ public class MyPageServiceImpl implements MyPageService{
 	
 	@Autowired
     private MyPageDao myPageDao;
+	
+	@Autowired
+	private BoardDao boardDao;
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
@@ -290,7 +292,21 @@ public class MyPageServiceImpl implements MyPageService{
 	// 좋아요 게시글 삭제
 	@Override
 	public int deleteLikeBoard(Map<String, Object> map) {
-		return myPageDao.deleteLikeBoard(sqlSession, map);
+		
+		int deleteLikeBoardResult = myPageDao.deleteLikeBoard(sqlSession, map);
+		int minusBoardVote = 0;
+		
+		
+		if(deleteLikeBoardResult > 0) {
+			minusBoardVote = boardDao.minusBoardVote(sqlSession, map);
+			
+			if(minusBoardVote > 0) {
+				return deleteLikeBoardResult * minusBoardVote;
+			} 
+		}
+		
+		return 0;
+//		return myPageDao.deleteLikeBoard(sqlSession, map);
 	}
 
 	// 회원 닉네임 중복체크
