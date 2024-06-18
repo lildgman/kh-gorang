@@ -662,5 +662,6 @@ function ajaxinsertQnA(data, callback) {
 
 // 목록으로가기
 function goRecipeList(){
-  window.location.href = 'list.re';
+  let productNo =element.querySelector("input[type='hidden']").value;
+  window.location.href ='detail.po?pno='+productNo;
 }
