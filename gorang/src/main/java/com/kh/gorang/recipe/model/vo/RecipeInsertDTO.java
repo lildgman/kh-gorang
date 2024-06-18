@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.kh.gorang.common.model.vo.Media;
+import com.kh.gorang.member.model.vo.QnA;
 import com.kh.gorang.member.model.vo.Review;
 
 import lombok.AllArgsConstructor;
@@ -21,10 +22,12 @@ public class RecipeInsertDTO {
 	List<CookOrder> cookOrderList;
 	List<Media> completeFoodPhoto;
 	List<Review> rwList;
+	List<QnA> qnaList;
 	public RecipeInsertDTO() {
 		rcpDivList = new ArrayList<Division>();
 		cookOrderList = new ArrayList<CookOrder>();
 		completeFoodPhoto = new ArrayList<Media>();
 		rwList = new ArrayList<Review>();
+		qnaList =new ArrayList<QnA>();
 	}
 }
