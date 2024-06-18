@@ -118,6 +118,8 @@ function ajaxGetProductQnAs(data, callback){
   });
 }
 
+
+
 // 상품 옵션 가져오는 ajax
 function ajaxGetProductOpts(data, callback){
   $.ajax({

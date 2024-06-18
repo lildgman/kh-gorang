@@ -8,9 +8,75 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // 이벤트 핸들러 등록
   fileInputClick();
-  // displaySelectedImage();
+
   setRatingStar();
 });
+
+const recipeNo = getParameterPno();
+//페이지의 URL 에서 쿼리 파라미터 값 추출
+function getParameterPno() {
+  let query = window.location.search;
+  let param = new URLSearchParams(query);
+  let recipeNo = param.get('recipeNo');
+  return recipeNo;
+}
+
+function getContextPath() {
+  return sessionStorage.getItem("contextpath");
+}
+
+/** ajax로 받아온 pi 객체를 이용해 페이지네이션 업데이트 해주는 메소드 */
+function updatePagination(ev, pi) {
+  const pagination = ev.querySelector(".pagination");
+  pagination.innerHTML = "";
+
+  if (pi.currentPage > 1) {
+      const prevLink = document.createElement('a');
+      prevLink.setAttribute('data-value', pi.currentPage - 1);
+      prevLink.innerHTML = '&lt;';
+      pagination.appendChild(prevLink);
+  }
+
+  for (let p = pi.startPage; p <= pi.endPage; p++) {
+      const pageLink = document.createElement('a');
+      pageLink.setAttribute('data-value', p);
+      pageLink.innerHTML = p;
+      if(p == parseInt(pi.currentPage)){
+          pageLink.innerHTML = `<strong>${p}</strong>`
+      }
+      pagination.appendChild(pageLink)
+  }
+
+  if (pi.currentPage < pi.maxPage) {
+      const nextLink = document.createElement('a');
+      nextLink.setAttribute('data-value', pi.currentPage + 1);
+      nextLink.innerHTML = '&gt;';
+      pagination.appendChild(nextLink);
+  }
+
+   // 새로 생성된 링크에 이벤트 리스너 추가
+   switch(ev){
+    case document.querySelector("#pagination-area"):
+        setPaginationEventListeners();
+        break;
+    case document.querySelector("#ingre-modal-pagination"):
+        setIngreModalPaginationEventListeners();
+        break;
+    case document.querySelector("#modal-recipe-pagination"):
+        setRecipeModalPaginationEventListeners();
+}     
+}
+
+// 문의 사진 첨부
+
+function fileInputClick() {
+  const addQnaPicture = document.querySelector('#add_qna_product_pic');
+  const fileInput = document.querySelector('#file-input');
+
+  addQnaPicture.addEventListener('click', function(){
+    fileInput.click();
+  });
+}
 
 
 document.addEventListener("DOMContentLoaded", function(){
@@ -34,61 +100,170 @@ document.addEventListener("DOMContentLoaded", function(){
 });
 
 
-// ==========================================  화면 동적 구성 위한 메소드 ============================
-// ajaxGetProduct에서 가져온 product 객체 정보를 토대로 화면에 나타날 정보 입력하는 콜백 함수
-function inputProductInfo(recipeNo, profileLocation){
-
-  //리뷰 수, 리뷰 내용 가져오기
-  // ajaxGetRecipeReviews({recipeNo}, (reviews)=>putRecipeReviewList(reviews, profileLocation));
-
-  //상품 문의 가져오기
-  // ajaxGetRecipeQnAs({recipeNo}, (qnas)=>putRecipeQnAList(recipeNo, qnas));
+ /** 냉장고 페이지바 a 태그에 클릭 이벤트 넣어주는 메소드 */
+ function setPaginationEventListeners(paginationArea) {
+  paginationArea.querySelectorAll(".pagination a").forEach(function(ev){
+      ev.addEventListener("click", function(el){
+          let cpage = el.currentTarget.getAttribute('data-value');
+          switch(paginationArea){
+            case document.querySelector("#review-pagination-area"):
+              ajaxGetProductReviews({pno: pno , cpage: cpage});
+                break;
+            case document.querySelector("#qna-pagination-area"):
+              ajaxGetProductQnAs({pno: pno ,cpage: cpage});
+                break;
+        }    
+      });
+  });
 }
 
 
-// =================================== ajax 함수 =========================
+// ==========================================  화면 동적 구성 위한 메소드 ============================
+// ajaxGetProduct에서 가져온 product 객체 정보를 토대로 화면에 나타날 정보 입력하는 콜백 함수
+function inputProductInfo(recipeNo, profileLocation){
+  console.log("실행됨");
+  ajaxGetRecipeReviews({recipeNo: recipeNo, cpage: 1}, (res)=> putRecipeReviewList(res, profileLocation));
 
-//ajax 통신으로 pno 넘겨주고 해당 레시피 번호 참조하는 리뷰들 호출
-// function ajaxGetRecipeReviews(data, callback){
-//   $.ajax({
-//     url: "ajaxRecipeReview.re",
-//     data: data,
-//     success: function(result){
-//       callback(result);
-//     },
-//     error: function(){
-//       console.log("불러오기 실패")
-//     }
-//   });
-// }
+  ajaxGetRecipeQnAs({recipeNo: recipeNo, cpage: 1}, (res)=>putRecipeQnAList( res));
+}
 
-// 레시피  qna 가져오는 ajax
-// function ajaxGetRecipeQnAs(data, callback){
-//   $.ajax({
-//     url: "ajaxRecipeQnA.re",
-//     data: data,
-//     success: function(result){
-//       callback(result);
-//     },
-//     error: function(){
-//       console.log("불러오기 실패")
-//     }
-//   });
-// }
+function putRecipeReviewList(res, contextPath) {
+  const reviews = res.reviews;
+  console.log("리뷰 ajax 실행됨");
+  if (reviews.length > 0) {
+      let drawReviewList = document.querySelector("#recipe_review_area");  
+      reviews.forEach(rv => {
+          let stars = '';
+          for (let i = 1; i <= rv.rating; i++) {
+              stars += '<i class="fa-solid fa-star" style="color: #FFD43B;" aria-hidden="true"></i>';
+          }
 
+          let reviewHTML = `
+              <div class="product_review_item">
+                  <div id="review_writer_area">
+                      <div id="review_writer_pic_container">
+                          <img id="review_writer_pic"
+                              src="${contextPath}/resources/uploadfile/memberProfile/${rv.writerProfile}" alt="">
+                      </div>
+                      <div id="review_writer_id_rate">
+                          <div id="review_writer_id"><span class="userName">
+                              ${rv.writerNickname}
+                          </span> <span class="commentDates">  
+                                  ${rv.reviewCreateDate}
+                                  <!-- |
+                                  <span class="updateComments"> 수정</span> |
+                                  <span class="deleteComents">삭제</span> </span></div> -->
+                                  </span></div>
+                          <div class="star_rating">
+                              ${stars}
+                          </div>
+                      </div>
+                  </div>
+                  ${rv.reviewPhoto ? `
+                  <div id="review_img_container">
+                      <img class="review_img" src="${contextPath}/resources/uploadfile/recipe/recipeReview/${rv.reviewPhoto}"></img>
+                  </div>` : ''}
+                  <div id="review_content">
+                      ${rv.reviewContent}
+                  </div>
+              </div>
+          `;
+
+          drawReviewList.innerHTML += reviewHTML;
+      });
+  }
+  const reviewPaginationArea = document.querySelector("#review-pagination-area");
+  updatePagination(reviewPaginationArea, res.pi);
+}
+
+
+
+
+function putRecipeQnAList( res) {
+  const qnas = res.qnaList;
+
+  if (qnas.length > 0) {
+      const qnaContentTbody = document.querySelector('#qna_content > tbody');
+      let qnaContentHtml = '';
+
+      qnas.forEach(qna => {
+          if (qna.qnaAnswerType == 1) {
+              qnaContentHtml += `
+                  <tr class="${qna.answerNo != 0 ? 'qna-area-hover' : 'qna-area'}" onclick="showQ(this)" data-answerno="${qna.answerNo}">                                           
+                      <td class="qna_title" style="text-align: left;">${qna.qnaContent}</td>
+                      <td class="qna_writer">${qna.writerNickname}</td>
+                      <td class="qna_create_date">${qna.qnaCreateDate}</td>
+                      <td class="qna_status">${qna.answerNo != 0 ? '답변 완료' : '답변 대기'}</td>
+                  </tr>
+              `;
+
+              if (qna.answerNo != 0) {
+                  qnaContentHtml += `
+                      <tr class="answer_area" style="display: none;">
+                          <td colspan="4" style="text-align: left;">
+                              <div id="qna_q">
+                                  <span class="span_q_a">Q</span><span>${qna.qnaContent}</span>
+                                  <div id="review_img_container">
+                                      ${qna.qnaPhoto ? `<img class="review_img" src="/gorang/resources/uploadfile/recipe/recipeQna/${qna.qnaPhoto}" alt="">` : ''}
+                                  </div>
+                              </div>
+                              <div id="qna_a">
+                                  <span class="span_q_a">A</span>
+                                  <span>${qna.answerContent}</span>
+                              </div>
+                              <div id="qna_a_date">${qna.answerCreateDate}</div>                                            
+                          </td>
+                      </tr>
+                  `;
+              }
+          }
+        });
+        qnaContentTbody.innerHTML += qnaContentHtml;
+
+  }
+  const qnaPaginationArea = document.querySelector("#qna-pagination-area");
+  updatePagination(qnaPaginationArea, res.pi);
+}
+
+// 레시피 REVIEW 가져오는 ajax
+function ajaxGetRecipeReviews(data, callback){
+  $.ajax({
+    url: "ajaxRecipeReview.re",
+    type: "POST",
+    data,
+    success: function(res){
+      console.log(res);
+      callback(res);
+    },
+    error: function(){
+      console.log("불러오기 실패")
+    }
+  });
+}
+
+
+// 레시피  QNA 가져오는 ajax
+function ajaxGetRecipeQnAs(data, callback){
+  $.ajax({
+    url: "ajaxQnA.re",
+    type: "POST",
+    data,
+    success: function(res){
+      console.log(res);
+      callback(res);
+    },
+    error: (function(){
+      console.log("불러오기 실패")
+    })
+  });
+}
 
 
 /** QNA 모달 내 유저, 상품 정보 기입하는 함수 */
 function fillQnaModal(){
   const qnaModal = document.querySelector("#qna_Modal");
   resetImage(qnaModal);
-  // 모달 내 참조 상품 번호 입력
-  // qnaModal.querySelector("input[name='refProductNo']").value = trEl.querySelector(".buyList-input-productNo").value;
-  // 모달 내 상품명, 상품 옵션번호, 옵션명
-  // qnaModal.querySelector(".qna_product_name").innerHTML = trEl.querySelector(".product-name").innerHTML;
-  // qnaModal.querySelector(".qna_pdopt_name > option").value = trEl.querySelector(".buyList-input-pdOptNo").value;
-  // qnaModal.querySelector(".qna_pdopt_name > option").innerHTML = trEl.querySelector(".product-opt-name").innerHTML;
-  console.log(qnaModal);
+
   setupFileInput(qnaModal);
 }
 
@@ -100,12 +275,6 @@ function fullReviewModal(){
   resetImage(reviewModal);
   console.log(reviewModal);
   resetRating();
-  // 모달 내 참조 상품 번호 입력
-  // reviewModal.querySelector("input[name='refProductNo']").value = trEl.querySelector(".buyList-input-productNo").value;
-  // 모달 내 상품명, 상품 옵션번호, 옵션명
-  // reviewModal.querySelector(".qna_product_name").innerHTML = trEl.querySelector(".product-name").innerHTML;
-  // reviewModal.querySelector(".qna_pdopt_name > option").value = trEl.querySelector(".buyList-input-pdOptNo").value;
-  // reviewModal.querySelector(".qna_pdopt_name > option").innerHTML = trEl.querySelector(".product-opt-name").innerHTML;
 
   setupFileInput(reviewModal);
 } 
@@ -292,117 +461,98 @@ function ajaxinsertReview(data, callback) {
         }
     });
 }
-//   function putRecipeReviewList(reviews, contextPath){
-//     const productReviewArea = document.querySelector("#product_review_area");
-    
- 
 
-
-
-
-//     let ratingAvg = (ratingSum / reviews.length).toFixed(1);
-//     document.querySelector("#product_grade").innerHTML = ratingAvg;
-
-//     const reviewPagenationAreaDiv = document.createElement('div');
-//     reviewPagenationAreaDiv.setAttribute("id", "review_pagination_area");
-//     reviewPagenationAreaDiv.innerHTML = `<div id="review_pagination">
-//                                             <a href="#">&lt;</a>
-//                                             <a href="#">1</a>
-//                                             <a href="#">2</a>
-//                                             <a href="#">&gt;</a>
-//                                          </div>`
-//     productReviewArea.appendChild(reviewPagenationAreaDiv);
-// }
 
 // ============================= QNA 관련 메소드 ====================================
   // 문의 구축하는 메소드
-function putProductQnAList(pno, qnas){
+// function putProductQnAList(pno, qnas){
 
-  // 상품 문의 모달
-    // 문의하기 버튼
-    const qnaModalBtn = document.querySelector("#qna_top > button");
-    // 문의하기 버튼 클릭 시 상품 문의 모달 내용 채우는 메소드 발동
-    qnaModalBtn.addEventListener("click", function(){
-      ajaxGetProductOpts({pno},(opts)=>inquireQuestion(opts));
-    })
+//   // 상품 문의 모달
+//     // 문의하기 버튼
+//     const qnaModalBtn = document.querySelector("#qna_top > button");
+//     // 문의하기 버튼 클릭 시 상품 문의 모달 내용 채우는 메소드 발동
+//     qnaModalBtn.addEventListener("click", function(){
+//       ajaxGetProductOpts({pno},(opts)=>inquireQuestion(opts));
+//     })
 
-  // 문의 내용
-    const qnaContentTbody = document.querySelector('#qna_content > tbody');
+//   // 문의 내용
+//     const qnaContentTbody = document.querySelector('#qna_content > tbody');
 
-    let qnaStatus = "답변대기";
+//     let qnaStatus = "답변대기";
 
-    for(let qna of qnas){
-      // 답변글일 경우 노출안시킴
-      if(qna.qnaAnswerType === 2){
-        continue;
-      }
-      //tr 생성
-      const qnaContentTableTr = document.createElement('tr');
-      qnaContentTableTr.setAttribute("class", "qna_content_tr")
-      qnaContentTbody.appendChild(qnaContentTableTr);
-      //qna 제목 td 생성
-      const qnaTitle = document.createElement('td');
-      qnaContentTableTr.appendChild(qnaTitle);
-      qnaTitle.setAttribute("class", "qna_title");
-      qnaTitle.innerHTML = qna.qnaContent;
-      //qna 작성자, 작성일 td 생성
-      qnaContentTableTr.innerHTML += `<td class="qna_writer">${qna.writerNickname}</td>`
-      qnaContentTableTr.innerHTML += `<td class="qna_create_date">${qna.qnaCreateDate}</td>`
+//     for(let qna of qnas){
+//       // 답변글일 경우 노출안시킴
+//       if(qna.qnaAnswerType === 2){
+//         continue;
+//       }
+//       //tr 생성
+//       const qnaContentTableTr = document.createElement('tr');
+//       qnaContentTableTr.setAttribute("class", "qna_content_tr")
+//       qnaContentTbody.appendChild(qnaContentTableTr);
+//       //qna 제목 td 생성
+//       const qnaTitle = document.createElement('td');
+//       qnaContentTableTr.appendChild(qnaTitle);
+//       qnaTitle.setAttribute("class", "qna_title");
+//       qnaTitle.innerHTML = qna.qnaContent;
+//       //qna 작성자, 작성일 td 생성
+//       qnaContentTableTr.innerHTML += `<td class="qna_writer">${qna.writerNickname}</td>`
+//       qnaContentTableTr.innerHTML += `<td class="qna_create_date">${qna.qnaCreateDate}</td>`
 
-      if(qna.answerNo != 0){
-        qnaStatus = "답변완료"
-      }
-       //답변 여부 보여주는 부분
-       qnaContentTableTr.innerHTML += `<td class="qna_status">${qnaStatus}</td>`
+//       if(qna.answerNo != 0){
+//         qnaStatus = "답변완료"
+//       }
+//        //답변 여부 보여주는 부분
+//        qnaContentTableTr.innerHTML += `<td class="qna_status">${qnaStatus}</td>`
 
 
-      // 질문 상세
-      const qnaContentQuestionTd = document.createElement('td');
-      qnaQuestionTr.appendChild(qnaContentQuestionTd);
-      qnaContentQuestionTd.setAttribute("style", "text-align: left");
-      qnaContentQuestionTd.setAttribute("colspan", "4");
-      qnaContentQuestionTd.innerHTML = `<span>질문</span> <br>
-                                        <img src="/gorang/resources/uploadfile/qna/product-qna/${qna.qnaPhoto}">
-                                        <p>${qna.qnaContent}</p>`
+//       // 질문 상세
+//       const qnaContentQuestionTd = document.createElement('td');
+//       qnaQuestionTr.appendChild(qnaContentQuestionTd);
+//       qnaContentQuestionTd.setAttribute("style", "text-align: left");
+//       qnaContentQuestionTd.setAttribute("colspan", "4");
+//       qnaContentQuestionTd.innerHTML = `<span>질문</span> <br>
+//                                         <img src="/gorang/resources/uploadfile/qna/product-qna/${qna.qnaPhoto}">
+//                                         <p>${qna.qnaContent}</p>`
 
-      //만약 답변이 있다면 생성
-      if(qna.answerNo != 0){
-        // 답변 상세
-        const qnaContentAnswerTd = document.createElement('td');
-        qnaQuestionTr.appendChild(qnaContentAnswerTd);
-        qnaContentAnswerTd.setAttribute("style", "text-align: left");
-        qnaContentAnswerTd.setAttribute("colspan", "4");
-        qnaContentAnswerTd.innerHTML = `${qna.answerContent} <br> ${qna.answerCreateDate}`;
-      }
+//       //만약 답변이 있다면 생성
+//       if(qna.answerNo != 0){
+//         // 답변 상세
+//         const qnaContentAnswerTd = document.createElement('td');
+//         qnaQuestionTr.appendChild(qnaContentAnswerTd);
+//         qnaContentAnswerTd.setAttribute("style", "text-align: left");
+//         qnaContentAnswerTd.setAttribute("colspan", "4");
+//         qnaContentAnswerTd.innerHTML = `${qna.answerContent} <br> ${qna.answerCreateDate}`;
+//       }
     
-      //답변 여부 초기화
-      qnaStatus = "답변대기";
-    }
+//       //답변 여부 초기화
+//       qnaStatus = "답변대기";
+//     }
 
-     // 이벤트 핸들러 등록
-  $(".qna_content_tr").click(function() {
-    // 현재 보이는 상세 내용 숨기기
-    $(".qna_content_tr_display").removeClass("qna_content_tr_display").addClass("qna_content_tr_display_none");
+//      // 이벤트 핸들러 등록
+//   $(".qna_content_tr").click(function() {
+//     // 현재 보이는 상세 내용 숨기기
+//     $(".qna_content_tr_display").removeClass("qna_content_tr_display").addClass("qna_content_tr_display_none");
 
-    // 클릭된 요소의 다음 요소(상세 내용) 보이게 하기
-    $(this).next().removeClass("qna_content_tr_display_none").addClass("qna_content_tr_display");
-  });
-      //페이지 처리!!!!!!!!!!!!!!!!!!!!!!!
-}
+//     // 클릭된 요소의 다음 요소(상세 내용) 보이게 하기
+//     $(this).next().removeClass("qna_content_tr_display_none").addClass("qna_content_tr_display");
+//   });
+//       //페이지 처리!!!!!!!!!!!!!!!!!!!!!!!
+// }
 
- // 문의하기 모달창 구축하는 메소드
-function inquireQuestion(opts){
-  console.log(opts);
-  // 옵션명 보여줄 셀렉트
-  const optnameSelect = document.querySelector("#qna_product_name");
-  // 상품 옵션 불러와서 넣기
-  for(let opt of opts){
-     const optnames = document.createElement('option');
-     optnameSelect.appendChild(optnames);
-     optnames.setAttribute('value', opt.detailOptionNo);
-     optnames.innerHTML = opt.detailOptionName;
-  }
-}
+//  // 문의하기 모달창 구축하는 메소드
+// function inquireQuestion(opts){
+//   console.log(opts);
+//   // 옵션명 보여줄 셀렉트
+//   const optnameSelect = document.querySelector("#qna_product_name");
+//   // 상품 옵션 불러와서 넣기
+//   for(let opt of opts){
+//      const optnames = document.createElement('option');
+//      optnameSelect.appendChild(optnames);
+//      optnames.setAttribute('value', opt.detailOptionNo);
+//      optnames.innerHTML = opt.detailOptionName;
+//   }
+// }
+
 
 
 function showQ(element) {
@@ -426,6 +576,8 @@ function showQ(element) {
   }
 
 }
+
+
 
 function insertQnARecipe() {
   let parent = document.getElementById("qna_Modal");
@@ -506,4 +658,9 @@ function ajaxinsertQnA(data, callback) {
           alert("문의 작성에 실패했습니다.");
       }
   });
+}
+
+// 목록으로가기
+function goRecipeList(){
+  window.location.href = 'list.re';
 }

@@ -55,6 +55,11 @@ public interface RecipeService {
 
 	int insertQnA(QnA qna);
 
+	int selectRecipeReviewCount(int recipeNo);
+
+
+	int selectRecipeQnaCount(int recipeNo);
+
 //	int findDivLen(Recipe rcp, HttpSession session);
 //
 //	int findIngreLen(RecipeInsertDTO recipeInsertDTO, HttpSession session);
