@@ -47,7 +47,7 @@
 								<c:otherwise>
 									<c:forEach var="comment" items="${boardCommentList }">
 										<div class="contents-area-content" data-type="board-comment" data-boardNo="${comment.boardNo }"
-											onclick="movePage(this)">
+											onclick="moveDetailPage(this)">
 											<div class="content-area-title">
 												<img class="content-img"
 													src="${contextPath }/resources/uploadfile/board/boardMainContentFile/${comment.boardThumbnail}"
@@ -71,7 +71,11 @@
 							</c:choose>
 
 							<c:forEach var="p" begin="${commentPI.startPage }" end="${commentPI.endPage }">
-								<a href="review.me?comment_cpage=${p}">${p}</a>
+								<c:choose>
+									<c:when test="${commentPI.currentPage eq p}">
+										<a href="review.me?comment_cpage=${p}"><strong style="color:#1e90ff">${p}</strong></a>
+									</c:when>
+								</c:choose>
 							</c:forEach>
 
 							<c:choose>
@@ -105,7 +109,7 @@
 									<c:forEach var="review" items="${reviewList }">
 										<c:if test="${review.reviewType eq 1}">
 											<div class="contents-area-content" data-type="product-review"
-												data-productNo="${review.refProductNo}" onclick="movePage(this)">
+												data-productNo="${review.refProductNo}" onclick="moveDetailPage(this)">
 												<div class="content-area-title">
 													<img class="content-img"
 														src="${contextPath }/resources/uploadfile/review/product-review/${review.reviewPhoto}"
@@ -117,7 +121,7 @@
 										</c:if>
 										<c:if test="${review.reviewType eq 2}">
 											<div class="contents-area-content" data-type="recipe-review" data-recipeNo="${review.refRecipeNo}"
-												onclick="movePage(this)">
+												onclick="moveDetailPage(this)">
 												<div class="content-area-title">
 													<img class="content-img"
 														src="${contextPath }/resources/uploadfile/review/recipe-review/${review.reviewPhoto}"
@@ -143,7 +147,14 @@
 							</c:choose>
 
 							<c:forEach var="p" begin="${reviewPI.startPage }" end="${reviewPI.endPage }">
-								<a href="review.me?review_cpage=${p}">${p}</a>
+								<c:choose>
+									<c:when test="${reviewPI.currentPage eq p}">
+										<a href="review.me?review_cpage=${p}"><strong style="color: #1e90ff">${p}</strong></a>
+									</c:when>
+									<c:otherwise>
+										<a href="review.me?review_cpage=${p}">${p}</a>
+									</c:otherwise>
+								</c:choose>
 							</c:forEach>
 
 							<c:choose>

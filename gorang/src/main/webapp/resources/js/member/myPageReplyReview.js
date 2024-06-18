@@ -6,7 +6,7 @@ function moveDetailProduct(element) {
   
 }
 
-function movePage(element) {
+function moveDetailPage(element) {
   const type = element.getAttribute('data-type');
 
   if(type === 'board-comment') {
