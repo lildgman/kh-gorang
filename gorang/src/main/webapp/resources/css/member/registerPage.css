@@ -1,3 +1,8 @@
+input::placeholder {
+  font-size: 14px;
+  font-weight: 300;
+}
+
 .container {
     position: absolute;
     width: fit-content;
@@ -120,7 +125,6 @@
 
   #address-search-result{
     width: 432px;
-    height: 179px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -146,19 +150,14 @@
     margin-left: 10px;
     font-size: 14px;
   }
-
-  hr{
-    margin-top: 42px;
-  }
-
+  
   #gorangTermSection{
-    margin-top: 32px;
     width: 540px;
     height: 212px;
     display: flex;
-    margin-bottom: 16px;
     padding-bottom: 30px;
   }
+
   #termSpan{
     width: 80px;
     height: 53px;
@@ -232,8 +231,8 @@
     text-align: center;
     margin-left: 50px;
   }
+
   #registerSubmitBtn{
-    margin-top: 32px;
     width: 540px;
     height: 53px;
     display: flex;
@@ -241,7 +240,8 @@
     align-items: center;
     justify-content: center;
   }
-  #registerSubmitBtn input{
+
+  #registerSubmitBtn button{
     width: 320px;
     height: 58px;
     color: #fff;
