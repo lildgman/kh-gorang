@@ -162,7 +162,6 @@ function toggleLikeBoard(element) {
     const boardNo = element.getAttribute('data-boardNo');
 
     if (loginUserNo) {
-        console.log(loginUserNo);
         $.ajax({
             url: 'like.bo',
             type: 'post',
@@ -170,7 +169,6 @@ function toggleLikeBoard(element) {
                 boardNo: boardNo
             },
             success: function (res) {
-                console.log(res);
                 if (res === 'cancle_like') {
                     alert("좋아요 취소하셨습니다.");
                 } else if (res === 'do_like') {
@@ -191,6 +189,41 @@ function toggleLikeBoard(element) {
         alert("로그인이 필요한 기능입니다.");
     }
 
+}
+
+function toggleScrapBoard(element) {
+    const loginUserNo = element.getAttribute('data-userNo');
+    const boardNo = element.getAttribute('data-boardNo');
+
+    if(loginUserNo) {
+        $.ajax({
+            url:'scrap.bo',
+            type: 'post',
+            data: {
+                boardNo: boardNo
+            },
+            success: function (res) {
+                if (res === 'cancle_scrap') {
+                    alert("스크랩을 취소하셨습니다.");
+                } else if (res === 'do_scrap') {
+                    alert("스크랩을 완료하였습니다.")
+                } else {
+                    alert("스크랩을 실패하였습니다.");
+                }
+
+                window.location.reload();
+            
+            
+            }, 
+            error: function() {
+                console.log('상품 스크랩 api 호출 실패');
+            }
+
+
+        })
+    } else {
+        alert("로그인이 필요한 기능입니다.");
+    }
 }
 
 function checkSelectedOneOption(event) {

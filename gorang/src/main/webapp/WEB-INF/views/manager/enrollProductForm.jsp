@@ -59,7 +59,7 @@
         </div>
 
         <!-- 오른쪽 div -->
-        <form action="insert.po" method="POST" enctype="multipart/form-data">
+        <form action="insert.po" method="POST" enctype="multipart/form-data" onsubmit="return isEmptyProductInfo()">
 
             <div id="right-container">
                 <div id="right-title">상품 등록</div>
@@ -193,11 +193,31 @@
                             </thead>
 
                             <tbody id="option-table-tbody">
-                                <!-- <tr class="option-tr">
-                                    <td align="center" colspan="6">
-                                        옵션을 등록해주세요
-                                    </td>
-                                </tr> -->
+                                <tr class="option-tr">
+                                    <td align="center">
+                                        <input type="checkbox" name="" id="" class="deleteTrCheckBox">
+                                      </td>
+                                      <td align="center">
+                                        <input type="checkbox" name="options[0].mainDetailOption" id="mainDetailOption" class="check-main-option" value="yes" onclick="checkSelectedOneOption(event);" checked>
+                                        <input type="hidden" name="_options[0].mainDetailOption" value="on"/>
+                                        <label for="mainDetailOption"></label>
+                                      </td>
+                                      <td align="center">
+                                        <input type="text" id="detailOptionName" name="options[0].detailOptionName" required>
+                                      </td>
+                                      <td align="center">
+                                        <input type="number" class="txt-align-right" placeholder="개"
+                                            id="detailOptionQuantity" name="options[0].detailOptionQuantity" required>
+                                      </td>
+                                      <td align="center">
+                                        <input type="number" class="txt-align-right" placeholder="원"
+                                            id="detailOptionOriginPrice" name="options[0].detailOptionOriginPrice" required>
+                                      </td>
+                                      <td align="center">
+                                        <input type="number" class="txt-align-right" placeholder="원"
+                                            id="detailOptionSaledPrice" name="options[0].detailOptionSaledPrice" required>
+                                      </td>
+                                  </tr>
                             </tbody>
                         </table>
 
@@ -206,7 +226,7 @@
 
                 <div class="enroll-div-container">
                     <div class="container-title">
-                        <span>상품 이미지</span>
+                        <span>상품 이미지</span><span style="color: #d72020;">*</span>
                     </div>
 
                     <div id="main-img-area">
@@ -217,16 +237,16 @@
                             <img src="${contextPath }/resources/dummyImg/manage/camera.png"  alt="">
                         </div>
                     </div>
-                    <input type="file" id="file-input" accept="image/*" name="upfile" required>
+                    <input type="file" id="file-input" accept="image/*" name="upfile">
                 </div>
 
                 <div class="enroll-div-container">
                     <div class="container-title">
-                        <span>상품 설명</span>
+                        <span>상품 설명</span><span style="color: #d72020;">*</span>
                     </div>
 
                     <div id="summernote-container">
-                        <textarea id="summernote" name="description" required></textarea>
+                        <textarea id="summernote" name="description"></textarea>
                     </div>
                 </div>
 

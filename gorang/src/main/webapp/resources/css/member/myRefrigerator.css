@@ -51,14 +51,14 @@ table{
 
 /* 추천레시피 이미지 영역 */
 #recommend-recipe-imgs {
-    height: 240px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 60px;
+    height: 260px;
 }
+
+.slick-prev:before,
+.slick-next:before{
+  color: #1E90FF !important;;
+}
+
 
 /*나의 냉장고 전체영역*/
 #myRefrigerator-area{
@@ -175,7 +175,7 @@ tbody td:not(:first-child ) {
 #viewModalBtn {
     border: white;
     background-color: white;
-    color: #2849F8;
+    color: #1E90FF;
     font-size: 16px;
     font-weight: bold;
 }

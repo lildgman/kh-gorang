@@ -1,13 +1,21 @@
+input::placeholder {
+  font-size: 14px;
+  font-weight: 300;
+}
+
 .container {
     position: absolute;
-    width: 540px;
+    width: fit-content;
     height: auto;
     text-align: center;
     margin: 50px 690px 188px 690px;
   }
   
   #register-form {
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
     text-align: left;
   }
   #gorang-logo{
@@ -22,11 +30,9 @@
 
   .registerSection{
     width: 540px;
-    height: 53px;
     display: flex;
     flex-direction: row;
     gap: 12px;
-    margin-bottom: 16px;
   }
 
   .registerSpan{
@@ -46,7 +52,7 @@
 
   .register-inputForm{
       width: 320px;
-      height: 53px;
+      height: fit-content;
   }
 
   .register-input{
@@ -62,6 +68,18 @@
   .register-input input ::placeholder{
     color: #999999;
     font-size: 14px;
+  }
+
+  /* 잘못된 형식일 경우 알려주는 메시지 */
+  .regi-notice-wrapper{
+    display: flex;
+    flex-direction: column;
+    padding-left: 15px;
+  }
+
+  .regi-notice{
+    font-size: 14px;
+    color: red;
   }
 
   .registerCheck{
@@ -107,7 +125,6 @@
 
   #address-search-result{
     width: 432px;
-    height: 179px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -133,19 +150,14 @@
     margin-left: 10px;
     font-size: 14px;
   }
-
-  hr{
-    margin-top: 42px;
-  }
-
+  
   #gorangTermSection{
-    margin-top: 32px;
     width: 540px;
     height: 212px;
     display: flex;
-    margin-bottom: 16px;
     padding-bottom: 30px;
   }
+
   #termSpan{
     width: 80px;
     height: 53px;
@@ -219,8 +231,8 @@
     text-align: center;
     margin-left: 50px;
   }
+
   #registerSubmitBtn{
-    margin-top: 32px;
     width: 540px;
     height: 53px;
     display: flex;
@@ -228,7 +240,8 @@
     align-items: center;
     justify-content: center;
   }
-  #registerSubmitBtn input{
+
+  #registerSubmitBtn button{
     width: 320px;
     height: 58px;
     color: #fff;

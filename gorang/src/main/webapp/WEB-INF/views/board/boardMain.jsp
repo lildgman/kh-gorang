@@ -93,41 +93,32 @@
                         </div>
                         <div id="BoardPageBarBox">
                             <div id="pagingArea">
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination">
+                                <div id="pagination">
+
+                                    <c:choose>
+                                        <c:when test="${pi.currentPage ne 1 }">
+                                            <a href="main.bo?content=${content}&cpage=${pi.currentPage -1 }&category=${category}&sort=${sort}">&lt;</a>
+                                        </c:when>
+                                    </c:choose>
+                    
+                                    <c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
                                         <c:choose>
-                                            <c:when test="${pi.currentPage eq 1}">
-                                                <li class="page-item disabled">
-                                                    <a class="page-link" href="#">Previous</a>
-                                                </li>
+                                            <c:when test="${pi.currentPage eq p}">
+                                                <a href="main.bo?content=${content}&cpage=${p}&category=${category}&sort=${sort}"><strong style="color:#1E90FF;">${p}</strong></a>
                                             </c:when>
                                             <c:otherwise>
-                                                <li class="page-item">
-                                                    <a class="page-link" href="main.bo?cpage=${pi.currentPage - 1}&category=${category}&sort=${sort}&content=${content}">Previous</a>
-                                                </li>
+                                                <a href="main.bo?content=${content}&cpage=${p}&category=${category}&sort=${sort}">${p}</a>
                                             </c:otherwise>
                                         </c:choose>
-                        
-                                        <c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
-                                            <li class="page-item">
-                                                <a class="page-link" href="main.bo?cpage=${p}&category=${category}&sort=${sort}&content=${content}">${p}</a>
-                                            </li>
-                                        </c:forEach>
-                        
-                                        <c:choose>
-                                            <c:when test="${pi.currentPage eq pi.maxPage}">
-                                                <li class="page-item disabled">
-                                                    <a class="page-link" href="#">Next</a>
-                                                </li>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <li class="page-item">
-                                                    <a class="page-link" href="main.bo?cpage=${pi.currentPage + 1}&category=${category}&sort=${sort}&content=${content}">Next</a>
-                                                </li>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </ul>
-                                </nav>
+                                    </c:forEach>
+                    
+                                    <c:choose>
+                                        <c:when test="${pi.currentPage lt pi.maxPage}">
+                                            <a href="main.bo?content=${content}&cpage=${pi.currentPage +1 }&category=${category}&sort=${sort}">&gt;</a>
+                                        </c:when>
+                                    </c:choose>
+                                    
+                                </div>
                             </div>
                         </div>
                         

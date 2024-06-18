@@ -218,3 +218,16 @@ body {
     color: #1E90FF;
 }
 
+#pagination{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    width: 392px;
+  }
+  
+  #pagination > a {
+    text-decoration: none;
+    font-size: 14px;
+    color : #6D6D6D;
+  }

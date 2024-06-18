@@ -1,332 +1,362 @@
-$(function(){
-    new PhoneAuthentication();
-})
+document.addEventListener('DOMContentLoaded', function () {
+    const ctx = sessionStorage.getItem("contextpath");
 
- // ============== 핸드폰 번호 입력 ==========================
-    // 휴대폰 인증 class
+    document.querySelector("#gorang-logo").addEventListener("click", () => location.href = ctx);
+    document.querySelector("input[name='memberEmail']").addEventListener('blur', validateEmail);
+    document.querySelector("input[name='memberPwd']").addEventListener('blur', validatePwd);
+    document.querySelector("#register-pwd-confirm").addEventListener('blur', validatePwdConfirm);
+    document.querySelector("input[name='nickname']").addEventListener('blur', validateNickname);
+    document.querySelector("input[name='memberPhone']").addEventListener('blur', validatePhoneNumber);
+    document.querySelector("input[name='birth']").addEventListener('blur', validateBirthdate);
 
-    class PhoneAuthentication{
-        constructor(){
-            this.isSend = false; // 인증번호 전송 여부
-            this.authNo = ''; // 인증번호
-            this.timerId = null; //타이머
-            this.timer = $('.timer>h4'); // 타이머 ui
-            // input 창 한 쪽에 나타나게 하면 어떨까?
+    document.querySelector("#member-auth-btn").addEventListener('click', new PhoneAuthentication());
 
-            this.input = $("input[name='phone-authNo']");// 인증번호 input
+    document.querySelector("#addressSearch > button").addEventListener('click', setAddress);
 
-            this.sendBtn = $('#member-auth-btn'); // 인증번호 전송 버튼
-            this.authBtn = $('#member-phone-auth-btn'); // 인증번호 체크 버튼
+    checkAddressVali();
 
-            this.sendBtn.on('click',()=>{
-                console.log("클릭");
-                this.sendAuthNum();
-            });
+    document.querySelector("#register-form-submitBtn").addEventListener('click', (ev) => {validateForm(ev)});
+    
+    setTermSection();
+});
 
-            this.authBtn.on('click', ()=>{
-                this.checkAuthNum();
-            });
-        }
-
-        sendAuthNum(){
-            if(this.isSend){
-                const result = confirm('재전송 하시겠습니까?');
-                if(!result){ // 재전송 거절 시
-                    return;
-                } else {
-                    clearInterval(this.timerId); // 호출 스케쥴링(일정 시간 간격 두고 함수 실행)
-                }
-            }
-
-
-            // 랜덤번호 생성
-            this.authNo = Math.floor(Math.random() * 100000).toString().padStart(6, '0');
-            const phone = document.querySelector("input[name='memberPhone']").value;
-
-            $('#phoneAuthSection').css('display','flex');
-
-            sendPhoneAuthNoAjax({authNo: this.authNo, phone: phone}, res => {
-                if(res === "success"){
-                    console.log("전송 성공");
-                    console.log("인증번호 : " + this.authNo);
-                    console.log("전송한 휴대폰 번호 : " + phone);
-
-                    this.timer.css("color", "red");
-                    this.authBtn.prop('disabled', false);
-                    this.input.prop('readonly', false).val('').focus();
-
-                    this.isSend = true;
-                    this.startTimer(181); // 3분 타이머 시작
-                } else {
-                    alert('전송 실패');
-                    this.authNo = '';
-                }
-            });
-
-        };
-
-        checkAuthNum(){
-            const inputCode = this.input.val();
-            if(this.authNo !== inputCode){
-                alert("잘못된 인증번호입니다.");
-            }else {
-                this.sendBtn.prop('disabled', true);
-                $('#phone1').prop('readonly', true);
-                $('#phone2').prop('readonly', true);
-
-                alert('인증성공');
-                clearInterval(this.timerId);
-
-                this.input.prop('readonly', true);            
-                this.timer.css("color", "#4aa500");
-                this.isSend = false;
-                this.authBtn.prop('disabled', true);
-            };
-        };
-
-        startTimer(duration){
-            let timeLeft = duration;
-            this.timerId =  setInterval(() => {
-                if(timeLeft <= 0){
-                    clearInterval(this.timerId);
-                    alert("인증시간 초과. 다시 인증해주세요.");
-                    this.timer.text("3:01");
-                    this.authBtn.prop('disabled', true);
-                    this.authNo = "";
-                } else {
-                    timeLeft --;
-                    let minutes = Math.floor(timeLeft/60);
-                    let seconds = timeLeft % 60;
-                    this.timer.text(minutes + ":" + (seconds < 10 ? '0' : '') + seconds);
-                }
-            }, 1000); // 1초마다
-        }
-    };
-
-    // 휴대폰 인증 관련 ajax 함수
-    function sendPhoneAuthNoAjax(data, callback){
-        $.ajax({
-            url:'authPhone.me',
-            type: 'post',
-            data,
-            success: res => callback(res),
-            error: () => {
-                alert('휴대폰 인증번호 전송 실패');
-            }
-        });
-    };
-
-    const ctx = getContextPath();
-
-    function getContextPath() {
-        return sessionStorage.getItem("contextpath");
-    };
-
-window.onload = function(){
- 
-    document.querySelector("#gorang-logo").addEventListener("click", function(){
-        location.href = (ctx);
-    })
-
-    const form = document.getElementById("register-form");
-    form.addEventListener("submit", function(event) {
-        // Prevent the form from submitting until validation is done
-        event.preventDefault();
-
-        // Check all validation rules
-        if (validateForm()) {
-            form.submit();
-        }
-    });
-
-    const addressSearchPostcode = document.querySelector("#addressSearch > button");
-    addressSearchPostcode.addEventListener("click", function(){
-        inputAddress();
-    });
-
-
-
-    //전체 동의
-    const selectAllCheckbox = document.getElementById("select-all");
-    selectAllCheckbox.addEventListener("change", function() {
-        const checkboxes = document.querySelectorAll("input[type='checkbox']:not(#select-all)");
-        checkboxes.forEach(checkbox => {
-            checkbox.checked = selectAllCheckbox.checked;
-        });
-    });
-
-    const idCheckBtn = document.querySelector("#idCheck");
-    idCheckBtn.onclick = function(ev){
-        checkEmail(ev);
-    };
-
-    const emailInput = document.querySelector("input[type='email']");
-    emailInput.addEventListener("input", function() {
-        idCheckBtn.value = "중복확인";
-        idCheckBtn.style.pointerEvents = "auto";
-        idCheckBtn.style.border = "solid 2px #1E90FF";
-        idCheckBtn.style.background = "#ffffff";
-        idCheckBtn.style.color = "#1E90FF";
-    });
-
-    const nameCheckBtn = document.querySelector("#nameCheck");
-    nameCheckBtn.onclick = function(ev){
-        checkNickname(ev);
-    };
-
-    document.querySelector("input[name='nickname']").addEventListener("input", function(){
-        nameCheckBtn.value = "중복확인";
-        nameCheckBtn.style.pointerEvents = "auto";
-        nameCheckBtn.style.border = "solid 2px #1E90FF";
-        nameCheckBtn.style.background = "#ffffff";
-        nameCheckBtn.style.color = "#1E90FF";
-    });
-
-
-    console.log("Naver User Info:", naverUserInfo);
-
-    if (typeof naverUserInfo !== 'undefined') {
-        console.log("Naver User Info:", naverUserInfo);
-
-        if (naverUserInfo.email) {
-            document.querySelector("input[name='memberEmail']").value = naverUserInfo.email;
-        }
-        if (naverUserInfo.mobile) {
-            document.querySelector("input[name='memberPhone']").value = naverUserInfo.mobile.replace(/-/g, '');
-        }
-        if (naverUserInfo.birthyear && naverUserInfo.birthday) {
-            const birthdate = `${naverUserInfo.birthyear}-${naverUserInfo.birthday}`;
-            document.querySelector("input[name='birth']").value = birthdate;
-        }
-        if (naverUserInfo.gender) {
-            document.querySelector(`input[name='gender'][value='${naverUserInfo.gender === 'M' ? 'M' : 'F'}']`).checked = true;
-        }
-        if (naverUserInfo.profile_image) {
-            document.querySelector("#profileImage").value = naverUserInfo.profile_image;
-        }
-    };
+ function validateForm(event) {
+    event.preventDefault();
+    
+    const isValidEmail = (document.querySelector("#idCheck").value.trim() === "사용가능" );
+    const isValidPwd = validatePwd();
+    const isValidPwdConfirm = validatePwdConfirm();
+    const isValidNickname = (document.querySelector("#nameCheck").value.trim() === "사용가능" );
+    const isValidPhoneNumber = (document.querySelector("#member-phone-auth-btn").value.trim() === "사용가능" );
+    const isValidBirthdate = validateBirthdate();
+    const isValidTotalAddress = validateTotalAddress();
+    const isValidTerm = validateTerm();
+    
+    if (isValidEmail && isValidPwd && isValidPwdConfirm && isValidNickname && isValidPhoneNumber && isValidBirthdate && isValidTotalAddress && isValidTerm) {
+        document.querySelector("#register-form").submit();
+    }
 }
 
-function validateForm() {
-    const email = document.querySelector("input[type='email']");
-    const password = document.querySelector("input[type='password'][placeholder='비밀번호를 입력해주세요.']");
-    const confirmPassword = document.querySelector("input[type='password'][placeholder='비밀번호를 한번 더 입력해주세요.']");
-    const nickname = document.querySelector("input[type='text'][placeholder='닉네임을 입력해주세요.']");
-    const phoneNumber = document.querySelector("input[type='tel'][placeholder='전화번호를 입력해주세요.']");
-    const birthdate = document.querySelector("input[type='date'][placeholder='YYYYMMDD']");
-    const terms = document.querySelector("input[type='checkbox']:not(#select-all)");
 
-    // Validate email
-    if (!validateEmail(email.value)) {
-        alert("올바른 이메일을 입력해주세요.");
-        email.focus();
-        return false;
-    }
-
-    // Validate password
-    if (password.value.length < 6) {
-        alert("비밀번호는 6자 이상이어야 합니다.");
-        password.focus();
-        return false;
-    }
-
-    // Validate confirm password
-    if (password.value !== confirmPassword.value) {
-        alert("비밀번호가 일치하지 않습니다.");
-        confirmPassword.focus();
-        return false;
-    }
-
-    // Validate nickname
-    if (nickname.value.trim() === "") {
-        alert("닉네임을 입력해주세요.");
-        nickname.focus();
-        return false;
-    }
-
-    // Validate phone number
-    if (!validatePhoneNumber(phoneNumber.value)) {
-        alert("올바른 전화번호를 입력해주세요.");
-        phoneNumber.focus();
-        return false;
-    }
-
-    // Validate birthdate
-    if (!validateBirthdate(birthdate.value)) {
-        alert("올바른 생년월일을 입력해주세요.");
-        birthdate.focus();
-        return false;
-    }
-
-    // Validate terms and conditions
-    if (!terms.checked) {
-        alert("이용약관에 동의해주세요.");
-        terms.focus();
-        return false;
-    }
-
-    // If all validations pass
-    return true;
+function showNotice(element, message, className) {
+    element.innerHTML = `<span class="regi-notice ${className}">${message}</span>`;
 }
 
-function validateEmail(email) {
+// ========================================================= 이메일 ===================================================
+
+function validateEmail() {
+    const email = document.querySelector("input[name='memberEmail']").value.trim();
+    const emailNotice = document.querySelector("#register-input-email > .regi-notice-wrapper");
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
+    if (email !== "") {
+        if (re.test(email)) {
+            emailNotice.innerHTML = "";
+            const emailBtn = document.querySelector("#idCheck");
+            emailBtn.style.pointerEvents = "auto";
+
+            emailBtn.addEventListener('click', () => {checkEmail(emailBtn, email)});
+        } else {
+            showNotice(emailNotice, "잘못된 이메일 형식입니다.", "email-form");
+        }
+    } else {
+        showNotice(emailNotice, "이메일을 입력해주세요.", "email-empty");
+    }
 }
 
-function validatePhoneNumber(phoneNumber) {
-    const re = /^[0-9]{10,11}$/;
-    return re.test(phoneNumber);
+function checkEmail(emailBtn, email) {
+    $.ajax({
+        url: "idCheck.me",
+        data: { checkId: email },
+        success: function (result) {
+            if (result === "NNNNN") {
+                showNotice(document.querySelector("#register-input-email > .regi-notice-wrapper"), "이미 가입한 이메일입니다.", "email-id");
+            } else {
+                emailBtn.value = "사용가능";
+                emailBtn.style.pointerEvents = "none";
+                emailBtn.style.background = "#1e90ff";
+                emailBtn.style.color = "#ffffff";
+            }
+        },
+        error: function () {
+            console.log("아이디 중복체크 실패");
+            resolve(false);
+        }
+    });
 }
 
-function validateBirthdate(birthdate) {
-    // 정규 표현식으로 형식 검사를 먼저 합니다 (YYYY-MM-DD)
-    const regex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
-    if (!regex.test(birthdate)) {
+// ======================================================= 비밀번호, 비밀번호 확인 ===============================================
+
+function validatePwd() {
+    const pwd = document.querySelector("input[name='memberPwd']").value.trim();
+    const pwdNotice = document.querySelector("#register-input-pwd > .regi-notice-wrapper");
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    if (pwd !== "") {
+        if (passwordRegex.test(pwd)) {
+            pwdNotice.innerHTML = "";
+            return true;
+        } else {
+            showNotice(pwdNotice, "영문, 숫자를 포함한 8자리 이상의 비밀번호를 입력해주세요.", "pwd-form");
+            return false;
+        }
+    } else {
+        showNotice(pwdNotice, "비밀번호를 입력해주세요.", "pwd-empty");
         return false;
     }
-
-    // 날짜 유효성을 검사합니다
-    const [year, month, day] = birthdate.split('-').map(Number);
-    const date = new Date(year, month - 1, day); // month는 0부터 시작하므로 -1을 해줍니다
-
-    // 유효한 날짜인지 확인합니다
-    return (
-        date.getFullYear() === year &&
-        date.getMonth() === month - 1 &&
-        date.getDate() === day
-    );
 }
 
-function inputAddress(){
+function validatePwdConfirm() {
+    const pwdConfirm = document.querySelector("#register-pwd-confirm").value.trim();
+    const pwdConfirmNotice = document.querySelector("#register-input-pwd-confirm > .regi-notice-wrapper");
+    const pwd = document.querySelector("input[name='memberPwd']").value;
+    if (pwdConfirm !== "") {
+        if (pwdConfirm === pwd) {
+            pwdConfirmNotice.innerHTML = "";
+            return true;
+        } else {
+            showNotice(pwdConfirmNotice, "비밀번호가 일치하지 않습니다.", "pwd-confirm");
+            return false;
+        }
+    } else {
+        showNotice(pwdConfirmNotice, "비밀번호를 한 번 더 입력해주세요.", "pwd-confirm-empty");
+        return false;
+    }
+}
+
+
+// ==================================================== 닉네임 ==============================================
+
+function validateNickname(ev) {
+    const nickname = document.querySelector("input[name='nickname']").value.trim();
+    const nicknameNotice = document.querySelector("#register-input-nickname > .regi-notice-wrapper");
+    const specialCharacterRegex = /[!@#$%^&*(),.?":{}|<>[\]\\/~`'_\-+=;№]/;
+    
+    if (nickname !== "") {
+        if (specialCharacterRegex.test(nickname)) {
+            showNotice(nicknameNotice, "닉네임에는 특수문자가 사용할 수 없습니다.", "nickname-form-special");
+        } else if (nickname.length > 15) {
+            showNotice(nicknameNotice, "15글자 이하로 입력해주세요.", "nickname-form-max");
+        } else if (nickname.length < 2) {
+            showNotice(nicknameNotice, "2글자 이상 입력해주세요.", "nickname-form-min");
+        } else {
+            const idCheckBtn = document.querySelector("#nameCheck");
+            idCheckBtn.style.pointerEvents = "auto";
+
+            idCheckBtn.addEventListener('click', () => {checkNickname(idCheckBtn, nicknameNotice, nickname)});
+        }
+    } else {
+        showNotice(nicknameNotice, "닉네임을 입력해주세요.", "nickname-empty");
+    }
+}
+
+function checkNickname(idCheckBtn, nicknameNotice, nickname) {
+    $.ajax({
+        url: "nameCheck.me",
+        data: { checkName: nickname },
+        success: function (result) {
+            if (result === "NNNNN") {
+                showNotice(nicknameNotice, "이미 사용중인 닉네임입니다.", "nickname-check");
+            } else {
+                idCheckBtn.value = "사용가능";
+                idCheckBtn.style.pointerEvents = "none";
+                idCheckBtn.style.background = "#1e90ff";
+                idCheckBtn.style.color = "#ffffff";
+            }
+        },
+        error: function () {
+            console.log("닉네임 중복체크 실패");
+        }
+    });
+}
+
+
+// ==================================================== 핸드폰 ===============================================
+
+ function validatePhoneNumber() {
+    const phone = document.querySelector("input[name='memberPhone']").value.trim();
+    const phoneNotice = document.querySelector("#register-input-phone > .regi-notice-wrapper");
+    const onlyNumbersRegex = /^[0-9]+$/;
+    if (phone !== "") {
+        if (!onlyNumbersRegex.test(phone)) {
+            showNotice(phoneNotice, "전화번호에는 숫자만 기입 가능합니다.", "phone-form-onlyNum");
+        } else if (phone.length !== 11) {
+            showNotice(phoneNotice, "전화번호 형식이 올바르지 않습니다(11자리).", "phone-form");
+        } else {
+            const authBtn = document.querySelector("#member-auth-btn");
+            authBtn.style.pointerEvents = "auto";
+        }
+    } else {
+        showNotice(phoneNotice, "전화번호를 입력해주세요.", "phone-empty");
+    }
+}
+
+
+class PhoneAuthentication{
+    constructor(){
+        this.isSend = false; // 인증번호 전송 여부
+        this.authNo = ''; // 인증번호
+        this.timerId = null; //타이머
+        this.timer = $('.timer>h4'); // 타이머 ui
+        // input 창 한 쪽에 나타나게 하면 어떨까?
+
+        this.input = $("input[name='phone-authNo']");// 인증번호 input
+
+        this.sendBtn = $('#member-auth-btn'); // 인증번호 전송 버튼
+        this.authBtn = $('#member-phone-auth-btn'); // 인증번호 체크 버튼
+
+        this.sendBtn.on('click',()=>{
+            console.log("클릭");
+            this.sendAuthNum();
+        });
+
+        this.authBtn.on('click', ()=>{
+            this.checkAuthNum();
+        });
+    }
+
+    showNotice(element, message, className) {
+        element.innerHTML = `<span class="regi-notice ${className}">${message}</span>`;
+    }
+
+
+    sendAuthNum(){
+        if(this.isSend){
+            const result = confirm('재전송 하시겠습니까?');
+            if(!result){ // 재전송 거절 시
+                return;
+            } else {
+                clearInterval(this.timerId); // 호출 스케쥴링(일정 시간 간격 두고 함수 실행)
+            }
+        }
+        // 랜덤번호 생성
+        this.authNo = Math.floor(Math.random() * 100000).toString().padStart(6, '0');
+
+        const phone = document.querySelector("input[name='memberPhone']").value;
+
+        $('#phoneAuthSection').css('display','flex');
+
+        sendPhoneAuthNoAjax({authNo: this.authNo, phone: phone}, res => {
+            if(res === "success"){
+                console.log("전송 성공");
+                console.log("인증번호 : " + this.authNo);
+                console.log("전송한 휴대폰 번호 : " + phone);
+
+                this.timer.css("color", "red");
+                this.authBtn.prop('disabled', false);
+                this.input.prop('readonly', false).val('').focus();
+
+                this.isSend = true;
+                this.startTimer(181); // 3분 타이머 시작
+            } else {
+                console.log("전송한 휴대폰 번호 : " + phone);
+                alert('전송 실패');
+                this.authNo = '';
+            }
+        });
+
+    };
+
+    checkAuthNum(){
+        const inputCode = this.input.val();
+        if(this.authNo.trim() !== inputCode){
+            showNotice(document.querySelector("#register-input-authNo > .regi-notice-wrapper"), "잘못된 인증번호입니다.", "authNo-un");
+        }else {
+            this.sendBtn.prop('disabled', true);
+            $('#phone1').prop('readonly', true);
+            $('#phone2').prop('readonly', true);
+
+            alert('인증성공');
+            clearInterval(this.timerId);
+            
+            const phoneAuthBtn = document.querySelector('#member-phone-auth-btn');
+            phoneAuthBtn.value = "인증완료";
+            phoneAuthBtn.style.pointerEvents = "none";
+            phoneAuthBtn.style.background = "#1e90ff";
+            phoneAuthBtn.style.color = "#ffffff";
+
+            this.input.prop('readonly', true);            
+            this.timer.css("color", "#4aa500");
+            this.isSend = false;
+            this.authBtn.prop('disabled', true);
+        };
+    };
+
+    startTimer(duration){
+        let timeLeft = duration;
+        this.timerId =  setInterval(() => {
+            if(timeLeft <= 0){
+                clearInterval(this.timerId);
+                showNotice(document.querySelector("#register-input-authNo > .regi-notice-wrapper"), "인증시간이 초과되었습니다.", "authNo-over");
+                this.timer.text("3:01");
+                this.authBtn.prop('disabled', true);
+                this.authNo = "";
+            } else {
+                timeLeft --;
+                let minutes = Math.floor(timeLeft/60);
+                let seconds = timeLeft % 60;
+                this.timer.text(minutes + ":" + (seconds < 10 ? '0' : '') + seconds);
+            }
+        }, 1000); // 1초마다
+    }
+};
+
+// 휴대폰 인증 관련 ajax 함수
+function sendPhoneAuthNoAjax(data, callback){
+    $.ajax({
+        url:'authPhone.me',
+        type: 'post',
+        data,
+        success: res => callback(res),
+        error: () => {
+            alert('휴대폰 인증번호 전송 실패');
+        }
+    });
+};
+
+// ====================================================== 생년월일 =====================================
+
+function validateBirthdate() {
+    const birthdate = document.querySelector("input[name='birth']").value.trim();
+    const birthNotice = document.querySelector("#birthInput >.regi-notice-wrapper");
+    const birthdateRegex = /^(19|20)\d{2}-\d{2}-\d{2}$/;
+    if (birthdate !== "") {
+        if (birthdateRegex.test(birthdate)) {
+            const [year, month, day] = birthdate.split('-').map(Number);
+            const today = new Date();
+            const birthDate = new Date(year, month - 1, day);
+            if (birthDate > today) {
+                showNotice(birthNotice, "미래 날짜는 입력할 수 없습니다.", "birth-form");
+                return false;
+            } else {
+                birthNotice.innerHTML = "";
+                return true;
+            }
+        } else {
+            showNotice(birthNotice, "날짜 형식이 올바르지 않습니다. (예: YYYY-MM-DD)", "birth-form");
+            return false;
+        }
+    } else {
+        showNotice(birthNotice, "생년월일을 입력해주세요.", "birth-empty");
+        return false;
+    }
+}
+
+// ==================================================== 주소 ========================================
+
+function setAddress(){
     // 버튼 없애고 새로운 input 창들 생성 후 위 메소드의 결과값 띄우기
     let addressSection = document.querySelector("#registAddressSection");
     addressSection.removeChild(document.getElementById("addressSearch"));
-
     let searchResult = document.createElement('div');
     addressSection.appendChild(searchResult);
     searchResult.setAttribute("id", "address-search-result");
 
-    // 우편번호
-    let searchResultPostcode = document.createElement('input');
-    searchResult.appendChild(searchResultPostcode);
-    searchResultPostcode.setAttribute("class", "register-input");
-    searchResultPostcode.setAttribute("id", "sample6_postcode");
-    searchResultPostcode.setAttribute("style", "width: 160px");
-
-    // 주소
-    let searchResultAddress = document.createElement('input');
-    searchResult.appendChild(searchResultAddress);
-    searchResultAddress.setAttribute("class", "register-input");
-    searchResultAddress.setAttribute("id", "sample6_address");
-
-    // 상세 주소
-    let searchResultAddressDetail = document.createElement('input');
-    searchResult.appendChild(searchResultAddressDetail);
-    searchResultAddressDetail.setAttribute("class", "register-input");
-    searchResultAddressDetail.setAttribute("id", "sample6_detailAddress");
-    searchResultAddressDetail.setAttribute("type", "text");
-    searchResultAddressDetail.setAttribute("placeholder", "상세 주소를 입력해주세요");
+    searchResult.innerHTML = `
+                            <input type="text" class="register-input" id="sample6_postcode" style="width: 160px;" required></input>
+                            <input type="text" class="register-input" id="sample6_address" required></input>
+                            <div class="regi-notice-wrapper notice-form-address"></div>
+                            <input type="text" class="register-input" id="sample6_detailAddress" placeholder="상세 주소를 입력해주세요" required></input>
+                            <div class="regi-notice-wrapper notice-form-detail-address"></div>
+                            `
 
     let totalAddress = document.createElement('input');
     searchResult.appendChild(totalAddress);
@@ -336,84 +366,137 @@ function inputAddress(){
 
     sample6_execDaumPostcode();
 
-    //주소와 상세주소 합침
-    searchResultAddressDetail.addEventListener("input", function() {
-        totalAddress.value = searchResultAddress.value + " " + searchResultAddressDetail.value;
-    }); 
+    checkAddressVali();
 }
 
+function validateTotalAddress() {
+    console.log("validateTotalAddress 실행");
+    let isTrue = true;
+    const address = document.querySelector("#sample6_address");
+    const detailAddress = document.querySelector("#sample6_detailAddress");
+    const addressNotice = document.querySelector(".notice-form-address");
+    const detailAddressNotice = document.querySelector(".notice-form-detail-address");
+
+    if (address && detailAddress) {
+        if (address.value.trim() === "") {
+            showNotice(addressNotice, "주소를 입력해주세요.", "address-empty");
+            isTrue = false;
+        } else {
+            addressNotice.innerHTML = "";
+        }
+
+        if (detailAddress.value.trim() === "") {
+            showNotice(detailAddressNotice, "상세주소를 입력해주세요.", "detail-address-empty");
+            isTrue = false;
+        } else {
+            detailAddressNotice.innerHTML = "";
+        }
+
+        if (isTrue) {
+            document.querySelector("#totalAddress").value = address.value + " " + detailAddress.value;
+        }
+    }
+
+    return isTrue;
+}
+
+function validateAddress(ev) {
+    const address = ev.target.value.trim();
+    const addressNotice = document.querySelector(".notice-form-address");
+    if (address === "") {
+        showNotice(addressNotice, "주소를 입력해주세요.", "address-empty");
+        return false;
+    } else {
+        addressNotice.innerHTML = "";
+        return true;
+    }
+}
+
+function validateDetailAddress(ev) {
+    const detailAddress = ev.target.value.trim();
+    const detailAddressNotice = document.querySelector(".notice-form-detail-address");
+    if (detailAddress === "") {
+        showNotice(detailAddressNotice, "상세주소를 입력해주세요.", "detail-address-empty");
+        return false;
+    } else {
+        detailAddressNotice.innerHTML = "";
+        return true;
+    }
+}
 
 function sample6_execDaumPostcode() {
     new daum.Postcode({
-        oncomplete: function (data) {
-            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
+    oncomplete: function (data) {
+    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
             // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-            var addr = ''; // 주소 변수
+        // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+        var addr = ''; // 주소 변수
 
-            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                addr = data.roadAddress;
-            } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                addr = data.jibunAddress;
-            }
-
-            // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            document.getElementById('sample6_postcode').value = data.zonecode;
-            document.getElementById("sample6_address").value = addr;
-            // 커서를 상세주소 필드로 이동한다.
-            document.getElementById("sample6_detailAddress").focus();
-
-            // 주소와 상세주소 합치기
-            document.getElementById("totalAddress").value = addr + " " + document.getElementById("sample6_detailAddress").value;
+        //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+        if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+            addr = data.roadAddress;
+        } else { // 사용자가 지번 주소를 선택했을 경우(J)
+            addr = data.jibunAddress;
         }
+
+        // 우편번호와 주소 정보를 해당 필드에 넣는다.
+        document.getElementById('sample6_postcode').value = data.zonecode;
+        document.getElementById("sample6_address").value = addr;
+        // 커서를 상세주소 필드로 이동한다.
+        document.getElementById("sample6_detailAddress").focus();
+
+        // 주소와 상세주소 합치기
+        document.getElementById("totalAddress").value = addr + " " + document.getElementById("sample6_detailAddress").value;
+    }
     }).open();
 }
 
-// 중복확인 버튼 클릭 시 메소드 실행
-function checkEmail(ev){
-    const idEmail = document.querySelector("input[name='memberEmail']").value;
-    if(ev.target.value !== "사용 가능"){
-        $.ajax({
-            url: "idCheck.me",
-            data: {checkId : idEmail},
-            success: function(result){
-                if(result === "NNNNN"){ // 중복 시
-                    alert("이미 사용중인 아이디입니다.");   
-                }else{ //사용 가능 시
-                    ev.target.value = "사용 가능";
-                    ev.target.style.pointerEvents = "none";
-                    ev.target.style.background = "#1e90ff";
-                    ev.target.style.color = "#ffffff";
-                }
-            },
-            error: function(){
-                console.log("아이디 중복체크 실패");
-            }
+function checkAddressVali(){
+    // 주소 입력 필드의 유효성 검사를 위한 이벤트 리스너 설정
+    const addressField = document.querySelector("#sample6_address");
+    const detailAddressField = document.querySelector("#sample6_detailAddress");
+    
+    if (addressField && detailAddressField) {
+        addressField.addEventListener('blur', function (ev) {
+            console.log("체크1")
+            validateAddress(ev);
+            validateTotalAddress();
         });
-    }
+
+        detailAddressField.addEventListener('blur', function (ev) {
+            console.log("체크2")
+            validateDetailAddress(ev);
+            validateTotalAddress();
+        });
+}
 }
 
-function checkNickname(ev){
-    const nickname = document.querySelector("input[name='nickname']").value;
-    if(ev.target.value !== "사용 가능"){
-        $.ajax({
-            url: "nameCheck.me",
-            data: {checkName : nickname},
-            success: function(result){
-                if(result === "NNNNN"){ // 중복 시
-                    alert("이미 사용중인 닉네임입니다.");   
-                }else{ //사용 가능 시
-                    ev.target.value = "사용 가능";
-                    ev.target.style.pointerEvents = "none";
-                    ev.target.style.background = "#1e90ff";
-                    ev.target.style.color = "#ffffff";
-                }
-            },
-            error: function(){
-                console.log("닉네임 중복체크 실패");
-            }
+// ======================================================== 이용약관 =========================================
+
+function setTermSection() {
+    const termsCheckboxes = document.querySelectorAll(".list input[type='checkbox']");
+    const allCheckbox = document.querySelector("#select-all");
+
+    allCheckbox.addEventListener('click', function () {
+        termsCheckboxes.forEach(checkbox => checkbox.checked = allCheckbox.checked);
+    });
+
+    termsCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('click', function () {
+            const allChecked = [...termsCheckboxes].every(checkbox => checkbox.checked);
+            allCheckbox.checked = allChecked;
         });
+    });
+}
+
+function validateTerm(){
+    let isTrue = true;
+
+    document.querySelectorAll(".list input[type='checkbox']").forEach(checkbox => {
+        if(!checkbox.checked) isTrue = false;
+    });
+    if (!isTrue) {
+        alert("모든 약관에 동의해야 회원가입이 가능합니다.");
     }
+    return isTrue
 }

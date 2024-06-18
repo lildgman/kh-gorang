@@ -125,55 +125,55 @@ public class BoardServiceImpl implements BoardService {
 	public int insertLikeBoard(Map<String, Object> map) {
 
 		//like_board에 memberNo와 boardNo를 갖고 있는 컬럼이 있는지 확인 후
-		// 없다면 Insert, 있다면 update해주자.;
-		// return이 0이면 실
+		// 없다면 Insert, 있다면 삭제해주자.;
+		// return이 0이면 실패
 		// return이 1이면 좋아요 취소
 		// return이 2이면 좋아요 
+		int existLikeBoard = boardDao.existLikeBoard(sqlSession, map);
 		
-		int insertLikeBoardResult = 0;
-		int updateLikeBoardResult = 0;
-		
-		int checkLikeBoardCount = boardDao.checkLikeBoard(sqlSession, map);
-		
-		// 좋아요 테이블에 memberNo 와 boardNo를 갖고 있는 컬럼이 있을 
-		if(checkLikeBoardCount > 0) {
-			updateLikeBoardResult = boardDao.updateLikeBoard(sqlSession, map);
+		if(existLikeBoard == 0) {
+			// like_board에 insert
+			int insertLikeBoard = boardDao.insertLikeBoard(sqlSession, map);
 			
-			if(updateLikeBoardResult > 0) {
-				int minusBoardVote = boardDao.minusBoardVote(sqlSession, map);
-				
-				if(minusBoardVote > 0) {
-					return 1;
-				}
+			if(insertLikeBoard > 0) {
+				return 2;
 			}
-			// 좋아요 테이블에 memberNo 와 boardNo를 갖고 있는 컬럼이 없을 때 
 		} else {
-			// 좋아요 테이블에 memberNo 와 boardNo를 갖고 있는 컬럼이 있지만 상태가 N일 
-			int checkLikedBoardStatusN = boardDao.checkLikedBoardStatusN(sqlSession, map);
+			// like_board에 값 삭제
+			int deleteLikeBoard = boardDao.deleteLikeBoard(sqlSession, map);
 			
-			if (checkLikedBoardStatusN > 0) {
-				int updateLikedBoardStatus = boardDao.updateLikedBoardStatus(sqlSession, map);
-				
-				if(updateLikedBoardStatus > 0) {
-					int plusBoardVote = boardDao.plusBoardVote(sqlSession, map);
-					if(plusBoardVote > 0) {
-						return 2;
-					}
-				}
-				
-			} else {
-				insertLikeBoardResult = boardDao.insertLikeBoard(sqlSession, map);
-				
-				if(insertLikeBoardResult > 0) {
-					int plusBoardVote = boardDao.plusBoardVote(sqlSession, map);
-					
-					if(plusBoardVote > 0) {
-						return 2;
-					}
-					
-				}
+			if(deleteLikeBoard > 0) {
+				return 1;
+			}
+		}
+		
+		return 0;
+	}
+	
+	@Override
+	public int insertScrapBoard(Map<String, Object> map) {
+		
+		// 스크랩에 있는지 확인 후
+		// 있으면 삭제하고 return 1, 없으면 넣어주고 return 2, 실패시 return 0
+		
+		int existScrapBoard = boardDao.existScrapBoard(sqlSession, map);
+		
+		if(existScrapBoard == 0) {
+			// scrap_board에 insert
+			int insertScrapBoard = boardDao.insertScrapBoard(sqlSession, map);
+			
+			if(insertScrapBoard > 0) {
+				return 2;
 			}
 			
+		} else {
+			// scrap_board에 값 삭제
+			int deleteScrapBoard = boardDao.deleteScrapBoard(sqlSession, map);
+			
+			if(deleteScrapBoard > 0) {
+							
+				return 1;
+			}
 		}
 		
 		return 0;
@@ -188,5 +188,22 @@ public class BoardServiceImpl implements BoardService {
 	public int insertReport(Report report) {
 		return boardDao.insertReport(sqlSession, report);
 	}
+
+	@Override
+	public int isScrapBoard(Map<String, Object> map) {
+		return boardDao.isScrapBoard(sqlSession, map);
+	}
+
+	@Override
+	public int getScrapBoardCount(Integer boardNo) {
+		return boardDao.getScrapBoardCount(sqlSession, boardNo);
+	}
+
+	@Override
+	public int getLikeBoardCount(Integer boardNo) {
+		return boardDao.getLikeBoardCount(sqlSession, boardNo);
+	}
+
+	
 
 }

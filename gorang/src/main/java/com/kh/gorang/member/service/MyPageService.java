@@ -60,7 +60,7 @@ public interface MyPageService {
 	int removeRecipe(int recipeNo);
 
 	// 게시글 개수 조회 
-	int getBoardCount(int memberNo);
+	int getBoardCount(Map<String,Object> map);
 
 	// 게시글 조회 
 	ArrayList<MyPageBoardDTO> getBoardList(PageInfo pi, Map<String, Object> map);
