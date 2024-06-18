@@ -54,6 +54,19 @@
                             <div id="contentTag"><span>${board.boardTag}</span></div>
                         </div>
                         <div id="contentBtnWrapper">
+
+                            <div id="scrap-div" data-boardNo="${board.boardNo}" data-userNo="${loginUser.memberNo}" onclick="toggleScrapBoard(this)">
+                                <c:if test="${isScrapBoard == 0}">
+                                    <i class="fa-regular fa-bookmark"></i>
+                                </c:if>
+                                <c:if test="${isScrapBoard == 1}">
+                                    <i class="fa-solid fa-bookmark" style="color: #1e90ff;"></i>
+                                </c:if>
+                                
+                                <span style="margin-left: 10px;">${scrapBoardCount}</span>
+                            </div>
+
+
                             <button id="contentLike" data-boardNo="${board.boardNo}" data-userNo="${loginUser.memberNo}" onclick="toggleLikeBoard(this)">
                                 <c:if test="${isLikedBoard == 0}">
                                     <i class="fa-regular fa-heart"></i>
@@ -61,7 +74,7 @@
                                 <c:if test="${isLikedBoard == 1}">
                                     <i class="fa-solid fa-heart" style="color: #d00101;"></i>
                                 </c:if>
-                                <span>${board.boardVote}</span>
+                                <span>${likeBoardCount}</span>
                             </button>
                             <button id="contentReport" data-userNo="${loginUser.memberNo}">
                                 <svg xmlns="http://www.w3.org/2000/svg" data-userNo="${loginUser.memberNo}" width="30" height="30" fill="none"

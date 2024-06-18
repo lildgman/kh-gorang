@@ -62,7 +62,7 @@
 											<c:if test="${productQna.refQnaNo > 0 }">
 												<div class="content-area-answer" style="color: #237805;">응답 완료</div>
 											</c:if>
-											<c:if test="${productQna.refQnaNo == 0 }">
+											<c:if test="${productQna.refQnaNo == null }">
 												<div class="content-area-answer" style="color: #ed6666;">응답 대기</div>
 											</c:if>
 										</div>
@@ -133,7 +133,7 @@
 											<c:if test="${recipeQna.refQnaNo > 0 }">
 												<div class="content-area-answer" style="color: #237805;">응답 완료</div>
 											</c:if>
-											<c:if test="${recipeQna.refQnaNo == 0 }">
+											<c:if test="${recipeQna.refQnaNo == null }">
 												<div class="content-area-answer" style="color: #ed6666;">응답 대기</div>
 											</c:if>
 										</div>

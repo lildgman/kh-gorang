@@ -93,21 +93,28 @@ public class BoardController {
 			map.put("boardNo", boardNo);
 		   
 		    int isLikedBoard = boardService.isLikedBoard(map);
+		    int isScrapBoard = boardService.isScrapBoard(map);
 		    model.addAttribute("isLikedBoard", isLikedBoard);
+		    model.addAttribute("isScrapBoard", isScrapBoard);
 	    } else {
 	    	model.addAttribute("isLikedBoard", 0);
+	    	model.addAttribute("isScrapBoard", 0);
 	    }
 	    
-	    
-	    
 	    ArrayList<CommentListDTO> commentList = boardService.getCommentList(boardNo);
-	    	    
-
+	    
 	    model.addAttribute("commentList", commentList);
+	    
+	    int scrapBoardCount = boardService.getScrapBoardCount(boardNo);
+	    model.addAttribute("scrapBoardCount",scrapBoardCount);
+	    
+	    int likeBoardCount = boardService.getLikeBoardCount(boardNo);
+	    model.addAttribute("likeBoardCount",likeBoardCount);
+	    
 	    if (board != null) {
 	    	boardService.increaseViewCount(boardNo);
 	        model.addAttribute("board", board);
-	        return "board/boardDetail";
+	        return "board/boardDetail";	
 	    } else {
 	        model.addAttribute("errorMsg", "게시글 조회 실패");
 	        return "board/boardMain";
@@ -273,9 +280,30 @@ public class BoardController {
 		} else if (result == 2) {
 			return "do_like";
 		} else {
-			return "ok";
+			return "undone";
 		}
+	}
+	
+	@PostMapping("scrap.bo")
+	@ResponseBody
+	public String scrapBoard(
+			HttpSession session,
+			@RequestParam int boardNo) {
 		
+		int memberNo = ((Member)session.getAttribute("loginUser")).getMemberNo();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("boardNo", boardNo);
+		
+		int result = boardService.insertScrapBoard(map);
+		
+		if(result == 1) {
+			return "cancle_scrap";
+		} else if (result == 2) {
+			return "do_scrap";
+		} else {
+			return "undone";
+		}
 	}
 	
 	@PostMapping("report.bo")

@@ -123,33 +123,44 @@ public class BoardDao{
 		return sqlSession.insert("boardMapper.insertLikeBoard", map);
 	}
 
-	public int plusBoardVote(SqlSessionTemplate sqlSession, Map<String, Object> map) {
-		return sqlSession.update("boardMapper.plusBoardVote", map);
-	}
-
-	public int updateLikeBoard(SqlSessionTemplate sqlSession, Map<String, Object> map) {
-		return sqlSession.update("boardMapper.updateLikeBoard",map);
-	}
-
-	public int minusBoardVote(SqlSessionTemplate sqlSession, Map<String, Object> map) {
-		return sqlSession.update("boardMapper.minusBoardVote",map);
-	}
-
 	public int isLikedBoard(SqlSessionTemplate sqlSession, Map<String, Object> map) {
 		return sqlSession.selectOne("boardMapper.selectLikedBoard", map);
-	}
-
-	public int checkLikedBoardStatusN(SqlSessionTemplate sqlSession, Map<String, Object> map) {
-		return sqlSession.selectOne("boardMapper.selectLikedBoardStatusN",map);
-	}
-
-	public int updateLikedBoardStatus(SqlSessionTemplate sqlSession, Map<String, Object> map) {
-		return sqlSession.update("boardMapper.updateLikedBoardStatus", map);
 	}
 
 	public int insertReport(SqlSessionTemplate sqlSession, Report report) {
 		return sqlSession.insert("boardMapper.insertReport", report);
 	}
 
+	public int existScrapBoard(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.selectOne("boardMapper.existScrapBoard", map);
+	}
+
+	public int insertScrapBoard(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.insert("boardMapper.insertScrapBoard", map);
+	}
+
+	public int deleteScrapBoard(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.delete("boardMapper.deleteScrapBoard", map);
+	}
+
+	public int isScrapBoard(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.selectOne("boardMapper.selectScrapBoard", map);
+	}
+
+	public int getScrapBoardCount(SqlSessionTemplate sqlSession, Integer boardNo) {
+		return sqlSession.selectOne("boardMapper.getScrapBoardCount", boardNo);
+	}
+
+	public int existLikeBoard(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.selectOne("boardMapper.existLikeBoard",map);
+	}
+
+	public int deleteLikeBoard(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.delete("boardMapper.deleteLikeBoard", map);
+	}
+
+	public int getLikeBoardCount(SqlSessionTemplate sqlSession, Integer boardNo) {
+		return sqlSession.selectOne("boardMapper.getLikeBoardCount", boardNo);
+	}
 	
 }

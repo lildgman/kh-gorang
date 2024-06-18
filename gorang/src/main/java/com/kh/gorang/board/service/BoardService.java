@@ -74,6 +74,14 @@ public interface BoardService{
 
 	int insertReport(Report report);
 
+	int insertScrapBoard(Map<String, Object> map);
+
+	int isScrapBoard(Map<String, Object> map);
+
+	int getScrapBoardCount(Integer boardNo);
+
+	int getLikeBoardCount(Integer boardNo);
+
 	
 	
 }	
