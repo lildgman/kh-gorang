@@ -53,7 +53,6 @@ function validateEmail() {
             emailNotice.innerHTML = "";
             const emailBtn = document.querySelector("#idCheck");
             emailBtn.style.pointerEvents = "auto";
-
             emailBtn.addEventListener('click', () => {checkEmail(emailBtn, email)});
         } else {
             showNotice(emailNotice, "잘못된 이메일 형식입니다.", "email-form");
@@ -68,9 +67,11 @@ function checkEmail(emailBtn, email) {
         url: "idCheck.me",
         data: { checkId: email },
         success: function (result) {
+            const emailNotice = document.querySelector("#register-input-email > .regi-notice-wrapper");
             if (result === "NNNNN") {
-                showNotice(document.querySelector("#register-input-email > .regi-notice-wrapper"), "이미 가입한 이메일입니다.", "email-id");
+                showNotice(emailNotice, "이미 가입한 이메일입니다.", "email-id");
             } else {
+                emailNotice.innerHTML = "";
                 emailBtn.value = "사용가능";
                 emailBtn.style.pointerEvents = "none";
                 emailBtn.style.background = "#1e90ff";
@@ -79,7 +80,6 @@ function checkEmail(emailBtn, email) {
         },
         error: function () {
             console.log("아이디 중복체크 실패");
-            resolve(false);
         }
     });
 }
@@ -138,6 +138,7 @@ function validateNickname(ev) {
         } else if (nickname.length < 2) {
             showNotice(nicknameNotice, "2글자 이상 입력해주세요.", "nickname-form-min");
         } else {
+            nicknameNotice.innerHTML = "";
             const idCheckBtn = document.querySelector("#nameCheck");
             idCheckBtn.style.pointerEvents = "auto";
 
@@ -156,6 +157,7 @@ function checkNickname(idCheckBtn, nicknameNotice, nickname) {
             if (result === "NNNNN") {
                 showNotice(nicknameNotice, "이미 사용중인 닉네임입니다.", "nickname-check");
             } else {
+                nicknameNotice.innerHTML = "";
                 idCheckBtn.value = "사용가능";
                 idCheckBtn.style.pointerEvents = "none";
                 idCheckBtn.style.background = "#1e90ff";
@@ -181,6 +183,7 @@ function checkNickname(idCheckBtn, nicknameNotice, nickname) {
         } else if (phone.length !== 11) {
             showNotice(phoneNotice, "전화번호 형식이 올바르지 않습니다(11자리).", "phone-form");
         } else {
+            phoneNotice.innerHTML = "";
             const authBtn = document.querySelector("#member-auth-btn");
             authBtn.style.pointerEvents = "auto";
         }
@@ -257,17 +260,21 @@ class PhoneAuthentication{
 
     checkAuthNum(){
         const inputCode = this.input.val();
+        const authNumNotice = document.querySelector("#register-input-authNo > .regi-notice-wrapper");
         if(this.authNo.trim() !== inputCode){
-            showNotice(document.querySelector("#register-input-authNo > .regi-notice-wrapper"), "잘못된 인증번호입니다.", "authNo-un");
+            showNotice(authNumNotice, "잘못된 인증번호입니다.", "authNo-un");
         }else {
+            const phoneAuthBtn = document.querySelector('#member-phone-auth-btn');
+
             this.sendBtn.prop('disabled', true);
             $('#phone1').prop('readonly', true);
             $('#phone2').prop('readonly', true);
 
             alert('인증성공');
             clearInterval(this.timerId);
-            
-            const phoneAuthBtn = document.querySelector('#member-phone-auth-btn');
+        
+            authNumNotice.innerHTML = "";
+
             phoneAuthBtn.value = "인증완료";
             phoneAuthBtn.style.pointerEvents = "none";
             phoneAuthBtn.style.background = "#1e90ff";

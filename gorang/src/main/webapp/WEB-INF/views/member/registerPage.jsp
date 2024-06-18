@@ -94,7 +94,7 @@
                     <div class="registerSection">
                         <div class="registerSpan"><span>전화번호</span></div>
                         <div class="register-inputForm" id="register-input-phone">
-                            <input type="tel" class="register-input" name="memberPhone" placeholder="전화번호를 입력해주세요.('-' 생략)" value="${mobile}" required>
+                            <input type="tel" class="register-input" name="memberPhone" placeholder="전화번호를 입력해주세요.('-' 생략)" value='${mobile.replaceAll("[^0-9]", "")}' required>
                             <div class="regi-notice-wrapper">
                             </div>
                         </div>
