@@ -433,10 +433,38 @@
 	<!-- 게시글 개수 조회 -->
 	<select id="selectBoardCount" resultType="_int">
 		SELECT COUNT(*)
-		FROM BOARD
-		WHERE
-			STATUS = 'Y' AND
-			MEMBER_NO = #{memberNo}
+		FROM (
+			SELECT B.BOARD_NO,
+				B.BOARD_TITLE,
+				B.BOARD_CREATE_DATE,
+				B.BOARD_VIEWS,
+				B.BOARD_THUMBNAIL,
+				B.STATUS,
+				B.MEMBER_NO,
+				COALESCE(l.like_count, 0) AS like_count
+			FROM BOARD B
+			LEFT JOIN (
+				SELECT 
+					board_no,
+					COUNT(*) AS like_count
+				FROM 
+					public.like_board
+				GROUP BY 
+					board_no
+			) l ON b.board_no = l.board_no
+			WHERE B.STATUS = 'Y' AND B.MEMBER_NO = #{memberNo}
+			<if test='sort == "recent"'>
+				ORDER BY B.BOARD_CREATE_DATE DESC
+			</if>
+			<if test='sort == "view"'>
+				ORDER BY B.BOARD_VIEWS DESC
+			</if>
+			<if test='sort == "like"'>
+				ORDER BY LIKE_COUNT DESC
+			</if>
+		)
+		
+		
 	</select>
 	
 	<!-- 게시글 조회 -->
@@ -448,17 +476,18 @@
 				B.BOARD_THUMBNAIL,
 				B.STATUS,
 				B.MEMBER_NO,
-				COUNT(*) AS LIKE_COUNT
+				COALESCE(l.like_count, 0) AS like_count
 		FROM BOARD B
-		LEFT JOIN LIKE_BOARD LB USING (BOARD_NO)
+		LEFT JOIN (
+			SELECT 
+				board_no,
+				COUNT(*) AS like_count
+			FROM 
+				public.like_board
+			GROUP BY 
+				board_no
+		) l ON b.board_no = l.board_no
 		WHERE B.STATUS = 'Y' AND B.MEMBER_NO = #{memberNo}
-		GROUP BY B.BOARD_NO,
-				B.BOARD_TITLE,
-				B.BOARD_CREATE_DATE,
-				B.BOARD_VIEWS,
-				B.BOARD_THUMBNAIL,
-				B.STATUS,
-				B.MEMBER_NO
 		<if test='sort == "recent"'>
 			ORDER BY B.BOARD_CREATE_DATE DESC
 		</if>
@@ -572,11 +601,10 @@
 	</select>
 	
 	<!-- 스크랩 게시글 삭제  -->
-	<update id="deleteScrapBoard" parameterType="ScrapBoard">
-		UPDATE SCRAP_BOARD
-		SET STATUS = 'N'
+	<delete id="deleteScrapBoard" parameterType="ScrapBoard">
+		DELETE FROM SCRAP_BOARD
 		WHERE MEMBER_NO = #{memberNo} AND BOARD_NO = #{boardNo}
-	</update> 
+	</delete> 
 	
 	<!-- 스크랩 상품 조회 -->
 	<select id="selectScrapProduct" resultMap="myPageScrapProductDTOResult">
@@ -630,8 +658,7 @@
 	
 	<!-- 좋아요 게시글 삭제 -->
 	<update id="deleteLikeBoard" parameterType="LikeBoard">
-		UPDATE LIKE_BOARD
-		SET STATUS = 'N'
+		DELETE FROM LIKE_BOARD
 		WHERE MEMBER_NO = #{memberNo} AND BOARD_NO = #{boardNo}
 	</update>
 	
