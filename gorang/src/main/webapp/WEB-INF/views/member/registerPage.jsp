@@ -56,7 +56,7 @@
                     <div class="registerSection">
                         <div class="registerSpan"><span>이메일</span></div>
                         <div class="register-inputForm" id="register-input-email">
-                            <input type="email" class="register-input" name="memberEmail" placeholder="이메일을 입력해주세요." required>
+                            <input type="email" class="register-input" name="memberEmail" placeholder="이메일을 입력해주세요." value="${email}" required>
                             <div class="regi-notice-wrapper">
                             </div>
                         </div>
@@ -83,7 +83,7 @@
                     <div class="registerSection">
                         <div class="registerSpan"><span>닉네임</span></div>
                         <div class="register-inputForm" id="register-input-nickname">
-                            <input type="text" class="register-input" name="nickname" placeholder="닉네임을 입력해주세요(2~15자)." required>
+                            <input type="text" class="register-input" name="nickname" placeholder="닉네임을 입력해주세요(2~15자)." value="${nickname}" required>
                             <div class="regi-notice-wrapper">
                             </div>
                         </div>
@@ -94,7 +94,7 @@
                     <div class="registerSection">
                         <div class="registerSpan"><span>전화번호</span></div>
                         <div class="register-inputForm" id="register-input-phone">
-                            <input type="tel" class="register-input" name="memberPhone" placeholder="전화번호를 입력해주세요.('-' 생략)" required>
+                            <input type="tel" class="register-input" name="memberPhone" placeholder="전화번호를 입력해주세요.('-' 생략)" value="${mobile}" required>
                             <div class="regi-notice-wrapper">
                             </div>
                         </div>
@@ -135,7 +135,7 @@
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" name="profile" id="profileImage">
+                    <input type="hidden" name="profile" id="profileImage" value="${profile_image}">
                     <hr>
                     <div id="gorangTermSection">
                         <div id="termSpan"><span>이용약관동의</span></div>
@@ -188,17 +188,6 @@
              </script>
 
             <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
-            <script>
-            const naverUserInfo = {
-                email: "${email}",
-                mobile: "${mobile}",
-                birthyear: "${birthyear}",
-                birthday: "${birthday}",
-                gender: "${gender}",
-                profile_image: "${profile_image}"
-            };
-            </script>
 
             <script src="${contextPath}/resources/js/member/registerPage.js"></script>
 

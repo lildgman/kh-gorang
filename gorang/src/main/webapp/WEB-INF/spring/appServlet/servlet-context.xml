@@ -26,11 +26,19 @@
 	
 	<interceptors>
 		<interceptor>
-			<mapping path="/myPage.me"/>
+			<mapping path="/main.me"/>
+			<mapping path="/insertQna.po"/>
+			<mapping path="/cart.po"/>
 			<mapping path="/order.po"/>
+			<mapping path="/detail.po"/>
+			<mapping path="/detail.bo"/>
 			<mapping path="/write.re"/>
 			<mapping path="/write.bo"/>
-			<mapping path="ajaxInsertCart.po"/>
+			<mapping path="/insert.re"/>
+			<mapping path="/updateForm.re"/>
+			<mapping path="/update.re"/>
+			<mapping path="/insertReview.re"/>
+			<mapping path="/insertQnA.re"/>
 			<beans:bean class="com.kh.gorang.common.interceptor.LoginInterceptor" id="LoginInterceptor"/>
 		</interceptor>
 	</interceptors>

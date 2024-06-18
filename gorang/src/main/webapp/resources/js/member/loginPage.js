@@ -11,6 +11,10 @@ window.onload = function(){
         location.href = (ctx);
     })
 
+    document.querySelector("button[name='register']").addEventListener('click', () => {
+        location.href = ctx + "/register.me";
+    })
+
     //네이버로그인설정
     const naverLoginBtn = document.getElementById('naver-login');
     naverLoginBtn.addEventListener("click", function(ev){

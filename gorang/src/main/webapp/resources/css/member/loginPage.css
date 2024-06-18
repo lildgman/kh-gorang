@@ -28,6 +28,7 @@
     border-style: solid;
     padding: 10px;
   }
+  
 .checkbox-container{
     margin-top: 12px;
     width: 420px;
@@ -35,11 +36,13 @@
     text-align: center;
     display: flex;
 }
+
 .checkbox-container input{
     width: 20px;
     height: 20px;
     background-color: #1E90FF;
 }
+
 .checkbox-container label{
     margin-left: 10px;
     font-size: 14px;
@@ -67,16 +70,19 @@
     padding: 1px 92px 1px 92px;
     font-size: 14px;
 }
-.find-IdPw-Regist input{
+
+.find-IdPw-Regist button{
     margin-top: 28px;
     margin-right: 12.5px;
     border-style: none;
     background-color: white;
     color: #999999;
 }
+
 hr{
     margin-top: 48px;
 }
+
 .apiLogin{
     width: 420px;
     height: 102px;

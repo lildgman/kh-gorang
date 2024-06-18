@@ -269,7 +269,6 @@ function addUserInputToModalTable(){
         FOOD_NM_KR: foodNameByUser,
         FOOD_CAT1_NM: foodClassNameByUser
     };
-
     constructIngreModalTable(ingreModalTbody, numForInput, food);
     // 초기화
     modalIngre.querySelector("#refri-input-foodName-user").value = '';

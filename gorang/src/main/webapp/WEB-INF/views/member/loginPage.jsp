@@ -59,9 +59,9 @@
                         <input type="submit" value="로그인" />
                     </div>
                     <div class="find-IdPw-Regist">
-                        <input type="button" name="findId" value="아이디 찾기">
-                        <input type="button" name="findPw" value="비밀번호 찾기">
-                        <input type="button" name="register" value="회원가입" onclick="moveLocation('${contextPath}/register.me')">
+                        <button  name="findId" value="아이디 찾기">
+                        <button  name="findPw" value="비밀번호 찾기">
+                        <button  name="register" value="회원가입">
                     </div>
                     </form>
                     <hr>
