@@ -202,55 +202,55 @@
             <div id="weekly-best-board-container" class="weekly-best-list-container">
                 <div class="list-top">
                     <span class="list-title">금주의 노하우</span>
-                    <span class="show-more-span"><a href="${pageContext.request.contextPath}/main.bo?sort=knowHowTag">더보기</a></span>
+                    <span class="show-more-span"><a href="${pageContext.request.contextPath}/main.bo?category=노하우">더보기</a></span>
                 </div>
 
                 <!-- 노하우 리스트 -->
-                <div class="weekly-best-list flex-gap-20">
+                <div class="weekly-best-list flex-gap-20 fl-jc-sb">
+                    <div class="weekly-board flex-gap-16px">
+                        <div class="board-img-container" data-type="board" data-no="10" onclick="moveDetailPage(this)">
+                            <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/board/boardMainContentFile/boardThumbnail_10.jpg" alt="">
+                        </div>
+                        <div class="board-title-container">
+                            <div>먹다 남은 캔식품 보관법</div>
+                        </div>
+                    </div>
+
+                    <div class="weekly-board flex-gap-16px">
+                        <div class="board-img-container" data-type="board" data-no="9" onclick="moveDetailPage(this)">
+                            <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/board/boardMainContentFile/boardThumbnail_9.jpg" alt="">
+                        </div>
+                        <div class="board-title-container">
+                            <div>저만의 생선 손질 방법</div>
+                        </div>
+                    </div>
+
                     <div class="weekly-board flex-gap-16px">
                         <div class="board-img-container" data-type="board" data-no="7" onclick="moveDetailPage(this)">
-                            <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/board/boardMainContentFile/2024052819230192378.jpeg" alt="">
+                            <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/board/boardMainContentFile/boardThumbnail_7.jpg" alt="">
                         </div>
                         <div class="board-title-container">
-                            <div>일곱번째 게시글입니다 여러분 반가워요</div>
+                            <div>요리하고 남은 식재료 처리 방법</div>
                         </div>
                     </div>
 
                     <div class="weekly-board flex-gap-16px">
-                        <div class="board-img-container" data-type="board" data-no="6" onclick="moveDetailPage(this)">
-                            <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/board/boardMainContentFile/2024052819230192378.jpeg" alt="">
+                        <div class="board-img-container" data-type="board" data-no="2" onclick="moveDetailPage(this)">
+                            <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/board/boardMainContentFile/boardThumbnail_2.jpg" alt="">
                         </div>
                         <div class="board-title-container">
-                            <div>여섯번째 게시글입니다 여러분 반가워요</div>
+                            <div>저만의 식재료를 잘 고르는 노하우!</div>
                         </div>
                     </div>
 
-                    <div class="weekly-board flex-gap-16px">
-                        <div class="board-img-container" data-type="board" data-no="5" onclick="moveDetailPage(this)">
-                            <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/board/boardMainContentFile/2024052819230192378.jpeg" alt="">
-                        </div>
-                        <div class="board-title-container">
-                            <div>다섯번째 게시글입니다 여러분 반가워요</div>
-                        </div>
-                    </div>
-
-                    <div class="weekly-board flex-gap-16px">
-                        <div class="board-img-container" data-type="board" data-no="3" onclick="moveDetailPage(this)">
-                            <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/board/boardMainContentFile/2024052819230192378.jpeg" alt="">
-                        </div>
-                        <div class="board-title-container">
-                            <div>세번째 게시글입니다 여러분 반가워요</div>
-                        </div>
-                    </div>
-
-                    <div class="weekly-board flex-gap-16px">
+                    <!-- <div class="weekly-board flex-gap-16px">
                         <div class="board-img-container" data-type="board" data-no="2" onclick="moveDetailPage(this)">
                             <img class="weekly-item-img" src="${contextPath}/resources/uploadfile/board/boardMainContentFile/2024052819230192378.jpeg" alt="">
                         </div>
                         <div class="board-title-container">
                             <div>두번째 게시글입니다 여러분 반가워요</div>
                         </div>
-                    </div>
+                    </div> -->
                     
                 </div>
             </div>

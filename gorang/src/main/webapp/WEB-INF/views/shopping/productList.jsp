@@ -149,7 +149,14 @@
                 </c:choose>
 
                 <c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
-                    <a href="list.po?content=${content}&cpage=${p}&category=${category}&sort=${sort}">${p}</a>
+                    <c:choose>
+                        <c:when test="${pi.currentPage eq p}">
+                            <a href="list.po?content=${content}&cpage=${p}&category=${category}&sort=${sort}"><strong style="color:#1E90FF;">${p}</strong></a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="list.po?content=${content}&cpage=${p}&category=${category}&sort=${sort}">${p}</a>
+                        </c:otherwise>
+                    </c:choose>
                 </c:forEach>
 
                 <c:choose>
@@ -158,6 +165,7 @@
                     </c:when>
                 </c:choose>
             </div>
+            
         </div>
     </div>
 

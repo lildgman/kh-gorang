@@ -8,7 +8,7 @@ function moveDetailPage(element) {
   const contentNo = element.getAttribute('data-no');
 
   if(type === 'recipe') {
-    window.location.href = 'detail.re?recipeNo=' + contentNo;
+    window.location.href = 'detailForm.re?recipeNo=' + contentNo;
   } else if (type === 'product') {
     window.location.href = 'detail.po?pno=' + contentNo;
 

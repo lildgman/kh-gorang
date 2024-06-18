@@ -206,7 +206,7 @@
 }
 
 .weekly-board {
-  width: 232px;
+  width: 285px;
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -235,4 +235,8 @@
     color: #333;
     display: block;
    
+}
+
+.fl-jc-sb {
+  justify-content: space-between;
 }
