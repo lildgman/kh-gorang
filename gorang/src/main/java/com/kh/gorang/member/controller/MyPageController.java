@@ -137,13 +137,15 @@ public class MyPageController {
 		int memberNo = getLoginUserNo(session);
 		addAttributeUserInfo(model, memberNo);
 		
-		// 게시글 페이지네이션
-		int boardCount = myPageService.getBoardCount(memberNo);
-		PageInfo pi = Pagination.getPageInfo(boardCount, cpage, 10, 6);
-		
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("memberNo", memberNo);
 		map.put("sort", sort);
+		
+		// 게시글 페이지네이션
+		int boardCount = myPageService.getBoardCount(map);
+		PageInfo pi = Pagination.getPageInfo(boardCount, cpage, 10, 6);
+		
+		
 		
 		ArrayList<MyPageBoardDTO> boardList = myPageService.getBoardList(pi, map);
 		

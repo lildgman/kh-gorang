@@ -132,8 +132,8 @@ public class MyPageDao {
 	}
 
 	// 게시글 개수 조회 
-	public int getBoardCount(SqlSessionTemplate sqlSession, int memberNo) {
-		return sqlSession.selectOne("myPageMapper.selectBoardCount", memberNo);
+	public int getBoardCount(SqlSessionTemplate sqlSession, Map<String,Object> map) {
+		return sqlSession.selectOne("myPageMapper.selectBoardCount", map);
 	}
 
 	// 게시글 조회 
@@ -206,7 +206,7 @@ public class MyPageDao {
 
 	// 스크랩 게시글 삭제 
 	public int deleteScrapBoard(SqlSessionTemplate sqlSession, Map<String, Object> map) {
-		return sqlSession.update("myPageMapper.deleteScrapBoard", map);
+		return sqlSession.delete("myPageMapper.deleteScrapBoard", map);
 	}
 	
 	// 스크랩 상품 조회
