@@ -47,9 +47,7 @@
                             <input type="file" id="file-input" accept="image/*" name="upfile" onclick="displaySelectedImage(this)">
                         </div>
                         <div id="userNickName-area">
-                            <a href="">${loginUser.nickname }</a> <img
-                                src="${contextPath}/resources/images//member-img/Vector 340.png" alt=">" id="Bector">
-                            <br>
+                            <div>${loginUser.nickname }</div> 
                             <div id="userFollow">
                                 <div id="userFollower"><a href="">팔로워 ${followerCount }</a></div> |
                                 <div id="userFollowing"><a href="">팔로잉 ${followingCount }</a></div>
@@ -68,11 +66,14 @@
                             <span>새 비밀번호</span>
                         </div>
                         <div id="NpwInput">
-                            <input type="password" placeholder="새 비밀번호를 입력해 주세요." id="new-password" name="memberPwd">
+                            <input type="password" placeholder="새 비밀번호를 입력해 주세요." id="new-password" name="memberPwd" oninput="checkPwdLength(this)">
                             <button type="button"><img src="${contextPath}/resources/images/member-img/Vector.png"
                                     alt=""></button>
                         </div>
-                        <div></div>
+                        
+                    </div>
+                    <div id="check-password-length">
+
                     </div>
                     <div id="userNpwCheckWrap">
                         <div id="NpwWrap">
