@@ -21,12 +21,13 @@
                 <div id="user-profile">
                     <img src="${contextPath}/resources/uploadfile/memberProfile/${loginUser.profile}" alt="화원 프로필">
                 </div>
-                <div id="user-profile-pencil">
+                <!-- <div id="user-profile-pencil">
                     <img src="${contextPath}/resources/images/member-img/Icon_Edit.png" alt="프로필 사진 버튼">
-                </div>
+                </div> -->
             </div>
             <div id="user-nickgrade-area">
-                <a id="user-nickname" href="${contextPath}/myPageInfoEdit.me">${loginUser.nickname }</a> <img src="${contextPath}/resources/images//member-img/Vector 340.png" alt=">" id="bector">
+                <div>${loginUser.nickname }
+                </div>
                 <br>
                 <div id="user-follow">
                     <div id="user-follower-area">팔로워 <span id="user-follower">${followerCount }</span></div> | 
@@ -40,20 +41,20 @@
                 <hr>  
             </div>
             <div id="user-profile-area-bottom">
-                <div id="user-scrape">
-                    <a href="">스크랩</a><br><div class="zero" id="user-scrap-count">${totalScrapCount }</div>
-                </div>
+                <div id="user-scrap">
+                    <span class="user-scrap-like" data-type="scrap" onclick="movePage(this)">스크랩</span><br><div class="zero" id="user-scrap-count">${totalScrapCount }</div> 
+                </div> |
                 <div id="user-like">
-                    <a href="">좋아요</a><br><div class="zero" id="user-like-count">${totalLikeCount }</div>
+                    <span class="user-scrap-like" data-type="like" onclick="movePage(this)">좋아요</span><br><div class="zero" id="user-like-count">${totalLikeCount }</div>
                 </div>
-                <div id="user-alarm">
+                <!-- <div id="user-alarm">
                     <a href="">알림</a><br><div class="zero">0</div>
-                </div>
+                </div> -->
             </div>
         </div>
         <div id="user-menu">
             <ul id="left-user-menu-list">
-                <li><a  href="${contextPath}/main.me">모두 보기</a></li>
+                <li><a href="${contextPath}/main.me">모두 보기</a></li>
                 <li style="font-size: 18px;  font-weight: bold;" id="myboard">나의 게시글
                    <ul id="myboard-list">
                         <li><a  href="${contextPath}/recipe.me" class="myboard-list-in">나의 레시피 게시글</a></li>
