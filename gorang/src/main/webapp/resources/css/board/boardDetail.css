@@ -154,12 +154,14 @@ body {
 
     margin-left: 14px;
     display: flex;
+    justify-content: flex-end;
+    align-items: center;
     padding: 7px;
 }
 
 #contentLike {
     padding: 17px;
-    margin-left: 360px;
+    /* margin-left: 360px; */
     width: 110px;
     height: 60px;
     cursor: pointer;
@@ -541,4 +543,8 @@ body {
 .nested-reply {
     margin-left: 100px;
     width: 1020px;
+}
+
+#scrap-div:hover {
+    cursor: pointer;
 }

@@ -164,6 +164,7 @@
                         <a href="list.po?content=${content}&cpage=${pi.currentPage +1 }&category=${category}&sort=${sort}">&gt;</a>
                     </c:when>
                 </c:choose>
+                
             </div>
             
         </div>

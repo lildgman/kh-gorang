@@ -12,5 +12,5 @@ public class RecipeQnaDTO {
 	private final int recipeNo;
 	private final String recipeTitle;
 	private final String recipeMainImg;
-	private final int refQnaNo;
+	private final Integer refQnaNo;
 }
