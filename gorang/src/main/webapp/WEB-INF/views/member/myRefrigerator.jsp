@@ -11,6 +11,9 @@
             <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
             <link rel="stylesheet" href="${contextPath}/resources/css/member/myRefrigerator.css">
 
+            <!-- Slick 불러오기 -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
         </head>
 
         <body>
@@ -35,7 +38,6 @@
                                 </button>
                             </div>
                         </div>
-
                         <!-- 추천레시피 이미지영역 -->
                         <div id="recommend-recipe-imgs">
                             <div>
@@ -355,6 +357,7 @@
             </div>
             <jsp:include page="../common/footer.jsp" />
             <!-- js -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
             <script src="${contextPath}/resources/js/member/myPageRefrigerator.js"></script>
         </body>
 
