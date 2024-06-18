@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 import com.kh.gorang.common.model.vo.Media;
 import com.kh.gorang.common.template.SaveFileController;
 import com.kh.gorang.member.model.vo.Member;
+import com.kh.gorang.member.model.vo.QnA;
 import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.recipe.model.vo.CookOrder;
 import com.kh.gorang.recipe.model.vo.CookTip;
@@ -50,7 +51,10 @@ public class RecipeController {
 		recipeInsertDTO.setCookOrderList(recipeService.selectCookOrderList(recipeNo));
 		recipeInsertDTO.setCompleteFoodPhoto(recipeService.selectCompleteFoodPhotoList(recipeNo));
 		recipeInsertDTO.setRwList(recipeService.selectRecipeReviewList(recipeNo));
-		System.out.println(recipeInsertDTO);
+		recipeInsertDTO.setQnaList(recipeService.selectRecipeQnaList(recipeNo));
+		
+		
+		System.out.println(recipeInsertDTO.getQnaList());
 		model.addAttribute("member",m);
 		model.addAttribute("rcp",rcp);
 		model.addAttribute("recipeInsertDTO",recipeInsertDTO);
@@ -225,7 +229,6 @@ public class RecipeController {
 	//레시피 후기 작성
 	@PostMapping("insertReview.re")
 	@ResponseBody
-//	@GetMapping(value = "insertReview.re", produces = "application/json; charset=utf-8")
 	public Review ajaxrecipeReview(@RequestParam("refMemberNo") int refMemberNo,
 						            @RequestParam("refRecipeNo") int refRecipeNo,
 						            @RequestParam("rating") int rating,
@@ -242,6 +245,27 @@ public class RecipeController {
 		review.setReviewPhoto(changeName);
 		System.out.println("review: "+review);
 		return recipeService.insertReview(review) > 0 ? review : null;
+	}
+	
+	
+	//레시피 후기 작성
+	@PostMapping("insertQnA.re")
+	@ResponseBody
+	public QnA ajaxrecipeQnA(@RequestParam("writerNo") int writerNo,
+						            @RequestParam("refRecipeNo") int refRecipeNo,
+						            @RequestParam("qnaContent") String qnaContent,
+						            @RequestParam(value = "qnaPhoto", required = false) MultipartFile qnaPhoto,
+						            HttpSession session) {
+		QnA qna = new QnA();
+		qna.setWriterNo(writerNo);
+		qna.setRefRecipeNo(refRecipeNo);
+		qna.setQnaContent(qnaContent);
+		
+		
+		System.out.println("qnaPhoto:"+qnaPhoto);
+		String changeName = SaveFileController.saveFile(qnaPhoto, session, "/recipe/recipeQna/");
+		qna.setQnaPhoto(changeName);
+		return recipeService.insertQnA(qna) > 0 ? qna : null;
 	}
 		
 	

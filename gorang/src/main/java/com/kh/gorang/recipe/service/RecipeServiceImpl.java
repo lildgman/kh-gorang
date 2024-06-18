@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.gorang.common.model.vo.Media;
 import com.kh.gorang.common.template.SaveFileController;
 import com.kh.gorang.member.model.vo.Member;
+import com.kh.gorang.member.model.vo.QnA;
 import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.recipe.model.dao.RecipeDao;
 import com.kh.gorang.recipe.model.vo.CookOrder;
@@ -249,6 +250,17 @@ public class RecipeServiceImpl implements RecipeService{
 	@Override
 	public List<Review> selectRecipeReviewList(int recipeNo) {
 		return recipeDao.selectRecipeReviewList(sqlSession,recipeNo);
+	}
+	
+	//레시피 QnA 찾기
+	@Override
+	public List<QnA> selectRecipeQnaList(int recipeNo) {
+		return recipeDao.selectRecipeQnaList(sqlSession,recipeNo);
+	}
+
+	@Override
+	public int insertQnA(QnA qna) {
+		return recipeDao.insertQnA(sqlSession,qna);
 	}
 
 

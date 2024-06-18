@@ -108,6 +108,7 @@
 		<result column="product_no" property="refProductNo"/>
 		<result column="PDOPT_NO" property="refPdoptNo"/>
 		<result column="member_no" property="writerNo"/>
+		<result column="ref_rcp_no" property="refRecipeNo"/>
 	</resultMap>
   	
 	 <!-- 레시피 찾기 -->
@@ -187,7 +188,31 @@
   		ORDER BY RV.review_no DESC
   	</select>	
   	
-  	
+  	<!-- 레시피 qna 찾기  -->
+  	<select id="selectRecipeQnaList" resultMap="qnaResult">
+  		select
+			q.qna_no,
+			q.qna_content,
+			q.qna_create_date,
+			q.qna_answer_type,
+			q.qna_photo,
+			q.ref_qna_no,
+			q.rcp_no,
+			q.pdopt_no,
+			q.member_no,
+			member_nickname as "writerNickname",
+			member_profile as "writerProfile",
+			a.qna_no as "answerNo",
+			a.qna_content as "answerContent",
+			a.qna_create_date as "answerCreateDate"
+		FROM QNA q
+		JOIN MEMBER USING (MEMBER_NO)
+		LEFT JOIN QNA a ON q.qna_no = a.ref_qna_no
+		WHERE q.rcp_no = #{recipeNo} and
+				q.qna_type = 2 and
+				q.status = 'Y'
+		ORDER BY qna_create_date ASC
+  	</select>	
   	
   	
   	
@@ -275,7 +300,7 @@
   	</insert>
   	
   	
-
+	<!-- 레시피 리뷰 추가 -->
   	<insert id="insertReview" parameterType="Review">
     INSERT INTO review (
         review_content,
@@ -292,7 +317,32 @@
         #{refRecipeNo},
         #{refMemberNo}
     )
-</insert>
+	</insert>
+  	
+  	<!-- 레시피 문의 추가 -->
+    <insert id="insertQnA" parameterType="QnA">
+    insert into QNA
+    (
+     qna_content,
+     qna_type,
+     qna_answer_type,
+     qna_photo,
+     rcp_no,
+     member_no
+    )
+    values
+    (
+    	#{qnaContent},
+    	2,
+    	1,
+    	#{qnaPhoto},
+    	#{refRecipeNo},
+    	#{writerNo}
+    )
+    </insert> 
+  	
+  	
+  	
   	<select id="selectRecipeMember" parameterType="Recipe" resultMap="memberResult">
   		SELECT 
     		M.MEMBER_NO,
@@ -314,7 +364,6 @@
       JOIN MEMBER M ON M.member_no = R.member_no
      WHERE R.rcp_no = #{recipeNo}
        AND M.MEMBER_STATUS = 'Y'
-       
   	</select>
   	
 <!-- **********  수정     *********-->

@@ -72,11 +72,11 @@
                                                         </div>
                                                         <div class="form-group" style="display: none;">
                                                           <label for="t_code">택배사 코드</label>
-                                                          <input type="text" class="form-control" name="t_code" id="t_code" placeholder="택배사 코드">
+                                                          <input type="text" class="form-control" name="t_code" id="t_code" placeholder="택배사 코드" value="04">
                                                         </div>
                                                         <div class="form-group" style="display: none;">
                                                           <label for="t_invoice">운송장 번호</label>
-                                                          <input type="hidden" class="form-control" name="t_invoice" id="t_invoice" placeholder="운송장 번호" value="04">
+                                                          <input type="hidden" class="form-control" name="t_invoice" id="t_invoice" placeholder="운송장 번호">
                                                         </div>
                                                         <button type="submit" class="btn btn-default" style="width: 85px;">조회하기</button>
                                                     </form>

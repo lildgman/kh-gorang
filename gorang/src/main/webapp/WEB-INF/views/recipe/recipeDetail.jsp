@@ -258,7 +258,12 @@
 
                     <!-- 레시피 후기 -->
                     <div id="product_review_area">
-                        <div class="description_title" id="review_description_title">레시피 후기</div>
+                        <div id=write_review_area>
+
+                            <div class="description_title" id="review_description_title">레시피 후기</div>
+                            <button class="tbody-td-btn-write" data-toggle="modal" data-target="#buyList-review_Modal">후기 작성</button>
+
+                        </div>
                         <c:forEach var="rv" items="${recipeInsertDTO.rwList}">
                             <div id="product_review">
                                 <div id="review_writer_area">
@@ -292,11 +297,7 @@
                                 </div>
                             </div>
                         </c:forEach>
-                        <div id=write_review_area>
-
-                            <button class="tbody-td-btn-write" data-toggle="modal" data-target="#buyList-review_Modal">후기 작성</button>
-
-                        </div>
+            
                         <div id="pagination-area">
                             <div id="pagination">
                                 <a href="#">&lt;</a>
@@ -325,7 +326,7 @@
                     <!-- 상품 문의 -->
                     <div id="product_qna_area">
                         <div id="qna_top">
-                            <div class="description_title">레시피 문의</div>
+                            <div class="description_title" id="qna_description_title">레시피 문의</div>
 
                             <button id="btn_qna" class="btn btn-primary"
                                 style="background-color: #1E90FF; width: 123px; height: 53px; font-size: 20px;"
@@ -342,33 +343,34 @@
                                     <td class="qna_status">답변상태</td>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <div class="qna-blocks">
-                                    <tr class="qna-area" onclick="showQ(this)">
-                                        <td class="qna_title" style="text-align: left;">유통기한은 어느정도 인가요?</td>
-                                        <td class="qna_writer">작성자ID</td>
-                                        <td class="qna_create_date">2024-04-21</td>
-                                        <td class="qna_status">답변완료</td>
-                                    </tr>
-                                    <tr id ="answer_area">
-                                        <td id="qna_answer" colspan="4" style="text-align: left;">
-                                            <div id="qna_q">
-                                                <span class="span_q_a">Q</span><span>유통기한은 어느정도 인가요?</span>
-                                            </div>
-                                            <div id="qna_a">
-                                                <span class="span_q_a">A</span><span>정해진 소비기한은 없지만 2~3일 내로 섭취하는 것을
-                                                    권장드립니다.</span>
-                                            </div>
-                                            <div id="qna_a_date">2024-04-22</div>
-                                        </td>
-                                    </tr>
-                                </div>
-                                <tr class="qna-area">
-                                    <td class="qna_title" style="text-align: left;">유통기한은 어느정도 인가요?</td>
-                                    <td class="qna_writer">작성자ID</td>
-                                    <td class="qna_create_date">2024-04-21</td>
-                                    <td class="qna_status">답변완료</td>
-                                </tr>
+                            <tbody id="tbodyQnA">
+                                <c:forEach var="qna" items="${recipeInsertDTO.qnaList}">
+                                    <c:if test="${qna.qnaAnswerType == 1}">
+                                        <tr class="${qna.answerNo != 0 ? 'qna-area-hover' : 'qna-area'}" onclick="showQ(this)" data-answerno="${qna.answerNo}">                                           
+                                            <td class="qna_title" style="text-align: left;">${qna.qnaContent}</td>
+                                            <td class="qna_writer">${qna.writerNickname}</td>
+                                            <td class="qna_create_date">${qna.qnaCreateDate}</td>
+                                            <td class="qna_status">${ qna.answerNo != 0 ? '답변 완료' : '답변 대기'}</td>
+                                        </tr>
+                                        <c:if test="${qna.answerNo != 0}">                                                                              
+                                            <tr class="answer_area" style="display: none;">
+                                                <td colspan="4" style="text-align: left;">
+                                                    <div id="qna_q">
+                                                        <span class="span_q_a">Q</span><span>${qna.qnaContent}</span>
+                                                        <div id="review_img_container">
+                                                            <img class="review_img" src="${contextPath}/resources/uploadfile/recipe/recipeQna/${qna.qnaPhoto}" alt="">
+                                                        </div>
+                                                    </div>
+                                                    <div id="qna_a">
+                                                        <span class="span_q_a">A</span>
+                                                        <span>${qna.answerContent}</span>
+                                                    </div>
+                                                    <div id="qna_a_date">${qna.answerCreateDate}</div>                                            
+                                                </td>
+                                            </tr>
+                                        </c:if>   
+                                    </c:if>                                      
+                                </c:forEach>
                             </tbody>
                         </table>
                         <!-- <div id="qna_pagination_area" style="margin-top: 10px;">
@@ -463,8 +465,6 @@
                         </div>
                     </div>
                   
-
-
                 </div>
                  <!-- 문의하기 modal -->
                  <div class="modal" id="qna_Modal" style="display: none;" aria-hidden="true">
@@ -479,9 +479,9 @@
 
                             <!-- Modal body -->
                             <div class="modal-body" style="height: 100%;">
-                                <form class="modal-qna-content" action="insertQna.re" enctype="multipart/form-data" method="post">
+                
                                     <input type="hidden" name="writerNo" id="qna-modal-writerNo" value=${loginUser.memberNo}>
-                                    <input type="hidden" name="refProductNo" id="qna-modal-refProductNo">
+                                    <input type="hidden" name="refRecipeNo" id="qna-modal-refProductNo" value=${rcp.recipeNo}>
                                   
                                     <div class="product_pic_container">
                                         <div style="font-size: 14px; font-weight: bold;">
@@ -519,7 +519,7 @@
                                     </div>
 
                                     <div class="product_qna_enroll_btn_container">
-                                        <button  class="product_qna_enroll_btn">완료</button>
+                                        <button  class="product_qna_enroll_btn" onclick="insertQnARecipe()">완료</button>
                                     </div>
                                 </form>
                             </div>
@@ -542,7 +542,7 @@
 
                             <!-- Modal body -->
                             <div class="modal-body" style="height: 100%;">
-                                <!-- <form class="modal-qna-content" action="insertReview.re" enctype="multipart/form-data" method="post"> -->
+                             
                                     <input type="hidden" name="refMemberNo" value=${loginUser.memberNo}>
                                     <input type="hidden" name="refRecipeNo" value=${rcp.recipeNo} id="review-modal-refProductNo">
         
