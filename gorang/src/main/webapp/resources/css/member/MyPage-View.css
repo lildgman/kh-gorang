@@ -98,6 +98,10 @@
         object-fit: cover;
     }
 
+    .best-img:hover {
+        cursor: pointer;
+    }
+
     /* 인기 게시글 4개 크기 */
     .best-board-four{
         /* border: 1px solid; */

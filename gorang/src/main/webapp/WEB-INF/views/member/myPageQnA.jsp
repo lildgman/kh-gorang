@@ -83,7 +83,14 @@
 									</c:choose>
 
 									<c:forEach var="p" begin="${productQnaPi.startPage}" end="${productQnaPi.endPage}">
-										<a href="qna.me?product_qna_cpage=${p}">${p}</a>
+										<c:choose>
+											<c:when test="${productQnaPi.currentPage eq p}">
+												<a href="qna.me?product_qna_cpage=${p}"><strong style="color: #1e90ff;">${p}</strong></a>
+											</c:when>
+											<c:otherwise>
+												<a href="qna.me?product_qna_cpage=${p}">${p}</a>
+											</c:otherwise>
+										</c:choose>
 									</c:forEach>
 
 									<c:choose>
@@ -152,7 +159,14 @@
 							</c:choose>
 
 							<c:forEach var="p" begin="${recipeQnaPi.startPage}" end="${recipeQnaPi.endPage}">
-								<a href="qna.me?recipe_qna_cpage=${p}">${p}</a>
+								<c:choose>
+									<c:when test="${recipeQnaPi.currentPage eq p}">
+										<a href="qna.me?recipe_qna_cpage=${p}"><strong style="color: #1e90ff">${p}</strong></a>
+									</c:when>
+									<c:otherwise>
+										<a href="qna.me?recipe_qna_cpage=${p}">${p}</a>
+									</c:otherwise>
+								</c:choose>
 							</c:forEach>
 
 							<c:choose>

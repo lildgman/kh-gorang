@@ -1,3 +1,14 @@
+window.onload = function() {
+    console.log(window.location.href);
+    console.log(window.location);
+    
+    const url = window.location.href;
+
+    const baseUrl = url.substring(0, url.lastIndexOf('/'));
+    console.log(baseUrl);
+}
+
+
 function recipeImg(){
    recipecss=document.getElementById("recipe-btn");
    boardcss=document.getElementById("board-btn");
@@ -28,10 +39,13 @@ function BoardImg(){
     document.getElementById("banner-imgs").style.display="flex";
 }
 
-function movePage(element) {
+function moveDetailPage(element) {
 
     const contentType = element.getAttribute('data-type');
     const contentNo = element.getAttribute('data-no');
+
+    console.log(contentType);
+    console.log(contentNo);
 
     if(contentType === 'board') {
         window.location.href = "detail.bo?boardNo=" + contentNo;
