@@ -503,14 +503,17 @@ tbody tr>td {
 }
 
 #qna_top {
+    border-top: 2px  solid;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 10px;
+    padding-top: 40px;
 }
 
 #qna_content {
     width: 100%;
+    margin-bottom: 50px;
 }
 
 #qna_content tr {
@@ -634,7 +637,7 @@ tbody tr>td {
     width: 100%;
     border-top: 2px solid;
     height:475px ;
-    margin-bottom: 26px;
+    margin-bottom: 135px;
     
 }
 
@@ -863,18 +866,19 @@ tbody tr>td {
     height: 100px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
  }
 
 
 
 
  .tbody-td-btn-write {
-    width: 100px;
-    height: 50px;
+    width: 123px;
+    height: 53px;
     border-radius: 5px;
     background-color: gray;
     color: white;
+    font-size: 20px;
 }
 .tbody-td-btn-write:hover{
     opacity: 0.8;
@@ -992,3 +996,10 @@ tbody tr>td {
     gap: 34px;
     margin: 20px 0px;
 } */
+
+.pageList{
+    display: flex;
+}
+.pagination{
+    justify-content: center;
+}

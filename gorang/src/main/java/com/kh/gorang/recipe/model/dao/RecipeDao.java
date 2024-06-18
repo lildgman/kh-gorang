@@ -207,6 +207,14 @@ public class RecipeDao {
 	
 	}
 
+	public int selectRecipeReviewCount(SqlSessionTemplate sqlSession, int recipeNo) {
+		return sqlSession.selectOne("recipeMapper.selectRecipeReviewCount",recipeNo);
+	}
+
+	public int selectRecipeQnaCount(SqlSessionTemplate sqlSession, int recipeNo) {
+		return sqlSession.selectOne("recipeMapper.selectRecipeQnaCount",recipeNo);
+	}
+
 
 	
 

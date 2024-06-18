@@ -216,6 +216,24 @@
   	
   	
   	
+  	<!--  레시피 리뷰 길이 찾ㄱㅣ -->
+  	<select id="selectRecipeReviewCount" resultType="_int">
+  	SELECT count(review_no)
+    	FROM REVIEW
+    	WHERE status = 'Y'
+    AND rcp_no =#{recipeNo}
+  	</select>
+  	
+  	  	<!--  레시피 qna 길이 찾ㄱㅣ -->
+  	<select id="selectRecipeQnaCount" resultType="_int">
+  	SELECT count(qna_no)
+    	FROM QNA
+    	WHERE status = 'Y'
+    AND rcp_no =#{rcpNo}
+    AND qna_type=2
+    AND qna_answer_type=1
+  	</select>
+  	
   	 <!-- 레시피 게시글 추가 -->
   	 <select id="insertRecipe" parameterType="Recipe" resultMap="recipeResult" >
 	  	INSERT INTO RECIPE (

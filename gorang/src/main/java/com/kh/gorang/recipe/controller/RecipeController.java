@@ -1,7 +1,9 @@
 package com.kh.gorang.recipe.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,6 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.kh.gorang.common.model.vo.Media;
+import com.kh.gorang.common.model.vo.PageInfo;
+import com.kh.gorang.common.template.Pagination;
 import com.kh.gorang.common.template.SaveFileController;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.QnA;
@@ -41,7 +45,9 @@ public class RecipeController {
 	
 	//레시피 상세페이지로 이동
 	@RequestMapping("detailForm.re")
-	public String recipDetailPage(@RequestParam("recipeNo") int recipeNo,Model model){
+	public String recipDetailPage(@RequestParam("recipeNo") int recipeNo,
+			@RequestParam(value="cpage",defaultValue="1") int cp,
+			Model model){
 		System.out.println("도착" + recipeNo);
 		Member m =  recipeService.selectRecipeMember(recipeNo);
 		Recipe rcp = recipeService.selectRecipe(recipeNo);
@@ -50,15 +56,22 @@ public class RecipeController {
 		recipeInsertDTO.setRcpDivList(recipeService.selectDivList(recipeNo));
 		recipeInsertDTO.setCookOrderList(recipeService.selectCookOrderList(recipeNo));
 		recipeInsertDTO.setCompleteFoodPhoto(recipeService.selectCompleteFoodPhotoList(recipeNo));
-		recipeInsertDTO.setRwList(recipeService.selectRecipeReviewList(recipeNo));
-		recipeInsertDTO.setQnaList(recipeService.selectRecipeQnaList(recipeNo));
+//		recipeInsertDTO.setRwList(recipeService.selectRecipeReviewList(recipeNo));
 		
+		
+//		recipeInsertDTO.setQnaList(recipeService.selectRecipeQnaList(recipeNo));
+		int qnaCount = recipeService.selectRecipeQnaCount(recipeNo);
+		int reviewsCount = recipeService.selectRecipeReviewCount(recipeNo);
+		PageInfo reviewPi = Pagination.getPageInfo(reviewsCount, cp, 10, 10);
+		PageInfo qnaPi = Pagination.getPageInfo(qnaCount, cp, 10, 10);
 		
 		System.out.println(recipeInsertDTO.getQnaList());
 		model.addAttribute("member",m);
 		model.addAttribute("rcp",rcp);
 		model.addAttribute("recipeInsertDTO",recipeInsertDTO);
 		model.addAttribute("tagArr",tagArr);
+		model.addAttribute("reviewPi");
+		model.addAttribute("qnaPi");
 		return "recipe/recipeDetail";
 	}
 	
@@ -210,16 +223,49 @@ public class RecipeController {
 	}
 	
 	
+	
 	//레시피 리뷰조회(상세 페이지)
-//	@PostMapping("ajaxRecipeReview.re")
-//	@ResponseBody
-//	public String ajaxRecipeReview(@RequestParam("recipeNo") String recipeNo ,HttpSession session) {
-//		int rcpNo = Integer.parseInt(recipeNo);
-//		ArrayList<Review> reviewList = (ArrayList<Review>) recipeService.selectRecipeReviewList(rcpNo);
-//		return new Gson().toJson(reviewList);
-//	}
+	@PostMapping("ajaxRecipeReview.re")
+	@ResponseBody
+	public Map<String,Object> ajaxRecipeReview(@RequestParam("recipeNo") String recipeNo ,
+			@RequestParam(value="cpage", defaultValue= "1") String cpage,HttpSession session) {
+		System.out.println("들어옴");
+		int cp = Integer.parseInt(cpage);
+		
+		int rcpNo = Integer.parseInt(recipeNo);
+
+		int reviewsCount = recipeService.selectRecipeReviewCount(rcpNo);
+		PageInfo pi = Pagination.getPageInfo(reviewsCount, cp, 10, 10);
+		ArrayList<Review> reviewList = (ArrayList<Review>) recipeService.selectRecipeReviewList(rcpNo);
+		System.out.println(reviewList);
+		Map<String, Object> result = new HashMap<>();
+		result.put("reviews", reviewList);
+		result.put("pi", pi);
+		return result;
+	}
 	
-	
+	//레시피 qna조회(상세 페이지)
+		@PostMapping("ajaxQnA.re")
+		@ResponseBody
+		public Map<String,Object> ajaxQnA(@RequestParam("recipeNo") String recipeNo ,
+				@RequestParam(value="cpage", defaultValue= "1") String cpage,HttpSession session) {
+			System.out.println("들어옴 문의");
+			int cp = Integer.parseInt(cpage);
+			
+			int rcpNo = Integer.parseInt(recipeNo);
+
+
+			int qnaCount = recipeService.selectRecipeQnaCount(rcpNo);
+			System.out.println("질의 응답 수 :"+qnaCount);
+			PageInfo pi = Pagination.getPageInfo(qnaCount, cp, 10, 10);
+			ArrayList<QnA> qnaList = (ArrayList<QnA>) recipeService.selectRecipeQnaList(rcpNo);
+			System.out.println(qnaList);
+			Map<String, Object> result = new HashMap<>();
+			result.put("qnaList", qnaList);
+			result.put("pi", pi);
+			System.out.println("result"+result);
+			return result;
+		}
 	
 	
 	
