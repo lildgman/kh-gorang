@@ -41,7 +41,7 @@
 						<c:otherwise>
 							<c:forEach var="board" items="${resultBoardList }" varStatus="status">
 								<c:if test="${status.index < 3 }">
-									<div class="banner-best-img" data-type="board" data-no="${board.boardNo }" onclick="movePage(this)">
+									<div class="banner-best-img" data-type="board" data-no="${board.boardNo }" onclick="moveDetailPage(this)">
 										<img src="${contextPath}/resources/uploadfile/board/boardMainContentFile/${board.boardThumbnail}">
 									</div>	
 								</c:if>						
@@ -59,7 +59,7 @@
 						<c:otherwise>
 							<c:forEach var="recipe" items="${mostViewRecipeList }" varStatus="status">
 								<c:if test="${status.index < 3 }">
-									<div class="banner-best-img" data-type="recipe" data-no="${recipe.recipeNo }" onclick="movePage(this)">
+									<div class="banner-best-img" data-type="recipe" data-no="${recipe.recipeNo }" onclick="moveDetailPage(this)">
 										<img src="${contextPath}/resources/uploadfile/recipe/recipemain/${recipe.recipeMainPhoto}">
 									</div>
 								</c:if>
@@ -82,7 +82,7 @@
 							<c:otherwise>
 								<c:forEach var="board" items="${resultBoardList }" varStatus="status">
 									<c:if test="${status.index < 4 }">
-										<div class="best-img" data-type="board" data-no="${board.boardNo }" onclick="movePage(this)">
+										<div class="best-img" data-type="board" data-no="${board.boardNo }" onclick="moveDetailPage(this)">
 											<img src="${contextPath}/resources/uploadfile/board/boardMainContentFile/${board.boardThumbnail}">
 										</div>
 									</c:if>								
@@ -108,17 +108,17 @@
 									<c:if test="${status.index < 4 }">
 										<c:choose>
 											<c:when test="${scrapMap.type == 'Board'}">
-												<div class="best-img" data-type="board" data-no="${scrapMap.object.boardNo}" onclick="movePage(this)">
+												<div class="best-img" data-type="board" data-no="${scrapMap.object.boardNo}" onclick="moveDetailPage(this)">
 													<img src="${contextPath}/resources/uploadfile/board/boardMainContentFile/${scrapMap.object.boardThumbnail}">
 												</div>
 											</c:when>
 											<c:when test="${scrapMap.type == 'Recipe'}">
-												<div class="best-img" data-type="recipe" data-no="${scrapMap.object.recipeNo}" onclick="movePage(this)">
+												<div class="best-img" data-type="recipe" data-no="${scrapMap.object.recipeNo}" onclick="moveDetailPage(this)">
 													<img src="${contextPath}/resources/uploadfile/recipe/recipemain/${scrapMap.object.recipeMainPhoto}">
 												</div>
 											</c:when>
 											<c:when test="${scrapMap.type == 'Product'}">
-												<div class="best-img" data-type="product" data-no="${scrapMap.object.productNo}" onclick="movePage(this)">
+												<div class="best-img" data-type="product" data-no="${scrapMap.object.productNo}" onclick="moveDetailPage(this)">
 													<img src="${contextPath}/resources/uploadfile/product/productimg/${scrapMap.object.mainImg}">
 												</div>
 											</c:when>
@@ -145,12 +145,12 @@
 									<c:if test="${status.index < 4 }">
 										<c:choose>
 											<c:when test="${likedMap.type == 'Board'}">
-												<div class="best-img" data-type="board" data-no="${likedMap.object.boardNo}" onclick="movePage(this)">
+												<div class="best-img" data-type="board" data-no="${likedMap.object.boardNo}" onclick="moveDetailPage(this)">
 													<img src="${contextPath}/resources/uploadfile/board/boardMainContentFile/${likedMap.object.boardThumbnail}">
 												</div>
 											</c:when>
 											<c:when test="${likedMap.type == 'Recipe'}">
-												<div class="best-img" data-type="recipe" data-no="${likedMap.object.recipeNo}" onclick="movePage(this)">
+												<div class="best-img" data-type="recipe" data-no="${likedMap.object.recipeNo}" onclick="moveDetailPage(this)">
 													<img src="${contextPath}/resources/uploadfile/recipe/recipemain/${likedMap.object.recipeMainPhoto}">
 												</div>
 											</c:when>

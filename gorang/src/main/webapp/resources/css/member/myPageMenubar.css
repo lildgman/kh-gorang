@@ -99,11 +99,14 @@
 
 /* 스크랩, 좋아요, 알림 */
 #user-profile-area-bottom {
+    margin-top: 30px;
     display: flex;
+    justify-content: center;
     font-size: 16px;
     color: #6D6D6D;
     text-align: center;
     font-weight: bold;
+    
 }
 
 #user-profile-area-bottom div {
@@ -210,4 +213,8 @@
     font-size: 15px;
     color: #aaaaaa;
     font-weight: bold;
+}
+
+.user-scrap-like {
+    cursor: pointer;
 }

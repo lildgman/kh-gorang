@@ -257,10 +257,24 @@ public class RecipeServiceImpl implements RecipeService{
 	public List<QnA> selectRecipeQnaList(int recipeNo) {
 		return recipeDao.selectRecipeQnaList(sqlSession,recipeNo);
 	}
-
+	
+	//레시피 QnA 추가
 	@Override
 	public int insertQnA(QnA qna) {
 		return recipeDao.insertQnA(sqlSession,qna);
+	}
+	
+	//레시피 리뷰 작성 개수 찾기
+	@Override
+	public int selectRecipeReviewCount(int recipeNo) {
+		return recipeDao.selectRecipeReviewCount(sqlSession,recipeNo);
+	}
+	
+	
+	//레시피 QnA 개수 찾기
+	@Override
+	public int selectRecipeQnaCount(int recipeNo) {			
+		return recipeDao.selectRecipeQnaCount(sqlSession,recipeNo);
 	}
 
 

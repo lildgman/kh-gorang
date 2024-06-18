@@ -46,8 +46,12 @@
                                         alt="사진">
                                 </div>
                                 <div class="myPage-board-content">
-                                    ${boardDTO.board.boardTitle }
-                                    <br> <span>조회수 : ${boardDTO.board.boardViews } </span> <span>댓글 : ${boardDTO.commentCount }</span>
+                                    <div class="board-title-div">
+                                        ${boardDTO.board.boardTitle }
+                                    </div>
+                                    <div class="board-view_comment-count-div">
+                                        <span>조회수 : ${boardDTO.board.boardViews } </span> <span>댓글 : ${boardDTO.commentCount }</span>
+                                    </div>
                                     <div class="myPage-board-content-bottom">
                                         <div class="myPage-board-chuchun">
                                             <img src="${pageContext.request.contextPath}/resources/images/member-img/Facebook_Thumb_icon.svg.png"
@@ -75,7 +79,14 @@
                     </c:choose>
 
                     <c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
-                        <a href="board.me?cpage=${p}&sort=${sort}">${p}</a>
+                        <c:choose>
+                            <c:when test="${pi.currentPage eq p}">
+                                <a href="board.me?cpage=${p}&sort=${sort}"><strong style="color: #1e90ff">${p}</strong></a>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="board.me?cpage=${p}&sort=${sort}">${p}</a>
+                            </c:otherwise>
+                        </c:choose>
                     </c:forEach>
 
                     <c:choose>

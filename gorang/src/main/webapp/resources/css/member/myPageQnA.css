@@ -95,10 +95,11 @@ body {
         align-items: center;
     }
 
-    .product-area-content:hover {
+    .product-area-content:hover, .recipe-area-content:hover {
         cursor: pointer;
         background-color: aliceblue;
     }
+
 
     .content-img {
         width: 80px;

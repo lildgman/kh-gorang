@@ -173,3 +173,10 @@
 #update-btn:hover {
     cursor: pointer;
 }
+
+.board-title-div {
+    width: 100%;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+}

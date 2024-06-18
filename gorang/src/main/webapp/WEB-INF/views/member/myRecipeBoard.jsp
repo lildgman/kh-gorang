@@ -45,8 +45,12 @@
 										alt="사진">
 								</div>
 								<div class="myPage-board-content">
-									${recipeDTO.recipe.recipeTitle }
-									<br> <span>조회수 : ${recipeDTO.recipe.recipeView } </span> <span>리뷰 : ${recipeDTO.reviewCount }</span>
+									<div class="recipe-title-div">
+										${recipeDTO.recipe.recipeTitle }
+									</div>
+									<div class="recipe-review_view-count-div">
+										<span>조회수 : ${recipeDTO.recipe.recipeView } </span> <span>리뷰 : ${recipeDTO.reviewCount }</span>
+									</div>
 									<div class="myPage-board-content-bottom">
 										<div class="myPage-board-chuchun">
 											<img
@@ -65,7 +69,6 @@
 				</c:choose>
 
 			</div>
-			<!-- 상품 리스트 끝 -->
 
 			<div id="pagination-area">
 				<div id="pagination">
@@ -76,8 +79,15 @@
 							</c:choose>
 
 							<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
-								<a href="recipe.me?cpage=${p}&sort=${sort}">${p}</a>
-							</c:forEach>
+								<c:choose>
+									<c:when test="${pi.currentPage eq p}">
+										<a href="recipe.me?cpage=${p}&sort=${sort}"><strong style="color: #1e90ff">${p}</strong></a>
+									</c:when>
+									<c:otherwise>
+										<a href="recipe.me?cpage=${p}&sort=${sort}">${p}</a>
+									</c:otherwise>
+								</c:choose>
+								</c:forEach>
 
 							<c:choose>
 								<c:when test="${pi.currentPage lt pi.maxPage}">

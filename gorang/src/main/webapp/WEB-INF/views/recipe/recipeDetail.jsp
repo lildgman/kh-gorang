@@ -264,54 +264,13 @@
                             <button class="tbody-td-btn-write" data-toggle="modal" data-target="#buyList-review_Modal">후기 작성</button>
 
                         </div>
-                        <c:forEach var="rv" items="${recipeInsertDTO.rwList}">
-                            <div id="product_review">
-                                <div id="review_writer_area">
-                                    <div id="review_writer_pic_container">
-                                        <img id="review_writer_pic"
-                                            src="${contextPath}/resources/uploadfile/memberProfile/${rv.writerProfile}" alt="">
-                                    </div>
-                                    <div id="review_writer_id_rate">
-                                        <div id="review_writer_id"><span class="userName">
-                                            ${rv.writerNickname}
-                                        </span> <span class="commentDates">  
-                                                ${rv.reviewCreateDate}
-                                                <!-- |
-                                                <span class="updateComments"> 수정</span> |
-                                                <span class="deleteComents">삭제</span> </span></div> -->
-                                                </span></div>
-                                        <div class="star_rating">
-                                            <c:forEach var="i" begin="1" end="${rv.rating}">
-                                                <i class="fa-solid fa-star" style="color: #FFD43B;" aria-hidden="true"></i>
-                                            </c:forEach>
-                                        </div>
-                                    </div>
-                                </div>
-                                <c:if test="${not empty rv.reviewPhoto}">
-                                    <div id="review_img_container">
-                                        <img class="review_img" src="${contextPath}/resources/uploadfile/recipe/recipeReview/${rv.reviewPhoto}"></img>
-                                    </div>
-                                </c:if>
-                                <div id="review_content">
-                                    ${rv.reviewContent}
-                                </div>
-                            </div>
-                        </c:forEach>
-            
-                        <div id="pagination-area">
-                            <div id="pagination">
-                                <a href="#">&lt;</a>
-                                <a href="#">1</a>
-                                <a href="#">2</a>
-                                <a href="#">3</a>
-                                <a href="#">4</a>
-                                <a href="#">5</a>
-                                <a href="#">6</a>
-                                <a href="#">7</a>
-                                <a href="#">8</a>
-                                <a href="#">9</a>
-                                <a href="#">10</a>
-                                <a href="#">&gt;</a>
+                        <div id="recipe_review_area">
+                       
+                        </div>
+
+                        <div id="review-pagination-area">
+                            <div class="pagination">
+                               
                             </div>
                         </div>
                         
@@ -333,7 +292,7 @@
                                 data-toggle="modal" data-target="#qna_Modal">문의하기</button>
                                 
                         </div>
-
+        
                         <table id="qna_content">
                             <thead>
                                 <tr>
@@ -344,58 +303,14 @@
                                 </tr>
                             </thead>
                             <tbody id="tbodyQnA">
-                                <c:forEach var="qna" items="${recipeInsertDTO.qnaList}">
-                                    <c:if test="${qna.qnaAnswerType == 1}">
-                                        <tr class="${qna.answerNo != 0 ? 'qna-area-hover' : 'qna-area'}" onclick="showQ(this)" data-answerno="${qna.answerNo}">                                           
-                                            <td class="qna_title" style="text-align: left;">${qna.qnaContent}</td>
-                                            <td class="qna_writer">${qna.writerNickname}</td>
-                                            <td class="qna_create_date">${qna.qnaCreateDate}</td>
-                                            <td class="qna_status">${ qna.answerNo != 0 ? '답변 완료' : '답변 대기'}</td>
-                                        </tr>
-                                        <c:if test="${qna.answerNo != 0}">                                                                              
-                                            <tr class="answer_area" style="display: none;">
-                                                <td colspan="4" style="text-align: left;">
-                                                    <div id="qna_q">
-                                                        <span class="span_q_a">Q</span><span>${qna.qnaContent}</span>
-                                                        <div id="review_img_container">
-                                                            <img class="review_img" src="${contextPath}/resources/uploadfile/recipe/recipeQna/${qna.qnaPhoto}" alt="">
-                                                        </div>
-                                                    </div>
-                                                    <div id="qna_a">
-                                                        <span class="span_q_a">A</span>
-                                                        <span>${qna.answerContent}</span>
-                                                    </div>
-                                                    <div id="qna_a_date">${qna.answerCreateDate}</div>                                            
-                                                </td>
-                                            </tr>
-                                        </c:if>   
-                                    </c:if>                                      
-                                </c:forEach>
+                                
                             </tbody>
                         </table>
-                        <!-- <div id="qna_pagination_area" style="margin-top: 10px;">
-                        <div id="qna_pagination">
-                            <a href="#">&lt;</a>
-                            <a href="#">1</a>
-                            <a href="#">2</a>
-                            <a href="#">&gt;</a>
-                        </div>
-                    </div> -->
+                        
                         <!-- 페이징 바 -->
-                        <div id="pagination-area">
-                            <div id="pagination">
-                                <a href="#">&lt;</a>
-                                <a href="#">1</a>
-                                <a href="#">2</a>
-                                <a href="#">3</a>
-                                <a href="#">4</a>
-                                <a href="#">5</a>
-                                <a href="#">6</a>
-                                <a href="#">7</a>
-                                <a href="#">8</a>
-                                <a href="#">9</a>
-                                <a href="#">10</a>
-                                <a href="#">&gt;</a>
+                        <div id="qna-pagination-area">
+                            <div class="pagination">
+                             
                             </div>
                         </div>
                     </div>
@@ -461,7 +376,7 @@
                         </div>
 
                         <div id="goto-list-area">
-                            <button id="goto-list-btn">목록으로</button>
+                            <button id="goto-list-btn" onclick="goRecipeList()">목록으로</button>
                         </div>
                     </div>
                   

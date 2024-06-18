@@ -116,7 +116,7 @@ body {
     background-color:#EAF0F6 ;
 }
 #userIdWrap{
-    height: 60px;
+    height: 48px;
     width: 700px;
     margin: 0px 231px ;
     display: flex;
@@ -150,8 +150,9 @@ body {
 #userNpwWrap{
     height: 60px;
     width: 700px;
-    margin: 30px 231px;
+    margin: 0px 231px;
     display: flex;
+    
 }
 #NpwWrap{
     height: 50px;
@@ -379,10 +380,14 @@ body {
     display: none;
   }
 
-#valid-password-result{
+#valid-password-result, #check-password-length{
     display: none;
     margin: 0px 231px;
     padding-left: 136px;
+}
+
+#check-password-length {
+    margin-bottom: 15px;
 }
 
 .wrong {
