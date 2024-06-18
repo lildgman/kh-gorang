@@ -40,6 +40,7 @@ function updateRecipeBoard(element){
 
 
 function movePage(element) {
+    console.log("hello");
     const contentNo = element.closest('.myPage-board-list-block');
     const recipeNo = parseInt(contentNo.querySelector('.myPage-board-img').getAttribute('data-no'));
     window.location.href = `detailForm.re?recipeNo=${recipeNo}`;

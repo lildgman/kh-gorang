@@ -32,6 +32,7 @@ import com.kh.gorang.recipe.model.vo.IngredientsInfo;
 import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.recipe.model.vo.RecipeInsertDTO;
 import com.kh.gorang.recipe.service.RecipeService;
+import com.kh.gorang.shopping.model.vo.Product;
 
 @Controller
 public class RecipeController {
@@ -53,13 +54,15 @@ public class RecipeController {
 		Recipe rcp = recipeService.selectRecipe(recipeNo);
 		String[] tagArr = rcp.getRecipeTag().split(",");
 		RecipeInsertDTO recipeInsertDTO = new RecipeInsertDTO();
-		recipeInsertDTO.setRcpDivList(recipeService.selectDivList(recipeNo));
+		List<Division> divList =recipeService.selectDivList(recipeNo);
+		recipeInsertDTO.setRcpDivList(divList);
 		recipeInsertDTO.setCookOrderList(recipeService.selectCookOrderList(recipeNo));
 		recipeInsertDTO.setCompleteFoodPhoto(recipeService.selectCompleteFoodPhotoList(recipeNo));
-//		recipeInsertDTO.setRwList(recipeService.selectRecipeReviewList(recipeNo));
 		
+		recipeInsertDTO.setProductList(recipeService.selectProductList(divList, recipeNo));
+		List<Product> pList =recipeService.selectProductList(divList, recipeNo);
+		System.out.println("pList"+pList);
 		
-//		recipeInsertDTO.setQnaList(recipeService.selectRecipeQnaList(recipeNo));
 		int qnaCount = recipeService.selectRecipeQnaCount(recipeNo);
 		int reviewsCount = recipeService.selectRecipeReviewCount(recipeNo);
 		PageInfo reviewPi = Pagination.getPageInfo(reviewsCount, cp, 10, 10);
