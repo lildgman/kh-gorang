@@ -183,8 +183,8 @@ public class MyPageServiceImpl implements MyPageService{
 
 	// 나의 게시글 개수 조회 
 	@Override
-	public int getBoardCount(int memberNo) {
-		return myPageDao.getBoardCount(sqlSession, memberNo);
+	public int getBoardCount(Map<String,Object> map) {
+		return myPageDao.getBoardCount(sqlSession, map);
 	}
 
 	// 게시글 조회 
@@ -292,21 +292,7 @@ public class MyPageServiceImpl implements MyPageService{
 	// 좋아요 게시글 삭제
 	@Override
 	public int deleteLikeBoard(Map<String, Object> map) {
-		
-		int deleteLikeBoardResult = myPageDao.deleteLikeBoard(sqlSession, map);
-		int minusBoardVote = 0;
-		
-		
-		if(deleteLikeBoardResult > 0) {
-			minusBoardVote = boardDao.minusBoardVote(sqlSession, map);
-			
-			if(minusBoardVote > 0) {
-				return deleteLikeBoardResult * minusBoardVote;
-			} 
-		}
-		
-		return 0;
-//		return myPageDao.deleteLikeBoard(sqlSession, map);
+		return myPageDao.deleteLikeBoard(sqlSession, map);
 	}
 
 	// 회원 닉네임 중복체크

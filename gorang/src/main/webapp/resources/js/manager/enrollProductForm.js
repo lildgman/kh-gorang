@@ -1,4 +1,4 @@
-let optionNo = 0;
+let optionNo = 1;
 
 window.onload = function () {
 
@@ -147,3 +147,23 @@ function checkSelectedOneOption(event) {
   event.target.checked = true;
 }
 
+function isEmptyProductInfo() {
+  const fileInput = document.querySelector('#file-input');
+  const productDescArea = document.querySelector('#summernote');
+
+  if(!fileInput.value) {
+    alert("상품 이미지를 넣어주세요");
+    fileInput.focus();
+
+    return false;
+  }
+
+  if(!productDescArea.value) {
+    alert("상품 설명을 적어주세요");
+    productDescArea.focus();
+
+    return false;
+  }
+
+  return true;
+}

@@ -13,6 +13,6 @@ public class ProductQnaDTO {
 	private final String productName;
 	private final String productBrand;
 	private final String productImg;
-	private final int refQnaNo;
+	private final Integer refQnaNo;
 	private final String optionName;
 }

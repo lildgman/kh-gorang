@@ -63,18 +63,18 @@ function inputProductInfo(recipeNo, profileLocation){
 // }
 
 // 레시피  qna 가져오는 ajax
-function ajaxGetRecipeQnAs(data, callback){
-  $.ajax({
-    url: "ajaxRecipeQnA.re",
-    data: data,
-    success: function(result){
-      callback(result);
-    },
-    error: function(){
-      console.log("불러오기 실패")
-    }
-  });
-}
+// function ajaxGetRecipeQnAs(data, callback){
+//   $.ajax({
+//     url: "ajaxRecipeQnA.re",
+//     data: data,
+//     success: function(result){
+//       callback(result);
+//     },
+//     error: function(){
+//       console.log("불러오기 실패")
+//     }
+//   });
+// }
 
 
 
@@ -355,12 +355,7 @@ function putProductQnAList(pno, qnas){
        //답변 여부 보여주는 부분
        qnaContentTableTr.innerHTML += `<td class="qna_status">${qnaStatus}</td>`
 
-      //qna
-      //qna 내용 생성
-      const qnaQuestionTr = document.createElement('tr');
-      qnaQuestionTr.setAttribute("class", "qna_content_tr_display_none");
-      qnaQuestionTr.setAttribute("style", "border: none");
-      qnaContentTbody.appendChild(qnaQuestionTr);
+
       // 질문 상세
       const qnaContentQuestionTd = document.createElement('td');
       qnaQuestionTr.appendChild(qnaContentQuestionTd);
@@ -410,13 +405,105 @@ function inquireQuestion(opts){
 }
 
 
-function showQ(element){
-  let parent =element.closest(".qna-blocks");
-  console.log(parent);
-  let showDiv = parent.querySelector("#answer_area");
-  if(showDiv.style.display==="none"){
-    showDiv.style.display="block";
-  }else{
-    showDiv.style.display="none";
+function showQ(element) {
+  var answerNo = element.getAttribute('data-answerno');
+  if (answerNo != 0) {
+      var answerArea = element.nextElementSibling; // 다음 sibling 요소인 answer_area를 가져옴
+      var allAnswerAreas = document.querySelectorAll('.answer_area'); // 모든 answer_area 요소를 가져옴
+      
+      // 클릭한 qna-area에 해당하는 answer_area의 현재 display 상태를 체크
+      var isCurrentlyVisible = (answerArea.style.display === 'block');
+      
+      // 모든 answer_area 요소를 숨김 처리
+      allAnswerAreas.forEach(function(item) {
+          item.style.display = 'none';
+      });
+
+      // 클릭한 qna-area에 해당하는 answer_area의 display 상태를 토글
+      if (!isCurrentlyVisible) {
+          answerArea.style.display = 'block';
+      }
   }
+
+}
+
+function insertQnARecipe() {
+  let parent = document.getElementById("qna_Modal");
+  let writerNo = parent.querySelector('input[type="hidden"][name="writerNo"]').value;
+  let refRecipeNo = parent.querySelector('input[type="hidden"][name="refRecipeNo"]').value;
+  console.log(refRecipeNo);
+  let qnaContent = parent.querySelector('textarea[name="qnaContent"]').value;
+  let qnaPhotoElement = parent.querySelector('input[type="file"][name="qnaPhotoUpfile"]');
+
+  let formData = new FormData();
+  formData.append("writerNo", parseInt(writerNo));
+  formData.append("refRecipeNo", parseInt(refRecipeNo));
+  formData.append("qnaContent", qnaContent);
+  if (qnaPhotoElement && qnaPhotoElement.files && qnaPhotoElement.files[0]) {
+    formData.append("qnaPhoto", qnaPhotoElement.files[0]);
+  }
+
+  ajaxinsertQnA(formData, function(qnaData) {
+    let html = '';
+
+      if (qnaData.qnaAnswerType === 1) {
+          if (qnaData.answerNo !== 0) { // 답변이 있는 경우
+              html += `
+              <div class="qna-blocks">
+                  <input type="hidden" value="${qnaData.answerNo}">
+                  <tr class="qna-area-hover" onclick="showQ(this)" data-answerno="${qnaData.answerNo}">                                           
+                      <td class="qna_title" style="text-align: left;">${qnaData.qnaContent}</td>
+                      <td class="qna_writer">${qnaData.writerNickname}</td>
+                      <td class="qna_create_date">${qnaData.qnaCreateDate}</td>
+                      <td class="qna_status">답변 완료</td>
+                  </tr>                                                                                   
+                  <tr class="answer_area" style="display: none;">
+                      <td colspan="4" style="text-align: left;">
+                          <div id="qna_q">
+                              <span class="span_q_a">Q</span><span>${qnaData.qnaContent}</span>
+                              <div id="review_img_container">
+                                  <img class="review_img" src="/gorang/resources/uploadfile/recipe/recipeQna/${qnaData.qnaPhoto}" alt="">
+                              </div>
+                          </div>
+                          <div id="qna_a">
+                              <span class="span_q_a">A</span><span>${qnaData.answerContent}</span>
+                          </div>
+                          <div id="qna_a_date">${qnaData.answerCreateDate}</div>                                            
+                      </td>
+                  </tr>                                         
+              </div>`;
+          } else { // 답변이 없는 경우
+              html += `
+              <div class="qna-blocks">
+                  <input type="hidden" value="${qnaData.qnaNo}">
+                  <tr class="qna-area" onclick="showQ(this)" data-answerno="${qnaData.answerNo}">                                           
+                      <td class="qna_title" style="text-align: left;">${qnaData.qnaContent}</td>
+                      <td class="qna_writer">${qnaData.writerNickname}</td>
+                      <td class="qna_create_date">${qnaData.qnaCreateDate}</td>
+                      <td class="qna_status">답변 대기</td>
+                  </tr>
+              </div>`;
+          }
+          document.querySelector('#tbodyQnA').innerHTML += html;
+      }
+  });
+
+
+  
+}
+function ajaxinsertQnA(data, callback) {
+  $.ajax({
+      url: "insertQnA.re",
+      type: "POST",
+      data: data,
+      contentType: false,
+      processData: false,
+      success: function(qnaData) {
+          callback(qnaData);
+          location.reload();
+      },
+      error: function() {
+          alert("문의 작성에 실패했습니다.");
+      }
+  });
 }

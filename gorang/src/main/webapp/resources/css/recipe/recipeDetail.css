@@ -979,6 +979,16 @@ tbody tr>td {
     display:none;
   }
 
-  .qna-area:hover{
+  .qna-area-hover:hover{
     cursor: pointer;
   }
+
+
+/* #qna_img_container{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 34px;
+    margin: 20px 0px;
+} */

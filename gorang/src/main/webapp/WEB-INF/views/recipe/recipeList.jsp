@@ -69,8 +69,15 @@
                             </div>
                         </div>
                         <div id="recipeContentsBox">
+                            <c:if test="${empty list}">
+                                아직 레시피가 존재하지 않습니다.
+
+
+                            </c:if>
+
+
                             <c:forEach var="recipe" items="${list }">
-                                <div class="recipe-content-box" onclick="location.href='detail.re?recipeNo=${recipe.recipeNo}'">
+                                <div class="recipe-content-box" onclick="location.href='detailForm.re?recipeNo=${recipe.recipeNo}'">
                                     <div class="recipe-content-item">
                                         <div id="recipeContentImg">
                                             <img src="${pageContext.request.contextPath}/resources/uploadfile/recipe/recipemain/${recipe.recipeImg}">
@@ -104,7 +111,14 @@
                                     </c:choose>
                     
                                     <c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
-                                        <a href="list.re?content=${content}&cpage=${p}&category=${category}&sort=${sort}">${p}</a>
+                                        <c:choose>
+                                            <c:when test="${pi.currentPage eq p}">
+                                                <a href="list.re?content=${content}&cpage=${p}&category=${category}&sort=${sort}"><strong style="color:#1E90FF;">${p}</strong></a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a href="list.re?content=${content}&cpage=${p}&category=${category}&sort=${sort}">${p}</a>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </c:forEach>
                     
                                     <c:choose>
@@ -113,6 +127,7 @@
                                         </c:when>
                                     </c:choose>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>

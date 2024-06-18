@@ -27,8 +27,6 @@
 		<result column="REPORT_CONTENT" property="reportContent"/>
 		<result column="BOARD_NO" property="boardNo"/>
 		<result column="MEMBER_NO" property="boardNo"/>
-	
-	
 	</resultMap>
 	
 	<!-- 게시판 리스트 DTO -->
@@ -49,6 +47,14 @@
 		<result column="MEMBER_NO" property="memberNo"/>
 		<result column="STATUS" property="status"/>
 		<result column="LIKE_BOARD_DATE" property="likeDate"/>
+	</resultMap>
+	
+	<!-- 스크랩 -->
+	<resultMap type="ScrapBoard" id="scrapBoard">
+		<result column="BOARD_NO" property="boardNo"/>
+		<result column="MEMBER_NO" property="memberNo"/>
+		<result column="STATUS" property="status"/>
+		<result column="SCRAP_BOARD_DATE" property="scrapDate"/>
 	</resultMap>
 	
 	
@@ -188,55 +194,64 @@
 		SELECT COUNT(*)
 		FROM (
 			SELECT 
-			B.BOARD_NO,
-			B.BOARD_THUMBNAIL,
-			B.BOARD_TITLE,
-			B.BOARD_VIEWS,
-			M.MEMBER_PROFILE,
-			M.MEMBER_NICKNAME,
-			COUNT(SB.BOARD_NO) AS SCRAP_COUNT,
-			COUNT(LB.BOARD_NO) AS LIKE_COUNT
-		FROM BOARD B
-		JOIN MEMBER M USING (MEMBER_NO)
-		LEFT JOIN SCRAP_BOARD SB USING (BOARD_NO)
-		LEFT JOIN LIKE_BOARD LB USING (BOARD_NO)
-		WHERE 
-			B.STATUS = 'Y'
-			<if test='content != null and content != ""'>
-				AND B.BOARD_TITLE LIKE '%'|| #{content} ||'%'
-				OR B.BOARD_CONTENT LIKE '%'|| #{content} ||'%'
-		   		</if>
-			<if test='category == "일상"'>
-				AND B.BOARD_TAG LIKE '#일상'
+				B.BOARD_NO,
+				B.BOARD_THUMBNAIL,
+				B.BOARD_TITLE,
+				B.BOARD_VIEWS,
+				M.MEMBER_PROFILE,
+				M.MEMBER_NICKNAME,
+				COALESCE(l.like_count, 0) AS like_count,
+				COALESCE(s.scrap_count, 0) AS scrap_count
+			FROM BOARD B
+			JOIN MEMBER M USING (MEMBER_NO)
+			LEFT JOIN (
+				SELECT 
+					board_no,
+					COUNT(*) AS like_count
+				FROM 
+					public.like_board
+				GROUP BY 
+					board_no
+			) l ON b.board_no = l.board_no
+			LEFT JOIN (
+				SELECT 
+					board_no,
+					COUNT(*) AS scrap_count
+				FROM 
+					public.scrap_board
+				GROUP BY 
+					board_no
+			) s ON b.board_no = s.board_no
+			WHERE 
+				B.STATUS = 'Y'
+				<if test='content != null and content != ""'>
+					AND B.BOARD_TITLE LIKE '%'|| #{content} ||'%'
+					OR B.BOARD_CONTENT LIKE '%'|| #{content} ||'%'
+			   		</if>
+				<if test='category == "일상"'>
+					AND B.BOARD_TAG LIKE '#일상'
+				</if>
+				<if test='category == "질문"'>
+					AND B.BOARD_TAG LIKE '#질문'
+				</if>
+				<if test='category == "노하우"'>
+					AND B.BOARD_TAG LIKE '#노하우'
+				</if>
+				<if test='category == "꿀팁"'>
+					AND B.BOARD_TAG LIKE '#꿀팁'
+				</if>
+				<if test='category == "보관법"'>
+					AND B.BOARD_TAG LIKE '#보관법'
+				</if>
+			<if test='sort == "latest"'>
+				ORDER BY B.BOARD_CREATE_DATE DESC, BOARD_NO DESC
 			</if>
-			<if test='category == "질문"'>
-				AND B.BOARD_TAG LIKE '#질문'
+			<if test='sort == "view"'>
+				ORDER BY B.BOARD_VIEWS DESC, BOARD_NO DESC
 			</if>
-			<if test='category == "노하우"'>
-				AND B.BOARD_TAG LIKE '#노하우'
+			<if test='sort == "scrap"'>
+				ORDER BY SCRAP_COUNT DESC, BOARD_NO DESC
 			</if>
-			<if test='category == "꿀팁"'>
-				AND B.BOARD_TAG LIKE '#꿀팁'
-			</if>
-			<if test='category == "보관법"'>
-				AND B.BOARD_TAG LIKE '#보관법'
-			</if>
-			GROUP BY 
-			B.BOARD_NO,
-			B.BOARD_THUMBNAIL,	
-			B.BOARD_TITLE,
-			B.BOARD_VIEWS,
-			M.MEMBER_PROFILE,
-			M.MEMBER_NICKNAME
-		<if test='sort == "latest"'>
-			ORDER BY B.BOARD_CREATE_DATE DESC, BOARD_NO DESC
-		</if>
-		<if test='sort == "view"'>
-			ORDER BY B.BOARD_VIEWS DESC, BOARD_NO DESC
-		</if>
-		<if test='sort == "scrap"'>
-			ORDER BY SCRAP_COUNT DESC, BOARD_NO DESC
-		</if>
 			
 		)
 	</select>
@@ -249,12 +264,28 @@
 			B.BOARD_VIEWS,
 			M.MEMBER_PROFILE,
 			M.MEMBER_NICKNAME,
-			COUNT(DISTINCT CASE WHEN SB.STATUS = 'Y' THEN SB.BOARD_NO END) AS SCRAP_COUNT,
-    		COUNT(DISTINCT CASE WHEN LB.STATUS = 'Y' THEN LB.BOARD_NO END) AS LIKE_COUNT
+			COALESCE(l.like_count, 0) AS like_count,
+			COALESCE(s.scrap_count, 0) AS scrap_count
 		FROM BOARD B
 		JOIN MEMBER M USING (MEMBER_NO)
-		LEFT JOIN SCRAP_BOARD SB USING (BOARD_NO)
-		LEFT JOIN LIKE_BOARD LB USING (BOARD_NO)
+		LEFT JOIN (
+			SELECT 
+				board_no,
+				COUNT(*) AS like_count
+			FROM 
+				public.like_board
+			GROUP BY 
+				board_no
+		) l ON b.board_no = l.board_no
+		LEFT JOIN (
+			SELECT 
+				board_no,
+				COUNT(*) AS scrap_count
+			FROM 
+				public.scrap_board
+			GROUP BY 
+				board_no
+		) s ON b.board_no = s.board_no
 		WHERE 
 			B.STATUS = 'Y'
 			<if test='content != null and content != ""'>
@@ -276,13 +307,6 @@
 			<if test='category == "보관법"'>
 				AND B.BOARD_TAG LIKE '#보관법'
 			</if>
-			GROUP BY 
-			B.BOARD_NO,
-			B.BOARD_THUMBNAIL,	
-			B.BOARD_TITLE,
-			B.BOARD_VIEWS,
-			M.MEMBER_PROFILE,
-			M.MEMBER_NICKNAME
 		<if test='sort == "latest"'>
 			ORDER BY B.BOARD_CREATE_DATE DESC, BOARD_NO DESC
 		</if>
@@ -337,29 +361,7 @@
 			#{memberNo}
 		)
 	</insert>
-	
-	<update id="plusBoardVote">
-		UPDATE BOARD
-		SET BOARD_VOTE = BOARD_VOTE +1
-		WHERE BOARD_NO = #{boardNo}
-	</update>
-	
-	<update id="updateLikeBoard">
-		UPDATE LIKE_BOARD
-		SET STATUS = 'N'
-		WHERE 
-			BOARD_NO = #{boardNo}
-			AND MEMBER_NO = #{memberNo} 
-	</update>
-	
-	<update id="minusBoardVote">
-		UPDATE BOARD
-		SET BOARD_VOTE = BOARD_VOTE - 1
-		WHERE BOARD_NO = #{boardNo}
-	
-	
-	</update>
-	
+
 	<select id="selectLikedBoard" resultType="_int">
 		SELECT COUNT(*)
 		FROM LIKE_BOARD
@@ -368,22 +370,6 @@
 			AND BOARD_NO = #{boardNo}
 			AND STATUS = 'Y'
 	</select>
-	
-	<select id="selectLikedBoardStatusN" resultType="_int">
-		SELECT COUNT(*)
-		FROM LIKE_BOARD
-		WHERE 
-			MEMBER_NO = #{memberNo}
-			AND BOARD_NO = #{boardNo}
-	</select>
-	
-	<update id="updateLikedBoardStatus">
-		UPDATE LIKE_BOARD
-		SET STATUS = 'Y'
-		WHERE 
-			BOARD_NO = #{boardNo}
-			AND MEMBER_NO = #{memberNo}
-	</update>
 	
 	<insert id="insertReport" parameterType="Report">
 		INSERT INTO REPORT (
@@ -399,4 +385,66 @@
 		)
 	</insert>
 	
+	<select id="existScrapBoard" resultType="_int">
+		SELECT COUNT(*)
+		FROM SCRAP_BOARD
+		WHERE 
+			STATUS = 'Y' 
+			AND MEMBER_NO = #{memberNo}
+			AND BOARD_NO = #{boardNo}
+	</select>
+	
+	<insert id="insertScrapBoard" parameterType="ScrapBoard">
+		INSERT INTO SCRAP_BOARD(
+			MEMBER_NO,
+			BOARD_NO
+		) VALUES (
+			#{memberNo},
+			#{boardNo}
+		)
+	</insert>
+	
+	<delete id="deleteScrapBoard" parameterType="ScrapBoard">
+		DELETE FROM SCRAP_BOARD
+		WHERE MEMBER_NO = #{memberNo} AND BOARD_NO = #{boardNo}
+	</delete>
+	
+	<delete id="deleteLikeBoard" parameterType="LikeBoard">
+		DELETE FROM LIKE_BOARD
+		WHERE MEMBER_NO = #{memberNo} AND BOARD_NO = #{boardNo}
+	</delete>
+	
+	<select id="selectScrapBoard" resultType="_int">
+		SELECT COUNT(*)
+		FROM SCRAP_BOARD
+		WHERE 
+			MEMBER_NO = #{memberNo}
+			AND BOARD_NO = #{boardNo}
+			AND STATUS = 'Y'
+	</select>
+	
+	<select id="getScrapBoardCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM SCRAP_BOARD
+		WHERE
+			STATUS = 'Y'
+			AND BOARD_NO = #{boardNo}
+	</select>
+	
+	<select id="existLikeBoard" resultType="_int">
+		SELECT COUNT(*)
+		FROM LIKE_BOARD
+		WHERE
+			STATUS = 'Y' 
+			AND MEMBER_NO = #{memberNo}
+			AND BOARD_NO = #{boardNo}
+	</select>
+	
+	<select id="getLikeBoardCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM LIKE_BOARD
+		WHERE
+			STATUS = 'Y'
+			AND BOARD_NO = #{boardNo}
+	</select>
 </mapper>
