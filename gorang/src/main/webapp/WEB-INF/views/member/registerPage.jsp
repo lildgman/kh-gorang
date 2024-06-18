@@ -67,20 +67,16 @@
                     <div class="registerSection">
                         <div class="registerSpan"><span>비밀번호</span></div>
                         <div class="register-inputForm" id="register-input-pwd">
-                            <input type="password" class="register-input" name="memberPwd" placeholder="비밀번호를 입력해주세요(영문, 숫자 포함 8자 이상)." required>
+                            <input type="password" class="register-input" name="memberPwd" placeholder="비밀번호를 입력해주세요(영문, 숫자 포함 8자 이상)" required>
                             <div class="regi-notice-wrapper">
-                                <span class="regi-notice pwd-empty">비밀번호를 입력해주세요.</span>
-                                <span class="regi-notice pwd-form">영문, 숫자를 포함한 8자리 이상의 비밀번호를 입력해주세요.</span>
                             </div>
                         </div>
                     </div>
                     <div class="registerSection">
                         <div class="registerSpan"><span>비밀번호 확인</span></div>
                         <div class="register-inputForm" id="register-input-pwd-confirm">
-                            <input type="password" class="register-input" placeholder="비밀번호를 한 번 더 입력해주세요." required>
+                            <input type="password" class="register-input" id="register-pwd-confirm" placeholder="비밀번호를 한 번 더 입력해주세요." required>
                             <div class="regi-notice-wrapper">
-                                <span class="regi-notice pwd-confirm-empty">비밀번호를 한 번 더 입력해주세요.</span>
-                                <span class="regi-notice pwd-confirm">비밀번호가 일치하지 않습니다.</span>
                             </div>
                         </div>
                     </div>
@@ -89,14 +85,10 @@
                         <div class="register-inputForm" id="register-input-nickname">
                             <input type="text" class="register-input" name="nickname" placeholder="닉네임을 입력해주세요(2~15자)." required>
                             <div class="regi-notice-wrapper">
-                                <span class="regi-notice nickname-empty">닉네임을 입력해주세요.</span>
-                                <span class="regi-notice nickname-form-min">2글자 이상 입력해주세요.</span>
-                                <span class="regi-notice nickname-form-max">15글자 이하로 입력해주세요.</span>
-                                <span class="regi-notice nickname-check">이미 사용중인 닉네임입니다.</span>
                             </div>
                         </div>
                         <div class="registerCheck">
-                            <input type="button" value="중복확인" id="nameCheck">
+                            <input type="button" value="중복확인" id="nameCheck" style="pointer-events: none;">
                         </div>
                     </div>
                     <div class="registerSection">
@@ -104,12 +96,10 @@
                         <div class="register-inputForm" id="register-input-phone">
                             <input type="tel" class="register-input" name="memberPhone" placeholder="전화번호를 입력해주세요.('-' 생략)" required>
                             <div class="regi-notice-wrapper">
-                                <span class="regi-notice phone-empty">전화번호를 입력해주세요.</span>
-                                <span class="regi-notice phone-form">전화번호 형식이 올바르지 않습니다(11자리).</span>
                             </div>
                         </div>
                         <div class="registerCheck">
-                            <input type="button" id="member-auth-btn" value="본인인증">
+                            <input type="button" id="member-auth-btn" value="본인인증" style="pointer-events: none;">
                         </div>
                     </div>
                     <div class="registerSection" id="phoneAuthSection" style="justify-content: center; display: none;">
@@ -117,7 +107,6 @@
                         <div class="register-inputForm" id="register-input-authNo">
                             <input type="text" class="register-input" name="phone-authNo" placeholder="인증번호를 입력해주세요." required>
                             <div class="regi-notice-wrapper">
-                                <span class="regi-notice authNo-check">인증번호가 틀렸습니다. 제한시간 내에 인증번호를 입력해주세요</span>
                             </div>
                         </div>
                         <div class="registerCheck">
@@ -140,10 +129,9 @@
                     </div>
                     <div id="registBirthSection" class="registerSection">
                         <div class="registerSpan"><span>생년월일</span></div>
-                        <div id="birthInput" class="register-inputForm" id="register-input-birth">
+                        <div id="birthInput" class="register-inputForm">
                             <input type="date"  class="register-input" name="birth" placeholder="YYYYMMDD" required>
                             <div class="regi-notice-wrapper">
-                                <span class="regi-notice birth-form">생년월일을 입력해주세요</span>
                             </div>
                         </div>
                     </div>
@@ -189,7 +177,9 @@
                         </div>
                     </div>
                     <div id="registerSubmitBtn">
-                        <input type="submit" value="회원가입하기"onclick="validateForm()">
+                        <button type="submit"  id="register-form-submitBtn">
+                            회원가입하기
+                        </button>
                     </div>
                 </form>
             </div>
