@@ -27,11 +27,20 @@ document.addEventListener('DOMContentLoaded', function () {
     const isValidPwd = validatePwd();
     const isValidPwdConfirm = validatePwdConfirm();
     const isValidNickname = (document.querySelector("#nameCheck").value.trim() === "사용가능" );
-    const isValidPhoneNumber = (document.querySelector("#member-phone-auth-btn").value.trim() === "사용가능" );
+    const isValidPhoneNumber = (document.querySelector("#member-phone-auth-btn").value.trim() === "인증완료" );
     const isValidBirthdate = validateBirthdate();
     const isValidTotalAddress = validateTotalAddress();
     const isValidTerm = validateTerm();
-    
+
+    console.log(isValidEmail)
+    console.log(isValidPwd)
+    console.log(isValidPwdConfirm)
+    console.log(isValidNickname)
+    console.log(isValidPhoneNumber)
+    console.log(isValidBirthdate)
+    console.log(isValidTotalAddress)
+    console.log(isValidTerm)
+
     if (isValidEmail && isValidPwd && isValidPwdConfirm && isValidNickname && isValidPhoneNumber && isValidBirthdate && isValidTotalAddress && isValidTerm) {
         document.querySelector("#register-form").submit();
     }
@@ -193,14 +202,15 @@ function checkNickname(idCheckBtn, nicknameNotice, nickname) {
 }
 
 
+
 class PhoneAuthentication{
+
     constructor(){
         this.isSend = false; // 인증번호 전송 여부
         this.authNo = ''; // 인증번호
         this.timerId = null; //타이머
         this.timer = $('.timer>h4'); // 타이머 ui
         // input 창 한 쪽에 나타나게 하면 어떨까?
-
         this.input = $("input[name='phone-authNo']");// 인증번호 input
 
         this.sendBtn = $('#member-auth-btn'); // 인증번호 전송 버튼
@@ -220,8 +230,35 @@ class PhoneAuthentication{
         element.innerHTML = `<span class="regi-notice ${className}">${message}</span>`;
     }
 
+    sendAuthNum = async function(){
+        const phone = $("input[name='memberPhone']").val();
+        
+        // //핸드폰 번호 본인인증 클릭 시 db 에서 체크하도록
+        // checkPhoneNumberAjax({phone: phone}, res => {
+        //     if(res === "NNNNY"){
+        //         alert("이미 가입한 전화번호입니다.");
+        //         temp = "y";
+        //         return;
+        //     }
+        // });
 
-    sendAuthNum(){
+        // 핸드폰 번호 본인인증 클릭 시 db 에서 체크하도록
+        const isPhoneRegistered = await new Promise((resolve) => {
+            checkPhoneNumberAjax({phone: phone}, res => {
+                if(res === "NNNNY"){
+                    alert("이미 가입한 전화번호입니다.");
+                    resolve(true);  // 이미 가입한 전화번호인 경우 true 반환
+                } else {
+                    resolve(false); // 아닌 경우 false 반환
+                }
+            });
+        });
+
+        if (isPhoneRegistered) {
+            return;  // 이미 가입한 전화번호인 경우 이후 코드 실행 중단
+        }
+
+
         if(this.isSend){
             const result = confirm('재전송 하시겠습니까?');
             if(!result){ // 재전송 거절 시
@@ -229,11 +266,10 @@ class PhoneAuthentication{
             } else {
                 clearInterval(this.timerId); // 호출 스케쥴링(일정 시간 간격 두고 함수 실행)
             }
-        }
+        };
+
         // 랜덤번호 생성
         this.authNo = Math.floor(Math.random() * 100000).toString().padStart(6, '0');
-
-        const phone = document.querySelector("input[name='memberPhone']").value;
 
         $('#phoneAuthSection').css('display','flex');
 
@@ -319,6 +355,18 @@ function sendPhoneAuthNoAjax(data, callback){
     });
 };
 
+function checkPhoneNumberAjax(data, callback){
+    $.ajax({
+        url: "checkPhoneNum.me",
+        method: "post",
+        data,
+        success: res => callback(res),
+        error: () => {
+            alert('휴대폰 번호 전송 실패');
+        }
+    })
+}
+
 // ====================================================== 생년월일 =====================================
 
 function validateBirthdate() {
@@ -377,7 +425,6 @@ function setAddress(){
 }
 
 function validateTotalAddress() {
-    console.log("validateTotalAddress 실행");
     let isTrue = true;
     const address = document.querySelector("#sample6_address");
     const detailAddress = document.querySelector("#sample6_detailAddress");

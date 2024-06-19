@@ -184,3 +184,8 @@ function resetImage(modalElement) {
     mainImgContainer.innerHTML = "";
     mainImgContainer.style.display = 'none';
 }
+
+/** 구매하기 버튼 클릭 시 체크된 품목이 있는지 검사하고 없으면 alret 띄우는 함수 */
+function handlerCheckProductClick(){
+    
+}

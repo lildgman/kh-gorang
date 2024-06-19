@@ -63,4 +63,8 @@ public class MemberDao {
 		    
 		return sqlSession.delete("memberMapper.deleteProductCart", params);
 	}
+
+	public int phoneCheck(SqlSessionTemplate sqlSession, String phone) {
+		return sqlSession.selectOne("memberMapper.phoneCheck", phone);
+	}
 }

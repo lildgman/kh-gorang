@@ -673,8 +673,38 @@ function handlerrecipeCompleteBtnClick(){
                                     const tr = checkbox.closest("tr");
                                     return  tr.querySelector(".modal-recipe-refName").innerHTML;
                                   });
-   recipeModal.querySelector("#modal-recipe-selectedIngre").innerHTML = tempForModalRecipeselectedIngre;
+
+    if(tempForModalRecipeselectedIngre.length > 0){
+        setSelectedIngreDiv(tempForModalRecipeselectedIngre);
+    }
  }
+
+/** 추가한 식재료명 옆 삭제 버튼 클릭 시 삭제시켜주는 함수 */
+function handlerIbtnClick(ev){
+    let btn = ev.target;
+    // 선택한 식재료 삭제
+    let ingre = btn.closest('.modal-recipe-ingre').querySelector(".modal-recipe-ingre-name").innerHTML;
+    tempForModalRecipeselectedIngre = tempForModalRecipeselectedIngre.filter(e => e !== ingre);
+    setSelectedIngreDiv(tempForModalRecipeselectedIngre);
+}
+
+/** 선택한 식재료 칸 새로 구축해주는 함수 */
+function setSelectedIngreDiv(tempForModalRecipeselectedIngre){
+    const selectedIngreContainer = recipeModal.querySelector("#modal-recipe-selectedIngre");
+    selectedIngreContainer.innerHTML = ""; // 기존 내용을 비움
+
+     for (let ingre of tempForModalRecipeselectedIngre) {
+        const div = document.createElement('div');
+        div.className = 'modal-recipe-ingre';
+        div.innerHTML = `<span class="modal-recipe-ingre-name">${ingre}</span><i class="fa-solid fa-delete-left"></i>`;
+        selectedIngreContainer.appendChild(div);
+    }
+
+    // 새로 추가된 삭제 버튼에 이벤트 리스너를 추가
+    selectedIngreContainer.querySelectorAll('i').forEach(ibtn => {
+        ibtn.addEventListener('click', handlerIbtnClick);
+    });
+}
 
 /** 추천 레시피 모달창 구축하고 띄우는 메소드 */
 function viewRecipeRecommendModal(){
@@ -731,11 +761,18 @@ function constructModalRecipeTable(refriIngresList, modalRecipeTbody){
 
 /** 레시피 찾기 버튼 클릭 시 ajax 로 식재료 보내서 레시피 데이터 받는 메소드 */
 function getRecipeByIngre(){
-    const selectedIngreList = recipeModal.querySelector("#modal-recipe-selectedIngre").innerHTML;
-
+    const selectedIngreList = Array.from(recipeModal.querySelectorAll(".modal-recipe-ingre-name"))
+                                    .map(name => {return name.innerHTML});
+    
+    console.log(selectedIngreList);
+    // 식재료 추가 안했을 경우 예외처리
+    if(selectedIngreList < 1){
+        alert("추가할 식재료를 체크해주세요.")
+        return;
+    }
     $.ajax({
         url: "selectRecipeListByRefri.me",
-        data: {ingreList: selectedIngreList},
+        data: {ingreList: JSON.stringify(selectedIngreList)},
         contentType: "application/json; charset-utf-8",
         success: function(res){
             console.log(res);
@@ -794,7 +831,6 @@ function saveRecipeNoInLocalStorage(recipes){
 /** 로컬 스토리지에 저장된 추천 레시피 no 들로  div 요소 채우는 메소드 */
 function constructRecommendedRecipeDiv(){
     const recipeNums = localStorage.getItem("recommendedRecipe");
-
     if(recipeNums){
         $.ajax({
             url: "selectRecipeListByRecipeNo.me",
