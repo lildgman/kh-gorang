@@ -29,10 +29,13 @@
   height:142px;
   display: flex;
   flex-direction: column;
+  transition: transform 0.5s ease; 
 }
 
 .store-category:hover{
+  transform: scale(1.05);
   cursor: pointer;
+  color: #1E90FF; 
 }
 
 .category-name {
@@ -72,10 +75,12 @@
 }
 .item { 
   width: 282px;
+  transition: transform 0.5s ease; 
 }
 
 
 .item:hover{
+  transform: scale(1.02);
   cursor: pointer;
 }
 
@@ -115,6 +120,7 @@
   height: 292px;
   margin-bottom: 16px;
 }
+
 
 #pagination-area{
   display: flex;
