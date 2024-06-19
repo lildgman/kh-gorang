@@ -29,7 +29,7 @@
 
         </head>
 
-        <body>
+        <body onload="loadSideBar()">
             <!-- 헤더 시작-->
             <jsp:include page="../common/header.jsp" />
             <!-- 헤더 끝-->
