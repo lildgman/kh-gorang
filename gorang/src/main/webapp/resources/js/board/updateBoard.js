@@ -207,7 +207,7 @@ function displaySelectedImg(event) {
 }
 
 function turnMainPage() {
-    const result = confirm('글쓰기를 취소하시겠습니까? 저장되지 않은 내용은 삭제됩니다.');
+    const result = confirm('글 수정을 취소하시겠습니까?');
 
     if (result) {
         window.location.href = 'main.bo';
