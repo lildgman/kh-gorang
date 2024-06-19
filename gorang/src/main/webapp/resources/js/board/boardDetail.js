@@ -1,33 +1,33 @@
-$(document).ready(function () {
-    // 게시글 로딩 시 조회수 증가
-    increaseViewCount();
+// $(document).ready(function () {
+//     // 게시글 로딩 시 조회수 증가
+//     increaseViewCount();
 
-    function increaseViewCount() {
-        var boardNo = '${board.boardNo}'; // 현재 게시글 번호
-        var visitedBoards = JSON.parse(localStorage.getItem('visitedBoards')) || [];
+//     function increaseViewCount() {
+//         var boardNo = '${board.boardNo}'; // 현재 게시글 번호
+//         var visitedBoards = JSON.parse(localStorage.getItem('visitedBoards')) || [];
 
-        // 이미 조회한 게시글인지 확인
-        if (!visitedBoards.includes(boardNo)) {
-            $.ajax({
-                url: '${contextPath}/board/increaseViewCount',
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify({ boardNo: boardNo }),
-                success: function (response) {
-                    console.log("View count increased successfully")
-                    // 조회한 게시글 번호를 로컬 스토리지에 추가
-                    visitedBoards.push(boardNo);
-                    localStorage.setItem('visitedBoards', JSON.stringify(visitedBoards));
-                },
-                error: function (error) {
-                    console.log("Error increasing view count:", error);
-                }
-            });
-        } else {
-            console.log("Already visited this board. Skipping view count increase.");
-        }
-    }
-});
+//         // 이미 조회한 게시글인지 확인
+//         if (!visitedBoards.includes(boardNo)) {
+//             $.ajax({
+//                 url: '${contextPath}/board/increaseViewCount',
+//                 type: 'POST',
+//                 contentType: 'application/json',
+//                 data: JSON.stringify({ boardNo: boardNo }),
+//                 success: function (response) {
+//                     console.log("View count increased successfully")
+//                     // 조회한 게시글 번호를 로컬 스토리지에 추가
+//                     visitedBoards.push(boardNo);
+//                     localStorage.setItem('visitedBoards', JSON.stringify(visitedBoards));
+//                 },
+//                 error: function (error) {
+//                     console.log("Error increasing view count:", error);
+//                 }
+//             });
+//         } else {
+//             console.log("Already visited this board. Skipping view count increase.");
+//         }
+//     }
+// });
 // function writeComment() {
 //     var commentContent = document.getElementById("commentContent").value;
 
@@ -70,8 +70,8 @@ function drawReReply(replyTarget, commentNo, boardNo) {
     const replyInputDiv = document.createElement('div');
     replyInputDiv.classList.add('reply-input');
     replyInputDiv.innerHTML = `
-            <input type="text" placeholder="댓글을 입력하세요"></input>
-            <button type="button" class="submit-reply" data-refNo="`+ commentNo + `" data-boardNo="` + boardNo + `" onclick="ajaxAddReply(this)">등록</button>
+            <textarea class="rereply-textarea" placeholder="댓글을 입력하세요" maxlength="500" oninput="autoExpand(this)"></textarea>
+            <button type="button" class="submit-reply" data-refNo="`+ commentNo + `" data-boardNo="` + boardNo + `" onclick="ajaxAddReply(this)" >등록</button>
         `;
 
     replyTarget.insertAdjacentElement('afterend', replyInputDiv);
@@ -82,7 +82,12 @@ function ajaxAddReply(element) {
 
     const refCommentNo = element.getAttribute('data-refNo');
     const boardNo = element.getAttribute('data-boardNo');
-    const commentContentValue = commentContent.querySelector('input[type="text"]').value;
+    const commentContentValue = commentContent.querySelector('.rereply-textarea').value;
+
+    if(commentContentValue.trim() === "") {
+        alert("댓글내용을 입력해주세요");
+        return;
+    }
 
     $.ajax({
         url: 'insert.re',
@@ -272,4 +277,23 @@ function reportBoard(element) {
 
     })
     
+}
+
+function validateComment() {
+    const commentContent = document.querySelector('#commentContent').value.trim();
+    console.log(commentContent);
+    console.log(commentContent.length);
+
+    if(commentContent === "") {
+        alert("댓글 내용이 없습니다. 댓글 내용을 입력해주세요");
+        return false;
+    }
+
+    return true;
+}
+
+function autoExpand(element) {
+    console.log(element);
+    element.style.height = 'auto'; // 높이를 자동으로 설정하여 초기화
+    element.style.height = (element.scrollHeight) + 'px'; // 스크롤 높이에 따라 높이를 재설정
 }

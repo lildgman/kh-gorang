@@ -248,9 +248,9 @@ function displayRecentlyWatchedItems(items, ctx, isRecipe) {
         // 이미지 클릭 시 해당 썸네일의 상세 페이지로 이동
         itemImg.onclick = function(){
             if(isRecipe) {
-                location.href = ctx + "/detailForm.re?recipeNo=" + item;
+                location.href = ctx + "/detailForm.re?recipeNo=" + item.id;
             } else {
-                location.href = ctx + "/detail.po?pno=" + item;
+                location.href = ctx + "/detail.po?pno=" + item.id;
             }
         }
 
