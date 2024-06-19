@@ -29,7 +29,7 @@
                 <script src="${contextPath}/resources/js/recipe/recipeDetail.js"></script>
             </head>
 
-            <body>
+            <body onload="loadSideBar()">
                 <!-- 헤더 -->
                 <jsp:include page="../common/header.jsp" />
 

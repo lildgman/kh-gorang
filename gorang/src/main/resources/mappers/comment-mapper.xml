@@ -86,9 +86,7 @@
 		#{commentContent},
 		#{refCommentNo},
 		1
-	
 	)
-
 
 </insert>
 
