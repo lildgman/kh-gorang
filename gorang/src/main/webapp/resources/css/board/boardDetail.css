@@ -87,7 +87,7 @@ body {
 #contentTitle {
     width: 1162px;
     height: 89px;
-    padding: 15px 0 15px 0;
+    padding: 25px 0 15px 10px;
 
 }
 
@@ -103,6 +103,7 @@ body {
 
 }
     #contentDetailWrite{
+        margin-top: 25px;
         /* width:1152px;
         height: 100px; */
     }
