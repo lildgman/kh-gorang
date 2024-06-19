@@ -129,7 +129,21 @@
   		<result column="STATUS" property="status"/>
   	</resultMap>
   	
+  	<!--  reciep 좋아요 -->
+  	<resultMap type="LikeRecipe" id="LikeRecipeResult">
+		<result column="RECIPE_NO" property="recipeNo"/>
+		<result column="MEMBER_NO" property="memberNo"/>
+		<result column="STATUS" property="status"/>
+		<result column="LIKE_RECIPE_DATE" property="likeDate"/>
+  	</resultMap>
   	
+  	<!--  reciep 스크랩 -->
+  	<resultMap type="ScrapRecipe" id="ScrapRecipeResult">
+		<result column="RECIPE_NO" property="recipeNo"/>
+		<result column="MEMBER_NO" property="memberNo"/>
+		<result column="STATUS" property="status"/>
+		<result column="SCRAP_RECIPE_DATE" property="scrapDate"/>
+  	</resultMap>
   	
 	 <!-- 레시피 찾기 -->
 	 <select id="selectRecipe" resultMap="recipeResult">
@@ -208,7 +222,7 @@
   		JOIN MEMBER M ON RV.member_no = M.member_no
   		WHERE RV.status ='Y'
   		AND RV.review_type='2'
-  		AND RV.rcp_np = ${recipeNo}
+  		AND RV.rcp_no = ${recipeNo}
   		ORDER BY RV.review_no DESC
   	</select>	
   	
@@ -245,7 +259,7 @@
   	SELECT count(review_no)
     	FROM REVIEW
     	WHERE status = 'Y'
-    AND rcp_no =#{recipeNo}
+    AND rcp_no =#{rcpNo}
   	</select>
   	
   	  	<!--  레시피 qna 길이 찾ㄱㅣ -->
@@ -290,8 +304,24 @@
 		LIMIT 1
   	</select>
   	
+  	<!--  레시피 좋아요 여부  -->
+  	<select id="selectCheckRecipeLike"   resultType="_int">
+  		SELECT COUNT(*)
+  		FROM like_recipe
+  		WHERE STATUS ='Y'
+  		AND member_no =#{memberNo}
+  		AND rcp_no =#{recipeNo}
+  	</select>
   	
-  
+  	<!-- 레시피 스크랩 여부  -->
+  	<select id="selectCheckRecipeScrap"   resultType="_int">
+  		SELECT COUNT(*)
+  		FROM scrap_recipe
+  		WHERE STATUS ='Y'
+  		AND member_no =#{memberNo}
+  		AND rcp_no =#{recipeNo}
+  	</select>
+  	
   	 <!-- 레시피 게시글 추가 -->
   	 <select id="insertRecipe" parameterType="Recipe" resultMap="recipeResult" >
 	  	INSERT INTO RECIPE (
@@ -442,6 +472,7 @@
        AND M.MEMBER_STATUS = 'Y'
   	</select>
   	
+  	
 <!-- **********  수정     *********-->
   	<!-- 레시피 수정 -->
 	<update id="updateRecipe"  parameterType="Recipe">
@@ -515,10 +546,25 @@
 	        AND status = 'Y' 
 	</update>
   	
-  	
-  	<update id="addRecipeView" parameterType="CookTip">
-  		
+  	<!--  조회수 증가 -->
+  	<update id="addRecipeView" parameterType="int">
+  		UPDATE RECIPE
+		SET rcp_view = rcp_view + 1
+		WHERE rcp_no = #{recipeNo}
   	</update>
+  	
+  		<!--  스트랩 증가 -->
+  	<insert id="addRecipeScrap" parameterType="Review">
+		INSERT INTO scrap_recipe(
+		member_no,
+		rcp_no
+		)VALUES(
+			#{memberNo, jdbcType=INTEGER},
+			#{recipeNo}
+		)
+  	</insert>
+  	
+  	
   	
   <!--***************  길이    ****************-->	
   <!-- 분류 길이(개수) -->
@@ -553,6 +599,19 @@
     AND status = 'Y'
 </select>
   	
+ <select id="selectRecipeScrap" resultType="int">
+    SELECT COUNT(*) 
+    FROM scrap_recipe
+    WHERE rcp_no = #{recipeNo}
+    AND status = 'Y'
+</select>
+
+ <select id="selectRecipeLike" resultType="int">
+    SELECT COUNT(*) 
+    FROM like_recipe
+    WHERE rcp_no = #{recipeNo}
+    AND status = 'Y'
+</select>
   <!--***************  삭제(업데이트)  ****************-->	
  
   
@@ -591,6 +650,14 @@
 <delete id="deleteCookTip" parameterType="CookTip">
     DELETE FROM COOK_TIP
     WHERE cook_tip_no = #{cookTipNo}
+</delete>
+
+
+<delete id="deleteRecipeScrap" parameterType="ScrapRecipe">
+	 DELETE FROM scrap_recipe
+    WHERE rcp_no = #{recipeNo}
+	AND member_no =#{memberNo}
+	AND status ='Y'
 </delete>
 
  </mapper>

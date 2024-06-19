@@ -25,6 +25,7 @@ import com.kh.gorang.common.template.SaveFileController;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.QnA;
 import com.kh.gorang.member.model.vo.Review;
+import com.kh.gorang.member.model.vo.ScrapRecipe;
 import com.kh.gorang.recipe.model.vo.CookOrder;
 import com.kh.gorang.recipe.model.vo.CookTip;
 import com.kh.gorang.recipe.model.vo.Division;
@@ -49,9 +50,12 @@ public class RecipeController {
 	public String recipDetailPage(@RequestParam("recipeNo") int recipeNo,
 			@RequestParam(value="cpage",defaultValue="1") int cp,
 			Model model){
+		
+	
 		System.out.println("도착" + recipeNo);
 		Member m =  recipeService.selectRecipeMember(recipeNo);
 		Recipe rcp = recipeService.selectRecipe(recipeNo);
+		
 		String[] tagArr = rcp.getRecipeTag().split(",");
 		RecipeInsertDTO recipeInsertDTO = new RecipeInsertDTO();
 		List<Division> divList =recipeService.selectDivList(recipeNo);
@@ -63,14 +67,30 @@ public class RecipeController {
 		List<Product> pList =recipeService.selectProductList(divList, recipeNo);
 		System.out.println("pList"+pList);
 		
-		int result = recipeService.addRecipeView(recipeNo);
 		
 		int qnaCount = recipeService.selectRecipeQnaCount(recipeNo);
 		int reviewsCount = recipeService.selectRecipeReviewCount(recipeNo);
 		PageInfo reviewPi = Pagination.getPageInfo(reviewsCount, cp, 10, 10);
 		PageInfo qnaPi = Pagination.getPageInfo(qnaCount, cp, 10, 10);
 		
-		System.out.println(recipeInsertDTO.getQnaList());
+		// 좋아요, 스크랩 조회
+		int resultScrap = recipeService.selectRecipeScrap(recipeNo,m.getMemberNo());
+		int resultLike = recipeService.selectRecipeLike(recipeNo,m.getMemberNo());
+		
+		 Map<String, Object> map = new HashMap<String, Object>();
+			map.put("memberNo", m.getMemberNo());
+			map.put("recipeNo", recipeNo);
+		int checkScrap = recipeService.selectCheckRecipeScrap(map);
+		int checkLike =  recipeService.selectCheckRecipeLike(map);
+		
+		//조회수
+		int result = recipeService.addRecipeView(recipeNo);
+		
+		
+		model.addAttribute("checkScrap",checkScrap);
+		model.addAttribute("checkLike",checkLike);
+		model.addAttribute("resultScrap",resultScrap);
+		model.addAttribute("resultLike",resultLike);
 		model.addAttribute("member",m);
 		model.addAttribute("rcp",rcp);
 		model.addAttribute("recipeInsertDTO",recipeInsertDTO);
@@ -81,6 +101,7 @@ public class RecipeController {
 	}
 	
 	
+
 	@RequestMapping("write.re")
 	public String recipWritePage(){
 		return "recipe/recipeWrite";
@@ -319,9 +340,40 @@ public class RecipeController {
 		qna.setQnaPhoto(changeName);
 		return recipeService.insertQnA(qna) > 0 ? qna : null;
 	}
+	
+	
+	//레시피 스트랩 추가
+	@PostMapping("addRecipeScrap.re")
+	@ResponseBody
+	public int addRecipeScrap(@RequestParam("memberNo") int memberNo,
+						            @RequestParam("recipeNo") int recipeNo,						        
+						            HttpSession session) {
+		 Map<Object, String> map = new HashMap<Object, String>();
+			map.put(memberNo, "memberNo");
+			map.put(recipeNo, "recipeNo");
+		int result =recipeService.addRecipeScrap(map);
 		
+		int scrap= recipeService.selectRecipeScrap(recipeNo ,memberNo);
+		return scrap> 0 ? scrap : null;
+	}
 	
+	//레시피 스트랩 취소
+	@PostMapping("deleteRecipeScrap.re")
+	@ResponseBody
+	public int deleteRecipeScrap(@RequestParam("memberNo") int memberNo,
+						            @RequestParam("recipeNo") int recipeNo,						        
+						            HttpSession session) {
+		 Map<Object, String> map = new HashMap<Object, String>();
+			map.put(memberNo, "memberNo");
+			map.put(recipeNo, "recipeNo");
+		int result =recipeService.deleteRecipeScrap(map);
+		
+		int scrap= recipeService.selectRecipeScrap(recipeNo ,memberNo);
+		return scrap> 0 ? scrap : null;
+	}
+	//레시피 좋아요 추가
 	
+	//레시피 좋아요 취소
 }
 
 

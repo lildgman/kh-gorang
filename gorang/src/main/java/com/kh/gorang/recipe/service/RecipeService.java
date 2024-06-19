@@ -2,6 +2,7 @@ package com.kh.gorang.recipe.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -64,6 +65,18 @@ public interface RecipeService {
 	List<Product> selectProductList(List<Division> divList, int recipeNo);
 
 	int addRecipeView(int recipeNo);
+
+	int selectRecipeScrap(int recipeNo, int memberNo);
+
+	int selectRecipeLike(int recipeNo, int memberNo);
+
+	int selectCheckRecipeScrap(Map<String, Object> map);
+
+	int selectCheckRecipeLike(Map<String, Object> map);
+
+	int addRecipeScrap(Map<Object, String> map);
+
+	int deleteRecipeScrap(Map<Object, String> map);
 
 //	int findDivLen(Recipe rcp, HttpSession session);
 //
