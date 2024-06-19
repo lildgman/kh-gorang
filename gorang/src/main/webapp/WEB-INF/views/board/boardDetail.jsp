@@ -56,10 +56,10 @@
                         <div id="contentBtnWrapper">
 
                             <div id="scrap-div" data-boardNo="${board.boardNo}" data-userNo="${loginUser.memberNo}" onclick="toggleScrapBoard(this)">
-                                <c:if test="${checkScrap == 0}">
+                                <c:if test="${isScrapBoard == 0}">
                                     <i class="fa-regular fa-bookmark"></i>
                                 </c:if>
-                                <c:if test="${checkScrap == 1}">
+                                <c:if test="${isScrapBoard == 1}">
                                     <i class="fa-solid fa-bookmark" style="color: #1e90ff;"></i>
                                 </c:if>
                                 
@@ -68,10 +68,10 @@
 
 
                             <button id="contentLike" data-boardNo="${board.boardNo}" data-userNo="${loginUser.memberNo}" onclick="toggleLikeBoard(this)">
-                                <c:if test="${checkLike == 0}">
+                                <c:if test="${isLikedBoard == 0}">
                                     <i class="fa-regular fa-heart"></i>
                                 </c:if>
-                                <c:if test="${checkLike == 1}">
+                                <c:if test="${isLikedBoard == 1}">
                                     <i class="fa-solid fa-heart" style="color: #d00101;"></i>
                                 </c:if>
                                 <span>${likeBoardCount}</span>
@@ -142,13 +142,6 @@
                                 // When the user clicks the button, open the modal 
                                 btn.onclick = function (event) {
                                     
-                                    const loginUser = event.target;
-                                    const loginUserNo = loginUser.getAttribute('data-userNo');
-                                    if(!loginUserNo){
-                                        alert("로그인이 필요한 기능입니다.");
-                                        return;
-                                    }
-
                                     modal.style.display = "block";
                                     const boardTitle = document.querySelector('#board-title').innerText;
                                     const reportBoardTitle = document.querySelector('#report-board-title');
@@ -174,7 +167,7 @@
                             <span id="reply-count">(${commentList.size()})</span>
                         </div>
                     </div>
-                    <form action="insert.co" method="post">
+                    <form action="insert.co" method="post" onsubmit="return validateComment()">
                         <input type="hidden" name="boardNo" value="${board.boardNo}">
                         <input type="hidden" name="memberNo" value="${loginUser.memberNo}">
                         <div id="replyWriteWrap">
@@ -192,7 +185,7 @@
                                     <button class="reply-button" disabled>댓글 쓰기</button>
                                 </c:when>
                                 <c:otherwise>
-                                    <textarea id="commentContent" rows="3" placeholder="댓글 내용을 적어주세요." name="commentContent"></textarea>
+                                    <textarea id="commentContent" rows="3" placeholder="댓글 내용을 적어주세요." name="commentContent" maxlength="500" oninput="autoExpand(this)"></textarea>
                                     <button class="reply-button" type="submit">댓글 쓰기</button>
                                 </c:otherwise>
                             </c:choose>

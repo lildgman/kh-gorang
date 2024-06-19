@@ -119,6 +119,8 @@ public class BoardController {
 	        model.addAttribute("errorMsg", "게시글 조회 실패");
 	        return "board/boardMain";
 	    }
+	    
+	   
 	}
 
 	//게시글 추가
