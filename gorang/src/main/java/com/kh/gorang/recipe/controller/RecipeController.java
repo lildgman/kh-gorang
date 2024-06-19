@@ -49,7 +49,7 @@ public class RecipeController {
 	@RequestMapping("detailForm.re")
 	public String recipDetailPage(@RequestParam("recipeNo") int recipeNo,
 			@RequestParam(value="cpage",defaultValue="1") int cp,
-			Model model){
+			Model model,HttpSession session){
 		
 	
 		System.out.println("도착" + recipeNo);
@@ -74,11 +74,13 @@ public class RecipeController {
 		PageInfo qnaPi = Pagination.getPageInfo(qnaCount, cp, 10, 10);
 		
 		// 좋아요, 스크랩 조회
-		int resultScrap = recipeService.selectRecipeScrap(recipeNo,m.getMemberNo());
-		int resultLike = recipeService.selectRecipeLike(recipeNo,m.getMemberNo());
-		
-		 Map<String, Object> map = new HashMap<String, Object>();
-			map.put("memberNo", m.getMemberNo());
+		int memberNoLogin = ((Member)session.getAttribute("loginUser")).getMemberNo();
+
+		int resultScrap = recipeService.selectRecipeScrap(recipeNo,m.getMemberNo()); //전체
+		int resultLike = recipeService.selectRecipeLike(recipeNo,m.getMemberNo()); //전체
+		 
+		Map<String, Object> map = new HashMap<String, Object>();
+			map.put("memberNo", memberNoLogin);
 			map.put("recipeNo", recipeNo);
 		int checkScrap = recipeService.selectCheckRecipeScrap(map);
 		int checkLike =  recipeService.selectCheckRecipeLike(map);
@@ -348,9 +350,9 @@ public class RecipeController {
 	public int addRecipeScrap(@RequestParam("memberNo") int memberNo,
 						            @RequestParam("recipeNo") int recipeNo,						        
 						            HttpSession session) {
-		 Map<Object, String> map = new HashMap<Object, String>();
-			map.put(memberNo, "memberNo");
-			map.put(recipeNo, "recipeNo");
+		 Map<String, Object> map = new HashMap<String, Object>();
+		 map.put("memberNo", memberNo);
+			map.put("recipeNo", recipeNo);
 		int result =recipeService.addRecipeScrap(map);
 		
 		int scrap= recipeService.selectRecipeScrap(recipeNo ,memberNo);
@@ -363,17 +365,46 @@ public class RecipeController {
 	public int deleteRecipeScrap(@RequestParam("memberNo") int memberNo,
 						            @RequestParam("recipeNo") int recipeNo,						        
 						            HttpSession session) {
-		 Map<Object, String> map = new HashMap<Object, String>();
-			map.put(memberNo, "memberNo");
-			map.put(recipeNo, "recipeNo");
+		 Map<String, Object> map = new HashMap<String, Object>();
+			map.put("memberNo", memberNo);
+			map.put("recipeNo", recipeNo);
 		int result =recipeService.deleteRecipeScrap(map);
 		
 		int scrap= recipeService.selectRecipeScrap(recipeNo ,memberNo);
-		return scrap> 0 ? scrap : null;
+		return scrap> 0 ? scrap : 0;
 	}
+	
+	
 	//레시피 좋아요 추가
+	@PostMapping("addRecipeLike.re")
+	@ResponseBody
+	public int addRecipeLike(@RequestParam("memberNo") int memberNo,
+						            @RequestParam("recipeNo") int recipeNo,						        
+						            HttpSession session) {
+		 Map<String, Object> map = new HashMap<String, Object>();
+		 map.put("memberNo", memberNo);
+			map.put("recipeNo", recipeNo);
+		int result =recipeService.addRecipeLike(map);
+		
+		int like= recipeService.selectRecipeLike(recipeNo ,memberNo);
+		return like> 0 ? like : null;
+	}
 	
 	//레시피 좋아요 취소
+	@PostMapping("deleteRecipeLike.re")
+	@ResponseBody
+	public int deleteRecipeLike(@RequestParam("memberNo") int memberNo,
+						            @RequestParam("recipeNo") int recipeNo,						        
+						            HttpSession session) {
+		 Map<String, Object> map = new HashMap<String, Object>();
+			map.put("memberNo", memberNo);
+			map.put("recipeNo", recipeNo);
+		int result =recipeService.deleteRecipeLike(map);
+		
+		int like= recipeService.selectRecipeLike(recipeNo ,memberNo);
+		System.out.println("lIke : " + like);
+		return like> 0 ? like : 0;
+	}
 }
 
 

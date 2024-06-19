@@ -578,16 +578,15 @@ function goRecipeList(){
 }
 
 
-//스크랩 추가
+//스크랩 추가,취소
 function scrapGet(element){
   let memberNo =document.querySelector("input[name='loginMemberNo']").value;
   let recipeNo = document.querySelector("input[name='loginrecipeNo']").value;
-
   let data ={
     memberNo:parseInt(memberNo),
     recipeNo:parseInt(recipeNo)
   }
-  if(element.style.color === "1e90ff"){ //스트랩 취소 할 때
+  if(window.getComputedStyle(element).color ==="rgb(30, 144, 255)"){ //스트랩 취소 할 때"1e90ff"
     ajaxdeleteRecipeScrap(data,function(result){
       document.querySelector("#scrap_area").innerHTML=`
         <i class="fa-regular fa-bookmark" style="font-size: 45px;"  onclick="scrapGet(this)"></i> 
@@ -616,7 +615,7 @@ function ajaxdeleteRecipeScrap(data,callback){
         callback(result);       
     },
     error: function() {
-        alert("문의 작성에 실패했습니다.");
+        alert("스크랩 등록에 실패했습니다.");
     }
   })
 }
@@ -630,7 +629,65 @@ function ajaxaddRecipeScrap(data,callback){
         callback(result);
     },
     error: function() {
-        alert("문의 작성에 실패했습니다.");
+        alert("스크랩 추가에 실패했습니다.");
+    }
+  })
+}
+
+//좋아요 추가,취소
+
+function likeGet(element){
+  let memberNo =document.querySelector("input[name='loginMemberNo']").value;
+  let recipeNo = document.querySelector("input[name='loginrecipeNo']").value;
+  let data ={
+    memberNo:parseInt(memberNo),
+    recipeNo:parseInt(recipeNo)
+  }
+  if(window.getComputedStyle(element).color ==="rgb(208, 1, 1)"){ //좋아요 취소 할 때"#d00101
+    ajaxdeleteRecipeLike(data,function(result){
+      document.querySelector("#like_area").innerHTML=`
+        <i class="fa-regular fa-heart" style="font-size: 45px;"  onclick="likeGet(this)"></i>
+        <div id="like_value"><strong  class="icon-text-area">${result}</strong></div>
+      `
+    });
+
+  }
+  else { //좋아요 할 때
+    ajaxaddRecipeLike(data,function(result){
+       document.querySelector("#like_area").innerHTML=`
+       <i class="fa-solid fa-heart" style="color: #d00101; font-size: 45px;"   onclick="likeGet(this)"></i>
+        <div id="like_value"><strong  class="icon-text-area">${result}</strong></div>
+       `
+    })
+  }
+}
+
+
+//레시피 좋아요 취소
+function ajaxdeleteRecipeLike(data,callback){
+  $.ajax({
+    url: "deleteRecipeLike.re",
+    type: "POST",
+    data: data,
+    success: function(result) {
+        callback(result);       
+    },
+    error: function() {
+        alert("좋아요 취소에 실패했습니다.");
+    }
+  })
+}
+//레시피 좋아요 하기
+function ajaxaddRecipeLike(data,callback){
+  $.ajax({
+    url: "addRecipeLike.re",
+    type: "POST",
+    data: data,
+    success: function(result) {
+        callback(result);
+    },
+    error: function() {
+        alert("좋아요 등록에 실패했습니다.");
     }
   })
 }

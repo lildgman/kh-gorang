@@ -74,9 +74,13 @@ public interface RecipeService {
 
 	int selectCheckRecipeLike(Map<String, Object> map);
 
-	int addRecipeScrap(Map<Object, String> map);
+	int addRecipeScrap(Map<String, Object> map);
 
-	int deleteRecipeScrap(Map<Object, String> map);
+	int deleteRecipeScrap(Map<String, Object> map);
+
+	int addRecipeLike(Map<String, Object> map);
+
+	int deleteRecipeLike(Map<String, Object> map);
 
 //	int findDivLen(Recipe rcp, HttpSession session);
 //
