@@ -670,7 +670,9 @@ tbody tr>td {
     margin-bottom: 16px;
 }
 .relation-product-image img{
-    /* width: 100%; */
+    width: 100%;
+    height: 105%;
+    border-radius: 5PX;
 }
 
 .relation-product-brand{

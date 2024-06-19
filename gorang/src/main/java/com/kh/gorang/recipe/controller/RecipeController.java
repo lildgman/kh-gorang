@@ -32,6 +32,7 @@ import com.kh.gorang.recipe.model.vo.IngredientsInfo;
 import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.recipe.model.vo.RecipeInsertDTO;
 import com.kh.gorang.recipe.service.RecipeService;
+import com.kh.gorang.shopping.model.vo.Product;
 
 @Controller
 public class RecipeController {
@@ -53,13 +54,17 @@ public class RecipeController {
 		Recipe rcp = recipeService.selectRecipe(recipeNo);
 		String[] tagArr = rcp.getRecipeTag().split(",");
 		RecipeInsertDTO recipeInsertDTO = new RecipeInsertDTO();
-		recipeInsertDTO.setRcpDivList(recipeService.selectDivList(recipeNo));
+		List<Division> divList =recipeService.selectDivList(recipeNo);
+		recipeInsertDTO.setRcpDivList(divList);
 		recipeInsertDTO.setCookOrderList(recipeService.selectCookOrderList(recipeNo));
 		recipeInsertDTO.setCompleteFoodPhoto(recipeService.selectCompleteFoodPhotoList(recipeNo));
-//		recipeInsertDTO.setRwList(recipeService.selectRecipeReviewList(recipeNo));
 		
+		recipeInsertDTO.setProductList(recipeService.selectProductList(divList, recipeNo));
+		List<Product> pList =recipeService.selectProductList(divList, recipeNo);
+		System.out.println("pList"+pList);
 		
-//		recipeInsertDTO.setQnaList(recipeService.selectRecipeQnaList(recipeNo));
+		int result = recipeService.addRecipeView(recipeNo);
+		
 		int qnaCount = recipeService.selectRecipeQnaCount(recipeNo);
 		int reviewsCount = recipeService.selectRecipeReviewCount(recipeNo);
 		PageInfo reviewPi = Pagination.getPageInfo(reviewsCount, cp, 10, 10);
@@ -86,14 +91,15 @@ public class RecipeController {
 		return "recipe/recipeList";
 	}
 	
-	@RequestMapping("insert.re")
+	@RequestMapping("insertRecipe.re")
 	public String insertRecipe(Recipe rcp, RecipeInsertDTO recipeInsertDTO ,HttpSession session, Model model){
 		System.out.println("\n Recipe:" +  rcp +"\n");
 		System.out.println("\n"+recipeInsertDTO+"\n");
 			
 		int result =recipeService.insertRecipeInsertDTO(rcp, recipeInsertDTO, session);
+		System.out.println(result);
 		if(result>0) {			
-			return "recipe/recipeList";
+			return "redirect:/list.re";
 		}
 		else {
 			model.addAttribute("errorMsg","게시글 작성 실패");
@@ -127,8 +133,8 @@ public class RecipeController {
 		int deleteAllResult =recipeService.deleteAllRecipe(rcp,session);
 		System.out.println("deleteAllResult:"+deleteAllResult);
 		int updateAllResult =recipeService.updateRecipeInsertDTO(rcp, recipeInsertDTO, session);
-		if(deleteAllResult*updateAllResult >0) {			
-			return "recipe/recipeList";
+		if(deleteAllResult*updateAllResult > 0) {			
+			return "redirect:/list.re";
 		}
 		else {
 			model.addAttribute("errorMsg","게시글 작성 실패");

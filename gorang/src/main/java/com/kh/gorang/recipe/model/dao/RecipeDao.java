@@ -16,6 +16,7 @@ import com.kh.gorang.recipe.model.vo.Division;
 import com.kh.gorang.recipe.model.vo.IngredientsInfo;
 import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.recipe.model.vo.RecipeInsertDTO;
+import com.kh.gorang.shopping.model.vo.Product;
 
 @Repository
 public class RecipeDao {
@@ -214,6 +215,20 @@ public class RecipeDao {
 	public int selectRecipeQnaCount(SqlSessionTemplate sqlSession, int recipeNo) {
 		return sqlSession.selectOne("recipeMapper.selectRecipeQnaCount",recipeNo);
 	}
+
+	public Product selectProductList(SqlSessionTemplate sqlSession, String ingreName) {
+		return sqlSession.selectOne("recipeMapper.selectProductList",ingreName);
+	}
+	
+	public Product selectProductListRandom(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("recipeMapper.selectProductListRandom");
+	}
+
+	public int addRecipeView(SqlSessionTemplate sqlSession, int recipeNo) {
+		return sqlSession.update("recipeMapper.addRecipeView");
+	}
+
+
 
 
 	

@@ -16,7 +16,7 @@
             <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
         </head>
 
-        <body>
+        <body onload="loadSideBar()">
             <jsp:include page="../common/header.jsp" />
             
             <main id="recipe-list">

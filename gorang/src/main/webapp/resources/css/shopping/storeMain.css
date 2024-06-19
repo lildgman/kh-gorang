@@ -42,8 +42,13 @@
   height:142px;
   display: flex;
   flex-direction: column;
+  transition: transform 0.5s ease; 
 }
-
+.store-category:hover{
+  transform: scale(1.05);
+  cursor: pointer;
+  color: #1E90FF; 
+}
 .category-name {
   text-align: center;
   font-size: 20px;
@@ -67,6 +72,9 @@
 .more{
   font-size:18px;
 }
+.more:hover{
+  color: #1E90FF;
+}
 
 .more:hover {
   cursor: pointer;
@@ -79,8 +87,11 @@
   gap: 24px;
 
 }
-
+.item{
+  transition: transform 0.5s ease; 
+}
 .item:hover {
+  transform: scale(1.05);
   cursor: pointer;
 }
 

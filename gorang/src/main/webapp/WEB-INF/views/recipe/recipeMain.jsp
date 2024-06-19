@@ -15,7 +15,7 @@
 
 
 </head>
-<body>
+<body onload="loadSideBar()">
 	<jsp:include page="../common/header.jsp" />
 	
 	<main id="recipe-main">

@@ -28,7 +28,7 @@
                 <script src="${contextPath}/resources/js/recipe/recipeDetail.js"></script>
             </head>
 
-            <body>
+            <body onload="loadSideBar()">
                 <!-- 헤더 -->
                 <jsp:include page="../common/header.jsp" />
 
@@ -324,57 +324,19 @@
                             연관 상품
                         </div>
                         <div id="relation-product-list">
-                            <div class="relation-product-list-block">
-                                <div class="relation-product-image">
-                                    <img src="${contextPath}/resources/dummyImg/recipe/recipeDetail/pig(2).png" alt="">
+                            <c:forEach var="product" items="${recipeInsertDTO.productList}" varStatus="productIndex">
+                                <div class="relation-product-list-block" onclick="goProduct(this)">
+                                    <input type="hidden" value="${product.productNo}">
+                                    <div class="relation-product-image">
+                                        <img src="${contextPath}/resources/uploadfile/product/productimg/${product.mainImg}" alt="">
+                                    </div>
+                                    <div class="relation-product-brand">${product.productBrand}</div>
+                                    <div class="relation-product-title">${product.productName}</div>
+                                    <div class="relation-product-ps-size"><span class="relation-product-sale">${product.discountPercent}</span>
+                                        <span class="relation-product-price">${product.salePrice}</span></div>
                                 </div>
-                                <div class="relation-product-brand">성주</div>
-                                <div class="relation-product-title">당도선별 성주 꿀참외 1.5kg(4~7입)</div>
-                                <div class="relation-product-ps-size"><span class="relation-product-sale">20%</span>
-                                    <span class="relation-product-price">16,900</span></div>
-                            </div>
-
-                            <div class="relation-product-list-block">
-                                <div class="relation-product-image">
-                                    <img src="${contextPath}/resources/dummyImg/recipe/recipeDetail/pig(2).png" alt="">
-                                </div>
-                                <div class="relation-product-brand">성주</div>
-                                <div class="relation-product-title">당도선별 성주 꿀참외1.5kg(4~7입)</div>
-                                <div class="relation-product-ps-size"><span class="relation-product-sale">20%</span>
-                                    <span class="relation-product-price">16,900</span></div>
-                            </div>
-
-                            <div class="relation-product-list-block">
-                                <div class="relation-product-image">
-                                    <img src="${contextPath}/resources/dummyImg/recipe/recipeDetail/pig(2).png" alt="">
-                                </div>
-                                <div class="relation-product-brand">성주</div>
-                                <div class="relation-product-title">당도선별 성주 꿀참외 1.5kg(4~7입)</div>
-                                <div class="relation-product-ps-size"><span class="relation-product-sale">20%</span>
-                                    <span class="relation-product-price">16,900</span></div>
-                            </div>
-
-                            <div class="relation-product-list-block">
-                                <div class="relation-product-image">
-                                    <img src="${contextPath}/resources/dummyImg/recipe/recipeDetail/pig(2).png" alt="">
-                                </div>
-                                <div class="relation-product-brand">성주</div>
-                                <div class="relation-product-title">당도선별 성주 꿀참외 1.5kg(4~7입)</div>
-                                <div class="relation-product-ps-size"><span class="relation-product-sale">20%</span>
-                                    <span class="relation-product-price">16,900</span></div>
-                            </div>
-
-                            <div class="relation-product-list-block">
-                                <div class="relation-product-image">
-                                    <img src="${contextPath}/resources/dummyImg/recipe/recipeDetail/pig(2).png" alt="">
-                                </div>
-                                <div class="relation-product-brand">성주</div>
-                                <div class="relation-product-title">당도선별 성주 꿀참외 1.5kg(4~7입)</div>
-                                <div class="relation-product-ps-size"><span class="relation-product-sale">20%</span>
-                                    <span class="relation-product-price">16,900</span></div>
-                            </div>
+                            </c:forEach>
                         </div>
-
                         <div id="goto-list-area">
                             <button id="goto-list-btn" onclick="goRecipeList()">목록으로</button>
                         </div>

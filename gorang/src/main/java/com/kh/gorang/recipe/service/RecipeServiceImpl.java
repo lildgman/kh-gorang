@@ -1,6 +1,7 @@
 package com.kh.gorang.recipe.service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,6 +25,7 @@ import com.kh.gorang.recipe.model.vo.Division;
 import com.kh.gorang.recipe.model.vo.IngredientsInfo;
 import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.recipe.model.vo.RecipeInsertDTO;
+import com.kh.gorang.shopping.model.vo.Product;
 
 @Service
 public class RecipeServiceImpl implements RecipeService{
@@ -275,6 +277,49 @@ public class RecipeServiceImpl implements RecipeService{
 	@Override
 	public int selectRecipeQnaCount(int recipeNo) {			
 		return recipeDao.selectRecipeQnaCount(sqlSession,recipeNo);
+	}
+
+	
+	//레시피 관련 상품 조회
+	@Override
+	public List<Product> selectProductList(List<Division> divList, int recipeNo) {
+	ArrayList<Product> productList = new ArrayList<Product>();	
+		for(Division div : divList) {
+				for(IngredientsInfo ingre:div.getIngredientsInfoList()) {
+					if(productList.size()<5) {
+						Product product =  recipeDao.selectProductList(sqlSession,ingre.getIngreName());
+						if(product != null) {					
+							productList.add(product);
+						}
+					}
+					else return productList;
+				}
+		}
+		if(productList.size()<5) { //만약 관련 상품  5개를 못찾았을 시
+			for(int i=productList.size(); i<5; i++) {
+				Product product = recipeDao.selectProductListRandom(sqlSession); //랜덤아무거나 넣기
+				// 중복 확인
+				boolean isCheck = false;
+				for (Product productCheck : productList) {
+					if (productCheck.getProductName().equals(product.getProductName())) {
+						isCheck = true;
+						break;
+					}
+				}				
+				// 중복되지 않은 경우에만 추가
+				if (!isCheck) {
+					productList.add(product);
+				}
+			}					 
+		}
+		return productList;
+	}
+	
+	//조회수 늘리기
+	@Override
+	public int addRecipeView(int recipeNo) {
+		 return recipeDao.addRecipeView(sqlSession,recipeNo);
+		
 	}
 
 

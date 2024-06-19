@@ -1,4 +1,4 @@
-window.onload = function() {
+document.addEventListener("DOMContentLoaded",function() {
   // 상품 카테고리 눌렀을 때 각 카테고리에 맞게 상품리스트로 이동하는 function
   function moveClickedCategoryList() {
     const categoryList = {
@@ -26,7 +26,7 @@ window.onload = function() {
 
   moveClickedCategoryList();
   priceFormat();
-}
+});
 
 function priceFormat() {
   const itemOriginPriceElements = document.querySelectorAll('.item-origin-price');

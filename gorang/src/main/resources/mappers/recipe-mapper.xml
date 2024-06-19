@@ -111,6 +111,26 @@
 		<result column="ref_rcp_no" property="refRecipeNo"/>
 	</resultMap>
   	
+  	
+  	 	<!-- 상품 -->
+  	<resultMap type="Product" id="productResult">
+  		<result column="PRODUCT_NO" property="productNo"/>
+  		<result column="CATEGORY" property="category"/>
+  		<result column="PRODUCT_NAME" property="productName"/>
+  		<result column="PRODUCT_BRAND" property="productBrand"/>
+  		<result column="NORMAL_PRICE" property="normalPrice"/>
+  		<result column="SALE_PRICE" property="salePrice"/>
+  		<result column="DISCOUNT" property="discountPercent"/>
+  		<result column="MAIN_IMG" property="mainImg"/>
+  		<result column="DESCRIPTION" property="description"/>
+  		<result column="SHIPMENT_TYPE" property="shipmentType"/>
+  		<result column="SHIPMENT_TIME" property="shipmentTime"/>
+  		<result column="SHIPPING_PRICE" property="shippingPrice"/>
+  		<result column="STATUS" property="status"/>
+  	</resultMap>
+  	
+  	
+  	
 	 <!-- 레시피 찾기 -->
 	 <select id="selectRecipe" resultMap="recipeResult">
 	   SELECT rcp_no,
@@ -139,6 +159,9 @@
   	 	WHERE D.status= 'Y'
   	 	AND D.rcp_no = ${rcp_no}
   	 </select>
+  	
+ 
+  	
   	
   	
   	<!-- 레시피 재료 찾기 -->
@@ -185,6 +208,7 @@
   		JOIN MEMBER M ON RV.member_no = M.member_no
   		WHERE RV.status ='Y'
   		AND RV.review_type='2'
+  		AND RV.rcp_np = ${recipeNo}
   		ORDER BY RV.review_no DESC
   	</select>	
   	
@@ -234,6 +258,40 @@
     AND qna_answer_type=1
   	</select>
   	
+  	  	<!--  레시피 상품길이  -->
+  	<select id="selectProductList" resultMap="productResult">
+	  	SELECT 
+	  		product_no,
+	  		product_name,
+	  		product_brand,
+	  		normal_price,
+	  		sale_price,
+	  		discount,
+	  		main_img
+	   	FROM PRODUCT
+	   	WHERE status = 'Y'
+	    AND product_name LIKE CONCAT('%', #{ingreName}, '%')
+	    LIMIT 1
+  	</select>
+  	
+  		  	<!--  레시피 상품길이  -->
+  	<select id="selectProductListRandom" resultMap="productResult">
+	  	SELECT 
+	  		product_no,
+	  		product_name,
+	  		product_brand,
+	  		normal_price,
+	  		sale_price,
+	  		discount,
+	  		main_img
+	   	FROM PRODUCT
+	   	WHERE status = 'Y'
+	   	ORDER BY RANDOM()
+		LIMIT 1
+  	</select>
+  	
+  	
+  
   	 <!-- 레시피 게시글 추가 -->
   	 <select id="insertRecipe" parameterType="Recipe" resultMap="recipeResult" >
 	  	INSERT INTO RECIPE (
@@ -458,6 +516,9 @@
 	</update>
   	
   	
+  	<update id="addRecipeView" parameterType="CookTip">
+  		
+  	</update>
   	
   <!--***************  길이    ****************-->	
   <!-- 분류 길이(개수) -->
