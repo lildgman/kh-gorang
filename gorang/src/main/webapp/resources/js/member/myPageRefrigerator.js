@@ -856,8 +856,7 @@ function getFilteredLocalRecipeList(key){
 /** 로컬 스토리지에 저장된 추천 레시피 no 들로  div 요소 채우는 메소드 */
 function constructRecommendedRecipeDiv(){
     let localRecipeNoList = getFilteredLocalRecipeList("recommendedRecipe");
-
-    if(localRecipeNoList){
+    if(localRecipeNoList > 0){
         const recipeNums = localRecipeNoList.map(recipe => {return recipe.recipeNo})
         $.ajax({
             url: "selectRecipeListByRecipeNo.me",
