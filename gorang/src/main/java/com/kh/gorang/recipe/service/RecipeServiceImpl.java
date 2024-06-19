@@ -314,6 +314,13 @@ public class RecipeServiceImpl implements RecipeService{
 		}
 		return productList;
 	}
+	
+	//조회수 늘리기
+	@Override
+	public int addRecipeView(int recipeNo) {
+		 return recipeDao.addRecipeView(sqlSession,recipeNo);
+		
+	}
 
 
 	

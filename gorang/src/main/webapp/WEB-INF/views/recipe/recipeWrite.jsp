@@ -18,7 +18,7 @@
        <!-- 헤더 -->
        <jsp:include page="../common/header.jsp" />
        
-       <form id ="insert-form" action="${contextPath}/insert.re" method="post">  
+       <form id ="insert-form" action="${contextPath}/insertRecipe.re" method="post">  
         <div id="head-btn-area">
             <button id="save-recipe">임시 저장</button>
             <button type="submit"  id="register-rcipe" onclick="return enrollRecipeBtn()">등록 하기</button>
@@ -52,7 +52,7 @@
             </div>
 
             <div id="recipe-tage-area">
-                <input type="text" placeholder="태그를 넣어주세요 예)#얼큰 #찌개 #건강식"  name="recipeTag">
+                <input type="text" placeholder="태그를 넣어주세요 ','를 사용 예)얼큰,찌개,건강식"  name="recipeTag">
             </div>
 
             <div id="recipe-category-area">
@@ -71,9 +71,9 @@
                 <div class="selectbox-areas"> 
                     <select name="cookLevel" id="" class="mySelect" > 
                         <option value="" disabled selected hidden>난이도</option>
-                        <option value="한식">상</option>
-                        <option value="중식">중</option>
-                        <option value="일식">하</option>
+                        <option value="상">상</option>
+                        <option value="중">중</option>
+                        <option value="하">하</option>
                 
                     </select>
                 </div>

@@ -63,6 +63,8 @@ public interface RecipeService {
 
 	List<Product> selectProductList(List<Division> divList, int recipeNo);
 
+	int addRecipeView(int recipeNo);
+
 //	int findDivLen(Recipe rcp, HttpSession session);
 //
 //	int findIngreLen(RecipeInsertDTO recipeInsertDTO, HttpSession session);
