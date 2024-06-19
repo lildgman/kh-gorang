@@ -337,7 +337,6 @@
                                 </div>
                             </c:forEach>
                         </div>
-
                         <div id="goto-list-area">
                             <button id="goto-list-btn" onclick="goRecipeList()">목록으로</button>
                         </div>
