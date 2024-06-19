@@ -48,7 +48,7 @@
                                     <tbody>
                                         <c:forEach var="orderPdopt" items="${orderPdopts}">
                                             <tr class="tbody-buy-list-block">
-                                                <td class="tbody-td-img"><img
+                                                <td class="tbody-td-img"><img style="cursor: pointer;"
                                                         src="${contextPath}/resources/uploadfile/product/productimg/${orderPdopt.orderPdThumbnail}"
                                                         alt="">
                                                 </td>

@@ -381,7 +381,7 @@ public class MyPageServiceImpl implements MyPageService{
 	// 냉장고 식재료로 레시피 조회
 	@Transactional(readOnly = true)
 	@Override
-	public List<RecipeListDto> selectRecipeListByRefri(String[] ingresArray) {
+	public List<RecipeListDto> selectRecipeListByRefri(List<String> ingresArray) {
 				
 		return myPageDao.selectRecipeListByRefri(sqlSession, ingresArray);
 	}

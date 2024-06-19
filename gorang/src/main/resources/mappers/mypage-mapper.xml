@@ -854,7 +854,7 @@
 		join ingredients_info i using (div_no) 
 		where r.status = 'Y'
 		and i.ingre_name in
-		<foreach collection="array" item="ingredi" open="(" close=")" separator=", ">
+		<foreach collection="list" item="ingredi" open="(" close=")" separator=", ">
 			#{ingredi}			
 		</foreach>
 		LIMIT 10
