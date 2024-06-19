@@ -39,7 +39,7 @@
 					<c:otherwise>
 						<c:forEach var="recipeDTO" items="${recipeList }">
 							<div class="myPage-board-list-block">
-								<div class="myPage-board-img" data-no="${recipeDTO.recipe.recipeNo}" onclick="movePage(this)">
+								<div class="myPage-board-img" data-no="${recipeDTO.recipe.recipeNo}" onclick="moveDetailPage(this)">
 									<img
 										src="${pageContext.request.contextPath}/resources/uploadfile/recipe/recipemain/${recipeDTO.recipe.recipeMainPhoto}"
 										alt="사진">
