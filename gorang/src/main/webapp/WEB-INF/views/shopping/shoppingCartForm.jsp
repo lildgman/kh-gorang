@@ -90,12 +90,12 @@
                                                         <div class="product-price">
                                                             <div>
                                                                 <span
-                                                                    class="product-origin-price">${cart.pdOptForCart.detailOptionOriginPrice}</span><span
+                                                                    class="product-origin-price" data-value="${cart.pdOptForCart.detailOptionOriginPrice}">${cart.pdOptForCart.detailOptionOriginPrice * cart.pdOptQuantity}</span><span
                                                                     class="origin-won">원</span>
                                                             </div>
                                                             <div>
                                                                 <span
-                                                                    class="product-saled-price">${cart.pdOptForCart.detailOptionSaledPrice}</span><span
+                                                                    class="product-saled-price" data-value="${cart.pdOptForCart.detailOptionSaledPrice}">${cart.pdOptForCart.detailOptionSaledPrice * cart.pdOptQuantity}</span><span
                                                                     class="saled-won">원</span>
                                                             </div>
                                                         </div>
@@ -146,7 +146,7 @@
                             <form action="order.po" id="cart-form" method="post">
                                 <input type="hidden" class="cart-input-json" name="selectedOptList">
                                 <div id="buy_btn_container">
-                                    <button id="buy_btn">구매하기</button>
+                                    <button type="button" id="buy_btn">구매하기</button>
                                 </div>
                             </form>
                         </div>

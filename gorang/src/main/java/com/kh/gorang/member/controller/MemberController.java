@@ -104,6 +104,14 @@ public class MemberController {
 		}
 	}
 	
+	// 핸드폰 중복 체크
+	@ResponseBody
+	@RequestMapping("checkPhoneNum.me")
+	public String phoneCheck(String phone) {
+		return memberService.phoneCheck(phone) > 0 ? "NNNNY" : "NNNNN";
+	}
+	
+	
 	@ResponseBody
 	@RequestMapping("authPhone.me")
 	public String authorizationPhone(String authNo, String phone) {

@@ -252,7 +252,6 @@ function closeModal2() {
     ingreModalTbody.innerHTML = "";
 }
 
-
 // 모달 식재료 추가 검색창
 function findSearch2() {
     getFoodAndNutriAjax(1);
@@ -269,7 +268,6 @@ function addUserInputToModalTable(){
         FOOD_NM_KR: foodNameByUser,
         FOOD_CAT1_NM: foodClassNameByUser
     };
-
     constructIngreModalTable(ingreModalTbody, numForInput, food);
     // 초기화
     modalIngre.querySelector("#refri-input-foodName-user").value = '';
@@ -517,7 +515,6 @@ function constructNutriModal(nutri) {
     }
 }
 
-
 /** 냉장고 db에 식재료 저장하기 위해 컨트롤러로 보내는 ajax */
 function sendIngreByAjax() {
     const ingreData = Array.from(document.querySelectorAll("#modal-ingre-tbody .overflow-tr input[type='checkbox']"))
@@ -538,17 +535,19 @@ function sendIngreByAjax() {
             
                         // 소비기한
                         let refConsumptionDate = modalIngrediTr.querySelector("input[name='refConsumptionDate']").value;
+                        
+                        console.log(refConsumptionDate);
             
                         // 소비기한 미입력 시 현재 날짜에 7일을 더 해줌
                         let refConsumptionDateFormat;
                         if (!refConsumptionDate) {
                             today.setDate(today.getDate() + 7);
-                            refConsumptionDateFormat = today.getFullYear() + "-" + padToTwoDigits(today.getMonth() + 1) + "-" + padToTwoDigits(today.getDate());
+                            // getMonth() 는 0부터 11 반환
+                            refConsumptionDateFormat = today.getFullYear() + "-" + padToTwoDigits(today.getMonth()+1) + "-" + padToTwoDigits(today.getDate());
                             today = new Date(); // reset today
-                        } else {
-                            let tempDate = new Date(refConsumptionDate);
-                            refConsumptionDateFormat = tempDate.getFullYear() + "-" + padToTwoDigits(tempDate.getMonth() + 1) + "-" + padToTwoDigits(tempDate.getDate());
-                        }
+                        } else if(validateDate(refConsumptionDate)) refConsumptionDateFormat = dateFormatting(refConsumptionDate);
+                    
+
             
                         // 냉장고 입고일
                         let refInputDate = modalIngrediTr.querySelector("input[name='refInputDate']").value;
@@ -557,10 +556,7 @@ function sendIngreByAjax() {
                         let refInputDateFormat;
                         if (!refInputDate) {
                             refInputDateFormat = today.getFullYear() + "-" + padToTwoDigits(today.getMonth() + 1) + "-" + padToTwoDigits(today.getDate());
-                        } else {
-                            let tempDate = new Date(refInputDate);
-                            refInputDateFormat = tempDate.getFullYear() + "-" + padToTwoDigits(tempDate.getMonth() + 1) + "-" + padToTwoDigits(tempDate.getDate());
-                        }
+                        } else if(validateDate(refInputDate)) refInputDateFormat = dateFormatting(refInputDate);
             
                         // 갯수
                         let refCount = modalIngrediTr.querySelector("input[name='refCount']").value;
@@ -598,6 +594,53 @@ function sendIngreByAjax() {
     });
 }
 
+// 소비기한 입력 시 올바른 날짜인지 체크하는 함수
+function validateDate(date){
+// 8자리인지 체크
+if(date.length !== 8){
+    alert("연월일은 8자리의 숫자만 입력해주세요")
+    return false;
+}
+let yyyy = date.substring(0,4);
+let mm = date.substring(4,6);
+let dd = date.substring(6,8);
+// mm = Number(mm) - 1; // month index 0부터 시작하기에
+
+if(mm < 1 || mm > 12){
+    alert("존재하지 않는 달을 입력하셨습니다. 다시 확인해주세요");
+    return false;
+}
+
+if(dd < 1 || dd > 31){
+    alert("존재하지 않는 일자를 입력했습니다. 다시 확인해주세요");
+    return false;
+}
+
+if((mm == 4 || mm == 6 || mm == 9 || mm == 11) && dd == 31){
+    alert("존재하지 않은 일자를 입력했습니다. 다시 확인해주세요");
+    return false;
+}
+
+if(mm == 2){
+    let isLeapYear = (yyyy % 4 == 0 && (yyyy % 100 != 0 || yyyy % 400 == 0));
+    if(dd > 29 || (dd == 29 && !isLeapYear)){
+        alert("존재하지 않은 일자를 입력했습니다. 다시 확인해주세요.")
+        return false
+    }
+}
+
+return true;
+}
+
+// yyyy-mm-dd 형식으로 만들어주는 함수
+function dateFormatting(date){
+    let yyyy = date.substring(0,4);
+    let mm = date.substring(4,6);
+    let dd = date.substring(6,8);
+    
+    // 직접 입력시에는 개월 수에 1을 더할 필요가 없음
+    return yyyy + "-" + mm + "-" + dd;
+}
 
 // =============================================== 추천 레시피 찾기 관련 메소드 ================================================
 // 레시피 찾기 모달 div 요소
@@ -630,8 +673,38 @@ function handlerrecipeCompleteBtnClick(){
                                     const tr = checkbox.closest("tr");
                                     return  tr.querySelector(".modal-recipe-refName").innerHTML;
                                   });
-   recipeModal.querySelector("#modal-recipe-selectedIngre").innerHTML = tempForModalRecipeselectedIngre;
+
+    if(tempForModalRecipeselectedIngre.length > 0){
+        setSelectedIngreDiv(tempForModalRecipeselectedIngre);
+    }
  }
+
+/** 추가한 식재료명 옆 삭제 버튼 클릭 시 삭제시켜주는 함수 */
+function handlerIbtnClick(ev){
+    let btn = ev.target;
+    // 선택한 식재료 삭제
+    let ingre = btn.closest('.modal-recipe-ingre').querySelector(".modal-recipe-ingre-name").innerHTML;
+    tempForModalRecipeselectedIngre = tempForModalRecipeselectedIngre.filter(e => e !== ingre);
+    setSelectedIngreDiv(tempForModalRecipeselectedIngre);
+}
+
+/** 선택한 식재료 칸 새로 구축해주는 함수 */
+function setSelectedIngreDiv(tempForModalRecipeselectedIngre){
+    const selectedIngreContainer = recipeModal.querySelector("#modal-recipe-selectedIngre");
+    selectedIngreContainer.innerHTML = ""; // 기존 내용을 비움
+
+     for (let ingre of tempForModalRecipeselectedIngre) {
+        const div = document.createElement('div');
+        div.className = 'modal-recipe-ingre';
+        div.innerHTML = `<span class="modal-recipe-ingre-name">${ingre}</span><i class="fa-solid fa-delete-left"></i>`;
+        selectedIngreContainer.appendChild(div);
+    }
+
+    // 새로 추가된 삭제 버튼에 이벤트 리스너를 추가
+    selectedIngreContainer.querySelectorAll('i').forEach(ibtn => {
+        ibtn.addEventListener('click', handlerIbtnClick);
+    });
+}
 
 /** 추천 레시피 모달창 구축하고 띄우는 메소드 */
 function viewRecipeRecommendModal(){
@@ -688,11 +761,18 @@ function constructModalRecipeTable(refriIngresList, modalRecipeTbody){
 
 /** 레시피 찾기 버튼 클릭 시 ajax 로 식재료 보내서 레시피 데이터 받는 메소드 */
 function getRecipeByIngre(){
-    const selectedIngreList = recipeModal.querySelector("#modal-recipe-selectedIngre").innerHTML;
-
+    const selectedIngreList = Array.from(recipeModal.querySelectorAll(".modal-recipe-ingre-name"))
+                                    .map(name => {return name.innerHTML});
+    
+    console.log(selectedIngreList);
+    // 식재료 추가 안했을 경우 예외처리
+    if(selectedIngreList < 1){
+        alert("추가할 식재료를 체크해주세요.")
+        return;
+    }
     $.ajax({
         url: "selectRecipeListByRefri.me",
-        data: {ingreList: selectedIngreList},
+        data: {ingreList: JSON.stringify(selectedIngreList)},
         contentType: "application/json; charset-utf-8",
         success: function(res){
             console.log(res);
@@ -751,7 +831,6 @@ function saveRecipeNoInLocalStorage(recipes){
 /** 로컬 스토리지에 저장된 추천 레시피 no 들로  div 요소 채우는 메소드 */
 function constructRecommendedRecipeDiv(){
     const recipeNums = localStorage.getItem("recommendedRecipe");
-
     if(recipeNums){
         $.ajax({
             url: "selectRecipeListByRecipeNo.me",

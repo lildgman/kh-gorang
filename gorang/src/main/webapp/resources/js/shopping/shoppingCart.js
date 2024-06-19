@@ -5,7 +5,6 @@ window.onload = function () {
   updateQuantity();
 
   updateTotalPrice();
-
 }
 
 // 장바구니 삭제
@@ -29,57 +28,61 @@ function ajaxForDeleteCart(data){
     let allCheckLabel = document.querySelector('#all-check-label');
     let allCheckbox = document.querySelector('#all-select-checkbox');
 
-    allCheckLabel.addEventListener('click', function () {
+    if(allCheckLabel){
+      allCheckLabel.addEventListener('click', function () {
 
-      let checkboxes = document.querySelectorAll('.select-checkbox');
+        let checkboxes = document.querySelectorAll('.select-checkbox');
+  
+        if (allCheckbox.checked) {
+          checkboxes.forEach(function(checkbox) {
+            checkbox.checked = false;
+          });
+        } else {
+          checkboxes.forEach(function(checkbox) {
+            checkbox.checked = true;
+          });
+        }
+      })
+    }
 
-      if (allCheckbox.checked) {
-        checkboxes.forEach(function(checkbox) {
-          checkbox.checked = false;
-        });
-      } else {
-        checkboxes.forEach(function(checkbox) {
-          checkbox.checked = true;
-        });
-      }
-    })
-
-    allCheckbox.addEventListener('change', function() {
-      let checkboxes = document.querySelectorAll('.select-checkbox');
-      if (allCheckbox.checked) {
-        checkboxes.forEach(function(checkbox) {
-          checkbox.checked = true;
-        });
-      } else {
-        checkboxes.forEach(function(checkbox) {
-          checkbox.checked = false;
-        });
-      }
-    })
+    if(allCheckbox){
+      allCheckbox.addEventListener('change', function() {
+        let checkboxes = document.querySelectorAll('.select-checkbox');
+        if (allCheckbox.checked) {
+          checkboxes.forEach(function(checkbox) {
+            checkbox.checked = true;
+          });
+        } else {
+          checkboxes.forEach(function(checkbox) {
+            checkbox.checked = false;
+          });
+        }
+      })
+    }
   }
 
 function updateQuantity() {
     const productPriceQuantityDivs = document.querySelectorAll(".product-quantity-price-container");
 
-    productPriceQuantityDivs.forEach(function(productQuantity) {
-      const minus = productQuantity.querySelector('.minus_quantity');
-      const plus = productQuantity.querySelector('.plus_quantity');
-      const quantityElement = productQuantity.querySelector('.quantity');
-      const originPriceElement = productQuantity.querySelector('.product-origin-price');
-      const saledPriceElement = productQuantity.querySelector('.product-saled-price');
-      const originPrice = originPriceElement.innerText.replace(/,/g, '');
-      const saledPrice = saledPriceElement.innerText.replace(/,/g, '');
+    productPriceQuantityDivs.forEach(productQuantityDiv => {
+      const minus = productQuantityDiv.querySelector('.minus_quantity');
+      const plus = productQuantityDiv.querySelector('.plus_quantity');
+      const quantityElement = productQuantityDiv.querySelector('.quantity');
+      const originPriceElement = productQuantityDiv.querySelector('.product-origin-price');
+      const saledPriceElement = productQuantityDiv.querySelector('.product-saled-price');
+      const originPrice = productQuantityDiv.querySelector(".product-origin-price").getAttribute("data-value");
+      const saledPrice = productQuantityDiv.querySelector(".product-saled-price").getAttribute("data-value");
 
       minus.addEventListener("click", function() {
 
-        let currentQuantity = parseInt(quantityElement.innerText);
+        let currentQuantity = parseInt(quantityElement.innerHTML);
 
         if(currentQuantity > 1) {
           quantity = currentQuantity -1;
-          quantityElement.innerText = quantity;
+          quantityElement.innerHTML = quantity;
 
-          saledPriceElement.innerText = updateProductPrice(saledPrice, quantity);
-          originPriceElement.innerText = updateProductPrice(originPrice, quantity);
+          saledPriceElement.innerHTML = updateProductPrice(saledPrice, quantity);
+          originPriceElement.innerHTML = updateProductPrice(originPrice, quantity);
           updateTotalPrice();
         };
       });
@@ -88,10 +91,10 @@ function updateQuantity() {
         let currentQuantity = parseInt(quantityElement.innerText);
 
         quantity = currentQuantity +1;
-        quantityElement.innerText = quantity;
+        quantityElement.innerHTML = quantity;
 
-        saledPriceElement.innerText = updateProductPrice(saledPrice, quantity);
-        originPriceElement.innerText = updateProductPrice(originPrice, quantity);
+        saledPriceElement.innerHTML = updateProductPrice(saledPrice, quantity);
+        originPriceElement.innerHTML = updateProductPrice(originPrice, quantity);
         updateTotalPrice();
       });
 
@@ -108,11 +111,10 @@ function updateTotalSaledPrice() {
   const totalSaledPriceElement = document.querySelector("#cart-price-sum");
   const saledPriceElements = document.querySelectorAll(".product-saled-price");
   let totalSaledPrice = 0;
-  saledPriceElements.forEach(function(saledPriceElement) {
-    totalSaledPrice += parseInt(saledPriceElement.innerText.replace(/,/g, ''));
+  saledPriceElements.forEach(saledPriceElement => {
+    totalSaledPrice += parseInt(saledPriceElement.innerHTML.replace(/,/g, ''));
   })
-  totalSaledPriceElement.innerText = totalSaledPrice.toLocaleString();
-
+  if(totalSaledPriceElement) totalSaledPriceElement.innerText = totalSaledPrice.toLocaleString();
 }
 
 function updateTotalOriginPrice() {
@@ -120,9 +122,9 @@ function updateTotalOriginPrice() {
   const originProductPricesElements = document.querySelectorAll('.product-origin-price');
   let totalOriginProductPrice = 0;
   originProductPricesElements.forEach(function(originProductPricesElement) {
-    totalOriginProductPrice += parseInt(originProductPricesElement.innerText.replace(/,/g, ''));
+    totalOriginProductPrice += parseInt(originProductPricesElement.innerHTML.replace(/,/g, ''));
   })
-  totalOriginProductPriceElement.innerText = totalOriginProductPrice.toLocaleString();
+  if(totalOriginProductPriceElement) totalOriginProductPriceElement.innerText = totalOriginProductPrice.toLocaleString();
 }
 
 function updateProductPrice(saledPrice,quantity) {
@@ -177,7 +179,6 @@ function deleteProductOpt(element) {
   // 선택한 옵션 삭제
   cartDiv.removeChild(productOptDiv);
 
-
   //ajax 로 db delete
   ajaxForDeleteCart([optNo]);
 
@@ -195,69 +196,79 @@ function deleteProductOpt(element) {
 
 function updateTotalDiscountPrice() {
   const totalDiscountPriceEl = document.querySelector("#total-discount-price");
-  const totalSaledPrice = parseInt(document.querySelector("#cart-price-sum").innerText.replace(/,/g, ''));
-  const totalOriginPrice = parseInt(document.querySelector("#total-origin-price").innerText.replace(/,/g, ''));
-
-  const totalDiscountPrice = (totalOriginPrice - totalSaledPrice).toLocaleString();
-  totalDiscountPriceEl.innerText = totalDiscountPrice;
+  const totalSaledPriceDiv = document.querySelector("#cart-price-sum");
+  const totalOriginPriceDiv = document.querySelector("#total-origin-price");
+  if(totalSaledPriceDiv && totalOriginPriceDiv && totalDiscountPriceEl){
+    const totalSaledPrice = parseInt(document.querySelector("#cart-price-sum").innerText.replace(/,/g, ''));
+    const totalOriginPrice = parseInt(document.querySelector("#total-origin-price").innerText.replace(/,/g, ''));
+    const totalDiscountPrice = (totalOriginPrice - totalSaledPrice).toLocaleString();
+    totalDiscountPriceEl.innerText = totalDiscountPrice;
+  }
 }
 
 // 구매하기 버튼에 클릭 이벤트 체크된 장바구니 목록의 데이터를 JSON 형태로 취합하기 위한 메소드 
 document.addEventListener("DOMContentLoaded", function(){
-  document.querySelector("#buy_btn").addEventListener("click", function(e){
-    e.preventDefault();
-
-  // 데이터를 담을 배열 선언
-  const selectedOpts = [];
-
-  document.querySelectorAll(".product-in-cart").forEach(function(ev){
-    // 체크 박스 체크될 경우만 데이터 취합
-    if(!ev.querySelector(".select-checkbox").checked){
-      // foreach 문에서는 return 을 사용하면 다음 반복으로 넘어감
+  if(document.querySelector("#buy_btn")){
+    document.querySelector("#buy_btn").addEventListener("click", function(e){
+      e.preventDefault();
+  
+    // 데이터를 담을 배열 선언
+    const selectedOpts = [];
+  
+    document.querySelectorAll(".product-in-cart").forEach(function(ev){
+      // 체크 박스 체크될 경우만 데이터 취합
+      if(!ev.querySelector(".select-checkbox").checked){
+        // foreach 문에서는 return 을 사용하면 다음 반복으로 넘어감
+        return;
+      }
+    
+      // 상품 정보
+      const selectedPno = ev.querySelector(".cart-input-productNo").value;
+      const productSeller = ev.querySelector(".cart-input-seller").value;
+      const productBrand = ev.querySelector(".cart-input-productBrand").value;
+      const productName = ev.querySelector(".cart-product-name").innerHTML;
+      const mainImg = ev.querySelector(".cart-input-mainImg").value;
+      const shipmentType = ev.querySelector(".product-delivery-method").innerHTML;
+      const shippingPrice = ev.querySelector(".product-delivery-cost").innerText.replace(/,/g, "");
+      
+      const selectProductInfo = {
+        productNo: selectedPno,
+        seller: productSeller,
+        productBrand: productBrand,
+        productName: productName,
+        mainImg: mainImg,
+        shipmentType: shipmentType,
+        shippingPrice: shippingPrice
+      };
+      // 옵션별 정보
+      ev.querySelectorAll(".cart-pdopt-container").forEach(function(opt){
+        const selectedOptNo = opt.querySelector(".cart-input-optNo").value;
+        const selectedOptName = opt.querySelector(".cart-productOpt-name").innerHTML;
+        const selectedOptQnt = opt.querySelector("#quantity").innerHTML;
+        const selectedOptPrice = opt.querySelector(".product-saled-price").innerHTML.replace(/,/g, "");
+        
+        selectedOpts.push({
+          detailOptionNo: selectedOptNo,
+          detailOptionName: selectedOptName,
+          detailOptionQuantity: selectedOptQnt,
+          detailOptionSaledPrice: selectedOptPrice,
+          pdForOpt : selectProductInfo
+        });
+  
+      });
+    });
+  
+    if(selectedOpts == ""){
+      alert("체크된 품목이 없습니다.");
       return;
     }
   
-    // 상품 정보
-    const selectedPno = ev.querySelector(".cart-input-productNo").value;
-    const productSeller = ev.querySelector(".cart-input-seller").value;
-    const productBrand = ev.querySelector(".cart-input-productBrand").value;
-    const productName = ev.querySelector(".cart-product-name").innerHTML;
-    const mainImg = ev.querySelector(".cart-input-mainImg").value;
-    const shipmentType = ev.querySelector(".product-delivery-method").innerHTML;
-    const shippingPrice = ev.querySelector(".product-delivery-cost").innerText.replace(/,/g, "");
+    document.querySelector(".cart-input-json").value = JSON.stringify(selectedOpts);
     
-    const selectProductInfo = {
-      productNo: selectedPno,
-      seller: productSeller,
-      productBrand: productBrand,
-      productName: productName,
-      mainImg: mainImg,
-      shipmentType: shipmentType,
-      shippingPrice: shippingPrice
-    };
-    // 옵션별 정보
-    ev.querySelectorAll(".cart-pdopt-container").forEach(function(opt){
-      const selectedOptNo = opt.querySelector(".cart-input-optNo").value;
-      const selectedOptName = opt.querySelector(".cart-productOpt-name").innerHTML;
-      const selectedOptQnt = opt.querySelector("#quantity").innerHTML;
-      const selectedOptPrice = opt.querySelector(".product-saled-price").innerHTML.replace(/,/g, "");
-      
-      selectedOpts.push({
-        detailOptionNo: selectedOptNo,
-        detailOptionName: selectedOptName,
-        detailOptionQuantity: selectedOptQnt,
-        detailOptionSaledPrice: selectedOptPrice,
-        pdForOpt : selectProductInfo
-      });
-
-    });
-  });
-
-  document.querySelector(".cart-input-json").value = JSON.stringify(selectedOpts);
+    document.querySelector("#cart-form").submit();
   
-  document.querySelector("#cart-form").submit();
-
-  });
-})
+    });
+  }
+});
 
 

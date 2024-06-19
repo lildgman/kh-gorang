@@ -129,8 +129,6 @@ table{
     width: 100%;
 }
 
-.
-
 /* 테이블 텍스트 헤드 색상설정 (상품/신선도/...등) */
 thead td {
     color: #6D6D6D;
@@ -179,6 +177,7 @@ tbody td:not(:first-child ) {
     font-size: 16px;
     font-weight: bold;
 }
+
 
 
 /* 모달 스타일 */
@@ -240,6 +239,26 @@ tbody td:not(:first-child ) {
     color: #ABABAB;
     padding-right: 6px;
 }
+
+#modal-recipe-selectedIngre{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: left;
+    align-items: center;
+    gap: 10px;
+}
+
+#modal-recipe-selectedIngre div{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+#modal-recipe-selectedIngre i{
+    cursor: pointer;
+}
+
 
 /* 식품명 입력란 설정  */
 #input-igretext{

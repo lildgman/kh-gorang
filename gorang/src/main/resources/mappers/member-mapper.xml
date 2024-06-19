@@ -154,6 +154,12 @@
        AND MEMBER_STATUS = 'Y'
   </select>
   
+  <select id="phoneCheck" resultType="_int">
+  	select count(member_no)
+  	from member
+  	where member_phone = #{phone}
+  	AND MEMBER_STATUS = 'Y'
+  </select>
   
   <!-- ============================ 장바구니 관련 매퍼 ============================ -->
   <!-- 장바구니 저장  -->

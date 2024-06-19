@@ -1,12 +1,3 @@
-function requireLogin() {
-    const userConfirmed = confirm("로그인이 필요한 기능입니다. 로그인창으로 이동하시겠습니까?");
-    if (userConfirmed) {
-        moveLocation('/gorang/loginForm.me');
-    } else {
-        moveLocation('/gorang');
-    }
-}
-
 
 // 페이지 이동 함수
 function moveLocation(path){

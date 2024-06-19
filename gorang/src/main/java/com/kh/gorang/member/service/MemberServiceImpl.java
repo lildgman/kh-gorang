@@ -84,8 +84,14 @@ public class MemberServiceImpl implements MemberService{
 	@Transactional(rollbackFor = {Exception.class})
 	@Override
 	public int deleteProductCart(int memberNo, List<Integer> optListForDelete) {
-		// TODO Auto-generated method stub
 		return memberDao.deleteProductCart(sqlSession, memberNo, optListForDelete);
+	}
+	
+	// 핸드폰 중복 체크
+	@Transactional(readOnly = true)
+	@Override
+	public int phoneCheck(String phone) {
+		return memberDao.phoneCheck(sqlSession, phone);
 	}
 	
 }

@@ -30,5 +30,8 @@ public interface MemberService {
 	// 장바구니 삭제
 	int deleteProductCart(int memberNo, List<Integer> optListForDelete);
 	
+	// 핸드폰 번호 중복 체크
+	int phoneCheck(String phone);
+	
 	
 }

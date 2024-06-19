@@ -27,11 +27,20 @@ document.addEventListener('DOMContentLoaded', function () {
     const isValidPwd = validatePwd();
     const isValidPwdConfirm = validatePwdConfirm();
     const isValidNickname = (document.querySelector("#nameCheck").value.trim() === "사용가능" );
-    const isValidPhoneNumber = (document.querySelector("#member-phone-auth-btn").value.trim() === "사용가능" );
+    const isValidPhoneNumber = (document.querySelector("#member-phone-auth-btn").value.trim() === "인증완료" );
     const isValidBirthdate = validateBirthdate();
     const isValidTotalAddress = validateTotalAddress();
     const isValidTerm = validateTerm();
-    
+
+    console.log(isValidEmail)
+    console.log(isValidPwd)
+    console.log(isValidPwdConfirm)
+    console.log(isValidNickname)
+    console.log(isValidPhoneNumber)
+    console.log(isValidBirthdate)
+    console.log(isValidTotalAddress)
+    console.log(isValidTerm)
+
     if (isValidEmail && isValidPwd && isValidPwdConfirm && isValidNickname && isValidPhoneNumber && isValidBirthdate && isValidTotalAddress && isValidTerm) {
         document.querySelector("#register-form").submit();
     }
@@ -53,7 +62,6 @@ function validateEmail() {
             emailNotice.innerHTML = "";
             const emailBtn = document.querySelector("#idCheck");
             emailBtn.style.pointerEvents = "auto";
-
             emailBtn.addEventListener('click', () => {checkEmail(emailBtn, email)});
         } else {
             showNotice(emailNotice, "잘못된 이메일 형식입니다.", "email-form");
@@ -68,9 +76,11 @@ function checkEmail(emailBtn, email) {
         url: "idCheck.me",
         data: { checkId: email },
         success: function (result) {
+            const emailNotice = document.querySelector("#register-input-email > .regi-notice-wrapper");
             if (result === "NNNNN") {
-                showNotice(document.querySelector("#register-input-email > .regi-notice-wrapper"), "이미 가입한 이메일입니다.", "email-id");
+                showNotice(emailNotice, "이미 가입한 이메일입니다.", "email-id");
             } else {
+                emailNotice.innerHTML = "";
                 emailBtn.value = "사용가능";
                 emailBtn.style.pointerEvents = "none";
                 emailBtn.style.background = "#1e90ff";
@@ -79,7 +89,6 @@ function checkEmail(emailBtn, email) {
         },
         error: function () {
             console.log("아이디 중복체크 실패");
-            resolve(false);
         }
     });
 }
@@ -138,6 +147,7 @@ function validateNickname(ev) {
         } else if (nickname.length < 2) {
             showNotice(nicknameNotice, "2글자 이상 입력해주세요.", "nickname-form-min");
         } else {
+            nicknameNotice.innerHTML = "";
             const idCheckBtn = document.querySelector("#nameCheck");
             idCheckBtn.style.pointerEvents = "auto";
 
@@ -156,6 +166,7 @@ function checkNickname(idCheckBtn, nicknameNotice, nickname) {
             if (result === "NNNNN") {
                 showNotice(nicknameNotice, "이미 사용중인 닉네임입니다.", "nickname-check");
             } else {
+                nicknameNotice.innerHTML = "";
                 idCheckBtn.value = "사용가능";
                 idCheckBtn.style.pointerEvents = "none";
                 idCheckBtn.style.background = "#1e90ff";
@@ -181,6 +192,7 @@ function checkNickname(idCheckBtn, nicknameNotice, nickname) {
         } else if (phone.length !== 11) {
             showNotice(phoneNotice, "전화번호 형식이 올바르지 않습니다(11자리).", "phone-form");
         } else {
+            phoneNotice.innerHTML = "";
             const authBtn = document.querySelector("#member-auth-btn");
             authBtn.style.pointerEvents = "auto";
         }
@@ -190,14 +202,15 @@ function checkNickname(idCheckBtn, nicknameNotice, nickname) {
 }
 
 
+
 class PhoneAuthentication{
+
     constructor(){
         this.isSend = false; // 인증번호 전송 여부
         this.authNo = ''; // 인증번호
         this.timerId = null; //타이머
         this.timer = $('.timer>h4'); // 타이머 ui
         // input 창 한 쪽에 나타나게 하면 어떨까?
-
         this.input = $("input[name='phone-authNo']");// 인증번호 input
 
         this.sendBtn = $('#member-auth-btn'); // 인증번호 전송 버튼
@@ -217,8 +230,35 @@ class PhoneAuthentication{
         element.innerHTML = `<span class="regi-notice ${className}">${message}</span>`;
     }
 
+    sendAuthNum = async function(){
+        const phone = $("input[name='memberPhone']").val();
+        
+        // //핸드폰 번호 본인인증 클릭 시 db 에서 체크하도록
+        // checkPhoneNumberAjax({phone: phone}, res => {
+        //     if(res === "NNNNY"){
+        //         alert("이미 가입한 전화번호입니다.");
+        //         temp = "y";
+        //         return;
+        //     }
+        // });
 
-    sendAuthNum(){
+        // 핸드폰 번호 본인인증 클릭 시 db 에서 체크하도록
+        const isPhoneRegistered = await new Promise((resolve) => {
+            checkPhoneNumberAjax({phone: phone}, res => {
+                if(res === "NNNNY"){
+                    alert("이미 가입한 전화번호입니다.");
+                    resolve(true);  // 이미 가입한 전화번호인 경우 true 반환
+                } else {
+                    resolve(false); // 아닌 경우 false 반환
+                }
+            });
+        });
+
+        if (isPhoneRegistered) {
+            return;  // 이미 가입한 전화번호인 경우 이후 코드 실행 중단
+        }
+
+
         if(this.isSend){
             const result = confirm('재전송 하시겠습니까?');
             if(!result){ // 재전송 거절 시
@@ -226,11 +266,10 @@ class PhoneAuthentication{
             } else {
                 clearInterval(this.timerId); // 호출 스케쥴링(일정 시간 간격 두고 함수 실행)
             }
-        }
+        };
+
         // 랜덤번호 생성
         this.authNo = Math.floor(Math.random() * 100000).toString().padStart(6, '0');
-
-        const phone = document.querySelector("input[name='memberPhone']").value;
 
         $('#phoneAuthSection').css('display','flex');
 
@@ -257,17 +296,21 @@ class PhoneAuthentication{
 
     checkAuthNum(){
         const inputCode = this.input.val();
+        const authNumNotice = document.querySelector("#register-input-authNo > .regi-notice-wrapper");
         if(this.authNo.trim() !== inputCode){
-            showNotice(document.querySelector("#register-input-authNo > .regi-notice-wrapper"), "잘못된 인증번호입니다.", "authNo-un");
+            showNotice(authNumNotice, "잘못된 인증번호입니다.", "authNo-un");
         }else {
+            const phoneAuthBtn = document.querySelector('#member-phone-auth-btn');
+
             this.sendBtn.prop('disabled', true);
             $('#phone1').prop('readonly', true);
             $('#phone2').prop('readonly', true);
 
             alert('인증성공');
             clearInterval(this.timerId);
-            
-            const phoneAuthBtn = document.querySelector('#member-phone-auth-btn');
+        
+            authNumNotice.innerHTML = "";
+
             phoneAuthBtn.value = "인증완료";
             phoneAuthBtn.style.pointerEvents = "none";
             phoneAuthBtn.style.background = "#1e90ff";
@@ -311,6 +354,18 @@ function sendPhoneAuthNoAjax(data, callback){
         }
     });
 };
+
+function checkPhoneNumberAjax(data, callback){
+    $.ajax({
+        url: "checkPhoneNum.me",
+        method: "post",
+        data,
+        success: res => callback(res),
+        error: () => {
+            alert('휴대폰 번호 전송 실패');
+        }
+    })
+}
 
 // ====================================================== 생년월일 =====================================
 
@@ -370,7 +425,6 @@ function setAddress(){
 }
 
 function validateTotalAddress() {
-    console.log("validateTotalAddress 실행");
     let isTrue = true;
     const address = document.querySelector("#sample6_address");
     const detailAddress = document.querySelector("#sample6_detailAddress");
