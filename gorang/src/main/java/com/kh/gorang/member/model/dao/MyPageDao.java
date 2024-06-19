@@ -309,7 +309,7 @@ public class MyPageDao {
 	}
 	
 	//식재료로 레시피 조회
-	public List<RecipeListDto> selectRecipeListByRefri(SqlSessionTemplate sqlSession, String[] ingresArray) {
+	public List<RecipeListDto> selectRecipeListByRefri(SqlSessionTemplate sqlSession, List<String> ingresArray) {
 		return sqlSession.selectList("myPageMapper.selectRecipeListByRefri", ingresArray);
 	}
 

@@ -82,10 +82,10 @@
                                                         class="cart-productOpt-name">${cart.pdOptForCart.detailOptionName}</span>
                                                     <div class="product-quantity-price-container">
                                                         <div class="product-quantity">
-                                                            <div class="pbtn minus_quantity" id="minus_quantity">-</div>
+                                                            <div class="pbtn minus_quantity" id="minus_quantity" style="cursor: pointer;">-</div>
                                                             <div class="pbtn quantity" id="quantity">
                                                                 ${cart.pdOptQuantity}</div>
-                                                            <div class="pbtn plus_quantity" id="plus_quantity">+</div>
+                                                            <div class="pbtn plus_quantity" id="plus_quantity" style="cursor: pointer;">+</div>
                                                         </div>
                                                         <div class="product-price">
                                                             <div>

@@ -168,7 +168,7 @@ function getFilteredWatched(key) {
         watched = JSON.parse(watched);
         watched = clearOldItems(watched);
 
-        localStorage.setItem(key, JSON.stringify(watched));
+        // localStorage.setItem(key, JSON.stringify(watched));
     } else {
         watched = [];
     }
@@ -205,9 +205,10 @@ function initRecentlyWatchedList(itemId, thumbnailUrl, ctx, isRecipe) {
         }
 
         // 최근 본 목록을 localStorage에 다시 저장
-        setRecentlyWatched(watched, isRecipe);
+        // setRecentlyWatched(watched, isRecipe);
     }
-
+    setRecentlyWatched(watched, isRecipe);
+    
     // 디버깅을 위해 콘솔에 최근 본 목록 출력
     console.log("최근 본 객체 목록:", watched);
 
