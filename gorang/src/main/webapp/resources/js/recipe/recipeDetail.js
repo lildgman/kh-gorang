@@ -463,95 +463,6 @@ function ajaxinsertReview(data, callback) {
 }
 
 
-// ============================= QNA 관련 메소드 ====================================
-  // 문의 구축하는 메소드
-// function putProductQnAList(pno, qnas){
-
-//   // 상품 문의 모달
-//     // 문의하기 버튼
-//     const qnaModalBtn = document.querySelector("#qna_top > button");
-//     // 문의하기 버튼 클릭 시 상품 문의 모달 내용 채우는 메소드 발동
-//     qnaModalBtn.addEventListener("click", function(){
-//       ajaxGetProductOpts({pno},(opts)=>inquireQuestion(opts));
-//     })
-
-//   // 문의 내용
-//     const qnaContentTbody = document.querySelector('#qna_content > tbody');
-
-//     let qnaStatus = "답변대기";
-
-//     for(let qna of qnas){
-//       // 답변글일 경우 노출안시킴
-//       if(qna.qnaAnswerType === 2){
-//         continue;
-//       }
-//       //tr 생성
-//       const qnaContentTableTr = document.createElement('tr');
-//       qnaContentTableTr.setAttribute("class", "qna_content_tr")
-//       qnaContentTbody.appendChild(qnaContentTableTr);
-//       //qna 제목 td 생성
-//       const qnaTitle = document.createElement('td');
-//       qnaContentTableTr.appendChild(qnaTitle);
-//       qnaTitle.setAttribute("class", "qna_title");
-//       qnaTitle.innerHTML = qna.qnaContent;
-//       //qna 작성자, 작성일 td 생성
-//       qnaContentTableTr.innerHTML += `<td class="qna_writer">${qna.writerNickname}</td>`
-//       qnaContentTableTr.innerHTML += `<td class="qna_create_date">${qna.qnaCreateDate}</td>`
-
-//       if(qna.answerNo != 0){
-//         qnaStatus = "답변완료"
-//       }
-//        //답변 여부 보여주는 부분
-//        qnaContentTableTr.innerHTML += `<td class="qna_status">${qnaStatus}</td>`
-
-
-//       // 질문 상세
-//       const qnaContentQuestionTd = document.createElement('td');
-//       qnaQuestionTr.appendChild(qnaContentQuestionTd);
-//       qnaContentQuestionTd.setAttribute("style", "text-align: left");
-//       qnaContentQuestionTd.setAttribute("colspan", "4");
-//       qnaContentQuestionTd.innerHTML = `<span>질문</span> <br>
-//                                         <img src="/gorang/resources/uploadfile/qna/product-qna/${qna.qnaPhoto}">
-//                                         <p>${qna.qnaContent}</p>`
-
-//       //만약 답변이 있다면 생성
-//       if(qna.answerNo != 0){
-//         // 답변 상세
-//         const qnaContentAnswerTd = document.createElement('td');
-//         qnaQuestionTr.appendChild(qnaContentAnswerTd);
-//         qnaContentAnswerTd.setAttribute("style", "text-align: left");
-//         qnaContentAnswerTd.setAttribute("colspan", "4");
-//         qnaContentAnswerTd.innerHTML = `${qna.answerContent} <br> ${qna.answerCreateDate}`;
-//       }
-    
-//       //답변 여부 초기화
-//       qnaStatus = "답변대기";
-//     }
-
-//      // 이벤트 핸들러 등록
-//   $(".qna_content_tr").click(function() {
-//     // 현재 보이는 상세 내용 숨기기
-//     $(".qna_content_tr_display").removeClass("qna_content_tr_display").addClass("qna_content_tr_display_none");
-
-//     // 클릭된 요소의 다음 요소(상세 내용) 보이게 하기
-//     $(this).next().removeClass("qna_content_tr_display_none").addClass("qna_content_tr_display");
-//   });
-//       //페이지 처리!!!!!!!!!!!!!!!!!!!!!!!
-// }
-
-//  // 문의하기 모달창 구축하는 메소드
-// function inquireQuestion(opts){
-//   console.log(opts);
-//   // 옵션명 보여줄 셀렉트
-//   const optnameSelect = document.querySelector("#qna_product_name");
-//   // 상품 옵션 불러와서 넣기
-//   for(let opt of opts){
-//      const optnames = document.createElement('option');
-//      optnameSelect.appendChild(optnames);
-//      optnames.setAttribute('value', opt.detailOptionNo);
-//      optnames.innerHTML = opt.detailOptionName;
-//   }
-// }
 
 
 
@@ -664,4 +575,62 @@ function ajaxinsertQnA(data, callback) {
 function goRecipeList(){
   let productNo =element.querySelector("input[type='hidden']").value;
   window.location.href ='detail.po?pno='+productNo;
+}
+
+
+//스크랩 추가
+function scrapGet(element){
+  let memberNo =document.querySelector("input[name='loginMemberNo']").value;
+  let recipeNo = document.querySelector("input[name='loginrecipeNo']").value;
+
+  let data ={
+    memberNo:parseInt(memberNo),
+    recipeNo:parseInt(recipeNo)
+  }
+  if(element.style.color === "1e90ff"){ //스트랩 취소 할 때
+    ajaxdeleteRecipeScrap(data,function(result){
+      document.querySelector("#scrap_area").innerHTML=`
+        <i class="fa-regular fa-bookmark" style="font-size: 45px;"  onclick="scrapGet(this)"></i> 
+        <div id="scrap_value"><strong  class="icon-text-area">${result}</strong></div>
+      `
+    });
+
+  }
+  else { //스트랩 할 때
+    ajaxaddRecipeScrap(data,function(result){
+       document.querySelector("#scrap_area").innerHTML=`
+       <i class="fa-solid fa-bookmark" style="color: #1e90ff; font-size: 45px;"  onclick="scrapGet(this)"></i>
+        <div id="scrap_value"><strong  class="icon-text-area">${result}</strong></div>
+       `
+    })
+  }
+}
+
+//레시피 스크랩 취소
+function ajaxdeleteRecipeScrap(data,callback){
+  $.ajax({
+    url: "deleteRecipeScrap.re",
+    type: "POST",
+    data: data,
+    success: function(result) {
+        callback(result);       
+    },
+    error: function() {
+        alert("문의 작성에 실패했습니다.");
+    }
+  })
+}
+//레시피 스크랩하기
+function ajaxaddRecipeScrap(data,callback){
+  $.ajax({
+    url: "addRecipeScrap.re",
+    type: "POST",
+    data: data,
+    success: function(result) {
+        callback(result);
+    },
+    error: function() {
+        alert("문의 작성에 실패했습니다.");
+    }
+  })
 }

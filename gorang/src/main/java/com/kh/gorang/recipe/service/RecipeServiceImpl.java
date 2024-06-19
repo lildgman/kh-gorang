@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -320,6 +321,43 @@ public class RecipeServiceImpl implements RecipeService{
 	public int addRecipeView(int recipeNo) {
 		 return recipeDao.addRecipeView(sqlSession,recipeNo);
 		
+	}
+
+	
+	//스크랩 조회
+	@Override
+	public int selectRecipeScrap(int recipeNo, int memberNo) {
+		return recipeDao.selectRecipeScrap(sqlSession,recipeNo,memberNo);
+	}
+	//좋아요 조회
+	@Override
+	public int selectRecipeLike(int recipeNo, int memberNo) {
+		return recipeDao.selectRecipeLike(sqlSession,recipeNo,memberNo);
+	}
+
+	//회원 스크랩 상태
+	@Override
+	public int selectCheckRecipeScrap(Map<String, Object> map) {
+		return recipeDao.selectCheckRecipeScrap(sqlSession,map);
+	}
+
+	//회원 좋아요 상태
+	@Override
+	public int selectCheckRecipeLike(Map<String, Object> map) {
+		return recipeDao.selectCheckRecipeLike(sqlSession,map);
+	}
+	
+	
+	//회원 스트랩 추가
+	@Override
+	public int addRecipeScrap(Map<String, Object> map) {
+		return recipeDao.addRecipeScrap(sqlSession,map);
+	}
+	
+	//회원 스트랩 취소
+	@Override
+	public int deleteRecipeScrap(Map<String, Object> map) {
+		return recipeDao.deleteRecipeScrap(sqlSession, map);
 	}
 
 

@@ -1,6 +1,7 @@
 package com.kh.gorang.recipe.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -225,7 +226,31 @@ public class RecipeDao {
 	}
 
 	public int addRecipeView(SqlSessionTemplate sqlSession, int recipeNo) {
-		return sqlSession.update("recipeMapper.addRecipeView");
+		return sqlSession.update("recipeMapper.addRecipeView",recipeNo);
+	}
+
+	public int selectRecipeScrap(SqlSessionTemplate sqlSession, int recipeNo, int memberNo) {
+		return sqlSession.selectOne("recipeMapper.selectRecipeScrap", recipeNo);
+	}
+
+	public int selectRecipeLike(SqlSessionTemplate sqlSession, int recipeNo, int memberNo) {
+		return sqlSession.selectOne("recipeMapper.selectRecipeLike", recipeNo);
+	}
+
+	public int selectCheckRecipeLike(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.selectOne("recipeMapper.selectCheckRecipeLike", map);
+	}
+
+	public int selectCheckRecipeScrap(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.selectOne("recipeMapper.selectCheckRecipeScrap", map);
+	}
+
+	public int addRecipeScrap(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.insert("recipeMapper.addRecipeScrap", map);
+	}
+
+	public int deleteRecipeScrap(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.delete("recipeMapper.deleteRecipeScrap",map);
 	}
 
 

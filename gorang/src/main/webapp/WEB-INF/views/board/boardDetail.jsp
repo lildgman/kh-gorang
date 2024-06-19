@@ -56,10 +56,10 @@
                         <div id="contentBtnWrapper">
 
                             <div id="scrap-div" data-boardNo="${board.boardNo}" data-userNo="${loginUser.memberNo}" onclick="toggleScrapBoard(this)">
-                                <c:if test="${isScrapBoard == 0}">
+                                <c:if test="${checkScrap == 0}">
                                     <i class="fa-regular fa-bookmark"></i>
                                 </c:if>
-                                <c:if test="${isScrapBoard == 1}">
+                                <c:if test="${checkScrap == 1}">
                                     <i class="fa-solid fa-bookmark" style="color: #1e90ff;"></i>
                                 </c:if>
                                 
@@ -68,10 +68,10 @@
 
 
                             <button id="contentLike" data-boardNo="${board.boardNo}" data-userNo="${loginUser.memberNo}" onclick="toggleLikeBoard(this)">
-                                <c:if test="${isLikedBoard == 0}">
+                                <c:if test="${checkLike == 0}">
                                     <i class="fa-regular fa-heart"></i>
                                 </c:if>
-                                <c:if test="${isLikedBoard == 1}">
+                                <c:if test="${checkLike == 1}">
                                     <i class="fa-solid fa-heart" style="color: #d00101;"></i>
                                 </c:if>
                                 <span>${likeBoardCount}</span>

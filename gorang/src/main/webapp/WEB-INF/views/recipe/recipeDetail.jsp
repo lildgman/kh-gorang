@@ -17,6 +17,7 @@
                     crossorigin="anonymous"> -->
                       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
                     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+                    <script src="https://kit.fontawesome.com/68309de260.js" crossorigin="anonymous"></script>
                 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
                     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
                     crossorigin="anonymous"></script>
@@ -53,7 +54,8 @@
                             alt=""><span>${rcp.recipeView}</span>
                     </div>
                 </div>
-
+                <input type="hidden" name="loginMemberNo"  value=${loginUser.memberNo}>
+                <input type="hidden" name="loginrecipeNo" value=${rcp.recipeNo}>
                 <!-- 레시피 내용 전체 -->
                 <div id="recipe-content-total-area">
 
@@ -108,10 +110,37 @@
                                 </div>
 
                                 <div id="recipe-icon">
-                                    <div class="icon-block">공유 <br> 아이콘</div>
-                                    <div class="icon-block">URL <br> 아이콘</div>
-                                    <div class="icon-block">스크랩 <br> 아이콘</div>
+                                    <!-- <div class="icon-block">공유 <br> 아이콘</div> -->
+                                     <div class="icon-area">                   
+                                            <i class="fa-solid fa-eye" style="font-size: 45px;"></i>                                                                                                     
+                                         <div>
+                                             <strong class="icon-text-area">${rcp.recipeView}</strong>
+                                         </div>
+                                     </div>
+                                     <div class="icon-area" id="scrap_area">
+                                        <c:if test="${checkScrap == 0}">
+                                         <i class="fa-regular fa-bookmark" style="font-size: 45px;"  onclick="scrapGet(this)"></i> 
+                                        </c:if>
+                                         <c:if test="${checkScrap == 1}">
+                                            <i class="fa-solid fa-bookmark" style="color: #1e90ff; font-size: 45px;"  onclick="scrapGet(this)"></i>
+                                        </c:if>
+                                         <div id="scrap_value"><strong  class="icon-text-area">${resultScrap}</strong></div>
+                                         
+                                     </div>
+                                     <div class="icon-area" id="like_area">
+                                        <c:if test="${checkLike == 0}">
+                                         <i class="fa-regular fa-heart" style="font-size: 45px;"  onclick="likeGet(this)"></i>
+                                         </c:if>
+                                         <c:if test="${checkLike == 1}">
+                                            <i class="fa-solid fa-heart" style="color: #d00101; font-size: 45px;"   onclick="likeGet(this)"></i>
+                                        </c:if>
+                                         <div id="like_value"><strong  class="icon-text-area">${resultLike}</strong></div>
+                                         
+                                     </div>
                                 </div>
+                                <!-- <div id="recipe-icon-value">
+
+                                </div> -->
 
                                 <div id="recipe-nutrition-info-list-area">
                                     <div id="recipe-nutrition-info-header">
