@@ -39,12 +39,13 @@
  		<typeAlias type="com.kh.gorang.common.model.vo.SearchBoardDTO" alias="SearchBoardDTO"/>
  		<typeAlias type="com.kh.gorang.common.model.vo.SearchProductDTO" alias="SearchProductDTO"/>
  		<typeAlias type="com.kh.gorang.common.model.vo.SearchRecipeDTO" alias="SearchRecipeDTO"/>
- 		<typeAlias type="com.kh.gorang.recipe.model.vo.ScrapRecipe" alias="ScrapRecipe" />
+ 		
  		<typeAlias type="com.kh.gorang.board.model.vo.ScrapBoard" alias="ScrapBoard" />
  		<typeAlias type="com.kh.gorang.board.model.dto.BoardListDTO" alias="BoardListDTO" />
  		<typeAlias type="com.kh.gorang.board.model.dto.CommentListDTO" alias="CommentListDTO" />
  		<typeAlias type="com.kh.gorang.board.model.dto.InsertCommentDTO" alias="InsertCommentDTO" />
  		<typeAlias type="com.kh.gorang.member.model.vo.ScrapProduct" alias="ScrapProduct" />
+ 		<typeAlias type="com.kh.gorang.member.model.vo.ScrapRecipe" alias="ScrapRecipe" />
  		<typeAlias type="com.kh.gorang.member.model.vo.LikeRecipe" alias="LikeRecipe" />
  		<typeAlias type="com.kh.gorang.member.model.vo.LikeBoard" alias="LikeBoard" />
  		<typeAlias type="com.kh.gorang.member.model.vo.MyPageBoardCommentDTO" alias="MyPageBoardCommentDTO" />
