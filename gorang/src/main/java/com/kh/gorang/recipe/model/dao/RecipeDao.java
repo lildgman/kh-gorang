@@ -224,6 +224,10 @@ public class RecipeDao {
 		return sqlSession.selectOne("recipeMapper.selectProductListRandom");
 	}
 
+	public int addRecipeView(SqlSessionTemplate sqlSession, int recipeNo) {
+		return sqlSession.update("recipeMapper.addRecipeView");
+	}
+
 
 
 

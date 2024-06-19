@@ -208,6 +208,7 @@
   		JOIN MEMBER M ON RV.member_no = M.member_no
   		WHERE RV.status ='Y'
   		AND RV.review_type='2'
+  		AND RV.rcp_np = ${recipeNo}
   		ORDER BY RV.review_no DESC
   	</select>	
   	
@@ -515,6 +516,9 @@
 	</update>
   	
   	
+  	<update id="addRecipeView" parameterType="CookTip">
+  		
+  	</update>
   	
   <!--***************  길이    ****************-->	
   <!-- 분류 길이(개수) -->
