@@ -100,7 +100,7 @@
 		FROM BOARD B
 		JOIN MEMBER M ON M.MEMBER_NO = B.MEMBER_NO
 
-		WHERE STATUS = 'Y'
+		<!-- WHERE STATUS = 'Y' -->
 		AND BOARD_NO = #{boardNo}
 	</select>
 

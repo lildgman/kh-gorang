@@ -184,7 +184,11 @@
 	<select id="ajaxSearchProduct" resultMap="productResult">
 		SELECT *
 		FROM PRODUCT
-		WHERE PRODUCT_NAME LIKE '%' || #{searchProductName} || '%'
+		<if test='searchProductName != "*"'>
+			WHERE PRODUCT_NAME LIKE '%' || #{searchProductName} || '%'
+			OR CATEGORY ILIKE '%' || #{searchProductName} || '%'
+		</if>
+		ORDER BY PRODUCT_NO
 	</select>
 	
 	<!-- ajax 상품 옵션 검색 -->
@@ -230,8 +234,14 @@
 	<!-- 상품 검색 결과 개수 조회 -->
 	<select id="selectSearchProductCount" resultType="_int">
 		SELECT COUNT(*)
-		FROM PRODUCT
-		WHERE 
-			PRODUCT_NAME LIKE '%' || #{searchProductName} ||'%'
+		FROM (
+			SELECT *
+			FROM PRODUCT
+			<if test='searchProductName != "*"'>
+				WHERE PRODUCT_NAME ILIKE '%' || #{searchProductName} || '%'
+				OR CATEGORY ILIKE '%' || #{searchProductName} || '%'
+			</if>
+			ORDER BY PRODUCT_NO
+		)
 	</select>
   </mapper>
