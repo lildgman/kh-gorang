@@ -1,10 +1,12 @@
 package com.kh.gorang.member.controller;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +30,7 @@ import com.kh.gorang.member.model.vo.RefrigeratorInsertDTO;
 import com.kh.gorang.member.service.MyPageService;
 import com.kh.gorang.recipe.model.dto.RecipeListDto;
 import com.kh.gorang.shopping.model.vo.OrderPdopt;
+import com.kh.gorang.shopping.model.vo.ProductDetailOption;
 import com.kh.gorang.shopping.service.OrderService;
 
 
@@ -145,9 +148,12 @@ public class TimMyPageController {
 	@ResponseBody
 	@RequestMapping("selectRecipeListByRefri.me")
 	public List<RecipeListDto> selectRecipeListByRefri(String ingreList){
+		Gson gson = new Gson();
 		
-		String[] ingresArray = ingreList.split(",");
-		
+		Type type = new TypeToken<List<String>>(){}.getType();
+				
+		List<String> ingresArray = gson.fromJson(ingreList, type);
+				
 		return myPageService.selectRecipeListByRefri(ingresArray);
 	}
 	

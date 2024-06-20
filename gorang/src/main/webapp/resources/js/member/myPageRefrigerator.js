@@ -578,7 +578,7 @@ function sendIngreByAjax() {
     }
 
     console.log("송신할 데이터: ", ingreData);
-
+    // db 에 저장하는 ajax
     $.ajax({
         url: "insertRefri.me",
         method: "POST",
@@ -657,9 +657,9 @@ function setRecipeModal(){
      document.getElementById("closeModalBtn").addEventListener("click", hideRecipeRecommendModal);
       // 레시피 찾기 모달 모두 체크 버튼 이벤트
      document.querySelector("#modal-recipe-allCheckBox").addEventListener('change', handlerrecipeModalAllCheckChange);
-
+     // 페이지네이션 이벤트
      setPaginationEventListeners("#modal-recipe-pagination", getRefriInfoByAjax, 2);
-    
+    // 추천받을 레시피를 고를 식재료 넣는 이벤트
      recipeModal.querySelector("#completeModalBtn").addEventListener('click', handlerrecipeCompleteBtnClick);
      // 추천 레시피 찾는 이벤트
      recipeModal.querySelector("#findOutRecipeBtn").addEventListener('click', getRecipeByIngre);
@@ -696,7 +696,7 @@ function setSelectedIngreDiv(tempForModalRecipeselectedIngre){
      for (let ingre of tempForModalRecipeselectedIngre) {
         const div = document.createElement('div');
         div.className = 'modal-recipe-ingre';
-        div.innerHTML = `<span class="modal-recipe-ingre-name">${ingre}</span><i class="fa-solid fa-delete-left"></i>`;
+        div.innerHTML = `<span class="modal-recipe-ingre-name">${ingre}</span><i class="fa-solid fa-delete-left"></i>|`;
         selectedIngreContainer.appendChild(div);
     }
 
@@ -764,7 +764,6 @@ function getRecipeByIngre(){
     const selectedIngreList = Array.from(recipeModal.querySelectorAll(".modal-recipe-ingre-name"))
                                     .map(name => {return name.innerHTML});
     
-    console.log(selectedIngreList);
     // 식재료 추가 안했을 경우 예외처리
     if(selectedIngreList < 1){
         alert("추가할 식재료를 체크해주세요.")
@@ -777,10 +776,9 @@ function getRecipeByIngre(){
         success: function(res){
             console.log(res);
             console.log("송신 성공");
-
             saveRecipeNoInLocalStorage(res);
                    
-            location.reload();
+            // location.reload();
         },
         error: function(){
             console.log("송신 실패");
@@ -800,8 +798,8 @@ function getRecommendedRecipeList(key) {
 function saveRecipeNoInLocalStorage(recipes){
     // 로컬스토리지의 키값
     let key = "recommendedRecipe";
-    // 로컬 스토리지 불러오기
-    let localRecipeNoList = getRecommendedRecipeList(key);
+    // 로컬 스토리지 불러오기(필터링됨)
+    let localRecipeNoList = getFilteredLocalRecipeList(key);
 
     // localRecipeNoList가 배열인지 확인
     if (!Array.isArray(localRecipeNoList)) {
@@ -810,14 +808,21 @@ function saveRecipeNoInLocalStorage(recipes){
 
     // 해당 키에 저장할 최대 데이터 갯수
     let maxCount = 10;
+
+    // 저장한 일시 타임스탬프
+    let now = new Date().getTime();
+
+    console.log(localRecipeNoList);
+
     // 받아온 추천 레시피 반복문 돌리기
     for(let recipe of recipes){
         console.log(recipe.recipeNo);
         // 로컬 스토리지에 저장 전에 이미 존재하는 데이터인지 여부 체크
-        let index = localRecipeNoList.indexOf(recipe.recipeNo);
+        let index = localRecipeNoList.indexOf(item => item.recipeNo === recipe.recipeNo);
+        
         // 없다면 리스트에 넣기
         if(index === -1){
-            localRecipeNoList.push(recipe.recipeNo);
+            localRecipeNoList.push({recipeNo: recipe.recipeNo, timestamp: now});
             // 10개가 넘어가면 가장 앞의 데이터 삭제
             if(localRecipeNoList.length > maxCount){
                 localRecipeNoList.shift();
@@ -828,17 +833,36 @@ function saveRecipeNoInLocalStorage(recipes){
      localStorage.setItem(key, JSON.stringify(localRecipeNoList));
 }
 
+function clearOldItems(localRecipeNoList){
+    let now = new Date().getTime();
+    const oneDay = 24 * 60 * 60 * 1000;
+
+    return localRecipeNoList.filter(item => (now - item.timestamp) < oneDay);
+}
+
+/** 로컬스토리지 내 레시피 필터링해서 가져오는 메소드 */
+function getFilteredLocalRecipeList(key){
+    let localRecipeNoList = localStorage.getItem(key);
+
+    if(localRecipeNoList){
+        localRecipeNoList = JSON.parse(localRecipeNoList);
+        localRecipeNoList = clearOldItems(localRecipeNoList);
+    } else {
+        localRecipeNoList = [];
+    }
+    return localRecipeNoList;
+}
+
 /** 로컬 스토리지에 저장된 추천 레시피 no 들로  div 요소 채우는 메소드 */
 function constructRecommendedRecipeDiv(){
-    const recipeNums = localStorage.getItem("recommendedRecipe");
-    if(recipeNums){
+    let localRecipeNoList = getFilteredLocalRecipeList("recommendedRecipe");
+    if(localRecipeNoList > 0){
+        const recipeNums = localRecipeNoList.map(recipe => {return recipe.recipeNo})
         $.ajax({
             url: "selectRecipeListByRecipeNo.me",
             type: "post",
-            data: {recipeNums: recipeNums},
+            data: {recipeNums: JSON.stringify(recipeNums)},
             success: function(res){
-                console.log(res);
-                console.log("송신 성공");
                 // 추천 레시피 div
                 const recommendRecipeDiv = document.querySelector("#recommend-recipe-imgs");
                 recommendRecipeDiv.innerHTML = "";
@@ -855,7 +879,7 @@ function constructRecommendedRecipeDiv(){
                         
                         // 이미지 클릭 시 해당하는 url 로 넘어갈 수 있도록 클릭 이벤트 추가
                         recoRecipe.addEventListener('click', function(){
-                            location.href = ctp + "/detail.re?recipeNo=" + recipe.recipeNo;
+                            location.href = ctp + "/detailForm.re?recipeNo=" + recipe.recipeNo;
                         })
                     };
                 };
