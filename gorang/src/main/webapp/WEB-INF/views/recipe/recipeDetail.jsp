@@ -96,7 +96,7 @@
                                     </div>
                                 </div>
 
-                                <div id="recipe-nutt-info-area">
+                                <!-- <div id="recipe-nutt-info-area">
                                     <div id="nutt-info-area">
                                         <div id="bugerbarimg">
                                             <img src="${contextPath}/resources/dummyImg/recipe/recipeDetail/Vector.png"
@@ -108,7 +108,7 @@
                                                 alt="" id="show-div">
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div id="recipe-icon">
                                     <!-- <div class="icon-block">공유 <br> 아이콘</div> -->
@@ -261,13 +261,13 @@
                     <!-- 완성 사진 영역 -->
                     <div id="review"></div>
                     <div id="complete-cook-image-area">
-                        <span>요리 완성</span>
+                        <span>* 요리 완성사진</span>
                         <div id="carouselExampleFade" class="carousel slide carousel-fade">
                             <div class="carousel-inner">
                                 <c:forEach var="media" items="${recipeInsertDTO.completeFoodPhoto}" varStatus="status">
                                     <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
                                         <img src="${contextPath}/resources/uploadfile/recipe/recipefinal/${media.changeName}"
-                                            class="d-block w-100" alt="...">
+                                            class="d-block w-100" alt="..." style="width: 700px;">
                                     </div>
                                 </c:forEach>
                             </div>
@@ -362,6 +362,7 @@
                                     </div>
                                     <div class="relation-product-brand">${product.productBrand}</div>
                                     <div class="relation-product-title">${product.productName}</div>
+                                    <div class="relation-product-normalPrice">${product.normalPrice}원</div>
                                     <div class="relation-product-ps-size"><span class="relation-product-sale">${product.discountPercent}%</span>
                                         <span class="relation-product-price">${product.salePrice}원</span></div>
                                 </div>
@@ -386,7 +387,7 @@
 
                             <!-- Modal body -->
                             <div class="modal-body" style="height: 100%;">
-                
+                                <div class="modal-qna-content">
                                     <input type="hidden" name="writerNo" id="qna-modal-writerNo" value=${loginUser.memberNo}>
                                     <input type="hidden" name="refRecipeNo" id="qna-modal-refProductNo" value=${rcp.recipeNo}>
                                   
@@ -428,6 +429,7 @@
                                     <div class="product_qna_enroll_btn_container">
                                         <button  class="product_qna_enroll_btn" onclick="insertQnARecipe()">완료</button>
                                     </div>
+                                    </div>
                                 </form>
                             </div>
 
@@ -449,7 +451,7 @@
 
                             <!-- Modal body -->
                             <div class="modal-body" style="height: 100%;">
-                             
+                                    <div class="modal-qna-content">
                                     <input type="hidden" name="refMemberNo" value=${loginUser.memberNo}>
                                     <input type="hidden" name="refRecipeNo" value=${rcp.recipeNo} id="review-modal-refProductNo">
         
@@ -475,6 +477,7 @@
                                         </div>
                                         <input type="hidden" name="rating" id="rating" value="0">
                                     </div>
+                                    
                                     <!-- recipe_pic_container -->
                                     <div class="product_pic_container"> 
                                         <div style="font-size: 14px; font-weight: bold;">
@@ -515,6 +518,7 @@
                                     <div class="product_qna_enroll_btn_container">
                                         <button type="submit" class="product_qna_enroll_btn" onclick="insertReviewRecipe();" >완료</button>
                                     </div>
+                                </div>
                                 </form>
                             </div>
 

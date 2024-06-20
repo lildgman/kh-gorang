@@ -137,26 +137,10 @@
                                 <button type="button">태그 +</button>
                             </div>
                 
-                            <div class="recipe-smaill-block" id="ingredients-1">
-                                <div class="location-btn"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Link.png" alt=""></div>
-                                <div class="igre-name-block"><input name="rcpDivList[0].ingredientsInfoList[1].ingreName" type="text" placeholder="재료명 예)돼지고기"></div>
-                                <div class="igre-amount-block"><input name="rcpDivList[0].ingredientsInfoList[1].ingreAmount" type="text" placeholder="수량"></div>
-                                <div class="igre-unit-block"><input name="rcpDivList[0].ingredientsInfoList[1].ingreUnit" type="text" placeholder="단위"></div>
-                                <div class="delete-btn2" onclick="deleteSmaillBlock(this,0,0)"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" ></div>
-                                <button type="button">태그 +</button>
-                            </div>
-                
-                            <div class="recipe-smaill-block" id="ingredients-2">
-                                <div class="location-btn"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Link.png" alt=""></div>
-                                <div class="igre-name-block"><input name="rcpDivList[0].ingredientsInfoList[2].ingreName" type="text" placeholder="재료명 예)돼지고기"></div>
-                                <div class="igre-amount-block"><input name="rcpDivList[0].ingredientsInfoList[2].ingreAmount" type="text" placeholder="수량"></div>
-                                <div class="igre-unit-block"><input name="rcpDivList[0].ingredientsInfoList[2].ingreUnit" type="text" placeholder="단위"></div>
-                                <div class="delete-btn2" onclick="deleteSmaillBlock(this,0,0)"><img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/Icon.png" alt="" ></div>
-                                <button type="button">태그 +</button>
-                            </div>
+                           
                             <div class="add-igre-btn">                     
-                                <img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/plus.png" alt="" onclick="addBundle(this,0,2)">
-                                <button type="button"  onclick="addBundle(this,0,2)">묶음 추가</button>
+                                <img src="${contextPath}/resources/dummyImg/recipe/recipeWrite/plus.png" alt="" onclick="addBundle(this,0,0)">
+                                <button type="button"  onclick="addBundle(this,0,0)">묶음 추가</button>
                             </div>
                         </div>               
                     </div>
