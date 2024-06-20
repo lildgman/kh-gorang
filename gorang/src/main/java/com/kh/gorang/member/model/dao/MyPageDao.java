@@ -216,7 +216,7 @@ public class MyPageDao {
 	
 	// 스크랩 상품 삭제
 	public int deleteScrapProduct(SqlSessionTemplate sqlSession, Map<String, Object> map) {
-		return sqlSession.update("myPageMapper.deleteScrapProduct", map);
+		return sqlSession.delete("myPageMapper.deleteScrapProduct", map);
 	}
 
 	// 좋아요 레시피 조회
@@ -319,6 +319,10 @@ public class MyPageDao {
 
 	public ArrayList<RecipeListDto> selectRecipeListByRecipeNo(SqlSessionTemplate sqlSession, Integer[] recipeNoArray) {
 		return (ArrayList)sqlSession.selectList("myPageMapper.selectRecipeListByRecipeNo", recipeNoArray);
+	}
+
+	public int decreaseScrapProduct(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.update("myPageMapper.decreaseScrapProduct",map);
 	}
 
 }

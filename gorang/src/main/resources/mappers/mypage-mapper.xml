@@ -619,10 +619,15 @@
 	</select>
 	
 	<!-- 스크랩 상품 삭제 -->
-	<update id="deleteScrapProduct" parameterType="ScrapProduct">
-		UPDATE SCRAP_PRODUCT
-		SET STATUS = 'N'
+	<delete id="deleteScrapProduct" parameterType="ScrapProduct">
+		DELETE FROM SCRAP_PRODUCT
 		WHERE MEMBER_NO = #{memberNo} AND PRODUCT_NO = #{productNo}
+	</delete>
+	
+	<update id="decreaseScrapProduct" parameterType="ScrapProduct">
+		UPDATE PRODUCT
+		SET SCRAP_COUNT = SCRAP_COUNT - 1
+		WHERE PRODUCT_NO = #{productNo}
 	</update>
 
 	

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.gorang.common.model.vo.PageInfo;
 import com.kh.gorang.member.model.vo.QnA;
 import com.kh.gorang.member.model.vo.Review;
+import com.kh.gorang.shopping.model.dto.ScrapBoardDTO;
 import com.kh.gorang.shopping.model.vo.Product;
 import com.kh.gorang.shopping.model.vo.ProductDetailOption;
 import com.kh.gorang.shopping.model.vo.ProductInsertDTO;
@@ -100,6 +101,30 @@ public class ProductDao {
 
 	public int selectQnasCount(SqlSessionTemplate sqlSession, int productNo) {
 		return sqlSession.selectOne("productMapper.selectQnasCount", productNo);
+	}
+
+	public int increaseProductViews(SqlSessionTemplate sqlSession, int productNo) {
+		return sqlSession.update("productMapper.increaseProductViews",productNo);
+	}
+
+	public int existScrapProduct(SqlSessionTemplate sqlSession, ScrapBoardDTO scrapBoardDTO) {
+		return sqlSession.selectOne("productMapper.existScrapProduct", scrapBoardDTO);
+	}
+
+	public int insertScrapProduct(SqlSessionTemplate sqlSession, ScrapBoardDTO scrapBoardDTO) {
+		return sqlSession.insert("productMapper.insertScrapProduct", scrapBoardDTO);
+	}
+
+	public static int deleteScrapProduct(SqlSessionTemplate sqlSession, ScrapBoardDTO scrapBoardDTO) {
+		return sqlSession.delete("productMapper.deleteScrapProduct", scrapBoardDTO);
+	}
+
+	public int increaseScrapCount(SqlSessionTemplate sqlSession, ScrapBoardDTO scrapBoardDTO) {
+		return sqlSession.update("productMapper.increaseScrapCount", scrapBoardDTO);
+	}
+
+	public int decreaseScrapCount(SqlSessionTemplate sqlSession, ScrapBoardDTO scrapBoardDTO) {
+		return sqlSession.update("productMapper.decreaseScrapCount", scrapBoardDTO);
 	}
 
 
