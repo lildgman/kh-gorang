@@ -177,8 +177,6 @@ function refreDeleteOnClick(){
     .filter(checkbox => checkbox.checked)
     .map(checkbox => parseInt(checkbox.closest("tr").querySelector(".refri-main-td-refName").getAttribute("data-value")));
 
-    console.log(ingresFordelete);
-
     $.ajax({
         url: "deleteRefriIngre.me",
         data: {refriNums: JSON.stringify(ingresFordelete)},
@@ -243,7 +241,6 @@ function handleModalAllCheckboxChange(){
 
 // 식재료 추가하기 모달창 표시 / 숨김
 function viewModal2() {
-    console.log('클릭됨');
     modalIngre.style.display = "block";
 }
 
@@ -279,8 +276,6 @@ function getFoodAndNutriAjax(cpage) {
     // 공백제거
     const foodNameVl = document.querySelector("#refri-input-foodName").value.replace(/\s+/g, '');;
     const makerVl = document.querySelector("#refri-input-maker").value.replace(/\s+/g, '');;
-
-    console.log("식품명: ", foodNameVl);
 
     $.ajax({
         url: "food.me",
@@ -535,9 +530,7 @@ function sendIngreByAjax() {
             
                         // 소비기한
                         let refConsumptionDate = modalIngrediTr.querySelector("input[name='refConsumptionDate']").value;
-                        
-                        console.log(refConsumptionDate);
-            
+                                    
                         // 소비기한 미입력 시 현재 날짜에 7일을 더 해줌
                         let refConsumptionDateFormat;
                         if (!refConsumptionDate) {
@@ -577,7 +570,6 @@ function sendIngreByAjax() {
         return;
     }
 
-    console.log("송신할 데이터: ", ingreData);
     // db 에 저장하는 ajax
     $.ajax({
         url: "insertRefri.me",
@@ -774,7 +766,6 @@ function getRecipeByIngre(){
         data: {ingreList: JSON.stringify(selectedIngreList)},
         contentType: "application/json; charset-utf-8",
         success: function(res){
-            console.log(res);
             console.log("송신 성공");
             saveRecipeNoInLocalStorage(res);
                    
@@ -812,14 +803,10 @@ function saveRecipeNoInLocalStorage(recipes){
     // 저장한 일시 타임스탬프
     let now = new Date().getTime();
 
-    console.log(localRecipeNoList);
-
     // 받아온 추천 레시피 반복문 돌리기
     for(let recipe of recipes){
-        console.log(recipe.recipeNo);
         // 로컬 스토리지에 저장 전에 이미 존재하는 데이터인지 여부 체크
         let index = localRecipeNoList.indexOf(item => item.recipeNo === recipe.recipeNo);
-        
         // 없다면 리스트에 넣기
         if(index === -1){
             localRecipeNoList.push({recipeNo: recipe.recipeNo, timestamp: now});
@@ -856,7 +843,7 @@ function getFilteredLocalRecipeList(key){
 /** 로컬 스토리지에 저장된 추천 레시피 no 들로  div 요소 채우는 메소드 */
 function constructRecommendedRecipeDiv(){
     let localRecipeNoList = getFilteredLocalRecipeList("recommendedRecipe");
-    if(localRecipeNoList > 0){
+    if(localRecipeNoList.length > 0){
         const recipeNums = localRecipeNoList.map(recipe => {return recipe.recipeNo})
         $.ajax({
             url: "selectRecipeListByRecipeNo.me",
