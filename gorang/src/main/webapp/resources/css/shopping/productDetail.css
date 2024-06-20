@@ -1,3 +1,8 @@
+table{
+  table-layout:fixed;
+  width: 100%;
+}
+
 #product-detail-container {
   margin: 50px auto;
   display:flex;
@@ -451,6 +456,11 @@
 
 /* qna */
 
+.display-row{
+  display: flex;
+  flex-direction: row;
+}
+
 #product_qna_area{
   width: 100%;
   display: flex;
@@ -473,6 +483,7 @@
 #qna_content tr {
   border-top: 1px solid #CECECD;
   border-bottom: 1px solid #CECECD;
+  width: 741px;
 }
 
 #qna_content  td{
@@ -519,6 +530,26 @@
   margin-left: 50px;
   font-size: 14px;
   color: #cececd;
+}
+
+.qna-content-container{
+  gap: 20px;
+}
+
+.qna-content-container img{
+  height: 200px;
+}
+
+.qna-content-wrapper{
+  word-break: break-all;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.qna-content-kind{
+    color: #1E90FF;
+    font-size: 20px;
 }
 
 .qna_content_tr_display{
@@ -583,6 +614,20 @@
   gap: 10px;
 }
 
+.product-qna-btn{
+  background-color: #1E90FF;
+}
+
+.product-qna-answer-btn{
+  border: 1px solid #1E90FF;
+  color: #1E90FF;
+  font-size: 14px;
+  height: 30px;
+  width: 60px;
+  z-index: 1;
+}
+
+
 #product_qna_content {
   padding: 16px;
   width: 100%;
@@ -591,6 +636,10 @@
   resize: none;
   border: 1px solid #dbdbdb;
   border-radius: 4px;
+}
+
+.product-qna-answer-btn{
+
 }
 
 #product_qna_enroll_btn_container {
@@ -613,6 +662,10 @@
   width: 100px;
   height: 100px;
   display: none;
+}
+
+#qna_pic_container > img{
+  height: 100px;
 }
 
 #qna-img {
