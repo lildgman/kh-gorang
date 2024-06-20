@@ -320,5 +320,7 @@ public class MyPageDao {
 	public ArrayList<RecipeListDto> selectRecipeListByRecipeNo(SqlSessionTemplate sqlSession, Integer[] recipeNoArray) {
 		return (ArrayList)sqlSession.selectList("myPageMapper.selectRecipeListByRecipeNo", recipeNoArray);
 	}
+	
+
 
 }

@@ -145,12 +145,14 @@
 		<result column="SCRAP_RECIPE_DATE" property="scrapDate"/>
   	</resultMap>
   	
+
+  	
+  	
 	 <!-- 레시피 찾기 -->
 	 <select id="selectRecipe" resultMap="recipeResult">
 	   SELECT rcp_no,
 	         rcp_title,
 	         rcp_content, 
-	         rcp_video,
 	         rcp_main_photo, 
 	         rcp_tag,
 	         cook_amount, 
@@ -158,7 +160,9 @@
 	         cook_kind, 
 	         cook_level, 
 	         rcp_view,
+	         rcp_video,
 	         member_no
+	        
 	  FROM RECIPE
 	  WHERE STATUS = 'Y'
 	    AND rcp_no = #{rcpNo}
@@ -328,25 +332,31 @@
 		        rcp_title,
 				rcp_content, 
 				rcp_main_photo,
-				rcp_video, 
 				rcp_tag,
 				cook_amount, 
 				cook_time, 
 				cook_kind, 
 				cook_level, 
-				member_no
+				member_no,
+				rcp_video 
 			) 
 			VALUES (
 		        #{recipeTitle},
 		        #{recipeContent},
 		        #{recipeMainPhoto},
-		        #{recipeVideo},
 		        #{recipeTag},
 		        #{cookAmount},
 		        #{cookTime},
 		        #{cookKind},
 		        #{cookLevel},
-				#{memberNo}
+				#{memberNo},
+				CASE
+		        WHEN position('?' in #{recipeVideo}) > 0 THEN
+		            'https://www.youtube.com/embed/' || substring(split_part(#{recipeVideo}, '?', 1) from 17)
+		        ELSE
+		            'https://www.youtube.com/embed/' || substring(#{recipeVideo} from 17)
+		    	END
+		
 	    )
 	     RETURNING *
 	</select>
@@ -481,13 +491,18 @@
 	        rcp_title = #{recipeTitle},
 	        rcp_content = #{recipeContent},
 	        rcp_main_photo = #{recipeMainPhoto},
-	        rcp_video = #{recipeVideo},
 	        rcp_tag = #{recipeTag},
 	        cook_amount = #{cookAmount},
 	        cook_time = #{cookTime},
 	        cook_kind = #{cookKind},
 	        cook_level = #{cookLevel},
-	        member_no = #{memberNo}
+	        member_no = #{memberNo},
+	        rcp_video = CASE
+	        WHEN position('?' in #{recipeVideo}) > 0 THEN
+	            'https://www.youtube.com/embed/' || substring(split_part(#{recipeVideo}, '?', 1) from 17)
+	        ELSE
+	            'https://www.youtube.com/embed/' || substring(#{recipeVideo} from 17)
+	    	END
 	    WHERE
         rcp_no = #{recipeNo}
 	</update>
