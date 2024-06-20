@@ -83,6 +83,11 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <tr class="member-tr">
+                                <td align="center" colspan="5">
+                                    사용자의 닉네임이나 계정으로 검색해주세요.
+                                </td>
+                            </tr>
                             <!-- <tr class="member-tr">
                                 <td align="center">
                                     <input type="checkbox" class="check-member">
