@@ -15,6 +15,7 @@ import com.kh.gorang.common.model.vo.PageInfo;
 import com.kh.gorang.member.model.vo.QnA;
 import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.shopping.model.dao.ProductDao;
+import com.kh.gorang.shopping.model.dto.ScrapBoardDTO;
 import com.kh.gorang.shopping.model.vo.Product;
 import com.kh.gorang.shopping.model.vo.ProductDetailOption;
 import com.kh.gorang.shopping.model.vo.ProductInsertDTO;
@@ -22,6 +23,7 @@ import com.kh.gorang.shopping.model.vo.ProductInsertDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService{
@@ -76,7 +78,15 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public Product selectProductByProductNo(int productNo) {
-		return productDao.selectProductByProductNo(sqlSession, productNo);
+		
+		Product product = null;
+		int increaseProductViews = productDao.increaseProductViews(sqlSession, productNo);
+		
+		if(increaseProductViews > 0) {
+			product = productDao.selectProductByProductNo(sqlSession, productNo);
+		}
+		
+		return product;
 	}
 
 	@Override
@@ -126,6 +136,42 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public int selectQnasCount(int productNo) {
 		return productDao.selectQnasCount(sqlSession, productNo);
+	}
+
+
+	@Override
+	public int insertScrapProduct(ScrapBoardDTO scrapBoardDTO) {
+		
+		int existScrapProduct = productDao.existScrapProduct(sqlSession, scrapBoardDTO);
+		
+		log.info("existScrapProduct={}", existScrapProduct);
+		
+		if(existScrapProduct == 0) {
+			int insertScrapProduct = productDao.insertScrapProduct(sqlSession, scrapBoardDTO);
+			
+			if(insertScrapProduct > 0) {
+				return 2;
+			}
+		} else {
+			int deleteScrapProduct = ProductDao.deleteScrapProduct(sqlSession, scrapBoardDTO);
+			
+			if(deleteScrapProduct > 0) {
+				return 1;
+			}
+		}
+		
+		return 0;
+	}
+
+
+	@Override
+	public int existScrapProduct(ScrapBoardDTO scrapBoardDTO) {
+		
+		int result = productDao.existScrapProduct(sqlSession, scrapBoardDTO);
+		log.info("scrapBoardDTO={}", scrapBoardDTO);
+		log.info("result={}", result);
+		
+		return result;
 	}
 
 

@@ -216,7 +216,7 @@ public class MyPageDao {
 	
 	// 스크랩 상품 삭제
 	public int deleteScrapProduct(SqlSessionTemplate sqlSession, Map<String, Object> map) {
-		return sqlSession.update("myPageMapper.deleteScrapProduct", map);
+		return sqlSession.delete("myPageMapper.deleteScrapProduct", map);
 	}
 
 	// 좋아요 레시피 조회

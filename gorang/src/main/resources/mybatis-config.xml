@@ -34,6 +34,8 @@
  		
  		<typeAlias type="com.kh.gorang.shopping.model.vo.Order" alias="Order"/>
  		<typeAlias type="com.kh.gorang.shopping.model.vo.OrderPdopt" alias="OrderPdopt"/>
+ 		
+ 		<typeAlias type="com.kh.gorang.shopping.model.dto.ScrapBoardDTO" alias="ScrapBoardDTO"/>
  
  		<typeAlias type="com.kh.gorang.common.model.vo.Media" alias="Media"/>
  		<typeAlias type="com.kh.gorang.common.model.vo.SearchBoardDTO" alias="SearchBoardDTO"/>

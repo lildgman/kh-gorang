@@ -69,6 +69,12 @@
 		<result column="member_no" property="writerNo"/>
 	</resultMap>
 	
+	<!-- 스크랩 DTO -->
+	<resultMap type="ScrapBoardDTO" id="scrapBoardDTOResult">
+		<result column="PRODUCT_NO" property="productNo"/>
+		<result column="MEMBER_NO" property="memberNo"/>
+	</resultMap>
+	
     
     <!-- 가장 많이 팔린 상품 조회 -->
     <select id="selectBestSellerList" resultMap="productResult">
@@ -361,5 +367,35 @@
 		where status = 'Y'
 		and product_no = #{productNo}
 	</select>
+	
+	<!-- 상품 조회수 증가 쿼리 -->
+	<update id="increaseProductViews" parameterType="_int">
+		UPDATE PRODUCT
+		SET PRODUCT_VIEW = PRODUCT_VIEW + 1
+		WHERE PRODUCT_NO = #{productNo}
+	</update>
+  
+  	<select id="existScrapProduct" parameterType="ScrapBoardDTO" resultType="_int">
+  		SELECT COUNT(*)
+  		FROM SCRAP_PRODUCT
+  		WHERE 
+  			PRODUCT_NO = #{productNo}
+  			AND MEMBER_NO = #{memberNo}
+  	</select>
+  	
+  	<insert id="insertScrapProduct" parameterType="ScrapBoardDTO">
+  		INSERT INTO SCRAP_PRODUCT (
+  			PRODUCT_NO,
+  			MEMBER_NO
+  		) VALUES (
+  			#{productNo},
+  			#{memberNo}
+  		)
+  	</insert>
+  	
+  	<delete id="deleteScrapProduct" parameterType="ScrapBoardDTO">
+  		DELETE FROM SCRAP_PRODUCT
+  		WHERE PRODUCT_NO = #{productNo} AND MEMBER_NO = #{memberNo}
+  	</delete>
   
   </mapper>

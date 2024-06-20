@@ -646,18 +646,43 @@ function inquireQuestion(opts){
 //찜버튼 눌렀을 때 발생하는 이벤트
 function clickZzim() {
 
-  let zzimStatus = false;
-
+  const productNo = document.querySelector('#product-no').value;
+  const memberNo = document.querySelector('#member-no').value;
   const zzim = document.querySelector("#zzim");
   zzim.addEventListener("click", function () {
 
-    if (!zzimStatus) {
-      zzim.innerHTML = `<i class="fa-solid fa-heart fa-xl" style="color: #ff0000;"></i>`;
-      zzimStatus = true;
-    } else {
-      zzim.innerHTML = `<i class="fa-regular fa-heart fa-xl"></i>`;
-      zzimStatus = false;
-    }
+    $.ajax({
+      url: 'scrap.po',
+      type: 'post',
+      data: {
+        productNo: productNo,
+        memberNo: memberNo
+      },
+      success: function(res) {
+          if (res === 'cancle_scrap') {
+            alert("스크랩을 취소하셨습니다.");
+        } else if (res === 'do_scrap') {
+            alert("스크랩을 완료하였습니다.")
+        } else {
+            alert("스크랩을 실패하였습니다.");
+        }
+
+        window.location.reload();
+      },
+      error: function() {
+        console.log("상품 스크랩 기능 api 호출 실패")
+      }
+
+    })
+
+
+    // if (!zzimStatus) {
+    //   zzim.innerHTML = `<i class="fa-solid fa-heart fa-xl" style="color: #ff0000;"></i>`;
+    //   zzimStatus = true;
+    // } else {
+    //   zzim.innerHTML = `<i class="fa-regular fa-heart fa-xl"></i>`;
+    //   zzimStatus = false;
+    // }
   })
 }
 

@@ -40,6 +40,7 @@
 
                 <!-- 상품 간략 정보-->
                 <div id="productInfo-area">
+                    <input type="hidden" id="member-no" value="${loginUser.memberNo}">
                     <input type="hidden" id="product-no" value="${p.productNo}">
                     <div id="product-img-container">
                         <img class="product-thumbnail" src="${contextPath }/resources/uploadfile/product/productimg/${p.mainImg}"
@@ -52,7 +53,14 @@
                         <div id="product_name_area">
                             <span id="product_name">${p.productName}</span>
                             <span id="zzim">
-                                <i class="fa-regular fa-heart fa-xl"></i>
+                                <c:choose>
+                                    <c:when test="${existScrapProduct > 0}">
+                                        <i class="fa-solid fa-heart fa-xl" style="color: #ff0000;"></i>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <i class="fa-regular fa-heart fa-xl"></i>
+                                    </c:otherwise>
+                                </c:choose>
                             </span>
                         </div>
                         <div id="product_grade_area">
