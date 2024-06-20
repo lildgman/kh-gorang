@@ -82,7 +82,7 @@ public class StoreController {
 	public String storeList(
 				@RequestParam(defaultValue="1") int cpage,
 				@RequestParam(defaultValue="all") String category,
-				@RequestParam(defaultValue="default") String sort,
+				@RequestParam(defaultValue="new") String sort,
 				@RequestParam(defaultValue="") String content,
 				Model model) {
 		
