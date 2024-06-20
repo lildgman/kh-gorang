@@ -147,8 +147,9 @@
 											<div class="commonContentInfoBox">
 												<div class="commonContentTitle"><span>${board.boardTitle }</span></div>
 												<div class="commonContentWriter">
-													<div class="commonContentWriterImg"><img
-															src="<%= request.getContextPath() %>/resources/uploadfile/memberProfile/${memberProfileImg}">
+													<div class="commonContentWriterImg">
+														<img
+															src="<%= request.getContextPath() %>/resources/uploadfile/memberProfile/${board.memberProfileImg}">
 													</div>
 													<span>${board.memberNickname }</span>
 												</div>
