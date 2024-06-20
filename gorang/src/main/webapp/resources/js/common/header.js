@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function search(value) {
     // alert(value);
-    if(value=== "") {
+    if(value.trim()=== "") {
         return;
     }
 

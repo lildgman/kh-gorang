@@ -59,10 +59,10 @@ function movePage(element) {
   const cpage = element.getAttribute('data-cpage');
   const searchMember = element.getAttribute('data-searchMember');
 
-  ajaxSearchBoard(cpage,searchMember);
+  paginationSearchBoard(cpage,searchMember);
 }
 
-function ajaxSearchBoard(cpage,searchMember) {
+function paginationSearchBoard(cpage,searchMember) {
   $.ajax({
     url: 'search-member.ma',
     type: 'get',

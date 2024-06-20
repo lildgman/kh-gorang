@@ -108,11 +108,11 @@ function movePage(element) {
   const cpage = element.getAttribute('data-cpage');
   const searchProductName = element.getAttribute('data-searchProductName');
 
-  ajaxSearchProduct(cpage,searchProductName);
+  paginationSearchProduct(cpage,searchProductName);
 
 }
 
-function ajaxSearchProduct(cpage,searchProductName) {
+function paginationSearchProduct(cpage,searchProductName) {
   const tbody = $('.product-table tbody');
   tbody.empty();
   $.ajax({
