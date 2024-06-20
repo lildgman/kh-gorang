@@ -11,7 +11,7 @@ body {
 /* body전체 영역 */
 #body-area {
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     margin: 80px 340px;
     display: flex;
 }
