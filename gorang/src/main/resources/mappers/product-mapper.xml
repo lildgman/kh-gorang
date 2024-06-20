@@ -164,13 +164,13 @@
 	    			AND CATEGORY LIKE '유제품'
 	    		</if>
 	    	<if test='sort == "new"'>
-	    		ORDER BY PRODUCT_DATE DESC
+	    		ORDER BY PRODUCT_DATE DESC, PRODUCT_NO DESC
 	    	</if>
 	    	<if test='sort == "view"'>
-	    		ORDER BY PRODUCT_VIEW DESC
+	    		ORDER BY PRODUCT_VIEW DESC, PRODUCT_NO DESC
 	    	</if>
 	    	<if test='sort == "scrap"'>
-	    		ORDER BY SCRAP_COUNT DESC
+	    		ORDER BY SCRAP_COUNT DESC, PRODUCT_NO DESC
 	    	</if>
      	)
      </select>
@@ -214,13 +214,13 @@
 	   			AND CATEGORY LIKE '%유제품%'
 	   		</if>
 	   	<if test='sort == "new"'>
-	   		ORDER BY PRODUCT_DATE DESC
+	   		ORDER BY PRODUCT_DATE DESC,PRODUCT_NO DESC
 	   	</if>
 	   	<if test='sort == "view"'>
-	   		ORDER BY PRODUCT_VIEW DESC
+	   		ORDER BY PRODUCT_VIEW DESC,PRODUCT_NO DESC
 	   	</if>
 	   	<if test='sort == "scrap"'>
-	   		ORDER BY SCRAP_COUNT DESC
+	   		ORDER BY SCRAP_COUNT DESC,PRODUCT_NO DESC
 	   	</if>
      </select>
     
