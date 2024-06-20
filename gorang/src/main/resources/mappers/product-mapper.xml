@@ -393,9 +393,23 @@
   		)
   	</insert>
   	
+  	<update id="increaseScrapCount" parameterType="ScrapBoardDTO">
+  		UPDATE PRODUCT
+  		SET SCRAP_COUNT = SCRAP_COUNT + 1
+  		WHERE PRODUCT_NO = #{productNo}
+  	</update>
+  	
   	<delete id="deleteScrapProduct" parameterType="ScrapBoardDTO">
   		DELETE FROM SCRAP_PRODUCT
   		WHERE PRODUCT_NO = #{productNo} AND MEMBER_NO = #{memberNo}
   	</delete>
+  	
+  	<update id="decreaseScrapCount" parameterType="ScrapBoardDTO">
+  		UPDATE PRODUCT
+  		SET SCRAP_COUNT = SCRAP_COUNT - 1
+  		WHERE PRODUCT_NO = #{productNo}
+  	</update>
+  	
+  	
   
   </mapper>

@@ -268,7 +268,19 @@ public class MyPageServiceImpl implements MyPageService{
 	// 스크랩 상품 삭제
 	@Override
 	public int deleteScrapProduct(Map<String, Object> map) {
-		return myPageDao.deleteScrapProduct(sqlSession, map);
+		
+		int deleteScrapProductResult =  myPageDao.deleteScrapProduct(sqlSession, map);
+		int decreaseScrapProduct = 0;
+		
+		if (deleteScrapProductResult > 0) {
+			decreaseScrapProduct = myPageDao.decreaseScrapProduct(sqlSession, map);
+			
+			if(decreaseScrapProduct > 0 ) {
+				return deleteScrapProductResult * decreaseScrapProduct;
+			}
+		}
+		
+		return 0;
 	}
 
 	// 좋아요 레시피 조회

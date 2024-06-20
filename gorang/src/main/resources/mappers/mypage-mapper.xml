@@ -623,6 +623,12 @@
 		DELETE FROM SCRAP_PRODUCT
 		WHERE MEMBER_NO = #{memberNo} AND PRODUCT_NO = #{productNo}
 	</delete>
+	
+	<update id="decreaseScrapProduct" parameterType="ScrapProduct">
+		UPDATE PRODUCT
+		SET SCRAP_COUNT = SCRAP_COUNT - 1
+		WHERE PRODUCT_NO = #{productNo}
+	</update>
 
 	
 	<!-- 좋아요 레시피 조회 -->

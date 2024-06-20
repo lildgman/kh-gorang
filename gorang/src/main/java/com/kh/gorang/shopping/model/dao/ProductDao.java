@@ -119,5 +119,13 @@ public class ProductDao {
 		return sqlSession.delete("productMapper.deleteScrapProduct", scrapBoardDTO);
 	}
 
+	public int increaseScrapCount(SqlSessionTemplate sqlSession, ScrapBoardDTO scrapBoardDTO) {
+		return sqlSession.update("productMapper.increaseScrapCount", scrapBoardDTO);
+	}
+
+	public int decreaseScrapCount(SqlSessionTemplate sqlSession, ScrapBoardDTO scrapBoardDTO) {
+		return sqlSession.update("productMapper.decreaseScrapCount", scrapBoardDTO);
+	}
+
 
 }
