@@ -86,42 +86,32 @@ document.addEventListener("DOMContentLoaded", function(){
   
   // 문의하기 버튼 클릭 이벤트
 
-  // let num=document.querySelector("input[name='loginMemberNo']").value !== ""
-  //   const qnaButton = document.querySelector("#btn_qna");
-  //   qnaButton.addEventListener("click", function(){
-  //     if(num){
-  //       console.log("체크됨");
-  //       fillQnaModal();
-  //     }else{
-  //       let result =confirm("로그인 후 작성 가능합니다! 로그인하러 가시겠습니까?");
-  //       if(result){
-  //         window.location.href = `loginForm.me`;
-  //       }else{
-  //         console.log("로그인 취소");
-  //         $('#buyList-review_Modal').modal('hidden');
-  //       }
-  //     }
-  //   });
-  //   // alert("로그인 후 이용가능한 서비스입니다.")
-  //   // window.location.href = `loginForm.me`;
-  //   // 후기작성 버튼 클릭 이벤트
-  //   const reviewButtons = document.querySelector(".tbody-td-btn-write");
-  //   reviewButtons.addEventListener("click", function(){   
-  //     if(num){
-  //     console.log("체크됨리뷰");
-  //           fullReviewModal();
-  //           setRatingStar();
-  //     }else{
-  //       let result =confirm("로그인 후 작성 가능합니다. 로그인하러 가시겠습니까?");
-  //       if(result){
-  //         window.location.href = `loginForm.me`;
-  //       }else{
-  //         console.log("로그인 취소");
-  //         $('#qna_Modal').modal('hidden');
+  let num=document.querySelector("input[name='loginMemberNo']").value !== ""
+    const qnaButton = document.querySelector("#btn_qna");
+    qnaButton.addEventListener("click", function(){
+      if(num){
+        console.log("체크됨");
+        fillQnaModal();
+      }else{
       
-  //       }
-  //     }
-  //   });
+           alert("로그인 후 이용가능한 서비스입니다.")
+           window.location.href = `loginForm.me`;
+      }
+    });
+    // alert("로그인 후 이용가능한 서비스입니다.")
+    // window.location.href = `loginForm.me`;
+    // 후기작성 버튼 클릭 이벤트
+    const reviewButtons = document.querySelector(".tbody-td-btn-write");
+    reviewButtons.addEventListener("click", function(){   
+      if(num){
+      console.log("체크됨리뷰");
+            fullReviewModal();
+            setRatingStar();
+      }else{
+        alert("로그인 후 이용가능한 서비스입니다.")
+        window.location.href = `loginForm.me`;
+      }
+    });
         
 });
 
@@ -179,11 +169,16 @@ function putRecipeReviewList(res, contextPath) {
                                   <!-- |
                                   <span class="updateComments"> 수정</span> |
                                   <span class="deleteComents">삭제</span> </span></div> -->
-                                  </span></div>
+                                  </span>
+                          </div>
                           <div class="star_rating">
                               ${stars}
                           </div>
-                      </div>
+                          </div>
+                          <div class="commentEdit">
+                             <!-- <span class="updateComments"> 수정</span> |
+                                  <span class="deleteComents" onclick="deleteReview(this)">삭제</span> </span></div>  -->
+                          </div>
                   </div>
                   ${rv.reviewPhoto ? `
                   <div id="review_img_container">
@@ -216,7 +211,7 @@ function putRecipeQnAList( res) {
           if (qna.qnaAnswerType == 1) {
               qnaContentHtml += `
                   <tr class="${qna.answerNo != 0 ? 'qna-area-hover' : 'qna-area'}" onclick="showQ(this)" data-answerno="${qna.answerNo}">                                           
-                      <td class="qna_title" style="text-align: left;">${qna.qnaContent}</td>
+                      <td class="qna_title">${qna.qnaContent}</td>
                       <td class="qna_writer">${qna.writerNickname}</td>
                       <td class="qna_create_date">${qna.qnaCreateDate}</td>
                       <td class="qna_status">${qna.answerNo != 0 ? '답변 완료' : '답변 대기'}</td>
@@ -226,7 +221,7 @@ function putRecipeQnAList( res) {
               if (qna.answerNo != 0) {
                   qnaContentHtml += `
                       <tr class="answer_area" style="display: none;">
-                          <td colspan="4" style="text-align: left;">
+                          <td colspan="4" >
                               <div id="qna_q">
                                   <span class="span_q_a">Q</span><span>${qna.qnaContent}</span>
                                   <div id="review_img_container">
@@ -541,13 +536,13 @@ function insertQnARecipe() {
               <div class="qna-blocks">
                   <input type="hidden" value="${qnaData.answerNo}">
                   <tr class="qna-area-hover" onclick="showQ(this)" data-answerno="${qnaData.answerNo}">                                           
-                      <td class="qna_title" style="text-align: left;">${qnaData.qnaContent}</td>
+                      <td class="qna_title" ">${qnaData.qnaContent}</td>
                       <td class="qna_writer">${qnaData.writerNickname}</td>
                       <td class="qna_create_date">${qnaData.qnaCreateDate}</td>
                       <td class="qna_status">답변 완료</td>
                   </tr>                                                                                   
                   <tr class="answer_area" style="display: none;">
-                      <td colspan="4" style="text-align: left;">
+                      <td colspan="4" ">
                           <div id="qna_q">
                               <span class="span_q_a">Q</span><span>${qnaData.qnaContent}</span>
                               <div id="review_img_container">
@@ -566,7 +561,7 @@ function insertQnARecipe() {
               <div class="qna-blocks">
                   <input type="hidden" value="${qnaData.qnaNo}">
                   <tr class="qna-area" onclick="showQ(this)" data-answerno="${qnaData.answerNo}">                                           
-                      <td class="qna_title" style="text-align: left;">${qnaData.qnaContent}</td>
+                      <td class="qna_title" ">${qnaData.qnaContent}</td>
                       <td class="qna_writer">${qnaData.writerNickname}</td>
                       <td class="qna_create_date">${qnaData.qnaCreateDate}</td>
                       <td class="qna_status">답변 대기</td>
@@ -699,6 +694,17 @@ function likeGet(element){
   }
 }
 
+//리뷰삭제
+function deleteReview(){
+  
+}
+//레시피 REVIEW 삭제하는 ajax
+function deleteReview(data,callback){
+
+}
+
+
+
 
 //레시피 좋아요 취소
 function ajaxdeleteRecipeLike(data,callback){
@@ -728,6 +734,8 @@ function ajaxaddRecipeLike(data,callback){
     }
   })
 }
+
+
 
 // ======================== 네비게이션 및 페이지 이동 =========================
 
