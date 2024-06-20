@@ -117,6 +117,7 @@
 	
 	<!-- 상품 문의 DTO -->
 	<resultMap type="ProductQnaDTO" id="productQnaDTOResult">
+		<result column="QNA_NO" property="qnaNo"/>
 		<result column="QNA_CONTENT" property="qnaContent"/>
 		<result column="QNA_CREATE_DATE" property="qnaCreateDate"/>
 		<result column="STATUS" property="status"/>
@@ -130,6 +131,7 @@
 	
 	<!-- 레시피 문의 DTO -->
 	<resultMap type="RecipeQnaDTO" id="recipeQnaDTOResult">
+		<result column="QNA_NO" property="qnaNo"/>
 		<result column="QNA_CONTENT" property="qnaContent"/>
 		<result column="QNA_CREATE_DATE" property="qnaCreateDate"/>
 		<result column="STATUS" property="status"/>
@@ -716,6 +718,7 @@
 		SELECT COUNT(*)
 		FROM (
 			SELECT 
+				Q.QNA_NO,
 				Q.QNA_CONTENT,
 				Q.QNA_CREATE_DATE,
 				Q.STATUS,
@@ -741,6 +744,7 @@
 	<!-- 상품 qna 조회 -->
 	<select id="selectProductQnaList" resultMap="productQnaDTOResult">
 		SELECT 
+			Q.QNA_NO,
 			Q.QNA_CONTENT,
 			Q.QNA_CREATE_DATE,
 			Q.STATUS,
@@ -767,6 +771,7 @@
 		SELECT COUNT(*)
 		FROM (
 			SELECT 
+				Q.QNA_NO,
 				Q.QNA_CONTENT,
 				Q.QNA_CREATE_DATE,
 				Q.STATUS,
@@ -789,6 +794,7 @@
 	<!-- 레시비 qna 조회 -->
 	<select id="selectRecipeQnaList" resultMap="recipeQnaDTOResult">
 		SELECT 
+			Q.QNA_NO,
 			Q.QNA_CONTENT,
 			Q.QNA_CREATE_DATE,
 			Q.STATUS,
@@ -887,5 +893,10 @@
 		</foreach>
 		LIMIT 10
 	</select>
+	
+	<delete id="deleteQna">
+		DELETE FROM QNA
+		WHERE QNA_NO = #{qnaNo}
+	</delete>
 	
 </mapper>

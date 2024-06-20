@@ -327,4 +327,8 @@ public class MyPageDao {
 		return sqlSession.update("myPageMapper.decreaseScrapProduct",map);
 	}
 
+	public int deleteQna(SqlSessionTemplate sqlSession, Integer qnaNo) {
+		return sqlSession.delete("myPageMapper.deleteQna", qnaNo);
+	}
+
 }
