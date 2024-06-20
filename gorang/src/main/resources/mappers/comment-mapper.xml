@@ -68,8 +68,7 @@
 </insert>
 <!-- 게시글 댓글 삭제 -->
 <update id="deleteComment" parameterType="int">
-    UPDATE COMMENTS
-    SET STATUS = 'N'
+	DELETE FROM COMMENTS
     WHERE COMMENT_NO = #{commentNo} OR REF_COMMENT_NO = #{commentNo}
 </update>
 
