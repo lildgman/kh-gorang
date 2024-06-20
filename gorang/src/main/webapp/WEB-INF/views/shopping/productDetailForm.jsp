@@ -225,7 +225,7 @@
                                 <form id="modal-qna-content" action="insertQna.po" enctype="multipart/form-data" method="post">
                                     <input type="hidden" name="writerNo" value=${loginUser.memberNo}>
                                     <input type="hidden" name="refProductNo" value=${p.productNo}>
-                                    <input type="hidden" name="refQnaNo" value="">
+                                    <input type="hidden" name="refQnaNo" value="0">
                                     <div id="product_name_container">
                                         <div id="qna_product_name_header">
                                             상품명

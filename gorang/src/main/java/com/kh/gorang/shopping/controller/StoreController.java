@@ -198,7 +198,7 @@ public class StoreController {
 	@RequestMapping("insertQna.po")
 	public String insertProductQna(@RequestParam int writerNo, @RequestParam int refProductNo,
 								   @RequestParam int refPdoptNo, @RequestParam MultipartFile qnaPhotoUpfile,
-								   @RequestParam String qnaContent, @RequestParam int refQnaNo, HttpSession session) {
+								   @RequestParam String qnaContent, @RequestParam(value="refQnaNo", required=false) int refQnaNo, HttpSession session) {
 		QnA q = new QnA();
 		
 		
@@ -211,9 +211,11 @@ public class StoreController {
 		q.setWriterNo(writerNo);
 		q.setRefProductNo(refProductNo);
 		q.setRefPdoptNo(refPdoptNo);
-		q.setRefQnaNo(refQnaNo);
 		
-		
+		if(refQnaNo != 0) {
+			q.setRefQnaNo(refQnaNo);
+		}
+				
 		int result = productService.insertProductQna(q);
 		
 		String str = "redirect:/detail.po?pno=" + refProductNo;
