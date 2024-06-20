@@ -86,7 +86,7 @@ body {
 
 #contentTitle {
     width: 1162px;
-    height: 89px;
+    /* height: 89px; */
     padding: 25px 0 15px 10px;
 
 }
@@ -345,7 +345,7 @@ body {
 
 #replyWriteWrap {
     width: 1162px;
-    height: 100px;
+    /* height: 100px; */
     border-style: solid;
     border-color: #838383;
     border-width: 1px;
@@ -356,10 +356,11 @@ body {
 
 #replyWriterInfo {
     width: 106px;
-    height: 90px;
-    align-items: center;
+    /* height: 90px;
+    padding: 25px 25px 25px 15px; */
+    display: flex;
     justify-content: center;
-    padding: 25px 25px 25px 15px;
+    align-items: center;
 }
 
 #replyWriterInfo img {
@@ -397,8 +398,9 @@ body {
     font-size: 20;
     color: #ffff;
     border-radius: 10px;
-    margin-left: 35px;
-    margin-top: 7px;
+    /* margin-left: 35px;
+    margin-top: 7px; */
+    margin: auto;
 }
 
 #ReplyArea {
@@ -413,14 +415,14 @@ body {
 .userReplyWrap {
     padding: 2px;
     width: 1162px;
-    height: 100px;
+    /* height: 100px; */
     display:flex;   
 }
 
 
 .userReplyWriterInfo {
     width: 1020px;
-    height: 90px;
+    /* height: 90px; */
     padding: 10px;
     display: flex;
     float: left;
@@ -523,29 +525,39 @@ body {
     border: 1px solid black;
     border-radius: 5px;
     width: 911px;
-    height: 50px;
+    /* height: 60px; */
     margin-left: 101px;
     display: flex;
     justify-content: space-between;
     margin-bottom: 15px;
-    padding: 0px 10px;
-}
-
-.reply-input input[type="text"] {
-    border: none; 
-    resize: none; 
-    box-sizing: border-box;
-}
-
-.reply-input input[type="text"]:focus {
-    outline: none;
+    padding: 5px 10px;
 }
 
 .nested-reply {
     margin-left: 100px;
-    width: 1020px;
+    width: 923px;
 }
 
 #scrap-div:hover {
+    cursor: pointer;
+}
+
+.submit-reply {
+    width: 50px;
+    background-color: #1E90FF;
+    border-radius: 10px;
+    color: #ffff;
+}
+
+.rereply-textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border-style: none;
+    outline: none;
+    resize: none; /* 사용자가 크기를 조절하지 못하게 함 */
+    overflow: hidden;
+}
+
+.hover-curser:hover {
     cursor: pointer;
 }

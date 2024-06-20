@@ -112,13 +112,15 @@ public class BoardController {
 	    model.addAttribute("likeBoardCount",likeBoardCount);
 	    
 	    if (board != null) {
-	    	boardService.increaseViewCount(boardNo);
+//	    	boardService.increaseViewCount(boardNo);
 	        model.addAttribute("board", board);
 	        return "board/boardDetail";	
 	    } else {
 	        model.addAttribute("errorMsg", "게시글 조회 실패");
 	        return "board/boardMain";
 	    }
+	    
+	   
 	}
 
 	//게시글 추가

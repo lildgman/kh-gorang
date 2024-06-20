@@ -299,11 +299,6 @@ public class StoreController {
 	        cart.setMemberNo(memberNo);
 	    }
 	    
-	    memberService.insertProductCart(pdCarts);
-	    
-	    
-	    System.out.println(pdCarts);
-	    
 	    return new Gson().toJson(memberService.insertProductCart(pdCarts) > 0 ? "success" : "fail");
 	}
 	

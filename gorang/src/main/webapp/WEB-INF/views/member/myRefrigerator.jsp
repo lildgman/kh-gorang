@@ -158,15 +158,6 @@
                             <div id="modal-title-header">
                                 레시피 찾기
                             </div>
-
-                            <div id="modal-search-igre">
-                                <input id="input-igretext" placeholder=" 식품명 입력"
-                                    onkeypress="handleKeyPress(event)"></input>
-                                <button onclick="findSearch()">
-                                    <img src="${pageContext.request.contextPath}/resources/images/member-img/search 3.png"
-                                        alt="">
-                                </button>
-                            </div>
                             <div id="modal-recipe-selectedIngre">
 
                             </div>
@@ -174,7 +165,6 @@
                                 <button id="findOutRecipeBtn" class="modalBtn">레시피 찾기</button>
                                 <div>
                                     <button id="completeModalBtn" class="complete modalBtn modalBtnBorder">추가하기</button>
-                                    <button id="deleteModaLBtn" class="modalBtn modalBtnDeleteBorder">삭제하기</button>
                                 </div>
                             </div>
                             <table>

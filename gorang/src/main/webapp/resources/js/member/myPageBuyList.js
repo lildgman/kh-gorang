@@ -27,7 +27,15 @@ document.addEventListener("DOMContentLoaded", function(){
     });
 
     setRatingStar();
+
+    // 이미지 버튼 클릭 시 해당하는 상품 상세 페이지로 이동하는 이벤트
+    document.querySelectorAll(".tbody-td-img").forEach(imgTd => {
+        const productNo = imgTd.closest(".tbody-buy-list-block").querySelector(".buyList-input-productNo").value;
+        imgTd.querySelector("img").addEventListener('click', () => {location.href = ctp + "/detail.po?pno=" +  productNo});
+    })
 });
+
+const ctp = sessionStorage.getItem("contextpath");
 
 /** QNA 모달 내 유저, 상품 정보 기입하는 함수 */
 function fillQnaModal(ev){

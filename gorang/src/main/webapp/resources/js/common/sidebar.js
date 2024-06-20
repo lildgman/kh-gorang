@@ -168,7 +168,7 @@ function getFilteredWatched(key) {
         watched = JSON.parse(watched);
         watched = clearOldItems(watched);
 
-        localStorage.setItem(key, JSON.stringify(watched));
+        // localStorage.setItem(key, JSON.stringify(watched));
     } else {
         watched = [];
     }
@@ -205,9 +205,10 @@ function initRecentlyWatchedList(itemId, thumbnailUrl, ctx, isRecipe) {
         }
 
         // 최근 본 목록을 localStorage에 다시 저장
-        setRecentlyWatched(watched, isRecipe);
+        // setRecentlyWatched(watched, isRecipe);
     }
-
+    setRecentlyWatched(watched, isRecipe);
+    
     // 디버깅을 위해 콘솔에 최근 본 목록 출력
     console.log("최근 본 객체 목록:", watched);
 
@@ -247,9 +248,9 @@ function displayRecentlyWatchedItems(items, ctx, isRecipe) {
         // 이미지 클릭 시 해당 썸네일의 상세 페이지로 이동
         itemImg.onclick = function(){
             if(isRecipe) {
-                location.href = ctx + "/detailForm.re?recipeNo=" + item;
+                location.href = ctx + "/detailForm.re?recipeNo=" + item.id;
             } else {
-                location.href = ctx + "/detail.po?pno=" + item;
+                location.href = ctx + "/detail.po?pno=" + item.id;
             }
         }
 
