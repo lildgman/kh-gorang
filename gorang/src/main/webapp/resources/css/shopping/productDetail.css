@@ -384,6 +384,7 @@ table{
   display: flex;
   flex-direction: column;
   border-bottom:1px solid #cececd ;
+  margin-bottom: 20px;
 }
 
 .review_writer_area{
@@ -432,6 +433,7 @@ table{
 
 .review_content{
   font-size: 16px;
+  margin-bottom: 15px;
 }
 
 #review_pagination_area, #qna_pagination_area{

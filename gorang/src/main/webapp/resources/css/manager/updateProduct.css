@@ -253,3 +253,8 @@ input[type="number"]::-webkit-inner-spin-button {
 #pagination>span:hover {
   cursor: pointer;
 }
+
+.tr-hover:hover {
+  cursor: pointer;
+  background-color: aliceblue;
+}

@@ -160,7 +160,7 @@ function drawResultPagination(pi,searchProductName) {
 function drawProductInfo(pi, productList, tbody) {
   $('#search-result-count').text(pi.listCount);
   productList.forEach(product => {
-    const newRow = $('<tr class="option-tr"></tr>');
+    const newRow = $('<tr class="option-tr tr-hover" onclick="moveDetailProductPage(this)"></tr>');
 
     // 새로운 <td> 요소 생성하여 <tr>에 추가
     newRow.append('<td align="center" class="checkbox-container"><input type="checkbox" class="check-product" onclick="checkSelectedOneProduct(event)"></td>');
@@ -177,6 +177,11 @@ function drawProductInfo(pi, productList, tbody) {
 
     tbody.append(newRow);
   });
+}
+
+function moveDetailProductPage(element) {
+  const productNo = element.querySelector('.product-no').innerText;
+  window.location.href = "detail.po?pno="+productNo;
 }
 
 // 상품 하나만 체크되도록 해주는 함수

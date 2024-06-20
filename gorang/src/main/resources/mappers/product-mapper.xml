@@ -69,6 +69,12 @@
 		<result column="member_no" property="writerNo"/>
 	</resultMap>
 	
+	<!-- 스크랩 DTO -->
+	<resultMap type="ScrapBoardDTO" id="scrapBoardDTOResult">
+		<result column="PRODUCT_NO" property="productNo"/>
+		<result column="MEMBER_NO" property="memberNo"/>
+	</resultMap>
+	
     
     <!-- 가장 많이 팔린 상품 조회 -->
     <select id="selectBestSellerList" resultMap="productResult">
@@ -82,7 +88,7 @@
     		MAIN_IMG
     	FROM PRODUCT
     	WHERE STATUS = 'Y'
-    	ORDER BY SCRAP_COUNT DESC
+    	ORDER BY SCRAP_COUNT DESC, PRODUCT_NO DESC
     	LIMIT 4
     </select>
     
@@ -98,7 +104,7 @@
     		MAIN_IMG
     	FROM PRODUCT
     	WHERE STATUS = 'Y'
-    	ORDER BY PRODUCT_DATE DESC
+    	ORDER BY PRODUCT_DATE DESC, PRODUCT_NO DESC
     	LIMIT 4
     </select>
     
@@ -141,6 +147,7 @@
 		    	<if test='content != null and content != ""'>
 	     			AND PRODUCT_NAME ILIKE '%' || #{content} || '%'
 	     			OR PRODUCT_BRAND ILIKE '%' || #{content} || '%'
+	     			OR CATEGORY ILIKE '%' || #{content} || '%'
 	     		</if>
 	    		<if test='category == "야채"'>
 	    			AND CATEGORY LIKE '야채'
@@ -191,6 +198,7 @@
      		<if test='content != null and content != ""'>
      			AND PRODUCT_NAME ILIKE '%' || #{content} || '%'
      			OR PRODUCT_BRAND ILIKE '%' || #{content} || '%'
+     			OR CATEGORY ILIKE '%' || #{content} || '%'
      		</if>
 	     	<if test='category == "야채"'>
 	   			AND CATEGORY LIKE '%야채%'
@@ -370,5 +378,49 @@
 		where status = 'Y'
 		and product_no = #{productNo}
 	</select>
+	
+	<!-- 상품 조회수 증가 쿼리 -->
+	<update id="increaseProductViews" parameterType="_int">
+		UPDATE PRODUCT
+		SET PRODUCT_VIEW = PRODUCT_VIEW + 1
+		WHERE PRODUCT_NO = #{productNo}
+	</update>
+  
+  	<select id="existScrapProduct" parameterType="ScrapBoardDTO" resultType="_int">
+  		SELECT COUNT(*)
+  		FROM SCRAP_PRODUCT
+  		WHERE 
+  			PRODUCT_NO = #{productNo}
+  			AND MEMBER_NO = #{memberNo}
+  	</select>
+  	
+  	<insert id="insertScrapProduct" parameterType="ScrapBoardDTO">
+  		INSERT INTO SCRAP_PRODUCT (
+  			PRODUCT_NO,
+  			MEMBER_NO
+  		) VALUES (
+  			#{productNo},
+  			#{memberNo}
+  		)
+  	</insert>
+  	
+  	<update id="increaseScrapCount" parameterType="ScrapBoardDTO">
+  		UPDATE PRODUCT
+  		SET SCRAP_COUNT = SCRAP_COUNT + 1
+  		WHERE PRODUCT_NO = #{productNo}
+  	</update>
+  	
+  	<delete id="deleteScrapProduct" parameterType="ScrapBoardDTO">
+  		DELETE FROM SCRAP_PRODUCT
+  		WHERE PRODUCT_NO = #{productNo} AND MEMBER_NO = #{memberNo}
+  	</delete>
+  	
+  	<update id="decreaseScrapCount" parameterType="ScrapBoardDTO">
+  		UPDATE PRODUCT
+  		SET SCRAP_COUNT = SCRAP_COUNT - 1
+  		WHERE PRODUCT_NO = #{productNo}
+  	</update>
+  	
+  	
   
   </mapper>

@@ -123,6 +123,7 @@ body {
     width: 364px;
     padding: 15px;
     border-radius: 6px;
+    height: 240px;
 }
 
 /* 태그 */
@@ -393,13 +394,14 @@ tbody tr>td {
 /*----------------------------- 요리 완성 사진-------------------  */
 
 #complete-cook-image-area {
-    padding: 0px 210px;
-    margin-bottom: 110px;
+    padding: 0px 305px;
+    margin-bottom: 105px;
 }
 
 #complete-cook-image-area>span {
     font-size: 20px;
     font-weight: bold;
+    color: #f08282;
 }
 
 /* 캐럴셀 */
@@ -665,7 +667,6 @@ tbody tr>td {
 }
 
 #relation-product-list{
-    border-bottom: 1px solid rgb(134, 134, 134);
     height: 366px;
     display: flex;
     gap:35.5px;
@@ -696,11 +697,14 @@ tbody tr>td {
     font-size:14px ;
     color: #999999;
 }
-
+.relation-product-normalPrice{
+    color: #999999;
+    text-decoration: line-through;
+}
 .relation-product-title{
     font-size: 18px;
     font-weight: 500;
-    margin-bottom: 12px;
+    margin-bottom: 3px;
 }
 
 .relation-product-ps-size{
@@ -812,7 +816,7 @@ tbody tr>td {
   .w-100 {
     margin-top: 15px;
     width: 100% !important;
-    height: 600px;
+    height: 450px;
 }
 
 /* 별점 레이팅 바 */
@@ -1021,4 +1025,12 @@ tbody tr>td {
 }
 .pagination{
     justify-content: center;
+}
+
+.modal-review-rating-content{
+    gap: 20px;
+}
+
+.carousel {
+    width: 600px;
 }

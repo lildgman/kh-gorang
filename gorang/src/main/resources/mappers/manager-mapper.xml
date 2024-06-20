@@ -101,7 +101,9 @@
 	<select id="ajaxSearchBoard" resultMap="boardSearchDTOResult">
 		SELECT *
 		FROM BOARD
-		WHERE BOARD_TITLE LIKE '%' || #{searchBoardTitle} || '%'
+		<if test='searchBoardTitle != "*"'>
+			WHERE BOARD_TITLE ILIKE '%' || #{searchBoardTitle} || '%'
+		</if>
 		ORDER BY BOARD_NO
 	</select>
 	
@@ -109,19 +111,29 @@
 	<select id="ajaxSearchMember" resultMap="memberResult">
 		SELECT *
 		FROM MEMBER
-		WHERE
-			MEMBER_EMAIL LIKE '%'|| #{searchMember} ||'%'
-			OR MEMBER_NICKNAME LIKE '%'|| #{searchMember} ||'%'
+
+		<if test='searchMember != "*"'>
+			WHERE
+				split_part(MEMBER_EMAIL, '@', 1) ILIKE '%' || #{searchMember} || '%'
+				OR MEMBER_NICKNAME LIKE '%' || #{searchMember} ||'%'
+		</if>
 		ORDER BY MEMBER_NO
 	</select>
 	
 	<!-- 검색한 회원 결과 개수 조회 -->
 	<select id="selectMemberCount" resultType="_int">
 		SELECT COUNT(*)
-		FROM MEMBER
-		WHERE
-			MEMBER_EMAIL LIKE '%'|| #{searchMember} ||'%'
-			OR MEMBER_NICKNAME LIKE '%'|| #{searchMember} ||'%'
+		FROM (
+			SELECT *
+			FROM MEMBER
+
+			<if test='searchMember != "*"'>
+				WHERE
+					split_part(MEMBER_EMAIL, '@', 1) ILIKE '%' || #{searchMember} || '%'
+					OR MEMBER_NICKNAME LIKE '%' || #{searchMember} ||'%'
+			</if>
+			ORDER BY MEMBER_NO
+		)
 	</select>
 	
 	<!-- 회원번호로 회원 조회 -->
@@ -181,8 +193,13 @@
 	<!-- 검색한 게시글 개수 조회 -->
 	<select id="selectBoardCount" resultType="_int">
 		SELECT COUNT(*)
-		FROM BOARD
-		WHERE 
-			BOARD_TITLE LIKE '%' || #{searchBoardTitle} || '%' 
+		FROM (
+			SELECT *
+			FROM BOARD
+			<if test='searchBoardTitle != "*"'>
+				WHERE BOARD_TITLE ILIKE '%' || #{searchBoardTitle} || '%'
+			</if>
+			ORDER BY BOARD_NO
+		)
 	</select>
 </mapper>

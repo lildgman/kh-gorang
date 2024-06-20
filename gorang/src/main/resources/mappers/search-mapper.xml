@@ -43,23 +43,37 @@
 			B.BOARD_NO,
 			B.BOARD_THUMBNAIL,
 			B.BOARD_TITLE,
+			B.BOARD_VIEWS,
 			M.MEMBER_PROFILE,
 			M.MEMBER_NICKNAME,
-			B.BOARD_VIEWS,
-			COUNT(SB.BOARD_NO) AS SCRAP_COUNT,
-			COUNT(LB.BOARD_NO) AS LIKE_COUNT
+			COALESCE(l.like_count, 0) AS LIKE_COUNT,
+			COALESCE(s.scrap_count, 0) AS SCRAP_COUNT
 		FROM BOARD B
 		JOIN MEMBER M USING (MEMBER_NO)
-		LEFT JOIN SCRAP_BOARD SB USING (BOARD_NO)
-		LEFT JOIN LIKE_BOARD LB USING (BOARD_NO)
-		WHERE B.STATUS = 'Y'
-			AND B.BOARD_TITLE ILIKE '%${content}%'
-		GROUP BY B.BOARD_NO,
-			B.BOARD_THUMBNAIL,
-			B.BOARD_TITLE,
-			M.MEMBER_PROFILE,
-			M.MEMBER_NICKNAME,
-			B.BOARD_VIEWS
+		LEFT JOIN (
+			SELECT 
+				board_no,
+				COUNT(*) AS like_count
+			FROM 
+				public.like_board
+			GROUP BY 
+				board_no
+		) l ON b.board_no = l.board_no
+		LEFT JOIN (
+			SELECT 
+				board_no,
+				COUNT(*) AS scrap_count
+			FROM 
+				public.scrap_board
+			GROUP BY 
+				board_no
+		) s ON b.board_no = s.board_no
+		WHERE 
+			B.STATUS = 'Y'
+			<if test='content != "*"'>
+				AND B.BOARD_TITLE LIKE '%'|| #{content} ||'%'
+				OR B.BOARD_CONTENT LIKE '%'|| #{content} ||'%'
+			</if>
 		ORDER BY B.BOARD_NO DESC
 	</select>
 	
@@ -74,31 +88,40 @@
 			SALE_PRICE,
 			DISCOUNT
 		FROM PRODUCT P
-		WHERE 
-			PRODUCT_NAME ILIKE '%${content}%'
-			OR PRODUCT_BRAND ILIKE '%${content}%'
+		WHERE
+			P.STATUS = 'Y'
+			<if test='content != "*"'>
+				AND PRODUCT_NAME ILIKE '%' || #{content} || '%'
+				OR PRODUCT_BRAND ILIKE '%' || #{content} || '%'
+				OR CATEGORY ILIKE '%' || #{content} || '%'
+			</if>
+			
 		ORDER BY PRODUCT_NO DESC
 	</select>
   	
   	<!-- 레시피 검색 결과 조회 -->
   	<select id="selectSearchRecipe" resultMap="searchRecipeDTOResult">
-  		SELECT
+		SELECT 
 			R.RCP_NO,
-			R.RCP_MAIN_PHOTO,
 			R.RCP_TITLE,
+			R.RCP_MAIN_PHOTO,
 			M.MEMBER_NICKNAME,
 			M.MEMBER_PROFILE,
-			COUNT(SR.RCP_NO)
+			COALESCE(S.SCRAP_COUNT, 0) AS scrap_count
 		FROM RECIPE R
 		JOIN MEMBER M USING (MEMBER_NO)
-		LEFT JOIN SCRAP_RECIPE SR USING (RCP_NO)
+		LEFT JOIN (
+			SELECT 
+				RCP_NO,
+				COUNT(*) AS SCRAP_COUNT
+			FROM SCRAP_RECIPE
+			GROUP BY RCP_NO
+		) S ON R.RCP_NO = S.RCP_NO
 		WHERE R.STATUS = 'Y'
-			AND R.RCP_TITLE ILIKE '%${content}%'
-		GROUP BY R.RCP_NO,
-			R.RCP_MAIN_PHOTO,
-			R.RCP_CONTENT,
-			M.MEMBER_NICKNAME,
-			M.MEMBER_PROFILE
+			<if test='content != "*"'>
+				AND R.RCP_TITLE ILIKE '%' || #{content} || '%'
+				OR R.RCP_CONTENT ILIKE '%' || #{content} || '%'
+			</if>
 		ORDER BY R.RCP_NO DESC
   	</select>
   </mapper>

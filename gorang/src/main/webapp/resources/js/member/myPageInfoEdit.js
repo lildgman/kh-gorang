@@ -151,7 +151,7 @@ function checkPwdLength(element) {
   if(password.length > 0 && password.length < 6) {
     checkPasswordLength.innerHTML = "";
     checkPasswordLength.style.display = 'block';
-    checkPasswordLength.innerHTML = "*입력하신 비밀번호가 6자리 미만입니다. 6자리 이상으로 입력해주세요";
+    checkPasswordLength.innerHTML = "영문, 숫자를 포함한 8자리 이상의 비밀번호를 입력해주세요.";
     checkPasswordLength.style.color = 'red';
     
   } else {

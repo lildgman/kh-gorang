@@ -751,8 +751,13 @@ function goProduct(element){
 
 //연관상품  가격 ','표시
 function priceFormat() {
-  let priceArea = document.querySelectorAll(".relation-product-price");
-  priceArea.forEach(function(price){
+  let salePrice = document.querySelectorAll(".relation-product-price");
+  let originPrice =document.querySelectorAll(".relation-product-normalPrice");
+  salePrice.forEach(function(price){
+    let priceOrigin = parseInt(price.innerHTML);
+    price.innerHTML = priceOrigin.toLocaleString()+"원";
+  })
+  originPrice.forEach(function(price){
     let priceOrigin = parseInt(price.innerHTML);
     price.innerHTML = priceOrigin.toLocaleString()+"원";
   })
