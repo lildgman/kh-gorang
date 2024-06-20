@@ -88,7 +88,7 @@
     		MAIN_IMG
     	FROM PRODUCT
     	WHERE STATUS = 'Y'
-    	ORDER BY SCRAP_COUNT DESC
+    	ORDER BY SCRAP_COUNT DESC, PRODUCT_NO DESC
     	LIMIT 4
     </select>
     
@@ -104,7 +104,7 @@
     		MAIN_IMG
     	FROM PRODUCT
     	WHERE STATUS = 'Y'
-    	ORDER BY PRODUCT_DATE DESC
+    	ORDER BY PRODUCT_DATE DESC, PRODUCT_NO DESC
     	LIMIT 4
     </select>
     
@@ -147,6 +147,7 @@
 		    	<if test='content != null and content != ""'>
 	     			AND PRODUCT_NAME ILIKE '%' || #{content} || '%'
 	     			OR PRODUCT_BRAND ILIKE '%' || #{content} || '%'
+	     			OR CATEGORY ILIKE '%' || #{content} || '%'
 	     		</if>
 	    		<if test='category == "야채"'>
 	    			AND CATEGORY LIKE '야채'
@@ -197,6 +198,7 @@
      		<if test='content != null and content != ""'>
      			AND PRODUCT_NAME ILIKE '%' || #{content} || '%'
      			OR PRODUCT_BRAND ILIKE '%' || #{content} || '%'
+     			OR CATEGORY ILIKE '%' || #{content} || '%'
      		</if>
 	     	<if test='category == "야채"'>
 	   			AND CATEGORY LIKE '%야채%'

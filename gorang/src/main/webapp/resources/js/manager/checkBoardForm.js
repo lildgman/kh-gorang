@@ -75,7 +75,7 @@ function drawBoardTable(pi, boardList) {
   boardCount.innerText = pi.listCount;
   boardTableTbody.innerHTML = "";
   boardList.forEach(boardDTO => {
-    const newRow = $('<tr class="admin-tbody-tr"></tr>');
+    const newRow = $('<tr class="admin-tbody-tr hover-tr" onclick="moveDetailBoardPage(this)"></tr>');
 
     newRow.append('<td class="tbody-checkbox"><input type="checkbox" name="check" class="check-board"></td>');
     newRow.append('<td style="color: #1e90ff;" class="board-no">'+boardDTO.board.boardNo+'</td>');
@@ -88,6 +88,11 @@ function drawBoardTable(pi, boardList) {
     
     boardTableTbody.append(newRow[0]);
   });
+}
+
+function moveDetailBoardPage(element){
+  const boardNo = element.querySelector('.board-no').innerText;
+  window.location.href = "detail.bo?boardNo=" + boardNo;
 }
 
 function formattingDate(dateString) {

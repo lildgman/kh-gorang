@@ -197,3 +197,8 @@
   #pagination>span:hover {
     cursor: pointer;
   }
+
+  .hover-tr:hover {
+    cursor: pointer;
+    background-color: aliceblue;
+  }

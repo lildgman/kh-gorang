@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if(event.key == 'Enter') {
       event.preventDefault();
       if(searchInput.value) {
-        searchBoard();
+        searchMember();
       }
     }
   })

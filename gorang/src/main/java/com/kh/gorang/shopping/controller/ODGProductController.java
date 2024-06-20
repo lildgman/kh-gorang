@@ -69,7 +69,6 @@ public class ODGProductController {
 		
 		int searchProductResultCount = odgProductService.getSearchProductResultCount(searchProductName);
 		
-		log.info("searchProductResultCount={}",searchProductResultCount);
 		PageInfo pi = Pagination.getPageInfo(searchProductResultCount, cpage, 10, 20);
 		
 		ArrayList<Product> resultList = odgProductService.ajaxSearchProduct(pi, searchProductName);
