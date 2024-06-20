@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
   // 전역 변수 초기화
   const contextPath = getContextPath();
+
   const recipeNo = getParameterPno();
+  priceFormat();
 
   // 파라미터값으로 뿌려주고 남은 정보창 채우기
   inputProductInfo(recipeNo, contextPath);
@@ -24,6 +26,7 @@ function getParameterPno() {
 function getContextPath() {
   return sessionStorage.getItem("contextpath");
 }
+
 
 /** ajax로 받아온 pi 객체를 이용해 페이지네이션 업데이트 해주는 메소드 */
 function updatePagination(ev, pi) {
@@ -80,23 +83,46 @@ function fileInputClick() {
 
 
 document.addEventListener("DOMContentLoaded", function(){
-
-
+  
   // 문의하기 버튼 클릭 이벤트
-  const qnaButton = document.querySelector("#btn_qna");
-  qnaButton.addEventListener("click", function(){
-    console.log("체크됨");
-     fillQnaModal();
-  });
 
-  // 후기작성 버튼 클릭 이벤트
-  const reviewButtons = document.querySelector(".tbody-td-btn-write");
-  reviewButtons.addEventListener("click", function(){   
-    console.log("체크됨리뷰");
-          fullReviewModal();
-          setRatingStar();
-      });
+  // let num=document.querySelector("input[name='loginMemberNo']").value !== ""
+  //   const qnaButton = document.querySelector("#btn_qna");
+  //   qnaButton.addEventListener("click", function(){
+  //     if(num){
+  //       console.log("체크됨");
+  //       fillQnaModal();
+  //     }else{
+  //       let result =confirm("로그인 후 작성 가능합니다! 로그인하러 가시겠습니까?");
+  //       if(result){
+  //         window.location.href = `loginForm.me`;
+  //       }else{
+  //         console.log("로그인 취소");
+  //         $('#buyList-review_Modal').modal('hidden');
+  //       }
+  //     }
+  //   });
+  //   // alert("로그인 후 이용가능한 서비스입니다.")
+  //   // window.location.href = `loginForm.me`;
+  //   // 후기작성 버튼 클릭 이벤트
+  //   const reviewButtons = document.querySelector(".tbody-td-btn-write");
+  //   reviewButtons.addEventListener("click", function(){   
+  //     if(num){
+  //     console.log("체크됨리뷰");
+  //           fullReviewModal();
+  //           setRatingStar();
+  //     }else{
+  //       let result =confirm("로그인 후 작성 가능합니다. 로그인하러 가시겠습니까?");
+  //       if(result){
+  //         window.location.href = `loginForm.me`;
+  //       }else{
+  //         console.log("로그인 취소");
+  //         $('#qna_Modal').modal('hidden');
       
+  //       }
+  //     }
+  //   });
+        
 });
 
 
@@ -582,26 +608,31 @@ function goRecipeList(){
 function scrapGet(element){
   let memberNo =document.querySelector("input[name='loginMemberNo']").value;
   let recipeNo = document.querySelector("input[name='loginrecipeNo']").value;
-  let data ={
-    memberNo:parseInt(memberNo),
-    recipeNo:parseInt(recipeNo)
-  }
-  if(window.getComputedStyle(element).color ==="rgb(30, 144, 255)"){ //스트랩 취소 할 때"1e90ff"
-    ajaxdeleteRecipeScrap(data,function(result){
-      document.querySelector("#scrap_area").innerHTML=`
-        <i class="fa-regular fa-bookmark" style="font-size: 45px;"  onclick="scrapGet(this)"></i> 
-        <div id="scrap_value"><strong  class="icon-text-area">${result}</strong></div>
-      `
-    });
+  if(memberNo ==''){
+    alert("로그인 후 이용가능한 서비스입니다.");
+    window.location.href ="loginForm.me";
+  }else{
+    let data ={
+      memberNo:parseInt(memberNo),
+      recipeNo:parseInt(recipeNo)
+    }
+    if(window.getComputedStyle(element).color ==="rgb(30, 144, 255)"){ //스트랩 취소 할 때"1e90ff"
+      ajaxdeleteRecipeScrap(data,function(result){
+        document.querySelector("#scrap_area").innerHTML=`
+          <i class="fa-regular fa-bookmark" style="font-size: 45px;"  onclick="scrapGet(this)"></i> 
+          <div id="scrap_value"><strong  class="icon-text-area">${result}</strong></div>
+        `
+      });
 
-  }
-  else { //스트랩 할 때
-    ajaxaddRecipeScrap(data,function(result){
-       document.querySelector("#scrap_area").innerHTML=`
-       <i class="fa-solid fa-bookmark" style="color: #1e90ff; font-size: 45px;"  onclick="scrapGet(this)"></i>
-        <div id="scrap_value"><strong  class="icon-text-area">${result}</strong></div>
-       `
-    })
+    }
+    else { //스트랩 할 때
+      ajaxaddRecipeScrap(data,function(result){
+        document.querySelector("#scrap_area").innerHTML=`
+        <i class="fa-solid fa-bookmark" style="color: #1e90ff; font-size: 45px;"  onclick="scrapGet(this)"></i>
+          <div id="scrap_value"><strong  class="icon-text-area">${result}</strong></div>
+        `
+      })
+    }
   }
 }
 
@@ -619,6 +650,7 @@ function ajaxdeleteRecipeScrap(data,callback){
     }
   })
 }
+
 //레시피 스크랩하기
 function ajaxaddRecipeScrap(data,callback){
   $.ajax({
@@ -639,26 +671,31 @@ function ajaxaddRecipeScrap(data,callback){
 function likeGet(element){
   let memberNo =document.querySelector("input[name='loginMemberNo']").value;
   let recipeNo = document.querySelector("input[name='loginrecipeNo']").value;
-  let data ={
-    memberNo:parseInt(memberNo),
-    recipeNo:parseInt(recipeNo)
-  }
-  if(window.getComputedStyle(element).color ==="rgb(208, 1, 1)"){ //좋아요 취소 할 때"#d00101
-    ajaxdeleteRecipeLike(data,function(result){
-      document.querySelector("#like_area").innerHTML=`
-        <i class="fa-regular fa-heart" style="font-size: 45px;"  onclick="likeGet(this)"></i>
-        <div id="like_value"><strong  class="icon-text-area">${result}</strong></div>
-      `
-    });
+  if(memberNo ==''){
+    alert("로그인 후 이용가능한 서비스입니다.");
+    window.location.href ="loginForm.me";
+  }else{
+    let data ={
+      memberNo:parseInt(memberNo),
+      recipeNo:parseInt(recipeNo)
+    }
+    if(window.getComputedStyle(element).color ==="rgb(208, 1, 1)"){ //좋아요 취소 할 때"#d00101
+      ajaxdeleteRecipeLike(data,function(result){
+        document.querySelector("#like_area").innerHTML=`
+          <i class="fa-regular fa-heart" style="font-size: 45px;"  onclick="likeGet(this)"></i>
+          <div id="like_value"><strong  class="icon-text-area">${result}</strong></div>
+        `
+      });
 
-  }
-  else { //좋아요 할 때
-    ajaxaddRecipeLike(data,function(result){
-       document.querySelector("#like_area").innerHTML=`
-       <i class="fa-solid fa-heart" style="color: #d00101; font-size: 45px;"   onclick="likeGet(this)"></i>
-        <div id="like_value"><strong  class="icon-text-area">${result}</strong></div>
-       `
-    })
+    }
+    else { //좋아요 할 때
+      ajaxaddRecipeLike(data,function(result){
+        document.querySelector("#like_area").innerHTML=`
+        <i class="fa-solid fa-heart" style="color: #d00101; font-size: 45px;"   onclick="likeGet(this)"></i>
+          <div id="like_value"><strong  class="icon-text-area">${result}</strong></div>
+        `
+      })
+    }
   }
 }
 
@@ -689,5 +726,34 @@ function ajaxaddRecipeLike(data,callback){
     error: function() {
         alert("좋아요 등록에 실패했습니다.");
     }
+  })
+}
+
+// ======================== 네비게이션 및 페이지 이동 =========================
+
+// nav 눌렀을 때 발생하는 함수
+function scrollToDiv(div) {
+  const divOffsetTop = document.querySelector(div).offsetTop;
+  window.scrollTo(0, divOffsetTop - 225);
+}
+
+//목록으로 이동
+function goRecipeList(){
+  window.location.href = `list.re`;
+}
+
+//연관 상품으로 이동
+function goProduct(element){
+  let pno = element.querySelector("input[type='hidden']").value;
+  console.log(pno);
+  window.location.href = 'detail.po?pno=' + pno;
+}
+
+//연관상품  가격 ','표시
+function priceFormat() {
+  let priceArea = document.querySelectorAll(".relation-product-price");
+  priceArea.forEach(function(price){
+    let priceOrigin = parseInt(price.innerHTML);
+    price.innerHTML = priceOrigin.toLocaleString()+"원";
   })
 }

@@ -45,9 +45,10 @@
                         <div id="recipe-thumnail-user-img">
                             <img src="${contextPath}/resources/uploadfile/memberProfile/${member.profile}" alt="">
                         </div>
-                        <div id="recipe-thumnail-user-nickname">
-                            ${member.nickname}
-                        </div>
+                       
+                    </div>
+                    <div id="recipe-thumnail-user-nickname">
+                        ${member.nickname}
                     </div>
                     <div id="recipe-thumnail-views-count">
                         <img src="${contextPath}/resources/dummyImg/recipe/recipeDetail/🦆 icon _eye_.png"
@@ -118,7 +119,7 @@
                                          </div>
                                      </div>
                                      <div class="icon-area" id="scrap_area">
-                                        <c:if test="${checkScrap == 0}">
+                                        <c:if test="${checkScrap == 0 || loginUser == null}">
                                          <i class="fa-regular fa-bookmark" style="font-size: 45px;"  onclick="scrapGet(this)"></i> 
                                         </c:if>
                                          <c:if test="${checkScrap == 1}">
@@ -128,7 +129,7 @@
                                          
                                      </div>
                                      <div class="icon-area" id="like_area">
-                                        <c:if test="${checkLike == 0}">
+                                        <c:if test="${checkLike == 0 || loginUser == null}">
                                          <i class="fa-regular fa-heart" style="font-size: 45px;"  onclick="likeGet(this)"></i>
                                          </c:if>
                                          <c:if test="${checkLike == 1}">
@@ -142,7 +143,7 @@
 
                                 </div> -->
 
-                                <div id="recipe-nutrition-info-list-area">
+                                <!-- <div id="recipe-nutrition-info-list-area">
                                     <div id="recipe-nutrition-info-header">
                                         <div>레시피 영양정보</div>
                                         <div>
@@ -170,10 +171,10 @@
                                             </tr>
                                         </table>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
 
-                            <script>
+                            <!-- <script>
                                 // JavaScript 코드
                                 document.addEventListener("DOMContentLoaded", function () {
                                     // show-div를 클릭했을 때
@@ -186,16 +187,16 @@
                                         document.getElementById("recipe-nutrition-info-list-area").style.display = "none"; // 영역 숨기기
                                     });
                                 });
-                            </script>
+                            </script> -->
                         </div>
                     </div>
                     <!-- id태그영역 -->
                     <div id="menubar-id-area">
-                        <div class="menubar-id"> <a href="#igre-total-area">재료</a></div>
-                        <div class="menubar-id"> <a href="#cooking-order-total-area">조리 순서</a></div>
-                        <div class="menubar-id"> <a href="#review">후기</a></div>
-                        <div class="menubar-id"> <a href="#qna">문의</a></div>
-                        <div class="menubar-id"> <a href="#">연관 상품</a></div>
+                        <div class="menubar-id"onclick="scrollToDiv('#igre-total-area')"> 재료</div>
+                        <div class="menubar-id"onclick="scrollToDiv('#cooking-order-total-area')"> 조리 순서</div>
+                        <div class="menubar-id" onclick="scrollToDiv('#product_review_area')"> 후기</div>
+                        <div class="menubar-id" onclick="scrollToDiv('#product_qna_area')">문의</div>
+                        <div class="menubar-id" onclick="scrollToDiv('#relation-product-total-area')"> 연관 상품</div>
                     </div>
 
                     <!-- 재료 영역 -->
@@ -361,8 +362,8 @@
                                     </div>
                                     <div class="relation-product-brand">${product.productBrand}</div>
                                     <div class="relation-product-title">${product.productName}</div>
-                                    <div class="relation-product-ps-size"><span class="relation-product-sale">${product.discountPercent}</span>
-                                        <span class="relation-product-price">${product.salePrice}</span></div>
+                                    <div class="relation-product-ps-size"><span class="relation-product-sale">${product.discountPercent}%</span>
+                                        <span class="relation-product-price">${product.salePrice}원</span></div>
                                 </div>
                             </c:forEach>
                         </div>
