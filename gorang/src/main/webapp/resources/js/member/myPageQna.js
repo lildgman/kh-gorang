@@ -46,7 +46,6 @@ function getCheckedRecipeQnaNos() {
 
 }
 
-
 function ajaxDeleteQna(checkedQnaNoList) {
   $.ajax({
     url: 'delete-qna.me',
