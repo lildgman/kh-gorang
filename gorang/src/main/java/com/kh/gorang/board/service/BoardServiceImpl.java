@@ -38,18 +38,26 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public Board selectBoard(int boardNo) {
-        return boardDao.selectBoard(sqlSession, boardNo);
+    	
+    	Board selectboardResult = null;
+    	int increaseViewCount = boardDao.increaseViewCount(sqlSession, boardNo);
+    	
+    	if(increaseViewCount > 0) {
+    		selectboardResult = boardDao.selectBoard(sqlSession, boardNo);
+    	}
+    	
+        return selectboardResult;
     }
 
     @Override
     public int insertBoard(Board board) {
         return boardDao.insertBoard(sqlSession, board);
     }
-
-    @Override
-    public void increaseViewCount(int boardNo) {
-        boardDao.increaseViewCount(sqlSession, boardNo);
-    }
+//
+//    @Override
+//    public void increaseViewCount(int boardNo) {
+//        boardDao.increaseViewCount(sqlSession, boardNo);
+//    }
 
     @Override
     public ArrayList<Board> selectListByLatest(PageInfo pi) {

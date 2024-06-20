@@ -86,7 +86,7 @@ body {
 
 #contentTitle {
     width: 1162px;
-    height: 89px;
+    /* height: 89px; */
     padding: 25px 0 15px 10px;
 
 }
@@ -556,4 +556,8 @@ body {
     outline: none;
     resize: none; /* 사용자가 크기를 조절하지 못하게 함 */
     overflow: hidden;
+}
+
+.hover-curser:hover {
+    cursor: pointer;
 }

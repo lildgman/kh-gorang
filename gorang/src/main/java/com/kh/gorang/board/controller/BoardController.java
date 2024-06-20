@@ -112,7 +112,7 @@ public class BoardController {
 	    model.addAttribute("likeBoardCount",likeBoardCount);
 	    
 	    if (board != null) {
-	    	boardService.increaseViewCount(boardNo);
+//	    	boardService.increaseViewCount(boardNo);
 	        model.addAttribute("board", board);
 	        return "board/boardDetail";	
 	    } else {

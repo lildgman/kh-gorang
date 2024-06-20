@@ -35,7 +35,7 @@ public interface BoardService{
     int insertBoard(Board board);
 
     // 게시글 조회수 증가
-    void increaseViewCount(int boardNo);
+//    void increaseViewCount(int boardNo);
     
     // 게시글 글쓴이 이름 가져오기
 	String getMemberNickname(int memberNo);
