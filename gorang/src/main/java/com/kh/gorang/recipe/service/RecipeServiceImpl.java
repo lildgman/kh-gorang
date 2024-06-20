@@ -347,18 +347,33 @@ public class RecipeServiceImpl implements RecipeService{
 		return recipeDao.selectCheckRecipeLike(sqlSession,map);
 	}
 	
-	
-	//회원 스트랩 추가
+	//레시피 스크랩 등록
 	@Override
 	public int addRecipeScrap(Map<String, Object> map) {
+		
 		return recipeDao.addRecipeScrap(sqlSession,map);
 	}
-	
-	//회원 스트랩 취소
+	//레시피 스크랩 취소
 	@Override
 	public int deleteRecipeScrap(Map<String, Object> map) {
-		return recipeDao.deleteRecipeScrap(sqlSession, map);
+		
+		return recipeDao.deleteRecipeScrap(sqlSession,map);
 	}
+	
+	//레시피 좋아요 등록
+	@Override
+	public int addRecipeLike(Map<String, Object> map) {		
+		return recipeDao.addRecipeLike(sqlSession,map);
+	}
+	
+	//레시피 좋아요 취소
+	@Override
+	public int deleteRecipeLike(Map<String, Object> map) {
+		return recipeDao.deleteRecipeLike(sqlSession,map);
+	}
+	
+	
+	
 
 
 	

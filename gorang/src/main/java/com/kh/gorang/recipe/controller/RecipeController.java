@@ -47,15 +47,16 @@ public class RecipeController {
 	
 	//레시피 상세페이지로 이동
 	@RequestMapping("detailForm.re")
-	public String recipDetailPage(@RequestParam("recipeNo") int recipeNo,
+	public String  recipDetailPage(@RequestParam("recipeNo") int recipeNo,
 			@RequestParam(value="cpage",defaultValue="1") int cp,
-			Model model){
+			Model model,HttpSession session){
 		
-	
 		System.out.println("도착" + recipeNo);
+		//레시피
 		Member m =  recipeService.selectRecipeMember(recipeNo);
 		Recipe rcp = recipeService.selectRecipe(recipeNo);
 		
+		//레시피 관련 정보들(조리순서, 완성사진, 식재료 등)
 		String[] tagArr = rcp.getRecipeTag().split(",");
 		RecipeInsertDTO recipeInsertDTO = new RecipeInsertDTO();
 		List<Division> divList =recipeService.selectDivList(recipeNo);
@@ -67,37 +68,57 @@ public class RecipeController {
 		List<Product> pList =recipeService.selectProductList(divList, recipeNo);
 		System.out.println("pList"+pList);
 		
-		
+		//질의응답 및 페이징바
 		int qnaCount = recipeService.selectRecipeQnaCount(recipeNo);
 		int reviewsCount = recipeService.selectRecipeReviewCount(recipeNo);
 		PageInfo reviewPi = Pagination.getPageInfo(reviewsCount, cp, 10, 10);
 		PageInfo qnaPi = Pagination.getPageInfo(qnaCount, cp, 10, 10);
 		
-		// 좋아요, 스크랩 조회
-		int resultScrap = recipeService.selectRecipeScrap(recipeNo,m.getMemberNo());
-		int resultLike = recipeService.selectRecipeLike(recipeNo,m.getMemberNo());
+		int resultScrap = recipeService.selectRecipeScrap(recipeNo,m.getMemberNo()); //전체
+		int resultLike = recipeService.selectRecipeLike(recipeNo,m.getMemberNo()); //전체
 		
-		 Map<String, Object> map = new HashMap<String, Object>();
-			map.put("memberNo", m.getMemberNo());
+		//만약 로그인상태가 아닐 시
+		if((Member)session.getAttribute("loginUser") != null) {
+			int memberNoLogin = ((Member)session.getAttribute("loginUser")).getMemberNo();
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("memberNo", memberNoLogin);
 			map.put("recipeNo", recipeNo);
-		int checkScrap = recipeService.selectCheckRecipeScrap(map);
-		int checkLike =  recipeService.selectCheckRecipeLike(map);
+			int checkScrap = recipeService.selectCheckRecipeScrap(map);
+			int checkLike =  recipeService.selectCheckRecipeLike(map);
+			int result = recipeService.addRecipeView(recipeNo);
+			model.addAttribute("checkScrap",checkScrap);
+			model.addAttribute("checkLike",checkLike);
+			model.addAttribute("resultScrap",resultScrap);
+			model.addAttribute("resultLike",resultLike);
+			model.addAttribute("member",m);
+			model.addAttribute("rcp",rcp);
+			model.addAttribute("recipeInsertDTO",recipeInsertDTO);
+			model.addAttribute("tagArr",tagArr);
+			model.addAttribute("reviewPi");
+			model.addAttribute("qnaPi");
+			return "recipe/recipeDetail";
+		}
+		else {
+			int result = recipeService.addRecipeView(recipeNo);
+
+			model.addAttribute("resultScrap",resultScrap);
+			model.addAttribute("resultLike",resultLike);
+			model.addAttribute("resultScrap",resultScrap);
+			model.addAttribute("resultLike",resultLike);
+			model.addAttribute("member",m);
+			model.addAttribute("rcp",rcp);
+			model.addAttribute("recipeInsertDTO",recipeInsertDTO);
+			model.addAttribute("tagArr",tagArr);
+			model.addAttribute("reviewPi");
+			model.addAttribute("qnaPi");
+			
+			return "recipe/recipeDetail";
+		}
 		
-		//조회수
-		int result = recipeService.addRecipeView(recipeNo);
+		 
+
+	
 		
-		
-		model.addAttribute("checkScrap",checkScrap);
-		model.addAttribute("checkLike",checkLike);
-		model.addAttribute("resultScrap",resultScrap);
-		model.addAttribute("resultLike",resultLike);
-		model.addAttribute("member",m);
-		model.addAttribute("rcp",rcp);
-		model.addAttribute("recipeInsertDTO",recipeInsertDTO);
-		model.addAttribute("tagArr",tagArr);
-		model.addAttribute("reviewPi");
-		model.addAttribute("qnaPi");
-		return "recipe/recipeDetail";
 	}
 	
 	
@@ -348,9 +369,9 @@ public class RecipeController {
 	public int addRecipeScrap(@RequestParam("memberNo") int memberNo,
 						            @RequestParam("recipeNo") int recipeNo,						        
 						            HttpSession session) {
-		 Map<Object, String> map = new HashMap<Object, String>();
-			map.put(memberNo, "memberNo");
-			map.put(recipeNo, "recipeNo");
+		 Map<String, Object> map = new HashMap<String, Object>();
+		 map.put("memberNo", memberNo);
+			map.put("recipeNo", recipeNo);
 		int result =recipeService.addRecipeScrap(map);
 		
 		int scrap= recipeService.selectRecipeScrap(recipeNo ,memberNo);
@@ -363,17 +384,46 @@ public class RecipeController {
 	public int deleteRecipeScrap(@RequestParam("memberNo") int memberNo,
 						            @RequestParam("recipeNo") int recipeNo,						        
 						            HttpSession session) {
-		 Map<Object, String> map = new HashMap<Object, String>();
-			map.put(memberNo, "memberNo");
-			map.put(recipeNo, "recipeNo");
+		 Map<String, Object> map = new HashMap<String, Object>();
+			map.put("memberNo", memberNo);
+			map.put("recipeNo", recipeNo);
 		int result =recipeService.deleteRecipeScrap(map);
 		
 		int scrap= recipeService.selectRecipeScrap(recipeNo ,memberNo);
-		return scrap> 0 ? scrap : null;
+		return scrap> 0 ? scrap : 0;
 	}
+	
+	
 	//레시피 좋아요 추가
+	@PostMapping("addRecipeLike.re")
+	@ResponseBody
+	public int addRecipeLike(@RequestParam("memberNo") int memberNo,
+						            @RequestParam("recipeNo") int recipeNo,						        
+						            HttpSession session) {
+		 Map<String, Object> map = new HashMap<String, Object>();
+		 map.put("memberNo", memberNo);
+			map.put("recipeNo", recipeNo);
+		int result =recipeService.addRecipeLike(map);
+		
+		int like= recipeService.selectRecipeLike(recipeNo ,memberNo);
+		return like> 0 ? like : null;
+	}
 	
 	//레시피 좋아요 취소
+	@PostMapping("deleteRecipeLike.re")
+	@ResponseBody
+	public int deleteRecipeLike(@RequestParam("memberNo") int memberNo,
+						            @RequestParam("recipeNo") int recipeNo,						        
+						            HttpSession session) {
+		 Map<String, Object> map = new HashMap<String, Object>();
+			map.put("memberNo", memberNo);
+			map.put("recipeNo", recipeNo);
+		int result =recipeService.deleteRecipeLike(map);
+		
+		int like= recipeService.selectRecipeLike(recipeNo ,memberNo);
+		System.out.println("lIke : " + like);
+		return like> 0 ? like : 0;
+	}
 }
 
 

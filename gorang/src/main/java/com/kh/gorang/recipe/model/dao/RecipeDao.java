@@ -253,6 +253,14 @@ public class RecipeDao {
 		return sqlSession.delete("recipeMapper.deleteRecipeScrap",map);
 	}
 
+	public int addRecipeLike(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.insert("recipeMapper.addRecipeLike", map);
+	}
+
+	public int deleteRecipeLike(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.delete("recipeMapper.deleteRecipeLike",map);
+	}
+
 
 
 

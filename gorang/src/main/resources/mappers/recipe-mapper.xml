@@ -554,7 +554,7 @@
   	</update>
   	
   		<!--  스트랩 증가 -->
-  	<insert id="addRecipeScrap" parameterType="Review">
+  	<insert id="addRecipeScrap" parameterType="ScrapRecipe">
 		INSERT INTO scrap_recipe(
 		member_no,
 		rcp_no
@@ -564,7 +564,16 @@
 		)
   	</insert>
   	
-  	
+  	<!-- 좋아요 증가 -->
+  	<insert id="addRecipeLike" parameterType="LikeRecipe">
+		INSERT INTO like_recipe(
+		member_no,
+		rcp_no
+		) VALUES(
+		#{memberNo},
+		#{recipeNo}
+		)
+	</insert>
   	
   <!--***************  길이    ****************-->	
   <!-- 분류 길이(개수) -->
@@ -655,6 +664,13 @@
 
 <delete id="deleteRecipeScrap" parameterType="ScrapRecipe">
 	 DELETE FROM scrap_recipe
+    WHERE rcp_no = #{recipeNo}
+	AND member_no =#{memberNo}
+	AND status ='Y'
+</delete>
+
+<delete id="deleteRecipeLike" parameterType="LikeRecipe">
+	 DELETE FROM like_recipe
     WHERE rcp_no = #{recipeNo}
 	AND member_no =#{memberNo}
 	AND status ='Y'
