@@ -11,7 +11,7 @@
 
     <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
-    <link rel="stylesheet" href="${contextPath }/resources/css/member/myPageScrapBoard.css">
+    <link rel="stylesheet" href="${contextPath }/resources/css/member/myPageScrapProduct.css">
     <!--js-->
     <script src="${pageContext.request.contextPath}/resources/js/member/myPageScrap/myPageScrapProduct.js"></script>
 </head>
