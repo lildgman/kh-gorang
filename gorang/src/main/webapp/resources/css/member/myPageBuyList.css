@@ -11,6 +11,8 @@ body {
 
 /* body전체 영역 */
 #body-area {
+    justify-content: center;
+    align-items: center;
     margin: 80px 340px;
     display: flex;
 }
@@ -220,6 +222,14 @@ tbody td {
   .product_qna_content_container {
     width: 100%;
     height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .product_pic_container > div > div {
+    font-size: 12px;
+    font-weight: 200;
   }
   
   .product_name_container {

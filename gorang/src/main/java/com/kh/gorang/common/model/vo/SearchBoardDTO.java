@@ -4,12 +4,12 @@ import lombok.Data;
 
 @Data
 public class SearchBoardDTO {
-	private final int boardNo;
-	private final String boardThumbnail;
-	private final String boardTitle;
-	private final String memberProfileImg;
-	private final String memberNickname;
-	private final int scrapCount;
-	private final int viewCount;
-	private final int likeCount;
+	private int boardNo;
+	private String boardThumbnail;
+	private String boardTitle;
+	private String memberProfileImg;
+	private String memberNickname;
+	private int scrapCount;
+	private int viewCount;
+	private int likeCount;
 }

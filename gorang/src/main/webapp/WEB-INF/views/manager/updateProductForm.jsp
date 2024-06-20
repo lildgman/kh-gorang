@@ -81,7 +81,7 @@
                         <div class="i-container">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </div>
-                        <input id="search-product-name-input" class="search-input" type="text" placeholder="상품명 입력">
+                        <input id="search-product-name-input" class="search-input" type="text" placeholder="상품명이나 카테고리 입력">
                     </div>
                     <div class="search-btn-container">
                         <button id="search-category-btn" class="search-btn" onclick="searchProduct()">검색</button>

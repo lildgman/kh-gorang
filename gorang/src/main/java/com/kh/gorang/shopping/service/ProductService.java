@@ -6,6 +6,7 @@ import java.util.Map;
 import com.kh.gorang.common.model.vo.PageInfo;
 import com.kh.gorang.member.model.vo.QnA;
 import com.kh.gorang.member.model.vo.Review;
+import com.kh.gorang.shopping.model.dto.ScrapBoardDTO;
 import com.kh.gorang.shopping.model.vo.Product;
 import com.kh.gorang.shopping.model.vo.ProductDetailOption;
 import com.kh.gorang.shopping.model.vo.ProductInsertDTO;
@@ -54,4 +55,8 @@ public interface ProductService {
 	
 	// 상품 문의 총갯수
 	int selectQnasCount(int productNo);
+
+	int insertScrapProduct(ScrapBoardDTO scrapBoardDTO);
+
+	int existScrapProduct(ScrapBoardDTO scrapBoardDTO);
 }

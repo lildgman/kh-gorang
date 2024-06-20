@@ -23,10 +23,17 @@
 	<main id="search-result">
 		<div id="searchResultContents">
 			<div id="search-item-result">
-				<div id="search-item"><span>${content }</span></div><span>의 검색결과</span>
+				<c:choose>
+					<c:when test="${content eq '*'}">
+						<div id="search-item"><span>모든</span></div><span>&nbsp;검색결과</span>
+					</c:when>
+					<c:otherwise>
+						<div id="search-item"><span>${content }</span></div><span>의 검색결과</span>
+					</c:otherwise>
+				</c:choose>
 			</div>
 			<div id="search-item-shopping">
-				<div id="search-item-top">
+				<div class="search-item-top">
 					<div id="search-item-shopping-span"><span>쇼핑</span>
 						<div id="shoppingCount"><span>${searchProductResult.size() }</span>개</div>
 					</div>
@@ -72,7 +79,7 @@
 
 
 			<div id="search-item-recipe">
-				<div id="search-item-top">
+				<div class="search-item-top">
 					<div id="search-item-recipe-span"><span>레시피</span>
 						<div id="recipeCount"><span>${searchRecipeResult.size() }</span>개</div>
 					</div>
@@ -119,7 +126,7 @@
 				</div>
 			</div>
 			<div id="search-item-common">
-				<div id="search-item-top">
+				<div class="search-item-top">
 					<div id="search-item-common-span"><span>게시글</span>
 						<div id="commonCount"><span>${searchBoardResult.size() }</span>개</div>
 					</div>
@@ -148,7 +155,7 @@
 												<div class="commonContentTitle"><span>${board.boardTitle }</span></div>
 												<div class="commonContentWriter">
 													<div class="commonContentWriterImg"><img
-															src="<%= request.getContextPath() %>/resources/uploadfile/memberProfile/${memberProfileImg}">
+															src="<%= request.getContextPath() %>/resources/uploadfile/memberProfile/${board.memberProfileImg}">
 													</div>
 													<span>${board.memberNickname }</span>
 												</div>

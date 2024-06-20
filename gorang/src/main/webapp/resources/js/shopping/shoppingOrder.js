@@ -79,9 +79,8 @@ function calculateTotalProductPrice() {
       const optPrice = parseInt(pdoptContainerEl.querySelector('.order-product-saled-price').innerText.replace(/,/g, ''));
       const optNum = document.querySelector(".order-product-quantity").innerHTML;
       // 상품 옵션 총 가격
-      const productOptPrice = optPrice * optNum;
 
-      totalPrice += productOptPrice;
+      totalPrice += optPrice;
     })
   })
   totalProductPriceEl.innerText = totalPrice.toLocaleString();

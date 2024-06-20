@@ -516,9 +516,7 @@ public class MyPageController {
 	public String deleteScrapProduct(
 			HttpSession session,
 			@RequestParam int productNo) {
-		
-		log.info("productNo = {}" , productNo);
-		
+				
 		int memberNo = getLoginUserNo(session);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("memberNo", memberNo);

@@ -43,7 +43,7 @@
             <div id="user-profile-area-bottom">
                 <div id="user-scrap">
                     <span class="user-scrap-like" data-type="scrap" onclick="movePage(this)">스크랩</span><br><div class="zero" id="user-scrap-count">${totalScrapCount }</div> 
-                </div> |
+                </div> 
                 <div id="user-like">
                     <span class="user-scrap-like" data-type="like" onclick="movePage(this)">좋아요</span><br><div class="zero" id="user-like-count">${totalLikeCount }</div>
                 </div>

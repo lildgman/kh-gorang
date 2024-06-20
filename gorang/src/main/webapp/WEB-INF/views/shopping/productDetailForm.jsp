@@ -40,6 +40,10 @@
 
                 <!-- 상품 간략 정보-->
                 <div id="productInfo-area">
+                    <c:if test="${!empty loginUser}">
+                        <input type="hidden" id="product-loginUser-no" value="${loginUser.memberNo}">
+                    </c:if>
+                    <input type="hidden" id="member-no" value="${loginUser.memberNo}">
                     <input type="hidden" id="product-no" value="${p.productNo}">
                     <div id="product-img-container">
                         <img class="product-thumbnail" src="${contextPath }/resources/uploadfile/product/productimg/${p.mainImg}"
@@ -52,7 +56,14 @@
                         <div id="product_name_area">
                             <span id="product_name">${p.productName}</span>
                             <span id="zzim">
-                                <i class="fa-regular fa-heart fa-xl"></i>
+                                <c:choose>
+                                    <c:when test="${existScrapProduct > 0}">
+                                        <i class="fa-solid fa-heart fa-xl" style="color: #ff0000;"></i>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <i class="fa-regular fa-heart fa-xl"></i>
+                                    </c:otherwise>
+                                </c:choose>
                             </span>
                         </div>
                         <div id="product_grade_area">
@@ -171,8 +182,7 @@
                         <div id="product_qna_area">
                             <div id="qna_top">
                                 <div class="description_title">상품 문의</div>
-                                <button id="btn_qna" class="btn btn-primary"
-                                    style="background-color: #1E90FF; width: 123px; height: 53px; font-size: 20px;"
+                                <button id="btn_qna" class="btn btn-primary product-qna-btn" style="width: 123px; height: 53px; font-size: 20px;"
                                     data-toggle="modal" data-target="#qna_Modal">문의하기</button>
                             </div>
 
@@ -215,6 +225,7 @@
                                 <form id="modal-qna-content" action="insertQna.po" enctype="multipart/form-data" method="post">
                                     <input type="hidden" name="writerNo" value=${loginUser.memberNo}>
                                     <input type="hidden" name="refProductNo" value=${p.productNo}>
+                                    <input type="hidden" name="refQnaNo" value="">
                                     <div id="product_name_container">
                                         <div id="qna_product_name_header">
                                             상품명
