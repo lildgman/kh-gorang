@@ -292,7 +292,9 @@
      qna_content,
      qna_type,
      qna_answer_type,
-     ref_qna_no,
+     <if test="refQnaNo != 0">
+     	ref_qna_no,
+     </if>
      qna_photo,
      product_no,
      member_no,
@@ -304,13 +306,12 @@
     	1,
     	<choose>
     		<when test="refQnaNo != 0">
-    		2,
+    		2,#{refQnaNo},
     		</when>
     		<otherwise>
     		1,
     		</otherwise>
     	</choose>
-    	#{refQnaNo},
     	#{qnaPhoto},
     	#{refProductNo},
     	#{writerNo},
