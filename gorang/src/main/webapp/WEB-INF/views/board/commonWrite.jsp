@@ -59,7 +59,7 @@
                                 </select>
                             </div>
                             <div id="writeTitle">
-                                <input type="text" placeholder="제목을 입력해주세요." id="boardTitle" name="boardTitle">
+                                <input type="text" placeholder="제목을 입력해주세요." id="boardTitle" name="boardTitle" maxlength="100">
                             </div>
                         </div>
                         <div id="writeUploadThumbnail">

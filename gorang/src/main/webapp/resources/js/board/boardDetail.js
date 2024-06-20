@@ -54,10 +54,6 @@ function addReply(element) {
     const replyArea = document.querySelector('#ReplyArea');
     const existReplyDiv = replyArea.querySelector('.reply-input');
 
-    console.log(commentNo);
-    console.log(replyTargetDiv.querySelector('.comment-no'));
-
-
     if (!existReplyDiv) {
         drawReReply(replyTargetDiv, commentNo, boardNo);
     } else {

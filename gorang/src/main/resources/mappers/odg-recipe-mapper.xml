@@ -59,10 +59,16 @@
 				R.RCP_MAIN_PHOTO,
 				M.MEMBER_NICKNAME,
 				M.MEMBER_PROFILE,
-				COUNT(SR.RCP_NO) AS SCRAP_COUNT
+				COALESCE(S.SCRAP_COUNT, 0) AS scrap_count
 			FROM RECIPE R
 			JOIN MEMBER M USING (MEMBER_NO)
-			LEFT JOIN SCRAP_RECIPE SR USING (RCP_NO)
+			LEFT JOIN (
+				SELECT 
+					RCP_NO,
+					COUNT(*) AS SCRAP_COUNT
+				FROM SCRAP_RECIPE
+				GROUP BY RCP_NO
+			) S ON R.RCP_NO = S.RCP_NO
 			WHERE R.STATUS = 'Y'
 				<if test='content != null and content != ""'>
 	     			AND R.RCP_TITLE ILIKE '%' || #{content} || '%'
@@ -86,22 +92,15 @@
 	     		<if test='category == "기타"'>
 					AND R.COOK_KIND LIKE '기타'	     		
 	     		</if>
-			GROUP BY 
-				R.RCP_NO,
-				R.RCP_TITLE,
-				M.MEMBER_NICKNAME,
-				M.MEMBER_PROFILE
-			ORDER BY R.RCP_WRITE_DATE DESC
 			<if test='sort == "new"'>
-				,R.RCP_WRITE_DATE DESC
+				ORDER BY R.RCP_WRITE_DATE DESC, R.RCP_NO DESC
 			</if>
 			<if test='sort == "view"'>
-				,R.RCP_VIEW DESC
+				ORDER BY R.RCP_VIEW DESC, R.RCP_NO DESC
 			</if>
 			<if test='sort == "scrap"'>
-				,SCRAP_COUNT DESC
+				ORDER BY SCRAP_COUNT DESC, R.RCP_NO DESC
 			</if>
-			
 		) AS SUB
      </select>
      
@@ -113,10 +112,16 @@
 			R.RCP_MAIN_PHOTO,
 			M.MEMBER_NICKNAME,
 			M.MEMBER_PROFILE,
-			COUNT(SR.RCP_NO) AS SCRAP_COUNT
+			COALESCE(S.SCRAP_COUNT, 0) AS scrap_count
 		FROM RECIPE R
 		JOIN MEMBER M USING (MEMBER_NO)
-		LEFT JOIN SCRAP_RECIPE SR USING (RCP_NO)
+		LEFT JOIN (
+			SELECT 
+				RCP_NO,
+				COUNT(*) AS SCRAP_COUNT
+			FROM SCRAP_RECIPE
+			GROUP BY RCP_NO
+		) S ON R.RCP_NO = S.RCP_NO
 		WHERE R.STATUS = 'Y'
 			<if test='content != null and content != ""'>
      			AND R.RCP_TITLE ILIKE '%' || #{content} || '%'
@@ -140,20 +145,14 @@
      		<if test='category == "기타"'>
 				AND R.COOK_KIND LIKE '기타'	     		
      		</if>
-		GROUP BY 
-			R.RCP_NO,
-			R.RCP_TITLE,
-			M.MEMBER_NICKNAME,
-			M.MEMBER_PROFILE
-		ORDER BY R.RCP_WRITE_DATE DESC
 		<if test='sort == "new"'>
-			,R.RCP_WRITE_DATE DESC
+			ORDER BY R.RCP_WRITE_DATE DESC, R.RCP_NO DESC
 		</if>
 		<if test='sort == "view"'>
-			,R.RCP_VIEW DESC
+			ORDER BY R.RCP_VIEW DESC, R.RCP_NO DESC
 		</if>
 		<if test='sort == "scrap"'>
-			,SCRAP_COUNT DESC
+			ORDER BY SCRAP_COUNT DESC, R.RCP_NO DESC
 		</if>
      </select>
 	

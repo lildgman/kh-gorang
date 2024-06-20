@@ -56,8 +56,8 @@ public class BoardDao{
 		return sqlSession.insert("boardMapper.insertBoard",board);
 	}
 	
-	public void increaseViewCount(SqlSessionTemplate sqlSession, int boardNo) {
-        sqlSession.update("boardMapper.increaseViewCount", boardNo);
+	public int increaseViewCount(SqlSessionTemplate sqlSession, int boardNo) {
+        return sqlSession.update("boardMapper.increaseViewCount", boardNo);
     }
 	public String getMemberNickname(SqlSessionTemplate sqlSession, int memberNo) {
 		return sqlSession.selectOne("boardMapper.getMemberNickname", memberNo);
