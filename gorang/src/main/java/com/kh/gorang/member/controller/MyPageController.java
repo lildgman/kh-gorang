@@ -169,7 +169,7 @@ public class MyPageController {
 		}
 		
 	}
-
+	
 	
 	
 	//내 정보 수정

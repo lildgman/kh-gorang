@@ -84,13 +84,12 @@ body {
     width: 1240PX;
 }
 
-
 /* ------------레시피 제목,태그,내용, 정보 전체영역 -------------- */
 
 #recipe-total-first-area {
-    height: 74px;
+    height: 25px;
     width: 1237p;
-    margin-bottom: 400px;
+    margin-bottom: 380px;
   
 }
 
@@ -98,7 +97,8 @@ body {
 #recipe-title-top {
     line-height: 74px;
     font-size: 24px;
-    font-weight: 500;
+    font-weight: 700;
+    color: #ff8888;
 }
 
 /* 레시피 제목,태그,내용, 정보 아래영역 */
@@ -149,7 +149,7 @@ body {
 /* 레시피 소개내용 */
 #recipe-content {
     height: 283px;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 500;
     padding: 5px;
 }
@@ -241,6 +241,18 @@ body {
 }
 #recipe-icon i:hover{
     cursor: pointer;
+}
+
+/* -----유튜브 영상----- */
+#youtube_middle{
+    padding: 0px 300px;
+    margin-bottom: 50px;
+}
+#youtube_title{
+    width: 100%;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 30px;
 }
 
 /* -----(재료, 조리순서, 후기, 문의, 연관)메뉴 바---- */
@@ -438,7 +450,7 @@ tbody tr>td {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
     margin-bottom: 10px;
 }
 
@@ -455,7 +467,9 @@ tbody tr>td {
     display: flex;
     flex-direction: column;
 }
-
+.commentEdit{
+    margin-bottom: 10px;
+}
 #review_writer_pic {
     border-radius: 50%;
 }
@@ -877,6 +891,9 @@ tbody tr>td {
   .updateComments:hover{
     color: #1E90FF;
     font-weight: 700;
+  }
+  .deleteComents{
+    color: #999;
   }
   .deleteComents:hover{
     color:rgb(250, 70, 70);

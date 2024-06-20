@@ -179,15 +179,18 @@ function validPhoneNumber() {
 function checkPwdLength(element) {
   const password = element.value;
   const checkPasswordLength = document.querySelector('#check-password-length');
+  const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
-  if(password.length > 0 && password.length < 8) {
+  if(password.length > 0 && !regex.test(password)) {
     checkPasswordLength.innerHTML = "";
-    checkPasswordLength.style.display = 'block';
     checkPasswordLength.innerHTML = "영문, 숫자를 포함한 8자리 이상의 비밀번호를 입력해주세요.";
+    checkPasswordLength.style.display = 'block';
     checkPasswordLength.style.color = 'red';
     
   } else {
     checkPasswordLength.innerHTML = "";
+    checkPasswordLength.style.display = 'none';
+
     validPwdLength = true;
   }
 }

@@ -45,80 +45,80 @@ public class RecipeController {
 		return "recipe/recipeMain";
 	}
 	
-	//레시피 상세페이지로 이동
+	// 레시피 상세페이지로 이동
 	@RequestMapping("detailForm.re")
-	public String  recipDetailPage(@RequestParam("recipeNo") int recipeNo,
-			@RequestParam(value="cpage",defaultValue="1") int cp,
-			Model model,HttpSession session){
-		
+	public String recipDetailPage(@RequestParam("recipeNo") int recipeNo,
+			@RequestParam(value = "cpage", defaultValue = "1") int cp, Model model, HttpSession session) {
+
 		System.out.println("도착" + recipeNo);
-		//레시피
-		Member m =  recipeService.selectRecipeMember(recipeNo);
+
+		// 레시피
+		Member m = recipeService.selectRecipeMember(recipeNo);
 		Recipe rcp = recipeService.selectRecipe(recipeNo);
-		
-		//레시피 관련 정보들(조리순서, 완성사진, 식재료 등)
-		String[] tagArr = rcp.getRecipeTag().split(",");
-		RecipeInsertDTO recipeInsertDTO = new RecipeInsertDTO();
-		List<Division> divList =recipeService.selectDivList(recipeNo);
-		recipeInsertDTO.setRcpDivList(divList);
-		recipeInsertDTO.setCookOrderList(recipeService.selectCookOrderList(recipeNo));
-		recipeInsertDTO.setCompleteFoodPhoto(recipeService.selectCompleteFoodPhotoList(recipeNo));
-		
-		recipeInsertDTO.setProductList(recipeService.selectProductList(divList, recipeNo));
-		List<Product> pList =recipeService.selectProductList(divList, recipeNo);
-		System.out.println("pList"+pList);
-		
-		//질의응답 및 페이징바
-		int qnaCount = recipeService.selectRecipeQnaCount(recipeNo);
-		int reviewsCount = recipeService.selectRecipeReviewCount(recipeNo);
-		PageInfo reviewPi = Pagination.getPageInfo(reviewsCount, cp, 10, 10);
-		PageInfo qnaPi = Pagination.getPageInfo(qnaCount, cp, 10, 10);
-		
-		int resultScrap = recipeService.selectRecipeScrap(recipeNo,m.getMemberNo()); //전체
-		int resultLike = recipeService.selectRecipeLike(recipeNo,m.getMemberNo()); //전체
-		
-		//만약 로그인상태가 아닐 시
-		if((Member)session.getAttribute("loginUser") != null) {
-			int memberNoLogin = ((Member)session.getAttribute("loginUser")).getMemberNo();
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("memberNo", memberNoLogin);
-			map.put("recipeNo", recipeNo);
-			int checkScrap = recipeService.selectCheckRecipeScrap(map);
-			int checkLike =  recipeService.selectCheckRecipeLike(map);
-			int result = recipeService.addRecipeView(recipeNo);
-			model.addAttribute("checkScrap",checkScrap);
-			model.addAttribute("checkLike",checkLike);
-			model.addAttribute("resultScrap",resultScrap);
-			model.addAttribute("resultLike",resultLike);
-			model.addAttribute("member",m);
-			model.addAttribute("rcp",rcp);
-			model.addAttribute("recipeInsertDTO",recipeInsertDTO);
-			model.addAttribute("tagArr",tagArr);
-			model.addAttribute("reviewPi");
-			model.addAttribute("qnaPi");
-			return "recipe/recipeDetail";
-		}
-		else {
-			int result = recipeService.addRecipeView(recipeNo);
+		if (m != null) { // 탈퇴한 회원이 작성한 레시피 글이 아닐 시
 
-			model.addAttribute("resultScrap",resultScrap);
-			model.addAttribute("resultLike",resultLike);
-			model.addAttribute("resultScrap",resultScrap);
-			model.addAttribute("resultLike",resultLike);
-			model.addAttribute("member",m);
-			model.addAttribute("rcp",rcp);
-			model.addAttribute("recipeInsertDTO",recipeInsertDTO);
-			model.addAttribute("tagArr",tagArr);
-			model.addAttribute("reviewPi");
-			model.addAttribute("qnaPi");
-			
-			return "recipe/recipeDetail";
-		}
-		
-		 
+			// 레시피 관련 정보들(조리순서, 완성사진, 식재료 등)
+			String[] tagArr = rcp.getRecipeTag().split(",");
+			RecipeInsertDTO recipeInsertDTO = new RecipeInsertDTO();
+			List<Division> divList = recipeService.selectDivList(recipeNo);
+			recipeInsertDTO.setRcpDivList(divList);
+			recipeInsertDTO.setCookOrderList(recipeService.selectCookOrderList(recipeNo));
+			recipeInsertDTO.setCompleteFoodPhoto(recipeService.selectCompleteFoodPhotoList(recipeNo));
 
-	
-		
+			recipeInsertDTO.setProductList(recipeService.selectProductList(divList, recipeNo));
+			List<Product> pList = recipeService.selectProductList(divList, recipeNo);
+			System.out.println("pList" + pList);
+
+			// 질의응답 및 페이징바
+			int qnaCount = recipeService.selectRecipeQnaCount(recipeNo);
+			int reviewsCount = recipeService.selectRecipeReviewCount(recipeNo);
+			PageInfo reviewPi = Pagination.getPageInfo(reviewsCount, cp, 10, 10);
+			PageInfo qnaPi = Pagination.getPageInfo(qnaCount, cp, 10, 10);
+
+			int resultScrap = recipeService.selectRecipeScrap(recipeNo, m.getMemberNo()); // 전체
+			int resultLike = recipeService.selectRecipeLike(recipeNo, m.getMemberNo()); // 전체
+
+			// 로그인상태일 시
+			if ((Member) session.getAttribute("loginUser") != null) {
+				int memberNoLogin = ((Member) session.getAttribute("loginUser")).getMemberNo();
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("memberNo", memberNoLogin);
+				map.put("recipeNo", recipeNo);
+				int checkScrap = recipeService.selectCheckRecipeScrap(map);
+				int checkLike = recipeService.selectCheckRecipeLike(map);
+				int result = recipeService.addRecipeView(recipeNo);
+				model.addAttribute("checkScrap", checkScrap);
+				model.addAttribute("checkLike", checkLike);
+				model.addAttribute("resultScrap", resultScrap);
+				model.addAttribute("resultLike", resultLike);
+				model.addAttribute("member", m);
+				model.addAttribute("rcp", rcp);
+				model.addAttribute("recipeInsertDTO", recipeInsertDTO);
+				model.addAttribute("tagArr", tagArr);
+				model.addAttribute("reviewPi");
+				model.addAttribute("qnaPi");
+				return "recipe/recipeDetail";
+			} else { // 로그인상태가 아닐 시
+				int result = recipeService.addRecipeView(recipeNo);
+
+				model.addAttribute("resultScrap", resultScrap);
+				model.addAttribute("resultLike", resultLike);
+				model.addAttribute("resultScrap", resultScrap);
+				model.addAttribute("resultLike", resultLike);
+				model.addAttribute("member", m);
+				model.addAttribute("rcp", rcp);
+				model.addAttribute("recipeInsertDTO", recipeInsertDTO);
+				model.addAttribute("tagArr", tagArr);
+				model.addAttribute("reviewPi");
+				model.addAttribute("qnaPi");
+
+				return "recipe/recipeDetail";
+			}
+		} else { // 탈퇴한 회원의 게시글일 시
+			session.setAttribute("alertMsg", "탈퇴 혹은 삭제된 게시글입니다.");
+			return "redirect:/list.re";
+		}
+
 	}
 	
 	
@@ -140,11 +140,12 @@ public class RecipeController {
 			
 		int result =recipeService.insertRecipeInsertDTO(rcp, recipeInsertDTO, session);
 		System.out.println(result);
-		if(result>0) {			
+		if(result>0) {	
+			model.addAttribute("alertMsg","성공적으로 작성되었습니다.");
 			return "redirect:/list.re";
 		}
 		else {
-			model.addAttribute("errorMsg","게시글 작성 실패");
+			model.addAttribute("errorMsg","레시피 게시글 작성 실패");
 			return "recipe/write.re";
 		}
 	}
@@ -424,6 +425,8 @@ public class RecipeController {
 		System.out.println("lIke : " + like);
 		return like> 0 ? like : 0;
 	}
+	
+	
 }
 
 

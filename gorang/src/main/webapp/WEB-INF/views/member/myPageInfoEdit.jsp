@@ -101,7 +101,7 @@
                         <div id="PnumWrap"><span>휴대폰 번호</span></div>
                         <div id="CurrentuserPnum">
                             <input type="text" value="${loginUser.memberPhone}" class="change-info-input"
-                                id="new-phone-number" name="memberPhone" oninput="isChangePhoneNum()">
+                                id="new-phone-number" name="memberPhone" maxlength="11" oninput="isChangePhoneNum()">
                         </div>
                         <div id="ChangePnumBtn"><button type="button" onclick="validPhoneNumber()"><span >중복확인</span></button></div>
                     </div>

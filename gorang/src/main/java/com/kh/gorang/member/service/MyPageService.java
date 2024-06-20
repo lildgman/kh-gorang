@@ -151,6 +151,10 @@ public interface MyPageService {
 	// 레시피 리스트 조회
 	ArrayList<RecipeListDto> selectRecipeListByRecipeNo(String recipeNums);
 
+	// 레시피 임시저장 개수
+	int selectSaveCount(int memberNo);
+	
+
 
 	
 

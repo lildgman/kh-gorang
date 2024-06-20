@@ -190,6 +190,16 @@
                             </script> -->
                         </div>
                     </div>
+                    <c:if test="${not empty rcp.recipeVideo}">
+                    <div id="youtube_total_area">
+                        <div id="youtube_title" >
+                            <span id="youtube_recipe_title">유튜브 영상</span>
+                        </div>                       
+                        <div id="youtube_middle">
+                            <iframe width="560" height="315" src="${rcp.recipeVideo}"  title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>                           
+                        </div>
+                    </div>
+                    </c:if>
                     <!-- id태그영역 -->
                     <div id="menubar-id-area">
                         <div class="menubar-id"onclick="scrollToDiv('#igre-total-area')"> 재료</div>
