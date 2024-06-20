@@ -38,6 +38,7 @@
 							<div class="content-area-comment cl-6d">내용</div>
 							<div class="content-area-date cl-6d">작성일</div>
 							<div class="content-area-answer cl-6d">상태</div>
+							<div class="content-area-checkbox cl-red" onclick="deleteProductQna()">삭제</div>
 						</div>
 
 						<div id="product-area-body" class="contents-area-body">
@@ -47,11 +48,11 @@
 								</c:when>
 								<c:otherwise>
 									<c:forEach var="productQna" items="${productQnaList }">
-										<div class="product-area-content" data-type="product" data-no="${productQna.productNo}" onclick="moveDetailPage(this)">
+										<div class="product-area-content" >
 											<div class="content-area-title">
 												<img class="content-img"
 													src="${contextPath }/resources/uploadfile/product/productimg/${productQna.productImg}" alt="">
-													<div class="product-info">
+													<div class="product-info" data-type="product" data-no="${productQna.productNo}" onclick="moveDetailPage(this)">
 														<span class="product-qna-brand">${productQna.productBrand}</span>
 														<span class="product-qna-name">${productQna.productName }</span>
 														<span class="product-qna-option">${productQna.optionName }</span>
@@ -65,6 +66,9 @@
 											<c:if test="${productQna.refQnaNo == null }">
 												<div class="content-area-answer" style="color: #ed6666;">응답 대기</div>
 											</c:if>
+											<div class="content-area-checkbox">
+												<input class="product-qna-checkbox" type="checkbox" data-qnaNo="${productQna.qnaNo}">
+											</div>
 										</div>
 									</c:forEach>
 								</c:otherwise>
@@ -117,7 +121,7 @@
 							<div class="content-area-comment cl-6d">내용</div>
 							<div class="content-area-date cl-6d">작성일</div>
 							<div class="content-area-answer cl-6d">상태</div>
-
+							<div class="content-area-checkbox cl-red" onclick="deleteRecipeQna()">삭제</div>
 						</div>
 
 						<div id="recipe-area-body" class="contents-area-body">
@@ -128,12 +132,12 @@
 								</c:when>
 								<c:otherwise>
 									<c:forEach var="recipeQna" items="${recipeQnaList }" >
-										<div class="recipe-area-content" data-type="recipe" data-no="${recipeQna.recipeNo}" onclick="moveDetailPage(this)">
+										<div class="recipe-area-content" >
 											<div class="content-area-title">
 												<img class="content-img"
 													src="${contextPath }/resources/uploadfile/recipe/recipemain/${recipeQna.recipeMainImg}"
 													alt="">
-												<span>${recipeQna.recipeTitle }</span>
+												<span class="recipe-title" data-type="recipe" data-no="${recipeQna.recipeNo}" onclick="moveDetailPage(this)">${recipeQna.recipeTitle }</span>
 											</div>
 											<div class="content-area-comment">${recipeQna.qnaContent }</div>
 											<div class="content-area-date">${recipeQna.qnaCreateDate }</div>
@@ -143,6 +147,9 @@
 											<c:if test="${recipeQna.refQnaNo == null }">
 												<div class="content-area-answer" style="color: #ed6666;">응답 대기</div>
 											</c:if>
+											<div class="content-area-checkbox">
+												<input class="recipe-qna-checkbox" type="checkbox" data-qnaNo="${recipeQna.qnaNo}">
+											</div>
 										</div>
 									</c:forEach>
 								</c:otherwise>

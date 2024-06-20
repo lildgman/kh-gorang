@@ -63,9 +63,9 @@
                     <div id="recipeContents">
                         <div id="recipeSortings">
                             <div id="recipeSortingsBox">
-                                <div id="recipeSortingsLatest" onclick="location.href='${contextPath}/list.re?content=${content}&category=${category}&sort=new'">최신순</div>
-                                <div id="recipeSortingsNums" onclick="location.href='${contextPath}/list.re?content=${content}&category=${category}&sort=view'">조회수순</div>
-                                <div id="recupeSortingsScrap" onclick="location.href='${contextPath}/list.re?content=${content}&category=${category}&sort=scrap'">스크랩순</div>
+                                <div id="recipeSortingsLatest" class="hover-cursor" onclick="location.href='${contextPath}/list.re?content=${content}&category=${category}&sort=new'">최신순</div>
+                                <div id="recipeSortingsNums" class="hover-cursor" onclick="location.href='${contextPath}/list.re?content=${content}&category=${category}&sort=view'">조회수순</div>
+                                <div id="recupeSortingsScrap" class="hover-cursor" onclick="location.href='${contextPath}/list.re?content=${content}&category=${category}&sort=scrap'">스크랩순</div>
                             </div>
                         </div>
                         <div id="recipeContentsBox">

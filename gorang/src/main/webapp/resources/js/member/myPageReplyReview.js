@@ -17,6 +17,6 @@ function moveDetailPage(element) {
     window.location.href = "detail.po?pno=" + productNo;
   } else if (type === 'recipe-review') {
     const recipeNo = element.getAttribute('data-recipeNo');
-    window.location.href = "detail.re?recipeNo=" + recipeNo;
+    window.location.href = "detailForm.re?recipeNo=" + recipeNo;
   }
 }
