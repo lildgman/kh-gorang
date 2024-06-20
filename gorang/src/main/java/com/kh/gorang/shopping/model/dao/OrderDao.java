@@ -3,9 +3,11 @@ package com.kh.gorang.shopping.model.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.gorang.common.model.vo.PageInfo;
 import com.kh.gorang.shopping.model.vo.Order;
 import com.kh.gorang.shopping.model.vo.OrderPdopt;
 
@@ -25,7 +27,13 @@ public class OrderDao {
 	}
 	
 	// 주문한 옵션 객체 list 조회
-	public ArrayList<OrderPdopt> selectOrderPdOptsByMemberNo(SqlSessionTemplate sqlSession, int memberNo) {
-		return (ArrayList)sqlSession.selectList("orderMapper.selectOrderPdOptsByMemberNo", memberNo);
+	public ArrayList<OrderPdopt> selectOrderPdOptsByMemberNo(SqlSessionTemplate sqlSession, int memberNo, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("orderMapper.selectOrderPdOptsByMemberNo", memberNo, rowBounds);
+	}
+
+	public int getOrderPdOptsCount(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.selectOne("orderMapper.getOrderPdOptsCount", memberNo);
 	}
 }

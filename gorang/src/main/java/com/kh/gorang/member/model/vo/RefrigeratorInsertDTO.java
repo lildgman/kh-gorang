@@ -15,6 +15,7 @@ public class RefrigeratorInsertDTO {
 	private int refNo;
 	private int refMemberNo;
 	private String refName;
+	private int refKind;
 	private String refThumbnail;
 	private String refConsumptionDate;
 	private int refCount;

@@ -35,6 +35,7 @@
   		<result column="MAIN_IMG" property="orderPdThumbnail"/>
   		<result column="SHIPMENT_TIME" property="orderPdShipmentTime"/>
   		<result column="order_pdopt_price" property="orderPdOptPrice"/>
+  		<result column="review_no" property="refReviewNo"/>
   	</resultMap>
   	
   	 <!-- 상품 -->
@@ -129,15 +130,23 @@
   		p.product_name,
   		p.product_brand,
   		p.main_img,
-  		p.shipment_time
+  		p.shipment_time,
+  		r.review_no
   	from order_pdopt op
   		 join orders od on op.order_no = od.order_no
   	left join option_name o on op.options_name_no = o.options_name_no
   	left join product p on o.product_no = p.product_no
+  	left join review r on op.options_name_no = r.pdopt_no
   	where od.member_no = #{memberNo}
   	  and od.status = 'Y'
   	order by od.order_date desc
+  </select>
   
+  <select id="getOrderPdOptsCount" resultType="_int">
+ select count(*)
+  from order_pdopt
+  join orders o using (order_no)
+  where o.member_No = #{memberNo}
   </select>
   
 </mapper>

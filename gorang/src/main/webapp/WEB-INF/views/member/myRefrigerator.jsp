@@ -87,8 +87,7 @@
                                                 <c:forEach var="refriIngre" items="${refriIngres}">
                                                     <tr class="tr-block">
                                                         <td class="myRefrigerator-tr">
-                                                            <img style="height: 50px;" src="${contextPath}/resources/images/member-img/Rectangle 18311 (2).png"
-                                                                alt="">
+                                                            <img src="${contextPath}/resources/images/myRefrigeratorKind/${refriIngre.refKind}.png" alt="">
                                                         </td>
                                                         <td class="refri-main-td-refName" data-value="${refriIngre.refNo}">
                                                             ${refriIngre.refName}

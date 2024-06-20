@@ -5,7 +5,25 @@ window.onload = function () {
   updateQuantity();
 
   updateTotalPrice();
+
+  document.querySelectorAll(".product-img").forEach(img =>{
+    img.addEventListener('click', (ev) => {
+      handlerCartImgClick(ev);
+    })
+  })
+
 }
+
+// ================================== 유틸리티, 전역 변수 ======================================
+
+const ctp = sessionStorage.getItem("contextpath");
+
+
+/** 장바구니 개체 사진 클릭 시 해당 상세페이지로 이동하는 메소드 */
+function handlerCartImgClick(ev){
+  location.href = ctp + "/detail.po?pno=" + ev.currentTarget.getAttribute("data-value");
+}
+
 
 // 장바구니 삭제
 function ajaxForDeleteCart(data){

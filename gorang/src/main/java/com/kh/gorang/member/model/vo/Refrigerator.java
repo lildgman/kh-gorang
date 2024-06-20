@@ -22,6 +22,7 @@ public class Refrigerator {
 	private String refName;
 	// 썸네일
 	private String refThumbnail;
+	private int refKind;
 	private int refFresh;
 	private Date refConsumptionDate;
 	private int refCount;

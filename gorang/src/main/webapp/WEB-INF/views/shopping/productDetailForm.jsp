@@ -232,7 +232,7 @@
                                         </div>
                                         <select name="refPdoptNo" id="qna_product_name">
                                         </select>
-                                    </div>
+                                    </div> 
                                     <div id="product_pic_container">
                                         <div style="font-size: 14px; font-weight: bold;">
                                             사진 첨부(선택)

@@ -18,8 +18,9 @@ table{
 #body-area {
     justify-content: center;
     align-items: center;
-    margin: 80px 340px;
+    margin: 80px 0;
     display: flex;
+    width: 100%;
 }
 
 /* 왼쪽 body영역 */
@@ -150,6 +151,11 @@ tbody td:not(:first-child ) {
     align-items: center;
 }
 
+.myRefrigerator-tr img{
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+}
 
 /* 신선도 영역*/
 .flesh-area {
