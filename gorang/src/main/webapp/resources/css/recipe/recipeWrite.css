@@ -378,6 +378,13 @@ option:hover{
     font-weight: bold;
 }
 
+.delete-btn2{
+    padding-top: 10px;
+}
+.delete-btn2:hover{
+    cursor: pointer;
+}
+
 /* -------------------조리 순서영역------------------ */
 #cooking-order-area{
     /* border-bottom: 2px solid #CECECD; */
