@@ -6,11 +6,12 @@ import lombok.Data;
 
 @Data
 public class RecipeQnaDTO {
-	private final String qnaContent;
-	private final Date qnaCreateDate;
-	private final String status;
-	private final int recipeNo;
-	private final String recipeTitle;
-	private final String recipeMainImg;
-	private final Integer refQnaNo;
+	private int qnaNo;
+	private String qnaContent;
+	private Date qnaCreateDate;
+	private String status;
+	private int recipeNo;
+	private String recipeTitle;
+	private String recipeMainImg;
+	private Integer refQnaNo;
 }

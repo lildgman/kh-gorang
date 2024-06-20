@@ -153,6 +153,8 @@ public interface MyPageService {
 
 	// 레시피 임시저장 개수
 	int selectSaveCount(int memberNo);
+
+	int deleteQna(List<Integer> checkedQnaNoList);
 	
 
 

@@ -4,6 +4,7 @@ import static com.kh.gorang.common.template.SaveFileController.saveFile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -583,6 +585,16 @@ public class MyPageController {
 		MemberInfoDTO memberInfo = new MemberInfoDTO(followingCount,followerCount,totalScrapCount,totalLikeCount);
 	
 		return memberInfo;
+	}
+	
+	@ResponseBody
+	@PostMapping("delete-qna.me")
+	public String deleteQna (
+			@RequestBody List<Integer> checkedQnaNoList) {
+
+		int result = myPageService.deleteQna(checkedQnaNoList);
+		
+		return result > 0 ? "done" : "undone";
 	}
 	
 	

@@ -6,13 +6,14 @@ import lombok.Data;
 
 @Data
 public class ProductQnaDTO {
-	private final String qnaContent;
-	private final Date qnaCreateDate;
-	private final String status;
-	private final int productNo;
-	private final String productName;
-	private final String productBrand;
-	private final String productImg;
-	private final Integer refQnaNo;
-	private final String optionName;
+	private int qnaNo;
+	private String qnaContent;
+	private Date qnaCreateDate;
+	private String status;
+	private int productNo;
+	private String productName;
+	private String productBrand;
+	private String productImg;
+	private Integer refQnaNo;
+	private String optionName;
 }
