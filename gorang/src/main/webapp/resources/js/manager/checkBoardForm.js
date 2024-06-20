@@ -1,5 +1,10 @@
 function searchBoard() {
-  const searchBoardTitle = document.querySelector('#search-board-name-input').value;
+  const searchBoardTitle = document.querySelector('#search-board-name-input').value.trim();
+  console.log(searchBoardTitle);
+  if(searchBoardTitle === "") {
+    return;
+  }
+
 
   if(searchBoardTitle) {
     $.ajax({
@@ -17,7 +22,6 @@ function searchBoard() {
       }
     })
   }
-  
 }
 
 function drawPagination(pi, searchBoardTitle) {
@@ -46,16 +50,16 @@ function movePage(element) {
   const cpage = element.getAttribute('data-cpage');
   const searchBoardTitle = element.getAttribute('data-searchBoardTitle');
 
-  ajaxSearchBoard(cpage,searchBoardTitle);
+  paginationSearchBoard(cpage,searchBoardTitle);
 
 }
 
-function ajaxSearchBoard(cpage,searchBoardTitle) {
+function paginationSearchBoard(cpage,searchBoardTitle) {
   $.ajax({
     url: 'search-board.ma',
     type: 'get',
     data: {
-      cpage:cpage,
+      cpage: cpage,
       searchBoardTitle: searchBoardTitle
     },
     success: function(res) {
