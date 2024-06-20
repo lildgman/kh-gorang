@@ -220,6 +220,14 @@ tbody td {
   .product_qna_content_container {
     width: 100%;
     height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .product_pic_container > div > div {
+    font-size: 12px;
+    font-weight: 200;
   }
   
   .product_name_container {

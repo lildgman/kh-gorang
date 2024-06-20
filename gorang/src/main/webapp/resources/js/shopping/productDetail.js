@@ -544,6 +544,17 @@ function putProductReviewList(res, contextPath){
   // 문의 구축하는 메소드
 function putProductQnAList(pno, res){
   const qnas = res.qnas;
+
+  const memberNoInput = document.querySelector("#product-loginUser-no");
+
+  let isAdmin = false;
+
+  if(memberNoInput){
+    const memberNo = document.querySelector("#product-loginUser-no").value;
+    // 관리자 여부 확인
+    isAdmin = ( parseInt(memberNo) === 1);
+  }
+
   // 상품 문의 모달
     // 문의하기 버튼
     const qnaModalBtn = document.querySelector("#qna_top > button");
@@ -563,71 +574,119 @@ function putProductQnAList(pno, res){
       if(qna.qnaAnswerType === 2){
         continue;
       }
-      //tr 생성
-      const qnaContentTableTr = document.createElement('tr');
-      qnaContentTableTr.setAttribute("class", "qna_content_tr")
-      qnaContentTbody.appendChild(qnaContentTableTr);
-      //qna 제목 td 생성
-      const qnaTitle = document.createElement('td');
-      qnaContentTableTr.appendChild(qnaTitle);
-      qnaTitle.setAttribute("class", "qna_title");
-      qnaTitle.innerHTML = qna.qnaContent;
-      //qna 작성자, 작성일 td 생성
-      qnaContentTableTr.innerHTML += `<td class="qna_writer">${qna.writerNickname}</td>`
-      qnaContentTableTr.innerHTML += `<td class="qna_create_date">${qna.qnaCreateDate}</td>`
-
-      if(qna.answerNo != 0){
-        qnaStatus = "답변완료"
-      }
-       //답변 여부 보여주는 부분
-       qnaContentTableTr.innerHTML += `<td class="qna_status">${qnaStatus}</td>`
-
-      //qna
-      //qna 내용 생성
-      const qnaQuestionTr = document.createElement('tr');
-      qnaQuestionTr.setAttribute("class", "qna_content_tr_display_none");
-      qnaQuestionTr.setAttribute("style", "border: none");
-      qnaContentTbody.appendChild(qnaQuestionTr);
-      // 질문 상세
-      const qnaContentQuestionTd = document.createElement('td');
-      qnaQuestionTr.appendChild(qnaContentQuestionTd);
-      qnaContentQuestionTd.setAttribute("style", "text-align: left");
-      qnaContentQuestionTd.setAttribute("colspan", "4");
-      qnaContentQuestionTd.innerHTML = `<span>질문</span> <br>
-                                        <img src="/gorang/resources/uploadfile/qna/product-qna/${qna.qnaPhoto}">
-                                        <p>${qna.qnaContent}</p>`
-
-      //만약 답변이 있다면 생성
-      if(qna.answerNo != 0){
-        // 답변 상세
-        const qnaContentAnswerTd = document.createElement('td');
-        qnaQuestionTr.appendChild(qnaContentAnswerTd);
-        qnaContentAnswerTd.setAttribute("style", "text-align: left");
-        qnaContentAnswerTd.setAttribute("colspan", "4");
-        qnaContentAnswerTd.innerHTML = `${qna.answerContent} <br> ${qna.answerCreateDate}`;
-      }
-    
-      //답변 여부 초기화
-      qnaStatus = "답변대기";
+      setProductQna(qnaContentTbody, qnaStatus, qna, isAdmin);
     }
 
      // 이벤트 핸들러 등록
-  $(".qna_content_tr").click(function() {
-    // 현재 보이는 상세 내용 숨기기
-    $(".qna_content_tr_display").removeClass("qna_content_tr_display").addClass("qna_content_tr_display_none");
+    $(".qna_content_tr").click(function() {
+      console.log("클릭")
+      // 현재 보이는 상세 내용 숨기기
+      $(".qna_content_tr_display").removeClass("qna_content_tr_display").addClass("qna_content_tr_display_none");
 
-    // 클릭된 요소의 다음 요소(상세 내용) 보이게 하기
-    $(this).next().removeClass("qna_content_tr_display_none").addClass("qna_content_tr_display");
-  });
-      //페이지 처리!!!!!!!!!!!!!!!!!!!!!!!
-      const qnaPaginationArea = document.querySelector("#qna-pagination-area");
+      // 클릭된 요소의 다음 요소(상세 내용) 보이게 하기
+      $(this).next().removeClass("qna_content_tr_display_none").addClass("qna_content_tr_display");
+    });
 
-      updatePagination(qnaPaginationArea, res.pi);
-    }
+    // 페이지의 다른 곳을 클릭할 때 상세 내용 숨기기
+    document.addEventListener("click", function(event) {
+      // 클릭된 요소가 .qna_content_tr 이거나 그 자식이 아닌 경우 상세 내용 숨기기
+      if (!event.target.closest(".qna_content_tr")) {
+        $(".qna_content_tr_display").removeClass("qna_content_tr_display").addClass("qna_content_tr_display_none");
+      }
+    });
+
+
+    //페이지 처리
+    const qnaPaginationArea = document.querySelector("#qna-pagination-area");
+    updatePagination(qnaPaginationArea, res.pi);
+  }
+}
+
+function handlerProductQnaAnswerBtnClick(){
+
+}
+
+/** qna 객체마다 qna 구축해주는 메소드 */
+function setProductQna(qnaContentTbody,qnaStatus, qna, isAdmin){
+  //tr 생성
+  const qnaContentTableTr = document.createElement('tr');
+  qnaContentTableTr.setAttribute("class", "qna_content_tr")
+  qnaContentTbody.appendChild(qnaContentTableTr);
+  //qna 제목 td 생성
+  const qnaTitle = document.createElement('td');
+  qnaContentTableTr.appendChild(qnaTitle);
+  qnaTitle.setAttribute("class", "qna_title");
+  qnaTitle.innerHTML = qna.qnaContent;
+  //qna 작성자, 작성일 td 생성
+  qnaContentTableTr.innerHTML += `<td class="qna_writer">${qna.writerNickname}</td>`
+  qnaContentTableTr.innerHTML += `<td class="qna_create_date">${qna.qnaCreateDate}</td>`
+
+  if(qna.answerNo != 0){
+    qnaStatus = "답변완료"
+  }
+    // 답변 없는 문의는 관리자로 접속시 답변작성 버튼 생성
+    if(qna.answerNo == 0 && isAdmin){
+      qnaContentTableTr.innerHTML += `<td class="qna_status"><button class="product-qna-answer-btn" data-toggle="modal" data-target="#qna_Modal" data-value="${qna.qnaNo}">답변쓰기</button></td>`;
+      qnaContentTableTr.querySelector(".product-qna-answer-btn").addEventListener('click',(ev)=>{
+        ev.preventDefault();
+        let refQnaNo = ev.target.getAttribute("data-value");
+        ajaxGetProductOpts({pno},(opts)=>inquireQuestion(opts, refQnaNo));
+      })
+    } else {
+      qnaContentTableTr.innerHTML += `<td class="qna_status">${qnaStatus}</td>`
+    } 
+
+  //qna
+  //qna 내용 생성
+  const qnaQuestionTr = document.createElement('tr');
+  qnaQuestionTr.setAttribute("class", "qna_content_tr_display_none");
+  qnaQuestionTr.setAttribute("style", "border: none");
+  qnaContentTbody.appendChild(qnaQuestionTr);
+
+  // 질문 상세
+  const qnaContentQuestionTd = document.createElement('td');
+  qnaQuestionTr.appendChild(qnaContentQuestionTd);
+  qnaContentQuestionTd.setAttribute("style", "text-align: left;  width: 741px;");
+  qnaContentQuestionTd.setAttribute("colspan", "4");
+  qnaContentQuestionTd.innerHTML += `<div class="qna-content-container display-row">
+                                        <span class="qna-content-kind">Q</span>
+                                        <div class="qna-content-wrapper">
+                                          <span>${qna.qnaContent}</span>
+                                            <div class="qna-content-img-container">
+                                            </div>
+                                          
+                                        </div>
+                                      </div>`
+  if(qna.qnaPhoto){
+    const qnaContentContainer = qnaContentQuestionTd.querySelector(".qna-content-img-container");
+    const qnaContentImg = document.createElement('img');
+    qnaContentContainer.appendChild(qnaContentImg);
+    qnaContentImg.setAttribute("class", "qna-content-img");
+    qnaContentImg.setAttribute("src", "/gorang/resources/uploadfile/qna/product-qna/" + qna.qnaPhoto);
+  }
+
+  //만약 답변이 있다면 생성
+  if(qna.answerNo != 0){
+    // 답변 상세
+    const qnaContentAnswerDiv = document.createElement('div');
+    qnaContentQuestionTd.appendChild(qnaContentAnswerDiv);
+    qnaContentAnswerDiv.setAttribute("class", "qna-content-container display-row");
+    qnaContentAnswerDiv.innerHTML +=  ` <span class= "qna-content-kind">A</span>
+                                        <div class="qna-content-wrapper">
+                                          <span>${qna.answerContent}</span>
+                                          <span style="font-size: 14px; font-weight: 300">${qna.answerCreateDate}</span>
+                                        </div>`
+  }
+
+  //답변 여부 초기화
+  qnaStatus = "답변대기";
 }
 
  // 문의하기 모달창 구축하는 메소드
-function inquireQuestion(opts){
+function inquireQuestion(opts, refQnaNo){
+  if(refQnaNo){
+    document.querySelector("input[name='refQnaNo']").value = refQnaNo;
+  }
   console.log(opts);
   // 옵션명 보여줄 셀렉트
   const optnameSelect = document.querySelector("#qna_product_name");

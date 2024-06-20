@@ -122,9 +122,9 @@
                                                 <div class="product_pic_container">
                                                     <div style="font-size: 14px; font-weight: bold;">
                                                         사진 첨부(선택)
-                                                    </div>
-                                                    <div style="font-size: 12px;">
-                                                        사진을 첨부해주세요.(최대 1장)
+                                                        <div>
+                                                            사진을 첨부해주세요.(최대 1장)
+                                                        </div>
                                                     </div>
                                                     <div class="qna_pic_container">
 
@@ -215,9 +215,9 @@
                                                 <div class="product_pic_container">
                                                     <div style="font-size: 14px; font-weight: bold;">
                                                         사진 첨부(선택)
-                                                    </div>
-                                                    <div style="font-size: 12px;">
-                                                        사진을 첨부해주세요.(최대 1장)
+                                                        <div>
+                                                            사진을 첨부해주세요.(최대 1장)
+                                                        </div>
                                                     </div>
                                                     <div class="qna_pic_container">
 
