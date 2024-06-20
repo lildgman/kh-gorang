@@ -142,6 +142,10 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public int insertScrapProduct(ScrapBoardDTO scrapBoardDTO) {
 		
+		// return 2: scrapProduct 테이블에 추가 -> product테이블의 scrap_count + 1
+		// return 1: scrapProduct 테이블에서 삭제 -> product 테이블의 scrap_count - 1
+		// return 0: 걍 에러
+		
 		int existScrapProduct = productDao.existScrapProduct(sqlSession, scrapBoardDTO);
 		
 		log.info("existScrapProduct={}", existScrapProduct);
@@ -150,13 +154,25 @@ public class ProductServiceImpl implements ProductService{
 			int insertScrapProduct = productDao.insertScrapProduct(sqlSession, scrapBoardDTO);
 			
 			if(insertScrapProduct > 0) {
-				return 2;
+				
+				int increaseScrapCount = productDao.increaseScrapCount(sqlSession, scrapBoardDTO);
+				
+				if(increaseScrapCount > 0) {
+					return 2;
+				}
+				
 			}
 		} else {
 			int deleteScrapProduct = ProductDao.deleteScrapProduct(sqlSession, scrapBoardDTO);
 			
 			if(deleteScrapProduct > 0) {
-				return 1;
+				
+				int decreaseScrapCount = productDao.decreaseScrapCount(sqlSession, scrapBoardDTO);
+				
+				if(decreaseScrapCount > 0) {
+					return 1;
+				}
+				
 			}
 		}
 		

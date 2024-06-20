@@ -321,4 +321,8 @@ public class MyPageDao {
 		return (ArrayList)sqlSession.selectList("myPageMapper.selectRecipeListByRecipeNo", recipeNoArray);
 	}
 
+	public int decreaseScrapProduct(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.update("myPageMapper.decreaseScrapProduct",map);
+	}
+
 }
