@@ -27,9 +27,9 @@ import com.kh.gorang.common.template.Pagination;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.ProductCart;
 import com.kh.gorang.member.model.vo.QnA;
-import com.kh.gorang.member.model.vo.RefrigeratorInsertDTO;
 import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.member.service.MemberService;
+import com.kh.gorang.shopping.model.dto.ScrapBoardDTO;
 import com.kh.gorang.shopping.model.vo.Order;
 import com.kh.gorang.shopping.model.vo.OrderPdopt;
 import com.kh.gorang.shopping.model.vo.Product;
@@ -109,15 +109,24 @@ public class StoreController {
 	
 	// 상품 상세 페이지 리턴하는 컨트롤러
 	@RequestMapping("detail.po")
-	public String productDetailForm(@RequestParam String pno, Model model) {
+	public String productDetailForm(@RequestParam String pno, HttpSession session, Model model) {
 	    int productNo = Integer.parseInt(pno); 
+	    int memberNo = ((Member)session.getAttribute("loginUser")).getMemberNo();
+	    
 	    Product p = productService.selectProductByProductNo(productNo);
+	    
+	    ScrapBoardDTO scrapBoardDTO = new ScrapBoardDTO(productNo, memberNo);
+	    
+	    int existScrapProduct = productService.existScrapProduct(scrapBoardDTO);
+	    log.info("existScrapProduct={}",existScrapProduct);
+	    model.addAttribute("existScrapProduct",existScrapProduct);
 	    
 	    if (p == null) {
 	        model.addAttribute("alertMsg", "조회 실패");
 	        return "redirect:/list.po";
 	    } else {
 	        model.addAttribute("p", p);
+	        log.info("model={}",model);
 	        return "shopping/productDetailForm";
 	    }
 	}
@@ -390,4 +399,23 @@ public class StoreController {
 	    
 		return "redirect:/list.po";
 	}
-}
+	
+		//상품 스크랩
+		@PostMapping("scrap.po")
+		@ResponseBody
+		public String scrapProduct(
+				ScrapBoardDTO scrapBoardDTO) {
+			
+			log.info("scrapBoardDTO={}", scrapBoardDTO);
+			
+			int scrapProductResult = productService.insertScrapProduct(scrapBoardDTO);
+			
+			if(scrapProductResult == 1) {
+				return "cancle_scrap";
+			} else if (scrapProductResult == 2) {
+				return "do_scrap";
+			} else {
+				return "undone";
+			}
+		}
+	}
