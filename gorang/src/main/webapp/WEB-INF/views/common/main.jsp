@@ -23,24 +23,24 @@
         <!-- 배너 -->
         <div id="main-banner-area">
             <div class="main-banner" data-type="recipe" data-no="5" onclick="moveDetailPage(this)">
-                <img class="main-banner-img" src="${contextPath}/resources/uploadfile/recipe/recipemain/recipeBoardImg(5).jpg" alt="">
+                <img class="main-banner-img" src="${contextPath}/resources/uploadfile/recipe/recipemain/recipeBoardImg(3).jpg" alt="">
                 <div class="main-banner-comment">
                     <div class="main-comment">
-                                    자작~하게 졸여 즐기는<br>
-                                    짜글짜글 짜글이
+                                    떠오르고 있는 <br>
+                                    신흥 밥도둑
                     </div>
-                    <div class="sub-comment">감자 짜글이</div>
+                    <div class="sub-comment">창녕갈릭 삼치 조림</div>
                 </div>
             </div>
 
             <div class="main-banner" data-type="recipe" data-no="3" onclick="moveDetailPage(this)">
-                <img class="main-banner-img" src="${contextPath}/resources/uploadfile/recipe/recipemain/recipeBoardImg(3).jpg" alt="">
+                <img class="main-banner-img" src="${contextPath}/resources/uploadfile/recipe/recipemain/recipeBanner.png" alt="">
                 <div class="main-banner-comment">
                     <div class="main-comment">
-                                    떠오르고 있는<br>
-                                    신흥 밥도둑
+                        집에서도 즐기는<br>
+                                   레스토랑 스테이크
                     </div>
-                    <div class="sub-comment">창녕갈릭 삼치 조림</div>
+                    <div class="sub-comment">블루베리 소스 스테이크</div>
                 </div>
             </div>
 
