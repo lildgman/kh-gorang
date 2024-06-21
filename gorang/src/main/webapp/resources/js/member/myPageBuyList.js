@@ -33,9 +33,17 @@ document.addEventListener("DOMContentLoaded", function(){
         const productNo = imgTd.closest(".tbody-buy-list-block").querySelector(".buyList-input-productNo").value;
         imgTd.querySelector("img").addEventListener('click', () => {location.href = ctp + "/detail.po?pno=" +  productNo});
     })
+
+    setPaginationEventListeners();
 });
 
+// ================================== 유틸리티, 전역 변수 ======================================
+
 const ctp = sessionStorage.getItem("contextpath");
+
+
+// =================================== 모달 관련  함수 ==========================================
+
 
 /** QNA 모달 내 유저, 상품 정보 기입하는 함수 */
 function fillQnaModal(ev){
@@ -193,7 +201,137 @@ function resetImage(modalElement) {
     mainImgContainer.style.display = 'none';
 }
 
-/** 구매하기 버튼 클릭 시 체크된 품목이 있는지 검사하고 없으면 alret 띄우는 함수 */
-function handlerCheckProductClick(){
+
+// ================================= ajax 로 받아온 값들을 이용해 새로 그려주는 메소드 =======================
+
+/** ajax 로 currentPage 보내서 RowBounds 된 ArrayList<orderPdOpt> 값 받아오는 ajax*/
+function getBuyListByAjax(data, callback){
+    $.ajax({
+        url: "getBuyListAjax.me",
+        data,
+        success: function(res){
+            console.log(res);
+            callback(res);
+        },
+        error: function(){
+            console.log("송신 실패");
+        }
+    })
+}
+
+/** ajax 로 받아온 객체들로 테이블 내 tbody 새로 만들어주는 메소드 */
+function setBuyListTable(res){
+    const buyList = res.orderPdopts;
+    const paginationArea =  document.querySelector("#pagination-area");
+
+    const buyListTbody = document.querySelector("#myPage-buy-list-bottom > table > tbody");
+    buyListTbody.innerHTML = "";
+
+    for(let orderPdopt of buyList){
+        setOrderPdOptTr(orderPdopt, buyListTbody);
+    }
+
+     // 페이지네이션 갱신
+     updatePagination(paginationArea, res.pi);
+}
+
+/** OrderPdopt 객체로 tbody 내 tr 만드는 메소드 */
+function setOrderPdOptTr(orderPdopt, buyListTbody){
+    let buyListTbodyTr = document.createElement('tr');
+    buyListTbody.appendChild(buyListTbodyTr);
+    buyListTbodyTr.setAttribute("class", "tbody-buy-list-block");
+    buyListTbodyTr.innerHTML += `
+                                <td class="tbody-td-img"><img style="cursor: pointer;"
+                                        src="${ctp}/resources/uploadfile/product/productimg/${orderPdopt.orderPdThumbnail}"
+                                        alt="">
+                                </td>
+                                <td class="tbody-td-name">
+                                    <input type="hidden" class="buyList-input-productNo" value="${orderPdopt.orderPdNo}">
+                                    <input type="hidden" class="buyList-input-pdOptNo" value="${orderPdopt.optNo}">
+                                    <span class="product-brand-name">${orderPdopt.orderPdBrand}</span>
+                                    <br>
+                                    <span class="product-name">${orderPdopt.orderPdName}</span> <br>
+                                    <span class="product-opt-name">${orderPdopt.orderPdOptName}</span>
+                                </td>
+                                <td class="tbody-td-amount">${orderPdopt.optQuantity}</td>
+                                <td class="tbody-td-price">${orderPdopt.orderPdOptPrice}원</td>
+                                <td class="tbody-td-buyDate">${orderPdopt.orderPdOptDate}</td>
+                                <td class="tbody-td-status">
+                                    <span style="color:#068E3D;">배송 완료</span><br>
+                                    <form action="https://info.sweettracker.co.kr/tracking/5" method="post">
+                                        <div class="form-group" style="display: none;">
+                                            <label for="t_key">API key</label>
+                                            <input type="hidden" class="form-control" id="t_key" name="t_key" placeholder="제공받은 APIKEY" value="ln0430YYI1g2THuT7m4Atg">
+                                        </div>
+                                        <div class="form-group" style="display: none;">
+                                            <label for="t_code">택배사 코드</label>
+                                            <input type="text" class="form-control" name="t_code" id="t_code" placeholder="택배사 코드" value="04">
+                                        </div>
+                                        <div class="form-group" style="display: none;">
+                                            <label for="t_invoice">운송장 번호</label>
+                                            <input type="hidden" class="form-control" name="t_invoice" id="t_invoice" placeholder="운송장 번호">
+                                        </div>
+                                        <button type="submit" class="btn btn-default" style="width: 85px;">조회하기</button>
+                                    </form>
+                                </td>`;
+    const tbodyTdBtn = document.createElement('td');
+    buyListTbodyTr.appendChild(tbodyTdBtn);
+    tbodyTdBtn.setAttribute("class", "tbody-td-btn");
+
+    tbodyTdBtn.innerHTML += `<button class="tbody-td-btn-qna" data-toggle="modal"
+                                        data-target="#qna_Modal">문의 하기</button>`;
+    tbodyTdBtn.innerHTML += ( orderPdopt.refReviewNo == 0  ? `<button class="tbody-td-btn-write" data-toggle="modal" data-target="#buyList-review_Modal">후기 작성</button>` : `<button class="tbody-td-btn-write" style="pointer-events: none;">작성 완료</button>` );
+
     
+    tbodyTdBtn.innerHTML += `<button class="tbody-td-btn-cancle" onclick="showSweetConfirm()">주문취소</button>`;
+}
+
+// ==================================================== 페이지네이션 =========================================================
+
+/** ajax로 받아온 pi 객체를 이용해 페이지네이션 업데이트 해주는 메소드 */
+function updatePagination(ev, pi) {
+    const pagination = ev.querySelector(".pagination");
+    pagination.innerHTML = "";
+
+    if (pi.currentPage > 1) {
+        const prevLink = createPaginationLink(pi.currentPage - 1, '&lt;');
+        pagination.appendChild(prevLink);
+    }
+
+    for (let p = pi.startPage; p <= pi.endPage; p++) {
+        const pageLink = createPaginationLink(p, p);
+        if (p == parseInt(pi.currentPage)) {
+            pageLink.innerHTML = `<strong>${p}</strong>`;
+        }
+        pagination.appendChild(pageLink);
+    }
+
+    if (pi.currentPage < pi.maxPage) {
+        const nextLink = createPaginationLink(pi.currentPage + 1, '&gt;');
+        pagination.appendChild(nextLink);
+    }
+
+    // 새로 생성된 링크에 이벤트 리스너 추가
+    setPaginationEventListeners();
+}
+
+/** 페이지네이션 a 태그 생성해주는 메소드 */
+function createPaginationLink(page, text) {
+    const link = document.createElement('a');
+    link.setAttribute('data-value', page);
+    link.innerHTML = text;
+    return link;
+}
+
+/** 페이지바 a 태그에 클릭 이벤트 넣어주는 메소드 */
+function setPaginationEventListeners() {
+    const paginationArea = document.querySelector("#pagination-area");
+    if(paginationArea){
+        paginationArea.addEventListener("click", function (event) {
+            if (event.target.tagName === 'A') { // 왜 대문자 A일까요?
+                const cpage = event.target.getAttribute('data-value');
+                getBuyListByAjax({cpage: parseInt(cpage)}, res => {setBuyListTable(res)});
+            }
+        });
+    }
 }

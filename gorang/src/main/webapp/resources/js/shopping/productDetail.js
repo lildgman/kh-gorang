@@ -1,6 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // 전역 변수 초기화
-  const contextPath = getContextPath();
 
   // 파라미터값으로 뿌려주고 남은 정보창 채우기
   inputProductInfo(pno, contextPath);
@@ -11,13 +9,9 @@ document.addEventListener("DOMContentLoaded", function () {
   displaySelectedImage();
 });
 
-const pno = getParameterPno();
-
-// ======================== 유틸리티 함수 ===========================
+// ==================================================== 유틸리티 함수, 전역 변수 ===========================
 // contextPath 저장
-function getContextPath() {
-  return sessionStorage.getItem("contextpath");
-}
+const contextPath = sessionStorage.getItem("contextpath");
 
 //페이지의 URL 에서 쿼리 파라미터 값 추출
 function getParameterPno() {
@@ -26,6 +20,8 @@ function getParameterPno() {
   let pno = param.get('pno');
   return pno;
 }
+// 상품 번호
+const pno = getParameterPno();
 
  /** ajax로 받아온 pi 객체를 이용해 페이지네이션 업데이트 해주는 메소드 */
  function updatePagination(ev, pi) {
@@ -57,39 +53,101 @@ function getParameterPno() {
   }
 
   // 새로 생성된 링크에 이벤트 리스너 추가
-  switch(ev){
-      case document.querySelector("#pagination-area"):
-          setPaginationEventListeners();
-          break;
-      case document.querySelector("#ingre-modal-pagination"):
-          setIngreModalPaginationEventListeners();
-          break;
-      case document.querySelector("#modal-recipe-pagination"):
-          setRecipeModalPaginationEventListeners();
-  }        
+  setPaginationEventListeners(ev);
 }
 
- /** 냉장고 페이지바 a 태그에 클릭 이벤트 넣어주는 메소드 */
+ /** 페이지바 a 태그에 클릭 이벤트 넣어주는 메소드 */
  function setPaginationEventListeners(paginationArea) {
   paginationArea.querySelectorAll(".pagination a").forEach(function(ev){
       ev.addEventListener("click", function(el){
           let cpage = el.currentTarget.getAttribute('data-value');
           switch(paginationArea){
             case document.querySelector("#review-pagination-area"):
-              ajaxGetProductReviews({pno: pno , cpage: cpage});
+              ajaxGetProductReviews({pno: pno , cpage: cpage}, (res)=> putProductReviewList(res, contextPath));
                 break;
             case document.querySelector("#qna-pagination-area"):
-              ajaxGetProductQnAs({pno: pno ,cpage: cpage});
+              ajaxGetProductQnAs({pno: pno ,cpage: cpage}, (res)=>putProductQnAList(pno, res));
                 break;
         }    
       });
   });
 }
+//찜버튼 눌렀을 때 발생하는 이벤트
+function clickZzim() {
 
-// =================================== ajax 함수 =========================
+  const productNo = document.querySelector('#product-no').value;
+  const memberNo = document.querySelector('#member-no').value;
+  const zzim = document.querySelector("#zzim");
+  zzim.addEventListener("click", function () {
+
+    $.ajax({
+      url: 'scrap.po',
+      type: 'post',
+      data: {
+        productNo: productNo,
+        memberNo: memberNo
+      },
+      success: function(res) {
+          if (res === 'cancle_scrap') {
+            alert("스크랩을 취소하셨습니다.");
+        } else if (res === 'do_scrap') {
+            alert("스크랩을 완료하였습니다.")
+        } else {
+            alert("스크랩을 실패하였습니다.");
+        }
+
+        window.location.reload();
+      },
+      error: function() {
+        console.log("상품 스크랩 기능 api 호출 실패")
+      }
+
+    })
+
+
+    // if (!zzimStatus) {
+    //   zzim.innerHTML = `<i class="fa-solid fa-heart fa-xl" style="color: #ff0000;"></i>`;
+    //   zzimStatus = true;
+    // } else {
+    //   zzim.innerHTML = `<i class="fa-regular fa-heart fa-xl"></i>`;
+    //   zzimStatus = false;
+    // }
+  })
+}
+
+/**  문의 사진 첨부 */
+function fileInputClick() {
+  const addQnaPicture = document.querySelector('#add_qna_product_pic');
+  const fileInput = document.querySelector('#file-input');
+
+  addQnaPicture.addEventListener('click', function(){
+    fileInput.click();
+  });
+}
+
+/** 첨부한 사진 미리 볼 수 있도록 해주는 메소드 */
+function displaySelectedImage() {
+  const fileInput = document.querySelector('#file-input');
+  let mainImgContainer = document.querySelector('#qna_pic_container');
+
+  fileInput.addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (ev) {
+        mainImgContainer.innerHTML = `<img class="qna-img" src="${ev.target.result}" alt="Selected Image">`;
+      };
+      reader.readAsDataURL(file);
+      console.log(mainImgContainer.style.display);
+      mainImgContainer.style.display = 'block';
+    }
+  });
+}
+
+// ======================================================= ajax 함수 ================================
 
 //ajax 통신으로 pno 넘겨주고 해당 상품 번호 참조하는 리뷰들 호출
-  function ajaxGetProductReviews(data, callback){
+function ajaxGetProductReviews(data, callback){
   $.ajax({
     url: "ajaxReview.po",
     data,
@@ -117,8 +175,6 @@ function ajaxGetProductQnAs(data, callback){
     })
   });
 }
-
-
 
 // 상품 옵션 가져오는 ajax
 function ajaxGetProductOpts(data, callback){
@@ -152,7 +208,7 @@ function ajaxPutPdoptInCart(data){
 
 // ==========================================  화면 동적 구성 위한 메소드 ============================
 // ajaxGetProduct에서 가져온 product 객체 정보를 토대로 화면에 나타날 정보 입력하는 콜백 함수
-function inputProductInfo(pno, profileLocation){
+function inputProductInfo(pno, contextPath){
 
   // 상품 선택 div 부분 높이 구하기
   document.getElementById("product-opt-form-wrapper").style.height = document.getElementById("productContent_area").offsetHeight + 300 +"px";
@@ -164,9 +220,8 @@ function inputProductInfo(pno, profileLocation){
   // 상품 선택하기
   ajaxGetProductOpts({pno}, (opts)=>putProductOptsForOrder(opts));
 
-  
   //리뷰 수, 리뷰 내용 가져오기
-  ajaxGetProductReviews({pno: pno, cpage: 1}, (res)=> putProductReviewList(res, profileLocation));
+  ajaxGetProductReviews({pno: pno, cpage: 1}, (res)=> putProductReviewList(res, contextPath));
 
   //상품 문의 가져오기
   ajaxGetProductQnAs({pno: pno, cpage: 1}, (res)=>putProductQnAList(pno, res));
@@ -369,8 +424,6 @@ function putProductOptsForOrder(opts){
 
 }
 
-// DOM 이 완전히 로드되지 않은 상태에서 이벤트 리스너 발생하여 document.querySelector("#product-buy-btn") 를 찾지 못하는 상황 발생
-// 따라서 "DOMContentLoaded" 이벤트 리스너를 추가
 document.addEventListener("DOMContentLoaded", function(){
 
   // 장바구니 버튼 클릭 이벤트
@@ -451,17 +504,11 @@ document.addEventListener("DOMContentLoaded", function(){
 //=========================== review 관련 메소드 ========================================
 
   // 리뷰 부분 구성하는 요소들 구축하는 메소드
-  // 리뷰를 위해서는 상품 번호를 바로 참조하는 것이 아니라 유저가 구매한 상품 옵션을 통해 상품 번호를 가져와야함
-  // 옵션명이 필요함!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
-
 function putProductReviewList(res, contextPath){
-  
   const reviews = res.reviews;
-
   if(reviews.length > 0){
     const productReviewContainer = document.querySelector("#product-review-container");
+    productReviewContainer.innerHTML = "";
     // 리뷰수
     document.querySelector("#product_review_quantity").innerHTML = reviews.length;
     // 평점 평균 변수
@@ -541,7 +588,7 @@ function putProductReviewList(res, contextPath){
 }
 
 // ============================= QNA 관련 메소드 ====================================
-  // 문의 구축하는 메소드
+/** 문의 구축하는 메소드 */
 function putProductQnAList(pno, res){
   const qnas = res.qnas;
 
@@ -566,7 +613,7 @@ function putProductQnAList(pno, res){
     if(qnas.length > 0){
       // 문의 내용
     const qnaContentTbody = document.querySelector('#qna_content > tbody');
-
+    qnaContentTbody.innerHTML = "";
     let qnaStatus = "답변대기";
 
     for(let qna of qnas){
@@ -579,7 +626,6 @@ function putProductQnAList(pno, res){
 
      // 이벤트 핸들러 등록
     $(".qna_content_tr").click(function() {
-      console.log("클릭")
       // 현재 보이는 상세 내용 숨기기
       $(".qna_content_tr_display").removeClass("qna_content_tr_display").addClass("qna_content_tr_display_none");
 
@@ -594,16 +640,10 @@ function putProductQnAList(pno, res){
         $(".qna_content_tr_display").removeClass("qna_content_tr_display").addClass("qna_content_tr_display_none");
       }
     });
-
-
     //페이지 처리
     const qnaPaginationArea = document.querySelector("#qna-pagination-area");
     updatePagination(qnaPaginationArea, res.pi);
   }
-}
-
-function handlerProductQnaAnswerBtnClick(){
-
 }
 
 /** qna 객체마다 qna 구축해주는 메소드 */
@@ -682,12 +722,11 @@ function setProductQna(qnaContentTbody,qnaStatus, qna, isAdmin){
   qnaStatus = "답변대기";
 }
 
- // 문의하기 모달창 구축하는 메소드
+ /** 문의하기 모달창 구축하는 메소드 */
 function inquireQuestion(opts, refQnaNo){
   if(refQnaNo){
     document.querySelector("input[name='refQnaNo']").value = refQnaNo;
   }
-  console.log(opts);
   // 옵션명 보여줄 셀렉트
   const optnameSelect = document.querySelector("#qna_product_name");
   // 상품 옵션 불러와서 넣기
@@ -700,83 +739,8 @@ function inquireQuestion(opts, refQnaNo){
 }
 
 
-// ============================ 이벤트 처리 메소드 ======================
-
-//찜버튼 눌렀을 때 발생하는 이벤트
-function clickZzim() {
-
-  const productNo = document.querySelector('#product-no').value;
-  const memberNo = document.querySelector('#member-no').value;
-  const zzim = document.querySelector("#zzim");
-  zzim.addEventListener("click", function () {
-
-    $.ajax({
-      url: 'scrap.po',
-      type: 'post',
-      data: {
-        productNo: productNo,
-        memberNo: memberNo
-      },
-      success: function(res) {
-          if (res === 'cancle_scrap') {
-            alert("스크랩을 취소하셨습니다.");
-        } else if (res === 'do_scrap') {
-            alert("스크랩을 완료하였습니다.")
-        } else {
-            alert("스크랩을 실패하였습니다.");
-        }
-
-        window.location.reload();
-      },
-      error: function() {
-        console.log("상품 스크랩 기능 api 호출 실패")
-      }
-
-    })
-
-
-    // if (!zzimStatus) {
-    //   zzim.innerHTML = `<i class="fa-solid fa-heart fa-xl" style="color: #ff0000;"></i>`;
-    //   zzimStatus = true;
-    // } else {
-    //   zzim.innerHTML = `<i class="fa-regular fa-heart fa-xl"></i>`;
-    //   zzimStatus = false;
-    // }
-  })
-}
-
-// 문의 사진 첨부
-
-function fileInputClick() {
-  const addQnaPicture = document.querySelector('#add_qna_product_pic');
-  const fileInput = document.querySelector('#file-input');
-
-  addQnaPicture.addEventListener('click', function(){
-    fileInput.click();
-  });
-}
-
-function displaySelectedImage() {
-  const fileInput = document.querySelector('#file-input');
-  let mainImgContainer = document.querySelector('#qna_pic_container');
-
-  fileInput.addEventListener('change', function(e) {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function (ev) {
-        mainImgContainer.innerHTML = `<img class="qna-img" src="${ev.target.result}" alt="Selected Image">`;
-      };
-      reader.readAsDataURL(file);
-      console.log(mainImgContainer.style.display);
-      mainImgContainer.style.display = 'block';
-    }
-  });
-}
-
 
 // ======================== 네비게이션 및 페이지 이동 =========================
-
 // nav 눌렀을 때 발생하는 함수
 function scrollToDiv(div) {
   const divOffsetTop = document.querySelector(div).offsetTop;

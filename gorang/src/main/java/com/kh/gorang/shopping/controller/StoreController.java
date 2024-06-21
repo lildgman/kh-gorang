@@ -151,7 +151,7 @@ public class StoreController {
 		// 해당 상품에 대한 리뷰 총 갯수
 		int reviewsCount = productService.selectReviewsCount(productNo);
 		
-		PageInfo pi = Pagination.getPageInfo(reviewsCount, cp, 10, 10);
+		PageInfo pi = Pagination.getPageInfo(reviewsCount, cp, 10, 5);
 		
 		ArrayList<Review> reviews = productService.selectProductReviewsByPno(productNo, pi);
 		
