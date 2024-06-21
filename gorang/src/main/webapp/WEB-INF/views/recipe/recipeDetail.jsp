@@ -57,6 +57,7 @@
                 </div>
                 <input type="hidden" name="loginMemberNo"  value=${loginUser.memberNo}>
                 <input type="hidden" name="loginrecipeNo" value=${rcp.recipeNo}>
+                <input type="hidden" name="recipeMemberNo" value=${rcp.memberNo}>
                 <!-- 레시피 내용 전체 -->
                 <div id="recipe-content-total-area">
 
@@ -196,7 +197,7 @@
                             <span id="youtube_recipe_title">유튜브 영상</span>
                         </div>                       
                         <div id="youtube_middle">
-                            <iframe width="560" height="315" src="${rcp.recipeVideo}"  title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>                           
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/${rcp.recipeVideo}"  title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>                           
                         </div>
                     </div>
                     </c:if>
@@ -391,7 +392,7 @@
 
                             <!-- Modal Header -->
                             <div class="modal-header">
-                                <h4 style="font-size: 16px; margin-bottom: 0px;">상품 문의하기</h4>
+                                <h4 style="font-size: 16px; margin-bottom: 0px;">레시피 문의하기</h4>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
 
@@ -400,7 +401,7 @@
                                 <div class="modal-qna-content">
                                     <input type="hidden" name="writerNo" id="qna-modal-writerNo" value=${loginUser.memberNo}>
                                     <input type="hidden" name="refRecipeNo" id="qna-modal-refProductNo" value=${rcp.recipeNo}>
-                                  
+                                    <input type="hidden" name="refQnaNo" value="0">
                                     <div class="product_pic_container">
                                         <div style="font-size: 14px; font-weight: bold;">
                                             사진 첨부(선택)
@@ -464,7 +465,6 @@
                                     <div class="modal-qna-content">
                                     <input type="hidden" name="refMemberNo" value=${loginUser.memberNo}>
                                     <input type="hidden" name="refRecipeNo" value=${rcp.recipeNo} id="review-modal-refProductNo">
-        
                                     <div class="modal-review-rating-container">
                                         <span>별점 평가</span>
                                         <div class="modal-review-rating-content">

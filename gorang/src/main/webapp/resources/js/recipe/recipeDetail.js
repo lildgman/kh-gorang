@@ -9,10 +9,36 @@ document.addEventListener("DOMContentLoaded", function () {
   inputProductInfo(recipeNo, contextPath);
 
   // 이벤트 핸들러 등록
-  fileInputClick();
+
+//  // 문의하기 버튼 클릭 이벤트
+//  const qnaButtons = document.querySelector(".btn btn-primary");
+//  qnaButtons.forEach(function(button) {
+//      button.addEventListener("click", function(ev){
+//          ev.preventDefault();
+//          fileInputClickQnA(ev);
+//      });
+//  });
+//   // 후기작성 버튼 클릭 이벤트
+//   const reviewButtons = document.querySelector(".tbody-td-btn-write");
+//   reviewButtons.forEach(function(button) {
+//       button.addEventListener("click", function(ev){   
+//           ev.preventDefault();
+//           fileInputClickReview(ev);
+//       });
+//   });
+     // 이벤트 핸들러 등록
+    //  $(".qna_content_tr").click(function() {
+    //   console.log("클릭")
+    //   // 현재 보이는 상세 내용 숨기기
+    //   $(".qna_content_tr_display").removeClass("qna_content_tr_display").addClass("qna_content_tr_display_none");
+
+    //   // 클릭된 요소의 다음 요소(상세 내용) 보이게 하기
+    //   $(this).next().removeClass("qna_content_tr_display_none").addClass("qna_content_tr_display");
+    // });
 
   setRatingStar();
 });
+
 
 const recipeNo = getParameterPno();
 //페이지의 URL 에서 쿼리 파라미터 값 추출
@@ -70,23 +96,34 @@ function updatePagination(ev, pi) {
 }     
 }
 
-// 문의 사진 첨부
+// // 문의 사진 첨부
 
-function fileInputClick() {
-  const addQnaPicture = document.querySelector('#add_qna_product_pic');
-  const fileInput = document.querySelector('#file-input');
+// function fileInputClickQnA(ev) {
+//   const addQnaPicture = ev.querySelector('#add_qna_product_pic');
+//   const fileInput = ev.querySelector('#file-input');
+//   console.log("문의 사진첨부 들어옴");
+//   addQnaPicture.addEventListener('click', function(){
+//     fileInput.click();
+//   });
+// }
 
-  addQnaPicture.addEventListener('click', function(){
-    fileInput.click();
-  });
-}
+// // 후기 사진 첨부
+
+// function fileInputClickReview(ev) {
+//   const addQnaPicture = ev.querySelector('#add_qna_product_pic');
+//   const fileInput = ev.querySelector('#file-input');
+//   console.log("후기 사진첨부 들어옴");
+//   addQnaPicture.addEventListener('click', function(){
+//     fileInput.click();
+//   });
+// }
 
 
 document.addEventListener("DOMContentLoaded", function(){
   
-  // 문의하기 버튼 클릭 이벤트
+  // 문의하기 버튼 클릭 이벤트 예외처리
 
-  let num=document.querySelector("input[name='loginMemberNo']").value !== ""
+    let num=document.querySelector("input[name='loginMemberNo']").value !== ""
     const qnaButton = document.querySelector("#btn_qna");
     qnaButton.addEventListener("click", function(){
       if(num){
@@ -98,15 +135,17 @@ document.addEventListener("DOMContentLoaded", function(){
            window.location.href = `loginForm.me`;
       }
     });
-    // alert("로그인 후 이용가능한 서비스입니다.")
-    // window.location.href = `loginForm.me`;
-    // 후기작성 버튼 클릭 이벤트
+    //후기 답변
+    
+
+    // 후기작성 버튼 클릭 이벤트 예외처리
     const reviewButtons = document.querySelector(".tbody-td-btn-write");
     reviewButtons.addEventListener("click", function(){   
       if(num){
       console.log("체크됨리뷰");
             fullReviewModal();
             setRatingStar();
+            return;
       }else{
         alert("로그인 후 이용가능한 서비스입니다.")
         window.location.href = `loginForm.me`;
@@ -114,6 +153,19 @@ document.addEventListener("DOMContentLoaded", function(){
     });
         
 });
+
+
+
+document.addEventListener("click", function(event) {
+  if (event.target.classList.contains("product-qna-answer-btn")) {
+  console.log(10000);
+  fillQnaModal();
+  let refQnaNo = event.target.getAttribute("data-value");
+    console.log("클릭된 버튼의 refQnaNo:", refQnaNo);
+    document.querySelector("input[name='refQnaNo']").value= refQnaNo;
+  }
+});
+
 
 
  /** 냉장고 페이지바 a 태그에 클릭 이벤트 넣어주는 메소드 */
@@ -200,52 +252,72 @@ function putRecipeReviewList(res, contextPath) {
 
 
 
-function putRecipeQnAList( res) {
+function putRecipeQnAList(res) {
   const qnas = res.qnaList;
 
   if (qnas.length > 0) {
-      const qnaContentTbody = document.querySelector('#qna_content > tbody');
-      let qnaContentHtml = '';
+    let loginMemberNo = parseInt(document.querySelector("input[name='loginMemberNo']").value);
+    let recipeMemberNo = parseInt(document.querySelector("input[name='recipeMemberNo']").value);
 
-      qnas.forEach(qna => {
-          if (qna.qnaAnswerType == 1) {
-              qnaContentHtml += `
-                  <tr class="${qna.answerNo != 0 ? 'qna-area-hover' : 'qna-area'}" onclick="showQ(this)" data-answerno="${qna.answerNo}">                                           
-                      <td class="qna_title">${qna.qnaContent}</td>
-                      <td class="qna_writer">${qna.writerNickname}</td>
-                      <td class="qna_create_date">${qna.qnaCreateDate}</td>
-                      <td class="qna_status">${qna.answerNo != 0 ? '답변 완료' : '답변 대기'}</td>
-                  </tr>
-              `;
+    const qnaContentTbody = document.querySelector('#qna_content > tbody');
+    let qnaContentHtml = '';
 
-              if (qna.answerNo != 0) {
-                  qnaContentHtml += `
-                      <tr class="answer_area" style="display: none;">
-                          <td colspan="4" >
-                              <div id="qna_q">
-                                  <span class="span_q_a">Q</span><span>${qna.qnaContent}</span>
-                                  <div id="review_img_container">
-                                      ${qna.qnaPhoto ? `<img class="review_img" src="/gorang/resources/uploadfile/recipe/recipeQna/${qna.qnaPhoto}" alt="">` : ''}
-                                  </div>
-                              </div>
-                              <div id="qna_a">
-                                  <span class="span_q_a">A</span>
-                                  <span>${qna.answerContent}</span>
-                              </div>
-                              <div id="qna_a_date">${qna.answerCreateDate}</div>                                            
-                          </td>
-                      </tr>
-                  `;
-              }
-          }
-        });
-        qnaContentTbody.innerHTML += qnaContentHtml;
+    qnas.forEach(qna => {
+      if (qna.qnaAnswerType == 1) {
+        qnaContentHtml += `
+          <tr class="${qna.answerNo != 0 ? 'qna-area-hover' : 'qna-area'}" onclick="showQ(this)" data-answerno="${qna.answerNo}">
+            <td class="qna_title">${qna.qnaContent}</td>
+            <td class="qna_writer">${qna.writerNickname}</td>
+            <td class="qna_create_date">${qna.qnaCreateDate}</td>
+        `;
 
+        if (loginMemberNo === recipeMemberNo) { //로그인 유저랑 레시피 유저 번호가 같을 시 답변가능하게 함
+          qnaContentHtml += `
+            <td class="qna_status"> 
+              ${qna.answerNo != 0 
+                ? '답변 완료' 
+                : `<button class="product-qna-answer-btn" data-toggle="modal" data-target="#qna_Modal" data-value="${qna.qnaNo}">답변쓰기</button>`}
+            </td>
+            </tr>
+          `;
+
+        } else { //만약 다르면 답변 대기를 보여줌
+          qnaContentHtml += `
+            <td class="qna_status">
+              ${qna.answerNo != 0 ? '답변 완료' : '답변 대기'}
+            </td>
+            </tr>
+          `;
+        }
+
+        if (qna.answerNo != 0) {
+          qnaContentHtml += `
+            <tr class="answer_area" style="display: none;">
+              <td style="text-align: left;" colspan="4">
+                <div id="qna_q">
+                  <span class="span_q_a">Q</span><span>${qna.qnaContent}</span>
+                  <div id="review_img_container">
+                    ${qna.qnaPhoto ? `<img class="review_img" src="/gorang/resources/uploadfile/recipe/recipeQna/${qna.qnaPhoto}" alt="">` : ''}
+                  </div>
+                </div>
+                <div id="qna_a">
+                  <span class="span_q_a">A</span>
+                  <span>${qna.answerContent}</span>
+                </div>
+                <div id="qna_a_date">${qna.answerCreateDate}</div>
+              </td>
+            </tr>
+          `;
+        }
+      }
+    });
+
+    qnaContentTbody.innerHTML += qnaContentHtml;
   }
+
   const qnaPaginationArea = document.querySelector("#qna-pagination-area");
   updatePagination(qnaPaginationArea, res.pi);
 }
-
 // 레시피 REVIEW 가져오는 ajax
 function ajaxGetRecipeReviews(data, callback){
   $.ajax({
@@ -294,7 +366,6 @@ function fullReviewModal(){
   // const trEl = ev.currentTarget.closest(".tbody-buy-list-block");
   const reviewModal = document.querySelector("#buyList-review_Modal");
   resetImage(reviewModal);
-  console.log(reviewModal);
   resetRating();
 
   setupFileInput(reviewModal);
@@ -515,66 +586,80 @@ function insertQnARecipe() {
   let parent = document.getElementById("qna_Modal");
   let writerNo = parent.querySelector('input[type="hidden"][name="writerNo"]').value;
   let refRecipeNo = parent.querySelector('input[type="hidden"][name="refRecipeNo"]').value;
-  console.log(refRecipeNo);
   let qnaContent = parent.querySelector('textarea[name="qnaContent"]').value;
   let qnaPhotoElement = parent.querySelector('input[type="file"][name="qnaPhotoUpfile"]');
-
+  let refQnaNo = document.querySelector('input[type="hidden"][name="refQnaNo"]').value;
+  console.log(refQnaNo);
   let formData = new FormData();
   formData.append("writerNo", parseInt(writerNo));
   formData.append("refRecipeNo", parseInt(refRecipeNo));
   formData.append("qnaContent", qnaContent);
+  formData.append("refQnaNo", refQnaNo);
   if (qnaPhotoElement && qnaPhotoElement.files && qnaPhotoElement.files[0]) {
     formData.append("qnaPhoto", qnaPhotoElement.files[0]);
   }
 
   ajaxinsertQnA(formData, function(qnaData) {
-    let html = '';
+    if (qnaData.qnaAnswerType === 1) {
+      let qnaContentHtml = '';
+      let loginMemberNo = parseInt(document.querySelector("input[name='loginMemberNo']").value);
+      let recipeMemberNo = parseInt(document.querySelector("input[name='recipeMemberNo']").value);
 
-      if (qnaData.qnaAnswerType === 1) {
-          if (qnaData.answerNo !== 0) { // 답변이 있는 경우
-              html += `
-              <div class="qna-blocks">
-                  <input type="hidden" value="${qnaData.answerNo}">
-                  <tr class="qna-area-hover" onclick="showQ(this)" data-answerno="${qnaData.answerNo}">                                           
-                      <td class="qna_title" ">${qnaData.qnaContent}</td>
-                      <td class="qna_writer">${qnaData.writerNickname}</td>
-                      <td class="qna_create_date">${qnaData.qnaCreateDate}</td>
-                      <td class="qna_status">답변 완료</td>
-                  </tr>                                                                                   
-                  <tr class="answer_area" style="display: none;">
-                      <td colspan="4" ">
-                          <div id="qna_q">
-                              <span class="span_q_a">Q</span><span>${qnaData.qnaContent}</span>
-                              <div id="review_img_container">
-                                  <img class="review_img" src="/gorang/resources/uploadfile/recipe/recipeQna/${qnaData.qnaPhoto}" alt="">
-                              </div>
-                          </div>
-                          <div id="qna_a">
-                              <span class="span_q_a">A</span><span>${qnaData.answerContent}</span>
-                          </div>
-                          <div id="qna_a_date">${qnaData.answerCreateDate}</div>                                            
-                      </td>
-                  </tr>                                         
-              </div>`;
-          } else { // 답변이 없는 경우
-              html += `
-              <div class="qna-blocks">
-                  <input type="hidden" value="${qnaData.qnaNo}">
-                  <tr class="qna-area" onclick="showQ(this)" data-answerno="${qnaData.answerNo}">                                           
-                      <td class="qna_title" ">${qnaData.qnaContent}</td>
-                      <td class="qna_writer">${qnaData.writerNickname}</td>
-                      <td class="qna_create_date">${qnaData.qnaCreateDate}</td>
-                      <td class="qna_status">답변 대기</td>
-                  </tr>
-              </div>`;
-          }
-          document.querySelector('#tbodyQnA').innerHTML += html;
+      qnaContentHtml += `
+        <tr class="${qnaData.answerNo != 0 ? 'qna-area-hover' : 'qna-area'}" onclick="showQ(this)" data-answerno="${qnaData.answerNo}">
+          <td class="qna_title">${qnaData.qnaContent}</td>
+          <td class="qna_writer">${qnaData.writerNickname}</td>
+          <td class="qna_create_date">${qnaData.qnaCreateDate}</td>
+      `;
+
+      if (loginMemberNo === recipeMemberNo) {
+        qnaContentHtml += `
+          <td class="qna_status"> 
+            ${qnaData.answerNo != 0 
+              ? '답변 완료' 
+              : `<button class="product-qna-answer-btn" id="btn_qna1_${qnaData.qnaNo}" data-toggle="modal" data-target="#qna_Modal" data-value="${qnaData.qnaNo}">답변쓰기</button>`}
+          </td>
+        `;
+
+      } else {
+        qnaContentHtml += `
+          <td class="qna_status">
+            ${qnaData.answerNo != 0 ? '답변 완료' : '답변 대기'}
+          </td>
+        `;
       }
+      qnaContentHtml += `
+        </tr>
+      `;
+
+      if (qnaData.answerNo != 0) {
+        qnaContentHtml += `
+          <tr class="answer_area" style="display: none;">
+            <td style="text-align: left;" colspan="4">
+              <div id="qna_q">
+                <span class="span_q_a">Q</span><span>${qnaData.qnaContent}</span>
+                <div id="review_img_container">
+                  ${qnaData.qnaPhoto ? `<img class="review_img" src="/gorang/resources/uploadfile/recipe/recipeQna/${qnaData.qnaPhoto}" alt="">` : ''}
+                </div>
+              </div>
+              <div id="qna_a">
+                <span class="span_q_a">A</span>
+                <span>${qnaData.answerContent}</span>
+              </div>
+              <div id="qna_a_date">${qnaData.answerCreateDate}</div>
+            </td>
+          </tr>
+        `;
+      }
+
+      let qnaTableBody = document.querySelector('#tbodyQnA');
+      qnaTableBody.innerHTML += qnaContentHtml;
+    }
   });
-
-
-  
 }
+
+
+
 function ajaxinsertQnA(data, callback) {
   $.ajax({
       url: "insertQnA.re",

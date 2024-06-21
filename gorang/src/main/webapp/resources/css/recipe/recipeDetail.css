@@ -1051,3 +1051,14 @@ tbody tr>td {
 .carousel {
     width: 600px;
 }
+
+
+/* 문의 답변 */
+.product-qna-answer-btn{
+    border: 1px solid #1E90FF;
+    color: #1E90FF;
+    font-size: 14px;
+    height: 30px;
+    width: 60px;
+    z-index: 1;
+  }

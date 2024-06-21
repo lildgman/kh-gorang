@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
   clickZzim();
   fileInputClick();
   displaySelectedImage();
+  
 });
 
 const pno = getParameterPno();

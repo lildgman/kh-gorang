@@ -437,6 +437,12 @@ public class MyPageServiceImpl implements MyPageService{
 		
 		return myPageDao.selectRecipeListByRecipeNo(sqlSession, recipeNoArray);
 	}
+
+	@Override
+	public int selectSaveCount(int memberNo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 
 	
