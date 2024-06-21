@@ -24,6 +24,7 @@ import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.common.model.vo.PageInfo;
 import com.kh.gorang.common.template.Pagination;
 import com.kh.gorang.member.model.dto.MemberInfoDTO;
+import com.kh.gorang.member.model.dto.MyPageReviewDTO;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.MyPageBoardCommentDTO;
 import com.kh.gorang.member.model.vo.MyPageBoardDTO;
@@ -35,7 +36,6 @@ import com.kh.gorang.member.model.vo.MyPageScrapProductDTO;
 import com.kh.gorang.member.model.vo.MyPageScrapRecipeDTO;
 import com.kh.gorang.member.model.vo.ProductQnaDTO;
 import com.kh.gorang.member.model.vo.RecipeQnaDTO;
-import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.member.service.MyPageService;
 import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.shopping.model.vo.Product;
@@ -56,7 +56,7 @@ public class MyPageController {
 	public String myPageViewAll(HttpSession session, Model model){
 		
 		int memberNo = getLoginUserNo(session);	
-		addAttributeUserInfo(model, memberNo);
+//		addAttributeUserInfo(model, memberNo);
 		
 		// 내 레시피 중 조회수 많은 순으로 레시피 리스트 가져오기
 		ArrayList<Recipe> mostViewRecipeList = myPageService.getMostViewRecipeList(memberNo);	
@@ -95,7 +95,7 @@ public class MyPageController {
 		
 		// 회원정보들
 		int memberNo = getLoginUserNo(session);
-		addAttributeUserInfo(model, memberNo);
+//		addAttributeUserInfo(model, memberNo);
 		
 		// 레시피 페이지네이션
 		int myRecipeCount = myPageService.getMyRecipeCount(memberNo);
@@ -137,7 +137,7 @@ public class MyPageController {
 			Model model){
 		
 		int memberNo = getLoginUserNo(session);
-		addAttributeUserInfo(model, memberNo);
+//		addAttributeUserInfo(model, memberNo);
 		
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("memberNo", memberNo);
@@ -278,7 +278,7 @@ public class MyPageController {
 			Model model){
 		
 		int memberNo = getLoginUserNo(session);
-		addAttributeUserInfo(model, memberNo);
+//		addAttributeUserInfo(model, memberNo);
 		
 		// 상품 qna 부분
 		int productQnaCount = myPageService.getProductQnaCount(memberNo);
@@ -312,7 +312,7 @@ public class MyPageController {
 				Model model){
 		
 		int memberNo = getLoginUserNo(session);
-		addAttributeUserInfo(model, memberNo);
+//		addAttributeUserInfo(model, memberNo);
 		
 		// 댓글 부분
 		int commentCount = myPageService.getCommentCount(memberNo);
@@ -324,7 +324,7 @@ public class MyPageController {
 		int reviewCount = myPageService.getReviewCount(memberNo);
 		PageInfo reviewPI = Pagination.getPageInfo(reviewCount, review_cpage, 10, 5);
 		
-		ArrayList<Review> reviewList = myPageService.getReviewList(reviewPI, memberNo);
+		ArrayList<MyPageReviewDTO> reviewList = myPageService.getReviewList(reviewPI, memberNo);
 		
 		model.addAttribute("boardCommentList", boardCommentList);
 		model.addAttribute("commentPI", commentPI);
@@ -347,7 +347,7 @@ public class MyPageController {
 			Model model){
 		
 		int memberNo = getLoginUserNo(session);
-		addAttributeUserInfo(model, memberNo);
+//		addAttributeUserInfo(model, memberNo);
 		
 		ArrayList<MyPageLikeRecipeDTO> likeRecipeList = myPageService.getLikeRecipeList(memberNo);
 		
@@ -386,7 +386,7 @@ public class MyPageController {
 			Model model){
 		
 		int memberNo = getLoginUserNo(session);
-		addAttributeUserInfo(model, memberNo);
+//		addAttributeUserInfo(model, memberNo);
 		
 		ArrayList<MyPageLikeBoardDTO> likeBoardList = myPageService.getLikeBoardList(memberNo);
 		
@@ -470,7 +470,7 @@ public class MyPageController {
 				HttpSession session,
 				Model model){
 		int memberNo = getLoginUserNo(session);
-		addAttributeUserInfo(model, memberNo);
+//		addAttributeUserInfo(model, memberNo);
 		
 		ArrayList<MyPageScrapBoardDTO> scrapBoardList = myPageService.getScrapBoardList(memberNo);
 		
@@ -505,7 +505,7 @@ public class MyPageController {
 			Model model){
 		
 		int memberNo = getLoginUserNo(session);
-		addAttributeUserInfo(model, memberNo);
+//		addAttributeUserInfo(model, memberNo);
 		
 		ArrayList<MyPageScrapProductDTO> scrapProductList = myPageService.getScrapProduct(memberNo);
 		model.addAttribute("scrapProductList", scrapProductList);
@@ -539,7 +539,7 @@ public class MyPageController {
 				Model model){
 		
 		int memberNo = getLoginUserNo(session);
-		addAttributeUserInfo(model, memberNo);
+//		addAttributeUserInfo(model, memberNo);
 		
 		ArrayList<MyPageScrapRecipeDTO> scrapRecipeList = myPageService.getScrapRecipeList(memberNo);
 		
@@ -597,22 +597,6 @@ public class MyPageController {
 		return result > 0 ? "done" : "undone";
 	}
 	
-	
-	
-	private void addAttributeUserInfo(Model model, int memberNo) {
-		// 팔로잉 수
-		int followingCount = myPageService.getFollowingCount(memberNo);
-		model.addAttribute("followingCount", followingCount);
-		// 팔로워 수
-		int followerCount = myPageService.getFollowerCount(memberNo);
-		model.addAttribute("followerCount", followerCount);
-		// 총 스크랩 수
-		int totalScrapCount = myPageService.getTotalScrapCount(memberNo);
-		model.addAttribute("totalScrapCount", totalScrapCount);
-		// 총 좋아요 개수
-		int totalLikeCount = myPageService.getTotalLikeCount(memberNo);
-		model.addAttribute("totalLikeCount", totalLikeCount);
-	}
 
 	private int getLoginUserNo(HttpSession session) {
 		Member loginUser = (Member)session.getAttribute("loginUser");

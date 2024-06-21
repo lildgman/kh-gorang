@@ -70,9 +70,9 @@
 				GROUP BY RCP_NO
 			) S ON R.RCP_NO = S.RCP_NO
 			WHERE R.STATUS = 'Y'
-				<if test='content != null and content != ""'>
-	     			AND R.RCP_TITLE ILIKE '%' || #{content} || '%'
-	     			OR R.RCP_CONTENT ILIKE '%' || #{content} || '%'
+				<if test='content != null and content != "*"'>
+	     			AND (R.RCP_TITLE ILIKE '%' || #{content} || '%'
+	     			OR R.RCP_CONTENT ILIKE '%' || #{content} || '%')
 	     		</if>
 	     		<if test='category == "한식"'>
 					AND R.COOK_KIND LIKE '한식'	     		
@@ -123,9 +123,9 @@
 			GROUP BY RCP_NO
 		) S ON R.RCP_NO = S.RCP_NO
 		WHERE R.STATUS = 'Y'
-			<if test='content != null and content != ""'>
-     			AND R.RCP_TITLE ILIKE '%' || #{content} || '%'
-     			OR R.RCP_CONTENT ILIKE '%' || #{content} || '%'
+			<if test='content != null and content != "*"'>
+     			AND (R.RCP_TITLE ILIKE '%' || #{content} || '%'
+     			OR R.RCP_CONTENT ILIKE '%' || #{content} || '%')
      		</if>
      		<if test='category == "한식"'>
 				AND R.COOK_KIND LIKE '한식'	     		

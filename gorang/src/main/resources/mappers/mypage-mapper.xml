@@ -232,6 +232,16 @@
 		<result column="MEMBER_PROFILE" property="recipeWriterProfileImg"/>
 		<result column="SCRAP_COUNT" property="scrapCount"/>
 	</resultMap>
+	
+	<!-- 후기 DTO -->
+	<resultMap type="MyPageReviewDTO" id="myPageReviewDTOResult">
+		<result column="REVIEW_NO" property="reviewNo"/>
+		<result column="REVIEW_CONTENT" property="reviewContent"/>
+		<result column="REVIEW_CREATE_DATE" property="reviewCreateDate"/>
+		<result column="REVIEW_TYPE" property="reviewType"/>
+		<result column="REF_CONTENT_NO" property="refContentNo"/>
+		<result column="CONTENT_IMG" property="contentImg"/>
+	</resultMap>
 
 <!-- ===================================== 쿼리문 =============================== -->
 	<!-- 팔로잉 수 조회 -->
@@ -558,19 +568,55 @@
 	<!-- 리뷰 개수 조회 -->
 	<select id="selectReviewCount" resultType="_int">
 		SELECT COUNT(*)
-		FROM REVIEW
-		WHERE
-			STATUS = 'Y'
-			AND MEMBER_NO = #{memberNo} 
+		FROM (
+			SELECT 
+			    RV.REVIEW_NO,
+			    RV.REVIEW_CONTENT,
+			    RV.REVIEW_CREATE_DATE,
+			    RV.REVIEW_TYPE,
+				CASE
+					WHEN RV.REVIEW_TYPE = 2 THEN RV.RCP_NO
+			        WHEN RV.REVIEW_TYPE = 1 THEN RV.PRODUCT_NO
+			        ELSE NULL
+				END AS REF_CONTENT_NO,
+			    CASE 
+			        WHEN RV.REVIEW_TYPE = 2 THEN RP.RCP_MAIN_PHOTO
+			        WHEN RV.REVIEW_TYPE = 1 THEN P.MAIN_IMG
+			        ELSE NULL
+			    END AS CONTENT_IMG
+			FROM REVIEW RV
+			LEFT JOIN RECIPE RP ON RV.RCP_NO = RP.RCP_NO
+			LEFT JOIN PRODUCT P ON RV.PRODUCT_NO = P.PRODUCT_NO
+			WHERE RV.STATUS = 'Y'
+			  AND RV.MEMBER_NO = #{memberNo}
+			ORDER BY RV.REVIEW_CREATE_DATE DESC
+		)
+		 
 	</select> 
 	
 	<!-- 리뷰 조회 -->
-	<select id="selectReviewList" resultMap="reviewResult" >
-		SELECT *
-		FROM REVIEW
-		WHERE STATUS = 'Y'
-			AND MEMBER_NO = #{memberNo}
-		ORDER BY REVIEW_CREATE_DATE DESC
+	<select id="selectReviewList" resultMap="myPageReviewDTOResult" >
+		SELECT 
+		    RV.REVIEW_NO,
+		    RV.REVIEW_CONTENT,
+		    RV.REVIEW_CREATE_DATE,
+		    RV.REVIEW_TYPE,
+			CASE
+				WHEN RV.REVIEW_TYPE = 2 THEN RV.RCP_NO
+		        WHEN RV.REVIEW_TYPE = 1 THEN RV.PRODUCT_NO
+		        ELSE NULL
+			END AS REF_CONTENT_NO,
+		    CASE 
+		        WHEN RV.REVIEW_TYPE = 2 THEN RP.RCP_MAIN_PHOTO
+		        WHEN RV.REVIEW_TYPE = 1 THEN P.MAIN_IMG
+		        ELSE NULL
+		    END AS CONTENT_IMG
+		FROM REVIEW RV
+		LEFT JOIN RECIPE RP ON RV.RCP_NO = RP.RCP_NO
+		LEFT JOIN PRODUCT P ON RV.PRODUCT_NO = P.PRODUCT_NO
+		WHERE RV.STATUS = 'Y'
+		  AND RV.MEMBER_NO = #{memberNo}
+		ORDER BY RV.REVIEW_CREATE_DATE DESC
 	</select>
 	
 	<!-- 스크랩 레시피 조회 -->
