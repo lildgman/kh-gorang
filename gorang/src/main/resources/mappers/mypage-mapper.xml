@@ -117,6 +117,7 @@
 	
 	<!-- 상품 문의 DTO -->
 	<resultMap type="ProductQnaDTO" id="productQnaDTOResult">
+		<result column="QNA_NO" property="qnaNo"/>
 		<result column="QNA_CONTENT" property="qnaContent"/>
 		<result column="QNA_CREATE_DATE" property="qnaCreateDate"/>
 		<result column="STATUS" property="status"/>
@@ -130,6 +131,7 @@
 	
 	<!-- 레시피 문의 DTO -->
 	<resultMap type="RecipeQnaDTO" id="recipeQnaDTOResult">
+		<result column="QNA_NO" property="qnaNo"/>
 		<result column="QNA_CONTENT" property="qnaContent"/>
 		<result column="QNA_CREATE_DATE" property="qnaCreateDate"/>
 		<result column="STATUS" property="status"/>
@@ -215,6 +217,7 @@
 		<result column="member_no" property="refMemberNo" />
 		<result column="ref_name" property="refName" />
 		<result column="ref_thumbnail" property="refThumbnail" />
+		<result column="ref_kind" property="refKind" />
 		<result column="ref_consumption_date" property="refConsumptionDate" />
 		<result column="ref_input_date" property="refInputDate" />
 		<result column="ref_count" property="refCount" />
@@ -228,6 +231,16 @@
 		<result column="MEMBER_NICKNAME" property="recipeWriterNickname"/>
 		<result column="MEMBER_PROFILE" property="recipeWriterProfileImg"/>
 		<result column="SCRAP_COUNT" property="scrapCount"/>
+	</resultMap>
+	
+	<!-- 후기 DTO -->
+	<resultMap type="MyPageReviewDTO" id="myPageReviewDTOResult">
+		<result column="REVIEW_NO" property="reviewNo"/>
+		<result column="REVIEW_CONTENT" property="reviewContent"/>
+		<result column="REVIEW_CREATE_DATE" property="reviewCreateDate"/>
+		<result column="REVIEW_TYPE" property="reviewType"/>
+		<result column="REF_CONTENT_NO" property="refContentNo"/>
+		<result column="CONTENT_IMG" property="contentImg"/>
 	</resultMap>
 
 <!-- ===================================== 쿼리문 =============================== -->
@@ -555,19 +568,55 @@
 	<!-- 리뷰 개수 조회 -->
 	<select id="selectReviewCount" resultType="_int">
 		SELECT COUNT(*)
-		FROM REVIEW
-		WHERE
-			STATUS = 'Y'
-			AND MEMBER_NO = #{memberNo} 
+		FROM (
+			SELECT 
+			    RV.REVIEW_NO,
+			    RV.REVIEW_CONTENT,
+			    RV.REVIEW_CREATE_DATE,
+			    RV.REVIEW_TYPE,
+				CASE
+					WHEN RV.REVIEW_TYPE = 2 THEN RV.RCP_NO
+			        WHEN RV.REVIEW_TYPE = 1 THEN RV.PRODUCT_NO
+			        ELSE NULL
+				END AS REF_CONTENT_NO,
+			    CASE 
+			        WHEN RV.REVIEW_TYPE = 2 THEN RP.RCP_MAIN_PHOTO
+			        WHEN RV.REVIEW_TYPE = 1 THEN P.MAIN_IMG
+			        ELSE NULL
+			    END AS CONTENT_IMG
+			FROM REVIEW RV
+			LEFT JOIN RECIPE RP ON RV.RCP_NO = RP.RCP_NO
+			LEFT JOIN PRODUCT P ON RV.PRODUCT_NO = P.PRODUCT_NO
+			WHERE RV.STATUS = 'Y'
+			  AND RV.MEMBER_NO = #{memberNo}
+			ORDER BY RV.REVIEW_CREATE_DATE DESC
+		)
+		 
 	</select> 
 	
 	<!-- 리뷰 조회 -->
-	<select id="selectReviewList" resultMap="reviewResult" >
-		SELECT *
-		FROM REVIEW
-		WHERE STATUS = 'Y'
-			AND MEMBER_NO = #{memberNo}
-		ORDER BY REVIEW_CREATE_DATE DESC
+	<select id="selectReviewList" resultMap="myPageReviewDTOResult" >
+		SELECT 
+		    RV.REVIEW_NO,
+		    RV.REVIEW_CONTENT,
+		    RV.REVIEW_CREATE_DATE,
+		    RV.REVIEW_TYPE,
+			CASE
+				WHEN RV.REVIEW_TYPE = 2 THEN RV.RCP_NO
+		        WHEN RV.REVIEW_TYPE = 1 THEN RV.PRODUCT_NO
+		        ELSE NULL
+			END AS REF_CONTENT_NO,
+		    CASE 
+		        WHEN RV.REVIEW_TYPE = 2 THEN RP.RCP_MAIN_PHOTO
+		        WHEN RV.REVIEW_TYPE = 1 THEN P.MAIN_IMG
+		        ELSE NULL
+		    END AS CONTENT_IMG
+		FROM REVIEW RV
+		LEFT JOIN RECIPE RP ON RV.RCP_NO = RP.RCP_NO
+		LEFT JOIN PRODUCT P ON RV.PRODUCT_NO = P.PRODUCT_NO
+		WHERE RV.STATUS = 'Y'
+		  AND RV.MEMBER_NO = #{memberNo}
+		ORDER BY RV.REVIEW_CREATE_DATE DESC
 	</select>
 	
 	<!-- 스크랩 레시피 조회 -->
@@ -716,6 +765,7 @@
 		SELECT COUNT(*)
 		FROM (
 			SELECT 
+				Q.QNA_NO,
 				Q.QNA_CONTENT,
 				Q.QNA_CREATE_DATE,
 				Q.STATUS,
@@ -741,6 +791,7 @@
 	<!-- 상품 qna 조회 -->
 	<select id="selectProductQnaList" resultMap="productQnaDTOResult">
 		SELECT 
+			Q.QNA_NO,
 			Q.QNA_CONTENT,
 			Q.QNA_CREATE_DATE,
 			Q.STATUS,
@@ -767,6 +818,7 @@
 		SELECT COUNT(*)
 		FROM (
 			SELECT 
+				Q.QNA_NO,
 				Q.QNA_CONTENT,
 				Q.QNA_CREATE_DATE,
 				Q.STATUS,
@@ -779,7 +831,7 @@
 			LEFT JOIN QNA A ON Q.QNA_NO = A.REF_QNA_NO
 			WHERE 
 				Q.STATUS = 'Y' AND
-				Q.MEMBER_NO = 5 AND
+				Q.MEMBER_NO = #{memberNo} AND
 				Q.QNA_TYPE = 2 AND
 				Q.QNA_ANSWER_TYPE = 1
 			ORDER BY Q.QNA_CREATE_DATE DESC
@@ -789,6 +841,7 @@
 	<!-- 레시비 qna 조회 -->
 	<select id="selectRecipeQnaList" resultMap="recipeQnaDTOResult">
 		SELECT 
+			Q.QNA_NO,
 			Q.QNA_CONTENT,
 			Q.QNA_CREATE_DATE,
 			Q.STATUS,
@@ -801,7 +854,7 @@
 		LEFT JOIN QNA A ON Q.QNA_NO = A.REF_QNA_NO
 		WHERE 
 			Q.STATUS = 'Y' AND
-			Q.MEMBER_NO = 5 AND
+			Q.MEMBER_NO = #{memberNo} AND
 			Q.QNA_TYPE = 2 AND
 			Q.QNA_ANSWER_TYPE = 1
 		ORDER BY Q.QNA_CREATE_DATE DESC
@@ -814,6 +867,7 @@
 			(
 			member_no,
 			ref_name,
+			ref_kind,
 			ref_consumption_date,
 			ref_input_date,
 			ref_count
@@ -822,6 +876,7 @@
 			(
 			#{refMemberNo},
 			#{refName},
+			#{refKind},
 			TO_DATE(#{refConsumptionDate}, 'YYYY-MM-DD'),
         	TO_DATE(#{refInputDate}, 'YYYY-MM-DD'),
 			#{refCount}
@@ -833,6 +888,7 @@
 			ref_no,
 			ref_name,
 			ref_thumbnail,
+			ref_kind,
 			ref_consumption_date,
 			ref_input_date,
 			ref_count
@@ -887,5 +943,10 @@
 		</foreach>
 		LIMIT 10
 	</select>
+	
+	<delete id="deleteQna">
+		DELETE FROM QNA
+		WHERE QNA_NO = #{qnaNo} OR ref_qna_no = #{qnaNo};
+	</delete>
 	
 </mapper>

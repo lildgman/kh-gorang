@@ -7,6 +7,7 @@ import java.util.Map;
 import com.google.gson.JsonElement;
 import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.common.model.vo.PageInfo;
+import com.kh.gorang.member.model.dto.MyPageReviewDTO;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.MyPageBoardCommentDTO;
 import com.kh.gorang.member.model.vo.MyPageBoardDTO;
@@ -78,7 +79,7 @@ public interface MyPageService {
 	int getReviewCount(int memberNo);
 
 	// 리뷰 리스트 조회 
-	ArrayList<Review> getReviewList(PageInfo reviewPI, int memberNo);
+	ArrayList<MyPageReviewDTO> getReviewList(PageInfo reviewPI, int memberNo);
 
 	// 스크랩한 레시피 조회 
 	ArrayList<MyPageScrapRecipeDTO> getScrapRecipeList(int memberNo);
@@ -153,6 +154,8 @@ public interface MyPageService {
 
 	// 레시피 임시저장 개수
 	int selectSaveCount(int memberNo);
+
+	int deleteQna(List<Integer> checkedQnaNoList);
 	
 
 

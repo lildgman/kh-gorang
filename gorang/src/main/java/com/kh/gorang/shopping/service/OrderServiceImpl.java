@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.gorang.common.model.vo.PageInfo;
 import com.kh.gorang.shopping.model.dao.OrderDao;
 import com.kh.gorang.shopping.model.vo.Order;
 import com.kh.gorang.shopping.model.vo.OrderPdopt;
@@ -31,10 +32,17 @@ public class OrderServiceImpl implements OrderService {
 		}
 		return result1 * result2;
 	}
+	
 	@Transactional(readOnly = true)
 	@Override
-	public ArrayList<OrderPdopt> selectOrderPdOptsByMemberNo(int memberNo) {	
-		return orderDao.selectOrderPdOptsByMemberNo(sqlSession, memberNo);
+	public ArrayList<OrderPdopt> selectOrderPdOptsByMemberNo(int memberNo, PageInfo pi) {
+		return orderDao.selectOrderPdOptsByMemberNo(sqlSession, memberNo, pi);
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public int getOrderPdOptsCount(int memberNo) {
+		return orderDao.getOrderPdOptsCount(sqlSession, memberNo);
 	}
 
 }

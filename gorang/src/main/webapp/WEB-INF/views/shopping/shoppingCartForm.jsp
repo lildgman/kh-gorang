@@ -59,9 +59,9 @@
                                         <div class="product-img-container">
                                             <input type="hidden" class="cart-input-mainImg"
                                                 value="${entry.key.mainImg}">
-                                            <img class="product-img"
+                                            <img class="product-img" style="cursor: pointer;"
                                                 src="${contextPath }/resources/uploadfile/product/productimg/${entry.key.mainImg}"
-                                                alt="">
+                                                alt="" data-value="${entry.key.productNo}">
                                         </div>
                                         <div class="cart-product-info-container">
                                             <div class="cart-product-name-container">

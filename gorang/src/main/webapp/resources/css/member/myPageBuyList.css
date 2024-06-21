@@ -12,7 +12,6 @@ body {
 /* body전체 영역 */
 #body-area {
     justify-content: center;
-    align-items: center;
     margin: 80px 340px;
     display: flex;
 }
@@ -75,7 +74,6 @@ tbody td {
 
     #myPage-buy-list-bottom{
         border: 1px solid #E6E6E6;
-        margin: 16px 0px;
         padding: 16px;
     }
 
@@ -206,6 +204,30 @@ tbody td {
 
     table{
         border-spacing: 0 12px;
+    }
+
+    /* 페이지네이션 */
+       /* 냉장고 하단 페이징 바 */
+
+    #pagination-area{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 25px;
+        }
+        
+        /* 모든 페이지바 공통 */
+
+    .pagination{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    }
+
+    .pagination > a {
+    font-size: 14px;
+    color : #6D6D6D;
     }
 
     /* 문의하기 모달 관련 css */

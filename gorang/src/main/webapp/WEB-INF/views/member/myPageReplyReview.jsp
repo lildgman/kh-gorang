@@ -109,10 +109,10 @@
 									<c:forEach var="review" items="${reviewList }">
 										<c:if test="${review.reviewType eq 1}">
 											<div class="contents-area-content" data-type="product-review"
-												data-productNo="${review.refProductNo}" onclick="moveDetailPage(this)">
+												data-productNo="${review.refContentNo}" onclick="moveDetailPage(this)">
 												<div class="content-area-title">
 													<img class="content-img"
-														src="${contextPath }/resources/uploadfile/review/product-review/${review.reviewPhoto}"
+														src="${contextPath }/resources/uploadfile/product/productimg/${review.contentImg}"
 														alt="">
 												</div>
 												<div class="content-area-comment">${review.reviewContent }</div>
@@ -120,11 +120,11 @@
 											</div>
 										</c:if>
 										<c:if test="${review.reviewType eq 2}">
-											<div class="contents-area-content" data-type="recipe-review" data-recipeNo="${review.refRecipeNo}"
+											<div class="contents-area-content" data-type="recipe-review" data-recipeNo="${review.refContentNo}"
 												onclick="moveDetailPage(this)">
 												<div class="content-area-title">
 													<img class="content-img"
-														src="${contextPath }/resources/uploadfile/review/recipe-review/${review.reviewPhoto}"
+														src="${contextPath }/resources/uploadfile/recipe/recipemain/${review.contentImg}"
 														alt="">
 												</div>
 												<div class="content-area-comment">${review.reviewContent }</div>

@@ -32,7 +32,7 @@
                         </c:when>
                         <c:otherwise>
                             <div id="myPage-buy-list-top">
-                                구매내역
+                                구매내역(${orderPdoptsCount}개)
                             </div>
                             <div id="myPage-buy-list-bottom">
                                 <table style="border-spacing: 10px;">
@@ -85,7 +85,14 @@
                                                 <td class="tbody-td-btn">
                                                     <button class="tbody-td-btn-qna" data-toggle="modal"
                                                         data-target="#qna_Modal">문의 하기</button>
-                                                    <button class="tbody-td-btn-write" data-toggle="modal" data-target="#buyList-review_Modal">후기 작성</button>
+                                                    <c:choose>
+                                                        <c:when test="${orderPdopt.refReviewNo == 0}">
+                                                            <button class="tbody-td-btn-write" data-toggle="modal" data-target="#buyList-review_Modal">후기 작성</button>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <button class="tbody-td-btn-write" style="pointer-events: none;">작성 완료</button>
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                     <button class="tbody-td-btn-cancle" onclick="showSweetConfirm()">주문
                                                         취소</button>
                                                 </td>
@@ -93,6 +100,31 @@
                                         </c:forEach>
                                     </tbody>
                                 </table>
+                            </div>
+                            <!-- 페이징 바 -->
+                            <div id="pagination-area">
+                                <div class="pagination">
+                                    <c:if test="${pi.currentPage ne 1 }">
+                                        <a data-value="${pi.currentPage - 1}">&lt;</a>
+                                    </c:if>
+
+                                    <c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
+                                        <a data-value="${p}">
+                                            <c:choose>
+                                                <c:when test="${p eq 1}">
+                                                    <strong>${p}</strong>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    ${p}
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </a>
+                                    </c:forEach>
+
+                                    <c:if test="${pi.currentPage lt pi.maxPage}">
+                                        <a data-value="${pi.currentPage + 1}">&gt;</a>
+                                    </c:if>
+                                </div>
                             </div>
                             <!-- 문의하기 modal -->
                             <div class="modal" id="qna_Modal" style="display: none;" aria-hidden="true">
@@ -110,6 +142,7 @@
                                             <form class="modal-qna-content" action="insertQna.po" enctype="multipart/form-data" method="post">
                                                 <input type="hidden" name="writerNo" id="qna-modal-writerNo" value=${loginUser.memberNo}>
                                                 <input type="hidden" name="refProductNo" id="qna-modal-refProductNo">
+                                                <input type="hidden" name="refQnaNo" value="0">
                                                 <div class="product_name_container">
                                                     <div class="qna_product_name_header">
                                                         상품명

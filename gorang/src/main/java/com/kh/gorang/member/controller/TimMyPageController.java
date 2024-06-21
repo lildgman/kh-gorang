@@ -1,12 +1,10 @@
 package com.kh.gorang.member.controller;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +28,6 @@ import com.kh.gorang.member.model.vo.RefrigeratorInsertDTO;
 import com.kh.gorang.member.service.MyPageService;
 import com.kh.gorang.recipe.model.dto.RecipeListDto;
 import com.kh.gorang.shopping.model.vo.OrderPdopt;
-import com.kh.gorang.shopping.model.vo.ProductDetailOption;
 import com.kh.gorang.shopping.service.OrderService;
 
 
@@ -50,12 +47,42 @@ public class TimMyPageController {
 	public String myPageBuyList(HttpSession session, Model model){
 		// 로그인한 유저 정보 가져옴
 		Member m = (Member)session.getAttribute("loginUser");
+		int userNo = m.getMemberNo();
 		// m.memberNo 로  DB 내에 Order 테이블 정보 조회
-		ArrayList<OrderPdopt> orderPdopts = orderService.selectOrderPdOptsByMemberNo(m.getMemberNo());
 		
+		int orderPdoptsCount = orderService.getOrderPdOptsCount(userNo);
+		
+		PageInfo pi = Pagination.getPageInfo(orderPdoptsCount, 1, 10, 7);
+		
+		ArrayList<OrderPdopt> orderPdopts = orderService.selectOrderPdOptsByMemberNo(userNo, pi);
+		model.addAttribute("orderPdoptsCount", orderPdoptsCount);
 		model.addAttribute("orderPdopts", orderPdopts);
+		model.addAttribute("pi", pi);
 		
 		return "member/myPageBuyList";
+	}
+	
+	@ResponseBody
+	@RequestMapping("getBuyListAjax.me")
+	public Map<String, Object> getBuyListAjax(@RequestParam int cpage, HttpSession session){
+		
+		// 로그인한 유저 정보 가져옴
+		Member m = (Member)session.getAttribute("loginUser");
+		int userNo = m.getMemberNo();
+		// m.memberNo 로  DB 내에 Order 테이블 정보 조회
+		
+		int orderPdoptsCount = orderService.getOrderPdOptsCount(userNo);
+		
+		PageInfo pi = Pagination.getPageInfo(orderPdoptsCount, cpage, 10, 7);
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		ArrayList<OrderPdopt> orderPdopts = orderService.selectOrderPdOptsByMemberNo(userNo, pi);
+		
+		result.put("orderPdopts", orderPdopts);
+		result.put("pi", pi);
+		
+		return result;
 	}
 	
 	//마이페이지 나의냉장고

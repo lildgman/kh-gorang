@@ -1,16 +1,35 @@
-
+// 새로 입력한 비밀번호가 8자리 이상인지
+let validPwdLength = false;
 // 새 비밀번호와 새 비밀번호 재입력한 부분이 일치하는지 확인하기위한 변수
 let matchPassword = false;
-// 새 아이디가 중복되는지 확인하기위한 변수
-let checkNickname = false;
-// 새 전화번호가 중복되는지 확인하기 위한 변수
-let checkPhoneNumber = false;
+
+// 닉네임 바꼈는지?
+let isChangeNicknameType = true;
+// 닉네임 중복확인 했는지?
+let validNickNameType = true;
+
+// 전화번호 변경했는지?
+let isChangePhoneNumType = true;
+let validPhoneNumType = true;
+
+console.log()
+
 
 window.onload = function() {
-
   setUserProfileImg ();
 
 }
+
+// 닉네임 변경시 isChangeNickname false로 바꿔줌
+function ischangeNickname() {
+  isChangeNicknameType = false;
+}
+
+// 전화번호 변경 시 isChangePhoneNum false로 변경
+function isChangePhoneNum() {
+  isChangePhoneNumType = false;
+}
+
 
 function setUserProfileImg (){
   const profileImgSrc = document.querySelector('#user-profile-img').src;
@@ -80,15 +99,24 @@ function validPassword(element) {
 
 function submitMemberInfo() {
   const updateMemberInfoForm = document.querySelector('#update-member-info-form');
-  if (matchPassword) {
+  if (matchPassword&&validPwdLength&&isChangeNicknameType&&validNickNameType&&isChangePhoneNumType&&validPhoneNumType) {
     updateMemberInfoForm.submit();
   } else {
       // matchPassword가 false일 때 비밀번호가 일치하지 않음을 알림
-      if (!matchPassword) {
+      if (!matchPassword || !validPwdLength) {
           alert('비밀번호를 다시 확인해주세요.');
           return;
+      } 
+
+      if(!isChangeNicknameType) {
+        alert('닉네임을 중복확인 해주세요');
+        return;
       }
 
+      if(!isChangePhoneNumType) {
+        alert("전화번호 중복확인을 해주세요");
+        return;
+      }
   }
 }
 
@@ -103,9 +131,12 @@ function validNickname() {
     success: function(res) {
       if(res === 'dup') {
         alert('중복된 닉네임 입니다.');
+        validNickNameType = false;
 
       } else {
         alert('사용 가능한 닉네임 입니다.');
+        isChangeNicknameType = true;
+        validNickNameType = true;
       }
     },
     error: function() {
@@ -131,10 +162,11 @@ function validPhoneNumber() {
       success: function(res) {
         if(res === 'dup') {
           alert('중복된 전화번호가 있습니다.');
-
+          validPhoneNumType = false;
         } else {
           alert('사용 가능한 전화번호 입니다.');
-
+          isChangePhoneNumType = true;
+          validPhoneNumType = true;
         }
       },
       error: function() {
@@ -147,14 +179,18 @@ function validPhoneNumber() {
 function checkPwdLength(element) {
   const password = element.value;
   const checkPasswordLength = document.querySelector('#check-password-length');
+  const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
-  if(password.length > 0 && password.length < 6) {
+  if(password.length > 0 && !regex.test(password)) {
     checkPasswordLength.innerHTML = "";
-    checkPasswordLength.style.display = 'block';
     checkPasswordLength.innerHTML = "영문, 숫자를 포함한 8자리 이상의 비밀번호를 입력해주세요.";
+    checkPasswordLength.style.display = 'block';
     checkPasswordLength.style.color = 'red';
     
   } else {
     checkPasswordLength.innerHTML = "";
+    checkPasswordLength.style.display = 'none';
+
+    validPwdLength = true;
   }
 }

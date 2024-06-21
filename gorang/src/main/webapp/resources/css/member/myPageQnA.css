@@ -11,7 +11,6 @@ body {
 /* body전체 영역 */
 #body-area {
     justify-content: center;
-    align-items: center;
     margin: 80px 340px;
     display: flex;
 }
@@ -97,9 +96,8 @@ body {
         align-items: center;
     }
 
-    .product-area-content:hover, .recipe-area-content:hover {
+    .product-info:hover, .recipe-title:hover {
         cursor: pointer;
-        background-color: aliceblue;
     }
 
 
@@ -146,4 +144,19 @@ body {
 .product-qna-brand {
     color: #4B76E2;
     font-weight: bold;
+}
+
+.content-area-checkbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+}
+
+.cl-red {
+    color: red;
+}
+
+.cl-red:hover {
+    cursor: pointer;
 }

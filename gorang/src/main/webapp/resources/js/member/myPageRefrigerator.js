@@ -142,7 +142,7 @@ function constructRefriTable(refriIngresList, refriTbody) {
 
         refriTbodyTr.innerHTML = `
             <td class="myRefrigerator-tr">
-                <img style="height: 50px;" src="${ctp}/resources/images/member-img/Rectangle 18311 (2).png">
+                <img src="${ctp}/resources/images/myRefrigeratorKind/${refriIngre.refKind}.png">
             </td>
             <td class="refri-main-td-refName" data-value="${refriIngre.refNo}">${refriIngre.refName}</td>
             <td class="flesh-area">${getFreshnessStatus(refriIngre.daysDifference)}</td>
@@ -259,10 +259,12 @@ function addUserInputToModalTable(){
     const numForInput = document.querySelectorAll(".overflow-tr").length + 1;
     const foodNameByUser = modalIngre.querySelector("#refri-input-foodName-user").value;
     const foodSelectBox = modalIngre.querySelector("#refri-select-foodClassification");
+    const foodClassNum = foodSelectBox.options[foodSelectBox.selectedIndex].value;
     const foodClassNameByUser = foodSelectBox.options[foodSelectBox.selectedIndex].innerHTML;
 
     const food = {
         FOOD_NM_KR: foodNameByUser,
+        FOOD_CAT1_CD: foodClassNum,
         FOOD_CAT1_NM: foodClassNameByUser
     };
     constructIngreModalTable(ingreModalTbody, numForInput, food);
@@ -386,6 +388,7 @@ function constructIngreModalTable(ingreModalTbody, num, food) {
     const foodTd5 = document.createElement('td');
     foodTabletr.appendChild(foodTd5);
     foodTd5.setAttribute("class", "fixed-width5");
+    foodTd5.setAttribute("data-value", parseInt(food.FOOD_CAT1_CD));
     foodTd5.innerHTML = food.FOOD_CAT1_NM;
     // 영양성분
     const foodTableTd3 = document.createElement('td');
@@ -527,6 +530,9 @@ function sendIngreByAjax() {
             
                         // 식품명
                         const refName = modalIngrediTr.querySelector(".fixed-width2").innerHTML;
+
+                        //대분류코드
+                        let refKindNo = modalIngrediTr.querySelector(".fixed-width5").getAttribute("data-value");
             
                         // 소비기한
                         let refConsumptionDate = modalIngrediTr.querySelector("input[name='refConsumptionDate']").value;
@@ -559,6 +565,7 @@ function sendIngreByAjax() {
             
                         return {
                             refName: refName,
+                            refKind: refKindNo,
                             refConsumptionDate: refConsumptionDateFormat,
                             refInputDate: refInputDateFormat,
                             refCount: refCount
@@ -769,7 +776,7 @@ function getRecipeByIngre(){
             console.log("송신 성공");
             saveRecipeNoInLocalStorage(res);
                    
-            // location.reload();
+            location.reload();
         },
         error: function(){
             console.log("송신 실패");

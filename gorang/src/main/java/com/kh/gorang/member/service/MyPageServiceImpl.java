@@ -14,6 +14,7 @@ import com.kh.gorang.board.model.dao.BoardDao;
 import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.common.model.vo.PageInfo;
 import com.kh.gorang.member.model.dao.MyPageDao;
+import com.kh.gorang.member.model.dto.MyPageReviewDTO;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.MyPageBoardCommentDTO;
 import com.kh.gorang.member.model.vo.MyPageBoardDTO;
@@ -26,7 +27,6 @@ import com.kh.gorang.member.model.vo.MyPageScrapRecipeDTO;
 import com.kh.gorang.member.model.vo.ProductQnaDTO;
 import com.kh.gorang.member.model.vo.RecipeQnaDTO;
 import com.kh.gorang.member.model.vo.RefrigeratorInsertDTO;
-import com.kh.gorang.member.model.vo.Review;
 import com.kh.gorang.recipe.model.dto.RecipeListDto;
 import com.kh.gorang.recipe.model.vo.Recipe;
 import com.kh.gorang.shopping.model.vo.Product;
@@ -231,7 +231,7 @@ public class MyPageServiceImpl implements MyPageService{
 
 	//리뷰 리스트 조회 
 	@Override
-	public ArrayList<Review> getReviewList(PageInfo reviewPI, int memberNo) {
+	public ArrayList<MyPageReviewDTO> getReviewList(PageInfo reviewPI, int memberNo) {
 		return myPageDao.getReviewList(sqlSession, reviewPI, memberNo);
 	}
 
@@ -443,8 +443,20 @@ public class MyPageServiceImpl implements MyPageService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+
+	@Transactional
+	@Override
+	public int deleteQna(List<Integer> checkedQnaNoList) {
+		
+		int result = 0;
+		
+		for(Integer qnaNo : checkedQnaNoList) {
+			result = myPageDao.deleteQna(sqlSession,qnaNo);
+		}
+		
+		return result;
+	}
+
 
 	
-
 }

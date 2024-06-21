@@ -230,3 +230,7 @@ body {
     font-size: 14px;
     color : #6D6D6D;
   }
+
+.hover-cursor:hover {
+    cursor: pointer;
+}

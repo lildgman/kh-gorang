@@ -20,6 +20,7 @@ public class OrderPdopt {
 	// 구매내역에 뿌려주기 위해 필요한 속성
 	private int orderPdNo;
 	private Date orderPdOptDate;
+	private int refReviewNo;
 	// 옵션명
 	private String orderPdOptName;
 	// 옵션 가격(할인된 가격)

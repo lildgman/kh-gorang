@@ -86,14 +86,14 @@
                         </div>
                     </div>
                     <div id="valid-password-result">
-                        캬캬캬
+
                     </div>
                     <hr style="width: 740px; height: 4px; margin-left: 232px; color: #D4D4D4;">
                     <div id="userNickNameWrap">
                         <div id="NickNameWrap"><span>닉네임</span></div>
                         <div id="CurrentuserNickName">
                             <input type="text" value="${loginUser.nickname}" class="change-info-input"
-                                id="new-nickname" name="nickname">
+                                id="new-nickname" name="nickname" oninput="ischangeNickname()">
                         </div>
                         <div id="NickNameChangeBtn"><button type="button" onclick="validNickname()"><span>중복확인</span></button></div>
                     </div>
@@ -101,7 +101,7 @@
                         <div id="PnumWrap"><span>휴대폰 번호</span></div>
                         <div id="CurrentuserPnum">
                             <input type="text" value="${loginUser.memberPhone}" class="change-info-input"
-                                id="new-phone-number" name="memberPhone">
+                                id="new-phone-number" name="memberPhone" maxlength="11" oninput="isChangePhoneNum()">
                         </div>
                         <div id="ChangePnumBtn"><button type="button" onclick="validPhoneNumber()"><span >중복확인</span></button></div>
                     </div>
