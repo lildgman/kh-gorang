@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.gorang.board.model.vo.Board;
 import com.kh.gorang.common.model.vo.PageInfo;
+import com.kh.gorang.member.model.dto.MyPageReviewDTO;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.MyPageBoardCommentDTO;
 import com.kh.gorang.member.model.vo.MyPageLikeBoardDTO;
@@ -181,7 +182,7 @@ public class MyPageDao {
 	}
 
 	// 리뷰 조회 
-	public ArrayList<Review> getReviewList(SqlSessionTemplate sqlSession, PageInfo reviewPI, int memberNo) {
+	public ArrayList<MyPageReviewDTO> getReviewList(SqlSessionTemplate sqlSession, PageInfo reviewPI, int memberNo) {
 		
 		int offset = (reviewPI.getCurrentPage() - 1) * reviewPI.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, reviewPI.getBoardLimit());
