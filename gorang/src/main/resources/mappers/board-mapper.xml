@@ -224,9 +224,9 @@
 			) s ON b.board_no = s.board_no
 			WHERE 
 				B.STATUS = 'Y'
-				<if test='content != null and content != ""'>
-					AND B.BOARD_TITLE LIKE '%'|| #{content} ||'%'
-					OR B.BOARD_CONTENT LIKE '%'|| #{content} ||'%'
+				<if test='content != null and content != "*"'>
+					AND (B.BOARD_TITLE LIKE '%'|| #{content} ||'%'
+					OR B.BOARD_CONTENT LIKE '%'|| #{content} ||'%')
 			   		</if>
 				<if test='category == "일상"'>
 					AND B.BOARD_TAG LIKE '#일상'
@@ -288,9 +288,9 @@
 		) s ON b.board_no = s.board_no
 		WHERE 
 			B.STATUS = 'Y'
-			<if test='content != null and content != ""'>
-				AND B.BOARD_TITLE LIKE '%'|| #{content} ||'%'
-				OR B.BOARD_CONTENT LIKE '%'|| #{content} ||'%'
+			<if test='content != null and content != "*"'>
+				AND (B.BOARD_TITLE LIKE '%'|| #{content} ||'%'
+				OR B.BOARD_CONTENT LIKE '%'|| #{content} ||'%')
 		   		</if>
 			<if test='category == "일상"'>
 				AND B.BOARD_TAG LIKE '#일상'

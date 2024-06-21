@@ -79,6 +79,11 @@ body {
         font-size: 18px;
     }
 
+    .content-area-checkbox {
+        font-size: 18px;
+        width: 280px;
+    }
+
     .cl-6d{
         color: #6D6D6D ;
     }
