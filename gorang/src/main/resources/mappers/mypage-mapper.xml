@@ -900,7 +900,7 @@
 	
 	<delete id="deleteQna">
 		DELETE FROM QNA
-		WHERE QNA_NO = #{qnaNo}
+		WHERE QNA_NO = #{qnaNo} OR ref_qna_no = #{qnaNo};
 	</delete>
 	
 </mapper>

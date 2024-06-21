@@ -47,7 +47,7 @@
 //     });
 // }
 
-function addReply(element) {
+function applyReplyDiv(element) {
     const replyTargetDiv = element.closest('.userReplyWrap');
     const commentNo = replyTargetDiv.querySelector('.comment-no').value;
     const boardNo = replyTargetDiv.querySelector('.board-no').value;

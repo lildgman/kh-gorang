@@ -207,7 +207,7 @@
                                                 <div class="userReplyWriterDetailDate"><span>${comment.commentDate}</span></div>
                                                 
                                                 <c:if test="${not empty loginUser}">
-                                                    <div class="add-reply-btn hover-curser" onclick="addReply(this)">댓글 달기</div>
+                                                    <div class="add-reply-btn hover-curser" onclick="applyReplyDiv(this)">댓글 달기</div>
                                                     <c:if test="${loginUser.nickname eq comment.commentWriter}">
                                                         <div data-index="${status.index}" data-commentNo="${comment.commentNo}" class="delete-reply-btn hover-curser" onclick="removeReply(this)">
                                                             댓글 삭제
