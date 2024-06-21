@@ -9,8 +9,25 @@ function moveLocation(path){
 
     window.location.href =(path)
 
-    
 }
+
+function loginSet(){
+    const profile = document.querySelector(".headerProfileImg");
+
+    if(profile){
+        const memberNo = profile.getAttribute("data-value");
+        notificationSet(memberNo);
+    }
+}
+
+function notificationSet(memberNo){
+    const eventSource = new EventSource('http://localhost:8111/gorang/notifications/subscribe/' + memberNo);
+
+    eventSource.addEventListener('sse', event => {
+        console.log(event.data);
+    });
+}
+
 
 // function logo(){
 //     window.location.href =('/gorang')
@@ -37,7 +54,7 @@ function moveLocation(path){
 // }
 
 document.addEventListener("DOMContentLoaded", function() {
-
+    loginSet();
     let searchInput = document.querySelector('#search-input');
     searchInput.addEventListener("keypress", function(event) {
         if(event.key === 'Enter') {

@@ -154,7 +154,7 @@
                             <div id="header-bottom-right-login-bottom">
                                 <div class="header-bottom-right-login-bottom-logo" onclick="moveLocation('${pageContext.request.contextPath}/main.me')">
                                     <div>
-                                        <img class="headerProfileImg" src="/gorang/resources/uploadfile/memberProfile/${loginUser.profile}" alt="회원프로필">
+                                        <img class="headerProfileImg" data-value="${loginUser.memberNo}" src="/gorang/resources/uploadfile/memberProfile/${loginUser.profile}" alt="회원프로필">
                                     </div>
                                     <span>마이페이지</span>
                                 </div>
