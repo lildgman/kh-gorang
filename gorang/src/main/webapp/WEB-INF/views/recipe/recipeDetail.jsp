@@ -336,7 +336,7 @@
         
                         <table id="qna_content">
                             <thead>
-                                <tr>
+                                <tr >
                                     <td class="qna_title">제목</td>
                                     <td class="qna_writer">작성자</td>
                                     <td class="qna_create_date">작성일</td>

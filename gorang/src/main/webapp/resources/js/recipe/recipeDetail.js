@@ -9,33 +9,6 @@ document.addEventListener("DOMContentLoaded", function () {
   inputProductInfo(recipeNo, contextPath);
 
   // 이벤트 핸들러 등록
-
-//  // 문의하기 버튼 클릭 이벤트
-//  const qnaButtons = document.querySelector(".btn btn-primary");
-//  qnaButtons.forEach(function(button) {
-//      button.addEventListener("click", function(ev){
-//          ev.preventDefault();
-//          fileInputClickQnA(ev);
-//      });
-//  });
-//   // 후기작성 버튼 클릭 이벤트
-//   const reviewButtons = document.querySelector(".tbody-td-btn-write");
-//   reviewButtons.forEach(function(button) {
-//       button.addEventListener("click", function(ev){   
-//           ev.preventDefault();
-//           fileInputClickReview(ev);
-//       });
-//   });
-     // 이벤트 핸들러 등록
-    //  $(".qna_content_tr").click(function() {
-    //   console.log("클릭")
-    //   // 현재 보이는 상세 내용 숨기기
-    //   $(".qna_content_tr_display").removeClass("qna_content_tr_display").addClass("qna_content_tr_display_none");
-
-    //   // 클릭된 요소의 다음 요소(상세 내용) 보이게 하기
-    //   $(this).next().removeClass("qna_content_tr_display_none").addClass("qna_content_tr_display");
-    // });
-
   setRatingStar();
 });
 
@@ -95,29 +68,6 @@ function updatePagination(ev, pi) {
         setRecipeModalPaginationEventListeners();
 }     
 }
-
-// // 문의 사진 첨부
-
-// function fileInputClickQnA(ev) {
-//   const addQnaPicture = ev.querySelector('#add_qna_product_pic');
-//   const fileInput = ev.querySelector('#file-input');
-//   console.log("문의 사진첨부 들어옴");
-//   addQnaPicture.addEventListener('click', function(){
-//     fileInput.click();
-//   });
-// }
-
-// // 후기 사진 첨부
-
-// function fileInputClickReview(ev) {
-//   const addQnaPicture = ev.querySelector('#add_qna_product_pic');
-//   const fileInput = ev.querySelector('#file-input');
-//   console.log("후기 사진첨부 들어옴");
-//   addQnaPicture.addEventListener('click', function(){
-//     fileInput.click();
-//   });
-// }
-
 
 document.addEventListener("DOMContentLoaded", function(){
   
@@ -265,7 +215,7 @@ function putRecipeQnAList(res) {
     qnas.forEach(qna => {
       if (qna.qnaAnswerType == 1) {
         qnaContentHtml += `
-          <tr class="${qna.answerNo != 0 ? 'qna-area-hover' : 'qna-area'}" onclick="showQ(this)" data-answerno="${qna.answerNo}">
+          <tr class="qna-area" onclick="showQ(this)" data-answerno="${qna.answerNo}">
             <td class="qna_title">${qna.qnaContent}</td>
             <td class="qna_writer">${qna.writerNickname}</td>
             <td class="qna_create_date">${qna.qnaCreateDate}</td>
@@ -290,8 +240,8 @@ function putRecipeQnAList(res) {
           `;
         }
 
-        if (qna.answerNo != 0) {
-          qnaContentHtml += `
+        qnaContentHtml += `
+        </tr>
             <tr class="answer_area" style="display: none;">
               <td style="text-align: left;" colspan="4">
                 <div id="qna_q">
@@ -300,15 +250,21 @@ function putRecipeQnAList(res) {
                     ${qna.qnaPhoto ? `<img class="review_img" src="/gorang/resources/uploadfile/recipe/recipeQna/${qna.qnaPhoto}" alt="">` : ''}
                   </div>
                 </div>
+      `;
+
+          if (qna.answerNo != 0) {
+            qnaContentHtml += `
                 <div id="qna_a">
                   <span class="span_q_a">A</span>
                   <span>${qna.answerContent}</span>
                 </div>
-                <div id="qna_a_date">${qna.answerCreateDate}</div>
+                <div id="qna_a_date">${qna.answerCreateDate}</div>`;
+          }
+
+          qnaContentHtml += `
               </td>
-            </tr>
-          `;
-        }
+            </tr>`;
+    
       }
     });
 
@@ -560,7 +516,7 @@ function ajaxinsertReview(data, callback) {
 
 function showQ(element) {
   var answerNo = element.getAttribute('data-answerno');
-  if (answerNo != 0) {
+  // if (answerNo != 0) {
       var answerArea = element.nextElementSibling; // 다음 sibling 요소인 answer_area를 가져옴
       var allAnswerAreas = document.querySelectorAll('.answer_area'); // 모든 answer_area 요소를 가져옴
       
@@ -572,11 +528,10 @@ function showQ(element) {
           item.style.display = 'none';
       });
 
-      // 클릭한 qna-area에 해당하는 answer_area의 display 상태를 토글
       if (!isCurrentlyVisible) {
           answerArea.style.display = 'block';
       }
-  }
+  // }
 
 }
 
@@ -606,7 +561,7 @@ function insertQnARecipe() {
       let recipeMemberNo = parseInt(document.querySelector("input[name='recipeMemberNo']").value);
 
       qnaContentHtml += `
-        <tr class="${qnaData.answerNo != 0 ? 'qna-area-hover' : 'qna-area'}" onclick="showQ(this)" data-answerno="${qnaData.answerNo}">
+        <tr class="qna-area" onclick="showQ(this)" data-answerno="${qnaData.answerNo}">
           <td class="qna_title">${qnaData.qnaContent}</td>
           <td class="qna_writer">${qnaData.writerNickname}</td>
           <td class="qna_create_date">${qnaData.qnaCreateDate}</td>
@@ -630,32 +585,31 @@ function insertQnARecipe() {
       }
       qnaContentHtml += `
         </tr>
+            <tr class="answer_area" style="display: none;">
+              <td style="text-align: left;" colspan="4">
+                <div id="qna_q">
+                  <span class="span_q_a">Q</span><span>${qna.qnaContent}</span>
+                  <div id="review_img_container">
+                    ${qna.qnaPhoto ? `<img class="review_img" src="/gorang/resources/uploadfile/recipe/recipeQna/${qna.qnaPhoto}" alt="">` : ''}
+                  </div>
+                </div>
       `;
 
-      if (qnaData.answerNo != 0) {
-        qnaContentHtml += `
-          <tr class="answer_area" style="display: none;">
-            <td style="text-align: left;" colspan="4">
-              <div id="qna_q">
-                <span class="span_q_a">Q</span><span>${qnaData.qnaContent}</span>
-                <div id="review_img_container">
-                  ${qnaData.qnaPhoto ? `<img class="review_img" src="/gorang/resources/uploadfile/recipe/recipeQna/${qnaData.qnaPhoto}" alt="">` : ''}
+          if (qna.answerNo != 0) {
+            qnaContentHtml += `
+                <div id="qna_a">
+                  <span class="span_q_a">A</span>
+                  <span>${qna.answerContent}</span>
                 </div>
-              </div>
-              <div id="qna_a">
-                <span class="span_q_a">A</span>
-                <span>${qnaData.answerContent}</span>
-              </div>
-              <div id="qna_a_date">${qnaData.answerCreateDate}</div>
-            </td>
-          </tr>
-        `;
-      }
+                <div id="qna_a_date">${qna.answerCreateDate}</div>`;
+          }
 
-      let qnaTableBody = document.querySelector('#tbodyQnA');
-      qnaTableBody.innerHTML += qnaContentHtml;
-    }
-  });
+          qnaContentHtml += `
+              </td>
+            </tr>`;
+    
+      }
+    });
 }
 
 

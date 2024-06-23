@@ -281,12 +281,12 @@ public class RecipeServiceImpl implements RecipeService{
 	}
 
 	
-	//레시피 관련 상품 조회
+	//레시피 관련 상품 조회 ( 태그가 아닌 재료를 기준으로 비교 )
 	@Override
 	public List<Product> selectProductList(List<Division> divList, int recipeNo) {
 	ArrayList<Product> productList = new ArrayList<Product>();	
 		for(Division div : divList) {
-				for(IngredientsInfo ingre:div.getIngredientsInfoList()) {
+				for(IngredientsInfo ingre:div.getIngredientsInfoList()) { //division 안에 있는 ingre추출(재료 이름)
 					if(productList.size()<5) {
 						Product product =  recipeDao.selectProductList(sqlSession,ingre.getIngreName());
 						if(product != null) {					
@@ -299,7 +299,7 @@ public class RecipeServiceImpl implements RecipeService{
 		if(productList.size()<5) { //만약 관련 상품  5개를 못찾았을 시
 			for(int i=productList.size(); i<5; i++) {
 				Product product = recipeDao.selectProductListRandom(sqlSession); //랜덤아무거나 넣기
-				// 중복 확인
+				// 중복 확인 => 중복 상품이름이 나오면 다른걸로 다시 찾기
 				boolean isCheck = false;
 				for (Product productCheck : productList) {
 					if (productCheck.getProductName().equals(product.getProductName())) {
