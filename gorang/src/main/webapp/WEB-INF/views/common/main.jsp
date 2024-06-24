@@ -22,7 +22,7 @@
     <div id="main-container">
         <!-- 배너 -->
         <div id="main-banner-area">
-            <div class="main-banner" data-type="recipe" data-no="5" onclick="moveDetailPage(this)">
+            <div class="main-banner" data-type="recipe" data-no="3" onclick="moveDetailPage(this)">
                 <img class="main-banner-img" src="${contextPath}/resources/uploadfile/recipe/recipemain/recipeBoardImg(3).jpg" alt="">
                 <div class="main-banner-comment">
                     <div class="main-comment">
@@ -33,7 +33,7 @@
                 </div>
             </div>
 
-            <div class="main-banner" data-type="recipe" data-no="3" onclick="moveDetailPage(this)">
+            <div class="main-banner" data-type="recipe" data-no="16" onclick="moveDetailPage(this)">
                 <img class="main-banner-img" src="${contextPath}/resources/uploadfile/recipe/recipemain/recipeBanner.png" alt="">
                 <div class="main-banner-comment">
                     <div class="main-comment">
