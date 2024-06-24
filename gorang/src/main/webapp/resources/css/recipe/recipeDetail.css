@@ -498,6 +498,7 @@ tbody tr>td {
 }
 
 #review_content {
+    margin-left: 50px;
     font-size: 16px;
     width: 500px;
     font-weight: 500;
