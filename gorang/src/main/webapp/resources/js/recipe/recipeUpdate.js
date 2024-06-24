@@ -31,7 +31,7 @@ function changeThumnailImg(inputFile) {
         document.getElementById("thumnailImg-real").style.display = "block";
 
         const reader = new FileReader();
-        // FileReader의 onload 이벤트 핸들러 정의
+
         reader.onload = function (event) {
             // const fileData = event.target.result; // FileReader로 읽은 데이터
             const fd = new FormData();
@@ -55,6 +55,7 @@ function changeThumnailImg(inputFile) {
     }
 }
 
+//서버에 사진 등록 (썸네일)
 function insertFileApi(data, callback) {
     $.ajax({
         url: "upload",
@@ -78,7 +79,7 @@ function changeCookIngOrderImg(inputFile, num) {
         parentBlock.querySelector(".cookingImg").style.display = "none";
         parentBlock.querySelector(".cookingImg-real").style.display = "block";
         const reader = new FileReader();
-        // FileReader의 onload 이벤트 핸들러 정의
+
         reader.onload = function (event) {
             // const fileData = event.target.result; // FileReader로 읽은 데이터
             const fd = new FormData();
@@ -98,6 +99,8 @@ function changeCookIngOrderImg(inputFile, num) {
         parentBlock.querySelector(".cookingImg-real").style.display = "none";
     }
 }
+
+//서버에 사진 등록 (조리순서)
 function insertFileApi2(data, callback) {
     $.ajax({
         url: "upload2",
@@ -124,7 +127,7 @@ function changecompleteImg(inputFile) {
         parentBlock.querySelector(".completeImg").style.display = "none";
         parentBlock.querySelector(".completeImg-real").style.display = "inline";
         const reader = new FileReader();
-        // FileReader의 onload 이벤트 핸들러 정의
+
         reader.onload = function (event) {
             // const fileData = event.target.result; // FileReader로 읽은 데이터
             const fd = new FormData();
@@ -151,7 +154,7 @@ function changecompleteImg(inputFile) {
     }
 }
 
-//완성사진 추가
+//서버에 사진 등록(완성 사진)
 function insertFileApi3(data, callback) {
     $.ajax({
         url: "upload3",
@@ -189,23 +192,48 @@ function deleteCPhoto(element){
     parent.querySelector("input[type='hidden']").value="";
     deleteCompletePhoto(media);
 }
+
+
+//----------------------------재료관련 스크립트---------------------------------
+//-----------------------------------------------------------------------------
+/* !참고!
+
+Division(분류) 객체 안에  List<ingredients>을 가집니다. 또한 CookOrder(조리순서)객체 안에 List<CookTip>을 가집니다.
+
+html에서는 rcpDivision[].ingredientsInfoList[] 로 name에 값을 지정
+  ex)   식재료(rcpDivision[0])
+            당근  1  개  (rcpDivision[0].ingredientsInfoList[0]) 
+            양파  1  개  (rcpDivision[0].ingredientsInfoList[1])    
+         
+        조미료(rcpDivision[1])   
+            간장  1  개  (rcpDivision[1].ingredientsInfoList[0])
+            설탕  1  개  (rcpDivision[1].ingredientsInfoList[1])     
+
+이 인덱스의 위치를 생각해 추가할시 삭제할시 -1, +1로 스크립트를 구성했습니다. (CookOrder,CookTip도 같은 원리입니다!)
+*/
+
+
 //--------------------------------재료정보-------------------------------
 // 재료명 행삭제
-
-
 function deleteSmaillBlock(element, num1, num2) {
+    //해당 num1 은 division의 분류 번호, 해당 num2는 ingrement의 인덱스 번호
 
+    //해당 재료정보(element)를 감싸는 부모 태그를 찾아  부모 안에 있는 모든 ingrement을 ingreList에 담습니다. 
     let bottom = element.closest(".recipe-ingredient-info-bottom");
     let ingreList = bottom.querySelectorAll(".recipe-smaill-block");
     let count = 0;
     let parentBlock = element.closest('.recipe-smaill-block');
-    ingreList.forEach(function () {
+    
+    //ingreList 길이 확인 = ingreList.length
+    ingreList.forEach(function () { 
         count++;
     });
-
+    //입력한 식재료가 1개 이상일 시
     if (count > 1) {
         ingreList.forEach(function (block) {
-            let blockId = parseInt(block.id.split('-')[1]);
+            // 각 ingrement의 인덱스 추출
+            let blockId = parseInt(block.id.split('-')[1]); 
+            // 삭제할 인덱스 번호 보다 큰 모든 인덱스 번호는 -1로 감소 
             if (num2 < blockId) {
                 block.id = `ingredients-${blockId - 1}`;
                 let inputs = block.querySelectorAll('input');
@@ -220,6 +248,8 @@ function deleteSmaillBlock(element, num1, num2) {
                 deleteBtn.setAttribute('onclick', `deleteSmaillBlock(this, ${num1}, ${blockId - 1})`);
             }
         });
+
+        //인덱스는 0부터 시작하니까 -1이 아닌 -2를 시켜줬음 
         bottom.querySelector('.add-igre-btn button').setAttribute('onclick', `addBundle(this, ${num1}, ${count - 2})`);
 
         parentBlock.remove();
@@ -230,23 +260,30 @@ function deleteSmaillBlock(element, num1, num2) {
 
 //분류 행삭제
 function deleteIngreBlock(element, num1) {
+    //해당 분류의 부모 찾기
     let parentBlock = element.closest("#recipe-ingredient-info-area");
 
     let deletePart = element.closest('.recipe-ingredient-info-blocks');
-    // 분류가 전체 1개만 있을시 삭제불가
     let count = parentBlock.querySelectorAll(".recipe-ingredient-info-blocks").length;
     console.log("grant count:" + count);
+    
+    // 분류가 전체 1개만 있을시 삭제불가
     if (count > 1) {
         let divList = parentBlock.querySelectorAll('.recipe-ingredient-info-blocks');
         console.log(divList);
         divList.forEach(function (block) {
+            
+            //분류의 인덱스 값 추출
             let blockId = parseInt(block.id.split('-')[1]);
+            
+            //삭제할 분류 인덱스 보다 큰 인덱스는 -1씩 감소 
+            //(태그에 ingrement의 인덱스를 가진건 다 -1로 해줌)
             if (num1 < blockId) {
 
                 block.querySelector('.delete-btn').setAttribute('onclick', `deleteIngreBlock(this, ${blockId - 1})`);
                 block.id = `divisions-${blockId - 1}`;
                 let inputs = block.querySelectorAll('input');
-
+                
                 inputs.forEach(function (input) {
                     input.name = input.name.replace(/rcpDivList\[\d+\]/g, function (match) {
                         let num = parseInt(match.match(/\d+/)[0]) - 1;
@@ -259,6 +296,7 @@ function deleteIngreBlock(element, num1) {
                     }
 
                 });
+
                 let leningre = block.querySelectorAll('.recipe-smaill-block').length;
                 block.querySelector('.add-igre-btn img').setAttribute('onclick', `addBundle(this, ${blockId - 1}, ${leningre - 1})`);
                 block.querySelector('.add-igre-btn button').setAttribute('onclick', `addBundle(this, ${blockId - 1}, ${leningre - 1})`);
@@ -268,24 +306,27 @@ function deleteIngreBlock(element, num1) {
                 });
             }
         })
+
         parentBlock.querySelector("#add-div-btn button").setAttribute('onclick',`addUnit(this,${count-2})`)
-        deletePart.remove();
+        
+        //다 감소시켰으면 해당 부분 삭제
+        deletePart.remove(); 
     }
 }
 
 
 
 // 기존 분류 추가
-
 function addUnit(element, num) {
-    console.log("addUnit num :" + num);
+    //추가되는 분류는 +1 올려줌
     num = parseInt(num, 10);
     num += 1;
     let parentBlock = element.closest('#recipe-ingredient-info-area');
-    console.log(parentBlock);
     let cloneblock = document.createElement('div');
     cloneblock.className = 'recipe-ingredient-info-blocks';
     cloneblock.id = `divisions-${num}`;
+
+    //추가될 분류를 그려줌 (이 인덱스(${num})는 +1된 상태)
     cloneblock.innerHTML = `
     <div class="recipe-ingredient-info-top">
         <input type="hidden" name="updateDivStatus" value="U">
@@ -320,26 +361,34 @@ function addUnit(element, num) {
     `;
 }
 
-//재료행 추가
+//재료행 추가 (어느 위치에 추가할지)
 function addBundle(element, num1, num2) {
+    //재료행 인덱스 +1
     num2 = parseInt(num2, 10);
-    console.log("addBundle num1 :" + num1 + ",  num2 : " + num2);
     num2 += 1
     console.log(num2);
+
     let parentBlock = element.closest('.recipe-ingredient-info-bottom');
     parentBlock.querySelector(".add-igre-btn").innerHTML = '';
     parentBlock.querySelector(".add-igre-btn").innerHTML = `
     <img src="/gorang/resources/dummyImg/recipe/recipeWrite/plus.png" alt="" onclick="addBundle(this,${num1},${num2})">
     <button type="button" onclick="addBundle(this,${num1},${num2})">묶음 추가</button>
     `;
+
+    //add-ingre-btn 태그 위에 재료행을 그리기(Inputs함수 사용)
     parentBlock.querySelector('.add-igre-btn').insertAdjacentElement('beforebegin', Inputs(num1, num2));
 }
 
+//재료행을 그리는 함수
 function Inputs(num1, num2) {
 
     const newBlock = document.createElement('div');
     newBlock.className = 'recipe-smaill-block';
+    
+    //재료행 인덱스 값 넣기
     newBlock.id = `ingredients-${num2}`;
+
+    //추가될 재료행을 그리기
     newBlock.innerHTML = `
         <input type="hidden" name="updateIngreStatus" value="U">
         <div class="location-btn"><img src="/gorang/resources/dummyImg/recipe/recipeWrite/Link.png" alt=""></div>
@@ -565,24 +614,10 @@ function deleteCookingOrder(element, num) {
 
     }
 }
-//요리순서 행 삭제 ajax
-// function deleteCookOrder(data) {
-//     $.ajax({
-//         url: "deleteCookOrder.re",
-//         type: "POST",
-//         data: data,
 
-//         success: function () {
-//             console.log("성공적으로 분류 삭제");
-//         },
-//         error: function () {
-//             console.log("파일업로드 api요청 실패")
-//         }
-//     });
-// }
 //-------------------------------------상단 버튼-----------------
 
-// 등록하기 버튼
+// 등록하기 버튼 예외처리
 function enrollRecipeBtn() {
     let thumbnailImg = document.getElementById('thumnailImg-real');
     let recipeTitle = document.querySelector('#recipe-write-title-area input[name="recipeTitle"]').value.trim();
