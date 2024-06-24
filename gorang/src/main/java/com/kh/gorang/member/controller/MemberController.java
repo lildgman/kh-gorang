@@ -7,17 +7,17 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.service.MemberService;
 
 import net.nurigo.sdk.NurigoApp;
-import net.nurigo.sdk.message.exception.NurigoEmptyResponseException;
 import net.nurigo.sdk.message.exception.NurigoMessageNotReceivedException;
-import net.nurigo.sdk.message.exception.NurigoUnknownException;
 import net.nurigo.sdk.message.model.Message;
 import net.nurigo.sdk.message.service.DefaultMessageService;
 
@@ -135,6 +135,21 @@ public class MemberController {
 			  str = "fail";
 			}
 		return str;
+	}
+	
+	
+	@ResponseBody
+	@PostMapping("notify.me")
+	public String insertNotification(String notificationData) {
+		System.out.println(notificationData);
+		return memberService.insertNotification(notificationData) > 0 ? "success" : "fail";
+	}
+	
+	@ResponseBody
+	@RequestMapping("getAlarmsByAjax.me")
+	public String getAlarmsByAjax(int memberNo) {
+		System.out.println(memberNo);
+		return new Gson().toJson(memberService.selectNotificationsByMemberNo(memberNo));
 	}
 }
 

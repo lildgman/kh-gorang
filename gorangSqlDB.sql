@@ -64,6 +64,7 @@ CREATE TABLE MEMBER (
 	ADMIN_STATUS CHAR(1) DEFAULT 'N' CHECK(ADMIN_STATUS IN ('Y','N')) 
 );
 
+
 COMMENT ON COLUMN MEMBER.MEMBER_NO IS '회원 번호';
 COMMENT ON COLUMN MEMBER.MEMBER_EMAIL IS '회원 이메일';
 COMMENT ON COLUMN MEMBER.MEMBER_PWD IS '회원 비밀번호';
@@ -127,30 +128,23 @@ ADD CONSTRAINT FK_MEMBER_TO_REFRIGERATOR
 
 -------------------------------------------------------------------------------------------
 --알림
-CREATE TABLE ALARM(
-	ARM_NO SERIAL PRIMARY KEY,
-	ARM_COMMENT NUMERIC NOT NULL,
-	ARM_TYPE VARCHAR(255) NOT NULL,
-	ARM_TIME VARCHAR(30) NOT NULL,
-	STATUS CHAR(1) CHECK (STATUS IN ('Y', 'N')) NOT NULL
+
+create table notify (
+	notify_no serial PRIMARY key,
+	notify_isread BOOLEAN not null default false,
+	notify_type INTEGER not null CHECK ( notify_type in ( '1', '2', '3', '4', '5')),
+	notify_content varchar(255) not null,
+	notify_create_at date default CURRENT_DATE,
+	notify_member_no INTEGER not null
 );
 
-COMMENT ON COLUMN ALARM.ARM_NO IS '알림 번호';
-COMMENT ON COLUMN ALARM.ARM_COMMENT IS '알람 내용';
-COMMENT ON COLUMN ALARM.ARM_TYPE IS '알림 유형 : 추천(1), 좋아요(2), 팔로잉(3), QNA(4), 후기(5),공지사항(6)';
-COMMENT ON COLUMN ALARM.ARM_TIME IS '알림 시간 : ( 5분전,  10분전,  1시간전 )';
-COMMENT ON COLUMN ALARM.STATUS IS '알림 상태 ( "Y" /  "N" )';
-
-
-CREATE SEQUENCE SEQ_ARMNO;
-
 --알림 외래키
-ALTER TABLE ALARM
-ADD COLUMN MEMBER_NO INTEGER,
-ADD CONSTRAINT FK_MEMBER_TO_ALARM
-	FOREIGN KEY (MEMBER_NO) REFERENCES MEMBER(MEMBER_NO)
+ALTER TABLE notify
+ADD CONSTRAINT FK_MEMBER_TO_notify
+	FOREIGN KEY (notify_member_no) REFERENCES MEMBER
 	ON DELETE CASCADE;
 
+COMMENT ON COLUMN notify.notify_type IS '좋아요 (1) / 댓글 (2) / 문의 (3) / 후기(4) / 소비기한(5)';
 
 
 -------------------------------------------------------------------------------------------

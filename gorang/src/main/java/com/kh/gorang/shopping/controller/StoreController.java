@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -126,7 +127,6 @@ public class StoreController {
 	        return "redirect:/list.po";
 	    } else {
 	        model.addAttribute("p", p);
-	        log.info("model={}",model);
 	        return "shopping/productDetailForm";
 	    }
 	}
@@ -198,7 +198,7 @@ public class StoreController {
 	@RequestMapping("insertQna.po")
 	public String insertProductQna(@RequestParam int writerNo, @RequestParam int refProductNo,
 								   @RequestParam int refPdoptNo, @RequestParam MultipartFile qnaPhotoUpfile,
-								   @RequestParam String qnaContent, @RequestParam(value="refQnaNo", required=false) int refQnaNo, HttpSession session) {
+								   @RequestParam String qnaContent, @RequestParam(value="refQnaNo", required=false) int refQnaNo, HttpSession session, Model model) {
 		QnA q = new QnA();
 		
 		
@@ -212,16 +212,28 @@ public class StoreController {
 		q.setRefProductNo(refProductNo);
 		q.setRefPdoptNo(refPdoptNo);
 		
-		if(refQnaNo != 0) {
+		boolean isTrue = (refQnaNo != 0);
+		
+		if(isTrue) {
 			q.setRefQnaNo(refQnaNo);
 		}
-				
+//		isTrue 가 false 일 경우에는  insert 만 진행
+		// isTrue 가 true 일 경우에는 refQnaNo 를 통해 문의글 작성자 memberNo 를 return 함
 		int result = productService.insertProductQna(q);
-		
-		String str = "redirect:/detail.po?pno=" + refProductNo;
-		
+				
+		String str = "redirect:/detail.po?pno=" + refProductNo ;
+				
 		if(result > 0) {
+			
 			session.setAttribute("alertMsg", "문의 등록 성공.");
+			
+			if(isTrue) {
+//				Map<String, Integer> qnaEvent = new HashMap<String, Integer>();
+				Gson gson = new Gson();
+				
+				str+="&eventReceiver=" + result;
+				str+= "&eventQnaNo=" + refQnaNo;
+			} 
 			return str;
 		} else {
 			session.setAttribute("alertMsg", "문의 등록 실패");

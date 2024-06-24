@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.gorang.common.model.vo.NotifyDto;
 import com.kh.gorang.common.model.vo.PageInfo;
 import com.kh.gorang.member.model.vo.QnA;
 import com.kh.gorang.member.model.vo.Review;
@@ -108,10 +109,17 @@ public class ProductServiceImpl implements ProductService{
 	public int selectSaleProductQuantity() {
 		return 0;
 	}
-
+	
+	@Transactional(rollbackFor = {Exception.class})
 	@Override
 	public int insertProductQna(QnA q) {
-		return productDao.insertProductQna(sqlSession, q);
+		int result = productDao.insertProductQna(sqlSession, q);
+		int memberNo = 0;
+		if(result > 0 && q.getRefQnaNo() != 0) {
+			// 답글 달린 문의글 번호로 해당 문의글 작성자 번호 조회
+			memberNo = productDao.selectMemberNoByRefQnaNo(sqlSession, q.getRefQnaNo());
+		}
+		return memberNo;
 	}
 
 

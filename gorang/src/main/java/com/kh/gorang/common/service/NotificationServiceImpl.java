@@ -43,6 +43,7 @@ public class NotificationServiceImpl implements NotificationService {
 	 */
 	@Override
 	public void notify(int memberNo, Object event) {
+		System.out.println("event: " + event);
 		sendToClient(memberNo, event);
 	}
 	
