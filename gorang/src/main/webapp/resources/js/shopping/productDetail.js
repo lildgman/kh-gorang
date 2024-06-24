@@ -574,11 +574,14 @@ function putProductReviewList(res, contextPath){
       const reviewPhotoWrapper = document.createElement('div');
       reviewPhotoWrapper.setAttribute("class", "review_img_container");
       productReview.appendChild(reviewPhotoWrapper);
-      const reviewPhoto = document.createElement('img');
-      reviewPhoto.setAttribute("class", "review_img");
-      reviewPhotoWrapper.appendChild(reviewPhoto);
-      reviewPhoto.setAttribute("src", contextPath + "/resources/uploadfile/review/product-review/" + review.reviewPhoto);
-  
+
+      if(review.reviewPhoto){
+        const reviewPhoto = document.createElement('img');
+        reviewPhoto.setAttribute("class", "review_img");
+        reviewPhotoWrapper.appendChild(reviewPhoto);
+        reviewPhoto.setAttribute("src", contextPath + "/resources/uploadfile/review/product-review/" + review.reviewPhoto);
+      }
+
       // 리뷰 내용
       const reviewContent = document.createElement('div');
       reviewContent.setAttribute("class", "review_content");
