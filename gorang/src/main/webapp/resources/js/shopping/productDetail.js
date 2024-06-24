@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // 파라미터값으로 뿌려주고 남은 정보창 채우기
   inputProductInfo(pno, contextPath);
 
+  sendQnaNotification();
+
   // 이벤트 핸들러 등록
   clickZzim();
   fileInputClick();
@@ -15,14 +17,21 @@ document.addEventListener("DOMContentLoaded", function () {
 const contextPath = sessionStorage.getItem("contextpath");
 
 //페이지의 URL 에서 쿼리 파라미터 값 추출
-function getParameterPno() {
+function getParameter() {
   let query = window.location.search;
+  //url 에서 파라미터 값만 추출
   let param = new URLSearchParams(query);
   let pno = param.get('pno');
-  return pno;
+  let parameterJson = {pno : pno};
+  //
+  if(param.has('eventReceiver') && param.has('eventQnaNo')){
+    parameterJson.eventReceiver = param.get('eventReceiver');
+    parameterJson.eventQnaNo = param.get('eventQnaNo');
+  }
+  return parameterJson;
 }
 // 상품 번호
-const pno = getParameterPno();
+const pno = getParameter().pno;
 
  /** ajax로 받아온 pi 객체를 이용해 페이지네이션 업데이트 해주는 메소드 */
  function updatePagination(ev, pi) {
@@ -508,6 +517,7 @@ document.addEventListener("DOMContentLoaded", function(){
 function putProductReviewList(res, contextPath){
   const reviews = res.reviews;
   if(reviews.length > 0){
+    console.log(reviews);
     const productReviewContainer = document.querySelector("#product-review-container");
     productReviewContainer.innerHTML = "";
     // 리뷰수
@@ -566,11 +576,14 @@ function putProductReviewList(res, contextPath){
       const reviewPhotoWrapper = document.createElement('div');
       reviewPhotoWrapper.setAttribute("class", "review_img_container");
       productReview.appendChild(reviewPhotoWrapper);
-      const reviewPhoto = document.createElement('img');
-      reviewPhoto.setAttribute("class", "review_img");
-      reviewPhotoWrapper.appendChild(reviewPhoto);
-      reviewPhoto.setAttribute("src", contextPath + "/resources/uploadfile/review/product-review/" + review.reviewPhoto);
-  
+
+      if(review.reviewPhoto != null){
+        const reviewPhoto = document.createElement('img');
+        reviewPhoto.setAttribute("class", "review_img");
+        reviewPhotoWrapper.appendChild(reviewPhoto);
+        reviewPhoto.setAttribute("src", contextPath + "/resources/uploadfile/review/product-review/" + review.reviewPhoto);
+      }
+
       // 리뷰 내용
       const reviewContent = document.createElement('div');
       reviewContent.setAttribute("class", "review_content");
@@ -747,6 +760,63 @@ function scrollToDiv(div) {
   const divOffsetTop = document.querySelector(div).offsetTop;
   window.scrollTo(0, divOffsetTop - 225);
 }
+
+
+// ========================== 알림 관련 메소드 ===================================
+
+// /** 이벤트 문의에 답변 달릴 시 알림 보내는 메소드 */
+// function sendQnaNotification(){
+//   const notifyReceiver = getParameter().eventReceiver;
+//   const eventQnaNo = getParameter().eventQnaNo;
+
+//   if(notifyReceiver && eventQnaNo){
+
+//     let notify = {notifyReceiver: notifyReceiver};
+//     notify = setNotifyData(notify);
+
+//     sendNotificationByAjax(notify);
+//   }
+// }
+
+// /** ajax 로 송신하는 메소드 */
+// function sendNotificationByAjax(notify){
+//   $.ajax({
+//     url: "notifications/send-data/" + notify.notifyReceiver,
+//     type: "post",
+//     data: {url: "/detail.po?pno=" + pno},
+//     success: function(){
+//       console.log("알림 요청 성공");
+//       insertNotificationByAjax(notify);
+//     },
+//     error: function(){
+//       console.log("알림 요청 실패");
+//     }
+
+//   });
+// }
+
+// /** 이벤트에 따라 알림 타입 및 컨텐츠 결정한 후 반환하는 메소드 */
+// function setNotifyData(notify){
+//   // 문의에 대한 이벤트인지? 이벤트에 따라 알림 타입 및 컨텐츠 결정
+//   notify.notifyType = "3";
+//   notify.notifyContents = "문의글에 답변이 달렸습니다.";
+//   return notify;
+// }
+
+// /** 알림 객체 저장하는 메소드 */
+// function insertNotificationByAjax(notify){
+//   $.ajax({
+//     url: "notify.me",
+//     method: "post",
+//     data: {notificationData : JSON.stringify(notify)},
+//     success: function(res){
+//       res === "success" ? console.log("저장 성공") : console.log("저장 실패");
+//     },
+//     error: function(){
+//       console.log("전송실패");
+//     }
+//   })
+// }
 
 
 
