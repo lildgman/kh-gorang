@@ -607,14 +607,20 @@ public class MyPageController {
 	
 	
 	private ArrayList<Map<String, Object>> getProcessedList(ArrayList<Object> contentList) {
+		
 		ArrayList<Map<String, Object>> processedList = new ArrayList<Map<String,Object>>();
+		
 		for(Object obj : contentList) {
+			
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("object",obj);
+			
 			if(obj instanceof Board) {
 				map.put("type","Board");
+				
 			} else if (obj instanceof Recipe) {
 				map.put("type", "Recipe");
+				
 			} else if(obj instanceof Product) {
 				map.put("type", "Product");
 			}
