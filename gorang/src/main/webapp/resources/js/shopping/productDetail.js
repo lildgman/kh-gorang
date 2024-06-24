@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
   clickZzim();
   fileInputClick();
   displaySelectedImage();
+  
 });
 
 // ==================================================== 유틸리티 함수, 전역 변수 ===========================

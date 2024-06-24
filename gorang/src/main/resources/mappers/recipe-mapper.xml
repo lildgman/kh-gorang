@@ -350,16 +350,12 @@
 		        #{cookKind},
 		        #{cookLevel},
 				#{memberNo},
-				CASE
-		        WHEN position('?' in #{recipeVideo}) > 0 THEN
-		            'https://www.youtube.com/embed/' || substring(split_part(#{recipeVideo}, '?', 1) from 17)
-		        ELSE
-		            'https://www.youtube.com/embed/' || substring(#{recipeVideo} from 17)
-		    	END
+		        #{recipeVideo}
 		
 	    )
 	     RETURNING *
 	</select>
+		
     
   	<!-- 레시피 분류 추가 -->
 	<select id="insertDivision" parameterType="Division" resultMap="DivisionResult">
@@ -442,6 +438,9 @@
      qna_content,
      qna_type,
      qna_answer_type,
+        <if test="refQnaNo != 0">
+     	ref_qna_no,
+     </if>
      qna_photo,
      rcp_no,
      member_no
@@ -450,7 +449,14 @@
     (
     	#{qnaContent},
     	2,
-    	1,
+    	<choose>
+    		<when test="refQnaNo != 0">
+    		2,#{refQnaNo},
+    		</when>
+    		<otherwise>
+    		1,
+    		</otherwise>
+    	</choose>
     	#{qnaPhoto},
     	#{refRecipeNo},
     	#{writerNo}
@@ -497,12 +503,8 @@
 	        cook_kind = #{cookKind},
 	        cook_level = #{cookLevel},
 	        member_no = #{memberNo},
-	        rcp_video = CASE
-	        WHEN position('?' in #{recipeVideo}) > 0 THEN
-	            'https://www.youtube.com/embed/' || substring(split_part(#{recipeVideo}, '?', 1) from 17)
-	        ELSE
-	            'https://www.youtube.com/embed/' || substring(#{recipeVideo} from 17)
-	    	END
+	        rcp_video =#{recipeVideo}
+
 	    WHERE
         rcp_no = #{recipeNo}
 	</update>

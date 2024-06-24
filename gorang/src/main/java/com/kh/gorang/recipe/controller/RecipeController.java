@@ -1,5 +1,7 @@
 package com.kh.gorang.recipe.controller;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -64,11 +66,11 @@ public class RecipeController {
 			recipeInsertDTO.setRcpDivList(divList);
 			recipeInsertDTO.setCookOrderList(recipeService.selectCookOrderList(recipeNo));
 			recipeInsertDTO.setCompleteFoodPhoto(recipeService.selectCompleteFoodPhotoList(recipeNo));
-
+			
 			recipeInsertDTO.setProductList(recipeService.selectProductList(divList, recipeNo));
 			List<Product> pList = recipeService.selectProductList(divList, recipeNo);
 			System.out.println("pList" + pList);
-
+			
 			// 질의응답 및 페이징바
 			int qnaCount = recipeService.selectRecipeQnaCount(recipeNo);
 			int reviewsCount = recipeService.selectRecipeReviewCount(recipeNo);
@@ -137,7 +139,12 @@ public class RecipeController {
 	public String insertRecipe(Recipe rcp, RecipeInsertDTO recipeInsertDTO ,HttpSession session, Model model){
 		System.out.println("\n Recipe:" +  rcp +"\n");
 		System.out.println("\n"+recipeInsertDTO+"\n");
-			
+		
+		//비디오 주소 처리
+		if(rcp.getRecipeVideo() != null) {
+			System.out.println("영상 테스트:"+extractYouTubeId(rcp.getRecipeVideo()));
+			rcp.setRecipeVideo(extractYouTubeId(rcp.getRecipeVideo()));
+		}
 		int result =recipeService.insertRecipeInsertDTO(rcp, recipeInsertDTO, session);
 		System.out.println(result);
 		if(result>0) {	
@@ -175,6 +182,13 @@ public class RecipeController {
 		System.out.println(recipeInsertDTO);
 		int deleteAllResult =recipeService.deleteAllRecipe(rcp,session);
 		System.out.println("deleteAllResult:"+deleteAllResult);
+		
+		//비디오 주소 처리
+		if(rcp.getRecipeVideo() != null) {
+			System.out.println("영상 테스트:"+extractYouTubeId(rcp.getRecipeVideo()));
+			rcp.setRecipeVideo(extractYouTubeId(rcp.getRecipeVideo()));
+		}
+		
 		int updateAllResult =recipeService.updateRecipeInsertDTO(rcp, recipeInsertDTO, session);
 		if(deleteAllResult*updateAllResult > 0) {			
 			return "redirect:/list.re";
@@ -331,13 +345,15 @@ public class RecipeController {
 						            @RequestParam(value = "reviewPhoto", required = false) MultipartFile reviewPhoto,
 						            HttpSession session) {
 		Review review = new Review();
+		if(reviewPhoto !=null) {			
+			String changeName = SaveFileController.saveFile(reviewPhoto, session, "/recipe/recipeReview/");
+			review.setReviewPhoto(changeName);
+		}
 		review.setRefMemberNo(refMemberNo);
 		review.setRefRecipeNo(refRecipeNo);
 		review.setRating(rating);
 		review.setReviewContent(reviewContent);
 		System.out.println("reviewPhoto:"+reviewPhoto);
-		String changeName = SaveFileController.saveFile(reviewPhoto, session, "/recipe/recipeReview/");
-		review.setReviewPhoto(changeName);
 		System.out.println("review: "+review);
 		return recipeService.insertReview(review) > 0 ? review : null;
 	}
@@ -349,17 +365,22 @@ public class RecipeController {
 	public QnA ajaxrecipeQnA(@RequestParam("writerNo") int writerNo,
 						            @RequestParam("refRecipeNo") int refRecipeNo,
 						            @RequestParam("qnaContent") String qnaContent,
+						            @RequestParam(value="refQnaNo", required=false) int refQnaNo,
 						            @RequestParam(value = "qnaPhoto", required = false) MultipartFile qnaPhoto,
 						            HttpSession session) {
 		QnA qna = new QnA();
 		qna.setWriterNo(writerNo);
 		qna.setRefRecipeNo(refRecipeNo);
 		qna.setQnaContent(qnaContent);
-		
+		if(refQnaNo != 0) {
+			qna.setRefQnaNo(refQnaNo);
+		} 
 		
 		System.out.println("qnaPhoto:"+qnaPhoto);
-		String changeName = SaveFileController.saveFile(qnaPhoto, session, "/recipe/recipeQna/");
-		qna.setQnaPhoto(changeName);
+		if(qnaPhoto!=null) {
+			String changeName = SaveFileController.saveFile(qnaPhoto, session, "/recipe/recipeQna/");
+			qna.setQnaPhoto(changeName);
+		}
 		return recipeService.insertQnA(qna) > 0 ? qna : null;
 	}
 	
@@ -427,6 +448,20 @@ public class RecipeController {
 	}
 	
 	
+	//유튜브 경로 정리
+	public static String extractYouTubeId(String url) {
+		  if (!url.contains("https://youtu.be/")) {
+		        return url;
+		    }
+	    try {
+	        URI uri = new URI(url);
+	        String path = uri.getPath();
+	        return path.substring(1); // '/경로아이디' 로 가져와서 /를 제외시켜야함
+	    } catch (URISyntaxException e) {
+	        e.printStackTrace();
+	        return null;
+	    }
+	}
 }
 
 
