@@ -1,13 +1,19 @@
 package com.kh.gorang.member.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.json.simple.parser.ParseException;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.kh.gorang.common.model.vo.NotifyDto;
 import com.kh.gorang.member.model.dao.MemberDao;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.ProductCart;
@@ -63,13 +69,10 @@ public class MemberServiceImpl implements MemberService{
 		for(ProductCart productCart : pdCarts) {
 		// 2. 쪼갠 장바구니 객체를 유저가 기존 장바구니에 저장돼 있는지 조회 통해 저장 여부 확인
 			ProductCart productCartRes = memberDao.selectProductCart(sqlSession, productCart);
-			System.out.println("@@@@@@@@@@@@ 장바구니 서비스단  productCartRes: " + productCartRes);
 		// 3. 만약 조회 결과가 없다면 insert, 조회 결과가 있다면 update(선택한 수량을 더해줌)
 			if(productCartRes == null) {
-				System.out.println("@@@@@@@@@@@@@@@@ 조회결과 없음");
 				result *= memberDao.insertProductCart(sqlSession, productCart);
 			} else {
-				System.out.println("@@@@@@@@@@@@@@@@@@ 조회결과 존재");
 				result *= memberDao.updateProductCart(sqlSession, productCart);
 			}
 		}
@@ -95,6 +98,30 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int phoneCheck(String phone) {
 		return memberDao.phoneCheck(sqlSession, phone);
+	}
+	
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public int insertNotification(String notificationData) {
+		
+		Gson gson = new Gson();
+		
+		Map<String, Object> map = gson.fromJson(notificationData, HashMap.class);
+		
+		System.out.println(map);
+		
+		NotifyDto notify = new NotifyDto();
+		notify.setContent(String.valueOf(map.get("notifyContents")));
+		notify.setNotifyType(Integer.parseInt(String.valueOf(map.get("notifyType"))));
+		notify.setRefMemberNo(Integer.parseInt(String.valueOf(map.get("notifyReceiver"))));
+							
+		return memberDao.insertNotification(sqlSession, notify);
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public ArrayList<NotifyDto> selectNotificationsByMemberNo(int memberNo) {
+		return memberDao.selectNotificationsByMemberNo(sqlSession, memberNo);
 	}
 	
 }

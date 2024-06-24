@@ -127,5 +127,13 @@ public class ProductDao {
 		return sqlSession.update("productMapper.decreaseScrapCount", scrapBoardDTO);
 	}
 
+	public int selectMemberNoByRefQnaNo(SqlSessionTemplate sqlSession, int refQnaNo) {
+		return sqlSession.selectOne("productMapper.selectMemberNoByQnaNo", refQnaNo);
+	}
+
+	public int insertNotifyByMemberNo(SqlSessionTemplate sqlSession, int memberNo) {
+		return sqlSession.insert("memberMapper.insertNotifyByMemberNo", memberNo);
+	}
+
 
 }

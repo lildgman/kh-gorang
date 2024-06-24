@@ -153,6 +153,7 @@
                     align-items: center;
                     justify-content: center;
                     cursor: pointer;
+                    position: relative;
                 }
                     .headerProfileImg{
                         width: 40px;
@@ -160,6 +161,24 @@
                         border-radius: 50%;
                         
                     }
+
+                    #header-profile-notification{
+                        position: absolute;
+                        bottom: 35px;
+                        right: 40px;
+                    }
+
+                    #header-profile-notification  i{
+                        color: black;
+                        background: none;
+                        border: none;
+                    }
+
+                    .dropdown-toggle::after {
+                        display: none;
+                    }
+
+
                     .writeDropdown {
                         position: relative;
                         display: inline-block;

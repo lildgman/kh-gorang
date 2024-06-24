@@ -3,6 +3,7 @@ package com.kh.gorang.member.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kh.gorang.common.model.vo.NotifyDto;
 import com.kh.gorang.member.model.vo.Member;
 import com.kh.gorang.member.model.vo.ProductCart;
 
@@ -32,6 +33,10 @@ public interface MemberService {
 	
 	// 핸드폰 번호 중복 체크
 	int phoneCheck(String phone);
+
+	int insertNotification(String notificationData)  ;
+
+	ArrayList<NotifyDto> selectNotificationsByMemberNo(int memberNo);
 	
 	
 }
