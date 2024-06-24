@@ -82,7 +82,7 @@
      			#{option.detailOptionOriginPrice},
      			#{option.detailOptionSaledPrice},
      			#{option.detailOptionQuantity},
-     			currval('product_product_no_seq')
+     			currval('SEQ_PRODUCTNO')
      		)
      	</foreach>
      </insert>

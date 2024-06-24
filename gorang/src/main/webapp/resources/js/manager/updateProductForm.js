@@ -160,7 +160,7 @@ function drawResultPagination(pi,searchProductName) {
 function drawProductInfo(pi, productList, tbody) {
   $('#search-result-count').text(pi.listCount);
   productList.forEach(product => {
-    const newRow = $('<tr class="option-tr tr-hover" onclick="moveDetailProductPage(this)"></tr>');
+    const newRow = $('<tr class="option-tr tr-hover"></tr>');
 
     // 새로운 <td> 요소 생성하여 <tr>에 추가
     newRow.append('<td align="center" class="checkbox-container"><input type="checkbox" class="check-product" onclick="checkSelectedOneProduct(event)"></td>');
