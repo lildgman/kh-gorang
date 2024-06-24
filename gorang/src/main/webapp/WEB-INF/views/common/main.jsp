@@ -33,7 +33,7 @@
                 </div>
             </div>
 
-            <div class="main-banner" data-type="recipe" data-no="3" onclick="moveDetailPage(this)">
+            <div class="main-banner" data-type="recipe" data-no="16" onclick="moveDetailPage(this)">
                 <img class="main-banner-img" src="${contextPath}/resources/uploadfile/recipe/recipemain/recipeBanner.png" alt="">
                 <div class="main-banner-comment">
                     <div class="main-comment">
