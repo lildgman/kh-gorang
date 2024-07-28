@@ -37,7 +37,7 @@
 
 ## 기술 스택
 ### 개발환경
-- FRONTEND: , CSS, Javascript, jQuery
+- FRONTEND: HTML, CSS, Javascript, jQuery
 - BACKEND: JAVA, SPRING, JSP, MyBatis
 - DATABASE: PostgreSQL
 - COLLABORATION TOOL: GitHub
