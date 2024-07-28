@@ -81,7 +81,7 @@ public class ODGProductController {
 		return map;
 	}
 	
-	//상품 옵션 조
+	//상품 옵션 조회 
 	@GetMapping("option.po")
 	@ResponseBody
 	public ArrayList<ProductDetailOption> ajaxSearchProductOption(int productNo) {

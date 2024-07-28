@@ -56,7 +56,6 @@ public class MyPageController {
 	public String myPageViewAll(HttpSession session, Model model){
 		
 		int memberNo = getLoginUserNo(session);	
-//		addAttributeUserInfo(model, memberNo);
 		
 		// 내 레시피 중 조회수 많은 순으로 레시피 리스트 가져오기
 		ArrayList<Recipe> mostViewRecipeList = myPageService.getMostViewRecipeList(memberNo);	
@@ -95,7 +94,6 @@ public class MyPageController {
 		
 		// 회원정보들
 		int memberNo = getLoginUserNo(session);
-//		addAttributeUserInfo(model, memberNo);
 		
 		// 레시피 페이지네이션
 		int myRecipeCount = myPageService.getMyRecipeCount(memberNo);
@@ -137,7 +135,6 @@ public class MyPageController {
 			Model model){
 		
 		int memberNo = getLoginUserNo(session);
-//		addAttributeUserInfo(model, memberNo);
 		
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("memberNo", memberNo);
@@ -278,7 +275,6 @@ public class MyPageController {
 			Model model){
 		
 		int memberNo = getLoginUserNo(session);
-//		addAttributeUserInfo(model, memberNo);
 		
 		// 상품 qna 부분
 		int productQnaCount = myPageService.getProductQnaCount(memberNo);
@@ -312,7 +308,6 @@ public class MyPageController {
 				Model model){
 		
 		int memberNo = getLoginUserNo(session);
-//		addAttributeUserInfo(model, memberNo);
 		
 		// 댓글 부분
 		int commentCount = myPageService.getCommentCount(memberNo);
@@ -347,7 +342,6 @@ public class MyPageController {
 			Model model){
 		
 		int memberNo = getLoginUserNo(session);
-//		addAttributeUserInfo(model, memberNo);
 		
 		ArrayList<MyPageLikeRecipeDTO> likeRecipeList = myPageService.getLikeRecipeList(memberNo);
 		
@@ -386,7 +380,6 @@ public class MyPageController {
 			Model model){
 		
 		int memberNo = getLoginUserNo(session);
-//		addAttributeUserInfo(model, memberNo);
 		
 		ArrayList<MyPageLikeBoardDTO> likeBoardList = myPageService.getLikeBoardList(memberNo);
 		
@@ -470,7 +463,6 @@ public class MyPageController {
 				HttpSession session,
 				Model model){
 		int memberNo = getLoginUserNo(session);
-//		addAttributeUserInfo(model, memberNo);
 		
 		ArrayList<MyPageScrapBoardDTO> scrapBoardList = myPageService.getScrapBoardList(memberNo);
 		
@@ -505,7 +497,6 @@ public class MyPageController {
 			Model model){
 		
 		int memberNo = getLoginUserNo(session);
-//		addAttributeUserInfo(model, memberNo);
 		
 		ArrayList<MyPageScrapProductDTO> scrapProductList = myPageService.getScrapProduct(memberNo);
 		model.addAttribute("scrapProductList", scrapProductList);
@@ -539,7 +530,6 @@ public class MyPageController {
 				Model model){
 		
 		int memberNo = getLoginUserNo(session);
-//		addAttributeUserInfo(model, memberNo);
 		
 		ArrayList<MyPageScrapRecipeDTO> scrapRecipeList = myPageService.getScrapRecipeList(memberNo);
 		

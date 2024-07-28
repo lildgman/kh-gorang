@@ -12,15 +12,7 @@ function editBtn() {
 
 //삭제하기
 function deleteBtn() {
-    // let scraplist = document.querySelectorAll("#scrap-area-content .scrap-content");
-    // console.log(scraplist);
-    // scraplist.forEach(function(scrap){
-    //     checkbox=scrap.querySelector("#delete-check");
-    //     if(checkbox.checked){
-    //         scrap.remove();
-    //     }
-    // })
-
+    
     const checkedCheckBoxes = document.querySelectorAll('.delete-check:checked');
 
     if (checkedCheckBoxes.length === 0) {
@@ -45,8 +37,6 @@ function deleteBtn() {
                 },
                 success: function (res) {
                     if (res === 'done') {
-                        // scrapContent.remove();
-                        // toggleDelete();
                         window.location.href = window.location.href;
                     }
                 },

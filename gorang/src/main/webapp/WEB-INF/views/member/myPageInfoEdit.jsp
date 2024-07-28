@@ -112,7 +112,7 @@
                     </div>
                     <div id="btnArea">
                         <div id="commitBtn"><button type="button" onclick="submitMemberInfo()">확인</button></div>
-                        <div id="cancelBtn"><button type="button" onclick="location.href='edit.me'">취소</button></div>
+                        <div id="cancelBtn"><button type="button" onclick="location.href='main.me'">취소</button></div>
                     </div>
                 </div>
             </div>

@@ -94,6 +94,7 @@ function deleteSelectedOption() {
       checkCheckBox.closest('tr').remove();
     })
   }
+  optionNo--;
 }
 
 function calculateDiscountPercent() {
