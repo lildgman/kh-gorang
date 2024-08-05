@@ -1,5 +1,8 @@
 # 고수의 냉장고(Gorang)
 ![alt text](svgviewer-png-output.png)
+- URL: https://www.gorang.store/
+- Test ID: test@example.com
+- Test PW: 1234
 
 ## 프로젝트 소개
 - 고랭(Gorang)은 사용자의 냉장고에 있는 재료들을 사이트에 등록 해 관리할 수 있도록 도와주는 서비스입니다.
@@ -12,11 +15,13 @@
 - [오동건(형상관리)](https://github.com/lildgman)
 - [함유철(DB관리)](https://github.com/gkadbcjf)
 - [이강산(일정 및 이슈 관리)](https://github.com/kangsan1023)
+
 ### 역할분담
 #### 김동현
 - 구매페이지, 사이드바, 헤더, 푸터
 - 나의 냉장고, 구매내역, 쇼핑 상세, 로그인, 회원가입
 - Google, Kakao, Naver 로그인 API, Coolsms 핸드폰 문자인증 API, 이메일 인증 SMTP
+- 배포
 
 #### 오동건
 - 마이페이지 모두보기, 나의 게시글, 댓글 및 후기, 문의, 스크랩, 좋아요, 회원정보 수정
