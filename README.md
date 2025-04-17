@@ -1,6 +1,5 @@
 # 고수의 냉장고(Gorang)
 ![Gorang](svgviewer-png-output.png)
-- URL: https://www.gorang.store/
 
 ## 프로젝트 소개
 - **재료 관리**: 사용자의 냉장고에 있는 재료를 손쉽게 등록하고 관리하여, 식재료를 효율적으로 활용할 수 있도록 도와줍니다.
